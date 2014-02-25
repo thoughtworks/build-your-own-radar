@@ -1,13 +1,20 @@
 describe('tr.graphing.Radar', function () {
+  var radar;
+
   function buildSvg() {
     return d3.select("body").append("svg");
   }
+
+  beforeEach(function () {
+    radar = new tr.models.Radar();
+    spyOn(radar, 'cycles').andReturn([]);
+  });
 
   it('sets the size', function () {
     var svg = buildSvg();
     spyOn(svg, 'attr').andReturn(svg);
 
-    var radarGraph = new tr.graphing.Radar(svg, 500);
+    var radarGraph = new tr.graphing.Radar(svg, 500, radar);
 
     expect(svg.attr).toHaveBeenCalledWith('width', 500);
     expect(svg.attr).toHaveBeenCalledWith('height', 500);
@@ -19,7 +26,7 @@ describe('tr.graphing.Radar', function () {
       spyOn(svg, 'append').andReturn(svg);
       spyOn(svg, 'attr').andReturn(svg);
 
-      var radarGraph = new tr.graphing.Radar(svg, 500);
+      var radarGraph = new tr.graphing.Radar(svg, 500, radar);
 
       radarGraph.plot();
 
@@ -36,7 +43,7 @@ describe('tr.graphing.Radar', function () {
       spyOn(svg, 'append').andReturn(svg);
       spyOn(svg, 'attr').andReturn(svg);
 
-      var radarGraph = new tr.graphing.Radar(svg, 500);
+      var radarGraph = new tr.graphing.Radar(svg, 500, radar);
 
       radarGraph.plot();
 
@@ -47,5 +54,38 @@ describe('tr.graphing.Radar', function () {
       expect(svg.attr).toHaveBeenCalledWith('y2', 500 / 2);
       expect(svg.attr).toHaveBeenCalledWith('stroke-width', 5);
     });
-  })
+  });
+
+  describe('circles', function () {
+    var svg, radarGraph;
+
+    beforeEach(function () {
+      var radar;
+
+      svg = buildSvg();
+      spyOn(svg, 'append').andReturn(svg);
+      spyOn(svg, 'attr').andReturn(svg);
+
+      radar = new tr.models.Radar();
+      spyOn(radar, 'cycles').andReturn([
+        new tr.models.Cycle('Adopt'),
+        new tr.models.Cycle('Hold')
+      ]);
+      radarGraph = new tr.graphing.Radar(svg, 500, radar);
+    });
+
+    it('plots the circles for the cicles', function () {
+      radarGraph.plot();
+
+      expect(svg.append).toHaveBeenCalledWith('circle');
+      expect(svg.attr).toHaveBeenCalledWith('cx', 500 / 2);
+      expect(svg.attr).toHaveBeenCalledWith('cy', 500 / 2);
+      expect(svg.attr).toHaveBeenCalledWith('r', Math.round(250 / 2));
+
+      expect(svg.append).toHaveBeenCalledWith('circle');
+      expect(svg.attr).toHaveBeenCalledWith('cx', 500 / 2);
+      expect(svg.attr).toHaveBeenCalledWith('cy', 500 / 2);
+      expect(svg.attr).toHaveBeenCalledWith('r', 250);
+    });
+  });
 });

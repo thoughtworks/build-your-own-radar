@@ -4,9 +4,11 @@
   <meta charset="utf-8">
   <script src="../bower_components/d3/d3.min.js"></script>
   <script src="../src/namespaces.js"></script>
+  <script src="../src/models/cycle.js"></script>
+  <script src="../src/models/blip.js"></script>
+  <script src="../src/models/quadrant.js"></script>
+  <script src="../src/models/radar.js"></script>
   <script src="../src/graphing/radar.js"></script>
-
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
   <style>
     svg {
       padding: 20px;
@@ -28,7 +30,17 @@
 <body>
 </body>
   <script>
-    var radarGraph = new tr.graphing.Radar(d3.select("body").append("svg"), 500);
+    var radar = new tr.models.Radar();
+    var toolsQuadrant = new tr.models.Quadrant('Tools');
+    toolsQuadrant.add([
+        new tr.models.Blip('A', new tr.models.Cycle('Adopt')),
+        new tr.models.Blip('B', new tr.models.Cycle('Trial')),
+        new tr.models.Blip('C', new tr.models.Cycle('Asses')),
+        new tr.models.Blip('D', new tr.models.Cycle('Hold')),
+    ]);
+    radar.setFirstQuadrant(toolsQuadrant);
+
+    var radarGraph = new tr.graphing.Radar(d3.select("body").append("svg"), 800, radar);
     radarGraph.plot();
   </script>
 </html>
