@@ -11,10 +11,11 @@ describe('tr.graphing.Radar', function () {
   });
 
   it('sets the size', function () {
-    var svg = buildSvg();
+    var svg, radarGraph;
+    svg = buildSvg();
     spyOn(svg, 'attr').andReturn(svg);
 
-    var radarGraph = new tr.graphing.Radar(svg, 500, radar);
+    radarGraph = new tr.graphing.Radar(svg, 500, radar);
 
     expect(svg.attr).toHaveBeenCalledWith('width', 500);
     expect(svg.attr).toHaveBeenCalledWith('height', 500);
@@ -22,11 +23,13 @@ describe('tr.graphing.Radar', function () {
 
   describe('lines', function () {
     it('plots a vertical line in the center', function () {
-      var svg = buildSvg();
+      var svg, radarGraph;
+
+      svg = buildSvg();
       spyOn(svg, 'append').andReturn(svg);
       spyOn(svg, 'attr').andReturn(svg);
 
-      var radarGraph = new tr.graphing.Radar(svg, 500, radar);
+      radarGraph = new tr.graphing.Radar(svg, 500, radar);
 
       radarGraph.plot();
 
@@ -39,11 +42,13 @@ describe('tr.graphing.Radar', function () {
     });
 
     it('plots a horizontal line in the center', function () {
-      var svg = buildSvg();
+      var svg, radarGraph;
+
+      svg = buildSvg();
       spyOn(svg, 'append').andReturn(svg);
       spyOn(svg, 'attr').andReturn(svg);
 
-      var radarGraph = new tr.graphing.Radar(svg, 500, radar);
+      radarGraph = new tr.graphing.Radar(svg, 500, radar);
 
       radarGraph.plot();
 
