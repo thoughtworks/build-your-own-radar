@@ -4,4 +4,10 @@ describe('tr.models.Cycle', function () {
 
     expect(cycle.name()).toEqual('My Cycle');
   });
+
+  it('has a order', function () {
+    var cycle = new tr.models.Cycle('My Cycle', 0);
+
+    expect(cycle.order()).toEqual(0);
+  });
 });

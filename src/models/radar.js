@@ -54,7 +54,7 @@ tr.models.Radar = function() {
       }
     }
 
-    return cycleArray.slice(0);
+    return cycleArray.slice(0).sort(function (a, b) { return a.order() - b.order(); });
   };
 
   self.quadrants = function () {

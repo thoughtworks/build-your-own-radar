@@ -57,8 +57,8 @@ describe('tr.models.Radar', function () {
     var quadrant, radar, firstCycle, secondCycle;
 
     beforeEach(function () {
-      firstCycle = new tr.models.Cycle('Adopt');
-      secondCycle = new tr.models.Cycle('Hold');
+      firstCycle = new tr.models.Cycle('Adopt', 0);
+      secondCycle = new tr.models.Cycle('Hold', 1);
       quadrant = new tr.models.Quadrant('Fourth');
       radar = new tr.models.Radar();
     });
@@ -79,6 +79,18 @@ describe('tr.models.Radar', function () {
         new tr.models.Blip('A', firstCycle),
         new tr.models.Blip('B', firstCycle),
         new tr.models.Blip('C', secondCycle)
+      ]);
+
+      radar.setFirstQuadrant(quadrant);
+
+      expect(radar.cycles()).toEqual([firstCycle, secondCycle]);
+    });
+
+    it('has sorts by the cycle order', function () {
+      quadrant.add([
+        new tr.models.Blip('C', secondCycle),
+        new tr.models.Blip('A', firstCycle),
+        new tr.models.Blip('B', firstCycle)
       ]);
 
       radar.setFirstQuadrant(quadrant);
