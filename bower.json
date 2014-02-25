@@ -1,0 +1,13 @@
+{
+  "name": "tech-radar",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Trecenti/tech-radar",
+  "authors": [
+    "Bruno Trecenti <btrecent@thoughtworks.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "d3": "~3.4.2"
+  }
+}
