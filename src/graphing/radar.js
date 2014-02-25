@@ -10,6 +10,13 @@ tr.graphing.Radar = function (svg, size, radar) {
       .attr('x2', size / 2)
       .attr('y2', size)
       .attr('stroke-width', 5);
+
+    svg.append('line')
+      .attr('x1', 0)
+      .attr('y1', size / 2)
+      .attr('x2', size)
+      .attr('y2', size / 2)
+      .attr('stroke-width', 5);
   };
 
   self.plot = function () {

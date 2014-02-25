@@ -30,5 +30,22 @@ describe('tr.graphing.Radar', function () {
       expect(svg.attr).toHaveBeenCalledWith('y2', 500);
       expect(svg.attr).toHaveBeenCalledWith('stroke-width', 5);
     });
+
+    it('plots a horizontal line in the center', function () {
+      var svg = buildSvg();
+      spyOn(svg, 'append').andReturn(svg);
+      spyOn(svg, 'attr').andReturn(svg);
+
+      var radarGraph = new tr.graphing.Radar(svg, 500);
+
+      radarGraph.plot();
+
+      expect(svg.append).toHaveBeenCalledWith('line');
+      expect(svg.attr).toHaveBeenCalledWith('x1', 0);
+      expect(svg.attr).toHaveBeenCalledWith('y1', 500 / 2);
+      expect(svg.attr).toHaveBeenCalledWith('x2', 500);
+      expect(svg.attr).toHaveBeenCalledWith('y2', 500 / 2);
+      expect(svg.attr).toHaveBeenCalledWith('stroke-width', 5);
+    });
   })
 });
