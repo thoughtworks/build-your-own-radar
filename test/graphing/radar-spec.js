@@ -38,7 +38,7 @@ describe('tr.graphing.Radar', function () {
       expect(svg.attr).toHaveBeenCalledWith('y1', 0);
       expect(svg.attr).toHaveBeenCalledWith('x2', 500 / 2);
       expect(svg.attr).toHaveBeenCalledWith('y2', 500);
-      expect(svg.attr).toHaveBeenCalledWith('stroke-width', 5);
+      expect(svg.attr).toHaveBeenCalledWith('stroke-width', 14);
     });
 
     it('plots a horizontal line in the center', function () {
@@ -57,7 +57,7 @@ describe('tr.graphing.Radar', function () {
       expect(svg.attr).toHaveBeenCalledWith('y1', 500 / 2);
       expect(svg.attr).toHaveBeenCalledWith('x2', 500);
       expect(svg.attr).toHaveBeenCalledWith('y2', 500 / 2);
-      expect(svg.attr).toHaveBeenCalledWith('stroke-width', 5);
+      expect(svg.attr).toHaveBeenCalledWith('stroke-width', 14);
     });
   });
 
@@ -79,7 +79,7 @@ describe('tr.graphing.Radar', function () {
       radarGraph = new tr.graphing.Radar(svg, 500, radar);
     });
 
-    it('plots the circles for the cicles', function () {
+    it('plots the circles for the cycles', function () {
       radarGraph.plot();
 
       expect(svg.append).toHaveBeenCalledWith('circle');
@@ -91,6 +91,40 @@ describe('tr.graphing.Radar', function () {
       expect(svg.attr).toHaveBeenCalledWith('cx', 500 / 2);
       expect(svg.attr).toHaveBeenCalledWith('cy', 500 / 2);
       expect(svg.attr).toHaveBeenCalledWith('r', 250);
+    });
+
+    it('adds the name of each cycle for the right side', function () {
+      var center = 500 / 2;
+      spyOn(svg, 'text').andReturn(svg);
+      radarGraph.plot();
+
+      expect(svg.append).toHaveBeenCalledWith('text');
+      expect(svg.attr).toHaveBeenCalledWith('y', center + 4);
+      expect(svg.attr).toHaveBeenCalledWith('x', 0 + 10);
+      expect(svg.text).toHaveBeenCalledWith('Adopt');
+
+      expect(svg.append).toHaveBeenCalledWith('text');
+      expect(svg.attr).toHaveBeenCalledWith('y', center + 4);
+      expect(svg.attr).toHaveBeenCalledWith('x', 0 + (center / 2) + 10);
+      expect(svg.text).toHaveBeenCalledWith('Hold');
+    });
+
+    it('adds the name of each cycle for the right side', function () {
+      var center = 500 / 2;
+      spyOn(svg, 'text').andReturn(svg);
+      radarGraph.plot();
+
+      expect(svg.append).toHaveBeenCalledWith('text');
+      expect(svg.attr).toHaveBeenCalledWith('y', center + 4);
+      expect(svg.attr).toHaveBeenCalledWith('x', 500 - 10);
+      expect(svg.attr).toHaveBeenCalledWith('text-anchor', 'end');
+      expect(svg.text).toHaveBeenCalledWith('Adopt');
+
+      expect(svg.append).toHaveBeenCalledWith('text');
+      expect(svg.attr).toHaveBeenCalledWith('y', center + 4);
+      expect(svg.attr).toHaveBeenCalledWith('x', 500 - (center / 2) - 10);
+      expect(svg.attr).toHaveBeenCalledWith('text-anchor', 'end');
+      expect(svg.text).toHaveBeenCalledWith('Hold');
     });
   });
 });

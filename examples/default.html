@@ -14,15 +14,17 @@
       padding: 20px;
     }
     svg circle {
-      fill: transparent;
-      stroke: #cacaca;
+      stroke: #fff;
+      fill: #cacaca;
     }
     svg text {
-      font: 14px 'Open Sans';
-      fill: #7a7a7a;
+      font: 11px 'Open Sans';
+      font-variant: small-caps;
+      text-transform:uppercase;
+      fill: #000;
     }
     svg line {
-      stroke: #cacaca;
+      stroke: #fff;
     }
 
   </style>
@@ -30,13 +32,18 @@
 <body>
 </body>
   <script>
+    var adopt = new tr.models.Cycle('Adopt', 0);
+    var assess = new tr.models.Cycle('Assess', 1);
+    var trial = new tr.models.Cycle('Trial', 2);
+    var hold = new tr.models.Cycle('Hold', 3);
+
     var radar = new tr.models.Radar();
     var toolsQuadrant = new tr.models.Quadrant('Tools');
     toolsQuadrant.add([
-        new tr.models.Blip('A', new tr.models.Cycle('Adopt')),
-        new tr.models.Blip('B', new tr.models.Cycle('Trial')),
-        new tr.models.Blip('C', new tr.models.Cycle('Asses')),
-        new tr.models.Blip('D', new tr.models.Cycle('Hold')),
+        new tr.models.Blip('A', adopt),
+        new tr.models.Blip('B', trial),
+        new tr.models.Blip('C', assess),
+        new tr.models.Blip('D', hold),
     ]);
     radar.setFirstQuadrant(toolsQuadrant);
 
