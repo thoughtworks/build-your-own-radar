@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <script src="../bower_components/d3/d3.min.js"></script>
   <script src="../src/namespaces.js"></script>
+  <script src="../src/util/fib.js"></script>
   <script src="../src/models/cycle.js"></script>
   <script src="../src/models/blip.js"></script>
   <script src="../src/models/quadrant.js"></script>
@@ -43,7 +44,7 @@
         new tr.models.Blip('A', adopt),
         new tr.models.Blip('B', trial),
         new tr.models.Blip('C', assess),
-        new tr.models.Blip('D', hold),
+        new tr.models.Blip('D', hold)
     ]);
     radar.setFirstQuadrant(toolsQuadrant);
 

@@ -1,5 +1,7 @@
 tr.graphing.Radar = function (svg, size, radar) {
-  var self = {};
+  var self, fib;
+  self = {};
+  fib = new tr.util.Fib();
 
   svg.attr('width', size).attr('height', size);
 
@@ -23,16 +25,22 @@ tr.graphing.Radar = function (svg, size, radar) {
       .attr('stroke-width', 14);
   };
 
+  function getRadius(cycles, i) {
+    var sequence = fib.sequence(cycles.length);
+    var total = fib.sum(cycles.length);
+    var sum = fib.sum(i);
+
+    return center() - (center() * sum / total);
+  }
+
   function plotCircles(cycles) {
     var increment;
-
-    increment = Math.round(center() / cycles.length);
 
     cycles.forEach(function (cycle, i) {
       svg.append('circle')
         .attr('cx', center())
         .attr('cy', center())
-        .attr('r', center() - increment * i);
+        .attr('r', getRadius(cycles, i));
     });
   }
 
@@ -44,12 +52,12 @@ tr.graphing.Radar = function (svg, size, radar) {
     cycles.forEach(function (cycle, i) {
       svg.append('text')
         .attr('y', center() + 4)
-        .attr('x', (i * increment) + 10)
+        .attr('x', center() - getRadius(cycles, i) + 10)
         .text(cycle.name());
 
       svg.append('text')
         .attr('y', center() + 4)
-        .attr('x', size - (i * increment) - 10)
+        .attr('x', center() + getRadius(cycles, i) - 10)
         .attr('text-anchor', 'end')
         .text(cycle.name());
     });
