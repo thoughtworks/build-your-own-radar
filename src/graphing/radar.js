@@ -63,12 +63,46 @@ tr.graphing.Radar = function (svg, size, radar) {
     });
   };
 
+  function random(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function plotBlips(cycles, blips, adjustX, adjustY) {
+    cycles.forEach(function (cycle, i) {
+      var maxRadius, minRadius, cycleBlips;
+
+      maxRadius = getRadius(cycles, i);
+      minRadius = (i == cycles.length - 1) ? 0: getRadius(cycles, i + 1);
+
+      var cycleBlips = blips.filter(function (blip) {
+        return blip.cycle() == cycle;
+      });
+
+      cycleBlips.forEach(function (blip) {
+        var angleInRad, radius;
+
+        angleInRad = Math.PI * random(5, 85) / 180;
+        radius = random(minRadius + 5, maxRadius - 5);
+
+        svg.append('circle')
+          .attr('cx', center() + radius * Math.cos(angleInRad) * adjustX)
+          .attr('cy', center() + radius * Math.sin(angleInRad) * adjustY)
+          .attr('r', 5)
+          .append('title').text(blip.name());
+      });
+    });
+  };
+
   self.plot = function () {
     var cycles = radar.cycles().reverse();
 
     plotCircles(cycles);
     plotLines();
     plotTexts(cycles);
+    plotBlips(cycles, radar.quadrants().I.blips(), 1, -1);
+    plotBlips(cycles, radar.quadrants().II.blips(), -1, -1);
+    plotBlips(cycles, radar.quadrants().III.blips(), -1, 1);
+    plotBlips(cycles, radar.quadrants().IV.blips(), 1, 1);
   };
 
   return self;
