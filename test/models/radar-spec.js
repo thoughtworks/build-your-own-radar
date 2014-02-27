@@ -53,6 +53,40 @@ describe('tr.models.Radar', function () {
     expect(radar.quadrants().IV).toEqual(quadrant);
   });
 
+  describe('blip numbers', function () {
+    var firstQuadrant, secondQuadrant, radar, firstCycle;
+
+    beforeEach(function () {
+      firstCycle = new tr.models.Cycle('Adopt', 0);
+      firstQuadrant = new tr.models.Quadrant('First');
+      secondQuadrant = new tr.models.Quadrant('Second');
+      firstQuadrant.add([
+        new tr.models.Blip('A', firstCycle),
+        new tr.models.Blip('B', firstCycle)
+      ]);
+      secondQuadrant.add([
+        new tr.models.Blip('C', firstCycle),
+        new tr.models.Blip('D', firstCycle)
+      ]);
+      radar = new tr.models.Radar();
+    });
+
+    it('sets blip numbers starting on the first quadrant', function () {
+      radar.setFirstQuadrant(firstQuadrant);
+
+      expect(radar.quadrants().I.blips()[0].number()).toEqual(1);
+      expect(radar.quadrants().I.blips()[1].number()).toEqual(2);
+    });
+
+    it('continues the number from the previous quadrant set', function () {
+      radar.setFirstQuadrant(firstQuadrant);
+      radar.setSecondQuadrant(secondQuadrant);
+
+      expect(radar.quadrants().II.blips()[0].number()).toEqual(3);
+      expect(radar.quadrants().II.blips()[1].number()).toEqual(4);
+    });
+  });
+
   describe('cycles', function () {
     var quadrant, radar, firstCycle, secondCycle;
 

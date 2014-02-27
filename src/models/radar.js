@@ -1,23 +1,34 @@
 tr.models.Radar = function() {
-  var self, quadrants;
+  var self, quadrants, blipNumber;
 
+  blipNumber = 0;
   quadrants = { I: null, II: null, III: null, IV: null };
   self = {};
 
+  function setNumbers(blips) {
+    blips.forEach(function (blip) {
+      blip.setNumber(++blipNumber);
+    });
+  }
+
   self.setFirstQuadrant = function (quadrant) {
     quadrants.I = quadrant;
+    setNumbers(quadrants.I.blips());
   };
 
   self.setSecondQuadrant = function (quadrant) {
     quadrants.II = quadrant;
+    setNumbers(quadrants.II.blips());
   };
 
   self.setThirdQuadrant = function (quadrant) {
     quadrants.III = quadrant;
+    setNumbers(quadrants.III.blips());
   };
 
   self.setFourthQuadrant = function (quadrant) {
     quadrants.IV = quadrant;
+    setNumbers(quadrants.IV.blips());
   };
 
   function allQuadrants() {

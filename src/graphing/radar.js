@@ -94,9 +94,8 @@ tr.graphing.Radar = function (size, radar) {
   }
 
   function plotBlips(cycles, quadrant, adjustX, adjustY) {
-    var blips, number;
+    var blips;
     blips = quadrant.blips();
-    number = 0;
     cycles.forEach(function (cycle, i) {
       var maxRadius, minRadius, cycleBlips;
 
@@ -112,7 +111,7 @@ tr.graphing.Radar = function (size, radar) {
 
         var split = blip.name().split('');
         var sum = split.reduce(function (p, c) { return p + c.charCodeAt(0); }, 0);
-        chance = new Chance(sum * cycle.name().length * number);
+        chance = new Chance(sum * cycle.name().length * blip.number());
 
         angleInRad = Math.PI * chance.integer({ min: 13, max: 85 }) / 180;
         radius = chance.floating({ min: minRadius + 25, max: maxRadius - 10 });
@@ -131,7 +130,7 @@ tr.graphing.Radar = function (size, radar) {
           .attr('y', y + 4)
           .attr('class', 'blip-text')
           .attr('text-anchor', 'middle')
-          .text(++number)
+          .text(blip.number())
       });
     });
   };
