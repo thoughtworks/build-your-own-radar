@@ -10,47 +10,59 @@ describe('tr.models.Radar', function () {
   });
 
   it('sets the first quadrant', function () {
-    var quadrant, radar;
+    var quadrant, radar, blip;
 
+    blip = new tr.models.Blip('A', new tr.models.Cycle('First'));
     quadrant = new tr.models.Quadrant('First');
+    quadrant.add([blip]);
     radar = new tr.models.Radar();
 
     radar.setFirstQuadrant(quadrant);
 
     expect(radar.quadrants().I).toEqual(quadrant);
+    expect(radar.quadrants().I.blips()[0].number()).toEqual(1);
   });
 
   it('sets the second quadrant', function () {
-    var quadrant, radar;
+    var quadrant, radar, blip;
 
+    blip = new tr.models.Blip('A', new tr.models.Cycle('First'));
     quadrant = new tr.models.Quadrant('Second');
+    quadrant.add([blip]);
     radar = new tr.models.Radar();
 
     radar.setSecondQuadrant(quadrant);
 
     expect(radar.quadrants().II).toEqual(quadrant);
+    expect(radar.quadrants().II.blips()[0].number()).toEqual(1);
   });
 
   it('sets the third quadrant', function () {
-    var quadrant, radar;
+    var quadrant, radar, blip;
 
+    blip = new tr.models.Blip('A', new tr.models.Cycle('First'));
     quadrant = new tr.models.Quadrant('Third');
+    quadrant.add([blip]);
     radar = new tr.models.Radar();
 
     radar.setThirdQuadrant(quadrant);
 
     expect(radar.quadrants().III).toEqual(quadrant);
+    expect(radar.quadrants().III.blips()[0].number()).toEqual(1);
   });
 
   it('sets the fourth quadrant', function () {
-    var quadrant, radar;
+    var quadrant, radar, blip;
 
+    blip = new tr.models.Blip('A', new tr.models.Cycle('First'));
     quadrant = new tr.models.Quadrant('Fourth');
+    quadrant.add([blip]);
     radar = new tr.models.Radar();
 
     radar.setFourthQuadrant(quadrant);
 
     expect(radar.quadrants().IV).toEqual(quadrant);
+    expect(radar.quadrants().IV.blips()[0].number()).toEqual(1);
   });
 
   describe('blip numbers', function () {
