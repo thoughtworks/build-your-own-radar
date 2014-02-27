@@ -6,11 +6,49 @@ describe('tr.graphing.Radar', function () {
     spyOn(radar, 'cycles').andReturn([]);
   });
 
+  describe('init', function () {
+    it('appends the svg', function () {
+      var radarGraph, selection;
+
+      radarGraph = new tr.graphing.Radar(500, radar);
+      selection = { append: jasmine.createSpy() };
+      spyOn(d3, 'select').andReturn(selection);
+
+      radarGraph.init();
+
+      expect(selection.append).toHaveBeenCalledWith('svg');
+    });
+
+    it('selects body if no selector provided', function () {
+      var radarGraph;
+
+      radarGraph = new tr.graphing.Radar(500, radar);
+      spyOn(d3, 'select').andCallThrough();
+
+      radarGraph.init();
+
+      expect(d3.select).toHaveBeenCalledWith('body');
+    });
+
+    it('selects the selector if provided', function () {
+      var radarGraph;
+
+      radarGraph = new tr.graphing.Radar(500, radar);
+      spyOn(d3, 'select').andCallThrough();
+
+      radarGraph.init('#radar');
+
+      expect(d3.select).toHaveBeenCalledWith('#radar');
+    });
+  });
+
   it('sets the size', function () {
     var svg, radarGraph;
 
     radarGraph = new tr.graphing.Radar(500, radar);
-    svg = radarGraph.svg;
+    radarGraph.init();
+
+    svg = radarGraph.svg();
     spyOn(svg, 'attr').andReturn(svg);
 
     radarGraph.plot();
@@ -24,8 +62,9 @@ describe('tr.graphing.Radar', function () {
       var radarGraph, svg;
 
       radarGraph = new tr.graphing.Radar(500, radar);
+      radarGraph.init();
 
-      svg = radarGraph.svg;
+      svg = radarGraph.svg();
       spyOn(svg, 'append').andReturn(svg);
       spyOn(svg, 'attr').andReturn(svg);
 
@@ -43,7 +82,9 @@ describe('tr.graphing.Radar', function () {
       var svg, radarGraph;
 
       radarGraph = new tr.graphing.Radar(500, radar);
-      svg = radarGraph.svg;
+      radarGraph.init();
+
+      svg = radarGraph.svg();
       spyOn(svg, 'append').andReturn(svg);
       spyOn(svg, 'attr').andReturn(svg);
 
@@ -70,7 +111,9 @@ describe('tr.graphing.Radar', function () {
         new tr.models.Cycle('Hold')
       ]);
       radarGraph = new tr.graphing.Radar(500, radar);
-      svg = radarGraph.svg;
+      radarGraph.init();
+
+      svg = radarGraph.svg();
       spyOn(svg, 'append').andReturn(svg);
       spyOn(svg, 'attr').andReturn(svg);
     });

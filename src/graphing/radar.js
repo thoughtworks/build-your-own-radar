@@ -1,11 +1,12 @@
 tr.graphing.Radar = function (size, radar) {
   var self, fib, svg;
 
-  svg = d3.select("body").append("svg");
   fib = new tr.util.Fib();
 
   self = {};
-  self.svg = svg;
+  self.svg = function () {
+    return svg;
+  }
 
   function center () {
     return Math.round(size/2);
@@ -154,6 +155,11 @@ tr.graphing.Radar = function (size, radar) {
     plotName(quadrants.III.name(), 'start', 10, size - 10)
     plotName(quadrants.IV.name(), 'end', size -10, size - 10)
   }
+
+  self.init = function (selector) {
+    svg = d3.select(selector || 'body').append("svg");
+    return self;
+  };
 
   self.plot = function () {
     var cycles, quadrants;
