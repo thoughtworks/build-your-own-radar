@@ -58,10 +58,10 @@
     svg circle.techniques,
     svg circle.platforms,
     svg circle.languages-frameworks,
-    svg path.tools,
-    svg path.techniques,
-    svg path.platforms,
-    svg path.languages-frameworks {
+    svg polygon.tools,
+    svg polygon.techniques,
+    svg polygon.platforms,
+    svg polygon.languages-frameworks {
       stroke: #fff;
     }
     svg .tools { fill: #83AD78 }
@@ -194,7 +194,7 @@
   radar.setThirdQuadrant(platformsQuadrant);
   radar.setFourthQuadrant(languageFramework);
 
-  var radarGraph = new tr.graphing.Radar(800, radar);
+  var radarGraph = new tr.graphing.Radar(1080, radar);
   radarGraph.init('#radar').plot();
 </script>
 </html>
