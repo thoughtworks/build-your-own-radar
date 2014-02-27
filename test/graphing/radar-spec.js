@@ -1,10 +1,6 @@
 describe('tr.graphing.Radar', function () {
   var radar;
 
-  function buildSvg() {
-    return d3.select("body").append("svg");
-  }
-
   beforeEach(function () {
     radar = new tr.models.Radar();
     spyOn(radar, 'cycles').andReturn([]);
@@ -12,10 +8,12 @@ describe('tr.graphing.Radar', function () {
 
   it('sets the size', function () {
     var svg, radarGraph;
-    svg = buildSvg();
+
+    radarGraph = new tr.graphing.Radar(500, radar);
+    svg = radarGraph.svg;
     spyOn(svg, 'attr').andReturn(svg);
 
-    radarGraph = new tr.graphing.Radar(svg, 500, radar);
+    radarGraph.plot();
 
     expect(svg.attr).toHaveBeenCalledWith('width', 500);
     expect(svg.attr).toHaveBeenCalledWith('height', 500);
@@ -23,13 +21,13 @@ describe('tr.graphing.Radar', function () {
 
   describe('lines', function () {
     it('plots a vertical line in the center', function () {
-      var svg, radarGraph;
+      var radarGraph, svg;
 
-      svg = buildSvg();
+      radarGraph = new tr.graphing.Radar(500, radar);
+
+      svg = radarGraph.svg;
       spyOn(svg, 'append').andReturn(svg);
       spyOn(svg, 'attr').andReturn(svg);
-
-      radarGraph = new tr.graphing.Radar(svg, 500, radar);
 
       radarGraph.plot();
 
@@ -44,11 +42,10 @@ describe('tr.graphing.Radar', function () {
     it('plots a horizontal line in the center', function () {
       var svg, radarGraph;
 
-      svg = buildSvg();
+      radarGraph = new tr.graphing.Radar(500, radar);
+      svg = radarGraph.svg;
       spyOn(svg, 'append').andReturn(svg);
       spyOn(svg, 'attr').andReturn(svg);
-
-      radarGraph = new tr.graphing.Radar(svg, 500, radar);
 
       radarGraph.plot();
 
@@ -67,16 +64,15 @@ describe('tr.graphing.Radar', function () {
     beforeEach(function () {
       var radar;
 
-      svg = buildSvg();
-      spyOn(svg, 'append').andReturn(svg);
-      spyOn(svg, 'attr').andReturn(svg);
-
       radar = new tr.models.Radar();
       spyOn(radar, 'cycles').andReturn([
         new tr.models.Cycle('Adopt'),
         new tr.models.Cycle('Hold')
       ]);
-      radarGraph = new tr.graphing.Radar(svg, 500, radar);
+      radarGraph = new tr.graphing.Radar(500, radar);
+      svg = radarGraph.svg;
+      spyOn(svg, 'append').andReturn(svg);
+      spyOn(svg, 'attr').andReturn(svg);
     });
 
     it('plots the circles for the cycles', function () {
