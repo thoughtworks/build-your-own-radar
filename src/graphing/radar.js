@@ -51,11 +51,13 @@ tr.graphing.Radar = function (svg, size, radar) {
 
     cycles.forEach(function (cycle, i) {
       svg.append('text')
+        .attr('class', 'line-text')
         .attr('y', center() + 4)
         .attr('x', center() - getRadius(cycles, i) + 10)
         .text(cycle.name());
 
       svg.append('text')
+        .attr('class', 'line-text')
         .attr('y', center() + 4)
         .attr('x', center() + getRadius(cycles, i) - 10)
         .attr('text-anchor', 'end')
@@ -63,11 +65,36 @@ tr.graphing.Radar = function (svg, size, radar) {
     });
   };
 
-  function random(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  function triangle(x, y, cssClass) {
+    return svg.append('path')
+      .attr('d', 'M412.201,311.406c0.021,0,0.042,0,0.063,0c0.067,0,0.135,0,0.201,0c4.052,0,6.106-0.051,8.168-0.102c2.053-0.051,4.115-0.102,8.176-0.102h0.103c6.976-0.183,10.227-5.306,6.306-11.53c-3.988-6.121-4.97-5.407-8.598-11.224c-1.631-3.008-3.872-4.577-6.179-4.577c-2.276,0-4.613,1.528-6.48,4.699c-3.578,6.077-3.26,6.014-7.306,11.723C402.598,306.067,405.426,311.406,412.201,311.406')
+      .attr('transform', 'translate(' + ((-421 * .73) + x) + ',' + ((-299 * 0.73) + y) + ') scale(0.73) ')
+      .attr('class', cssClass)
+      .attr('stroke-width', 2);
+
+    var tsize = 7
+
+    var top = y - tsize + 2;
+    var left = (x - tsize);
+    var right = (x + tsize);
+    var bottom = (y + tsize);
+
+    var points = x + ',' + top + ' ' + left + ',' + bottom + ' ' + right + ',' + bottom;
   }
 
-  function plotBlips(cycles, blips, adjustX, adjustY) {
+  function circle(x, y, cssClass) {
+    svg.append('circle')
+      .attr('cx', x)
+      .attr('cy', y)
+      .attr('class', cssClass)
+      .attr('stroke-width', 1.5)
+      .attr('r', 10);
+  }
+
+  function plotBlips(cycles, quadrant, adjustX, adjustY) {
+    var blips, number;
+    blips = quadrant.blips();
+    number = 0;
     cycles.forEach(function (cycle, i) {
       var maxRadius, minRadius, cycleBlips;
 
@@ -81,28 +108,68 @@ tr.graphing.Radar = function (svg, size, radar) {
       cycleBlips.forEach(function (blip) {
         var angleInRad, radius;
 
-        angleInRad = Math.PI * random(5, 85) / 180;
-        radius = random(minRadius + 5, maxRadius - 5);
+        var split = blip.name().split('');
+        var sum = split.reduce(function (p, c) { return p + c.charCodeAt(0); }, 0);
+        chance = new Chance(sum * cycle.name().length * number);
 
-        svg.append('circle')
-          .attr('cx', center() + radius * Math.cos(angleInRad) * adjustX)
-          .attr('cy', center() + radius * Math.sin(angleInRad) * adjustY)
-          .attr('r', 5)
-          .append('title').text(blip.name());
+        angleInRad = Math.PI * chance.integer({ min: 13, max: 85 }) / 180;
+        radius = chance.floating({ min: minRadius + 25, max: maxRadius - 10 });
+
+        var x = center() + radius * Math.cos(angleInRad) * adjustX;
+        var y = center() + radius * Math.sin(angleInRad) * adjustY;
+
+        if (blip.isNew()) {
+          triangle(x, y, cssClassFor(quadrant.name()));
+        } else {
+          circle(x, y, cssClassFor(quadrant.name()));
+        }
+
+        svg.append('text')
+          .attr('x', x)
+          .attr('y', y + 4)
+          .attr('class', 'blip-text')
+          .attr('text-anchor', 'middle')
+          .text(++number)
       });
     });
   };
 
+  function cssClassFor(string) {
+    return string.toLowerCase().replace(/\s\&/g, '').replace(/\s/g, '-');
+  }
+
+  function plotQuadrantNames(quadrants) {
+    function plotName(name, anchor, x, y) {
+      svg.append('text')
+        .attr('x', x)
+        .attr('y', y)
+        .attr('class', cssClassFor(name))
+        .attr('text-anchor', anchor)
+        .text(name);
+    }
+
+    plotName(quadrants.I.name(), 'end', size - 10, 10)
+    plotName(quadrants.II.name(), 'start', 10, 10)
+    plotName(quadrants.III.name(), 'start', 10, size - 10)
+    plotName(quadrants.IV.name(), 'end', size -10, size - 10)
+  }
+
   self.plot = function () {
-    var cycles = radar.cycles().reverse();
+    var cycles, quadrants;
+    cycles = radar.cycles().reverse();
+    quadrants = radar.quadrants();
 
     plotCircles(cycles);
     plotLines();
     plotTexts(cycles);
-    plotBlips(cycles, radar.quadrants().I.blips(), 1, -1);
-    plotBlips(cycles, radar.quadrants().II.blips(), -1, -1);
-    plotBlips(cycles, radar.quadrants().III.blips(), -1, 1);
-    plotBlips(cycles, radar.quadrants().IV.blips(), 1, 1);
+
+    if (radar.hasQuadrants()) {
+      plotQuadrantNames(quadrants);
+      plotBlips(cycles, quadrants.I, 1, -1);
+      plotBlips(cycles, quadrants.II, -1, -1);
+      plotBlips(cycles, quadrants.III, -1, 1);
+      plotBlips(cycles, quadrants.IV, 1, 1);
+    }
   };
 
   return self;

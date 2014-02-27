@@ -38,6 +38,10 @@ tr.models.Radar = function() {
     }, []);
   }
 
+  self.hasQuadrants = function () {
+    return !!quadrants.I || !!quadrants.II || !!quadrants.III || !!quadrants.IV;
+  }
+
   self.cycles = function () {
     var cycleHash, cycleArray;
 
