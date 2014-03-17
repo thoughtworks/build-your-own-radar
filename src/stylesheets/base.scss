@@ -1,0 +1,43 @@
+@import 'colors';
+
+body {
+  font: 9px 'Open Sans';
+}
+
+svg {
+  padding: 20px;
+
+  .first { fill: $green; }
+  .second { fill: $blue; }
+  .third { fill: $orange; }
+  .fourth { fill: $violet; }
+
+  circle {
+    &:nth-child(1) { stroke: none; fill: $grey-light; }
+    &:nth-child(2) { stroke: none; fill: $grey; }
+    &:nth-child(3) { stroke: none; fill: $grey-dark; }
+    &:nth-child(4) { stroke: none; fill: $grey-darkest; }
+  }
+
+  circle, polygon {
+    stroke: $white;
+  }
+
+  line {
+    stroke: $grey-alpha-03;
+  }
+
+  text {
+    .blip-text {
+      font-style: italic;
+      fill: $white;
+    }
+
+    .line-text {
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+      fill: $black;
+    }
+  }
+}
