@@ -12,7 +12,7 @@ var gulp = require('gulp')
 
 banner = [
   '/**',
-  ' * <%= pkg.name %>
+  ' * <%= pkg.name %>',
   ' * @version v<%= pkg.version %>',
   ' */',
   ''
