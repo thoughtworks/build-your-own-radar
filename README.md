@@ -1,7 +1,7 @@
 tech-radar
 ==========
 
-A library that allows the creationg of a Tech Radar, inspired by [thoughtworks.com/radar/](thoughtworks.com/radar/).
+A library that allows the creationg of a Tech Radar, inspired by [thoughtworks.com/radar/](http://thoughtworks.com/radar/).
 
 Check the example [here](http://brunotrecenti.com/tech-radar/)
 
