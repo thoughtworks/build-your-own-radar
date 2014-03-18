@@ -94,7 +94,7 @@ tr.graphing.Radar = function (size, radar) {
       .attr('r', 10);
   }
 
-  function plotBlips(cycles, quadrant, adjustX, adjustY) {
+  function plotBlips(cycles, quadrant, adjustX, adjustY, cssClass) {
     var blips;
     blips = quadrant.blips();
     cycles.forEach(function (cycle, i) {
@@ -121,9 +121,9 @@ tr.graphing.Radar = function (size, radar) {
         var y = center() + radius * Math.sin(angleInRad) * adjustY;
 
         if (blip.isNew()) {
-          triangle(x, y, cssClassFor(quadrant.name()));
+          triangle(x, y, cssClass);
         } else {
-          circle(x, y, cssClassFor(quadrant.name()));
+          circle(x, y, cssClass);
         }
 
         svg.append('text')
@@ -136,24 +136,20 @@ tr.graphing.Radar = function (size, radar) {
     });
   };
 
-  function cssClassFor(string) {
-    return string.toLowerCase().replace(/\s\&/g, '').replace(/\s/g, '-');
-  }
-
   function plotQuadrantNames(quadrants) {
-    function plotName(name, anchor, x, y) {
+    function plotName(name, anchor, x, y, cssClass) {
       svg.append('text')
         .attr('x', x)
         .attr('y', y)
-        .attr('class', cssClassFor(name))
+        .attr('class', cssClass)
         .attr('text-anchor', anchor)
         .text(name);
     }
 
-    plotName(quadrants.I.name(), 'end', size - 10, 10)
-    plotName(quadrants.II.name(), 'start', 10, 10)
-    plotName(quadrants.III.name(), 'start', 10, size - 10)
-    plotName(quadrants.IV.name(), 'end', size -10, size - 10)
+    plotName(quadrants.I.name(), 'end', size - 10, 10, 'first')
+    plotName(quadrants.II.name(), 'start', 10, 10, 'second')
+    plotName(quadrants.III.name(), 'start', 10, size - 10, 'third')
+    plotName(quadrants.IV.name(), 'end', size -10, size - 10, 'fourth')
   }
 
   self.init = function (selector) {
@@ -175,10 +171,10 @@ tr.graphing.Radar = function (size, radar) {
 
     if (radar.hasQuadrants()) {
       plotQuadrantNames(quadrants);
-      plotBlips(cycles, quadrants.I, 1, -1);
-      plotBlips(cycles, quadrants.II, -1, -1);
-      plotBlips(cycles, quadrants.III, -1, 1);
-      plotBlips(cycles, quadrants.IV, 1, 1);
+      plotBlips(cycles, quadrants.I, 1, -1, 'first');
+      plotBlips(cycles, quadrants.II, -1, -1, 'second');
+      plotBlips(cycles, quadrants.III, -1, 1, 'third');
+      plotBlips(cycles, quadrants.IV, 1, 1, 'fourth');
     }
   };
 

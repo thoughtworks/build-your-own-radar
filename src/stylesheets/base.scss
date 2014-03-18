@@ -1,7 +1,7 @@
 @import 'colors';
 
 body {
-  font: 9px 'Open Sans';
+  font: 11px 'Open Sans';
 }
 
 svg {
@@ -28,13 +28,18 @@ svg {
   }
 
   text {
-    .blip-text {
+    &.first, &.second, &.third, &.fourth {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    &.blip-text {
+      font-size: 9px;
       font-style: italic;
       fill: $white;
     }
 
-    .line-text {
-      font-size: 16px;
+    &.line-text {
       font-weight: bold;
       text-transform: uppercase;
       fill: $black;

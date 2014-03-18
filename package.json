@@ -21,7 +21,12 @@
     "karma-requirejs": "~0.2.1",
     "karma-phantomjs-launcher": "~0.1.2",
     "karma": "~0.10.9",
-    "gulp-karma": "0.0.2"
+    "gulp-karma": "0.0.2",
+    "gulp-sass": "~0.7.1",
+    "gulp-concat": "~2.2.0",
+    "gulp-uglify": "~0.2.1",
+    "gulp-clean": "~0.2.4",
+    "gulp-header": "~1.0.2"
   },
   "dependencies": {
     "gulp-util": "~2.2.14",
