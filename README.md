@@ -12,6 +12,7 @@ Please view the file `examples/default.html` for general usages.
 
 ### Contribute
 
+[Gulp](http://gulpjs.com/) needs to be installed globally to run the project tasks.
 Pull Requests are welcome, write tests whenever possible.
 
 - `git clone git@github.com:Trecenti/tech-radar`
