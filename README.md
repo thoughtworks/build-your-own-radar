@@ -14,7 +14,7 @@ Please view the file `examples/default.html` for general usages.
 
 Pull Requests are welcome, write tests whenever possible.
 
-- clone
+- `git clone git@github.com:Trecenti/tech-radar`
 - `npm install`
 - `bower install`
 - `gulp test` - to run your tests
