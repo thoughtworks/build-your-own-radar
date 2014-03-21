@@ -28,9 +28,5 @@
     "gulp-clean": "~0.2.4",
     "gulp-header": "~1.0.2"
   },
-  "dependencies": {
-    "gulp-util": "~2.2.14",
-    "gulp": "~3.5.2",
-    "express": "~3.4.8"
-  }
+  "dependencies": {}
 }
