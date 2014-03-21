@@ -6,7 +6,14 @@
   "scripts": {
     "test": "gulp test"
   },
-  "author": "",
+  "author": "Bruno Trecenti",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Trecenti/tech-radar.git"
+  },
+  "keywords": [
+    "tech-radar"
+  ],
   "license": "ISC",
   "devDependencies": {
     "gulp-util": "~2.2.14",
