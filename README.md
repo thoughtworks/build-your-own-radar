@@ -2,7 +2,7 @@
 [![NPM](https://nodei.co/npm/tech-radar.png)](https://nodei.co/npm/tech-radar/)
 
 
-A library that allows the creationg of a Tech Radar, inspired by [thoughtworks.com/radar/](http://thoughtworks.com/radar/).
+A library that supports the creation of a Tech Radar, inspired by [thoughtworks.com/radar/](http://thoughtworks.com/radar/).
 
 Check the example [here](http://brunotrecenti.com/tech-radar/)
 
