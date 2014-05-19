@@ -1,4 +1,4 @@
-# tech-radar [![Build Status](https://travis-ci.org/Trecenti/tech-radar.svg?branch=master)](https://travis-ci.org/Trecenti/tech-radar)
+# tech-radar [![Build Status](https://travis-ci.org/trecenti/tech-radar.svg?branch=master)](https://travis-ci.org/Trecenti/tech-radar)
 [![NPM](https://nodei.co/npm/tech-radar.png)](https://nodei.co/npm/tech-radar/)
 
 
