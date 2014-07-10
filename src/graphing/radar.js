@@ -30,7 +30,7 @@ tr.graphing.Radar = function (size, radar) {
 
   function getRadius(cycles, i) {
     var sequence = fib.sequence(cycles.length);
-    var total = fib.sum(cycles.length);
+    var total = fib.sum(cycles.length + 1);
     var sum = fib.sum(i);
 
     return center() - (center() * sum / total);
