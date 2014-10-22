@@ -15,7 +15,7 @@ tr.util.Fib = function () {
     if (length === 0) { return 0; }
     if (length === 1) { return 1; }
 
-    return self.sequence(length).reduce(function (previous, current) {
+    return self.sequence(length + 1).reduce(function (previous, current) {
       return previous + current;
     }, 0);
   };
