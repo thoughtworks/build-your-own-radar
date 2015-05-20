@@ -6,12 +6,9 @@ module.exports = function(config) {
     basePath: '.',
     frameworks: ['jasmine'],
     files: [
-      'bower_components/chance/chance.js',
-      'bower_components/d3/d3.min.js',
-      'src/namespaces.js',
-      'src/util/**/*.js',
-      'src/models/**/*.js',
-      'src/graphing/**/*.js',
+      'dist/chance.js',
+      'dist/d3.min.js',
+      'dist/tech-radar.min.js',
       'test/**/*.js'
     ],
     exclude: [ ],
