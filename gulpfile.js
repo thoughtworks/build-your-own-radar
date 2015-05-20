@@ -7,7 +7,8 @@ var gulp = require('gulp')
   , uglify = require('gulp-uglify')
   , clean = require('gulp-clean')
   , header = require('gulp-header')
-  , files;
+  , files
+  , paths;
 
 
 banner = [
@@ -17,6 +18,10 @@ banner = [
   ' */',
   ''
 ].join('\n');
+
+paths = {
+  DEPS: ['bower_components/chance/chance.js', 'bower_components/d3/d3.min.js']
+};
 
 files = {
   LIB: 'bower_components/d3/*.min.js',
@@ -53,7 +58,31 @@ gulp.task('compress', function() {
     .pipe(gulp.dest('./dist/'))
 });
 
+gulp.task('deps', function () {
+  gulp.src(paths.DEPS.concat('./dist/**/*.*'))
+    .pipe(gulp.dest('./examples'));
+});
+
 gulp.task('dist', ['clean', 'concat', 'compress', 'sass']);
+gulp.task('examples', ['clean', 'concat', 'compress', 'sass', 'deps']);
+
+gulp.task('gh-pages', function () {
+  var ghpages = require('gh-pages')
+    , path = require('path')
+    , options = {};
+
+  options.logger = console.log.bind(this);
+
+  function callback(err) {
+    if (err) {
+      console.error('Error publishing to gh-pages', err);
+    } else {
+      console.log('Successfully published to gh-pages');
+    }
+  }
+
+  ghpages.publish(path.join(__dirname, './examples'), options, callback);
+});
 
 gulp.task('test', function (){
   var karma;

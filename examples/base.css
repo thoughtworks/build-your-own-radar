@@ -1,0 +1,56 @@
+body {
+  font: 11px 'Open Sans'; }
+
+svg {
+  padding: 20px; }
+  svg .first {
+    fill: #83ad78; }
+  svg .second {
+    fill: #3db5be; }
+  svg .third {
+    fill: #e88744; }
+  svg .fourth {
+    fill: #8d2145; }
+  svg circle:nth-child(1) {
+    stroke: none;
+    fill: #eaeaea; }
+  svg circle:nth-child(2) {
+    stroke: none;
+    fill: #dadada; }
+  svg circle:nth-child(3) {
+    stroke: none;
+    fill: #cacaca; }
+  svg circle:nth-child(4) {
+    stroke: none;
+    fill: #bababa; }
+  svg circle, svg polygon {
+    stroke: #fff; }
+  svg line {
+    stroke: rgba(255, 255, 255, 0.3); }
+  svg text.first, svg text.second, svg text.third, svg text.fourth {
+    font-size: 16px;
+    font-weight: bold; }
+  svg text.blip-text {
+    font-size: 9px;
+    font-style: italic;
+    fill: #fff; }
+  svg text.line-text {
+    font-weight: bold;
+    text-transform: uppercase;
+    fill: #000; }
+
+.radar-ref-table {
+  width: 1080px;
+  font-size: 16px;
+  line-height: 26px;
+  padding: 20px; }
+  .radar-ref-table tr:nth-child(odd) {
+    background: #bababa; }
+  .radar-ref-table tr:nth-child(even) {
+    background: #dadada; }
+  .radar-ref-table td {
+    padding: 10px 15px; }
+  .radar-ref-table tr.radar-ref-status-group {
+    font-size: 20px;
+    font-weight: bold;
+    background: #fafafa; }
