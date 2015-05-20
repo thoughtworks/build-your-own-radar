@@ -53,7 +53,7 @@ tr.graphing.RefTable = function (radar) {
         html += '<tr class="radar-ref-status-group"><td colspan="3">' + cycle + '</td></tr>';
 
         blips[cycle].forEach(function (blip) {
-          html += '<tr id="blip-ref-' + blip.number() + '">' +
+          html += '<tr>' +
                     '<td>' + blip.number() + '</td>' +
                     '<td>' + blip.name() + '</td>' +
                     '<td>' + blip.description() + '</td>' +
