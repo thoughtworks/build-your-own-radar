@@ -8,7 +8,7 @@ Check the example [here](http://brunotrecenti.com/tech-radar/)
 
 ### How To Use
 
-The package has two dependencies [d3](http://d3js.org/) and [chancejs](http://chancejs.com/) that needs to be loaded separatedely for now, in the future there's a plan to add maintain these dependencies.
+The package has two dependencies [d3](http://d3js.org/) and [chancejs](http://chancejs.com/) that needs to be loaded separatedely for now, in the future there's a plan to add and maintain those dependencies.
 
 Please view the file `examples/index.html` for general usages.
 
