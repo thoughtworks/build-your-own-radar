@@ -12,6 +12,7 @@
 <body>
   <div id="radar">
   </div>
+  <div id="ref-table"></div>
 </body>
 <script>
   var adopt = new tr.models.Cycle('Adopt', 0);
@@ -135,5 +136,7 @@
 
   var radarGraph = new tr.graphing.Radar(1080, radar);
   radarGraph.init('#radar').plot();
+  var refTable = new tr.graphing.RefTable(radar);
+  refTable.init('#ref-table').render();
 </script>
 </html>
