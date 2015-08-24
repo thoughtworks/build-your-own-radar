@@ -1,4 +1,4 @@
-tr.graphing.Radar = function (size, radar) {
+tr.graphing.Radar = function (size, radar, toolTipDescription) {
   var self, fib, svg;
 
   fib = new tr.util.Fib();
@@ -132,6 +132,10 @@ tr.graphing.Radar = function (size, radar) {
           .attr('class', 'blip-text')
           .attr('text-anchor', 'middle')
           .text(blip.number())
+          .append("svg:title")
+          .text(blip.name() + ((toolTipDescription && blip.description()) 
+              ? ': ' + blip.description().replace(/(<([^>]+)>)/ig, '') 
+              : '' ))
       });
     });
   };
