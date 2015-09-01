@@ -12,4 +12,4 @@ function callback(err) {
   }
 }
 
-ghpages.publish(path.join(__dirname, './examples'), options, callback);
+ghpages.publish(path.join(__dirname, '../examples'), options, callback);
