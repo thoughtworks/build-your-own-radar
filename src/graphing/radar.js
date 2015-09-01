@@ -1,6 +1,7 @@
 tr.graphing.Radar = function (size, radar, toolTipDescription) {
-  var self, fib, svg;
+  var self, fib, svg, texts;
 
+  texts = [];
   fib = new tr.util.Fib();
 
   self = {};
@@ -68,7 +69,7 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
     });
   };
 
-  function triangle(x, y, cssClass) {
+  function triangle(x, y, cssClass, group) {
     var tsize, top, left, right, bottom, points;
 
     tsize = 13
@@ -79,14 +80,14 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
 
     points = x + 1 + ',' + top + ' ' + left + ',' + bottom + ' ' + right + ',' + bottom;
 
-    return svg.append('polygon')
+    return (group || svg).append('polygon')
       .attr('points', points)
       .attr('class', cssClass)
       .attr('stroke-width', 1.5);
   }
 
-  function circle(x, y, cssClass) {
-    svg.append('circle')
+  function circle(x, y, cssClass, group) {
+    return (group || svg).append('circle')
       .attr('cx', x)
       .attr('cy', y)
       .attr('class', cssClass)
@@ -120,21 +121,38 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
         var x = center() + radius * Math.cos(angleInRad) * adjustX;
         var y = center() + radius * Math.sin(angleInRad) * adjustY;
 
+        var group = svg.append('g').attr('class', 'blip-group');
+
         if (blip.isNew()) {
-          triangle(x, y, cssClass);
+          triangle(x, y, cssClass, group);
         } else {
-          circle(x, y, cssClass);
+          circle(x, y, cssClass, group);
         }
 
-        svg.append('text')
+        texts.push(function () {
+          var name;
+
+          name = svg.append('text')
+            .attr('x', x + 15)
+            .attr('y', y + 4)
+            .attr('class', 'blip-name')
+            .attr('text-anchor', 'left')
+            .text(blip.name())
+
+          group
+            .on('mouseover', function () { name.style('display', 'block'); })
+            .on('mouseout', function () { name.style('display', 'none'); });
+        });
+
+        group.append('text')
           .attr('x', x)
           .attr('y', y + 4)
           .attr('class', 'blip-text')
           .attr('text-anchor', 'middle')
           .text(blip.number())
           .append("svg:title")
-          .text(blip.name() + ((toolTipDescription && blip.description()) 
-              ? ': ' + blip.description().replace(/(<([^>]+)>)/ig, '') 
+          .text(blip.name() + ((toolTipDescription && blip.description())
+              ? ': ' + blip.description().replace(/(<([^>]+)>)/ig, '')
               : '' ))
       });
     });
@@ -180,6 +198,10 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
       plotBlips(cycles, quadrants.III, -1, 1, 'third');
       plotBlips(cycles, quadrants.IV, 1, 1, 'fourth');
     }
+
+    texts.forEach(function (fn) {
+      fn();
+    });
   };
 
   return self;

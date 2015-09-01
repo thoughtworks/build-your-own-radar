@@ -3,14 +3,6 @@ body {
 
 svg {
   padding: 20px; }
-  svg .first {
-    fill: #83ad78; }
-  svg .second {
-    fill: #3db5be; }
-  svg .third {
-    fill: #e88744; }
-  svg .fourth {
-    fill: #8d2145; }
   svg circle:nth-child(1) {
     stroke: none;
     fill: #eaeaea; }
@@ -23,10 +15,30 @@ svg {
   svg circle:nth-child(4) {
     stroke: none;
     fill: #bababa; }
-  svg circle, svg polygon {
+  svg .blip-group {
+    cursor: pointer; }
+  svg circle.first, svg polygon.first {
+    fill: #83ad78;
+    stroke: #fff; }
+  svg circle.second, svg polygon.second {
+    fill: #3db5be;
+    stroke: #fff; }
+  svg circle.third, svg polygon.third {
+    fill: #e88744;
+    stroke: #fff; }
+  svg circle.fourth, svg polygon.fourth {
+    fill: #8d2145;
     stroke: #fff; }
   svg line {
     stroke: rgba(255, 255, 255, 0.3); }
+  svg text.first {
+    fill: #83ad78; }
+  svg text.second {
+    fill: #3db5be; }
+  svg text.third {
+    fill: #e88744; }
+  svg text.fourth {
+    fill: #8d2145; }
   svg text.first, svg text.second, svg text.third, svg text.fourth {
     font-size: 16px;
     font-weight: bold; }
@@ -34,6 +46,11 @@ svg {
     font-size: 9px;
     font-style: italic;
     fill: #fff; }
+  svg text.blip-name {
+    font-size: 12px;
+    font-weight: bold;
+    fill: #000;
+    display: none; }
   svg text.line-text {
     font-weight: bold;
     text-transform: uppercase;

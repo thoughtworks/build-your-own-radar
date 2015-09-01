@@ -7,11 +7,6 @@ body {
 svg {
   padding: 20px;
 
-  .first { fill: $green; }
-  .second { fill: $blue; }
-  .third { fill: $orange; }
-  .fourth { fill: $violet; }
-
   circle {
     &:nth-child(1) { stroke: none; fill: $grey-light; }
     &:nth-child(2) { stroke: none; fill: $grey; }
@@ -19,8 +14,15 @@ svg {
     &:nth-child(4) { stroke: none; fill: $grey-darkest; }
   }
 
+  .blip-group {
+    cursor: pointer;
+  }
+
   circle, polygon {
-    stroke: $white;
+    &.first { fill: $green; stroke: $white; }
+    &.second { fill: $blue; stroke: $white; }
+    &.third { fill: $orange; stroke: $white; }
+    &.fourth { fill: $violet; stroke: $white; }
   }
 
   line {
@@ -28,6 +30,11 @@ svg {
   }
 
   text {
+    &.first { fill: $green; }
+    &.second { fill: $blue; }
+    &.third { fill: $orange; }
+    &.fourth { fill: $violet; }
+
     &.first, &.second, &.third, &.fourth {
       font-size: 16px;
       font-weight: bold;
@@ -37,6 +44,13 @@ svg {
       font-size: 9px;
       font-style: italic;
       fill: $white;
+    }
+
+    &.blip-name {
+      font-size: 12px;
+      font-weight: bold;
+      fill: $black;
+      display: none;
     }
 
     &.line-text {
