@@ -1,5 +1,9 @@
 tr.graphing.Radar = function (size, radar, toolTipDescription) {
   var self, fib, svg, texts;
+  
+  var tip = d3.tip().attr('class','d3-tip').html(function (text) {
+    return text;
+  });
 
   texts = [];
   fib = new tr.util.Fib();
@@ -87,7 +91,7 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
   }
 
   function circle(x, y, cssClass, group) {
-    var w = 25;
+    var w = 22;
     return (group || svg).append('path')
       .attr('d',"M420.084,282.092c-1.073,0-2.16,0.103-3.243,0.313c-6.912,1.345-13.188,8.587-11.423,16.874c1.732,8.141,8.632,13.711,17.806,13.711c0.025,0,0.052,0,0.074-0.003c0.551-0.025,1.395-0.011,2.225-0.109c4.404-0.534,8.148-2.218,10.069-6.487c1.747-3.886,2.114-7.993,0.913-12.118C434.379,286.944,427.494,282.092,420.084,282.092")
       .attr('transform','scale('+(w/34)+') translate('+(-404+x*(34/w)-17)+', '+(-282+y*(34/w)-17)+')')
@@ -120,40 +124,31 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
         var x = center() + radius * Math.cos(angleInRad) * adjustX;
         var y = center() + radius * Math.sin(angleInRad) * adjustY;
 
-        var group = svg.append('g').attr('class', 'blip-group');
+        var link = svg.append('svg:a').attr({'id':'blip-'+blip.number(), 'xlink:href':blip.number(), 'class': 'blip-link'});
 
         if (blip.isNew()) {
-          triangle(x, y, cssClass, group);
+          triangle(x, y, cssClass, link);
         } else {
-          circle(x, y, cssClass, group);
+          circle(x, y, cssClass, link);
         }
 
-        texts.push(function () {
-          var name, background;
+        link
+          .on('mouseover', function () {
+            d3.selectAll('path').attr('opacity',0.3);
+            link.selectAll('path').attr('opacity',1.0);
+            tip.show.apply(self,[blip.name(),link[0][0]]);
+          })
+          .on('mouseout', function () {
+            d3.selectAll('path').attr('opacity',1.0);
+            tip.hide();
+          });
 
-          name = svg.append('foreignObject')
-            .attr('x', x + 35)
-            .attr('y', y + 4)
-            .attr('class', 'blip-name')
-            .attr('text-anchor', 'left');
-          name.append("xhtml:div")
-            .html(blip.name());
-
-          group
-            .on('mouseover', function () { d3.selectAll('path').attr('opacity',0.3); group.selectAll('circle, path').attr('opacity',1.0); })
-            .on('mouseout', function () { d3.selectAll('path').attr('opacity',1.0); });
-        });
-
-        group.append('text')
+        link.append('text')
           .attr('x', x)
           .attr('y', y + 4)
           .attr('class', 'blip-text')
           .attr('text-anchor', 'middle')
           .text(blip.number())
-          // .append("svg:title")
-          // .text(blip.name() + ((toolTipDescription && blip.description())
-          //     ? ': ' + blip.description().replace(/(<([^>]+)>)/ig, '')
-          //     : '' ))
       });
     });
   };
@@ -175,7 +170,7 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
   }
 
   self.init = function (selector) {
-    svg = d3.select(selector || 'body').append("svg");
+    svg = d3.select(selector || 'body').append("svg").call(tip);
     return self;
   };
 
