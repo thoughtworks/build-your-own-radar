@@ -87,12 +87,11 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
   }
 
   function circle(x, y, cssClass, group) {
-    return (group || svg).append('circle')
-      .attr('cx', x)
-      .attr('cy', y)
-      .attr('class', cssClass)
-      .attr('stroke-width', 1.5)
-      .attr('r', 10);
+    var w = 25;
+    return (group || svg).append('path')
+      .attr('d',"M420.084,282.092c-1.073,0-2.16,0.103-3.243,0.313c-6.912,1.345-13.188,8.587-11.423,16.874c1.732,8.141,8.632,13.711,17.806,13.711c0.025,0,0.052,0,0.074-0.003c0.551-0.025,1.395-0.011,2.225-0.109c4.404-0.534,8.148-2.218,10.069-6.487c1.747-3.886,2.114-7.993,0.913-12.118C434.379,286.944,427.494,282.092,420.084,282.092")
+      .attr('transform','scale('+(w/34)+') translate('+(-404+x*(34/w)-17)+', '+(-282+y*(34/w)-17)+')')
+      .attr('class', cssClass);
   }
 
   function plotBlips(cycles, quadrant, adjustX, adjustY, cssClass) {
@@ -113,7 +112,7 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
 
         var split = blip.name().split('');
         var sum = split.reduce(function (p, c) { return p + c.charCodeAt(0); }, 0);
-        chance = new Chance(sum * cycle.name().length * blip.number());
+        var chance = new Chance(sum * cycle.name().length * blip.number());
 
         angleInRad = Math.PI * chance.integer({ min: 13, max: 85 }) / 180;
         radius = chance.floating({ min: minRadius + 25, max: maxRadius - 10 });
@@ -130,18 +129,19 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
         }
 
         texts.push(function () {
-          var name;
+          var name, background;
 
-          name = svg.append('text')
-            .attr('x', x + 15)
+          name = svg.append('foreignObject')
+            .attr('x', x + 35)
             .attr('y', y + 4)
             .attr('class', 'blip-name')
-            .attr('text-anchor', 'left')
-            .text(blip.name())
+            .attr('text-anchor', 'left');
+          name.append("xhtml:div")
+            .html(blip.name());
 
           group
-            .on('mouseover', function () { name.style('display', 'block'); })
-            .on('mouseout', function () { name.style('display', 'none'); });
+            .on('mouseover', function () { d3.selectAll('path').attr('opacity',0.3); group.selectAll('circle, path').attr('opacity',1.0); })
+            .on('mouseout', function () { d3.selectAll('path').attr('opacity',1.0); });
         });
 
         group.append('text')
@@ -150,10 +150,10 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
           .attr('class', 'blip-text')
           .attr('text-anchor', 'middle')
           .text(blip.number())
-          .append("svg:title")
-          .text(blip.name() + ((toolTipDescription && blip.description())
-              ? ': ' + blip.description().replace(/(<([^>]+)>)/ig, '')
-              : '' ))
+          // .append("svg:title")
+          // .text(blip.name() + ((toolTipDescription && blip.description())
+          //     ? ': ' + blip.description().replace(/(<([^>]+)>)/ig, '')
+          //     : '' ))
       });
     });
   };

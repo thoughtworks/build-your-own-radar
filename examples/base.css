@@ -17,20 +17,28 @@ svg {
     fill: #bababa; }
   svg .blip-group {
     cursor: pointer; }
-  svg circle.first, svg polygon.first {
+  svg circle.first, svg polygon.first, svg path.first {
     fill: #83ad78;
-    stroke: #fff; }
-  svg circle.second, svg polygon.second {
+    stroke: none; }
+  svg circle.second, svg polygon.second, svg path.second {
     fill: #3db5be;
-    stroke: #fff; }
-  svg circle.third, svg polygon.third {
+    stroke: none; }
+  svg circle.third, svg polygon.third, svg path.third {
     fill: #e88744;
-    stroke: #fff; }
-  svg circle.fourth, svg polygon.fourth {
+    stroke: none; }
+  svg circle.fourth, svg polygon.fourth, svg path.fourth {
     fill: #8d2145;
-    stroke: #fff; }
+    stroke: none; }
   svg line {
     stroke: rgba(255, 255, 255, 0.3); }
+  svg foreignobject.blip-name {
+    display: none; }
+    svg foreignobject.blip-name div {
+      font-size: 12px;
+      width: 300px;
+      background: white;
+      opacity: 0.7;
+      padding: 4px; }
   svg text.first {
     fill: #83ad78; }
   svg text.second {
@@ -46,11 +54,6 @@ svg {
     font-size: 9px;
     font-style: italic;
     fill: #fff; }
-  svg text.blip-name {
-    font-size: 12px;
-    font-weight: bold;
-    fill: #000;
-    display: none; }
   svg text.line-text {
     font-weight: bold;
     text-transform: uppercase;
