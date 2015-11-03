@@ -5,8 +5,15 @@ body {
   font: 11px 'Open Sans';
 }
 
+#radar {
+  text-align: center;
+  position: relative;
+  width: 2200px;
+}
+
 svg {
   padding: 20px;
+  margin: 30px 0;
 
   circle {
     &:nth-child(1) { stroke: none; fill: $grey-light; }
@@ -46,16 +53,6 @@ svg {
   }
 
   text {
-    &.first { fill: $green; }
-    &.second { fill: $blue; }
-    &.third { fill: $orange; }
-    &.fourth { fill: $violet; }
-
-    &.first, &.second, &.third, &.fourth {
-      font-size: 16px;
-      font-weight: bold;
-    }
-
     &.blip-text {
       font-size: 9px;
       font-style: italic;
@@ -70,27 +67,64 @@ svg {
   }
 }
 
-.radar-ref-table {
-  width: 1080px;
-  font-size: 16px;
-  line-height: 26px;
-  padding: 20px;
+div.quadrant-table {
+  font-size: 10px;
+  ul {
+    padding: 0;
+    
+    li {
+      list-style-type: none;
+      padding: 1px 4px;
+      border-radius: 4px;
 
-  tr:nth-child(odd) {
-    background: $grey-darkest;
+      &:hover {
+        color: white;
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+    }
   }
 
-  tr:nth-child(even) {
-    background: $grey;
+  &.first {
+    position: absolute;
+    right: 20px;
+    top: 0;
+    text-align: right;
+
+    .quadrant-name {
+      color: $green;
+    }
   }
 
-  td {
-    padding: 10px 15px;
+  &.second {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    text-align: left;
+
+    .quadrant-name {
+      color: $blue;
+    }
   }
 
-  tr.radar-ref-status-group {
-    font-size: 20px;
-    font-weight: bold;
-    background: $grey-lightest;
+  &.third {
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    text-align: left;
+
+    .quadrant-name {
+      color: $orange;
+    }
+  }
+  
+  &.fourth {
+    position: absolute;
+    bottom: 0;
+    right: 20px;
+    text-align: right;
+
+    .quadrant-name {
+      color: $violet;
+    }
   }
 }

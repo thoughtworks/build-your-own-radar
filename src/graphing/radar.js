@@ -98,6 +98,29 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
       .attr('class', cssClass);
   }
 
+  function addCycle(cycle, quadrant) {
+    var table = d3.select('#' + quadrant + '-quadrant').append('div').attr('class', 'cycle-table');
+    table.append('h3').text(cycle)
+    return table.append('ul');
+  }
+
+  function calculateBlipCoordinates(chance, blip, minRadius, maxRadius, adjustX, adjustY) {
+    var angleInRad = Math.PI * chance.integer({ min: 13, max: 85 }) / 180;
+    var radius = chance.floating({ min: minRadius + 25, max: maxRadius - 10 });
+
+    var x = center() + radius * Math.cos(angleInRad) * adjustX;
+    var y = center() + radius * Math.sin(angleInRad) * adjustY;
+
+    return [x, y];
+  }
+
+  function thereIsCollision(coordinates, allCoordinates) {
+    var radius = 22;
+    return allCoordinates.some(function (currentCoordinates) {
+      return (Math.abs(currentCoordinates[0] - coordinates[0]) < radius) && (Math.abs(currentCoordinates[1] - coordinates[1]) < radius)
+    });
+  }
+
   function plotBlips(cycles, quadrant, adjustX, adjustY, cssClass) {
     var blips;
     blips = quadrant.blips();
@@ -111,18 +134,22 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
         return blip.cycle() == cycle;
       });
 
+      var sumCycle = cycle.name().split('').reduce(function (p, c) { return p + c.charCodeAt(0); }, 0);
+      var sumQuadrant = quadrant.name().split('').reduce(function (p, c) { return p + c.charCodeAt(0); }, 0);
+      var chance = new Chance(sumCycle * cycle.name().length * sumQuadrant * quadrant.name().length);
+      console.log(chance.seed);
+
+      var cycleList = addCycle(cycle.name(), quadrant.name());
+      var allBlipCoordinatesInCycle = [];
+
       cycleBlips.forEach(function (blip) {
-        var angleInRad, radius;
-
-        var split = blip.name().split('');
-        var sum = split.reduce(function (p, c) { return p + c.charCodeAt(0); }, 0);
-        var chance = new Chance(sum * cycle.name().length * blip.number());
-
-        angleInRad = Math.PI * chance.integer({ min: 13, max: 85 }) / 180;
-        radius = chance.floating({ min: minRadius + 25, max: maxRadius - 10 });
-
-        var x = center() + radius * Math.cos(angleInRad) * adjustX;
-        var y = center() + radius * Math.sin(angleInRad) * adjustY;
+        var coordinates = calculateBlipCoordinates(chance, blip, minRadius, maxRadius, adjustX, adjustY);
+        while (thereIsCollision(coordinates, allBlipCoordinatesInCycle)) {
+          coordinates = calculateBlipCoordinates(chance, blip, minRadius, maxRadius, adjustX, adjustY);
+        }
+        allBlipCoordinatesInCycle.push(coordinates);
+        var x = coordinates[0];
+        var y = coordinates[1];
 
         var link = svg.append('svg:a').attr({'id':'blip-'+blip.number(), 'xlink:href':blip.number(), 'class': 'blip-link'});
 
@@ -132,41 +159,44 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
           circle(x, y, cssClass, link);
         }
 
-        link
-          .on('mouseover', function () {
-            d3.selectAll('path').attr('opacity',0.3);
-            link.selectAll('path').attr('opacity',1.0);
-            tip.show.apply(self,[blip.name(),link[0][0]]);
-          })
-          .on('mouseout', function () {
-            d3.selectAll('path').attr('opacity',1.0);
-            tip.hide();
-          });
+        var mouseOver = function () {
+          d3.selectAll('path').attr('opacity',0.3);
+          link.selectAll('path').attr('opacity',1.0);
+          tip.show.apply(self,[blip.name(),link[0][0]]);
+        }
+
+        var mouseOut = function () {
+          d3.selectAll('path').attr('opacity',1.0);
+          tip.hide();
+        }
+
+        link.on('mouseover', mouseOver).on('mouseout', mouseOut);
 
         link.append('text')
           .attr('x', x)
           .attr('y', y + 4)
           .attr('class', 'blip-text')
           .attr('text-anchor', 'middle')
-          .text(blip.number())
+          .text(blip.number());
+
+        cycleList.append('li').text(blip.number() + '. ' + blip.name() + " (" + blip.description() + ")")
+          .on('mouseover', mouseOver)
+          .on('mouseout', mouseOut);;
       });
     });
   };
 
   function plotQuadrantNames(quadrants) {
-    function plotName(name, anchor, x, y, cssClass) {
-      svg.append('text')
-        .attr('x', x)
-        .attr('y', y)
-        .attr('class', cssClass)
-        .attr('text-anchor', anchor)
-        .text(name);
+    function plotName(name, quadrant) {
+      d3.select('#radar').append('div')
+        .attr({id: name + '-quadrant', class: 'quadrant-table ' + quadrant})
+        .append('h1').attr('class', 'quadrant-name').text(name);
     }
 
-    plotName(quadrants.I.name(), 'end', size - 10, 10, 'first')
-    plotName(quadrants.II.name(), 'start', 10, 10, 'second')
-    plotName(quadrants.III.name(), 'start', 10, size - 10, 'third')
-    plotName(quadrants.IV.name(), 'end', size -10, size - 10, 'fourth')
+    plotName(quadrants.I.name(), 'first');
+    plotName(quadrants.II.name(), 'second');
+    plotName(quadrants.III.name(), 'third');
+    plotName(quadrants.IV.name(), 'fourth');
   }
 
   self.init = function (selector) {
@@ -193,10 +223,6 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
       plotBlips(cycles, quadrants.III, -1, 1, 'third');
       plotBlips(cycles, quadrants.IV, 1, 1, 'fourth');
     }
-
-    texts.forEach(function (fn) {
-      fn();
-    });
   };
 
   return self;
