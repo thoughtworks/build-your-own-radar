@@ -147,28 +147,15 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
         var x = coordinates[0];
         var y = coordinates[1];
 
-        var link = svg.append('svg:a').attr({'id': 'blip-' + blip.number(), 'xlink:href': '#' + blip.number(), 'class': 'blip-link'}).call(tip);
+        var group = svg.append('g').attr('class', 'blip-link');
 
         if (blip.isNew()) {
-          triangle(x, y, cssClass, link);
+          triangle(x, y, cssClass, group);
         } else {
-          circle(x, y, cssClass, link);
+          circle(x, y, cssClass, group);
         }
 
-        var mouseOver = function () {
-          d3.selectAll('path').attr('opacity',0.3);
-          link.selectAll('path').attr('opacity',1.0);
-          tip.show(blip.name(), link.node());
-        }
-
-        var mouseOut = function () {
-          d3.selectAll('path').attr('opacity',1.0);
-          tip.hide(blip.name(), link.node());
-        }
-
-        link.on('mouseover', mouseOver).on('mouseout', mouseOut);
-
-        link.append('text')
+        group.append('text')
           .attr('x', x)
           .attr('y', y + 4)
           .attr('class', 'blip-text')
@@ -178,16 +165,34 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
         var blipListItem = cycleList.append('li');
         blipListItem.append('div')
           .attr('class', 'blip-list-item')
-          .text(blip.number() + '. ' + blip.name() + ". - " + blip.topic())
-          .on('mouseover', mouseOver)
-          .on('mouseout', mouseOut)
+          .text(blip.number() + '. ' + blip.name() + ". - " + blip.topic());
+          
         var blipItemDescription = blipListItem.append('div')
           .attr('class', 'blip-item-description')
           .text(blip.description());
 
-        blipListItem.on('click', function (element) {
+        var mouseOver = function () {
+          d3.selectAll('path').attr('opacity',0.3);
+          group.selectAll('path').attr('opacity',1.0);
+          blipListItem.selectAll('.blip-list-item').classed('highlight', true);
+          tip.show(blip.name(), group.node());
+        }
+
+        var mouseOut = function () {
+          d3.selectAll('path').attr('opacity',1.0);
+          blipListItem.selectAll('.blip-list-item').classed('highlight', false);
+          tip.hide().style({left: 0, top: 0});
+        }
+
+        blipListItem.on('mouseover', mouseOver).on('mouseout', mouseOut);
+        group.on('mouseover', mouseOver).on('mouseout', mouseOut);
+
+        var clickBlip = function () {
           blipItemDescription.classed("expanded", !blipItemDescription.classed("expanded"));
-        });
+        };
+
+        group.on('click', clickBlip);
+        blipListItem.on('click', clickBlip);
       });
     });
   };
@@ -206,7 +211,7 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
   }
 
   self.init = function (selector) {
-    svg = d3.select(selector || 'body').append("svg");
+    svg = d3.select(selector || 'body').append("svg").call(tip);
     return self;
   };
 
