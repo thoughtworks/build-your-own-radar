@@ -69,17 +69,37 @@ svg {
 
 div.quadrant-table {
   font-size: 10px;
+  width: 500px;
+
   ul {
     padding: 0;
     
     li {
       list-style-type: none;
-      padding: 1px 4px;
-      border-radius: 4px;
 
-      &:hover {
-        color: white;
-        background-color: rgba(0, 0, 0, 0.8);
+      .blip-list-item {
+        padding: 1px 4px;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &:hover {
+          color: white;
+          background-color: rgba(0, 0, 0, 0.8);
+        }
+      }
+
+      .blip-item-description {
+        max-height: 0;
+        overflow: hidden;
+        width: 300px;
+        padding: 0;
+        color: rgba(0, 0, 0, 0.5);
+        margin: 0 auto;
+
+        transition: max-height 0.5s ease;
+        &.expanded {
+          max-height: 200px;
+        }
       }
     }
   }

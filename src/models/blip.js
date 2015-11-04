@@ -1,4 +1,4 @@
-tr.models.Blip = function (name, cycle, isNew, description) {
+tr.models.Blip = function (name, cycle, isNew, topic, description) {
   var self, number;
 
   self = {};
@@ -6,6 +6,10 @@ tr.models.Blip = function (name, cycle, isNew, description) {
 
   self.name = function () {
     return name;
+  };
+
+  self.topic = function () {
+    return topic || '';
   };
 
   self.description = function () {

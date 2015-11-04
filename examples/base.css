@@ -1,4 +1,5 @@
 .d3-tip {
+  white-space: nowrap;
   line-height: 1;
   font-size: 12px;
   display: none;
@@ -98,16 +99,29 @@ svg {
     fill: #000; }
 
 div.quadrant-table {
-  font-size: 10px; }
+  font-size: 10px;
+  width: 500px; }
   div.quadrant-table ul {
     padding: 0; }
     div.quadrant-table ul li {
-      list-style-type: none;
-      padding: 1px 4px;
-      border-radius: 4px; }
-      div.quadrant-table ul li:hover {
-        color: white;
-        background-color: rgba(0, 0, 0, 0.8); }
+      list-style-type: none; }
+      div.quadrant-table ul li .blip-list-item {
+        padding: 1px 4px;
+        border-radius: 4px;
+        cursor: pointer; }
+        div.quadrant-table ul li .blip-list-item:hover {
+          color: white;
+          background-color: rgba(0, 0, 0, 0.8); }
+      div.quadrant-table ul li .blip-item-description {
+        max-height: 0;
+        overflow: hidden;
+        width: 300px;
+        padding: 0;
+        color: rgba(0, 0, 0, 0.5);
+        margin: 0 auto;
+        transition: max-height 0.5s ease; }
+        div.quadrant-table ul li .blip-item-description.expanded {
+          max-height: 200px; }
   div.quadrant-table.first {
     position: absolute;
     right: 20px;

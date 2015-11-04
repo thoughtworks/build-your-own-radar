@@ -34,7 +34,6 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
   };
 
   function getRadius(cycles, i) {
-    var sequence = fib.sequence(cycles.length);
     var total = fib.sum(cycles.length);
     var sum = fib.sum(i);
 
@@ -42,8 +41,6 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
   }
 
   function plotCircles(cycles) {
-    var increment;
-
     cycles.forEach(function (cycle, i) {
       svg.append('circle')
         .attr('cx', center())
@@ -136,8 +133,7 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
 
       var sumCycle = cycle.name().split('').reduce(function (p, c) { return p + c.charCodeAt(0); }, 0);
       var sumQuadrant = quadrant.name().split('').reduce(function (p, c) { return p + c.charCodeAt(0); }, 0);
-      var chance = new Chance(sumCycle * cycle.name().length * sumQuadrant * quadrant.name().length);
-      console.log(chance.seed);
+      var chance = new Chance(Math.PI * sumCycle * cycle.name().length * sumQuadrant * quadrant.name().length);
 
       var cycleList = addCycle(cycle.name(), quadrant.name());
       var allBlipCoordinatesInCycle = [];
@@ -151,7 +147,7 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
         var x = coordinates[0];
         var y = coordinates[1];
 
-        var link = svg.append('svg:a').attr({'id':'blip-'+blip.number(), 'xlink:href':blip.number(), 'class': 'blip-link'});
+        var link = svg.append('svg:a').attr({'id': 'blip-' + blip.number(), 'xlink:href': '#' + blip.number(), 'class': 'blip-link'}).call(tip);
 
         if (blip.isNew()) {
           triangle(x, y, cssClass, link);
@@ -162,12 +158,12 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
         var mouseOver = function () {
           d3.selectAll('path').attr('opacity',0.3);
           link.selectAll('path').attr('opacity',1.0);
-          tip.show.apply(self,[blip.name(),link[0][0]]);
+          tip.show(blip.name(), link.node());
         }
 
         var mouseOut = function () {
           d3.selectAll('path').attr('opacity',1.0);
-          tip.hide();
+          tip.hide(blip.name(), link.node());
         }
 
         link.on('mouseover', mouseOver).on('mouseout', mouseOut);
@@ -179,9 +175,19 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
           .attr('text-anchor', 'middle')
           .text(blip.number());
 
-        cycleList.append('li').text(blip.number() + '. ' + blip.name() + " (" + blip.description() + ")")
+        var blipListItem = cycleList.append('li');
+        blipListItem.append('div')
+          .attr('class', 'blip-list-item')
+          .text(blip.number() + '. ' + blip.name() + ". - " + blip.topic())
           .on('mouseover', mouseOver)
-          .on('mouseout', mouseOut);;
+          .on('mouseout', mouseOut)
+        var blipItemDescription = blipListItem.append('div')
+          .attr('class', 'blip-item-description')
+          .text(blip.description());
+
+        blipListItem.on('click', function (element) {
+          blipItemDescription.classed("expanded", !blipItemDescription.classed("expanded"));
+        });
       });
     });
   };
@@ -200,7 +206,7 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
   }
 
   self.init = function (selector) {
-    svg = d3.select(selector || 'body').append("svg").call(tip);
+    svg = d3.select(selector || 'body').append("svg");
     return self;
   };
 
