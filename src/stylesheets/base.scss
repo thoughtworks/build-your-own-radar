@@ -10,18 +10,18 @@ body {
 #radar {
   text-align: center;
   position: relative;
-  width: 2200px;
+  width: 100%;
 }
 
 svg {
-  padding: 20px;
-  margin: 30px 0;
+  padding: 10px;
+  margin: 70px 0 0 0;
 
-  circle {
-    &:nth-child(1) { stroke: none; fill: $grey-light; }
-    &:nth-child(2) { stroke: none; fill: $grey; }
-    &:nth-child(3) { stroke: none; fill: $grey-dark; }
-    &:nth-child(4) { stroke: none; fill: $grey-darkest; }
+  path {
+    &.cycle-arc-3 { stroke: none; fill: $grey-light; }
+    &.cycle-arc-2 { stroke: none; fill: $grey; }
+    &.cycle-arc-1 { stroke: none; fill: $grey-dark; }
+    &.cycle-arc-0 { stroke: none; fill: $grey-darkest; }
   }
 
   .blip-link {
@@ -40,18 +40,8 @@ svg {
     stroke: $grey-alpha-03;
   }
 
-  foreignobject {
-    &.blip-name {
-      display: none;
-      
-      div {
-        font-size: 12px;
-        width: 300px;
-        background: white;
-        opacity: 0.7;
-        padding: 4px;
-      }
-    }
+  g.quadrant-group {
+    transition: opacity 1s ease;
   }
 
   text {
@@ -71,7 +61,113 @@ svg {
 
 div.quadrant-table {
   font-size: 10px;
-  width: 500px;
+  transition: all 1s ease;
+  position: absolute;
+
+  .quadrant-name {
+    cursor: pointer;
+  }
+
+  .cycle-table {
+    overflow: hidden;
+    max-height: 0;
+    max-width: 0;
+    transition: max-height 0.5s ease 1s;
+  }
+
+  &.first {
+    text-align: left;
+    right: 30%;
+    left: 50%;
+
+    .quadrant-name {
+      padding-left: 10px;
+      margin-left: -1px;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+      border-left: 2px solid rgba(0, 0, 0, 0.3);
+      color: $green;
+    }
+  }
+
+  &.second {
+    text-align: right;
+    right: 50%;
+    left: 30%;
+
+    .quadrant-name {
+      padding-right: 10px;
+      margin-right: -1px;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+      border-right: 2px solid rgba(0, 0, 0, 0.3);
+      color: $blue;
+    }
+  }
+
+  &.third {
+    top: 2.7em;
+    right: 50%;
+    left: 30%;
+    text-align: right;
+
+    .quadrant-name {
+      padding-right: 10px;
+      margin-right: -1px;
+      border-top: 2px solid rgba(0, 0, 0, 0.3);
+      border-right: 2px solid rgba(0, 0, 0, 0.3);
+      color: $orange;
+    }
+  }
+  
+  &.fourth {
+    top: 2.7em;
+    right: 30%;
+    left: 50%;
+    text-align: left;
+
+    .quadrant-name {
+      padding-left: 10px;
+      margin-left: -1px;
+      border-top: 2px solid rgba(0, 0, 0, 0.3);
+      border-left: 2px solid rgba(0, 0, 0, 0.3);
+      color: $violet;
+    }
+  }
+
+  &.selected {
+    .cycle-table {
+      max-height: 1000px;
+      max-width: 1000px;
+    }
+
+    .quadrant-name {
+      border-left: none;
+      border-right: none;
+    }
+
+    &.first {
+      text-align: right;
+      right: 0;
+      left:70%;
+    }
+
+    &.second {
+      text-align: left;
+      left: 0;
+      right: 70%;
+    }
+
+    &.third {
+      text-align: left;
+      right: 70%;
+      left: 0;
+    }
+
+    &.fourth {
+      text-align: right;
+      right: 0;
+      left:70%;
+    }
+  }
 
   ul {
     padding: 0;
@@ -103,50 +199,6 @@ div.quadrant-table {
           max-height: 200px;
         }
       }
-    }
-  }
-
-  &.first {
-    position: absolute;
-    right: 20px;
-    top: 0;
-    text-align: right;
-
-    .quadrant-name {
-      color: $green;
-    }
-  }
-
-  &.second {
-    position: absolute;
-    top: 0;
-    left: 20px;
-    text-align: left;
-
-    .quadrant-name {
-      color: $blue;
-    }
-  }
-
-  &.third {
-    position: absolute;
-    bottom: 0;
-    left: 20px;
-    text-align: left;
-
-    .quadrant-name {
-      color: $orange;
-    }
-  }
-  
-  &.fourth {
-    position: absolute;
-    bottom: 0;
-    right: 20px;
-    text-align: right;
-
-    .quadrant-name {
-      color: $violet;
     }
   }
 }

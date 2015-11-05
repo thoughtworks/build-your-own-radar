@@ -47,7 +47,7 @@
     });
 
 
-    new tr.graphing.Radar(window.innerHeight < 600 ? 600 : window.innerHeight, radar, true).init('#radar').plot();
+    new tr.graphing.Radar((window.innerHeight - 120) < 600 ? 600 : window.innerHeight - 120, radar, true).init('#radar').plot();
   }
   
 </script>

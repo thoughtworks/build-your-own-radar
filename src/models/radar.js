@@ -4,10 +4,10 @@ tr.models.Radar = function() {
   blipNumber = 0;
   addingQuadrant = 0;
   quadrants = [
-    {order: 'first', x: 1, y: -1},
-    {order: 'second', x: -1, y: -1},
-    {order: 'third', x: -1, y: 1},
-    {order: 'fourth', x: 1, y: 1}
+    {order: 'first', startAngle: 90},
+    {order: 'second', startAngle: 0},
+    {order: 'third', startAngle: -90},
+    {order: 'fourth', startAngle: -180}
   ];
   self = {};
 
@@ -23,26 +23,6 @@ tr.models.Radar = function() {
     addingQuadrant++;
   }
 
-  self.setFirstQuadrant = function (quadrant) {
-    quadrants.I = quadrant;
-    setNumbers(quadrants.I.blips());
-  };
-
-  self.setSecondQuadrant = function (quadrant) {
-    quadrants.II = quadrant;
-    setNumbers(quadrants.II.blips());
-  };
-
-  self.setThirdQuadrant = function (quadrant) {
-    quadrants.III = quadrant;
-    setNumbers(quadrants.III.blips());
-  };
-
-  self.setFourthQuadrant = function (quadrant) {
-    quadrants.IV = quadrant;
-    setNumbers(quadrants.IV.blips());
-  };
-
   function allQuadrants() {
     return _.pluck(quadrants, 'quadrant');
   }
@@ -51,10 +31,6 @@ tr.models.Radar = function() {
     return allQuadrants().reduce(function (blips, quadrant) {
       return blips.concat(quadrant.blips());
     }, []);
-  }
-
-  self.hasQuadrants = function () {
-    return !_.isEmpty(quadrants);
   }
 
   self.cycles = function () {

@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700);
 .d3-tip {
   white-space: nowrap;
   line-height: 1;
@@ -47,21 +48,21 @@ body {
 #radar {
   text-align: center;
   position: relative;
-  width: 2200px; }
+  width: 100%; }
 
 svg {
-  padding: 20px;
-  margin: 30px 0; }
-  svg circle:nth-child(1) {
+  padding: 10px;
+  margin: 70px 0 0 0; }
+  svg path.cycle-arc-3 {
     stroke: none;
     fill: #eaeaea; }
-  svg circle:nth-child(2) {
+  svg path.cycle-arc-2 {
     stroke: none;
     fill: #dadada; }
-  svg circle:nth-child(3) {
+  svg path.cycle-arc-1 {
     stroke: none;
     fill: #cacaca; }
-  svg circle:nth-child(4) {
+  svg path.cycle-arc-0 {
     stroke: none;
     fill: #bababa; }
   svg .blip-link {
@@ -81,14 +82,8 @@ svg {
     stroke: none; }
   svg line {
     stroke: rgba(255, 255, 255, 0.3); }
-  svg foreignobject.blip-name {
-    display: none; }
-    svg foreignobject.blip-name div {
-      font-size: 12px;
-      width: 300px;
-      background: white;
-      opacity: 0.7;
-      padding: 4px; }
+  svg g.quadrant-group {
+    transition: opacity 1s ease; }
   svg text.blip-text {
     font-size: 9px;
     font-style: italic;
@@ -100,7 +95,79 @@ svg {
 
 div.quadrant-table {
   font-size: 10px;
-  width: 500px; }
+  transition: all 1s ease;
+  position: absolute; }
+  div.quadrant-table .quadrant-name {
+    cursor: pointer; }
+  div.quadrant-table .cycle-table {
+    overflow: hidden;
+    max-height: 0;
+    max-width: 0;
+    transition: max-height 0.5s ease 1s; }
+  div.quadrant-table.first {
+    text-align: left;
+    right: 30%;
+    left: 50%; }
+    div.quadrant-table.first .quadrant-name {
+      padding-left: 10px;
+      margin-left: -1px;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+      border-left: 2px solid rgba(0, 0, 0, 0.3);
+      color: #83ad78; }
+  div.quadrant-table.second {
+    text-align: right;
+    right: 50%;
+    left: 30%; }
+    div.quadrant-table.second .quadrant-name {
+      padding-right: 10px;
+      margin-right: -1px;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+      border-right: 2px solid rgba(0, 0, 0, 0.3);
+      color: #3db5be; }
+  div.quadrant-table.third {
+    top: 2.7em;
+    right: 50%;
+    left: 30%;
+    text-align: right; }
+    div.quadrant-table.third .quadrant-name {
+      padding-right: 10px;
+      margin-right: -1px;
+      border-top: 2px solid rgba(0, 0, 0, 0.3);
+      border-right: 2px solid rgba(0, 0, 0, 0.3);
+      color: #e88744; }
+  div.quadrant-table.fourth {
+    top: 2.7em;
+    right: 30%;
+    left: 50%;
+    text-align: left; }
+    div.quadrant-table.fourth .quadrant-name {
+      padding-left: 10px;
+      margin-left: -1px;
+      border-top: 2px solid rgba(0, 0, 0, 0.3);
+      border-left: 2px solid rgba(0, 0, 0, 0.3);
+      color: #8d2145; }
+  div.quadrant-table.selected .cycle-table {
+    max-height: 1000px;
+    max-width: 1000px; }
+  div.quadrant-table.selected .quadrant-name {
+    border-left: none;
+    border-right: none; }
+  div.quadrant-table.selected.first {
+    text-align: right;
+    right: 0;
+    left: 70%; }
+  div.quadrant-table.selected.second {
+    text-align: left;
+    left: 0;
+    right: 70%; }
+  div.quadrant-table.selected.third {
+    text-align: left;
+    right: 70%;
+    left: 0; }
+  div.quadrant-table.selected.fourth {
+    text-align: right;
+    right: 0;
+    left: 70%; }
   div.quadrant-table ul {
     padding: 0; }
     div.quadrant-table ul li {
@@ -122,31 +189,3 @@ div.quadrant-table {
         transition: max-height 0.5s ease; }
         div.quadrant-table ul li .blip-item-description.expanded {
           max-height: 200px; }
-  div.quadrant-table.first {
-    position: absolute;
-    right: 20px;
-    top: 0;
-    text-align: right; }
-    div.quadrant-table.first .quadrant-name {
-      color: #83ad78; }
-  div.quadrant-table.second {
-    position: absolute;
-    top: 0;
-    left: 20px;
-    text-align: left; }
-    div.quadrant-table.second .quadrant-name {
-      color: #3db5be; }
-  div.quadrant-table.third {
-    position: absolute;
-    bottom: 0;
-    left: 20px;
-    text-align: left; }
-    div.quadrant-table.third .quadrant-name {
-      color: #e88744; }
-  div.quadrant-table.fourth {
-    position: absolute;
-    bottom: 0;
-    right: 20px;
-    text-align: right; }
-    div.quadrant-table.fourth .quadrant-name {
-      color: #8d2145; }
