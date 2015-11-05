@@ -3,125 +3,52 @@
 <head>
   <meta charset="utf-8">
   <title>Platform agility radar</title>
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700'rel='stylesheet'type='text/css'>
+  <script src="lodash.min.js"></script>
   <script src="chance.js"></script>
   <script src="d3.min.js"></script>
-  <script src="index.js"></script>
+  <script src="d3-tip.js"></script>
+  <script src="tabletop.js"></script>
   <script src="tech-radar.min.js"></script>
   <link href="base.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
   <div id="radar">
   </div>
-  <div id="ref-table"></div>
 </body>
 <script>
-  var initiation = new tr.models.Cycle('Initiation', 0);
-  var first = new tr.models.Cycle('First', 1);
-  var next = new tr.models.Cycle('Next', 2);
-  var later = new tr.models.Cycle('Later', 3);
+  window.onload = function() { init() };
 
-  var radar = new tr.models.Radar();
-  var practices = new tr.models.Quadrant('Practices');
-  var concepts = new tr.models.Quadrant('Concepts');
-  var process = new tr.models.Quadrant('Process');
-  var enterprise = new tr.models.Quadrant('Enterprise');
+  var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1O66vSs5bdtx7oS94fs2cVkWHviJaB4ekEdLK15s1_3k/pubhtml';
 
-  practices.add([
-    new tr.models.Blip('Continuous Integration', initiation, false, 'cd adoption', 'Everyone commits code to a centralised source that triggers automated builds. These builds will run automated tests and give fast feedback on the current state of the code.'),
-    new tr.models.Blip('Release on a regular schedule', first, false, 'cd adoption'),
-    new tr.models.Blip('Automated production deployment mechanism', next, false, 'cd adoption'),
-    new tr.models.Blip('Choose your own working process and working environment', next, false, 'team practices'),
-    new tr.models.Blip('TDD', first, false, 'dev practices'),
-    new tr.models.Blip('Test automation as part of the development process', first, false, 'dev practices/test automation'),
-    new tr.models.Blip('Exploratory testing', first, false, 'QA practices'),
-    new tr.models.Blip('Security testing is part of the daily work', next, false, 'Security'),
-    new tr.models.Blip('Only capture detailed requirements for the next most important pieces of work', initiation, false, 'BA practices'),
-    new tr.models.Blip('Requirements contain well defined acceptance criteria', initiation, false, 'BA practices'),
-    new tr.models.Blip("Requirements are a ‘brief’ for the team, not a contractual agreement", first, false, 'BA practices'),
-    new tr.models.Blip('Someone with a stock laptop can make their own build in one step', later, false, 'self sufficient around infra'),
-    new tr.models.Blip('Automatically provision the infrastructure', next, false, 'self sufficient around infra'),
-    new tr.models.Blip('Every build is a release candidate', later, false, 'cd adoption'),
-    new tr.models.Blip("Single path to production, via a single tool that takes handles the pipeline", next, false, 'cd adoption'),
-    new tr.models.Blip('Continoulsy test and deploy to your environments through an automated pipeline', first, false, 'cd adoption'),
-    new tr.models.Blip('Use the best tools available', later, false, 'cd adoption'),
-    new tr.models.Blip('All roles (BA/UX/DEV/TEST) are involved in the requirement analysis', next, false, 'team practices'),
-    new tr.models.Blip('Immediate validation from users', first, false, 'team practices'),
-    new tr.models.Blip('Rquirements are designed so that they always provide business value', next, false, 'BA practices'),
-    new tr.models.Blip("Design on paper first, then built", first, false, 'BA practices'),
-    new tr.models.Blip('Improve your product idea as they develop and learn', first, false, 'BA practices'),
-    new tr.models.Blip('Prefer smaller contained applications over monolithic ones', later, false, 'Integration of APIs'),
-    new tr.models.Blip('Test and validate your ideas before implementing', first, false, 'team practices'),
-    new tr.models.Blip('Version control', initiation, false, 'dev practices'),
-    new tr.models.Blip('Trunk based developement', later, false, 'dev practices'),
-    new tr.models.Blip('Effective unit tests', initiation, false, 'dev practices'),
-    new tr.models.Blip('Pairing or any form of knowledge sharing', first, false, 'dev practices'),
-    new tr.models.Blip('Collective ownership of code', later, false, 'dev practices'),
-    new tr.models.Blip('Code reviews', first, false, 'dev practices')
-  ]);
+  function init() {
+    Tabletop.init( { key: public_spreadsheet_url,
+                     callback: createRadar,
+                     simpleSheet: true } )
+  }
 
-  concepts.add([
-    new tr.models.Blip("Delivering value is more important than delivering to specification", initiation, false, 'Basic Understanding of Agile'),
-    new tr.models.Blip("Deliver less features rather than delay the launch", initiation, false, 'Basic Understanding of Agile'),
-    new tr.models.Blip("It's to easy to distinguish between valuable features and ‘nice to haves’", initiation, false, 'Basic Understanding of Agile'),
-    new tr.models.Blip("Adapt the project based on your decisions rather than sticking to the initial plan", first, false, 'Basic Understanding of Agile'),
-    new tr.models.Blip("Solution quality is improved by delivering 'digestible' pieces", first, false, 'Basic Understanding of Agile'),
-    new tr.models.Blip("Easy access to relevant experts", first, false, 'Business Owner per Platform'),
-    new tr.models.Blip("Clearly prioritise requirements from multiple stakeholders", next, false, 'Business Owner per Platform'),
-    new tr.models.Blip("Make decisions and provide information when they are required (Just In Time)", next, false, 'Business Owner per Platform'),
-    new tr.models.Blip("All required skills and knowledge are part of your team", next, false, 'In depth understanding of agile'),
-    new tr.models.Blip("Change your processess and tools to better serve the agile principles", later, false, 'In depth understanding of agile'),
-    new tr.models.Blip("Constantly question and update your goals and objectives", later, false, 'In depth understanding of agile'),
-    new tr.models.Blip("Easily adapt to change in project context and external environment changes", later, false, 'Manage Risk'),
-    new tr.models.Blip("Have a good understanding of and control over all areas related to this project", later, false, 'Manage Risk')
-  ]);
+  function createRadar(blips) {
+    var cycles = _.pluck(_.uniq(blips, 'cycle'), 'cycle');
+    var cycleMap = {};
+    _.each(cycles, function (cycleName, i) {
+      cycleMap[cycleName] = new tr.models.Cycle(cycleName, i);
+    });
 
-  process.add([
-    new tr.models.Blip("Cross functional teams that are co-located", initiation, false, 'Team Practices'),
-    new tr.models.Blip("Open work space that supports collaboration", initiation, false, 'Team Practices'),
-    new tr.models.Blip("Regular retrospectives", first, false, 'Team Practices'),
-    new tr.models.Blip("Communication tools set up and frequently used for a distributed team", first, false, 'Team Practices'),
-    new tr.models.Blip("Act on the items from retrospectives", next, false, 'team practices'),
-    new tr.models.Blip("Visual systems in place to track and plan your team's work", initiation, false, 'kanban'),
-    new tr.models.Blip("Stand ups", initiation, false, 'Kanban'),
-    new tr.models.Blip("Work on one project at a time", initiation, false, 'Kanban'),
-    new tr.models.Blip("Single backlog of work", initiation, false, 'Kanban'),
-    new tr.models.Blip("The right people available at stand up to talk about the cards on the wall", first, false, 'Kanban'),
-    new tr.models.Blip("Cater for last minute design or requirement requests", first, false, 'Kanban'),
-    new tr.models.Blip("Everyone' is involved in team decision making", initiation, false, 'Lean Governance'),
-    new tr.models.Blip("Plan only the high level requirements during initial project planning", initiation, false, 'Lean Governance'),
-    new tr.models.Blip("Local decision making authority within your team", first, false, 'Lean Governance'),
-    new tr.models.Blip("Simple process to make changes", first, false, 'Lean Governance'),
-    new tr.models.Blip("Clarify requirements with stakeholders directly on a regular schedule", first, false, 'Comms to Business'),
-    new tr.models.Blip("Direct and regular access to your product owner", initiation, false, 'Business Owner per Platform'),
-    new tr.models.Blip("Product owner co-located your team", later, false, 'Business Owner per Platform'),
-    new tr.models.Blip("Your project team provides requirements mostly on their own", first, false, 'Business Owner per Platform'),
-    new tr.models.Blip("Manage your own project budget", next, false, 'Finance'),
-    new tr.models.Blip("Cater for production support as part of your daily process", first, false, 'Prod support'),
-    new tr.models.Blip("Measure success by focusing on Value (rather than delivering against a plan)", next, false, 'Comms to Business'),
-    new tr.models.Blip("Iterative process improvements", next, false, 'Kanban'),
-    new tr.models.Blip("Make changes without requiring formal approvals from people outside of your team", next, false, 'Lean Governance'),
-    new tr.models.Blip("Get constant feedback from your business stakeholders", next, false, 'Lean Governance')
-  ]);
+    var quadrants = {};
+    _.each(blips, function (blip) {
+      if (!quadrants[blip.quadrant]) {
+        quadrants[blip.quadrant] = new tr.models.Quadrant(_.capitalize(blip.quadrant));
+      }
+      quadrants[blip.quadrant].add(new tr.models.Blip(blip.Name, cycleMap[blip.cycle], false, blip.topic, blip.description))
+    });
 
-  enterprise.add([
-    new tr.models.Blip("Showcase the successes so that the organisation can learn", first, false, 'UDP evolve'),
-    new tr.models.Blip("Give teams decision making authority", initiation, false, 'People capability + partners'),
-    new tr.models.Blip("Invest in capability development", initiation, false, 'People capability + partners'),
-    new tr.models.Blip("Actively give people time off to learn and improve", first, false, 'People capability + partners'),
-    new tr.models.Blip("Crosspolinate across teams so that experiences can be shared", next, false, 'UDP evolve'),
-    new tr.models.Blip("Accept project failures", next, false, 'UDP evolve/decom decisions'),
-    new tr.models.Blip("Transparency and visibility across the organization", later, false, 'Commercial uplift'),
-    new tr.models.Blip("Clear understanding of the work that is being done", next, false, 'Shadow IT'),
-    new tr.models.Blip("Activily decide to retire/replace old technology", later, false, 'decom decisions')
-  ]);
+    var radar = new tr.models.Radar();
+    _.each(quadrants, function (quadrant) {
+      radar.addQuadrant(quadrant)
+    });
 
-  radar.setFirstQuadrant(practices);
-  radar.setSecondQuadrant(concepts);
-  radar.setThirdQuadrant(process);
-  radar.setFourthQuadrant(enterprise);
 
-  new tr.graphing.Radar(1080, radar, true).init('#radar').plot();
-  // new tr.graphing.RefTable(radar).init('#ref-table').render();
+    new tr.graphing.Radar(window.innerHeight < 600 ? 600 : window.innerHeight, radar, true).init('#radar').plot();
+  }
+  
 </script>
 </html>

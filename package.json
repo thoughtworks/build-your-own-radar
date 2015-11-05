@@ -9,7 +9,7 @@
     "build:clean": "rm -rf ./dist/*",
     "build:sass": "node-sass -r ./src/stylesheets/base.scss ./dist/base.css",
     "build:uglify": "uglifyjs -c -m  -o ./dist/tech-radar.min.js --source-map ./dist/tech-radar.min.js.map --source-map-url ./tech-radar.min.js.map -- ./src/namespaces.js ./src/**/*.js",
-    "build:deps": "cp ./bower_components/**/{chance,d3.min,index}*.js ./dist/",
+    "build:deps": "cp ./bower_components/**/{chance,d3.min,lodash.min}*.js ./dist/; cp ./bower_components/d3-tip/index.js ./dist/d3-tip.js; cp ./bower_components/tabletop/src/tabletop.js ./dist/tabletop.js;",
     "build": "npm run build:clean && npm run build:sass && npm run build:uglify && npm run build:deps",
     "examples:clean": "rm -rf ./examples/*{.js,.css,.map}",
     "examples:deps": "cp -r ./dist/*  ./examples/",

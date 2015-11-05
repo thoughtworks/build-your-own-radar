@@ -191,7 +191,10 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
           blipItemDescription.classed("expanded", !blipItemDescription.classed("expanded"));
         };
 
-        group.on('click', clickBlip);
+        group.on('click', function () {
+          group.append('span').style('color', 'green').text("&#x2702;");
+        });
+
         blipListItem.on('click', clickBlip);
       });
     });
@@ -204,10 +207,9 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
         .append('h1').attr('class', 'quadrant-name').text(name);
     }
 
-    plotName(quadrants.I.name(), 'first');
-    plotName(quadrants.II.name(), 'second');
-    plotName(quadrants.III.name(), 'third');
-    plotName(quadrants.IV.name(), 'fourth');
+    _.each(quadrants, function (quadrant) {
+      plotName(quadrant.quadrant.name(), quadrant.order);
+    });
   }
 
   self.init = function (selector) {
@@ -229,10 +231,9 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
 
     if (radar.hasQuadrants()) {
       plotQuadrantNames(quadrants);
-      plotBlips(cycles, quadrants.I, 1, -1, 'first');
-      plotBlips(cycles, quadrants.II, -1, -1, 'second');
-      plotBlips(cycles, quadrants.III, -1, 1, 'third');
-      plotBlips(cycles, quadrants.IV, 1, 1, 'fourth');
+      _.each(quadrants, function (quadrant) {
+        plotBlips(cycles, quadrant.quadrant, quadrant.x, quadrant.y, quadrant.order);
+      });
     }
   };
 

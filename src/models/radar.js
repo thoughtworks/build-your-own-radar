@@ -1,14 +1,26 @@
 tr.models.Radar = function() {
-  var self, quadrants, blipNumber;
+  var self, quadrants, blipNumber, addingQuadrant;
 
   blipNumber = 0;
-  quadrants = { I: null, II: null, III: null, IV: null };
+  addingQuadrant = 0;
+  quadrants = [
+    {order: 'first', x: 1, y: -1},
+    {order: 'second', x: -1, y: -1},
+    {order: 'third', x: -1, y: 1},
+    {order: 'fourth', x: 1, y: 1}
+  ];
   self = {};
 
   function setNumbers(blips) {
     blips.forEach(function (blip) {
       blip.setNumber(++blipNumber);
     });
+  }
+
+  self.addQuadrant = function (quadrant) {
+    quadrants[addingQuadrant].quadrant = quadrant;
+    setNumbers(quadrant.blips());
+    addingQuadrant++;
   }
 
   self.setFirstQuadrant = function (quadrant) {
@@ -32,15 +44,7 @@ tr.models.Radar = function() {
   };
 
   function allQuadrants() {
-    var all = [];
-
-    for (var p in quadrants) {
-      if (quadrants.hasOwnProperty(p) && quadrants[p] != null) {
-        all.push(quadrants[p]);
-      }
-    }
-
-    return all;
+    return _.pluck(quadrants, 'quadrant');
   }
 
   function allBlips() {
@@ -50,26 +54,17 @@ tr.models.Radar = function() {
   }
 
   self.hasQuadrants = function () {
-    return !!quadrants.I || !!quadrants.II || !!quadrants.III || !!quadrants.IV;
+    return !_.isEmpty(quadrants);
   }
 
   self.cycles = function () {
-    var cycleHash, cycleArray;
-
-    cycleArray = [];
-    cycleHash = {};
-
-    allBlips().forEach(function (blip) {
-      cycleHash[blip.cycle().name()] = blip.cycle();
+    return _.sortBy(_.map(_.uniq(allBlips(), function (blip) {
+      return blip.cycle().name();
+    }), function (blip) {
+      return blip.cycle();
+    }), function (cycle) {
+      return cycle.order();
     });
-
-    for (var p in cycleHash) {
-      if (cycleHash.hasOwnProperty(p)) {
-        cycleArray.push(cycleHash[p]);
-      }
-    }
-
-    return cycleArray.slice(0).sort(function (a, b) { return a.order() - b.order(); });
   };
 
   self.quadrants = function () {
