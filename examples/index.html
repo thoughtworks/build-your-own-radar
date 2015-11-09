@@ -1,54 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Platform agility radar</title>
-  <script src="lodash.min.js"></script>
-  <script src="chance.js"></script>
-  <script src="d3.min.js"></script>
-  <script src="d3-tip.js"></script>
-  <script src="tabletop.js"></script>
-  <script src="tech-radar.min.js"></script>
-  <link href="base.css" rel="stylesheet" type="text/css" />
-</head>
-<body>
-  <div id="radar">
-  </div>
-</body>
-<script>
-  window.onload = function() { init() };
-
-  var public_spreadsheet_url = 'https://docs.google.com/spreadsheets/d/1O66vSs5bdtx7oS94fs2cVkWHviJaB4ekEdLK15s1_3k/pubhtml';
-
-  function init() {
-    Tabletop.init( { key: public_spreadsheet_url,
-                     callback: createRadar,
-                     simpleSheet: true } )
-  }
-
-  function createRadar(blips) {
-    var cycles = _.pluck(_.uniq(blips, 'cycle'), 'cycle');
-    var cycleMap = {};
-    _.each(cycles, function (cycleName, i) {
-      cycleMap[cycleName] = new tr.models.Cycle(cycleName, i);
-    });
-
-    var quadrants = {};
-    _.each(blips, function (blip) {
-      if (!quadrants[blip.quadrant]) {
-        quadrants[blip.quadrant] = new tr.models.Quadrant(_.capitalize(blip.quadrant));
-      }
-      quadrants[blip.quadrant].add(new tr.models.Blip(blip.Name, cycleMap[blip.cycle], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description))
-    });
-
-    var radar = new tr.models.Radar();
-    _.each(quadrants, function (quadrant) {
-      radar.addQuadrant(quadrant)
-    });
-
-
-    new tr.graphing.Radar((window.innerHeight - 133) < 600 ? 600 : window.innerHeight - 133, radar, true).init('#radar').plot();
-  }
-  
-</script>
+  <head>
+    <meta charset="utf-8">
+    <title>Platform agility radar</title>
+    <script src="lodash.min.js"></script>
+    <script src="chance.js"></script>
+    <script src="d3.min.js"></script>
+    <script src="d3-tip.js"></script>
+    <script src="tabletop.js"></script>
+    <script src="tech-radar.min.js"></script>
+    <link href="base.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+  </body>
+  <script>
+    tr.factory.Radar().build();
+  </script>
 </html>

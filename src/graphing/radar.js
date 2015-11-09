@@ -1,4 +1,4 @@
-tr.graphing.Radar = function (size, radar, toolTipDescription) {
+tr.graphing.Radar = function (size, radar) {
   var self, fib, svg, radarElement, blipWidth = 22;
   
   var tip = d3.tip().attr('class','d3-tip').html(function (text) {
@@ -275,8 +275,8 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
     });
   }
 
-  self.init = function (selector) {
-    radarElement = d3.select(selector || 'body');
+  self.init = function () {
+    radarElement = d3.select('body').append('div').attr('id', 'radar');
     return self;
   };
 

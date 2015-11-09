@@ -58,6 +58,37 @@
   right: 18px;
   text-align: right; }
 
+.input-sheet {
+  width: 50%;
+  margin: 100px auto; }
+  .input-sheet label, .input-sheet p {
+    font-weight: 100;
+    color: #333333; }
+  .input-sheet label {
+    font-size: 16px; }
+  .input-sheet input[type="text"] {
+    display: block;
+    margin: 0;
+    width: 100%;
+    font-size: 18px;
+    appearance: none;
+    box-shadow: none;
+    border-radius: none;
+    padding: 10px;
+    border: solid 1px #cacaca;
+    transition: box-shadow 0.3s, border 0.3s; }
+    .input-sheet input[type="text"]:focus, .input-sheet input[type="text"].focus {
+      outline: none;
+      border: solid 1px #dadada;
+      box-shadow: 0 0 5px 1px #cacaca; }
+
+.loading {
+  text-align: center;
+  font-weight: 100;
+  font-size: 20px;
+  color: #333333;
+  margin: 100px auto; }
+
 body {
   font: 11px 'Open Sans';
   margin: 0; }

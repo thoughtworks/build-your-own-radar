@@ -1,0 +1,41 @@
+.input-sheet {
+  width: 50%;
+  margin: 100px auto;
+
+  label, p {
+    font-weight: 100;
+    color: $grey-text;
+  }
+
+  label {
+    font-size: 16px;
+  }
+  
+  input[type="text"] {
+    display: block;
+    margin: 0;
+    width: 100%;
+    font-size: 18px;
+    appearance: none;
+    box-shadow: none;
+    border-radius: none;
+    
+    padding: 10px;
+    border: solid 1px $grey-dark;
+    transition: box-shadow 0.3s, border 0.3s;
+
+    &:focus, &.focus {
+      outline: none;
+      border: solid 1px $grey;
+      box-shadow: 0 0 5px 1px $grey-dark;
+    }
+  }
+}
+
+.loading {
+  text-align: center;
+  font-weight: 100;
+  font-size: 20px;
+  color: $grey-text;
+  margin: 100px auto;
+}
