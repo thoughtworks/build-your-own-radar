@@ -1,8 +1,18 @@
 tr.graphing.Radar = function (size, radar, toolTipDescription) {
-  var self, fib, svg, radarElement;
+  var self, fib, svg, radarElement, blipWidth = 22;
   
   var tip = d3.tip().attr('class','d3-tip').html(function (text) {
     return text;
+  });
+  tip.direction(function (d) {
+    if (d3.select('.quadrant-table.selected').node()) {
+      var selectedQuadrant = d3.select('.quadrant-table.selected');
+      if (selectedQuadrant.classed('first') || selectedQuadrant.classed('fourth'))
+        return 'ne';
+      else
+        return 'nw';
+    }
+    return 'n';
   });
 
   fib = new tr.util.Fib();
@@ -12,11 +22,11 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
     return svg;
   }
 
-  function center () {
+  function center() {
     return Math.round(size/2);
   }
 
-  function toRadian (angleInDegrees) {
+  function toRadian(angleInDegrees) {
     return Math.PI * angleInDegrees / 180;
   }
 
@@ -28,17 +38,13 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
     var endY = size * (1 - (Math.cos(toRadian(quadrant.startAngle - 90)) + 1)/2)
 
     quadrantGroup.append('line')
-      .attr('x1', center())
-      .attr('y1', startY)
-      .attr('x2', center())
-      .attr('y2', endY)
+      .attr('x1', center()).attr('x2', center())
+      .attr('y1', startY).attr('y2', endY)
       .attr('stroke-width', 14);
 
     quadrantGroup.append('line')
-      .attr('x1', startX)
-      .attr('y1', center())
-      .attr('x2', endX)
-      .attr('y2', center())
+      .attr('x1', startX).attr('y1', center())
+      .attr('x2', endX).attr('y2', center())
       .attr('stroke-width', 14);
   };
 
@@ -78,46 +84,34 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
         quadrantGroup.append('text')
           .attr('class', 'line-text')
           .attr('y', center() + 4)
-          .attr('x', center() + getRadius(cycles, i) - 10)
+          .attr('x', center() + getRadius(cycles, i) - blipWidth/2)
           .attr('text-anchor', 'end')
           .text(cycle.name());
       } else {
         quadrantGroup.append('text')
         .attr('class', 'line-text')
         .attr('y', center() + 4)
-        .attr('x', center() - getRadius(cycles, i) + 10)
+        .attr('x', center() - getRadius(cycles, i) + blipWidth/2)
         .text(cycle.name());
       }
     });
   };
 
-  function triangle(x, y, cssClass, group) {
-    var tsize, top, left, right, bottom, points;
-
-    tsize = 13
-    top = y - tsize;
-    left = (x - tsize + 1);
-    right = (x + tsize + 1);
-    bottom = (y + tsize - tsize / 2.5);
-
-    points = x + 1 + ',' + top + ' ' + left + ',' + bottom + ' ' + right + ',' + bottom;
-
-    return (group || svg).append('polygon')
-      .attr('points', points)
-      .attr('class', cssClass)
-      .attr('stroke-width', 1.5);
+  function triangle(x, y, order, group) {
+    return group.append('path').attr('d',"M412.201,311.406c0.021,0,0.042,0,0.063,0c0.067,0,0.135,0,0.201,0c4.052,0,6.106-0.051,8.168-0.102c2.053-0.051,4.115-0.102,8.176-0.102h0.103c6.976-0.183,10.227-5.306,6.306-11.53c-3.988-6.121-4.97-5.407-8.598-11.224c-1.631-3.008-3.872-4.577-6.179-4.577c-2.276,0-4.613,1.528-6.48,4.699c-3.578,6.077-3.26,6.014-7.306,11.723C402.598,306.067,405.426,311.406,412.201,311.406")
+      .attr('transform','scale('+(blipWidth/34)+') translate('+(-404+x*(34/blipWidth)-17)+', '+(-282+y*(34/blipWidth)-17)+')')
+      .attr('class', order);
   }
 
-  function circle(x, y, cssClass, group) {
-    var w = 22;
+  function circle(x, y, order, group) {
     return (group || svg).append('path')
       .attr('d',"M420.084,282.092c-1.073,0-2.16,0.103-3.243,0.313c-6.912,1.345-13.188,8.587-11.423,16.874c1.732,8.141,8.632,13.711,17.806,13.711c0.025,0,0.052,0,0.074-0.003c0.551-0.025,1.395-0.011,2.225-0.109c4.404-0.534,8.148-2.218,10.069-6.487c1.747-3.886,2.114-7.993,0.913-12.118C434.379,286.944,427.494,282.092,420.084,282.092")
-      .attr('transform','scale('+(w/34)+') translate('+(-404+x*(34/w)-17)+', '+(-282+y*(34/w)-17)+')')
-      .attr('class', cssClass);
+      .attr('transform','scale('+(blipWidth/34)+') translate('+(-404+x*(34/blipWidth)-17)+', '+(-282+y*(34/blipWidth)-17)+')')
+      .attr('class', order);
   }
 
-  function addCycle(cycle, quadrant) {
-    var table = d3.select('#' + quadrant + '-quadrant .cycle-table');
+  function addCycle(cycle, order) {
+    var table = d3.select('.quadrant-table.' + order);
     table.append('h3').text(cycle)
     return table.append('ul');
   }
@@ -136,18 +130,17 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
   }
 
   function thereIsCollision(coordinates, allCoordinates) {
-    var radius = 22;
     return allCoordinates.some(function (currentCoordinates) {
-      return (Math.abs(currentCoordinates[0] - coordinates[0]) < radius) && (Math.abs(currentCoordinates[1] - coordinates[1]) < radius)
+      return (Math.abs(currentCoordinates[0] - coordinates[0]) < blipWidth) && (Math.abs(currentCoordinates[1] - coordinates[1]) < blipWidth)
     });
   }
 
   function plotBlips(quadrantGroup, cycles, quadrantWrapper) {
-    var blips, quadrant, startAngle, cssClass;
+    var blips, quadrant, startAngle, order;
 
     quadrant = quadrantWrapper.quadrant;
     startAngle = quadrantWrapper.startAngle;
-    cssClass = quadrantWrapper.order;
+    order = quadrantWrapper.order;
 
     blips = quadrant.blips();
     cycles.forEach(function (cycle, i) {
@@ -164,7 +157,7 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
       var sumQuadrant = quadrant.name().split('').reduce(function (p, c) { return p + c.charCodeAt(0); }, 0);
       var chance = new Chance(Math.PI * sumCycle * cycle.name().length * sumQuadrant * quadrant.name().length);
 
-      var cycleList = addCycle(cycle.name(), quadrant.name());
+      var cycleList = addCycle(cycle.name(), order);
       var allBlipCoordinatesInCycle = [];
 
       cycleBlips.forEach(function (blip) {
@@ -179,9 +172,9 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
         var group = quadrantGroup.append('g').attr('class', 'blip-link');
 
         if (blip.isNew()) {
-          triangle(x, y, cssClass, group);
+          triangle(x, y, order, group);
         } else {
-          circle(x, y, cssClass, group);
+          circle(x, y, order, group);
         }
 
         group.append('text')
@@ -198,7 +191,9 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
           
         var blipItemDescription = blipListItem.append('div')
           .attr('class', 'blip-item-description')
-          .text(blip.description());
+        if (blip.description()) {
+          blipItemDescription.append('p').text(blip.description());
+        }
 
         var mouseOver = function () {
           d3.selectAll('g.blip-link').attr('opacity',0.3);
@@ -225,40 +220,59 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
     });
   };
 
-  function plotQuadrantNames(quadrants) {
-    var wrapper = radarElement.append('div');
-    function plotName(name, order, position, startAngle) {
-      var adjustX = Math.sin(toRadian(startAngle)) - Math.cos(toRadian(startAngle)) ;
-      var adjustY = -Math.cos(toRadian(startAngle)) - Math.sin(toRadian(startAngle));
+  function plotQuadrantButtons(quadrants) {
+    var header = radarElement.append('header');
 
-      var quadrantDiv = wrapper.append('div')
-        .attr({id: name + '-quadrant', class: 'quadrant-table ' + order})//, style: position})
-      quadrantDiv.append('h1').attr('class', 'quadrant-name').text(name)
+    function addButton(quadrant) {
+      var order = quadrant.order;
+      var startAngle = quadrant.startAngle;
+
+      radarElement.append('div')
+        .attr('class', 'quadrant-table ' + order);
+
+      var button = header.append('div')
+        .attr('class', 'button ' + order)
+        .text(quadrant.quadrant.name())
+        .on('mouseover', function () {
+          d3.select('.quadrant-group-' + order).style('opacity', 1);
+          d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')').style('opacity', 0.3);
+        })
+        .on('mouseout', function () {
+          d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')').style('opacity', 1);
+        })
         .on('click', function () {
-          if (quadrantDiv.classed('selected')) {
-            d3.selectAll('.quadrant-table').classed('selected', false).style('opacity', 1);
-            d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')').transition().duration(1000).style('display', '');
-            d3.select('.quadrant-group-' + order).transition().duration(1000).attr('transform', 'scale(1)');
-          } else {
-            d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')').style('display', 'none');
-            d3.select('.quadrant-group.quadrant-group-' + order).style('display', '');
-            
-            d3.selectAll('.quadrant-table').classed('selected', false).style('opacity',0.3);
-            quadrantDiv.classed('selected', true).style('opacity', 1)
+          d3.selectAll('.button').classed('selected', false);
+          button.classed('selected', true);
+          d3.selectAll('.quadrant-table').classed('selected', false);
+          d3.selectAll('.quadrant-table.' + order).classed('selected', true);
 
-            var translateX = -adjustX * size/2 - size/4;
-            var translateY = -adjustY * size/2.5 - size/4;
-            d3.select('.quadrant-group-' + order).transition().duration(1000).attr('transform', 'translate('+ translateX + ',' + translateY + ')scale(1.5)');
-            d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')').attr('transform', 'scale(1)');
-          }
+          var adjustX = Math.sin(toRadian(startAngle)) - Math.cos(toRadian(startAngle));
+          var adjustY = Math.cos(toRadian(startAngle)) + Math.sin(toRadian(startAngle));
+
+          var translateX = (-1 - adjustX) * size/2
+          var translateY = (-1 + adjustY) * (size/2 - 7);
+
+          var translateXAll = (1 - adjustX) * size/2
+          var translateYAll = (1 + adjustY) * size/2;
+          
+          var moveRight = (1 + adjustX) * (window.innerWidth - size)/2
+          var moveLeft = (1 - adjustX) * (window.innerWidth - size)/2;
+
+          svg.style({left: moveLeft, right: moveRight});
+          d3.select('.quadrant-group-' + order)
+            .transition()
+            .duration(1000)
+            .attr('transform', 'translate('+ translateX + ',' + translateY + ')scale(2)');
+          d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')')
+            .transition()
+            .duration(1000)
+            .attr('transform', 'translate('+ translateXAll + ',' + translateYAll + ')scale(0)');
         });
-      quadrantDiv.append('div').attr('class', 'cycle-table');
     }
 
-    plotName(quadrants[0].quadrant.name(), quadrants[0].order, 'right: ' + (window.innerWidth/2 - 138) + 'px', quadrants[0].startAngle);
-    plotName(quadrants[1].quadrant.name(), quadrants[1].order, 'left: ' + (window.innerWidth/2 - 138) + 'px', quadrants[1].startAngle);
-    plotName(quadrants[2].quadrant.name(), quadrants[2].order, 'left: ' + (window.innerWidth/2 - 138) + 'px', quadrants[2].startAngle);
-    plotName(quadrants[3].quadrant.name(), quadrants[3].order, 'right: ' + (window.innerWidth/2 - 138) + 'px', quadrants[3].startAngle);
+    _.each([0, 3, 2, 1], function (i) {
+      addButton(quadrants[i]);  
+    });
   }
 
   self.init = function (selector) {
@@ -272,10 +286,10 @@ tr.graphing.Radar = function (size, radar, toolTipDescription) {
     cycles = radar.cycles().reverse();
     quadrants = radar.quadrants();
 
-    plotQuadrantNames(quadrants);
+    plotQuadrantButtons(quadrants);
     
-    svg = radarElement.append("svg").call(tip)
-    svg.attr('width', size).attr('height', size);
+    svg = radarElement.append("svg").call(tip);
+    svg.attr('width', size).attr('height', size + 14);
     
     _.each(quadrants, function (quadrant) {
       var quadrantGroup = plotQuadrant(cycles, quadrant);

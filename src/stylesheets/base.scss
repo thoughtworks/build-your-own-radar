@@ -5,17 +5,67 @@
 
 body {
   font: 11px 'Open Sans';
+  margin: 0;
+}
+
+h1 {
+  margin: 0;
 }
 
 #radar {
-  text-align: center;
   position: relative;
   width: 100%;
 }
 
+header {
+  height: 90px;
+  width: 100%;
+  position: fixed;
+  border-bottom: 2px solid $grey-light;
+  line-height: 90px;
+  text-align: center;
+  background-color: white;
+  z-index: 1;
+
+  .button {
+    font-size: 1.2em;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-right: 20px;
+    border-radius: 2px;
+    border-style: solid;
+    border-width: 1px;
+    line-height: 1em;
+    padding: 10px 20px;
+    cursor: pointer;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:hover, &.selected {
+      color: white;
+
+      &.first { color: white; background-color: $green; }
+      &.second { color: white; background-color: $blue; }
+      &.third { color: white; background-color: $orange; }
+      &.fourth { color: white; background-color: $violet; }
+    }
+
+    &.first { color: $green; border-color: $green; }
+    &.second { color: $blue; border-color: $blue; }
+    &.third { color: $orange; border-color: $orange; }
+    &.fourth { color: $violet; border-color: $violet; }
+  }
+}
+
 svg {
-  padding: 10px;
-  margin: 70px 0 0 0;
+  position: fixed;
+  top: 112px;
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+  transition: all 1s ease;
 
   path {
     &.cycle-arc-3 { stroke: none; fill: $grey-light; }
@@ -40,10 +90,6 @@ svg {
     stroke: $grey-alpha-03;
   }
 
-  g.quadrant-group {
-    transition: opacity 1s ease;
-  }
-
   text {
     &.blip-text {
       font-size: 9px;
@@ -60,113 +106,36 @@ svg {
 }
 
 div.quadrant-table {
-  font-size: 10px;
-  transition: all 1s ease;
   position: absolute;
-
-  .quadrant-name {
-    cursor: pointer;
-  }
-
-  .cycle-table {
-    overflow: hidden;
-    max-height: 0;
-    max-width: 0;
-    transition: max-height 0.5s ease 1s;
-  }
+  top: 112px;
+  overflow: hidden;
+  max-height: 0;
+  max-width: 0;
+  transition: max-height 0.5s ease 1s;
 
   &.first {
-    text-align: left;
-    right: 30%;
-    left: 50%;
-
-    .quadrant-name {
-      padding-left: 10px;
-      margin-left: -1px;
-      border-bottom: 2px solid rgba(0, 0, 0, 0.3);
-      border-left: 2px solid rgba(0, 0, 0, 0.3);
-      color: $green;
-    }
+    right: 20px; left: 55%;
+    h3 { color: $green; }
   }
 
   &.second {
-    text-align: right;
-    right: 50%;
-    left: 30%;
-
-    .quadrant-name {
-      padding-right: 10px;
-      margin-right: -1px;
-      border-bottom: 2px solid rgba(0, 0, 0, 0.3);
-      border-right: 2px solid rgba(0, 0, 0, 0.3);
-      color: $blue;
-    }
+    right: 55%; left: 20px;
+    h3 { color: $blue; }
   }
 
   &.third {
-    top: 2.7em;
-    right: 50%;
-    left: 30%;
-    text-align: right;
-
-    .quadrant-name {
-      padding-right: 10px;
-      margin-right: -1px;
-      border-top: 2px solid rgba(0, 0, 0, 0.3);
-      border-right: 2px solid rgba(0, 0, 0, 0.3);
-      color: $orange;
-    }
+    right: 55%; left: 20px;
+    h3 { color: $orange; }
   }
   
   &.fourth {
-    top: 2.7em;
-    right: 30%;
-    left: 50%;
-    text-align: left;
-
-    .quadrant-name {
-      padding-left: 10px;
-      margin-left: -1px;
-      border-top: 2px solid rgba(0, 0, 0, 0.3);
-      border-left: 2px solid rgba(0, 0, 0, 0.3);
-      color: $violet;
-    }
+    right: 20px; left: 55%;
+    h3 { color: $violet; }
   }
 
   &.selected {
-    .cycle-table {
-      max-height: 1000px;
-      max-width: 1000px;
-    }
-
-    .quadrant-name {
-      border-left: none;
-      border-right: none;
-    }
-
-    &.first {
-      text-align: right;
-      right: 0;
-      left:70%;
-    }
-
-    &.second {
-      text-align: left;
-      left: 0;
-      right: 70%;
-    }
-
-    &.third {
-      text-align: left;
-      right: 70%;
-      left: 0;
-    }
-
-    &.fourth {
-      text-align: right;
-      right: 0;
-      left:70%;
-    }
+    max-height: 1000px;
+    max-width: 1000px;
   }
 
   ul {
@@ -176,8 +145,8 @@ div.quadrant-table {
       list-style-type: none;
 
       .blip-list-item {
-        padding: 1px 4px;
-        border-radius: 4px;
+        padding: 2px 5px;
+        border-radius: 2px;
         cursor: pointer;
 
         &.highlight {
@@ -190,13 +159,19 @@ div.quadrant-table {
         max-height: 0;
         overflow: hidden;
         width: 300px;
-        padding: 0;
-        color: rgba(0, 0, 0, 0.5);
-        margin: 0 auto;
 
+        p {
+          margin: 0;
+          border-top: 1px solid rgb(119, 119, 119);
+          border-bottom: 1px solid rgb(119, 119, 119);
+          padding: 10px 20px;
+          color: rgb(51, 51, 51);
+          font-weight: 100;
+        }
+        
         transition: max-height 0.5s ease;
         &.expanded {
-          max-height: 200px;
+          max-height: 400px;
         }
       }
     }

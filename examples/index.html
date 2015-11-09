@@ -38,7 +38,7 @@
       if (!quadrants[blip.quadrant]) {
         quadrants[blip.quadrant] = new tr.models.Quadrant(_.capitalize(blip.quadrant));
       }
-      quadrants[blip.quadrant].add(new tr.models.Blip(blip.Name, cycleMap[blip.cycle], false, blip.topic, blip.description))
+      quadrants[blip.quadrant].add(new tr.models.Blip(blip.Name, cycleMap[blip.cycle], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description))
     });
 
     var radar = new tr.models.Radar();
@@ -47,7 +47,7 @@
     });
 
 
-    new tr.graphing.Radar((window.innerHeight - 120) < 600 ? 600 : window.innerHeight - 120, radar, true).init('#radar').plot();
+    new tr.graphing.Radar((window.innerHeight - 133) < 600 ? 600 : window.innerHeight - 133, radar, true).init('#radar').plot();
   }
   
 </script>

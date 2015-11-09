@@ -10,7 +10,7 @@
   border-radius: 4px;
   border-color: #000;
   pointer-events: none;
-  margin: -10px 0 0; }
+  z-index: 2; }
 
 @media screen and (min-width: 800px) {
   .d3-tip {
@@ -30,29 +30,101 @@
   .d3-tip:after {
     display: inline; } }
 
+.d3-tip.n {
+  margin: -10px 0 0; }
+
 .d3-tip.n:after {
-  display: none;
   content: "\25BC";
   margin: -3px 0 0;
   top: 100%;
   left: 0;
   text-align: center; }
 
-@media screen and (min-width: 800px) {
-  .d3-tip.n:after {
-    display: inline; } }
+.d3-tip.ne {
+  margin: -10px 0 0 -45px; }
+
+.d3-tip.ne:after {
+  content: "\25BC";
+  bottom: -8px;
+  left: 18px;
+  text-align: left; }
+
+.d3-tip.nw {
+  margin: -10px 0 0 45px; }
+
+.d3-tip.nw:after {
+  content: "\25BC";
+  bottom: -8px;
+  right: 18px;
+  text-align: right; }
 
 body {
-  font: 11px 'Open Sans'; }
+  font: 11px 'Open Sans';
+  margin: 0; }
+
+h1 {
+  margin: 0; }
 
 #radar {
-  text-align: center;
   position: relative;
   width: 100%; }
 
+header {
+  height: 90px;
+  width: 100%;
+  position: fixed;
+  border-bottom: 2px solid #eaeaea;
+  line-height: 90px;
+  text-align: center;
+  background-color: white;
+  z-index: 1; }
+  header .button {
+    font-size: 1.2em;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-right: 20px;
+    border-radius: 2px;
+    border-style: solid;
+    border-width: 1px;
+    line-height: 1em;
+    padding: 10px 20px;
+    cursor: pointer; }
+    header .button:last-child {
+      margin-right: 0; }
+    header .button:hover, header .button.selected {
+      color: white; }
+      header .button:hover.first, header .button.selected.first {
+        color: white;
+        background-color: #83ad78; }
+      header .button:hover.second, header .button.selected.second {
+        color: white;
+        background-color: #3db5be; }
+      header .button:hover.third, header .button.selected.third {
+        color: white;
+        background-color: #e88744; }
+      header .button:hover.fourth, header .button.selected.fourth {
+        color: white;
+        background-color: #8d2145; }
+    header .button.first {
+      color: #83ad78;
+      border-color: #83ad78; }
+    header .button.second {
+      color: #3db5be;
+      border-color: #3db5be; }
+    header .button.third {
+      color: #e88744;
+      border-color: #e88744; }
+    header .button.fourth {
+      color: #8d2145;
+      border-color: #8d2145; }
+
 svg {
-  padding: 10px;
-  margin: 70px 0 0 0; }
+  position: fixed;
+  top: 112px;
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+  transition: all 1s ease; }
   svg path.cycle-arc-3 {
     stroke: none;
     fill: #eaeaea; }
@@ -82,8 +154,6 @@ svg {
     stroke: none; }
   svg line {
     stroke: rgba(255, 255, 255, 0.3); }
-  svg g.quadrant-group {
-    transition: opacity 1s ease; }
   svg text.blip-text {
     font-size: 9px;
     font-style: italic;
@@ -94,87 +164,42 @@ svg {
     fill: #000; }
 
 div.quadrant-table {
-  font-size: 10px;
-  transition: all 1s ease;
-  position: absolute; }
-  div.quadrant-table .quadrant-name {
-    cursor: pointer; }
-  div.quadrant-table .cycle-table {
-    overflow: hidden;
-    max-height: 0;
-    max-width: 0;
-    transition: max-height 0.5s ease 1s; }
+  position: absolute;
+  top: 112px;
+  overflow: hidden;
+  max-height: 0;
+  max-width: 0;
+  transition: max-height 0.5s ease 1s; }
   div.quadrant-table.first {
-    text-align: left;
-    right: 30%;
-    left: 50%; }
-    div.quadrant-table.first .quadrant-name {
-      padding-left: 10px;
-      margin-left: -1px;
-      border-bottom: 2px solid rgba(0, 0, 0, 0.3);
-      border-left: 2px solid rgba(0, 0, 0, 0.3);
+    right: 20px;
+    left: 55%; }
+    div.quadrant-table.first h3 {
       color: #83ad78; }
   div.quadrant-table.second {
-    text-align: right;
-    right: 50%;
-    left: 30%; }
-    div.quadrant-table.second .quadrant-name {
-      padding-right: 10px;
-      margin-right: -1px;
-      border-bottom: 2px solid rgba(0, 0, 0, 0.3);
-      border-right: 2px solid rgba(0, 0, 0, 0.3);
+    right: 55%;
+    left: 20px; }
+    div.quadrant-table.second h3 {
       color: #3db5be; }
   div.quadrant-table.third {
-    top: 2.7em;
-    right: 50%;
-    left: 30%;
-    text-align: right; }
-    div.quadrant-table.third .quadrant-name {
-      padding-right: 10px;
-      margin-right: -1px;
-      border-top: 2px solid rgba(0, 0, 0, 0.3);
-      border-right: 2px solid rgba(0, 0, 0, 0.3);
+    right: 55%;
+    left: 20px; }
+    div.quadrant-table.third h3 {
       color: #e88744; }
   div.quadrant-table.fourth {
-    top: 2.7em;
-    right: 30%;
-    left: 50%;
-    text-align: left; }
-    div.quadrant-table.fourth .quadrant-name {
-      padding-left: 10px;
-      margin-left: -1px;
-      border-top: 2px solid rgba(0, 0, 0, 0.3);
-      border-left: 2px solid rgba(0, 0, 0, 0.3);
+    right: 20px;
+    left: 55%; }
+    div.quadrant-table.fourth h3 {
       color: #8d2145; }
-  div.quadrant-table.selected .cycle-table {
+  div.quadrant-table.selected {
     max-height: 1000px;
     max-width: 1000px; }
-  div.quadrant-table.selected .quadrant-name {
-    border-left: none;
-    border-right: none; }
-  div.quadrant-table.selected.first {
-    text-align: right;
-    right: 0;
-    left: 70%; }
-  div.quadrant-table.selected.second {
-    text-align: left;
-    left: 0;
-    right: 70%; }
-  div.quadrant-table.selected.third {
-    text-align: left;
-    right: 70%;
-    left: 0; }
-  div.quadrant-table.selected.fourth {
-    text-align: right;
-    right: 0;
-    left: 70%; }
   div.quadrant-table ul {
     padding: 0; }
     div.quadrant-table ul li {
       list-style-type: none; }
       div.quadrant-table ul li .blip-list-item {
-        padding: 1px 4px;
-        border-radius: 4px;
+        padding: 2px 5px;
+        border-radius: 2px;
         cursor: pointer; }
         div.quadrant-table ul li .blip-list-item.highlight {
           color: white;
@@ -183,9 +208,13 @@ div.quadrant-table {
         max-height: 0;
         overflow: hidden;
         width: 300px;
-        padding: 0;
-        color: rgba(0, 0, 0, 0.5);
-        margin: 0 auto;
         transition: max-height 0.5s ease; }
+        div.quadrant-table ul li .blip-item-description p {
+          margin: 0;
+          border-top: 1px solid #777777;
+          border-bottom: 1px solid #777777;
+          padding: 10px 20px;
+          color: #333333;
+          font-weight: 100; }
         div.quadrant-table ul li .blip-item-description.expanded {
-          max-height: 200px; }
+          max-height: 400px; }

@@ -9,7 +9,7 @@
   border-radius:4px;
   border-color:#000;
   pointer-events:none;
-  margin:-10px 0 0;
+  z-index: 2;
 }
 
 @media screen and (min-width:800px) {
@@ -31,8 +31,10 @@
   .d3-tip:after{ display:inline }
 }
 
-.d3-tip.n:after{
-  display:none;
+.d3-tip.n {
+  margin:-10px 0 0;
+}
+.d3-tip.n:after {
   content:"\25BC";
   margin:-3px 0 0;
   top:100%;
@@ -40,6 +42,23 @@
   text-align:center
 }
 
-@media screen and (min-width:800px) {
-  .d3-tip.n:after{ display:inline }
+.d3-tip.ne {
+  margin: -10px 0 0 -45px;
 }
+.d3-tip.ne:after {
+  content:"\25BC";
+  bottom: -8px;
+  left: 18px;
+  text-align:left;
+}
+
+.d3-tip.nw {
+  margin: -10px 0 0 45px;
+}
+.d3-tip.nw:after {
+  content:"\25BC";
+  bottom: -8px;
+  right: 18px;
+  text-align: right;
+}
+
