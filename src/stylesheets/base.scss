@@ -28,6 +28,13 @@ header {
   background-color: white;
   z-index: 1;
 
+  svg {
+    position: absolute;
+    top: 26px;
+    left: 200px;
+    cursor: pointer;
+  }
+
   .button {
     font-size: 1.2em;
     text-transform: uppercase;
@@ -60,7 +67,7 @@ header {
   }
 }
 
-svg {
+svg#radar-plot {
   position: fixed;
   top: 112px;
   right: 0;

@@ -109,6 +109,11 @@ header {
   text-align: center;
   background-color: white;
   z-index: 1; }
+  header svg {
+    position: absolute;
+    top: 26px;
+    left: 200px;
+    cursor: pointer; }
   header .button {
     font-size: 1.2em;
     text-transform: uppercase;
@@ -149,47 +154,47 @@ header {
       color: #8d2145;
       border-color: #8d2145; }
 
-svg {
+svg#radar-plot {
   position: fixed;
   top: 112px;
   right: 0;
   left: 0;
   margin: 0 auto;
   transition: all 1s ease; }
-  svg path.cycle-arc-3 {
+  svg#radar-plot path.cycle-arc-3 {
     stroke: none;
     fill: #eaeaea; }
-  svg path.cycle-arc-2 {
+  svg#radar-plot path.cycle-arc-2 {
     stroke: none;
     fill: #dadada; }
-  svg path.cycle-arc-1 {
+  svg#radar-plot path.cycle-arc-1 {
     stroke: none;
     fill: #cacaca; }
-  svg path.cycle-arc-0 {
+  svg#radar-plot path.cycle-arc-0 {
     stroke: none;
     fill: #bababa; }
-  svg .blip-link {
+  svg#radar-plot .blip-link {
     text-decoration: none;
     cursor: pointer; }
-  svg circle.first, svg polygon.first, svg path.first {
+  svg#radar-plot circle.first, svg#radar-plot polygon.first, svg#radar-plot path.first {
     fill: #83ad78;
     stroke: none; }
-  svg circle.second, svg polygon.second, svg path.second {
+  svg#radar-plot circle.second, svg#radar-plot polygon.second, svg#radar-plot path.second {
     fill: #3db5be;
     stroke: none; }
-  svg circle.third, svg polygon.third, svg path.third {
+  svg#radar-plot circle.third, svg#radar-plot polygon.third, svg#radar-plot path.third {
     fill: #e88744;
     stroke: none; }
-  svg circle.fourth, svg polygon.fourth, svg path.fourth {
+  svg#radar-plot circle.fourth, svg#radar-plot polygon.fourth, svg#radar-plot path.fourth {
     fill: #8d2145;
     stroke: none; }
-  svg line {
+  svg#radar-plot line {
     stroke: rgba(255, 255, 255, 0.3); }
-  svg text.blip-text {
+  svg#radar-plot text.blip-text {
     font-size: 9px;
     font-style: italic;
     fill: #fff; }
-  svg text.line-text {
+  svg#radar-plot text.line-text {
     font-weight: bold;
     text-transform: uppercase;
     fill: #000; }
