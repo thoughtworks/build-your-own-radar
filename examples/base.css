@@ -205,27 +205,26 @@ div.quadrant-table {
   overflow: hidden;
   max-height: 0;
   max-width: 0;
+  font-size: 10pt;
+  font-weight: 100;
   transition: max-height 0.5s ease 1s; }
+  div.quadrant-table h3 {
+    text-transform: uppercase;
+    font-size: 17px;
+    font-weight: 500;
+    margin: 0; }
   div.quadrant-table.first {
     right: 20px;
     left: 55%; }
-    div.quadrant-table.first h3 {
-      color: #83ad78; }
   div.quadrant-table.second {
     right: 55%;
     left: 20px; }
-    div.quadrant-table.second h3 {
-      color: #3db5be; }
   div.quadrant-table.third {
     right: 55%;
     left: 20px; }
-    div.quadrant-table.third h3 {
-      color: #e88744; }
   div.quadrant-table.fourth {
     right: 20px;
     left: 55%; }
-    div.quadrant-table.fourth h3 {
-      color: #8d2145; }
   div.quadrant-table.selected {
     max-height: 1000px;
     max-width: 1000px; }

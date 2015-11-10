@@ -119,27 +119,22 @@ div.quadrant-table {
   overflow: hidden;
   max-height: 0;
   max-width: 0;
+  font-size: 10pt;
+  font-weight: 100;
+  
   transition: max-height 0.5s ease 1s;
 
-  &.first {
-    right: 20px; left: 55%;
-    h3 { color: $green; }
+  h3 {
+    text-transform: uppercase;
+    font-size: 17px;
+    font-weight: 500;
+    margin: 0;
   }
 
-  &.second {
-    right: 55%; left: 20px;
-    h3 { color: $blue; }
-  }
-
-  &.third {
-    right: 55%; left: 20px;
-    h3 { color: $orange; }
-  }
-  
-  &.fourth {
-    right: 20px; left: 55%;
-    h3 { color: $violet; }
-  }
+  &.first {right: 20px; left: 55%;}
+  &.second {right: 55%; left: 20px;}
+  &.third {right: 55%; left: 20px;}
+  &.fourth {right: 20px; left: 55%;}
 
   &.selected {
     max-height: 1000px;

@@ -84,14 +84,14 @@ tr.graphing.Radar = function (size, radar) {
         quadrantGroup.append('text')
           .attr('class', 'line-text')
           .attr('y', center() + 4)
-          .attr('x', center() + getRadius(cycles, i) - blipWidth/2)
+          .attr('x', center() + getRadius(cycles, i))
           .attr('text-anchor', 'end')
           .text(cycle.name());
       } else {
         quadrantGroup.append('text')
         .attr('class', 'line-text')
         .attr('y', center() + 4)
-        .attr('x', center() - getRadius(cycles, i) + blipWidth/2)
+        .attr('x', center() - getRadius(cycles, i))
         .text(cycle.name());
       }
     });
@@ -312,7 +312,7 @@ tr.graphing.Radar = function (size, radar) {
     
     _.each(quadrants, function (quadrant) {
       var quadrantGroup = plotQuadrant(cycles, quadrant);
-      plotLines(quadrantGroup, quadrant);
+      // plotLines(quadrantGroup, quadrant);
       plotTexts(quadrantGroup, cycles, quadrant);
       plotBlips(quadrantGroup, cycles, quadrant);
     });
