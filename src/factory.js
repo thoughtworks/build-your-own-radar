@@ -28,7 +28,7 @@ tr.factory.GoogleSheet = function (sheetId) {
         radar.addQuadrant(quadrant)
       });
 
-      var size = (window.innerHeight - 133) < 600 ? 600 : window.innerHeight - 133;
+      var size = (window.innerHeight - 133) < 620 ? 620 : window.innerHeight - 133;
       new tr.graphing.Radar(size, radar).init().plot();
     }
   };
