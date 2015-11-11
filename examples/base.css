@@ -127,20 +127,18 @@ header {
     cursor: pointer; }
     header .button:last-child {
       margin-right: 0; }
-    header .button:hover, header .button.selected {
-      color: white; }
-      header .button:hover.first, header .button.selected.first {
-        color: white;
-        background-color: #83ad78; }
-      header .button:hover.second, header .button.selected.second {
-        color: white;
-        background-color: #3db5be; }
-      header .button:hover.third, header .button.selected.third {
-        color: white;
-        background-color: #e88744; }
-      header .button:hover.fourth, header .button.selected.fourth {
-        color: white;
-        background-color: #8d2145; }
+    header .button:hover.first, header .button.selected.first {
+      color: white;
+      background-color: #83ad78; }
+    header .button:hover.second, header .button.selected.second {
+      color: white;
+      background-color: #3db5be; }
+    header .button:hover.third, header .button.selected.third {
+      color: white;
+      background-color: #e88744; }
+    header .button:hover.fourth, header .button.selected.fourth {
+      color: white;
+      background-color: #8d2145; }
     header .button.first {
       color: #83ad78;
       border-color: #83ad78; }
@@ -155,7 +153,7 @@ header {
       border-color: #8d2145; }
 
 svg#radar-plot {
-  position: fixed;
+  position: absolute;
   top: 112px;
   right: 0;
   left: 0;
@@ -175,6 +173,8 @@ svg#radar-plot {
     fill: #bababa; }
   svg#radar-plot .blip-link {
     text-decoration: none;
+    cursor: pointer; }
+  svg#radar-plot .quadrant-group {
     cursor: pointer; }
   svg#radar-plot circle.first, svg#radar-plot polygon.first, svg#radar-plot path.first {
     fill: #83ad78;

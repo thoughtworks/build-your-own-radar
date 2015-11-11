@@ -52,8 +52,6 @@ header {
     }
 
     &:hover, &.selected {
-      color: white;
-
       &.first { color: white; background-color: $green; }
       &.second { color: white; background-color: $blue; }
       &.third { color: white; background-color: $orange; }
@@ -84,6 +82,10 @@ svg#radar-plot {
 
   .blip-link {
     text-decoration: none;
+    cursor: pointer;
+  }
+
+  .quadrant-group {
     cursor: pointer;
   }
 

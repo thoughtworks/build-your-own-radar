@@ -56,7 +56,11 @@ tr.graphing.Radar = function (size, radar) {
   }
 
   function plotQuadrant(cycles, quadrant) {
-    var quadrantGroup = svg.append('g').attr('class', 'quadrant-group quadrant-group-' + quadrant.order)
+    var quadrantGroup = svg.append('g')
+      .attr('class', 'quadrant-group quadrant-group-' + quadrant.order)
+      .on('mouseover', mouseoverQuadrant.bind({}, quadrant.order))
+      .on('mouseout', mouseoutQuadrant.bind({}, quadrant.order))
+      .on('click', selectQuadrant.bind({}, quadrant.order, quadrant.startAngle));
 
     cycles.forEach(function (cycle, i) {
       var arc = d3.svg.arc()
@@ -75,10 +79,6 @@ tr.graphing.Radar = function (size, radar) {
   }
 
   function plotTexts(quadrantGroup, cycles, quadrant) {
-    var increment;
-
-    increment = Math.round(center() / cycles.length);
-
     cycles.forEach(function (cycle, i) {
       if (quadrant.order === 'first' || quadrant.order === 'fourth') {
         quadrantGroup.append('text')
@@ -246,55 +246,58 @@ tr.graphing.Radar = function (size, radar) {
     createHomeButton(header);
 
     function addButton(quadrant) {
-      var order = quadrant.order;
-      var startAngle = quadrant.startAngle;
-
       radarElement.append('div')
-        .attr('class', 'quadrant-table ' + order);
+        .attr('class', 'quadrant-table ' + quadrant.order);
 
-      var button = header.append('div')
-        .attr('class', 'button ' + order)
+      header.append('div')
+        .attr('class', 'button ' + quadrant.order)
         .text(quadrant.quadrant.name())
-        .on('mouseover', function () {
-          d3.select('.quadrant-group-' + order).style('opacity', 1);
-          d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')').style('opacity', 0.3);
-        })
-        .on('mouseout', function () {
-          d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')').style('opacity', 1);
-        })
-        .on('click', function () {
-          d3.selectAll('.button').classed('selected', false);
-          button.classed('selected', true);
-          d3.selectAll('.quadrant-table').classed('selected', false);
-          d3.selectAll('.quadrant-table.' + order).classed('selected', true);
-
-          var adjustX = Math.sin(toRadian(startAngle)) - Math.cos(toRadian(startAngle));
-          var adjustY = Math.cos(toRadian(startAngle)) + Math.sin(toRadian(startAngle));
-
-          var translateX = (-1 - adjustX) * size/2
-          var translateY = (-1 + adjustY) * (size/2 - 7);
-
-          var translateXAll = (1 - adjustX) * size/2
-          var translateYAll = (1 + adjustY) * size/2;
-          
-          var moveRight = (1 + adjustX) * (window.innerWidth - size)/2
-          var moveLeft = (1 - adjustX) * (window.innerWidth - size)/2;
-
-          svg.style({left: moveLeft, right: moveRight});
-          d3.select('.quadrant-group-' + order)
-            .transition()
-            .duration(1000)
-            .attr('transform', 'translate('+ translateX + ',' + translateY + ')scale(2)');
-          d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')')
-            .transition()
-            .duration(1000)
-            .attr('transform', 'translate('+ translateXAll + ',' + translateYAll + ')scale(0)');
-        });
+        .on('mouseover', mouseoverQuadrant.bind({}, quadrant.order))
+        .on('mouseout', mouseoutQuadrant.bind({}, quadrant.order))
+        .on('click', selectQuadrant.bind({}, quadrant.order, quadrant.startAngle));
     }
 
     _.each([0, 3, 2, 1], function (i) {
       addButton(quadrants[i]);  
     });
+  }
+
+  function mouseoverQuadrant(order) {
+    d3.select('.quadrant-group-' + order).style('opacity', 1);
+    d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')').style('opacity', 0.3);
+  }
+
+  function mouseoutQuadrant(order) {
+    d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')').style('opacity', 1);
+  }
+
+  function selectQuadrant(order, startAngle) {
+    d3.selectAll('.button').classed('selected', false);
+    d3.selectAll('.button.' + order).classed('selected', true);
+    d3.selectAll('.quadrant-table').classed('selected', false);
+    d3.selectAll('.quadrant-table.' + order).classed('selected', true);
+
+    var adjustX = Math.sin(toRadian(startAngle)) - Math.cos(toRadian(startAngle));
+    var adjustY = Math.cos(toRadian(startAngle)) + Math.sin(toRadian(startAngle));
+
+    var translateX = (-1 - adjustX) * size/2
+    var translateY = (-1 + adjustY) * (size/2 - 7);
+
+    var translateXAll = (1 - adjustX) * size/2
+    var translateYAll = (1 + adjustY) * size/2;
+    
+    var moveRight = (1 + adjustX) * (window.innerWidth - size)/2
+    var moveLeft = (1 - adjustX) * (window.innerWidth - size)/2;
+
+    svg.style({left: moveLeft, right: moveRight});
+    d3.select('.quadrant-group-' + order)
+      .transition()
+      .duration(1000)
+      .attr('transform', 'translate('+ translateX + ',' + translateY + ')scale(2)');
+    d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')')
+      .transition()
+      .duration(1000)
+      .attr('transform', 'translate('+ translateXAll + ',' + translateYAll + ')scale(0)');
   }
 
   self.init = function () {
