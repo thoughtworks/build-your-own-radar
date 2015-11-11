@@ -189,7 +189,7 @@ svg#radar-plot {
     fill: #8d2145;
     stroke: none; }
   svg#radar-plot line {
-    stroke: rgba(255, 255, 255, 0.3); }
+    stroke: white; }
   svg#radar-plot text.blip-text {
     font-size: 9px;
     font-style: italic;
@@ -211,7 +211,6 @@ div.quadrant-table {
   div.quadrant-table h3 {
     text-transform: uppercase;
     font-size: 17px;
-    font-weight: 500;
     margin: 0; }
   div.quadrant-table.first {
     right: 20px;

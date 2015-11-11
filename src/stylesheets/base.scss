@@ -95,7 +95,7 @@ svg#radar-plot {
   }
 
   line {
-    stroke: $grey-alpha-03;
+    stroke: white;
   }
 
   text {
@@ -127,7 +127,6 @@ div.quadrant-table {
   h3 {
     text-transform: uppercase;
     font-size: 17px;
-    font-weight: 500;
     margin: 0;
   }
 

@@ -40,12 +40,12 @@ tr.graphing.Radar = function (size, radar) {
     quadrantGroup.append('line')
       .attr('x1', center()).attr('x2', center())
       .attr('y1', startY).attr('y2', endY)
-      .attr('stroke-width', 14);
+      .attr('stroke-width', 4);
 
     quadrantGroup.append('line')
       .attr('x1', startX).attr('y1', center())
       .attr('x2', endX).attr('y2', center())
-      .attr('stroke-width', 14);
+      .attr('stroke-width', 4);
   };
 
   function getRadius(cycles, i) {
@@ -84,14 +84,15 @@ tr.graphing.Radar = function (size, radar) {
         quadrantGroup.append('text')
           .attr('class', 'line-text')
           .attr('y', center() + 4)
-          .attr('x', center() + getRadius(cycles, i) - 10)
-          .attr('text-anchor', 'end')
+          .attr('x', center() + (getRadius(cycles, i) + ((i == cycles.length - 1) ? 0: getRadius(cycles, i + 1)))/2)
+          .attr('text-anchor', 'middle')
           .text(cycle.name());
       } else {
         quadrantGroup.append('text')
         .attr('class', 'line-text')
         .attr('y', center() + 4)
-        .attr('x', center() - getRadius(cycles, i) + 10)
+        .attr('x', center() - (getRadius(cycles, i) + ((i == cycles.length - 1) ? 0: getRadius(cycles, i + 1)))/2)
+        .attr('text-anchor', 'middle')
         .text(cycle.name());
       }
     });
@@ -120,9 +121,11 @@ tr.graphing.Radar = function (size, radar) {
     var adjustX = Math.sin(toRadian(startAngle)) - Math.cos(toRadian(startAngle)) ;
     var adjustY = -Math.cos(toRadian(startAngle)) - Math.sin(toRadian(startAngle));
 
-    var angle = toRadian(chance.integer({ min: 13, max: 85 }));
     var radius = chance.floating({ min: minRadius + blipWidth/2, max: maxRadius - blipWidth/2 });
-
+    var angleDelta = Math.asin(blipWidth/2/radius) * 180/Math.PI;
+    angleDelta = angleDelta > 45 ? 45 : angleDelta;
+    var angle = toRadian(chance.integer({ min: 0 + angleDelta, max: 90 - angleDelta }));
+    
     var x = center() + radius * Math.cos(angle) * adjustX;
     var y = center() + radius * Math.sin(angle) * adjustY;
 
