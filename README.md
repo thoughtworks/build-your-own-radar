@@ -1,6 +1,6 @@
 A library that generates an interactive radar, inspired by [thoughtworks.com/radar/](http://thoughtworks.com/radar/).
 
-[This example](https://thenano.github.io/tech-radar/?sheetId=1--_uLSNfiD19i8rAcF_f3qlgZGk2lzSS3bbSrypcx4Y) uses a google sheet as the source of data, and can also generate any radar from any sheet (given that it conforms to the format, see below) by accessing [the root](https://thenano.github.io/tech-radar/) of the example and providing your own *public* google sheet id.
+[This example](https://thenano.github.io/tech-radar/?sheetId=1--_uLSNfiD19i8rAcF_f3qlgZGk2lzSS3bbSrypcx4Y) uses a [google sheet](https://docs.google.com/spreadsheets/d/1--_uLSNfiD19i8rAcF_f3qlgZGk2lzSS3bbSrypcx4Y/pubhtml) with ThoughtWorks' November 2015 radar information as the source of data, and can also generate any radar from any sheet (given that it conforms to the below format) by accessing [the root](https://thenano.github.io/tech-radar/) of the example and providing your own *public* google sheet id.
 
 ## How To Use
 

@@ -53,10 +53,13 @@ tr.factory.Radar = function () {
     if (match = window.location.search.match(/\?sheetId=(.*)/)) {
       return tr.factory.GoogleSheet(match[1]).init().build();
     } else {
-      var form = d3.select('body')
+      var content = d3.select('body')
         .append('div')
-        .attr('class', 'input-sheet')
-        .append('form')
+        .attr('class', 'input-sheet');
+      content.append('p')
+        .html('Automatically generate an interactive radar, inspired by <a href="http://thoughtworks.com/radar/">thoughtworks.com/radar/</a>. The radar data is provided by your public google sheet, and must conform to <a href="https://github.com/thenano/tech-radar#setting-up-your-data">this format</a>.')
+
+      var form = content.append('form')
         .attr('method', 'get');
 
       form.append('label').text('Please provide the id of your public google sheet:');
@@ -65,7 +68,7 @@ tr.factory.Radar = function () {
         .attr('type', 'text')
         .attr('name', 'sheetId');
 
-      form.append('p').html("Don't know what to do here? Have a look at the <a href='https://github.com/thenano/tech-radar'>documentation</a>");
+      form.append('p').attr('class', 'small').html("Don't know what to do here? Have a look at the <a href='https://github.com/thenano/tech-radar'>documentation</a>");
     }
   }
 

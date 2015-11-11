@@ -5,10 +5,11 @@
   label, p {
     font-weight: 100;
     color: $grey-text;
-  }
-
-  label {
     font-size: 16px;
+
+    &.small {
+      font-size: inherit;
+    }
   }
   
   input[type="text"] {
