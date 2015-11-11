@@ -188,9 +188,10 @@ tr.graphing.Radar = function (size, radar) {
           .text(blip.number());
 
         var blipListItem = cycleList.append('li');
+        var blipText = blip.number() + '. ' + blip.name() + (blip.topic() ? ('. - ' + blip.topic()) : '');
         blipListItem.append('div')
           .attr('class', 'blip-list-item')
-          .text(blip.number() + '. ' + blip.name() + ". - " + blip.topic());
+          .text(blipText);
           
         var blipItemDescription = blipListItem.append('div')
           .attr('class', 'blip-item-description')
