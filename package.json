@@ -1,6 +1,6 @@
 {
   "name": "tech-radar",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "test:dist": "npm run build && karma start karma-dist.conf.js --single-run",
     "build:clean": "rm -rf ./dist/*",
     "build:sass": "node-sass -r ./src/stylesheets/base.scss ./dist/base.css",
-    "build:uglify": "uglifyjs -c -m  -o ./dist/tech-radar.min.js --source-map ./dist/tech-radar.min.js.map --source-map-url ./tech-radar.min.js.map -- ./src/namespaces.js ./src/**/*.js ./src/factory.js",
+    "build:uglify": "uglifyjs -c -m  -o ./dist/tech-radar.min.js --source-map ./dist/tech-radar.min.js.map --source-map-url ./tech-radar.min.js.map -- ./src/namespaces.js ./src/**/*.js",
     "build:deps": "cp ./bower_components/**/{chance,d3.min,lodash.min}*.js ./dist/; cp ./bower_components/d3-tip/index.js ./dist/d3-tip.js; cp ./bower_components/tabletop/src/tabletop.js ./dist/tabletop.js;",
     "build": "npm run build:clean && npm run build:sass && npm run build:uglify && npm run build:deps",
     "examples:clean": "rm -rf ./examples/*{.js,.css,.map}",
@@ -17,10 +17,10 @@
     "publishExamples": "node ./scripts/publish-examples.js",
     "postinstall": "bower install"
   },
-  "author": "Bruno Trecenti",
+  "author": "Bruno Trecenti & Fernando Freire",
   "repository": {
     "type": "git",
-    "url": "git://github.com/Trecenti/tech-radar.git"
+    "url": "git://github.com/thenano/tech-radar.git"
   },
   "keywords": [
     "tech-radar"

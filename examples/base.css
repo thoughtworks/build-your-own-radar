@@ -92,6 +92,7 @@
 
 body {
   font: 11px 'Open Sans';
+  -webkit-font-smoothing: antialiased;
   margin: 0; }
 
 h1 {
@@ -206,8 +207,6 @@ div.quadrant-table {
   overflow: hidden;
   max-height: 0;
   max-width: 0;
-  font-size: 10pt;
-  font-weight: 100;
   transition: max-height 0.5s ease 1s; }
   div.quadrant-table h3 {
     text-transform: uppercase;
@@ -226,7 +225,7 @@ div.quadrant-table {
     right: 20px;
     left: 55%; }
   div.quadrant-table.selected {
-    max-height: 1000px;
+    max-height: 2000px;
     max-width: 1000px; }
   div.quadrant-table ul {
     padding: 0; }
@@ -235,7 +234,9 @@ div.quadrant-table {
       div.quadrant-table ul li .blip-list-item {
         padding: 2px 5px;
         border-radius: 2px;
-        cursor: pointer; }
+        cursor: pointer;
+        font-size: 10pt;
+        font-weight: 400; }
         div.quadrant-table ul li .blip-list-item.highlight {
           color: white;
           background-color: rgba(0, 0, 0, 0.8); }
@@ -243,13 +244,15 @@ div.quadrant-table {
         max-height: 0;
         overflow: hidden;
         width: 300px;
-        transition: max-height 0.5s ease; }
+        transition: max-height 0.2s ease; }
         div.quadrant-table ul li .blip-item-description p {
           margin: 0;
           border-top: 1px solid #777777;
           border-bottom: 1px solid #777777;
-          padding: 10px 20px;
+          padding: 20px;
           color: #333333;
-          font-weight: 100; }
+          font-weight: 100;
+          font-size: 9pt; }
         div.quadrant-table ul li .blip-item-description.expanded {
+          transition: max-height 0.5s ease 0.2s;
           max-height: 400px; }

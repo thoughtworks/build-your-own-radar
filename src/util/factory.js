@@ -45,7 +45,7 @@ tr.factory.GoogleSheet = function (sheetId) {
   return self;
 };
 
-tr.factory.Radar = function () {
+tr.factory.GoogleSheetInput = function () {
   var self = {};
 
   self.build = function () {

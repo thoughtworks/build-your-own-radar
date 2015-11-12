@@ -1,9 +1,10 @@
 tr.graphing.Radar = function (size, radar) {
-  var self, fib, svg, radarElement, blipWidth = 22;
+  var svg, radarElement, blipWidth = 22;
   
   var tip = d3.tip().attr('class','d3-tip').html(function (text) {
     return text;
   });
+
   tip.direction(function (d) {
     if (d3.select('.quadrant-table.selected').node()) {
       var selectedQuadrant = d3.select('.quadrant-table.selected');
@@ -15,12 +16,9 @@ tr.graphing.Radar = function (size, radar) {
     return 'n';
   });
 
-  fib = new tr.util.Fib();
+  var ringCalculator = new tr.util.RingCalculator(radar.cycles().length, center());
 
-  self = {};
-  self.svg = function () {
-    return svg;
-  }
+  var self = {};
 
   function center() {
     return Math.round(size/2);
@@ -48,13 +46,6 @@ tr.graphing.Radar = function (size, radar) {
       .attr('stroke-width', 4);
   };
 
-  function getRadius(cycles, i) {
-    var total = fib.sum(cycles.length);
-    var sum = fib.sum(i);
-
-    return center() - (center() * sum / total);
-  }
-
   function plotQuadrant(cycles, quadrant) {
     var quadrantGroup = svg.append('g')
       .attr('class', 'quadrant-group quadrant-group-' + quadrant.order)
@@ -64,8 +55,8 @@ tr.graphing.Radar = function (size, radar) {
 
     cycles.forEach(function (cycle, i) {
       var arc = d3.svg.arc()
-        .innerRadius((i == cycles.length - 1) ? 0: getRadius(cycles, i + 1))
-        .outerRadius(getRadius(cycles, i))
+        .innerRadius(ringCalculator.getRadius(i))
+        .outerRadius(ringCalculator.getRadius(i + 1))
         .startAngle(toRadian(quadrant.startAngle))
         .endAngle(toRadian(quadrant.startAngle - 90));
 
@@ -84,14 +75,14 @@ tr.graphing.Radar = function (size, radar) {
         quadrantGroup.append('text')
           .attr('class', 'line-text')
           .attr('y', center() + 4)
-          .attr('x', center() + (getRadius(cycles, i) + ((i == cycles.length - 1) ? 0: getRadius(cycles, i + 1)))/2)
+          .attr('x', center() + (ringCalculator.getRadius(i) + ringCalculator.getRadius(i + 1))/2)
           .attr('text-anchor', 'middle')
           .text(cycle.name());
       } else {
         quadrantGroup.append('text')
         .attr('class', 'line-text')
         .attr('y', center() + 4)
-        .attr('x', center() - (getRadius(cycles, i) + ((i == cycles.length - 1) ? 0: getRadius(cycles, i + 1)))/2)
+        .attr('x', center() - (ringCalculator.getRadius(i) + ringCalculator.getRadius(i + 1))/2)
         .attr('text-anchor', 'middle')
         .text(cycle.name());
       }
@@ -149,9 +140,9 @@ tr.graphing.Radar = function (size, radar) {
     cycles.forEach(function (cycle, i) {
       var maxRadius, minRadius, cycleBlips;
 
-      maxRadius = getRadius(cycles, i);
-      minRadius = (i == cycles.length - 1) ? 0: getRadius(cycles, i + 1);
-
+      minRadius = ringCalculator.getRadius(i);
+      maxRadius = ringCalculator.getRadius(i + 1);
+      
       var cycleBlips = blips.filter(function (blip) {
         return blip.cycle() == cycle;
       });
@@ -196,7 +187,7 @@ tr.graphing.Radar = function (size, radar) {
         var blipItemDescription = blipListItem.append('div')
           .attr('class', 'blip-item-description')
         if (blip.description()) {
-          blipItemDescription.append('p').text(blip.description());
+          blipItemDescription.append('p').html(blip.description());
         }
 
         var mouseOver = function () {
@@ -216,6 +207,8 @@ tr.graphing.Radar = function (size, radar) {
         group.on('mouseover', mouseOver).on('mouseout', mouseOut);
 
         var clickBlip = function () {
+          d3.select('.blip-item-description.expanded').node() !== blipItemDescription.node() &&
+            d3.select('.blip-item-description.expanded').classed("expanded", false);
           blipItemDescription.classed("expanded", !blipItemDescription.classed("expanded"));
         };
 
@@ -309,7 +302,7 @@ tr.graphing.Radar = function (size, radar) {
   self.plot = function () {
     var cycles, quadrants;
 
-    cycles = radar.cycles().reverse();
+    cycles = radar.cycles();
     quadrants = radar.quadrants();
 
     plotQuadrantButtons(quadrants);
