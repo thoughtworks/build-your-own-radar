@@ -6,7 +6,8 @@ tr.factory.GoogleSheet = function (sheetId) {
                      callback: createRadar,
                      simpleSheet: true } )
 
-    function createRadar(blips) {
+    function createRadar(blips, tabletop) {
+      document.title = tabletop.googleSheetName;
       d3.selectAll(".loading").remove();
 
       var cycles = _.pluck(_.uniq(blips, 'cycle'), 'cycle');

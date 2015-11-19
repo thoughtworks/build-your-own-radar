@@ -102,6 +102,14 @@ h1 {
   position: relative;
   width: 100%; }
 
+@media print {
+  header {
+    display: none; }
+  svg#radar-plot {
+    top: 0 !important; }
+  div.quadrant-table {
+    top: 0 !important; } }
+
 header {
   height: 90px;
   width: 100%;

@@ -5,7 +5,7 @@ tr.graphing.Radar = function (size, radar) {
     return text;
   });
 
-  tip.direction(function (d) {
+  tip.direction(function () {
     if (d3.select('.quadrant-table.selected').node()) {
       var selectedQuadrant = d3.select('.quadrant-table.selected');
       if (selectedQuadrant.classed('first') || selectedQuadrant.classed('fourth'))
@@ -228,6 +228,10 @@ tr.graphing.Radar = function (size, radar) {
           .transition()
           .duration(1000)
           .attr('transform', 'scale(1)');
+        d3.selectAll('.quadrant-group .blip-link')
+          .transition()
+          .duration(1000)
+          .attr('transform', 'scale(1)');
       })
       .append('g')
       .attr('fill', '#626F87')
@@ -271,23 +275,36 @@ tr.graphing.Radar = function (size, radar) {
     d3.selectAll('.quadrant-table').classed('selected', false);
     d3.selectAll('.quadrant-table.' + order).classed('selected', true);
 
+    var scale = 2;
+
     var adjustX = Math.sin(toRadian(startAngle)) - Math.cos(toRadian(startAngle));
     var adjustY = Math.cos(toRadian(startAngle)) + Math.sin(toRadian(startAngle));
 
-    var translateX = (-1 - adjustX) * size/2
-    var translateY = (-1 + adjustY) * (size/2 - 7);
+    var translateX = (-1 * (1 + adjustX) * size/2 * (scale - 1)) + (-adjustX * (1 - scale/2) * size);
+    var translateY = (-1 * (1 - adjustY) * (size/2 - 7) * (scale - 1)) - ((1 - adjustY)/2 * (1 - scale/2) * size);
 
-    var translateXAll = (1 - adjustX) * size/2
-    var translateYAll = (1 + adjustY) * size/2;
+    var translateXAll = (1 - adjustX)/2 * size * scale/2 + ((1 - adjustX)/2 * (1 - scale/2) * size);
+    var translateYAll = (1 + adjustY)/2 * size * scale/2;
     
-    var moveRight = (1 + adjustX) * (window.innerWidth - size)/2
+    var moveRight = (1 + adjustX) * (window.innerWidth - size)/2;
     var moveLeft = (1 - adjustX) * (window.innerWidth - size)/2;
+
+    var blipScale = 3/4;
+    var blipTranslate = (1 - blipScale) / blipScale
 
     svg.style({left: moveLeft, right: moveRight});
     d3.select('.quadrant-group-' + order)
       .transition()
       .duration(1000)
-      .attr('transform', 'translate('+ translateX + ',' + translateY + ')scale(2)');
+      .attr('transform', 'translate('+ translateX + ',' + translateY + ')scale(' + scale + ')');
+    d3.selectAll('.quadrant-group-' + order + ' .blip-link text').each(function () {
+      var x = d3.select(this).attr('x'); 
+      var y = d3.select(this).attr('y');
+      d3.select(this.parentNode)
+        .transition()
+        .duration(1000)
+        .attr('transform', 'scale('+blipScale+')translate('+blipTranslate*x+','+blipTranslate*y+')');
+    });
     d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')')
       .transition()
       .duration(1000)

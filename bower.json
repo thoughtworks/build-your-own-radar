@@ -1,9 +1,9 @@
 {
   "name": "tech-radar",
   "version": "0.0.0",
-  "homepage": "https://github.com/Trecenti/tech-radar",
+  "homepage": "https://github.com/thenano/tech-radar",
   "authors": [
-    "Bruno Trecenti <btrecent@thoughtworks.com>"
+    "Bruno Trecenti <btrecent@thoughtworks.com>, Fernando Freire <thenano@gmail.com>"
   ],
   "license": "MIT",
   "private": true,
@@ -11,7 +11,7 @@
     "d3": "~3.5.5",
     "d3-tip": "~0.6.7",
     "chance": "~0.5.4",
-    "tabletop": ">= 1.3.5",
+    "tabletop": "jsoma/tabletop#master",
     "lodash": "~3.10.1"
   }
 }
