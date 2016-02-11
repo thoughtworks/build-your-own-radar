@@ -3,10 +3,12 @@ tr.factory.GoogleSheet = function (sheetId) {
 
   self.build = function () {
     Tabletop.init( { key: sheetId,
-                     callback: createRadar,
-                     simpleSheet: true } )
+                     callback: createRadar } )
 
-    function createRadar(blips, tabletop) {
+    function createRadar(sheets, tabletop) {
+      var firstSheet = Object.keys(sheets)[0]
+      blips = tabletop.sheets(firstSheet).all();
+
       document.title = tabletop.googleSheetName;
       d3.selectAll(".loading").remove();
 
