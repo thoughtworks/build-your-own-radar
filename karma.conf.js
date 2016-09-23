@@ -7,7 +7,9 @@ module.exports = function(config) {
     frameworks: ['jasmine'],
     files: [
       'bower_components/chance/chance.js',
+      'bower_components/lodash/lodash.js',
       'bower_components/d3/d3.min.js',
+      'dist/d3-tip.js',
       'src/namespaces.js',
       'src/util/**/*.js',
       'src/models/**/*.js',
@@ -20,7 +22,7 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: false,
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
     captureTimeout: 60000,
     singleRun: false
   });

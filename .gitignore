@@ -4,3 +4,5 @@ dist
 *.swa
 *.swp
 *.swo
+
+.idea/
