@@ -1,12 +1,18 @@
-tr.factory.GoogleSheet = function (sheetId) {
+tr.factory.GoogleSheet = function (sheetId, sheetName) {
   var self = {};
 
   self.build = function () {
     Tabletop.init( { key: sheetId,
-                     callback: createRadar,
-                     simpleSheet: true } )
+                     callback: createRadar } )
 
-    function createRadar(blips, tabletop) {
+    function createRadar(sheets, tabletop) {
+
+      if(!sheetName) {
+        sheetName = Object.keys(sheets)[0];
+      }
+
+      blips = tabletop.sheets(sheetName).all();
+
       document.title = tabletop.googleSheetName;
       d3.selectAll(".loading").remove();
 
@@ -46,13 +52,27 @@ tr.factory.GoogleSheet = function (sheetId) {
   return self;
 };
 
+ var QueryParams = function(queryString) {
+   var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
+
+   var search = /([^&=]+)=?([^&]*)/g;
+
+   var queryParams = {};
+   var match;
+   while (match = search.exec(queryString))
+     queryParams[decode(match[1])] = decode(match[2]);
+
+   return queryParams
+ };
+
 tr.factory.GoogleSheetInput = function () {
   var self = {};
 
   self.build = function () {
-    var match;
-    if (match = window.location.search.match(/\?sheetId=(.*)/)) {
-      return tr.factory.GoogleSheet(match[1]).init().build();
+    var queryParams = QueryParams(window.location.search.substring(1));
+
+    if (queryParams.sheetId) {
+      return tr.factory.GoogleSheet(queryParams.sheetId, queryParams.sheetName).init().build();
     } else {
       var content = d3.select('body')
         .append('div')
