@@ -17,13 +17,22 @@ module.exports = function(config) {
       'test/**/*.js'
     ],
     exclude: [ ],
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: false,
     browsers: ['Chrome'],
     captureTimeout: 60000,
-    singleRun: false
+    singleRun: false,
+    preprocessors : {
+      'src/**/*.js': 'coverage'
+    },
+    coverageReporter : {
+      type : 'html',
+      dir : 'coverage/'
+    }
   });
+
+
 };
