@@ -1,9 +1,12 @@
-describe('tr.graphing.Radar', function () {
+// This references very old code that no longer exists
+// the tests for graphing will have to be rewritten
+
+xdescribe('tr.graphing.Radar', function () {
   var radar;
 
   beforeEach(function () {
     radar = new tr.models.Radar();
-    spyOn(radar, 'cycles').andReturn([]);
+    spyOn(radar, 'cycles').and.returnValue([]);
   });
 
   describe('init', function () {
@@ -12,7 +15,7 @@ describe('tr.graphing.Radar', function () {
 
       radarGraph = new tr.graphing.Radar(500, radar);
       selection = { append: jasmine.createSpy() };
-      spyOn(d3, 'select').andReturn(selection);
+      spyOn(d3, 'select').and.returnValue(selection);
 
       radarGraph.init();
 
@@ -23,7 +26,7 @@ describe('tr.graphing.Radar', function () {
       var radarGraph;
 
       radarGraph = new tr.graphing.Radar(500, radar);
-      spyOn(d3, 'select').andCallThrough();
+      spyOn(d3, 'select').and.callThrough();
 
       radarGraph.init();
 
@@ -34,7 +37,7 @@ describe('tr.graphing.Radar', function () {
       var radarGraph;
 
       radarGraph = new tr.graphing.Radar(500, radar);
-      spyOn(d3, 'select').andCallThrough();
+      spyOn(d3, 'select').and.callThrough();
 
       radarGraph.init('#radar');
 
@@ -49,7 +52,7 @@ describe('tr.graphing.Radar', function () {
     radarGraph.init();
 
     svg = radarGraph.svg();
-    spyOn(svg, 'attr').andReturn(svg);
+    spyOn(svg, 'attr').and.returnValue(svg);
 
     radarGraph.plot();
 
@@ -65,8 +68,8 @@ describe('tr.graphing.Radar', function () {
       radarGraph.init();
 
       svg = radarGraph.svg();
-      spyOn(svg, 'append').andReturn(svg);
-      spyOn(svg, 'attr').andReturn(svg);
+      spyOn(svg, 'append').and.returnValue(svg);
+      spyOn(svg, 'attr').and.returnValue(svg);
 
       radarGraph.plot();
 
@@ -85,8 +88,8 @@ describe('tr.graphing.Radar', function () {
       radarGraph.init();
 
       svg = radarGraph.svg();
-      spyOn(svg, 'append').andReturn(svg);
-      spyOn(svg, 'attr').andReturn(svg);
+      spyOn(svg, 'append').and.returnValue(svg);
+      spyOn(svg, 'attr').and.returnValue(svg);
 
       radarGraph.plot();
 
@@ -106,7 +109,7 @@ describe('tr.graphing.Radar', function () {
       var radar;
 
       radar = new tr.models.Radar();
-      spyOn(radar, 'cycles').andReturn([
+      spyOn(radar, 'cycles').and.returnValue([
         new tr.models.Cycle('Adopt'),
         new tr.models.Cycle('Hold')
       ]);
@@ -114,8 +117,8 @@ describe('tr.graphing.Radar', function () {
       radarGraph.init();
 
       svg = radarGraph.svg();
-      spyOn(svg, 'append').andReturn(svg);
-      spyOn(svg, 'attr').andReturn(svg);
+      spyOn(svg, 'append').and.returnValue(svg);
+      spyOn(svg, 'attr').and.returnValue(svg);
     });
 
     it('plots the circles for the cycles', function () {
@@ -134,7 +137,7 @@ describe('tr.graphing.Radar', function () {
 
     it('adds the name of each cycle for the right side', function () {
       var center = 500 / 2;
-      spyOn(svg, 'text').andReturn(svg);
+      spyOn(svg, 'text').and.returnValue(svg);
       radarGraph.plot();
 
       expect(svg.append).toHaveBeenCalledWith('text');
@@ -150,7 +153,7 @@ describe('tr.graphing.Radar', function () {
 
     it('adds the name of each cycle for the right side', function () {
       var center = 500 / 2;
-      spyOn(svg, 'text').andReturn(svg);
+      spyOn(svg, 'text').and.returnValue(svg);
       radarGraph.plot();
 
       expect(svg.append).toHaveBeenCalledWith('text');
