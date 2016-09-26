@@ -4,3 +4,8 @@ dist
 *.swa
 *.swp
 *.swo
+
+coverage/
+
+.idea/
+.DS_Store
