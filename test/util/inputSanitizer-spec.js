@@ -1,27 +1,37 @@
 describe('tr.util.InputSanitizer', function(){
-    var sanitizer, blip;
+    var sanitizer, rawBlip, blip;
 
     beforeAll(function(){
         sanitizer = new tr.util.InputSanitizer();
         var description = "Hello <script>alert('dangerous');</script>there <h1>heading</h1>";
-        blip = {
+        rawBlip = {
                         Name: "Hello <script>alert('dangerous');</script>there <h1>blip</h1>",
                         description: description,
-                        cycle: 'Adopt',
-                        quadrant: 'techniques',
-                        isNew: 'true'
+                        cycle: '<a href="/asd">Adopt</a>',
+                        quadrant: '<strong>techniques</strong>',
+                        isNew: 'true<br>'
                     }
+
+        blip = sanitizer.sanitize(rawBlip);
     });
 
     it('strips out script tags from blip descriptions', function(){
-        var result = sanitizer.sanitize(blip);
-
-        expect(result.description).toEqual("Hello there <h1>heading</h1>");
+        expect(blip.description).toEqual("Hello there <h1>heading</h1>");
     });
 
     it('strips out all tags from blip name', function(){
-        var result = sanitizer.sanitize(blip);
+        expect(blip.Name).toEqual("Hello there blip");
+    });
 
-        expect(result.Name).toEqual("Hello there blip");
+    it('strips out all tags from blip status', function(){
+        expect(blip.isNew).toEqual("true");
+    });
+
+    it('strips out all tags from blip cycle', function(){
+        expect(blip.cycle).toEqual("Adopt");
+    });
+
+    it('strips out all tags from blip quadrant', function(){
+        expect(blip.quadrant).toEqual("techniques");
     });
 });

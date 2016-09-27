@@ -15,6 +15,9 @@ tr.util.InputSanitizer = function() {
     self.sanitize = function(blip) {
         blip.description = sanitizeHtml(blip.description, relaxedOptions);
         blip.Name = sanitizeHtml(blip.Name, restrictedOptions);
+        blip.isNew = sanitizeHtml(blip.isNew, restrictedOptions);
+        blip.cycle = sanitizeHtml(blip.cycle, restrictedOptions);
+        blip.quadrant = sanitizeHtml(blip.quadrant, restrictedOptions);
 
         return blip;
     }
