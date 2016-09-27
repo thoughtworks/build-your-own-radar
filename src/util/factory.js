@@ -13,7 +13,7 @@ tr.factory.GoogleSheet = function (sheetId, sheetName) {
 
       rawBlips = tabletop.sheets(sheetName).all();
       blips = [];
-      var sanitizer = new tr.util.inputSanitizer();
+      var sanitizer = new tr.util.InputSanitizer();
       rawBlips.forEach(function(blip){
         blip.description = sanitizer.sanitizeDescription(blip.description);
         blips.push(blip);

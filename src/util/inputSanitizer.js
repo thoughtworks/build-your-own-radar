@@ -1,6 +1,6 @@
-tr.util.inputSanitizer = function() {
+tr.util.InputSanitizer = function() {
     var options = {
-                        allowedTags: [ 'b', 'i', 'em', 'strong', 'a' ],
+                        allowedTags: [ 'b', 'i', 'em', 'strong', 'a', 'h1'],
                         allowedAttributes: {
                           'a': [ 'href' ]
                         }
