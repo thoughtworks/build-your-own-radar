@@ -15,8 +15,7 @@ tr.factory.GoogleSheet = function (sheetId, sheetName) {
       blips = [];
       var sanitizer = new tr.util.InputSanitizer();
       rawBlips.forEach(function(blip){
-        blip.description = sanitizer.sanitizeDescription(blip.description);
-        blips.push(blip);
+        blips.push(sanitizer.sanitize(blip));
       });
 
       document.title = tabletop.googleSheetName;
