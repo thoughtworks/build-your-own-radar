@@ -3,7 +3,7 @@ describe('tr.util.InputSanitizer', function(){
 
     beforeAll(function(){
         sanitizer = new tr.util.InputSanitizer();
-        var description = "Hello <script>alert('dangerous');</script>there <h1>heading</h1>";
+        var description = "<b>Hello</b> <script>alert('dangerous');</script>there <h1>heading</h1>";
         rawBlip = {
                         Name: "Hello <script>alert('dangerous');</script>there <h1>blip</h1>",
                         description: description,
@@ -16,7 +16,7 @@ describe('tr.util.InputSanitizer', function(){
     });
 
     it('strips out script tags from blip descriptions', function(){
-        expect(blip.description).toEqual("Hello there <h1>heading</h1>");
+        expect(blip.description).toEqual("<b>Hello</b> there <h1>heading</h1>");
     });
 
     it('strips out all tags from blip name', function(){
