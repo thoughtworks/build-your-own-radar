@@ -1,4 +1,4 @@
-tr.util.RingCalculator = function (numberOfRings, maxRadius) {
+const RingCalculator = function (numberOfRings, maxRadius) {
   var sequence = [0, 6, 5, 3, 2, 1, 1, 1];
 
   var self = {};
@@ -18,3 +18,5 @@ tr.util.RingCalculator = function (numberOfRings, maxRadius) {
 
   return self;
 };
+
+module.exports = RingCalculator;

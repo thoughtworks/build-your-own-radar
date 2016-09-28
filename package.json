@@ -4,19 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "karma start karma.conf.js --single-run",
-    "test:dist": "npm run build && karma start karma-dist.conf.js --single-run",
-    "build:clean": "rm -rf ./dist/*",
-    "build:sass": "node-sass -r ./src/stylesheets/base.scss ./dist/base.css",
-    "build:uglify": "uglifyjs -c -m  -o ./dist/tech-radar.min.js --source-map ./dist/tech-radar.min.js.map --source-map-url ./tech-radar.min.js.map -- ./src/namespaces.js ./src/**/*.js",
-    "build:deps": "cp ./bower_components/**/{chance,d3.min,lodash.min}*.js ./dist/; cp ./bower_components/d3-tip/index.js ./dist/d3-tip.js; cp ./bower_components/tabletop/src/tabletop.js ./dist/tabletop.js;",
-    "build": "npm run build:clean && npm run build:sass && npm run build:uglify && npm run build:deps && npm run build:sanitizeHtml",
-    "build:sanitizeHtml": "browserify node_modules/sanitize-html/index.js > dist/sanitize-html.js --standalone 'sanitizeHtml'",
-    "examples:clean": "rm -rf ./examples/*{.js,.css,.map}",
-    "examples:deps": "cp -r ./dist/*  ./examples/",
+    "test": "jasmine",
+    "dev": "webpack-dev-server --dev --inline",
+    "build": "webpack --prod",
     "examples": "npm run build && npm run examples:clean && npm run examples:deps",
-    "publishExamples": "node ./scripts/publish-examples.js",
-    "postinstall": "bower install"
+    "publishExamples": "node ./scripts/publish-examples.js"
   },
   "author": "Bruno Trecenti & Fernando Freire",
   "repository": {
@@ -28,21 +20,27 @@
   ],
   "license": "ISC",
   "devDependencies": {
-    "bower": "^1.3.3",
-    "browserify": "^13.1.0",
-    "jasmine-core": "^2.5.2",
-    "karma": "~1.3",
-    "karma-chrome-launcher": "~0.1.0",
-    "karma-coverage": "^1.1.1",
-    "karma-firefox-launcher": "~0.1.0",
-    "karma-jasmine": "~1.0.2",
-    "karma-phantomjs-launcher": "~0.1.2",
-    "karma-requirejs": "~0.2.0",
-    "karma-script-launcher": "~0.1.0",
-    "node-sass": "^3.1.1",
-    "requirejs": "~2.1.11",
-    "sanitize-html": "^1.13.0",
-    "uglify-js": "^2.4.23"
+    "babel-core": "^6.14.0",
+    "babel-loader": "^6.2.5",
+    "css-loader": "^0.25.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "html-webpack-plugin": "^2.22.0",
+    "jasmine": "^2.5.2",
+    "json-loader": "^0.5.4",
+    "node-sass": "^3.10.0",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.1",
+    "yargs": "^5.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "chance": "^1.0.4",
+    "d3": "^4.2.6",
+    "d3-tip": "^0.7.1",
+    "lodash": "^4.16.2",
+    "sanitize-html": "^1.13.0",
+    "tabletop": "^1.4.3"
+  }
 }

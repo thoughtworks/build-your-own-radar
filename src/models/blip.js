@@ -1,4 +1,4 @@
-tr.models.Blip = function (name, cycle, isNew, topic, description) {
+const Blip = function (name, cycle, isNew, topic, description) {
   var self, number;
 
   self = {};
@@ -34,3 +34,5 @@ tr.models.Blip = function (name, cycle, isNew, topic, description) {
 
   return self;
 };
+
+module.exports = Blip;

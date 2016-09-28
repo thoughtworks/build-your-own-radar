@@ -1,9 +1,13 @@
-describe('tr.models.Blip', function () {
+const Blip = require('../../src/models/blip');
+const Cycle = require('../../src/models/cycle');
+
+describe('Blip', function () {
   var blip;
+
   beforeEach(function () {
-    blip = new tr.models.Blip(
+    blip = new Blip(
       'My Blip',
-      new tr.models.Cycle('My Cycle')
+      new Cycle('My Cycle')
     );
   });
 
@@ -25,9 +29,9 @@ describe('tr.models.Blip', function () {
   });
 
   it('is new', function () {
-    blip = new tr.models.Blip(
+    blip = new Blip(
       'My Blip',
-      new tr.models.Cycle('My Cycle'),
+      new Cycle('My Cycle'),
       true
     );
 
@@ -35,9 +39,9 @@ describe('tr.models.Blip', function () {
   });
 
   it('is not new', function () {
-    blip = new tr.models.Blip(
+    blip = new Blip(
       'My Blip',
-      new tr.models.Cycle('My Cycle'),
+      new Cycle('My Cycle'),
       false
     );
 
