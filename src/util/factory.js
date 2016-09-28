@@ -19,6 +19,7 @@ tr.factory.GoogleSheet = function (sheetId, sheetName) {
       });
 
       document.title = tabletop.googleSheetName;
+      d3.select('body').append('h1').attr('class', 'radar-title').text(document.title);
       d3.selectAll(".loading").remove();
 
       var cycles = _.pluck(_.uniq(blips, 'cycle'), 'cycle');
