@@ -29,12 +29,7 @@ const GoogleSheet = function (sheetId, sheetName) {
         sheetName = Object.keys(sheets)[0];
       }
 
-      var rawBlips = tabletop.sheets(sheetName).all();
-      var blips = [];
-      var sanitizer = new InputSanitizer();
-      rawBlips.forEach(function(blip){
-        blips.push(sanitizer.sanitize(blip));
-      });
+      var blips = _.map(tabletop.sheets(sheetName).all(), new InputSanitizer().sanitize);
 
       document.title = tabletop.googleSheetName;
       d3.selectAll(".loading").remove();
