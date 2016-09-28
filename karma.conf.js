@@ -10,6 +10,7 @@ module.exports = function(config) {
       'bower_components/lodash/lodash.js',
       'bower_components/d3/d3.min.js',
       'dist/d3-tip.js',
+      'dist/sanitize-html.js',
       'src/namespaces.js',
       'src/util/**/*.js',
       'src/models/**/*.js',

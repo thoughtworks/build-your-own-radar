@@ -10,7 +10,8 @@
     "build:sass": "node-sass -r ./src/stylesheets/base.scss ./dist/base.css",
     "build:uglify": "uglifyjs -c -m  -o ./dist/tech-radar.min.js --source-map ./dist/tech-radar.min.js.map --source-map-url ./tech-radar.min.js.map -- ./src/namespaces.js ./src/**/*.js",
     "build:deps": "cp ./bower_components/**/{chance,d3.min,lodash.min}*.js ./dist/; cp ./bower_components/d3-tip/index.js ./dist/d3-tip.js; cp ./bower_components/tabletop/src/tabletop.js ./dist/tabletop.js;",
-    "build": "npm run build:clean && npm run build:sass && npm run build:uglify && npm run build:deps",
+    "build": "npm run build:clean && npm run build:sass && npm run build:uglify && npm run build:deps && npm run build:sanitizeHtml",
+    "build:sanitizeHtml": "browserify node_modules/sanitize-html/index.js > dist/sanitize-html.js --standalone 'sanitizeHtml'",
     "examples:clean": "rm -rf ./examples/*{.js,.css,.map}",
     "examples:deps": "cp -r ./dist/*  ./examples/",
     "examples": "npm run build && npm run examples:clean && npm run examples:deps",
@@ -28,6 +29,7 @@
   "license": "ISC",
   "devDependencies": {
     "bower": "^1.3.3",
+    "browserify": "^13.1.0",
     "jasmine-core": "^2.5.2",
     "karma": "~1.3",
     "karma-chrome-launcher": "~0.1.0",
@@ -41,6 +43,7 @@
     "karma-script-launcher": "~0.1.0",
     "node-sass": "^3.1.1",
     "requirejs": "~2.1.11",
+    "sanitize-html": "^1.13.0",
     "uglify-js": "^2.4.23"
   },
   "dependencies": {}

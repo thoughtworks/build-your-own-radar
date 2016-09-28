@@ -11,7 +11,12 @@ tr.factory.GoogleSheet = function (sheetId, sheetName) {
         sheetName = Object.keys(sheets)[0];
       }
 
-      blips = tabletop.sheets(sheetName).all();
+      rawBlips = tabletop.sheets(sheetName).all();
+      blips = [];
+      var sanitizer = new tr.util.InputSanitizer();
+      rawBlips.forEach(function(blip){
+        blips.push(sanitizer.sanitize(blip));
+      });
 
       document.title = tabletop.googleSheetName;
       d3.selectAll(".loading").remove();

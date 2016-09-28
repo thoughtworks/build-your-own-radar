@@ -8,6 +8,8 @@ module.exports = function(config) {
     files: [
       'dist/chance.js',
       'dist/d3.min.js',
+      'dist/lodash.min.js',
+      'dist/sanitize-html.js',
       'dist/tech-radar.min.js',
       'test/**/*.js'
     ],
@@ -17,7 +19,7 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: false,
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
     captureTimeout: 60000,
     singleRun: false
   });
