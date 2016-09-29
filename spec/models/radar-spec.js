@@ -1,7 +1,12 @@
-describe('tr.models.Radar', function () {
+const Radar = require('../../src/models/radar');
+const Quadrant = require('../../src/models/quadrant');
+const Cycle = require('../../src/models/cycle');
+const Blip = require('../../src/models/blip');
+
+describe('Radar', function () {
 
   it('has no quadrants by default', function () {
-    radar = new tr.models.Radar();
+    var radar = new Radar();
 
     expect(radar.quadrants()[0].quadrant).not.toBeDefined();
     expect(radar.quadrants()[1].quadrant).not.toBeDefined();
@@ -12,10 +17,10 @@ describe('tr.models.Radar', function () {
   it('sets the first quadrant', function () {
     var quadrant, radar, blip;
 
-    blip = new tr.models.Blip('A', new tr.models.Cycle('First'));
-    quadrant = new tr.models.Quadrant('First');
+    blip = new Blip('A', new Cycle('First'));
+    quadrant = new Quadrant('First');
     quadrant.add([blip]);
-    radar = new tr.models.Radar();
+    radar = new Radar();
 
     radar.addQuadrant(quadrant);
 
@@ -26,10 +31,10 @@ describe('tr.models.Radar', function () {
   it('sets the second quadrant', function () {
     var quadrant, radar, blip;
 
-    blip = new tr.models.Blip('A', new tr.models.Cycle('First'));
-    quadrant = new tr.models.Quadrant('Second');
+    blip = new Blip('A', new Cycle('First'));
+    quadrant = new Quadrant('Second');
     quadrant.add([blip]);
-    radar = new tr.models.Radar();
+    radar = new Radar();
 
     radar.addQuadrant(quadrant);
 
@@ -40,10 +45,10 @@ describe('tr.models.Radar', function () {
   it('sets the third quadrant', function () {
     var quadrant, radar, blip;
 
-    blip = new tr.models.Blip('A', new tr.models.Cycle('First'));
-    quadrant = new tr.models.Quadrant('Third');
+    blip = new Blip('A', new Cycle('First'));
+    quadrant = new Quadrant('Third');
     quadrant.add([blip]);
-    radar = new tr.models.Radar();
+    radar = new Radar();
 
     radar.addQuadrant(quadrant);
 
@@ -54,10 +59,10 @@ describe('tr.models.Radar', function () {
   it('sets the fourth quadrant', function () {
     var quadrant, radar, blip;
 
-    blip = new tr.models.Blip('A', new tr.models.Cycle('First'));
-    quadrant = new tr.models.Quadrant('Fourth');
+    blip = new Blip('A', new Cycle('First'));
+    quadrant = new Quadrant('Fourth');
     quadrant.add([blip]);
-    radar = new tr.models.Radar();
+    radar = new Radar();
 
     radar.addQuadrant(quadrant);
 
@@ -69,18 +74,18 @@ describe('tr.models.Radar', function () {
     var firstQuadrant, secondQuadrant, radar, firstCycle;
 
     beforeEach(function () {
-      firstCycle = new tr.models.Cycle('Adopt', 0);
-      firstQuadrant = new tr.models.Quadrant('First');
-      secondQuadrant = new tr.models.Quadrant('Second');
+      firstCycle = new Cycle('Adopt', 0);
+      firstQuadrant = new Quadrant('First');
+      secondQuadrant = new Quadrant('Second');
       firstQuadrant.add([
-        new tr.models.Blip('A', firstCycle),
-        new tr.models.Blip('B', firstCycle)
+        new Blip('A', firstCycle),
+        new Blip('B', firstCycle)
       ]);
       secondQuadrant.add([
-        new tr.models.Blip('C', firstCycle),
-        new tr.models.Blip('D', firstCycle)
+        new Blip('C', firstCycle),
+        new Blip('D', firstCycle)
       ]);
-      radar = new tr.models.Radar();
+      radar = new Radar();
     });
 
     it('sets blip numbers starting on the first quadrant', function () {
@@ -103,17 +108,17 @@ describe('tr.models.Radar', function () {
     var quadrant, radar, firstCycle, secondCycle, otherQuadrant;
 
     beforeEach(function () {
-      firstCycle = new tr.models.Cycle('Adopt', 0);
-      secondCycle = new tr.models.Cycle('Hold', 1);
-      quadrant = new tr.models.Quadrant('Fourth');
-      otherQuadrant = new tr.models.Quadrant('Other');
-      radar = new tr.models.Radar();
+      firstCycle = new Cycle('Adopt', 0);
+      secondCycle = new Cycle('Hold', 1);
+      quadrant = new Quadrant('Fourth');
+      otherQuadrant = new Quadrant('Other');
+      radar = new Radar();
     });
 
     it('returns an array for a given set of blips', function () {
       quadrant.add([
-        new tr.models.Blip('A', firstCycle),
-        new tr.models.Blip('B', secondCycle)
+        new Blip('A', firstCycle),
+        new Blip('B', secondCycle)
       ]);
 
       radar.addQuadrant(quadrant);
@@ -126,9 +131,9 @@ describe('tr.models.Radar', function () {
 
     it('has unique cycles', function () {
       quadrant.add([
-        new tr.models.Blip('A', firstCycle),
-        new tr.models.Blip('B', firstCycle),
-        new tr.models.Blip('C', secondCycle)
+        new Blip('A', firstCycle),
+        new Blip('B', firstCycle),
+        new Blip('C', secondCycle)
       ]);
 
         radar.addQuadrant(quadrant);
@@ -141,9 +146,9 @@ describe('tr.models.Radar', function () {
 
     it('has sorts by the cycle order', function () {
       quadrant.add([
-        new tr.models.Blip('C', secondCycle),
-        new tr.models.Blip('A', firstCycle),
-        new tr.models.Blip('B', firstCycle)
+        new Blip('C', secondCycle),
+        new Blip('A', firstCycle),
+        new Blip('B', firstCycle)
       ]);
 
       radar.addQuadrant(quadrant);

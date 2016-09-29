@@ -1,12 +1,14 @@
-describe('tr.models.Cycle', function () {
+const Cycle = require('../../src/models/cycle');
+
+describe('Cycle', function () {
   it('has a name', function () {
-    var cycle = new tr.models.Cycle('My Cycle');
+    var cycle = Cycle('My Cycle');
 
     expect(cycle.name()).toEqual('My Cycle');
   });
 
   it('has a order', function () {
-    var cycle = new tr.models.Cycle('My Cycle', 0);
+    var cycle = new Cycle('My Cycle', 0);
 
     expect(cycle.order()).toEqual(0);
   });

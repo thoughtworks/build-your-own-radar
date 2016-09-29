@@ -1,4 +1,4 @@
-tr.models.Quadrant = function (name) {
+const Quadrant = function (name) {
   var self, blips;
 
   self = {};
@@ -22,3 +22,5 @@ tr.models.Quadrant = function (name) {
 
   return self;
 };
+
+module.exports = Quadrant;

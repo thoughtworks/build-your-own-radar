@@ -1,7 +1,14 @@
-tr.graphing.Radar = function (size, radar) {
+const d3 = require('d3');
+const d3tip = require('d3-tip');
+const Chance = require('chance');
+const _ = require('lodash/core');
+
+const RingCalculator = require('../util/ringCalculator');
+
+const Radar = function (size, radar) {
   var svg, radarElement, blipWidth = 22;
   
-  var tip = d3.tip().attr('class','d3-tip').html(function (text) {
+  var tip = d3tip().attr('class','d3-tip').html(function (text) {
     return text;
   });
 
@@ -16,7 +23,7 @@ tr.graphing.Radar = function (size, radar) {
     return 'n';
   });
 
-  var ringCalculator = new tr.util.RingCalculator(radar.cycles().length, center());
+  var ringCalculator = new RingCalculator(radar.cycles().length, center());
 
   var self = {};
 
@@ -32,8 +39,8 @@ tr.graphing.Radar = function (size, radar) {
     var startX = size * (1 - (-Math.sin(toRadian(quadrant.startAngle)) + 1)/2);
     var endX = size * (1 - (-Math.sin(toRadian(quadrant.startAngle - 90)) + 1)/2);
     
-    var startY = size * (1 - (Math.cos(toRadian(quadrant.startAngle)) + 1)/2)
-    var endY = size * (1 - (Math.cos(toRadian(quadrant.startAngle - 90)) + 1)/2)
+    var startY = size * (1 - (Math.cos(toRadian(quadrant.startAngle)) + 1)/2);
+    var endY = size * (1 - (Math.cos(toRadian(quadrant.startAngle - 90)) + 1)/2);
 
     quadrantGroup.append('line')
       .attr('x1', center()).attr('x2', center())
@@ -44,7 +51,7 @@ tr.graphing.Radar = function (size, radar) {
       .attr('x1', startX).attr('y1', center())
       .attr('x2', endX).attr('y2', center())
       .attr('stroke-width', 4);
-  };
+  }
 
   function plotQuadrant(cycles, quadrant) {
     var quadrantGroup = svg.append('g')
@@ -54,14 +61,14 @@ tr.graphing.Radar = function (size, radar) {
       .on('click', selectQuadrant.bind({}, quadrant.order, quadrant.startAngle));
 
     cycles.forEach(function (cycle, i) {
-      var arc = d3.svg.arc()
+      var arc = d3.arc()
         .innerRadius(ringCalculator.getRadius(i))
         .outerRadius(ringCalculator.getRadius(i + 1))
         .startAngle(toRadian(quadrant.startAngle))
         .endAngle(toRadian(quadrant.startAngle - 90));
 
       quadrantGroup.append('path')
-        .attr('d',arc)
+        .attr('d', arc)
         .attr('class', 'cycle-arc-' + cycle.order())
         .attr('transform','translate('+center()+', '+center()+')');
     });
@@ -87,7 +94,7 @@ tr.graphing.Radar = function (size, radar) {
         .text(cycle.name());
       }
     });
-  };
+  }
 
   function triangle(x, y, order, group) {
     return group.append('path').attr('d',"M412.201,311.406c0.021,0,0.042,0,0.063,0c0.067,0,0.135,0,0.201,0c4.052,0,6.106-0.051,8.168-0.102c2.053-0.051,4.115-0.102,8.176-0.102h0.103c6.976-0.183,10.227-5.306,6.306-11.53c-3.988-6.121-4.97-5.407-8.598-11.224c-1.631-3.008-3.872-4.577-6.179-4.577c-2.276,0-4.613,1.528-6.48,4.699c-3.578,6.077-3.26,6.014-7.306,11.723C402.598,306.067,405.426,311.406,412.201,311.406")
@@ -104,7 +111,7 @@ tr.graphing.Radar = function (size, radar) {
 
   function addCycle(cycle, order) {
     var table = d3.select('.quadrant-table.' + order);
-    table.append('h3').text(cycle)
+    table.append('h3').text(cycle);
     return table.append('ul');
   }
 
@@ -138,7 +145,7 @@ tr.graphing.Radar = function (size, radar) {
 
     blips = quadrant.blips();
     cycles.forEach(function (cycle, i) {
-      var maxRadius, minRadius, cycleBlips;
+      var maxRadius, minRadius;
 
       minRadius = ringCalculator.getRadius(i);
       maxRadius = ringCalculator.getRadius(i + 1);
@@ -195,13 +202,13 @@ tr.graphing.Radar = function (size, radar) {
           group.attr('opacity',1.0);
           blipListItem.selectAll('.blip-list-item').classed('highlight', true);
           tip.show(blip.name(), group.node());
-        }
+        };
 
         var mouseOut = function () {
           d3.selectAll('g.blip-link').attr('opacity',1.0);
           blipListItem.selectAll('.blip-list-item').classed('highlight', false);
-          tip.hide().style({left: 0, top: 0});
-        }
+          tip.hide().style('left', 0).style('top', 0);
+        };
 
         blipListItem.on('mouseover', mouseOver).on('mouseout', mouseOut);
         group.on('mouseover', mouseOver).on('mouseout', mouseOut);
@@ -215,13 +222,13 @@ tr.graphing.Radar = function (size, radar) {
         blipListItem.on('click', clickBlip);
       });
     });
-  };
+  }
 
   function createHomeButton(header) {
     header.append('svg')
-      .attr({width: 37, height: 37})
+      .attr('width', 37).attr('height', 37)
       .on('click', function() {
-        svg.style({left: 0, right: 0});
+        svg.style('left', 0).style('top', 0);
         d3.selectAll('.button').classed('selected', false);
         d3.selectAll('.quadrant-table').classed('selected', false);
         d3.selectAll('.quadrant-group')
@@ -290,9 +297,9 @@ tr.graphing.Radar = function (size, radar) {
     var moveLeft = (1 - adjustX) * (window.innerWidth - size)/2;
 
     var blipScale = 3/4;
-    var blipTranslate = (1 - blipScale) / blipScale
+    var blipTranslate = (1 - blipScale) / blipScale;
 
-    svg.style({left: moveLeft, right: moveRight});
+    svg.style('left', moveLeft+'px').style('right', moveRight+'px');
     d3.select('.quadrant-group-' + order)
       .transition()
       .duration(1000)
@@ -337,3 +344,5 @@ tr.graphing.Radar = function (size, radar) {
 
   return self;
 };
+
+module.exports = Radar;

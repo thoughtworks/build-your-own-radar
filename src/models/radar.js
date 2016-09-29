@@ -1,4 +1,10 @@
-tr.models.Radar = function() {
+const _ = {
+  map: require('lodash/map'),
+  uniqBy: require('lodash/uniqBy'),
+  sortBy: require('lodash/sortBy')
+};
+
+const Radar = function() {
   var self, quadrants, blipNumber, addingQuadrant;
 
   blipNumber = 0;
@@ -21,10 +27,10 @@ tr.models.Radar = function() {
     quadrants[addingQuadrant].quadrant = quadrant;
     setNumbers(quadrant.blips());
     addingQuadrant++;
-  }
+  };
 
   function allQuadrants() {
-    return _.pluck(quadrants, 'quadrant');
+    return _.map(quadrants, 'quadrant');
   }
 
   function allBlips() {
@@ -34,7 +40,7 @@ tr.models.Radar = function() {
   }
 
   self.cycles = function () {
-    return _.sortBy(_.map(_.uniq(allBlips(), function (blip) {
+    return _.sortBy(_.map(_.uniqBy(allBlips(), function (blip) {
       return blip.cycle().name();
     }), function (blip) {
       return blip.cycle();
@@ -49,3 +55,5 @@ tr.models.Radar = function() {
 
   return self;
 };
+
+module.exports = Radar;
