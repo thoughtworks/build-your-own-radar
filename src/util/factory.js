@@ -32,7 +32,6 @@ const GoogleSheet = function (sheetId, sheetName) {
       var blips = _.map(tabletop.sheets(sheetName).all(), new InputSanitizer().sanitize);
 
       document.title = tabletop.googleSheetName;
-      d3.select('body').append('h1').attr('class', 'radar-title').text(document.title);
       d3.selectAll(".loading").remove();
 
       var cycles = _.map(_.uniqBy(blips, 'cycle'), 'cycle');

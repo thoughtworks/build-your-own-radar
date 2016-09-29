@@ -98,9 +98,7 @@ body {
 h1 {
   margin: 0; }
   h1.radar-title {
-    text-align: center;
-    margin-top: 40px;
-    margin-bottom: 20px; }
+    text-align: center; }
 
 #radar {
   position: relative;
@@ -115,7 +113,7 @@ h1 {
     top: 0 !important; } }
 
 header {
-  height: 90px;
+  height: 180px;
   width: 100%;
   position: fixed;
   border-bottom: 2px solid #eaeaea;
@@ -168,7 +166,7 @@ header {
 
 svg#radar-plot {
   position: absolute;
-  top: 112px;
+  top: 250px;
   right: 0;
   left: 0;
   margin: 0 auto;
