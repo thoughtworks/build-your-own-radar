@@ -10,7 +10,7 @@ describe('InputSanitizer', function(){
             Name: "Hello <script>alert('dangerous');</script>there <h1>blip</h1>",
             description: description,
             cycle: '<a href="/asd">Adopt</a>',
-            quadrant: '<strong>techniques</strong>',
+            quadrant: '<strong>techniques & tools</strong>',
             isNew: 'true<br>'
         };
 
@@ -34,6 +34,6 @@ describe('InputSanitizer', function(){
     });
 
     it('strips out all tags from blip quadrant', function(){
-        expect(blip.quadrant).toEqual("techniques");
+        expect(blip.quadrant).toEqual("techniques & tools");
     });
 });

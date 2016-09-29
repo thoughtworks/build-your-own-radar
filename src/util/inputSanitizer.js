@@ -11,7 +11,10 @@ const InputSanitizer = function () {
 
     var restrictedOptions = {
         allowedTags: [],
-        allowedAttributes: {}
+        allowedAttributes: {},
+        textFilter: function(text) {
+              return text.replace(/&amp;/, '&');
+            }
     };
 
     var self = {};
