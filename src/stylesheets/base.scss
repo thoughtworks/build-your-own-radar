@@ -13,7 +13,8 @@ body {
 .radar-title {
     text-align: center;
     background-color: $grenouille;
-    padding: 30px 0;
+    padding-top: 30px;
+    padding-bottom: 5px;
     display: block;
     margin: auto;
 
@@ -24,6 +25,7 @@ body {
       letter-spacing: -.04em;
       text-transform: uppercase;
       font-weight: 900;
+      display: inline-block;
     }
 }
 
