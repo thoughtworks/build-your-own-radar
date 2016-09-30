@@ -45,11 +45,18 @@ header {
   background-color: white;
   z-index: 1;
 
-  svg {
-    position: absolute;
-    top: 26px;
-    left: 200px;
+  .home-link {
+    display: none;
     cursor: pointer;
+    text-align: left;
+    font-size: 1.2em;
+    color: $pink;
+    padding-left: 20px;
+    padding-bottom: 15px;
+
+    &.selected {
+        display: block;
+    }
   }
 
   .button {
@@ -153,7 +160,7 @@ div.quadrant-table {
   &.selected {
     max-height: 2000px;
     max-width: 1000px;
-    padding-top: 60px;
+    margin-top: 60px;
   }
 
   ul {
