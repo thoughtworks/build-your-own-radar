@@ -72,12 +72,10 @@ header {
 
   .button {
     font-size: 1.2em;
-    text-transform: uppercase;
+    text-transform: capitalize;
     display: inline-block;
     margin-right: 20px;
     border-radius: 2px;
-    border-style: solid;
-    border-width: 1px;
     line-height: 1em;
     padding: 10px 20px;
     cursor: pointer;
@@ -86,6 +84,9 @@ header {
       margin-right: 0;
     }
 
+    background-color: $grey-light;
+    color: $black;
+
     &:hover, &.selected {
       &.first { color: white; background-color: $green; }
       &.second { color: white; background-color: $blue; }
@@ -93,10 +94,12 @@ header {
       &.fourth { color: white; background-color: $violet; }
     }
 
-    &.first { color: $green; border-color: $green; }
-    &.second { color: $blue; border-color: $blue; }
-    &.third { color: $orange; border-color: $orange; }
-    &.fourth { color: $violet; border-color: $violet; }
+    &.full-view {
+        &.first { background-color: $green; color: $white; }
+        &.second { background-color: $blue; color: $white; }
+        &.third { background-color: $orange; color: $white; }
+        &.fourth { background-color: $violet; color: $white; }
+    }
   }
 }
 

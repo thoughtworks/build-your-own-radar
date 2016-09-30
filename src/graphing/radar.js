@@ -237,14 +237,21 @@ const Radar = function (size, radar) {
     }
 
   function redrawFullRadar() {
-      svg.style('left', '28.5%').style('top', 0);
-      d3.selectAll('.button').classed('selected', false);
+      svg.style('left', '28.5%')
+         .style('top', 0);
+
+      d3.selectAll('.button')
+        .classed('selected', false)
+        .classed('full-view', true);
+
       d3.selectAll('.quadrant-table').classed('selected', false);
       d3.selectAll('.home-link').classed('selected', false);
+
       d3.selectAll('.quadrant-group')
         .transition()
         .duration(1000)
         .attr('transform', 'scale(1)');
+
       d3.selectAll('.quadrant-group .blip-link')
         .transition()
         .duration(1000)
@@ -266,7 +273,7 @@ const Radar = function (size, radar) {
 
 
       header.append('div')
-        .attr('class', 'button ' + quadrant.order)
+        .attr('class', 'button ' + quadrant.order + ' full-view')
         .text(quadrant.quadrant.name())
         .on('mouseover', mouseoverQuadrant.bind({}, quadrant.order))
         .on('mouseout', mouseoutQuadrant.bind({}, quadrant.order))
@@ -291,7 +298,7 @@ const Radar = function (size, radar) {
     d3.selectAll('.home-link').classed('selected', false);
     createHomeLink(radarElement.select('header'));
 
-    d3.selectAll('.button').classed('selected', false);
+    d3.selectAll('.button').classed('selected', false).classed('full-view', false);
     d3.selectAll('.button.' + order).classed('selected', true);
     d3.selectAll('.quadrant-table').classed('selected', false);
     d3.selectAll('.quadrant-table.' + order).classed('selected', true);
