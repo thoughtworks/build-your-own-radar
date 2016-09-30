@@ -251,7 +251,7 @@ const Radar = function (size, radar) {
 
   function plotQuadrantButtons(quadrants) {
     var header = radarElement.append('header');
-    header.append('div').append('h1').attr('class', 'radar-title').text(document.title);
+    header.append('div').attr('class', 'radar-title').append('h1').text(document.title);
 
     function addButton(quadrant) {
       radarElement.append('div')

@@ -10,12 +10,21 @@ body {
   margin: 0;
 }
 
-h1 {
-  margin: 0;
+.radar-title {
+    text-align: center;
+    background-color: $grenouille;
+    padding: 30px 0;
+    display: block;
+    margin: auto;
 
-  &.radar-title {
-        text-align: center;
-  }
+    h1 {
+      margin: 0;
+      font-size: 55px;
+      line-height: .8em;
+      letter-spacing: -.04em;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
 }
 
 #radar {
@@ -38,7 +47,7 @@ h1 {
 }
 
 header {
-  height: 170px;
+  height: 220px;
   width: 100%;
   line-height: 60px;
   text-align: center;
@@ -139,7 +148,7 @@ svg#radar-plot {
 
 div.quadrant-table {
   position: absolute;
-  top: 112px;
+  top: 170px;
   overflow: hidden;
   max-height: 0;
   max-width: 0;
