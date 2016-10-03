@@ -45,12 +45,12 @@ const Radar = function (size, radar) {
     quadrantGroup.append('line')
       .attr('x1', center()).attr('x2', center())
       .attr('y1', startY).attr('y2', endY)
-      .attr('stroke-width', 4);
+      .attr('stroke-width', 10);
 
     quadrantGroup.append('line')
       .attr('x1', startX).attr('y1', center())
       .attr('x2', endX).attr('y2', center())
-      .attr('stroke-width', 4);
+      .attr('stroke-width', 10);
   }
 
   function plotQuadrant(cycles, quadrant) {
@@ -122,7 +122,7 @@ const Radar = function (size, radar) {
     var radius = chance.floating({ min: minRadius + blipWidth/2, max: maxRadius - blipWidth/2 });
     var angleDelta = Math.asin(blipWidth/2/radius) * 180/Math.PI;
     angleDelta = angleDelta > 45 ? 45 : angleDelta;
-    var angle = toRadian(chance.integer({ min: 0 + angleDelta, max: 90 - angleDelta }));
+    var angle = toRadian(chance.integer({ min: angleDelta, max: 90 - angleDelta }));
     
     var x = center() + radius * Math.cos(angle) * adjustX;
     var y = center() + radius * Math.sin(angle) * adjustY;
@@ -192,7 +192,7 @@ const Radar = function (size, radar) {
           .text(blipText);
           
         var blipItemDescription = blipListItem.append('div')
-          .attr('class', 'blip-item-description')
+          .attr('class', 'blip-item-description');
         if (blip.description()) {
           blipItemDescription.append('p').html(blip.description());
         }
