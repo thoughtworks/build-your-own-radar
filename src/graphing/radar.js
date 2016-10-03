@@ -228,7 +228,7 @@ const Radar = function (size, radar) {
     header.append('svg')
       .attr('width', 37).attr('height', 37)
       .on('click', function() {
-        svg.style('left', 0).style('top', 0);
+        svg.style('left', '28.5%').style('top', 0);
         d3.selectAll('.button').classed('selected', false);
         d3.selectAll('.quadrant-table').classed('selected', false);
         d3.selectAll('.quadrant-group')
@@ -248,11 +248,13 @@ const Radar = function (size, radar) {
 
   function plotQuadrantButtons(quadrants) {
     var header = radarElement.append('header');
-    createHomeButton(header);
+    header.append('div').append('h1').attr('class', 'radar-title').text(document.title);
 
+    createHomeButton(header);
     function addButton(quadrant) {
       radarElement.append('div')
         .attr('class', 'quadrant-table ' + quadrant.order);
+
 
       header.append('div')
         .attr('class', 'button ' + quadrant.order)

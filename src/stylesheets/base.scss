@@ -12,10 +12,13 @@ body {
 
 h1 {
   margin: 0;
+
+  &.radar-title {
+        text-align: center;
+  }
 }
 
 #radar {
-  position: relative;
   width: 100%;
 }
 
@@ -35,11 +38,9 @@ h1 {
 }
 
 header {
-  height: 90px;
+  height: 170px;
   width: 100%;
-  position: fixed;
-  border-bottom: 2px solid $grey-light;
-  line-height: 90px;
+  line-height: 60px;
   text-align: center;
   background-color: white;
   z-index: 1;
@@ -82,12 +83,10 @@ header {
 }
 
 svg#radar-plot {
-  position: absolute;
-  top: 112px;
-  right: 0;
-  left: 0;
   margin: 0 auto;
   transition: all 1s ease;
+  position: relative;
+  left: 28.5%;
 
   path {
     &.cycle-arc-3 { stroke: none; fill: $grey-light; }
@@ -154,6 +153,7 @@ div.quadrant-table {
   &.selected {
     max-height: 2000px;
     max-width: 1000px;
+    padding-top: 60px;
   }
 
   ul {
