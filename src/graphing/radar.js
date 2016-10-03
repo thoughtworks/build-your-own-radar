@@ -115,7 +115,7 @@ const Radar = function (size, radar) {
     return table.append('ul');
   }
 
-  function calculateBlipCoordinates(chance, blip, minRadius, maxRadius, startAngle) {
+  function calculateBlipCoordinates(chance, minRadius, maxRadius, startAngle) {
     var adjustX = Math.sin(toRadian(startAngle)) - Math.cos(toRadian(startAngle)) ;
     var adjustY = -Math.cos(toRadian(startAngle)) - Math.sin(toRadian(startAngle));
 
@@ -162,9 +162,9 @@ const Radar = function (size, radar) {
       var allBlipCoordinatesInCycle = [];
 
       cycleBlips.forEach(function (blip) {
-        var coordinates = calculateBlipCoordinates(chance, blip, minRadius, maxRadius, startAngle);
+        var coordinates = calculateBlipCoordinates(chance, minRadius, maxRadius, startAngle);
         while (thereIsCollision(coordinates, allBlipCoordinatesInCycle)) {
-          coordinates = calculateBlipCoordinates(chance, blip, minRadius, maxRadius, startAngle);
+          coordinates = calculateBlipCoordinates(chance, minRadius, maxRadius, startAngle);
         }
         allBlipCoordinatesInCycle.push(coordinates);
         var x = coordinates[0];
