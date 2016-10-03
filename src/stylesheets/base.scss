@@ -10,6 +10,11 @@ body {
   margin: 0;
 }
 
+#footer{
+  text-align: center;
+  clear: both;
+}
+
 .radar-title {
     text-align: center;
     background-color: $grey-light;
@@ -30,7 +35,8 @@ body {
 }
 
 #radar {
-  width: 100%;
+  width: 80%;
+  margin: 0 auto;
 }
 
 @media print {
@@ -103,11 +109,16 @@ header {
   }
 }
 
+.radar-footer {
+  padding-top: 30px;
+  font-size: 17px;
+}
+
 svg#radar-plot {
   margin: 0 auto;
   transition: all 1s ease;
   position: relative;
-  left: 28.5%;
+  left: 18.5%;
 
   path {
     &.cycle-arc-3 { stroke: none; fill: $grey-light; }
@@ -152,9 +163,6 @@ svg#radar-plot {
 }
 
 div.quadrant-table {
-  position: absolute;
-  top: 170px;
-  overflow: hidden;
   max-height: 0;
   max-width: 0;
   
@@ -166,15 +174,45 @@ div.quadrant-table {
     margin: 0;
   }
 
-  &.first {right: 20px; left: 55%;}
-  &.second {right: 55%; left: 20px;}
-  &.third {right: 55%; left: 20px;}
-  &.fourth {right: 20px; left: 55%;}
+  display: none;
+
+
+  &.first {
+    right: 20px;
+    left: 55%;
+    &.selected {
+      float: right;
+    }
+  }
+
+  &.second {
+    right: 55%;
+    left: 20px;
+    &.selected {
+      float: left;
+    }
+  }
+
+  &.third {
+    right: 55%;
+    left: 20px;
+    &.selected {
+      float: left;
+    }
+  }
+
+  &.fourth {
+    right: 20px;
+    left: 55%;
+    &.selected {
+      float: right;
+    }
+  }
 
   &.selected {
+    display: block;
     max-height: 2000px;
     max-width: 1000px;
-    margin-top: 60px;
   }
 
   ul {
