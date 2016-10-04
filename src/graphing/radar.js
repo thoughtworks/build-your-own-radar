@@ -43,7 +43,7 @@ const Radar = function (size, radar) {
     var startY = size * (1 - (Math.cos(toRadian(quadrant.startAngle)) + 1) / 2);
     var endY = size * (1 - (Math.cos(toRadian(quadrant.startAngle - 90)) + 1) / 2);
 
-    if (startY > endY){
+    if (startY > endY) {
       var aux = endY;
       endY = startY;
       startY = aux;
@@ -51,7 +51,7 @@ const Radar = function (size, radar) {
 
     quadrantGroup.append('line')
       .attr('x1', center()).attr('x2', center())
-      .attr('y1', startY - 2).attr('y2', endY + 2 )
+      .attr('y1', startY - 2).attr('y2', endY + 2)
       .attr('stroke-width', 10);
 
     quadrantGroup.append('line')
@@ -228,6 +228,10 @@ const Radar = function (size, radar) {
           d3.select('.blip-item-description.expanded').node() !== blipItemDescription.node() &&
           d3.select('.blip-item-description.expanded').classed("expanded", false);
           blipItemDescription.classed("expanded", !blipItemDescription.classed("expanded"));
+
+          blipItemDescription.on('click', function(){
+            d3.event.stopPropagation();
+          });
         };
 
         blipListItem.on('click', clickBlip);
