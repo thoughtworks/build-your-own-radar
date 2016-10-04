@@ -43,14 +43,20 @@ const Radar = function (size, radar) {
     var startY = size * (1 - (Math.cos(toRadian(quadrant.startAngle)) + 1) / 2);
     var endY = size * (1 - (Math.cos(toRadian(quadrant.startAngle - 90)) + 1) / 2);
 
+    if (startY > endY){
+      var aux = endY;
+      endY = startY;
+      startY = aux;
+    }
+
     quadrantGroup.append('line')
       .attr('x1', center()).attr('x2', center())
-      .attr('y1', startY).attr('y2', endY)
+      .attr('y1', startY - 2).attr('y2', endY + 2 )
       .attr('stroke-width', 10);
 
     quadrantGroup.append('line')
-      .attr('x1', startX).attr('y1', center())
-      .attr('x2', endX).attr('y2', center())
+      .attr('x1', endX).attr('y1', center())
+      .attr('x2', startX).attr('y2', center())
       .attr('stroke-width', 10);
   }
 
