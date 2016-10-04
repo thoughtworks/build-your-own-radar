@@ -310,7 +310,7 @@ const Radar = function (size, radar) {
       .attr('id', 'footer')
       .append('p')
       .classed('radar-footer', true)
-      .text('Powered by ThoughtWorks. Open source, github link and credit references go here');
+      .html('Powered by <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. Open source, github link and credit references go here');
   }
 
   function mouseoverQuadrant(order) {
