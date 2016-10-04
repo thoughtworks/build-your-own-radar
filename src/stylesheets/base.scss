@@ -2,7 +2,7 @@
 @import 'tip';
 @import 'form';
 
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700);
+@import url(https://www.thoughtworks.com/css/screen.css);
 
 body {
   font: 11px 'Open Sans';
@@ -24,13 +24,13 @@ body {
     margin: auto;
 
     h1 {
-      margin: 0;
-      font-size: 55px;
-      line-height: .8em;
-      letter-spacing: -.04em;
-      text-transform: uppercase;
-      font-weight: 900;
       display: inline-block;
+      font-size: 55px;
+      font-weight: 900;
+      letter-spacing: -.04em;
+      line-height: 0.8em;
+      margin: 0;
+      text-transform: uppercase;
     }
 }
 
@@ -172,6 +172,7 @@ div.quadrant-table {
     text-transform: uppercase;
     font-size: 17px;
     margin: 0;
+    font-weight: bold;
   }
 
   display: none;
@@ -217,15 +218,17 @@ div.quadrant-table {
 
   ul {
     padding: 0;
+    margin-left: 0;
     
     li {
       list-style-type: none;
+      padding-left: 0;
 
       .blip-list-item {
         padding: 2px 5px;
         border-radius: 2px;
         cursor: pointer;
-        font-size: 10pt;
+        font-size: 17px;
         font-weight: 400;
 
         &.highlight {
@@ -246,13 +249,13 @@ div.quadrant-table {
           padding: 20px;
           color: $grey-text;
           font-weight: 100;
-          font-size: 9pt;
+          font-size: 14px;
         }
         
         transition: max-height 0.2s ease;
         &.expanded {
           transition: max-height 0.5s ease 0.2s;
-          max-height: 400px;
+          max-height: 100%;
         }
       }
     }
