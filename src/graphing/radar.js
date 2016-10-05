@@ -159,7 +159,7 @@ const Radar = function (size, radar) {
 
       var cycleBlips = blips.filter(function (blip) {
         return blip.cycle() == cycle;
-      });
+      }).slice(0, 10);
 
       var sumCycle = cycle.name().split('').reduce(function (p, c) {
         return p + c.charCodeAt(0);
@@ -277,10 +277,16 @@ const Radar = function (size, radar) {
     var header = radarElement.append('header');
     header.append('div')
       .attr('class', 'radar-title')
-      .append('h1')
-      .text(document.title)
-      .style('cursor', 'pointer')
-      .on('click', redrawFullRadar);
+        .append('h1')
+        .text(document.title)
+        .style('cursor', 'pointer')
+        .on('click', redrawFullRadar);
+
+    header.select('.radar-title')
+          .append('div')
+          .attr('class', 'radar-logo')
+          .html('<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /> </a>');
+
     return header;
   }
 

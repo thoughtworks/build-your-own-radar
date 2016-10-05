@@ -33,7 +33,18 @@ body {
       margin: 0;
       text-transform: uppercase;
     }
+    .radar-logo {
+      float: right;
+      a {
+        border-bottom: none;
+      }
+      img {
+        width:43%;
+      }
+
+     }
 }
+
 
 #radar {
   width: 80%;
