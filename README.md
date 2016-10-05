@@ -1,4 +1,4 @@
-[![Build Status](https://snap-ci.com/www-thoughtworks-com/tech-radar/branch/master/build_image)](https://snap-ci.com/www-thoughtworks-com/tech-radar/branch/master)
+[![Build Status](https://snap-ci.com/thoughtworks/build-your-own-radar/branch/master/build_image)](https://snap-ci.com/thoughtworks/build-your-own-radar/branch/master)
 
 A library that generates an interactive radar, inspired by [thoughtworks.com/radar/](http://thoughtworks.com/radar/).
 
