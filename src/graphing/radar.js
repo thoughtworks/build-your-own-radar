@@ -241,7 +241,7 @@ const Radar = function (size, radar) {
 
   function createHomeLink(pageElement) {
     pageElement.append('div')
-      .html('&#x21FD; Back to Radar home')
+      .html('&#171; Back to Radar home')
       .classed('home-link', true)
       .classed('selected', true)
       .on('click', redrawFullRadar)
