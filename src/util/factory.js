@@ -53,7 +53,7 @@ const GoogleSheet = function (sheetId, sheetName) {
         radar.addQuadrant(quadrant)
       });
 
-      var size = window.innerHeight < 620 ? 620 : window.innerHeight;
+      var size = (window.innerHeight - 133) < 620 ? 620 : window.innerHeight - 133;
       new GraphingRadar(size, radar).init().plot();
     }
   };
@@ -96,7 +96,7 @@ const GoogleSheetInput = function () {
           .append('div')
           .attr('class', 'input-sheet');
       content.append('p')
-          .html('Automatically generate an interactive radar, inspired by <a href="http://thoughtworks.com/radar/">thoughtworks.com/radar/</a>. The radar data is provided by your public google sheet, and must conform to <a href="https://github.com/thenano/tech-radar#setting-up-your-data">this format</a>.');
+          .html('Automatically generate an interactive radar, inspired by <a href="http://thoughtworks.com/radar/">thoughtworks.com/radar/</a>. The radar data is provided by your public google sheet, and must conform to <a href="https://github.com/thenano/tech-radar#setting-up-your-data">this format</a>.')
 
       var form = content.append('form')
           .attr('method', 'get');
