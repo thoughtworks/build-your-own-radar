@@ -17,28 +17,35 @@ body {
 }
 
 .radar-title {
-    text-align: center;
     background-color: $grey-light;
     padding-top: 30px;
-    padding-bottom: 5px;
-    display: block;
+    padding-bottom: 30px;
+    display: table;
     margin: auto;
-
-    h1 {
-      display: inline-block;
-      font-size: 55px;
-      font-weight: 900;
-      letter-spacing: -.04em;
-      line-height: 0.8em;
-      margin: 0;
-      text-transform: uppercase;
+    .radar-title__text{
+      display: table-cell;
+      width: 70%;
+      text-align: left;
+      padding-left: 30px;
+      h1 {
+        font-size: 55px;
+        font-weight: 900;
+        letter-spacing: -.04em;
+        line-height: 0.8em;
+        margin: 0;
+        text-transform: uppercase;
+      }
     }
-    .radar-logo {
-      float: right;
+
+    .radar-title__logo {
+      width: 30%;
+      display: table-cell;
+      vertical-align: middle;
       a {
         border-bottom: none;
       }
       img {
+        vertical-align: middle;
         width:43%;
       }
 
@@ -67,7 +74,6 @@ body {
 }
 
 header {
-  height: 220px;
   width: 100%;
   line-height: 60px;
   text-align: center;
@@ -131,6 +137,7 @@ svg#radar-plot {
   transition: all 1s ease;
   position: relative;
   left: 18.5%;
+  top: 15px;
 
   path {
     &.cycle-arc-3 { stroke: none; fill: $grey-light; }

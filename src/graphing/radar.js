@@ -253,7 +253,7 @@ const Radar = function (size, radar) {
 
   function redrawFullRadar() {
     svg.style('left', leftAlign)
-      .style('top', 0);
+      .style('top', '15px');
 
     d3.selectAll('.button')
       .classed('selected', false)
@@ -277,6 +277,8 @@ const Radar = function (size, radar) {
     var header = radarElement.append('header');
     header.append('div')
       .attr('class', 'radar-title')
+        .append('div')
+        .attr('class', 'radar-title__text')
         .append('h1')
         .text(document.title)
         .style('cursor', 'pointer')
@@ -284,7 +286,7 @@ const Radar = function (size, radar) {
 
     header.select('.radar-title')
           .append('div')
-          .attr('class', 'radar-logo')
+          .attr('class', 'radar-title__logo')
           .html('<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /> </a>');
 
     return header;
