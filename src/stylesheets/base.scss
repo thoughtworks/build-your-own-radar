@@ -26,7 +26,7 @@ body {
       display: table-cell;
       width: 70%;
       text-align: left;
-      padding-left: 30px;
+      padding-left: 100px;
       h1 {
         font-size: 55px;
         font-weight: 900;
@@ -89,7 +89,8 @@ header {
     padding-bottom: 15px;
 
     &.selected {
-        display: block;
+        display: inline-block;
+        width: 80%;
     }
   }
 

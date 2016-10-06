@@ -281,7 +281,7 @@ const Radar = function (size, radar) {
   }
 
   function plotRadarHeader() {
-    var header = radarElement.append('header');
+    var header = d3.select('body').insert('header', "#radar");
     header.append('div')
       .attr('class', 'radar-title')
         .append('div')
@@ -302,7 +302,8 @@ const Radar = function (size, radar) {
   function plotQuadrantButtons(quadrants, header) {
 
     function addButton(quadrant) {
-      radarElement.append('div')
+      radarElement
+        .append('div')
         .attr('class', 'quadrant-table ' + quadrant.order);
 
 
@@ -339,7 +340,7 @@ const Radar = function (size, radar) {
 
   function selectQuadrant(order, startAngle) {
     d3.selectAll('.home-link').classed('selected', false);
-    createHomeLink(radarElement.select('header'));
+    createHomeLink(d3.select('header'));
 
     d3.selectAll('.button').classed('selected', false).classed('full-view', false);
     d3.selectAll('.button.' + order).classed('selected', true);
