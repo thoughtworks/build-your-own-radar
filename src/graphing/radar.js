@@ -159,7 +159,7 @@ const Radar = function (size, radar) {
 
       var cycleBlips = blips.filter(function (blip) {
         return blip.cycle() == cycle;
-      }).slice(0, 15);
+      });
 
       var sumCycle = cycle.name().split('').reduce(function (p, c) {
         return p + c.charCodeAt(0);
@@ -174,67 +174,74 @@ const Radar = function (size, radar) {
 
       cycleBlips.forEach(function (blip) {
         var coordinates = calculateBlipCoordinates(chance, minRadius, maxRadius, startAngle);
-        while (thereIsCollision(coordinates, allBlipCoordinatesInCycle)) {
+        var maxIterations = 100;
+        var iterationCounter = 0;
+
+        while (thereIsCollision(coordinates, allBlipCoordinatesInCycle) && (iterationCounter < maxIterations)) {
           coordinates = calculateBlipCoordinates(chance, minRadius, maxRadius, startAngle);
-        }
-        allBlipCoordinatesInCycle.push(coordinates);
-        var x = coordinates[0];
-        var y = coordinates[1];
-
-        var group = quadrantGroup.append('g').attr('class', 'blip-link');
-
-        if (blip.isNew()) {
-          triangle(x, y, order, group);
-        } else {
-          circle(x, y, order, group);
+          iterationCounter++;
         }
 
-        group.append('text')
-          .attr('x', x)
-          .attr('y', y + 4)
-          .attr('class', 'blip-text')
-          .attr('text-anchor', 'middle')
-          .text(blip.number());
+        if (iterationCounter < maxIterations) {
+          allBlipCoordinatesInCycle.push(coordinates);
+          var x = coordinates[0];
+          var y = coordinates[1];
 
-        var blipListItem = cycleList.append('li');
-        var blipText = blip.number() + '. ' + blip.name() + (blip.topic() ? ('. - ' + blip.topic()) : '');
-        blipListItem.append('div')
-          .attr('class', 'blip-list-item')
-          .text(blipText);
+          var group = quadrantGroup.append('g').attr('class', 'blip-link');
 
-        var blipItemDescription = blipListItem.append('div')
-          .attr('class', 'blip-item-description');
-        if (blip.description()) {
-          blipItemDescription.append('p').html(blip.description());
+          if (blip.isNew()) {
+            triangle(x, y, order, group);
+          } else {
+            circle(x, y, order, group);
+          }
+
+          group.append('text')
+            .attr('x', x)
+            .attr('y', y + 4)
+            .attr('class', 'blip-text')
+            .attr('text-anchor', 'middle')
+            .text(blip.number());
+
+          var blipListItem = cycleList.append('li');
+          var blipText = blip.number() + '. ' + blip.name() + (blip.topic() ? ('. - ' + blip.topic()) : '');
+          blipListItem.append('div')
+            .attr('class', 'blip-list-item')
+            .text(blipText);
+
+          var blipItemDescription = blipListItem.append('div')
+            .attr('class', 'blip-item-description');
+          if (blip.description()) {
+            blipItemDescription.append('p').html(blip.description());
+          }
+
+          var mouseOver = function () {
+            d3.selectAll('g.blip-link').attr('opacity', 0.3);
+            group.attr('opacity', 1.0);
+            blipListItem.selectAll('.blip-list-item').classed('highlight', true);
+            tip.show(blip.name(), group.node());
+          };
+
+          var mouseOut = function () {
+            d3.selectAll('g.blip-link').attr('opacity', 1.0);
+            blipListItem.selectAll('.blip-list-item').classed('highlight', false);
+            tip.hide().style('left', 0).style('top', 0);
+          };
+
+          blipListItem.on('mouseover', mouseOver).on('mouseout', mouseOut);
+          group.on('mouseover', mouseOver).on('mouseout', mouseOut);
+
+          var clickBlip = function () {
+            d3.select('.blip-item-description.expanded').node() !== blipItemDescription.node() &&
+            d3.select('.blip-item-description.expanded').classed("expanded", false);
+            blipItemDescription.classed("expanded", !blipItemDescription.classed("expanded"));
+
+            blipItemDescription.on('click', function () {
+              d3.event.stopPropagation();
+            });
+          };
+
+          blipListItem.on('click', clickBlip);
         }
-
-        var mouseOver = function () {
-          d3.selectAll('g.blip-link').attr('opacity', 0.3);
-          group.attr('opacity', 1.0);
-          blipListItem.selectAll('.blip-list-item').classed('highlight', true);
-          tip.show(blip.name(), group.node());
-        };
-
-        var mouseOut = function () {
-          d3.selectAll('g.blip-link').attr('opacity', 1.0);
-          blipListItem.selectAll('.blip-list-item').classed('highlight', false);
-          tip.hide().style('left', 0).style('top', 0);
-        };
-
-        blipListItem.on('mouseover', mouseOver).on('mouseout', mouseOut);
-        group.on('mouseover', mouseOver).on('mouseout', mouseOut);
-
-        var clickBlip = function () {
-          d3.select('.blip-item-description.expanded').node() !== blipItemDescription.node() &&
-          d3.select('.blip-item-description.expanded').classed("expanded", false);
-          blipItemDescription.classed("expanded", !blipItemDescription.classed("expanded"));
-
-          blipItemDescription.on('click', function(){
-            d3.event.stopPropagation();
-          });
-        };
-
-        blipListItem.on('click', clickBlip);
       });
     });
   }
