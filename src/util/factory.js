@@ -1,5 +1,5 @@
-const Tabletop = require('Tabletop');
 const d3 = require('d3');
+const Tabletop = require('tabletop');
 const _ = {
   map: require('lodash/map'),
   uniqBy: require('lodash/uniqBy'),
