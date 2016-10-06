@@ -159,7 +159,7 @@ const Radar = function (size, radar) {
 
       var cycleBlips = blips.filter(function (blip) {
         return blip.cycle() == cycle;
-      }).slice(0, 10);
+      }).slice(0, 15);
 
       var sumCycle = cycle.name().split('').reduce(function (p, c) {
         return p + c.charCodeAt(0);
