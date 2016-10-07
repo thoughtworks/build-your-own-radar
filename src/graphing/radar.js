@@ -160,6 +160,11 @@ const Radar = function (size, radar) {
     startAngle = quadrantWrapper.startAngle;
     order = quadrantWrapper.order;
 
+    d3.select('.quadrant-table.' + order)
+      .append('h2')
+      .attr('class', 'quadrant-table__name')
+      .text(quadrant.name());
+
     blips = quadrant.blips();
     rings.forEach(function (ring, i) {
       var maxRadius, minRadius;
@@ -401,6 +406,17 @@ const Radar = function (size, radar) {
     _.each([0, 3, 2, 1], function (i) {
       addButton(quadrants[i]);
     });
+
+
+    header.append('div')
+      .classed('print-radar button', true)
+      .text('Print this page')
+      .on('click', printDiv);
+  }
+
+
+  function printDiv() {
+    window.print();
   }
 
   function plotRadarFooter() {
@@ -476,6 +492,10 @@ const Radar = function (size, radar) {
     if (d3.select('.legend.legend-' + order).empty()){
       drawLegend(order);
     }
+  }
+
+  function plotPrintableText(text){
+
   }
 
   self.init = function () {
