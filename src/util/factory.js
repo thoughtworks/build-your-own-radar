@@ -99,6 +99,10 @@ const GoogleSheetInput = function () {
         .attr('class', 'input-sheet');
 
       content.append('div')
+        .attr('class', 'input-sheet__logo')
+        .html('<a href=""><img src="/images/tw-logo.png" / ></a>');
+
+      content.append('div')
         .attr('class', 'input-sheet__banner')
         .html('<h1>Build your own radar</h1><p>Once you\'ve <a href ="">created your Radar</a>, you can use this service' +
           ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="">Read this first.</a></p>');
@@ -123,6 +127,14 @@ const GoogleSheetInput = function () {
         .text('Build my radar');
 
       form.append('p').html("<a href=''>Need help?</a>");
+
+      content
+        .append('div')
+        .attr('id', 'footer')
+        .append('p')
+        .classed('radar-footer', true)
+        .html('Powered by <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. Open source, github link and credit references go here');
+
     }
   };
 
