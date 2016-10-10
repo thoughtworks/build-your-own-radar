@@ -66,7 +66,7 @@ const GoogleSheet = function (sheetId, sheetName) {
                   .attr('class', 'input-sheet');
     plotLogo(content);
 
-    var bannerText= '<h1>Build your own radar...</h1><p>Your Technology Radar will be available in just a few seconds</p>';
+    var bannerText= '<h1>Building your radar...</h1><p>Your Technology Radar will be available in just a few seconds</p>';
     plotBanner(content, bannerText);
     plotFooter(content);
 
