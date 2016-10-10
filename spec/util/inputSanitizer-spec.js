@@ -7,7 +7,7 @@ describe('InputSanitizer', function(){
         sanitizer = new InputSanitizer();
         var description = "<b>Hello</b> <script>alert('dangerous');</script>there <h1>heading</h1>";
         rawBlip = {
-            Name: "Hello <script>alert('dangerous');</script>there <h1>blip</h1>",
+            name: "Hello <script>alert('dangerous');</script>there <h1>blip</h1>",
             description: description,
             cycle: '<a href="/asd">Adopt</a>',
             quadrant: '<strong>techniques & tools</strong>',
@@ -22,7 +22,7 @@ describe('InputSanitizer', function(){
     });
 
     it('strips out all tags from blip name', function(){
-        expect(blip.Name).toEqual("Hello there blip");
+        expect(blip.name).toEqual("Hello there blip");
     });
 
     it('strips out all tags from blip status', function(){

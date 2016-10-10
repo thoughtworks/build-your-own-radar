@@ -45,7 +45,7 @@ const GoogleSheet = function (sheetId, sheetName) {
         if (!quadrants[blip.quadrant]) {
           quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant));
         }
-        quadrants[blip.quadrant].add(new Blip(blip.Name, cycleMap[blip.cycle], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description))
+        quadrants[blip.quadrant].add(new Blip(blip.name, cycleMap[blip.cycle], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description))
       });
 
       var radar = new Radar();
