@@ -66,7 +66,7 @@ const GoogleSheet = function (sheetId, sheetName) {
                   .attr('class', 'input-sheet');
     plotLogo(content);
 
-    var bannerText= '<h1>Build your own radar...</h1><p>Your Technology Radar will be available in just a few seconds</p>';;
+    var bannerText= '<h1>Build your own radar...</h1><p>Your Technology Radar will be available in just a few seconds</p>';
     plotBanner(content, bannerText);
     plotFooter(content);
 
@@ -125,7 +125,7 @@ const GoogleSheetInput = function () {
 function plotLogo(content) {
   content.append('div')
     .attr('class', 'input-sheet__logo')
-    .html('<a href=""><img src="/images/tw-logo.png" / ></a>');
+    .html('<a href="https://www.thoughtworks.com"><img src="/images/tw-logo.png" / ></a>');
 }
 
 function plotFooter(content) {
