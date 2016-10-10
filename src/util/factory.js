@@ -59,10 +59,17 @@ const GoogleSheet = function (sheetId, sheetName) {
   };
 
   self.init = function () {
-    d3.select('body')
-      .append('div')
-      .attr('class', 'loading')
-      .text('Loading your data...');
+    var content = d3.select('body')
+                  .append('div')
+                  .attr('class', 'loading')
+                  .append('div')
+                  .attr('class', 'input-sheet');
+    plotLogo(content);
+
+    var bannerText= '<h1>Build your own radar...</h1><p>Your Technology Radar will be available in just a few seconds</p>';;
+    plotBanner(content, bannerText);
+    plotFooter(content);
+
 
     return self;
   };
@@ -98,47 +105,68 @@ const GoogleSheetInput = function () {
         .append('div')
         .attr('class', 'input-sheet');
 
-      content.append('div')
-        .attr('class', 'input-sheet__logo')
-        .html('<a href=""><img src="/images/tw-logo.png" / ></a>');
+      plotLogo(content);
 
-      content.append('div')
-        .attr('class', 'input-sheet__banner')
-        .html('<h1>Build your own radar</h1><p>Once you\'ve <a href ="">created your Radar</a>, you can use this service' +
-          ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="">Read this first.</a></p>');
+      var bannerText = '<h1>Build your own radar</h1><p>Once you\'ve <a href ="">created your Radar</a>, you can use this service' +
+        ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="">Read this first.</a></p>';
 
-      content.append('div')
-        .attr('class', 'input-sheet__form')
-        .append('p')
-        .html('<strong>Enter the URL of your public google sheet below...</strong>');
+      plotBanner(content, bannerText);
 
-      var form = content.select('.input-sheet__form').append('form')
-        .attr('method', 'get');
+      plotForm(content);
 
-      form.append('input')
-        .attr('type', 'text')
-        .attr('name', 'sheetId')
-        .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/1--_uLSNf/pubhtml');
-
-      form.append('button')
-        .attr('type', 'submit')
-        .append('a')
-        .attr('class', 'button')
-        .text('Build my radar');
-
-      form.append('p').html("<a href=''>Need help?</a>");
-
-      content
-        .append('div')
-        .attr('id', 'footer')
-        .append('p')
-        .classed('radar-footer', true)
-        .html('Powered by <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. Open source, github link and credit references go here');
+      plotFooter(content);
 
     }
   };
 
   return self;
 };
+
+function plotLogo(content) {
+  content.append('div')
+    .attr('class', 'input-sheet__logo')
+    .html('<a href=""><img src="/images/tw-logo.png" / ></a>');
+}
+
+function plotFooter(content) {
+  content
+    .append('div')
+    .attr('id', 'footer')
+    .append('p')
+    .classed('radar-footer', true)
+    .html('Powered by <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. Open source, github link and credit references go here');
+}
+
+function plotBanner(content, text) {
+  content.append('div')
+    .attr('class', 'input-sheet__banner')
+    .html(text);
+
+}
+
+function plotForm(content) {
+  content.append('div')
+    .attr('class', 'input-sheet__form')
+    .append('p')
+    .html('<strong>Enter the URL of your public google sheet below...</strong>');
+
+  var form = content.select('.input-sheet__form').append('form')
+    .attr('method', 'get');
+
+  form.append('input')
+    .attr('type', 'text')
+    .attr('name', 'sheetId')
+    .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/1--_uLSNf/pubhtml');
+
+  form.append('button')
+    .attr('type', 'submit')
+    .append('a')
+    .attr('class', 'button')
+    .text('Build my radar');
+
+  form.append('p').html("<a href=''>Need help?</a>");
+}
+
+
 
 module.exports = GoogleSheetInput;
