@@ -25,7 +25,7 @@ const GoogleSheet = function (sheetId, sheetName) {
 
     function createRadar(sheets, tabletop) {
 
-      if(!sheetName) {
+      if (!sheetName) {
         sheetName = Object.keys(sheets)[0];
       }
 
@@ -70,18 +70,20 @@ const GoogleSheet = function (sheetId, sheetName) {
   return self;
 };
 
- var QueryParams = function(queryString) {
-   var decode = function (s) { return decodeURIComponent(s.replace(/\+/g, " ")); };
+var QueryParams = function (queryString) {
+  var decode = function (s) {
+    return decodeURIComponent(s.replace(/\+/g, " "));
+  };
 
-   var search = /([^&=]+)=?([^&]*)/g;
+  var search = /([^&=]+)=?([^&]*)/g;
 
-   var queryParams = {};
-   var match;
-   while (match = search.exec(queryString))
-     queryParams[decode(match[1])] = decode(match[2]);
+  var queryParams = {};
+  var match;
+  while (match = search.exec(queryString))
+    queryParams[decode(match[1])] = decode(match[2]);
 
-   return queryParams
- };
+  return queryParams
+};
 
 const GoogleSheetInput = function () {
   var self = {};
@@ -93,19 +95,26 @@ const GoogleSheetInput = function () {
       return GoogleSheet(queryParams.sheetId, queryParams.sheetName).init().build();
     } else {
       var content = d3.select('body')
-          .append('div')
-          .attr('class', 'input-sheet');
-      content.append('p')
-          .html('Automatically generate an interactive radar, inspired by <a href="http://thoughtworks.com/radar/">thoughtworks.com/radar/</a>. The radar data is provided by your public google sheet, and must conform to <a href="https://github.com/thenano/tech-radar#setting-up-your-data">this format</a>.')
+        .append('div')
+        .attr('class', 'input-sheet');
 
-      var form = content.append('form')
-          .attr('method', 'get');
+      content.append('div')
+        .attr('class', 'input-sheet__banner')
+        .html('<h1>Build your own radar</h1><p>Once you\'ve <a href ="">created your Radar</a>, you can use this service' +
+          ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="">Read this first.</a></p>');
 
-      form.append('label').text('Please provide the id of your public google sheet:');
+      content.append('div')
+        .attr('class', 'input-sheet__form')
+        .append('p')
+        .html('<strong>Enter the URL of your public google sheet below...</strong>');
+
+      var form = content.select('.input-sheet__form').append('form')
+        .attr('method', 'get');
 
       form.append('input')
-          .attr('type', 'text')
-          .attr('name', 'sheetId');
+        .attr('type', 'text')
+        .attr('name', 'sheetId')
+        .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/1--_uLSNf/pubhtml');
 
       form.append('p').attr('class', 'small').html("Don't know what to do here? Have a look at the <a href='https://github.com/thenano/tech-radar'>documentation</a>");
     }
