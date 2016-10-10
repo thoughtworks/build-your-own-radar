@@ -7,9 +7,6 @@
     color: $black;
     font-size: 18px;
 
-    &.small {
-      font-size: inherit;
-    }
   }
 
   .input-sheet__banner {
@@ -28,18 +25,23 @@
   .input-sheet__form {
     width: 50%;
     margin: 0 auto;
-    p {
-      text-align: center;
+    text-align: center;
+
+    button {
+      border: none;
+      background-color: transparent;
+      margin: 0;
+      padding: 0;
     }
   }
-  
+
   input[type="text"] {
+    border-bottom: 2px solid $grey-even-darker;
     display: block;
     font-size: 18px;
-
+    margin-bottom: 30px;
     padding: 10px;
     transition: box-shadow 0.3s, border 0.3s;
-    border-bottom: 2px solid $grey-even-darker;
 
     &:focus, &.focus {
       outline: none;

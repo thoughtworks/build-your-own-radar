@@ -116,7 +116,13 @@ const GoogleSheetInput = function () {
         .attr('name', 'sheetId')
         .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/1--_uLSNf/pubhtml');
 
-      form.append('p').attr('class', 'small').html("Don't know what to do here? Have a look at the <a href='https://github.com/thenano/tech-radar'>documentation</a>");
+      form.append('button')
+        .attr('type', 'submit')
+        .append('a')
+        .attr('class', 'button')
+        .text('Build my radar');
+
+      form.append('p').html("<a href=''>Need help?</a>");
     }
   };
 
