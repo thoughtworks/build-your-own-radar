@@ -141,10 +141,10 @@ svg#radar-plot {
   top: 15px;
 
   path {
-    &.cycle-arc-3 { stroke: none; fill: $grey-light; }
-    &.cycle-arc-2 { stroke: none; fill: $grey; }
-    &.cycle-arc-1 { stroke: none; fill: $grey-dark; }
-    &.cycle-arc-0 { stroke: none; fill: $grey-darkest; }
+    &.ring-arc-3 { stroke: none; fill: $grey-light; }
+    &.ring-arc-2 { stroke: none; fill: $grey; }
+    &.ring-arc-1 { stroke: none; fill: $grey-dark; }
+    &.ring-arc-0 { stroke: none; fill: $grey-darkest; }
   }
 
   .blip-link {

@@ -22,7 +22,7 @@ const InputSanitizer = function () {
         blip.description = sanitizeHtml(blip.description, relaxedOptions);
         blip.name = sanitizeHtml(blip.name, restrictedOptions);
         blip.isNew = sanitizeHtml(blip.isNew, restrictedOptions);
-        blip.cycle = sanitizeHtml(blip.cycle, restrictedOptions);
+        blip.ring = sanitizeHtml(blip.ring, restrictedOptions);
         blip.quadrant = sanitizeHtml(blip.quadrant, restrictedOptions);
 
         return blip;

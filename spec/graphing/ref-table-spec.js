@@ -1,5 +1,5 @@
 const Quadrant = require('../../src/models/quadrant.js');
-const Cycle = require('../../src/models/cycle.js');
+const Ring = require('../../src/models/ring.js');
 const Blip = require('../../src/models/blip.js');
 const Radar = require('../../src/models/radar.js');
 
@@ -23,9 +23,9 @@ describe('graphingRadar', function () {
     });
 
     xdescribe('render', function () {
-        it("groups blips by cycle", function () {
-            var adopt = new Cycle('Adopt');
-            var assess = new Cycle('Assess');
+        it("groups blips by ring", function () {
+            var adopt = new Ring('Adopt');
+            var assess = new Ring('Assess');
 
             toolsQuadrant.add([
                 new Blip('foo', adopt, true, 'this is foo'),
@@ -46,10 +46,10 @@ describe('graphingRadar', function () {
                 '</table>');
         });
 
-        it("respects the assigned order of cycles", function () {
-            var adopt = new Cycle('Adopt', 1);
-            var assess = new Cycle('Assess', 3);
-            var hold = new Cycle('Hold', 2);
+        it("respects the assigned order of rings", function () {
+            var adopt = new Ring('Adopt', 1);
+            var assess = new Ring('Assess', 3);
+            var hold = new Ring('Hold', 2);
 
             toolsQuadrant.add([
                 new Blip('foo', adopt, true, 'this is foo'),

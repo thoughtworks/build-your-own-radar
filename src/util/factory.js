@@ -10,7 +10,7 @@ const _ = {
 const InputSanitizer = require('./inputSanitizer');
 const Radar = require('../models/radar');
 const Quadrant = require('../models/quadrant');
-const Cycle = require('../models/cycle');
+const Ring = require('../models/ring');
 const Blip = require('../models/blip');
 const GraphingRadar = require('../graphing/radar');
 
@@ -34,10 +34,10 @@ const GoogleSheet = function (sheetId, sheetName) {
       document.title = tabletop.googleSheetName;
       d3.selectAll(".loading").remove();
 
-      var cycles = _.map(_.uniqBy(blips, 'cycle'), 'cycle');
-      var cycleMap = {};
-      _.each(cycles, function (cycleName, i) {
-        cycleMap[cycleName] = new Cycle(cycleName, i);
+      var rings = _.map(_.uniqBy(blips, 'ring'), 'ring');
+      var ringMap = {};
+      _.each(rings, function (ringName, i) {
+        ringMap[ringName] = new Ring(ringName, i);
       });
 
       var quadrants = {};
@@ -45,7 +45,7 @@ const GoogleSheet = function (sheetId, sheetName) {
         if (!quadrants[blip.quadrant]) {
           quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant));
         }
-        quadrants[blip.quadrant].add(new Blip(blip.name, cycleMap[blip.cycle], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description))
+        quadrants[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description))
       });
 
       var radar = new Radar();

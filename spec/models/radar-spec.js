@@ -1,6 +1,6 @@
 const Radar = require('../../src/models/radar');
 const Quadrant = require('../../src/models/quadrant');
-const Cycle = require('../../src/models/cycle');
+const Ring = require('../../src/models/ring');
 const Blip = require('../../src/models/blip');
 
 describe('Radar', function () {
@@ -17,7 +17,7 @@ describe('Radar', function () {
   it('sets the first quadrant', function () {
     var quadrant, radar, blip;
 
-    blip = new Blip('A', new Cycle('First'));
+    blip = new Blip('A', new Ring('First'));
     quadrant = new Quadrant('First');
     quadrant.add([blip]);
     radar = new Radar();
@@ -31,7 +31,7 @@ describe('Radar', function () {
   it('sets the second quadrant', function () {
     var quadrant, radar, blip;
 
-    blip = new Blip('A', new Cycle('First'));
+    blip = new Blip('A', new Ring('First'));
     quadrant = new Quadrant('Second');
     quadrant.add([blip]);
     radar = new Radar();
@@ -45,7 +45,7 @@ describe('Radar', function () {
   it('sets the third quadrant', function () {
     var quadrant, radar, blip;
 
-    blip = new Blip('A', new Cycle('First'));
+    blip = new Blip('A', new Ring('First'));
     quadrant = new Quadrant('Third');
     quadrant.add([blip]);
     radar = new Radar();
@@ -59,7 +59,7 @@ describe('Radar', function () {
   it('sets the fourth quadrant', function () {
     var quadrant, radar, blip;
 
-    blip = new Blip('A', new Cycle('First'));
+    blip = new Blip('A', new Ring('First'));
     quadrant = new Quadrant('Fourth');
     quadrant.add([blip]);
     radar = new Radar();
@@ -71,19 +71,19 @@ describe('Radar', function () {
   });
 
   describe('blip numbers', function () {
-    var firstQuadrant, secondQuadrant, radar, firstCycle;
+    var firstQuadrant, secondQuadrant, radar, firstRing;
 
     beforeEach(function () {
-      firstCycle = new Cycle('Adopt', 0);
+      firstRing = new Ring('Adopt', 0);
       firstQuadrant = new Quadrant('First');
       secondQuadrant = new Quadrant('Second');
       firstQuadrant.add([
-        new Blip('A', firstCycle),
-        new Blip('B', firstCycle)
+        new Blip('A', firstRing),
+        new Blip('B', firstRing)
       ]);
       secondQuadrant.add([
-        new Blip('C', firstCycle),
-        new Blip('D', firstCycle)
+        new Blip('C', firstRing),
+        new Blip('D', firstRing)
       ]);
       radar = new Radar();
     });
@@ -104,12 +104,12 @@ describe('Radar', function () {
     });
   });
 
-  describe('cycles', function () {
-    var quadrant, radar, firstCycle, secondCycle, otherQuadrant;
+  describe('rings', function () {
+    var quadrant, radar, firstRing, secondRing, otherQuadrant;
 
     beforeEach(function () {
-      firstCycle = new Cycle('Adopt', 0);
-      secondCycle = new Cycle('Hold', 1);
+      firstRing = new Ring('Adopt', 0);
+      secondRing = new Ring('Hold', 1);
       quadrant = new Quadrant('Fourth');
       otherQuadrant = new Quadrant('Other');
       radar = new Radar();
@@ -117,8 +117,8 @@ describe('Radar', function () {
 
     it('returns an array for a given set of blips', function () {
       quadrant.add([
-        new Blip('A', firstCycle),
-        new Blip('B', secondCycle)
+        new Blip('A', firstRing),
+        new Blip('B', secondRing)
       ]);
 
       radar.addQuadrant(quadrant);
@@ -126,14 +126,14 @@ describe('Radar', function () {
       radar.addQuadrant(otherQuadrant);
       radar.addQuadrant(otherQuadrant);
 
-      expect(radar.cycles()).toEqual([firstCycle, secondCycle]);
+      expect(radar.rings()).toEqual([firstRing, secondRing]);
     });
 
-    it('has unique cycles', function () {
+    it('has unique rings', function () {
       quadrant.add([
-        new Blip('A', firstCycle),
-        new Blip('B', firstCycle),
-        new Blip('C', secondCycle)
+        new Blip('A', firstRing),
+        new Blip('B', firstRing),
+        new Blip('C', secondRing)
       ]);
 
         radar.addQuadrant(quadrant);
@@ -141,14 +141,14 @@ describe('Radar', function () {
         radar.addQuadrant(otherQuadrant);
         radar.addQuadrant(otherQuadrant);
 
-        expect(radar.cycles()).toEqual([firstCycle, secondCycle]);
+        expect(radar.rings()).toEqual([firstRing, secondRing]);
     });
 
-    it('has sorts by the cycle order', function () {
+    it('has sorts by the ring order', function () {
       quadrant.add([
-        new Blip('C', secondCycle),
-        new Blip('A', firstCycle),
-        new Blip('B', firstCycle)
+        new Blip('C', secondRing),
+        new Blip('A', firstRing),
+        new Blip('B', firstRing)
       ]);
 
       radar.addQuadrant(quadrant);
@@ -156,7 +156,7 @@ describe('Radar', function () {
       radar.addQuadrant(otherQuadrant);
       radar.addQuadrant(otherQuadrant);
 
-      expect(radar.cycles()).toEqual([firstCycle, secondCycle]);
+      expect(radar.rings()).toEqual([firstRing, secondRing]);
     });
   });
 });

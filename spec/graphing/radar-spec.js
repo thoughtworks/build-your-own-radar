@@ -8,7 +8,7 @@ xdescribe('tr.graphing.Radar', function () {
 
   beforeEach(function () {
     radar = new tr.models.Radar();
-    spyOn(radar, 'cycles').and.returnValue([]);
+    spyOn(radar, 'rings').and.returnValue([]);
   });
 
   describe('init', function () {
@@ -111,9 +111,9 @@ xdescribe('tr.graphing.Radar', function () {
       var radar;
 
       radar = new tr.models.Radar();
-      spyOn(radar, 'cycles').and.returnValue([
-        new tr.models.Cycle('Adopt'),
-        new tr.models.Cycle('Hold')
+      spyOn(radar, 'rings').and.returnValue([
+        new tr.models.Ring('Adopt'),
+        new tr.models.Ring('Hold')
       ]);
       radarGraph = new tr.graphing.Radar(500, radar);
       radarGraph.init();
@@ -123,7 +123,7 @@ xdescribe('tr.graphing.Radar', function () {
       spyOn(svg, 'attr').and.returnValue(svg);
     });
 
-    it('plots the circles for the cycles', function () {
+    it('plots the circles for the rings', function () {
       radarGraph.plot();
 
       expect(svg.append).toHaveBeenCalledWith('circle');
@@ -137,7 +137,7 @@ xdescribe('tr.graphing.Radar', function () {
       expect(svg.attr).toHaveBeenCalledWith('r', 250);
     });
 
-    it('adds the name of each cycle for the right side', function () {
+    it('adds the name of each ring for the right side', function () {
       var center = 500 / 2;
       spyOn(svg, 'text').and.returnValue(svg);
       radarGraph.plot();
@@ -153,7 +153,7 @@ xdescribe('tr.graphing.Radar', function () {
       expect(svg.text).toHaveBeenCalledWith('Hold');
     });
 
-    it('adds the name of each cycle for the right side', function () {
+    it('adds the name of each ring for the right side', function () {
       var center = 500 / 2;
       spyOn(svg, 'text').and.returnValue(svg);
       radarGraph.plot();

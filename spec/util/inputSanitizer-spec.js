@@ -9,7 +9,7 @@ describe('InputSanitizer', function(){
         rawBlip = {
             name: "Hello <script>alert('dangerous');</script>there <h1>blip</h1>",
             description: description,
-            cycle: '<a href="/asd">Adopt</a>',
+            ring: '<a href="/asd">Adopt</a>',
             quadrant: '<strong>techniques & tools</strong>',
             isNew: 'true<br>'
         };
@@ -29,8 +29,8 @@ describe('InputSanitizer', function(){
         expect(blip.isNew).toEqual("true");
     });
 
-    it('strips out all tags from blip cycle', function(){
-        expect(blip.cycle).toEqual("Adopt");
+    it('strips out all tags from blip ring', function(){
+        expect(blip.ring).toEqual("Adopt");
     });
 
     it('strips out all tags from blip quadrant', function(){

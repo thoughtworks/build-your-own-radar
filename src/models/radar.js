@@ -39,13 +39,13 @@ const Radar = function() {
     }, []);
   }
 
-  self.cycles = function () {
+  self.rings = function () {
     return _.sortBy(_.map(_.uniqBy(allBlips(), function (blip) {
-      return blip.cycle().name();
+      return blip.ring().name();
     }), function (blip) {
-      return blip.cycle();
-    }), function (cycle) {
-      return cycle.order();
+      return blip.ring();
+    }), function (ring) {
+      return ring.order();
     });
   };
 

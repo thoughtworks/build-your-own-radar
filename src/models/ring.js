@@ -1,4 +1,4 @@
-const Cycle = function (name, order) {
+const Ring = function (name, order) {
   var self = {};
 
   self.name = function () {
@@ -12,4 +12,4 @@ const Cycle = function (name, order) {
   return self;
 };
 
-module.exports = Cycle;
+module.exports = Ring;

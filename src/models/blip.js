@@ -1,4 +1,4 @@
-const Blip = function (name, cycle, isNew, topic, description) {
+const Blip = function (name, ring, isNew, topic, description) {
   var self, number;
 
   self = {};
@@ -20,8 +20,8 @@ const Blip = function (name, cycle, isNew, topic, description) {
     return isNew;
   };
 
-  self.cycle = function () {
-    return cycle;
+  self.ring = function () {
+    return ring;
   };
 
   self.number = function () {

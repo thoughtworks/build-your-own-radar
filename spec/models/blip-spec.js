@@ -1,5 +1,5 @@
 const Blip = require('../../src/models/blip');
-const Cycle = require('../../src/models/cycle');
+const Ring = require('../../src/models/ring');
 
 describe('Blip', function () {
   var blip;
@@ -7,7 +7,7 @@ describe('Blip', function () {
   beforeEach(function () {
     blip = new Blip(
       'My Blip',
-      new Cycle('My Cycle')
+      new Ring('My Ring')
     );
   });
 
@@ -15,8 +15,8 @@ describe('Blip', function () {
     expect(blip.name()).toEqual('My Blip');
   });
 
-  it('has a cycle', function () {
-    expect(blip.cycle().name()).toEqual('My Cycle');
+  it('has a ring', function () {
+    expect(blip.ring().name()).toEqual('My Ring');
   });
 
   it('has a default number', function () {
@@ -31,7 +31,7 @@ describe('Blip', function () {
   it('is new', function () {
     blip = new Blip(
       'My Blip',
-      new Cycle('My Cycle'),
+      new Ring('My Ring'),
       true
     );
 
@@ -41,7 +41,7 @@ describe('Blip', function () {
   it('is not new', function () {
     blip = new Blip(
       'My Blip',
-      new Cycle('My Cycle'),
+      new Ring('My Ring'),
       false
     );
 

@@ -24,7 +24,7 @@ const Radar = function (size, radar) {
     return 'n';
   });
 
-  var ringCalculator = new RingCalculator(radar.cycles().length, center());
+  var ringCalculator = new RingCalculator(radar.rings().length, center());
 
   var self = {};
 
@@ -60,14 +60,14 @@ const Radar = function (size, radar) {
       .attr('stroke-width', 10);
   }
 
-  function plotQuadrant(cycles, quadrant) {
+  function plotQuadrant(rings, quadrant) {
     var quadrantGroup = svg.append('g')
       .attr('class', 'quadrant-group quadrant-group-' + quadrant.order)
       .on('mouseover', mouseoverQuadrant.bind({}, quadrant.order))
       .on('mouseout', mouseoutQuadrant.bind({}, quadrant.order))
       .on('click', selectQuadrant.bind({}, quadrant.order, quadrant.startAngle));
 
-    cycles.forEach(function (cycle, i) {
+    rings.forEach(function (ring, i) {
       var arc = d3.arc()
         .innerRadius(ringCalculator.getRadius(i))
         .outerRadius(ringCalculator.getRadius(i + 1))
@@ -76,29 +76,29 @@ const Radar = function (size, radar) {
 
       quadrantGroup.append('path')
         .attr('d', arc)
-        .attr('class', 'cycle-arc-' + cycle.order())
+        .attr('class', 'ring-arc-' + ring.order())
         .attr('transform', 'translate(' + center() + ', ' + center() + ')');
     });
 
     return quadrantGroup;
   }
 
-  function plotTexts(quadrantGroup, cycles, quadrant) {
-    cycles.forEach(function (cycle, i) {
+  function plotTexts(quadrantGroup, rings, quadrant) {
+    rings.forEach(function (ring, i) {
       if (quadrant.order === 'first' || quadrant.order === 'fourth') {
         quadrantGroup.append('text')
           .attr('class', 'line-text')
           .attr('y', center() + 4)
           .attr('x', center() + (ringCalculator.getRadius(i) + ringCalculator.getRadius(i + 1)) / 2)
           .attr('text-anchor', 'middle')
-          .text(cycle.name());
+          .text(ring.name());
       } else {
         quadrantGroup.append('text')
           .attr('class', 'line-text')
           .attr('y', center() + 4)
           .attr('x', center() - (ringCalculator.getRadius(i) + ringCalculator.getRadius(i + 1)) / 2)
           .attr('text-anchor', 'middle')
-          .text(cycle.name());
+          .text(ring.name());
       }
     });
   }
@@ -116,9 +116,9 @@ const Radar = function (size, radar) {
       .attr('class', order);
   }
 
-  function addCycle(cycle, order) {
+  function addRing(ring, order) {
     var table = d3.select('.quadrant-table.' + order);
-    table.append('h3').text(cycle);
+    table.append('h3').text(ring);
     return table.append('ul');
   }
 
@@ -143,7 +143,7 @@ const Radar = function (size, radar) {
     });
   }
 
-  function plotBlips(quadrantGroup, cycles, quadrantWrapper) {
+  function plotBlips(quadrantGroup, rings, quadrantWrapper) {
     var blips, quadrant, startAngle, order;
 
     quadrant = quadrantWrapper.quadrant;
@@ -151,39 +151,39 @@ const Radar = function (size, radar) {
     order = quadrantWrapper.order;
 
     blips = quadrant.blips();
-    cycles.forEach(function (cycle, i) {
+    rings.forEach(function (ring, i) {
       var maxRadius, minRadius;
 
       minRadius = ringCalculator.getRadius(i);
       maxRadius = ringCalculator.getRadius(i + 1);
 
-      var cycleBlips = blips.filter(function (blip) {
-        return blip.cycle() == cycle;
+      var ringBlips = blips.filter(function (blip) {
+        return blip.ring() == ring;
       });
 
-      var sumCycle = cycle.name().split('').reduce(function (p, c) {
+      var sumRing = ring.name().split('').reduce(function (p, c) {
         return p + c.charCodeAt(0);
       }, 0);
       var sumQuadrant = quadrant.name().split('').reduce(function (p, c) {
         return p + c.charCodeAt(0);
       }, 0);
-      var chance = new Chance(Math.PI * sumCycle * cycle.name().length * sumQuadrant * quadrant.name().length);
+      var chance = new Chance(Math.PI * sumRing * ring.name().length * sumQuadrant * quadrant.name().length);
 
-      var cycleList = addCycle(cycle.name(), order);
-      var allBlipCoordinatesInCycle = [];
+      var ringList = addRing(ring.name(), order);
+      var allBlipCoordinatesInRing = [];
 
-      cycleBlips.forEach(function (blip) {
+      ringBlips.forEach(function (blip) {
         var coordinates = calculateBlipCoordinates(chance, minRadius, maxRadius, startAngle);
         var maxIterations = 100;
         var iterationCounter = 0;
 
-        while (thereIsCollision(coordinates, allBlipCoordinatesInCycle) && (iterationCounter < maxIterations)) {
+        while (thereIsCollision(coordinates, allBlipCoordinatesInRing) && (iterationCounter < maxIterations)) {
           coordinates = calculateBlipCoordinates(chance, minRadius, maxRadius, startAngle);
           iterationCounter++;
         }
 
         if (iterationCounter < maxIterations) {
-          allBlipCoordinatesInCycle.push(coordinates);
+          allBlipCoordinatesInRing.push(coordinates);
           var x = coordinates[0];
           var y = coordinates[1];
 
@@ -202,7 +202,7 @@ const Radar = function (size, radar) {
             .attr('text-anchor', 'middle')
             .text(blip.number());
 
-          var blipListItem = cycleList.append('li');
+          var blipListItem = ringList.append('li');
           var blipText = blip.number() + '. ' + blip.name() + (blip.topic() ? ('. - ' + blip.topic()) : '');
           blipListItem.append('div')
             .attr('class', 'blip-list-item')
@@ -397,9 +397,9 @@ const Radar = function (size, radar) {
   };
 
   self.plot = function () {
-    var cycles, quadrants;
+    var rings, quadrants;
 
-    cycles = radar.cycles();
+    rings = radar.rings();
     quadrants = radar.quadrants();
     plotQuadrantButtons(quadrants, plotRadarHeader());
 
@@ -407,10 +407,10 @@ const Radar = function (size, radar) {
     svg.attr('id', 'radar-plot').attr('width', size).attr('height', size + 14);
 
     _.each(quadrants, function (quadrant) {
-      var quadrantGroup = plotQuadrant(cycles, quadrant);
+      var quadrantGroup = plotQuadrant(rings, quadrant);
       plotLines(quadrantGroup, quadrant);
-      plotTexts(quadrantGroup, cycles, quadrant);
-      plotBlips(quadrantGroup, cycles, quadrant);
+      plotTexts(quadrantGroup, rings, quadrant);
+      plotBlips(quadrantGroup, rings, quadrant);
     });
 
     plotRadarFooter();
