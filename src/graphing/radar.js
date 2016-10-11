@@ -278,6 +278,9 @@ const Radar = function (size, radar) {
       .transition()
       .duration(1000)
       .attr('transform', 'scale(1)');
+
+    d3.selectAll('.quadrant-group')
+         .style('pointer-events', 'auto');
   }
 
   function plotRadarHeader() {
@@ -385,9 +388,14 @@ const Radar = function (size, radar) {
         .duration(1000)
         .attr('transform', 'scale(' + blipScale + ')translate(' + blipTranslate * x + ',' + blipTranslate * y + ')');
     });
+
+    d3.selectAll('.quadrant-group')
+      .style('pointer-events', 'auto');
+
     d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')')
       .transition()
       .duration(1000)
+      .style('pointer-events', 'none')
       .attr('transform', 'translate(' + translateXAll + ',' + translateYAll + ')scale(0)');
   }
 
