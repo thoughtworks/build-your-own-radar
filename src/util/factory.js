@@ -25,51 +25,64 @@ const GoogleSheet = function (sheetId, sheetName) {
 
     function createRadar(sheets, tabletop) {
 
-      if (!sheetName) {
-        sheetName = Object.keys(sheets)[0];
-      }
+      try {
 
-      var blips = _.map(tabletop.sheets(sheetName).all(), new InputSanitizer().sanitize);
-
-      document.title = tabletop.googleSheetName;
-      d3.selectAll(".loading").remove();
-
-      var rings = _.map(_.uniqBy(blips, 'ring'), 'ring');
-      var ringMap = {};
-      _.each(rings, function (ringName, i) {
-        ringMap[ringName] = new Ring(ringName, i);
-      });
-
-      var quadrants = {};
-      _.each(blips, function (blip) {
-        if (!quadrants[blip.quadrant]) {
-          quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant));
+        if (!sheetName) {
+          sheetName = Object.keys(sheets)[0];
         }
-        quadrants[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description))
-      });
 
-      var radar = new Radar();
-      _.each(quadrants, function (quadrant) {
-        radar.addQuadrant(quadrant)
-      });
+        var blips = _.map(tabletop.sheets(sheetName).all(), new InputSanitizer().sanitize);
 
-      var size = (window.innerHeight - 133) < 620 ? 620 : window.innerHeight - 133;
-      new GraphingRadar(size, radar).init().plot();
+        document.title = tabletop.googleSheetName;
+        d3.selectAll(".loading").remove();
+
+        var rings = _.map(_.uniqBy(blips, 'ring'), 'ring');
+        var ringMap = {};
+        _.each(rings, function (ringName, i) {
+          ringMap[ringName] = new Ring(ringName, i);
+        });
+
+        var quadrants = {};
+        _.each(blips, function (blip) {
+          if (!quadrants[blip.quadrant]) {
+            quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant));
+          }
+          quadrants[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description))
+        });
+
+        var radar = new Radar();
+        _.each(quadrants, function (quadrant) {
+          radar.addQuadrant(quadrant)
+        });
+
+        var size = (window.innerHeight - 133) < 620 ? 620 : window.innerHeight - 133;
+
+        new GraphingRadar(size, radar).init().plot();
+
+      }
+      catch (exception) {
+        d3.select('body')
+          .append('div')
+          .attr('class', 'error-container')
+          .append('p')
+          .html('Oops! It seems like there are some problems with loading your data. ' +
+            'Please check <a href="">FAQs</a> for possible solutions.');
+      }
     }
   };
 
   self.init = function () {
     var content = d3.select('body')
-                  .append('div')
-                  .attr('class', 'loading')
-                  .append('div')
-                  .attr('class', 'input-sheet');
+      .append('div')
+      .attr('class', 'loading')
+      .append('div')
+      .attr('class', 'input-sheet');
 
     set_document_title();
 
     plotLogo(content);
 
-    var bannerText= '<h1>Building your radar...</h1><p>Your Technology Radar will be available in just a few seconds</p>';
+    var bannerText = '<h1>Building your radar...</h1><p>Your Technology Radar will be available in just a few seconds</p>';
     plotBanner(content, bannerText);
     plotFooter(content);
 
@@ -175,7 +188,6 @@ function plotForm(content) {
 
   form.append('p').html("<a href=''>Need help?</a>");
 }
-
 
 
 module.exports = GoogleSheetInput;

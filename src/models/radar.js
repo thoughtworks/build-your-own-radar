@@ -24,6 +24,9 @@ const Radar = function() {
   }
 
   self.addQuadrant = function (quadrant) {
+    if(addingQuadrant >= 4) {
+      throw Error("Too many quadrants.");
+    }
     quadrants[addingQuadrant].quadrant = quadrant;
     setNumbers(quadrant.blips());
     addingQuadrant++;

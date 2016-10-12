@@ -6,7 +6,7 @@
 @import url(https://www.thoughtworks.com/css/screen.css);
 
 body {
-  font: 11px 'Open Sans';
+  font: 18px 'Open Sans';
   -webkit-font-smoothing: antialiased;
   margin: 0;
 }
@@ -178,6 +178,7 @@ svg#radar-plot {
       font-weight: bold;
       text-transform: uppercase;
       fill: $black;
+      font-size: 11px;
     }
   }
 }

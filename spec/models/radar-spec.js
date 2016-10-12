@@ -70,6 +70,22 @@ describe('Radar', function () {
     expect(radar.quadrants()[0].quadrant.blips()[0].number()).toEqual(1);
   });
 
+  it('throws an error if too many quadrants are added', function(){
+    var quadrant, radar, blip;
+
+    blip = new Blip('A', new Ring('First'));
+    quadrant = new Quadrant('First');
+    quadrant.add([blip]);
+    radar = new Radar();
+
+    radar.addQuadrant(quadrant);
+    radar.addQuadrant(new Quadrant('Second'));
+    radar.addQuadrant(new Quadrant('Third'));
+    radar.addQuadrant(new Quadrant('Fourth'));
+
+    expect(function() { radar.addQuadrant(new Quadrant('Fifth')) }).toThrow(new Error("Too many quadrants."));
+  });
+
   describe('blip numbers', function () {
     var firstQuadrant, secondQuadrant, radar, firstRing;
 
