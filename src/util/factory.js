@@ -64,6 +64,9 @@ const GoogleSheet = function (sheetId, sheetName) {
                   .attr('class', 'loading')
                   .append('div')
                   .attr('class', 'input-sheet');
+
+    document.title = "Build your own Radar";
+
     plotLogo(content);
 
     var bannerText= '<h1>Building your radar...</h1><p>Your Technology Radar will be available in just a few seconds</p>';
@@ -104,6 +107,8 @@ const GoogleSheetInput = function () {
       var content = d3.select('body')
         .append('div')
         .attr('class', 'input-sheet');
+
+      document.title = "Build your own Radar";
 
       plotLogo(content);
 
