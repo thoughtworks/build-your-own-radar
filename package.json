@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "istanbul cover -x \"spec/**/*.js\" jasmine",
+    "test": "istanbul cover jasmine",
     "dev": "webpack-dev-server --dev --inline",
     "build": "webpack --prod",
     "examples:clean": "rm -rf examples/*",
