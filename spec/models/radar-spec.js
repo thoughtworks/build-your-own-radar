@@ -2,6 +2,7 @@ const Radar = require('../../src/models/radar');
 const Quadrant = require('../../src/models/quadrant');
 const Ring = require('../../src/models/ring');
 const Blip = require('../../src/models/blip');
+const CustomError = require('../../src/exceptions/customError');
 
 describe('Radar', function () {
 
@@ -83,7 +84,7 @@ describe('Radar', function () {
     radar.addQuadrant(new Quadrant('Third'));
     radar.addQuadrant(new Quadrant('Fourth'));
 
-    expect(function() { radar.addQuadrant(new Quadrant('Fifth')) }).toThrow(new Error("Too many quadrants."));
+    expect(function() { radar.addQuadrant(new Quadrant('Fifth')) }).toThrow(new CustomError("There are more than 4 quadrants in the data."));
   });
 
   describe('blip numbers', function () {

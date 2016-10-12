@@ -13,6 +13,7 @@ const Quadrant = require('../models/quadrant');
 const Ring = require('../models/ring');
 const Blip = require('../models/blip');
 const GraphingRadar = require('../graphing/radar');
+const CustomError = require('../exceptions/customError');
 
 const GoogleSheet = function (sheetId, sheetName) {
   var self = {};
@@ -30,8 +31,17 @@ const GoogleSheet = function (sheetId, sheetName) {
         if (!sheetName) {
           sheetName = Object.keys(sheets)[0];
         }
+        var columnNames = tabletop.sheets(sheetName).column_names;
 
-        var blips = _.map(tabletop.sheets(sheetName).all(), new InputSanitizer().sanitize);
+        _.each(['name', 'ring', 'quadrant', 'isNew', 'description'], function (field) {
+
+          if (columnNames.indexOf(field) == -1) {
+            throw new CustomError('Document is missing one or more required headers.');
+          }
+        });
+
+        var all = tabletop.sheets(sheetName).all();
+        var blips = _.map(all, new InputSanitizer().sanitize);
 
         document.title = tabletop.googleSheetName;
         d3.selectAll(".loading").remove();
@@ -59,14 +69,22 @@ const GoogleSheet = function (sheetId, sheetName) {
 
         new GraphingRadar(size, radar).init().plot();
 
-      }
-      catch (exception) {
+      } catch (exception) {
+
+        d3.selectAll(".loading").remove();
+        var message = 'Oops! It seems like there are some problems with loading your data. ';
+
+        if (exception instanceof CustomError) {
+          message = message.concat(exception.message);
+        }
+
+        message = message.concat('<br/>', 'Please check <a href="">FAQs</a> for possible solutions.');
+
         d3.select('body')
           .append('div')
           .attr('class', 'error-container')
           .append('p')
-          .html('Oops! It seems like there are some problems with loading your data. ' +
-            'Please check <a href="">FAQs</a> for possible solutions.');
+          .html(message);
       }
     }
   };

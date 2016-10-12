@@ -1,3 +1,4 @@
+const CustomError = require('../exceptions/customError');
 const _ = {
   map: require('lodash/map'),
   uniqBy: require('lodash/uniqBy'),
@@ -25,7 +26,7 @@ const Radar = function() {
 
   self.addQuadrant = function (quadrant) {
     if(addingQuadrant >= 4) {
-      throw Error("Too many quadrants.");
+      throw new CustomError("There are more than 4 quadrants in the data.");
     }
     quadrants[addingQuadrant].quadrant = quadrant;
     setNumbers(quadrant.blips());
