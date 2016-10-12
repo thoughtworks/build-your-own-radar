@@ -65,7 +65,7 @@ const GoogleSheet = function (sheetId, sheetName) {
                   .append('div')
                   .attr('class', 'input-sheet');
 
-    document.title = "Build your own Radar";
+    set_document_title();
 
     plotLogo(content);
 
@@ -108,7 +108,7 @@ const GoogleSheetInput = function () {
         .append('div')
         .attr('class', 'input-sheet');
 
-      document.title = "Build your own Radar";
+      set_document_title();
 
       plotLogo(content);
 
@@ -126,6 +126,10 @@ const GoogleSheetInput = function () {
 
   return self;
 };
+
+function set_document_title() {
+  document.title = "Build your own Radar";
+}
 
 function plotLogo(content) {
   content.append('div')
