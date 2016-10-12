@@ -8,18 +8,18 @@ const args = require('yargs').argv;
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-var isProd = args.prod;
-var isDev = args.dev;
+let isProd = args.prod;
+let isDev = args.dev;
 
-var entry = ['./src/site.js'];
-var devtool;
+let entry = ['./src/site.js'];
+let devtool;
 
 if (isDev) {
     entry.push('webpack-dev-server/client?http://0.0.0.0:8080');
     devtool = 'source-map';
 }
 
-var plugins = [
+let plugins = [
     new ExtractTextPlugin('[name].[hash].css'),
     new HtmlWebpackPlugin({
         template: './src/index.html',
