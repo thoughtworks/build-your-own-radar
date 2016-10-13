@@ -11,7 +11,8 @@ header {
     display: table;
     margin: auto;
     width: 100%;
-    .radar-title__text{
+
+    .radar-title__text {
       display: table-cell;
       width: 70%;
       text-align: left;
@@ -42,17 +43,13 @@ header {
   }
 
   .home-link {
-    display: none;
-    cursor: pointer;
-    text-align: left;
-    font-size: $baseFont;
     color: $pink;
+    cursor: pointer;
+    display: inline-block;
+    font-size: $baseFont;
     padding-bottom: 15px;
-
-    &.selected {
-      display: inline-block;
-      width: 80%;
-    }
+    text-align: left;
+    width: 80%;
   }
 
   .button {
@@ -73,17 +70,41 @@ header {
     color: $black;
 
     &:hover, &.selected {
-      &.first { color: white; background-color: $green; }
-      &.second { color: white; background-color: $blue; }
-      &.third { color: white; background-color: $orange; }
-      &.fourth { color: white; background-color: $violet; }
+      &.first {
+        color: white;
+        background-color: $green;
+      }
+      &.second {
+        color: white;
+        background-color: $blue;
+      }
+      &.third {
+        color: white;
+        background-color: $orange;
+      }
+      &.fourth {
+        color: white;
+        background-color: $violet;
+      }
     }
 
     &.full-view {
-      &.first { background-color: $green; color: $white; }
-      &.second { background-color: $blue; color: $white; }
-      &.third { background-color: $orange; color: $white; }
-      &.fourth { background-color: $violet; color: $white; }
+      &.first {
+        background-color: $green;
+        color: $white;
+      }
+      &.second {
+        background-color: $blue;
+        color: $white;
+      }
+      &.third {
+        background-color: $orange;
+        color: $white;
+      }
+      &.fourth {
+        background-color: $violet;
+        color: $white;
+      }
     }
   }
 }

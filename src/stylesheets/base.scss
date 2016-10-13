@@ -26,6 +26,12 @@ body {
     left: 0;
     right: 0;
 
+    .legend {
+      visibility: hidden;
+
+      transition: visibility 1s ease 1s;
+    }
+
     path {
       &.ring-arc-3 { stroke: none; fill: $grey-light; }
       &.ring-arc-2 { stroke: none; fill: $grey; }
