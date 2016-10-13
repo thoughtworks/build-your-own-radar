@@ -1,0 +1,11 @@
+.error-container {
+  text-align: center;
+  display: table;
+  width: 100%;
+  height: 400px;
+
+  p {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}

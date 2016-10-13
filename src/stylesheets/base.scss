@@ -2,6 +2,9 @@
 @import 'fonts';
 @import 'tip';
 @import 'form';
+@import 'error';
+@import 'header';
+@import 'footer';
 
 @import url(https://www.thoughtworks.com/css/screen.css);
 
@@ -11,52 +14,160 @@ body {
   margin: 0;
 }
 
-#footer{
-  text-align: center;
-  clear: both;
-}
-
-.radar-title {
-    background-color: $grey-light;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    display: table;
-    margin: auto;
-    width: 100%;
-    .radar-title__text{
-      display: table-cell;
-      width: 70%;
-      text-align: left;
-      padding-left: 100px;
-      h1 {
-        font-size: 55px;
-        font-weight: 900;
-        letter-spacing: -.04em;
-        line-height: 0.8em;
-        margin: 0;
-        text-transform: uppercase;
-      }
-    }
-
-    .radar-title__logo {
-      width: 30%;
-      display: table-cell;
-      vertical-align: middle;
-      a {
-        border-bottom: none;
-      }
-      img {
-        vertical-align: middle;
-        width: 35%;
-      }
-
-     }
-}
-
-
 #radar {
   width: 80%;
   margin: 0 auto;
+
+  svg#radar-plot {
+    margin: 0 auto;
+    transition: all 1s ease;
+    position: relative;
+    left: 18.5%;
+    top: 15px;
+
+    path {
+      &.ring-arc-3 { stroke: none; fill: $grey-light; }
+      &.ring-arc-2 { stroke: none; fill: $grey; }
+      &.ring-arc-1 { stroke: none; fill: $grey-dark; }
+      &.ring-arc-0 { stroke: none; fill: $grey-darkest; }
+    }
+
+    .blip-link {
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .quadrant-group {
+      cursor: pointer;
+    }
+
+    circle, polygon, path {
+      &.first { fill: $green; stroke: none; }
+      &.second { fill: $blue; stroke: none; }
+      &.third { fill: $orange; stroke: none; }
+      &.fourth { fill: $violet; stroke: none; }
+    }
+
+    line {
+      stroke: white;
+    }
+
+    text {
+      &.blip-text {
+        font-size: 9px;
+        font-style: italic;
+        fill: $white;
+      }
+
+      &.line-text {
+        font-weight: bold;
+        text-transform: uppercase;
+        fill: $black;
+        font-size: 11px;
+      }
+    }
+  }
+
+  div.quadrant-table {
+    max-height: 0;
+    max-width: 0;
+
+    transition: max-height 0.5s ease 1s;
+
+    h3 {
+      text-transform: uppercase;
+      font-size: $baseFont;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    display: none;
+
+
+    &.first {
+      right: 20px;
+      left: 55%;
+      &.selected {
+        float: right;
+      }
+    }
+
+    &.second {
+      right: 55%;
+      left: 20px;
+      &.selected {
+        float: left;
+      }
+    }
+
+    &.third {
+      right: 55%;
+      left: 20px;
+      &.selected {
+        float: left;
+      }
+    }
+
+    &.fourth {
+      right: 20px;
+      left: 55%;
+      &.selected {
+        float: right;
+      }
+    }
+
+    &.selected {
+      display: block;
+      max-height: 100%;
+      max-width: 1000px;
+    }
+
+    ul {
+      padding: 0;
+      margin-left: 0;
+
+      li {
+        list-style-type: none;
+        padding-left: 0;
+
+        .blip-list-item {
+          padding: 2px 5px;
+          border-radius: 2px;
+          cursor: pointer;
+          font-size: $baseFont;
+          font-weight: 400;
+
+          &.highlight {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.8);
+          }
+        }
+
+        .blip-item-description {
+          max-height: 0;
+          overflow: hidden;
+          width: 300px;
+
+          p {
+            margin: 0;
+            border-top: 1px solid rgb(119, 119, 119);
+            border-bottom: 1px solid rgb(119, 119, 119);
+            padding: 20px;
+            color: $grey-text;
+            font-weight: 100;
+            font-size: 14px;
+          }
+
+          transition: max-height 0.2s ease;
+          &.expanded {
+            transition: max-height 0.5s ease 0.2s;
+            max-height: 1000px;
+          }
+        }
+      }
+    }
+  }
+
 }
 
 @media print {
@@ -72,225 +183,4 @@ body {
     top: 0 !important;
   }
 
-}
-
-header {
-  width: 100%;
-  line-height: 60px;
-  text-align: center;
-  background-color: white;
-  z-index: 1;
-
-  .home-link {
-    display: none;
-    cursor: pointer;
-    text-align: left;
-    font-size: $baseFont;
-    color: $pink;
-    padding-bottom: 15px;
-
-    &.selected {
-        display: inline-block;
-        width: 80%;
-    }
-  }
-
-  .button {
-    font-size: $baseFont;
-    text-transform: capitalize;
-    display: inline-block;
-    margin-right: 20px;
-    border-radius: 2px;
-    line-height: 1em;
-    padding: 10px 20px;
-    cursor: pointer;
-
-    &:last-child {
-      margin-right: 0;
-    }
-
-    background-color: $grey-light;
-    color: $black;
-
-    &:hover, &.selected {
-      &.first { color: white; background-color: $green; }
-      &.second { color: white; background-color: $blue; }
-      &.third { color: white; background-color: $orange; }
-      &.fourth { color: white; background-color: $violet; }
-    }
-
-    &.full-view {
-        &.first { background-color: $green; color: $white; }
-        &.second { background-color: $blue; color: $white; }
-        &.third { background-color: $orange; color: $white; }
-        &.fourth { background-color: $violet; color: $white; }
-    }
-  }
-}
-
-.radar-footer {
-  padding-top: 60px;
-  font-size: $baseFont;
-}
-
-svg#radar-plot {
-  margin: 0 auto;
-  transition: all 1s ease;
-  position: relative;
-  left: 18.5%;
-  top: 15px;
-
-  path {
-    &.ring-arc-3 { stroke: none; fill: $grey-light; }
-    &.ring-arc-2 { stroke: none; fill: $grey; }
-    &.ring-arc-1 { stroke: none; fill: $grey-dark; }
-    &.ring-arc-0 { stroke: none; fill: $grey-darkest; }
-  }
-
-  .blip-link {
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  .quadrant-group {
-    cursor: pointer;
-  }
-
-  circle, polygon, path {
-    &.first { fill: $green; stroke: none; }
-    &.second { fill: $blue; stroke: none; }
-    &.third { fill: $orange; stroke: none; }
-    &.fourth { fill: $violet; stroke: none; }
-  }
-
-  line {
-    stroke: white;
-  }
-
-  text {
-    &.blip-text {
-      font-size: 9px;
-      font-style: italic;
-      fill: $white;
-    }
-
-    &.line-text {
-      font-weight: bold;
-      text-transform: uppercase;
-      fill: $black;
-      font-size: 11px;
-    }
-  }
-}
-
-div.quadrant-table {
-  max-height: 0;
-  max-width: 0;
-  
-  transition: max-height 0.5s ease 1s;
-
-  h3 {
-    text-transform: uppercase;
-    font-size: $baseFont;
-    margin: 0;
-    font-weight: bold;
-  }
-
-  display: none;
-
-
-  &.first {
-    right: 20px;
-    left: 55%;
-    &.selected {
-      float: right;
-    }
-  }
-
-  &.second {
-    right: 55%;
-    left: 20px;
-    &.selected {
-      float: left;
-    }
-  }
-
-  &.third {
-    right: 55%;
-    left: 20px;
-    &.selected {
-      float: left;
-    }
-  }
-
-  &.fourth {
-    right: 20px;
-    left: 55%;
-    &.selected {
-      float: right;
-    }
-  }
-
-  &.selected {
-    display: block;
-    max-height: 100%;
-    max-width: 1000px;
-  }
-
-  ul {
-    padding: 0;
-    margin-left: 0;
-    
-    li {
-      list-style-type: none;
-      padding-left: 0;
-
-      .blip-list-item {
-        padding: 2px 5px;
-        border-radius: 2px;
-        cursor: pointer;
-        font-size: $baseFont;
-        font-weight: 400;
-
-        &.highlight {
-          color: white;
-          background-color: rgba(0, 0, 0, 0.8);
-        }
-      }
-
-      .blip-item-description {
-        max-height: 0;
-        overflow: hidden;
-        width: 300px;
-
-        p {
-          margin: 0;
-          border-top: 1px solid rgb(119, 119, 119);
-          border-bottom: 1px solid rgb(119, 119, 119);
-          padding: 20px;
-          color: $grey-text;
-          font-weight: 100;
-          font-size: 14px;
-        }
-        
-        transition: max-height 0.2s ease;
-        &.expanded {
-          transition: max-height 0.5s ease 0.2s;
-          max-height: 1000px;
-        }
-      }
-    }
-  }
-}
-
-.error-container {
-  text-align: center;
-  display: table;
-  width: 100%;
-  height: 400px;
-
-  p {
-    display: table-cell;
-    vertical-align: middle;
-  }
 }
