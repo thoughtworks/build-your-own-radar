@@ -7,6 +7,7 @@ const RingCalculator = require('../util/ringCalculator');
 
 const Radar = function (size, radar) {
   var svg, radarElement, blipWidth = 22;
+  var leftAlign = '18.5%';
 
   var tip = d3tip().attr('class', 'd3-tip').html(function (text) {
     return text;
@@ -258,7 +259,8 @@ const Radar = function (size, radar) {
   }
 
   function redrawFullRadar() {
-    svg.style('left', 0).style('right', 0);
+    svg.style('left', leftAlign)
+      .style('top', '15px');
 
     d3.selectAll('.button')
       .classed('selected', false)
@@ -360,13 +362,21 @@ const Radar = function (size, radar) {
     var translateXAll = (1 - adjustX) / 2 * size * scale / 2 + ((1 - adjustX) / 2 * (1 - scale / 2) * size);
     var translateYAll = (1 + adjustY) / 2 * size * scale / 2;
 
-    var moveRight = (1 + adjustX) * (0.8 * window.innerWidth - size) / 2;
-    var moveLeft = (1 - adjustX) * (0.8 * window.innerWidth - size) / 2;
+    var moveRight = (1 + adjustX) * (window.innerWidth - size) / 4;
+    var moveLeft = (1 - adjustX) * (window.innerWidth - size) / 4;
 
     var blipScale = 3 / 4;
     var blipTranslate = (1 - blipScale) / blipScale;
 
-    svg.style('left', moveLeft + 'px').style('right', moveRight + 'px');
+    var left = leftAlign;
+    if (order === 'first' || order === 'fourth') {
+      left = 0;
+    }
+    else if (typeof order == 'undefined') {
+      left = moveLeft;
+    }
+
+    svg.style('left', left).style('right', moveRight + 'px');
     d3.select('.quadrant-group-' + order)
       .transition()
       .duration(1000)
@@ -402,7 +412,6 @@ const Radar = function (size, radar) {
     quadrants = radar.quadrants();
     plotQuadrantButtons(quadrants, plotRadarHeader());
 
-    radarElement.style('height', size + 14 + 'px');
     svg = radarElement.append("svg").call(tip);
     svg.attr('id', 'radar-plot').attr('width', size).attr('height', size + 14);
 
