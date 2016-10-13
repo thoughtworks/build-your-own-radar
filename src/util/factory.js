@@ -13,7 +13,7 @@ const Quadrant = require('../models/quadrant');
 const Ring = require('../models/ring');
 const Blip = require('../models/blip');
 const GraphingRadar = require('../graphing/radar');
-const CustomError = require('../exceptions/customError');
+const MalformedDataError = require('../exceptions/malformedDataError');
 
 const GoogleSheet = function (sheetId, sheetName) {
   var self = {};
@@ -36,7 +36,7 @@ const GoogleSheet = function (sheetId, sheetName) {
         _.each(['name', 'ring', 'quadrant', 'isNew', 'description'], function (field) {
 
           if (columnNames.indexOf(field) == -1) {
-            throw new CustomError('Document is missing one or more required headers.');
+            throw new MalformedDataError('Document is missing one or more required headers.');
           }
         });
 
@@ -74,7 +74,7 @@ const GoogleSheet = function (sheetId, sheetName) {
         d3.selectAll(".loading").remove();
         var message = 'Oops! It seems like there are some problems with loading your data. ';
 
-        if (exception instanceof CustomError) {
+        if (exception instanceof MalformedDataError) {
           message = message.concat(exception.message);
         }
 

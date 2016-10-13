@@ -1,4 +1,4 @@
-const CustomError = require('../exceptions/customError');
+const MalformedDataError = require('../exceptions/malformedDataError');
 const _ = {
   map: require('lodash/map'),
   uniqBy: require('lodash/uniqBy'),
@@ -26,7 +26,7 @@ const Radar = function() {
 
   self.addQuadrant = function (quadrant) {
     if(addingQuadrant >= 4) {
-      throw new CustomError("There are more than 4 quadrants in the data.");
+      throw new MalformedDataError("There are more than 4 quadrants in the data.");
     }
     quadrants[addingQuadrant].quadrant = quadrant;
     setNumbers(quadrant.blips());
