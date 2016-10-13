@@ -57,6 +57,7 @@ body {
 #radar {
   width: 80%;
   margin: 0 auto;
+  position: relative;
 }
 
 @media print {
@@ -78,8 +79,7 @@ header {
   width: 100%;
   line-height: 60px;
   text-align: center;
-  background-color: white;
-  z-index: 1;
+  margin-bottom: 15px;
 
   .home-link {
     display: none;
@@ -136,9 +136,9 @@ header {
 svg#radar-plot {
   margin: 0 auto;
   transition: all 1s ease;
-  position: relative;
-  left: 18.5%;
-  top: 15px;
+  position: absolute;
+  left: 0;
+  right: 0;
 
   path {
     &.ring-arc-3 { stroke: none; fill: $grey-light; }
@@ -186,6 +186,8 @@ svg#radar-plot {
 div.quadrant-table {
   max-height: 0;
   max-width: 0;
+  position: absolute;
+  overflow: hidden;
   
   transition: max-height 0.5s ease 1s;
 
@@ -196,44 +198,13 @@ div.quadrant-table {
     font-weight: bold;
   }
 
-  display: none;
-
-
-  &.first {
-    right: 20px;
-    left: 55%;
-    &.selected {
-      float: right;
-    }
-  }
-
-  &.second {
-    right: 55%;
-    left: 20px;
-    &.selected {
-      float: left;
-    }
-  }
-
-  &.third {
-    right: 55%;
-    left: 20px;
-    &.selected {
-      float: left;
-    }
-  }
-
-  &.fourth {
-    right: 20px;
-    left: 55%;
-    &.selected {
-      float: right;
-    }
-  }
+  &.first { right: 20px; }
+  &.second { left: 20px; }
+  &.third { left: 20px; }
+  &.fourth { right: 20px; }
 
   &.selected {
-    display: block;
-    max-height: 100%;
+    max-height: 10000px;
     max-width: 1000px;
   }
 
