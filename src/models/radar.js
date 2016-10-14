@@ -26,14 +26,19 @@ const Radar = function() {
 
   self.addQuadrant = function (quadrant) {
     if(addingQuadrant >= 4) {
-      throw new MalformedDataError("There are more than 4 quadrants in the data.");
+      throw new MalformedDataError('There are more than 4 quadrant names listed in your data. Check the quadrant column' +
+      ' for errors.');
     }
     quadrants[addingQuadrant].quadrant = quadrant;
     setNumbers(quadrant.blips());
     addingQuadrant++;
   };
 
-  function allQuadrants() {
+   function allQuadrants() {
+    if (addingQuadrant < 4)
+      throw new MalformedDataError('There are less than 4 quadrant names listed in your data. Check the quadrant column' +
+        ' for errors.');
+
     return _.map(quadrants, 'quadrant');
   }
 

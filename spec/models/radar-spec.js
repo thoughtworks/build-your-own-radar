@@ -84,7 +84,24 @@ describe('Radar', function () {
     radar.addQuadrant(new Quadrant('Third'));
     radar.addQuadrant(new Quadrant('Fourth'));
 
-    expect(function() { radar.addQuadrant(new Quadrant('Fifth')) }).toThrow(new MalformedDataError("There are more than 4 quadrants in the data."));
+    expect(function() { radar.addQuadrant(new Quadrant('Fifth')) }).toThrow(new MalformedDataError('There are more than' +
+      ' 4 quadrant names listed in your data. Check the quadrant column for errors.'));
+  });
+
+  it('throws an error if less than 4 quadrants are added', function(){
+    var quadrant, radar, blip;
+
+    blip = new Blip('A', new Ring('First'));
+    quadrant = new Quadrant('First');
+    quadrant.add([blip]);
+    radar = new Radar();
+
+    radar.addQuadrant(quadrant);
+    radar.addQuadrant(new Quadrant('Second'));
+    radar.addQuadrant(new Quadrant('Third'));
+
+    expect(function() { radar.rings() }).toThrow(new MalformedDataError('There are less than' +
+      ' 4 quadrant names listed in your data. Check the quadrant column for errors.'));
   });
 
   describe('blip numbers', function () {
