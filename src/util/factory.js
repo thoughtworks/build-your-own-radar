@@ -36,7 +36,8 @@ const GoogleSheet = function (sheetId, sheetName) {
         _.each(['name', 'ring', 'quadrant', 'isNew', 'description'], function (field) {
 
           if (columnNames.indexOf(field) == -1) {
-            throw new MalformedDataError('Document is missing one or more required headers.');
+            throw new MalformedDataError('Document is missing one or more required headers or they are misspelled. ' +
+              'Check that your document contains headers for "name", "ring", "quadrant", "isNew", "description".');
           }
         });
 
@@ -48,7 +49,12 @@ const GoogleSheet = function (sheetId, sheetName) {
 
         var rings = _.map(_.uniqBy(blips, 'ring'), 'ring');
         var ringMap = {};
+        var maxRings = 4;
+
         _.each(rings, function (ringName, i) {
+          if(i == maxRings){
+            throw new MalformedDataError('More than 4 rings.')
+          }
           ringMap[ringName] = new Ring(ringName, i);
         });
 
@@ -83,6 +89,8 @@ const GoogleSheet = function (sheetId, sheetName) {
         d3.select('body')
           .append('div')
           .attr('class', 'error-container')
+          .append('div')
+          .attr('class', 'error-container__message')
           .append('p')
           .html(message);
       }
