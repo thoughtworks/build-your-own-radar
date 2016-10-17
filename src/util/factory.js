@@ -14,6 +14,7 @@ const Ring = require('../models/ring');
 const Blip = require('../models/blip');
 const GraphingRadar = require('../graphing/radar');
 const MalformedDataError = require('../exceptions/malformedDataError');
+const ContentValidator = require('../util/contentValidator');
 
 const GoogleSheet = function (sheetId, sheetName) {
   var self = {};
@@ -33,13 +34,9 @@ const GoogleSheet = function (sheetId, sheetName) {
         }
         var columnNames = tabletop.sheets(sheetName).column_names;
 
-        _.each(['name', 'ring', 'quadrant', 'isNew', 'description'], function (field) {
-
-          if (columnNames.indexOf(field) == -1) {
-            throw new MalformedDataError('Document is missing one or more required headers or they are misspelled. ' +
-              'Check that your document contains headers for "name", "ring", "quadrant", "isNew", "description".');
-          }
-        });
+        var contentValidator = new ContentValidator(columnNames);
+        contentValidator.verifyContent();
+        contentValidator.verifyHeaders();
 
         var all = tabletop.sheets(sheetName).all();
         var blips = _.map(all, new InputSanitizer().sanitize);
