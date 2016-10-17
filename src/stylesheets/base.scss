@@ -28,8 +28,8 @@ body {
 
     .legend {
       visibility: hidden;
-
       transition: visibility 1s ease 1s;
+      color: $black;
     }
 
     path {
