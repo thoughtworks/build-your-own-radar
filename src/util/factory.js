@@ -14,7 +14,9 @@ const Ring = require('../models/ring');
 const Blip = require('../models/blip');
 const GraphingRadar = require('../graphing/radar');
 const MalformedDataError = require('../exceptions/malformedDataError');
-const ContentValidator = require('../util/contentValidator');
+const ContentValidator = require('./contentValidator');
+const ExceptionMessages = require('./exceptionMessages');
+
 
 const GoogleSheet = function (sheetId, sheetName) {
   var self = {};
@@ -50,7 +52,7 @@ const GoogleSheet = function (sheetId, sheetName) {
 
         _.each(rings, function (ringName, i) {
           if(i == maxRings){
-            throw new MalformedDataError('More than 4 rings.')
+            throw new MalformedDataError(ExceptionMessages.TOO_MANY_RINGS);
           }
           ringMap[ringName] = new Ring(ringName, i);
         });

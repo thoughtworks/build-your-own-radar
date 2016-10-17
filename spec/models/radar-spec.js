@@ -3,6 +3,7 @@ const Quadrant = require('../../src/models/quadrant');
 const Ring = require('../../src/models/ring');
 const Blip = require('../../src/models/blip');
 const MalformedDataError = require('../../src/exceptions/malformedDataError');
+const ExceptionMessages = require('../../src/util/exceptionMessages');
 
 describe('Radar', function () {
 
@@ -84,8 +85,7 @@ describe('Radar', function () {
     radar.addQuadrant(new Quadrant('Third'));
     radar.addQuadrant(new Quadrant('Fourth'));
 
-    expect(function() { radar.addQuadrant(new Quadrant('Fifth')) }).toThrow(new MalformedDataError('There are more than' +
-      ' 4 quadrant names listed in your data. Check the quadrant column for errors.'));
+    expect(function() { radar.addQuadrant(new Quadrant('Fifth')) }).toThrow(new MalformedDataError(ExceptionMessages.TOO_MANY_QUADRANTS));
   });
 
   it('throws an error if less than 4 quadrants are added', function(){
@@ -100,8 +100,7 @@ describe('Radar', function () {
     radar.addQuadrant(new Quadrant('Second'));
     radar.addQuadrant(new Quadrant('Third'));
 
-    expect(function() { radar.rings() }).toThrow(new MalformedDataError('There are less than' +
-      ' 4 quadrant names listed in your data. Check the quadrant column for errors.'));
+    expect(function() { radar.rings() }).toThrow(new MalformedDataError(ExceptionMessages.LESS_THAN_FOUR_QUADRANTS));
   });
 
   describe('blip numbers', function () {

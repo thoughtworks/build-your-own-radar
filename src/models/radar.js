@@ -1,4 +1,6 @@
 const MalformedDataError = require('../exceptions/malformedDataError');
+const ExceptionMessages = require('../util/exceptionMessages');
+
 const _ = {
   map: require('lodash/map'),
   uniqBy: require('lodash/uniqBy'),
@@ -26,8 +28,7 @@ const Radar = function() {
 
   self.addQuadrant = function (quadrant) {
     if(addingQuadrant >= 4) {
-      throw new MalformedDataError('There are more than 4 quadrant names listed in your data. Check the quadrant column' +
-      ' for errors.');
+      throw new MalformedDataError(ExceptionMessages.TOO_MANY_QUADRANTS);
     }
     quadrants[addingQuadrant].quadrant = quadrant;
     setNumbers(quadrant.blips());
@@ -36,8 +37,7 @@ const Radar = function() {
 
    function allQuadrants() {
     if (addingQuadrant < 4)
-      throw new MalformedDataError('There are less than 4 quadrant names listed in your data. Check the quadrant column' +
-        ' for errors.');
+      throw new MalformedDataError(ExceptionMessages.LESS_THAN_FOUR_QUADRANTS);
 
     return _.map(quadrants, 'quadrant');
   }

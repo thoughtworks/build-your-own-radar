@@ -6,22 +6,22 @@ const _ = {
 };
 
 const MalformedDataError = require('../../src/exceptions/malformedDataError');
+const ExceptionMessages = require('./exceptionMessages');
+
 
 const ContentValidator = function (columnNames) {
-  var columnNames = columnNames;
   var self = {};
 
   self.verifyContent = function() {
     if(columnNames.length == 0){
-      throw new MalformedDataError('Document is missing content.');
+      throw new MalformedDataError(ExceptionMessages.MISSING_CONTENT);
     }
   };
 
   self.verifyHeaders = function() {
     _.each(['name', 'ring', 'quadrant', 'isNew', 'description'], function (field) {
       if (columnNames.indexOf(field) == -1) {
-        throw new MalformedDataError('Document is missing one or more required headers or they are misspelled. ' +
-          'Check that your document contains headers for "name", "ring", "quadrant", "isNew", "description".');
+        throw new MalformedDataError(ExceptionMessages.MISSING_HEADERS);
       }
     });
   };

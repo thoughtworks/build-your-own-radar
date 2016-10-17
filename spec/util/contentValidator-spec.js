@@ -1,5 +1,7 @@
 const ContentValidator = require('../../src/util/contentValidator');
 const MalformedDataError = require('../../src/exceptions/malformedDataError');
+const ExceptionMessages = require('../../src/util/exceptionMessages');
+
 
 describe('ContentValidator', function () {
 
@@ -17,7 +19,7 @@ describe('ContentValidator', function () {
 
       expect(function () {
         contentValidator.verifyContent()
-      }).toThrow(new MalformedDataError('Document is missing content.'));
+      }).toThrow(new MalformedDataError(ExceptionMessages.MISSING_CONTENT));
     });
   });
 
@@ -29,8 +31,7 @@ describe('ContentValidator', function () {
 
       expect(function () {
         contentValidator.verifyHeaders()
-      }).toThrow(new MalformedDataError('Document is missing one or more required headers or they are misspelled. ' +
-        'Check that your document contains headers for "name", "ring", "quadrant", "isNew", "description".'));
+      }).toThrow(new MalformedDataError(ExceptionMessages.MISSING_HEADERS));
     });
 
     it('does not return anything if the all required headers are present', function () {
