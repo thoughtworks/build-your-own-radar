@@ -297,13 +297,13 @@ const Radar = function (size, radar) {
     }
 
     if(order == "second") {
-      x = 1 * size / 5;
-      y = 1 * size / 5;
+      x = 1 * size / 5 - 15;
+      y = 1 * size / 5 - 20;
     }
 
     if(order == "third") {
-      x = 1 * size / 5;
-      y = 4 * size / 5;
+      x = 1 * size / 5 - 15;
+      y = 4 * size / 5 + 15;
     }
 
     if(order == "fourth") {
