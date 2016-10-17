@@ -82,6 +82,8 @@ const GoogleSheet = function (sheetId, sheetName) {
 
         if (exception instanceof MalformedDataError) {
           message = message.concat(exception.message);
+        } else {
+          console.error(exception);
         }
 
         message = message.concat('<br/>', 'Please check <a href="">FAQs</a> for possible solutions.');
