@@ -96,14 +96,29 @@ body {
   }
 
   header {
+    text-align: left;
+
     .radar-title .radar-title__text {
       font-size: 40px;
       width: 100%;
       padding: 10px;
+      display:block;
     }
 
     .radar-title .radar-title__logo {
-      display: none;
+      display: block;
+      width: auto;
+
+      a {
+        padding: 40px 10px 0;
+        display: block;
+        &::after {
+          display: none;
+        }
+      }
+      img {
+        max-width: 150px;
+      }
     }
 
     .button {
