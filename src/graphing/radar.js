@@ -411,12 +411,7 @@ const Radar = function (size, radar) {
     header.append('div')
       .classed('print-radar button', true)
       .text('Print this page')
-      .on('click', printDiv);
-  }
-
-
-  function printDiv() {
-    window.print();
+      .on('click', window.print.bind(window));
   }
 
   function plotRadarFooter() {
@@ -492,10 +487,6 @@ const Radar = function (size, radar) {
     if (d3.select('.legend.legend-' + order).empty()){
       drawLegend(order);
     }
-  }
-
-  function plotPrintableText(text){
-
   }
 
   self.init = function () {
