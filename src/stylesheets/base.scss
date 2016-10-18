@@ -125,15 +125,15 @@ body {
       display: none;
     }
 
-    .print-radar {
+    .home-link {
       display: none;
+
+      &.selected{
+        display: none;
+      }
     }
-  }
 
-  .home-link {
-    display: none;
-
-    &.selected{
+    .print-radar {
       display: none;
     }
   }
@@ -291,7 +291,7 @@ body {
       &.selected {
         position: relative;
         max-height: 10000px;
-        max-width: 1000px;
+        max-width: 40%;
       }
 
       ul {
