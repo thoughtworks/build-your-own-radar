@@ -70,6 +70,10 @@ header {
     color: $black;
 
     &:hover, &.selected {
+
+      transform: translate(0,-2px);
+      opacity: .85;
+
       &.first {
         color: white;
         background-color: $green;
