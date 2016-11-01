@@ -409,8 +409,8 @@ const Radar = function (size, radar) {
 
 
     header.append('div')
-      .classed('print-radar button', true)
-      .text('Print this page')
+      .classed('print-radar button no-capitalize', true)
+      .text('Print this radar')
       .on('click', window.print.bind(window));
   }
 

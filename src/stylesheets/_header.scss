@@ -65,13 +65,18 @@ header {
     line-height: 1em;
     padding: 10px 20px;
     cursor: pointer;
+    transition: all .2s ease-out;
 
     background-color: $grey-light;
     color: $black;
 
+    &.no-capitalize {
+      text-transform: none;
+    }
+
     &:hover, &.selected {
 
-      transform: translate(0,-2px);
+      transform: translate(0, -2px);
       opacity: .85;
 
       &.first {
