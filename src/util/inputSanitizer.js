@@ -17,15 +17,27 @@ const InputSanitizer = function () {
             }
     };
 
+    function trimProperties(blip) {
+      for(var property in blip) {
+        if(blip.hasOwnProperty(property)) {
+          var key = property.trim();
+          var value = blip[property];
+          delete blip[property];
+          blip[key] = value;
+        }
+      }
+    }
+
     var self = {};
     self.sanitize = function (blip) {
-        blip.description = sanitizeHtml(blip.description, relaxedOptions);
-        blip.name = sanitizeHtml(blip.name, restrictedOptions);
-        blip.isNew = sanitizeHtml(blip.isNew, restrictedOptions);
-        blip.ring = sanitizeHtml(blip.ring, restrictedOptions);
-        blip.quadrant = sanitizeHtml(blip.quadrant, restrictedOptions);
+      trimProperties(blip);
+      blip.description = sanitizeHtml(blip.description, relaxedOptions);
+      blip.name = sanitizeHtml(blip.name, restrictedOptions);
+      blip.isNew = sanitizeHtml(blip.isNew, restrictedOptions);
+      blip.ring = sanitizeHtml(blip.ring, restrictedOptions);
+      blip.quadrant = sanitizeHtml(blip.quadrant, restrictedOptions);
 
-        return blip;
+      return blip;
     };
 
     return self;

@@ -11,6 +11,9 @@ const ExceptionMessages = require('./exceptionMessages');
 
 const ContentValidator = function (columnNames) {
   var self = {};
+  columnNames = columnNames.map(function(columnName) {
+    return columnName.trim();
+  });
 
   self.verifyContent = function() {
     if(columnNames.length == 0){

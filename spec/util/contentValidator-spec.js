@@ -41,6 +41,12 @@ describe('ContentValidator', function () {
       expect(contentValidator.verifyHeaders()).not.toBeDefined();
     });
 
+    it('does not care about white spaces in the headers', function() {
+      var columnNames = [' name', 'ring ', '   quadrant', 'isNew   ', '   description   '];
+      var contentValidator = new ContentValidator(columnNames);
+
+      expect(contentValidator.verifyHeaders()).not.toBeDefined();
+    });
+
   });
 });
-
