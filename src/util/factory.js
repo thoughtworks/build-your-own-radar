@@ -85,7 +85,7 @@ const GoogleSheet = function (sheetId, sheetName) {
           console.error(exception);
         }
 
-        message = message.concat('<br/>', 'Please check <a href="">FAQs</a> for possible solutions.');
+        message = message.concat('<br/>', 'Please check <a href="https://info.thoughtworks.com/visualise-your-tech-strategy-guide.html#faq">FAQs</a> for possible solutions.');
 
         d3.select('body')
           .append('div')
