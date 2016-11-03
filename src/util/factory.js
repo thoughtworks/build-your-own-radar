@@ -48,7 +48,7 @@ const GoogleSheet = function (sheetId, sheetName) {
         console.error(exception);
       }
 
-      message = message.concat('<br/>', 'Please check <a href="https://info.thoughtworks.com/visualise-your-tech-strategy-guide.html#faq">FAQs</a> for possible solutions.');
+      message = message.concat('<br/>', 'Please check <a href="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html#faq">FAQs</a> for possible solutions.');
 
       d3.select('body')
           .append('div')
@@ -117,7 +117,7 @@ const GoogleSheet = function (sheetId, sheetName) {
           console.error(exception);
         }
 
-        message = message.concat('<br/>', 'Please check <a href="https://info.thoughtworks.com/visualise-your-tech-strategy-guide.html#faq">FAQs</a> for possible solutions.');
+        message = message.concat('<br/>', 'Please check <a href="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html#faq">FAQs</a> for possible solutions.');
 
         d3.select('body')
           .append('div')
@@ -185,8 +185,8 @@ const GoogleSheetInput = function () {
 
       plotLogo(content);
 
-      var bannerText = '<h1>Build your own radar</h1><p>Once you\'ve <a href ="https://info.thoughtworks.com/visualise-your-tech-strategy.html">created your Radar</a>, you can use this service' +
-        ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://info.thoughtworks.com/visualise-your-tech-strategy-guide.html">Read this first.</a></p>';
+      var bannerText = '<h1>Build your own radar</h1><p>Once you\'ve <a href ="https://info.thoughtworks.com/visualize-your-tech-strategy.html">created your Radar</a>, you can use this service' +
+        ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html">Read this first.</a></p>';
 
       plotBanner(content, bannerText);
 
@@ -246,7 +246,7 @@ function plotForm(content) {
     .attr('class', 'button')
     .text('Build my radar');
 
-  form.append('p').html("<a href='https://info.thoughtworks.com/visualise-your-tech-strategy-guide.html#faq'>Need help?</a>");
+  form.append('p').html("<a href='https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html#faq'>Need help?</a>");
 }
 
 
