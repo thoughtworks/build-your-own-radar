@@ -1,4 +1,5 @@
 const SheetNotFoundError = require('../../src/exceptions/sheetNotFoundError');
+const ExceptionMessages = require('./exceptionMessages');
 
 const SheetValidator = function (sheetId) {
     var self = {};
@@ -16,7 +17,7 @@ const SheetValidator = function (sheetId) {
         xmlhttp.withCredentials = false;
         xmlhttp.send(null);
         if (xmlhttp.status == 400) {
-            throw new SheetNotFoundError();
+            throw new SheetNotFoundError(ExceptionMessages.SHEET_NOT_FOUND);
         }
     };
     return self;
