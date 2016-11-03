@@ -32,8 +32,6 @@ const GoogleSheet = function (sheetId, sheetName) {
         key: sheetId,
         callback: createRadar
       });
-
-
     } catch (exception) {
       displayErrorMessage(exception);
     }
@@ -177,7 +175,6 @@ const GoogleSheetInput = function () {
 
     if (queryParams.sheetId) {
       var sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName);
-      console.log(sheet);
       sheet.init().build();
     } else {
       var content = d3.select('body')

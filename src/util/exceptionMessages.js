@@ -4,7 +4,8 @@ const ExceptionMessages = {
   MISSING_HEADERS: 'Document is missing one or more required headers or they are misspelled. ' +
   'Check that your document contains headers for "name", "ring", "quadrant", "isNew", "description".',
   MISSING_CONTENT: 'Document is missing content.',
-  LESS_THAN_FOUR_QUADRANTS : 'There are less than 4 quadrant names listed in your data. Check the quadrant column for errors.'
+  LESS_THAN_FOUR_QUADRANTS : 'There are less than 4 quadrant names listed in your data. Check the quadrant column for errors.',
+  SHEET_NOT_FOUND: 'The sheet you have entered is not present.'
 };
 
 module.exports = ExceptionMessages;
