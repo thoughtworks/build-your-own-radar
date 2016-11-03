@@ -37,20 +37,14 @@ describe('InputSanitizer', function(){
         expect(blip.quadrant).toEqual("techniques & tools");
     });
 
-    it('trims white spaces from property names', function() {
+    it('trims white spaces in keys and values', function() {
       rawBlip = {
-          ' name': 'Some name',
-          'description ': 'Some description',
-          ' ring ': 'Some ring',
-          '  quadrant': 'Some quadrant',
-          '  isNew  ': 'true'
+          ' name': '   Some name ',
+          '   ring ': '    Some ring name ',
       };
       blip = sanitizer.sanitize(rawBlip);
 
       expect(blip.name).toEqual('Some name');
-      expect(blip.description).toEqual('Some description');
-      expect(blip.ring).toEqual('Some ring');
-      expect(blip.quadrant).toEqual('Some quadrant');
-      expect(blip.isNew).toEqual('true');
+      expect(blip.ring).toEqual('Some ring name');
     });
 });
