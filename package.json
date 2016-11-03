@@ -1,5 +1,5 @@
 {
-  "name": "tech-radar",
+  "name": "build-your-own-radar",
   "version": "0.3.0",
   "description": "",
   "main": "index.js",
@@ -12,10 +12,10 @@
     "examples": "npm run build && npm run examples:clean && npm run examples:copy",
     "publishExamples": "node ./scripts/publish-examples.js"
   },
-  "author": "Bruno Trecenti & Fernando Freire",
+  "author": "ThoughtWorks",
   "repository": {
     "type": "git",
-    "url": "git://github.com/thenano/tech-radar.git"
+    "url": "https://github.com/thoughtworks/build-your-own-radar"
   },
   "keywords": [
     "tech-radar"
