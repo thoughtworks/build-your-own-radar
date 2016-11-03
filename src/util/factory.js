@@ -14,7 +14,9 @@ const Ring = require('../models/ring');
 const Blip = require('../models/blip');
 const GraphingRadar = require('../graphing/radar');
 const MalformedDataError = require('../exceptions/malformedDataError');
+const SheetNotFoundError = require('../exceptions/sheetNotFoundError');
 const ContentValidator = require('./contentValidator');
+const SheetValidator = require('./sheetValidator');
 const ExceptionMessages = require('./exceptionMessages');
 
 
@@ -22,10 +24,42 @@ const GoogleSheet = function (sheetId, sheetName) {
   var self = {};
 
   self.build = function () {
-    Tabletop.init({
-      key: sheetId,
-      callback: createRadar
-    });
+    try {
+      var sheetValidator = new SheetValidator(sheetId);
+      sheetValidator.verifySheet();
+
+      Tabletop.init({
+        key: sheetId,
+        callback: createRadar
+      });
+
+
+    } catch (exception) {
+      displayErrorMessage(exception);
+    }
+
+
+
+    function displayErrorMessage(exception) {
+      d3.selectAll(".loading").remove();
+      var message = 'Oops! It seems like there are some problems with loading your data. ';
+
+      if (exception instanceof MalformedDataError || exception instanceof SheetNotFoundError ) {
+        message = message.concat(exception.message);
+      } else {
+        console.error(exception);
+      }
+
+      message = message.concat('<br/>', 'Please check <a href="https://info.thoughtworks.com/visualise-your-tech-strategy-guide.html#faq">FAQs</a> for possible solutions.');
+
+      d3.select('body')
+          .append('div')
+          .attr('class', 'error-container')
+          .append('div')
+          .attr('class', 'error-container__message')
+          .append('p')
+          .html(message);
+    }
 
     function createRadar(sheets, tabletop) {
 
@@ -142,7 +176,9 @@ const GoogleSheetInput = function () {
     var queryParams = QueryParams(window.location.search.substring(1));
 
     if (queryParams.sheetId) {
-      return GoogleSheet(queryParams.sheetId, queryParams.sheetName).init().build();
+      var sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName);
+      console.log(sheet);
+      sheet.init().build();
     } else {
       var content = d3.select('body')
         .append('div')
