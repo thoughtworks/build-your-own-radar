@@ -2,6 +2,10 @@
 
 A library that generates an interactive radar, inspired by [thoughtworks.com/radar/](http://thoughtworks.com/radar/).
 
+## Demo
+
+You can see the application in action at https://radar.thoughtworks.com. If you plug in [this data](https://docs.google.com/spreadsheets/d/1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI/pubhtml) you'll see [this visualization](https://radar.thoughtworks.com/?sheetId=1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI). 
+
 ## How To Use
 
 The easiest way to use the app out of the box is to provide a *public* Google Sheet ID from which all the data will be fetched. You can enter that ID into the input field on the first page of the application, and your radar will be generated. The data must conform to the format below for the radar to be generated correctly.
@@ -18,7 +22,7 @@ Create a Google Sheet. Give it at least the below column headers, and put in the
 	Apache Kylin	assess	platforms				        TRUE	Apache Kylin is an open source analytics solution ...
 	JSF		hold	languages & frameworks  FALSE	We continue to see teams run into trouble using JSF ...
 
-In Google Docs, go up to the `File` menu and pick `Publish to the web`, then click `Start publishing`. A URL will appear, something like `https://docs.google.com/spreadsheets/d/1--_uLSNfiD19i8rAcF_f3qlgZGk2lzSS3bbSrypcx4Y/pubhtml`.
+In Google Docs, go up to the `File` menu and pick `Publish to the web`, then click `Start publishing`. A URL will appear, something like `https://docs.google.com/spreadsheets/d/1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI/pubhtml`.
 
 Copy that! In theory you're interested only in the part between `/d/` and `/pubhtml` but you can use the whole URL if you want.
 
