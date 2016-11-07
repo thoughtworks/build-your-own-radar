@@ -1,6 +1,6 @@
 [![Build Status](https://snap-ci.com/thoughtworks/build-your-own-radar/branch/master/build_image)](https://snap-ci.com/thoughtworks/build-your-own-radar/branch/master)
 
-A library that generates an interactive radar, inspired by [thoughtworks.com/radar/](http://thoughtworks.com/radar/).
+A library that generates an interactive radar, inspired by [thoughtworks.com/radar](http://thoughtworks.com/radar).
 
 ## Demo
 
@@ -34,19 +34,18 @@ Note: the quadrants of the radar, and the order of the rings inside the radar wi
 
 ### More complex usage
 
-The application is using [webpack](https://webpack.github.io/) to package dependencies and minify all .js and .scss files.
+To create the data representation, you can use the Google Sheet [factory](/src/util/factory.js), or you can also insert all your data straight into the code.
 
-To create the data representation, you can use the Google Sheet data factory, or you can also insert all your data straight into the code.
+The app uses [Tabletop.js](https://github.com/jsoma/tabletop) to fetch the data from a Google Sheet, so refer to their documentation for more advanced interaction.  The input from the Google Sheet is sanitized by whitelisting HTML tags with [sanitize-html](https://github.com/punkave/sanitize-html).
 
-The app uses [Tabletop.js](https://github.com/jsoma/tabletop) to fetch the data from a Google Sheet, so refer to their documentation for more advanced interaction.
-
-The input from the Google Sheet is sanitized by whitelisting HTML tags with [sanitize-html](https://github.com/punkave/sanitize-html).
+The application uses [webpack](https://webpack.github.io/) to package dependencies and minify all .js and .scss files.
 
 If you want to understand how it's wired and make it your own, check the file `examples/index.html` for general usage.
 
 ## Contribute
 
 All tasks are defined in `package.json`.
+
 Pull requests are welcome; please write tests whenever possible.
 
 - `git clone git@github.com:thoughtworks/build-your-own-radar.git`
