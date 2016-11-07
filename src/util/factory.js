@@ -201,11 +201,13 @@ function plotFooter(content) {
         .append('div')
         .attr('class', 'footer-content')
         .append('p')
-        .html('Powered by <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. By choosing to use this service you ' +
-        'agree to <a href="https://info.thoughtworks.com/visualize-your-tech-strategy-terms-of-service.html">ThoughtWorks\' terms of use</a>. ' +
-        'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, '+
-        'use and protect any personal data (if any) contained in the public Google Sheet that you have chosen to share. ' +
-        'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.');
+        .html('Powered by <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. '
+        + 'By using this service you agree to <a href="https://info.thoughtworks.com/visualize-your-tech-strategy-terms-of-service.html">ThoughtWorks\' terms of use</a>. '
+        + 'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. '
+        + 'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.');
+
+
+
 }
 
 function plotBanner(content, text) {
@@ -219,7 +221,7 @@ function plotForm(content) {
     content.append('div')
         .attr('class', 'input-sheet__form')
         .append('p')
-        .html('<strong>Enter the URL of your public google sheet below...</strong>');
+        .html('<strong>Enter the URL of your <a href="https://support.google.com/docs/answer/37579" target="_blank">published</a> Google Sheet below…</strong>');
 
     var form = content.select('.input-sheet__form').append('form')
         .attr('method', 'get');
