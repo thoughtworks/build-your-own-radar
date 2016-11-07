@@ -40,8 +40,6 @@ The app uses [Tabletop.js](https://github.com/jsoma/tabletop) to fetch the data 
 
 The application uses [webpack](https://webpack.github.io/) to package dependencies and minify all .js and .scss files.
 
-If you want to understand how it's wired and make it your own, check the file `examples/index.html` for general usage.
-
 ## Contribute
 
 All tasks are defined in `package.json`.
