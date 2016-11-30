@@ -36,6 +36,7 @@
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.1",
+    "xmlhttprequest": "^1.8.0",
     "yargs": "^5.0.0"
   },
   "dependencies": {

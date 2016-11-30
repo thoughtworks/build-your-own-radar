@@ -21,7 +21,6 @@ const SheetValidator = function (sheetReference) {
 
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.open("GET", sheetUrl, false);
-        //xmlhttp.withCredentials = false;
         xmlhttp.send(null);
         if (xmlhttp.status == 400) {
             throw new SheetNotFoundError(ExceptionMessages.SHEET_NOT_FOUND);
