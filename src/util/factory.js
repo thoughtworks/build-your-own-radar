@@ -16,26 +16,26 @@ const GraphingRadar = require('../graphing/radar');
 const MalformedDataError = require('../exceptions/malformedDataError');
 const SheetNotFoundError = require('../exceptions/sheetNotFoundError');
 const ContentValidator = require('./contentValidator');
-const SheetValidator = require('./sheetValidator');
+const Sheet = require('./sheet');
 const ExceptionMessages = require('./exceptionMessages');
 
 
-const GoogleSheet = function (sheetId, sheetName) {
+const GoogleSheet = function (sheetReference, sheetName) {
     var self = {};
 
     self.build = function () {
-        try {
-            var sheetValidator = new SheetValidator(sheetId);
-            sheetValidator.verifySheet();
+        var sheet = new Sheet(sheetReference);
+        sheet.exists(function(notFound) {
+            if (notFound) {
+                displayErrorMessage(notFound);
+                return;
+            }
 
             Tabletop.init({
-                key: sheetId,
+                key: sheet.id,
                 callback: createRadar
             });
-        } catch (exception) {
-            displayErrorMessage(exception);
-        }
-
+        });
 
         function displayErrorMessage(exception) {
             d3.selectAll(".loading").remove();
