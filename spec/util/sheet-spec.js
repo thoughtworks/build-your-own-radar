@@ -28,12 +28,6 @@ describe('sheet', function () {
         expect(sheet.id).toEqual('1wLRmV2tVlS5PqjKFyiTA0HuoH8vp_h_DOmjciZAEG0U');
     });
 
-    it('returns null if it couldn\'t find the sheet ID', function () {
-        sheet = new Sheet('http://example.com/a/b/c/d/?x=y');
-
-        expect(sheet.id).toEqual(null);
-    });
-
     xit('calls back with nothing if the sheet exists', function () {
         sheet = new Sheet('http://example.com/a/b/c/d/?x=y');
         sheet.exists(caller.callback);
