@@ -4,7 +4,7 @@ A library that generates an interactive radar, inspired by [thoughtworks.com/rad
 
 ## Demo
 
-You can see this in action at https://radar.thoughtworks.com. If you plug in [this data](https://docs.google.com/spreadsheets/d/1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI/pubhtml) you'll see [this visualization](https://radar.thoughtworks.com/?sheetId=1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI). 
+You can see this in action at https://radar.thoughtworks.com. If you plug in [this data](https://docs.google.com/spreadsheets/d/1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI/) you'll see [this visualization](https://radar.thoughtworks.com/?sheetId=1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI). 
 
 ## How To Use
 
@@ -22,11 +22,17 @@ Create a Google Sheet. Give it at least the below column headers, and put in the
 	Apache Kylin	assess	platforms				        TRUE	Apache Kylin is an open source analytics solution ...
 	JSF		hold	languages & frameworks  FALSE	We continue to see teams run into trouble using JSF ...
 
-In Google Docs, go up to the `File` menu and pick `Publish to the web`, then click `Start publishing`. A URL will appear, something like `https://docs.google.com/spreadsheets/d/1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI/pubhtml`.
+### Sharing the sheet
 
-Copy that! In theory you're interested only in the part between `/d/` and `/pubhtml` but you can use the whole URL if you want.
+* In Google sheets, go to 'File', choose 'Publish to the web...' and then click 'Publish'.
+* Close the 'Publish to the web' dialog.
+* Copy the URL of your editable sheet from the browser (Don't worry, this does not share the editable version). 
 
-Paste the URL in the input field on the main page.
+The URL will be similar to [https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/edit](https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/edit). In theory we are only interested in the part between '/d/' and '/edit' but you can use the whole URL if you want.
+
+### Building the radar
+
+Paste the URL in the input field on the home page.
 
 That's it!
 
