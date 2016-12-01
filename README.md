@@ -16,11 +16,12 @@ You need to make your data public in a form we can digest.
 
 Create a Google Sheet. Give it at least the below column headers, and put in the content that you want:
 
-    name 		ring	quadrant                isNew	description
-	Composer		adopt	tools					        TRUE	Although the idea of dependency management ...
-	Canary builds	trial	techniques				        FALSE	Many projects have external code dependencies ...
-	Apache Kylin	assess	platforms				        TRUE	Apache Kylin is an open source analytics solution ...
-	JSF		hold	languages & frameworks  FALSE	We continue to see teams run into trouble using JSF ...
+| name          | ring   | quadrant               | isNew | description                                             |
+|---------------|--------|------------------------|-------|---------------------------------------------------------|
+| Composer      | adopt  | tools                  | TRUE  | Although the idea of dependency management ...          |
+| Canary builds | trial  | techniques             | FALSE | Many projects have external code dependencies ...       |
+| Apache Kylin  | assess | platforms              | TRUE  | Apache Kylin is an open source analytics solution ...   |
+| JSF           | hold   | languages & frameworks | FALSE | We continue to see teams run into trouble using JSF ... |
 
 ### Sharing the sheet
 
