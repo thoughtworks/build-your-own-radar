@@ -5,7 +5,7 @@ const Sheet = function (sheetReference) {
     var self = {};
 
     (function () {
-        var matches = sheetReference.match("d\\/(.*?)\\/pubhtml") || sheetReference.match("d\\/(.*?)\\/edit\\?usp\\=sharing");
+        var matches = sheetReference.match("https:\\/\\/docs.google.com\\/spreadsheets\\/d\\/(.*?)($|\\/$|\\/.*|\\?.*)");
         self.id = matches !== null ? matches[1] : sheetReference;
     })();
 

@@ -15,9 +15,30 @@ describe('sheet', function () {
         expect(sheet.id).toEqual('1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI');
     });
 
-    it('knows to find the sheet id from publicly shared URL', function () {
+    it('knows to find the sheet id from publicly shared URL having query params', function () {
+        sheet = new Sheet('https://docs.google.com/spreadsheets/' +
+            'd/1wLRmV2tVlS5PqjKFyiTA0HuoH8vp_h_DOmjciZAEG0U?abc=xyz');
+
+        expect(sheet.id).toEqual('1wLRmV2tVlS5PqjKFyiTA0HuoH8vp_h_DOmjciZAEG0U');
+    });
+
+    it('knows to find the sheet id from publicly shared URL having extra path and query params', function () {
         sheet = new Sheet('https://docs.google.com/spreadsheets/' +
             'd/1wLRmV2tVlS5PqjKFyiTA0HuoH8vp_h_DOmjciZAEG0U/edit?usp=sharing');
+
+        expect(sheet.id).toEqual('1wLRmV2tVlS5PqjKFyiTA0HuoH8vp_h_DOmjciZAEG0U');
+    });
+
+    it('knows to find the sheet id from publicly shared URL having no extra path or query params', function () {
+        sheet = new Sheet('https://docs.google.com/spreadsheets/' +
+            'd/1wLRmV2tVlS5PqjKFyiTA0HuoH8vp_h_DOmjciZAEG0U');
+
+        expect(sheet.id).toEqual('1wLRmV2tVlS5PqjKFyiTA0HuoH8vp_h_DOmjciZAEG0U');
+    });
+
+    it('knows to find the sheet id from publicly shared URL with trailing slash', function () {
+        sheet = new Sheet('https://docs.google.com/spreadsheets/' +
+            'd/1wLRmV2tVlS5PqjKFyiTA0HuoH8vp_h_DOmjciZAEG0U/');
 
         expect(sheet.id).toEqual('1wLRmV2tVlS5PqjKFyiTA0HuoH8vp_h_DOmjciZAEG0U');
     });
