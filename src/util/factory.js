@@ -221,7 +221,7 @@ function plotForm(content) {
     content.append('div')
         .attr('class', 'input-sheet__form')
         .append('p')
-        .html('<strong>Enter the URL of your <a href="https://support.google.com/docs/answer/37579" target="_blank">published</a> Google Sheet below…</strong>');
+        .html('<strong>Enter the URL of your <a href="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html#publish-byor-sheet" target="_blank">published</a> Google Sheet below…</strong>');
 
     var form = content.select('.input-sheet__form').append('form')
         .attr('method', 'get');
@@ -229,7 +229,7 @@ function plotForm(content) {
     form.append('input')
         .attr('type', 'text')
         .attr('name', 'sheetId')
-        .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/1--_uLSNf/pubhtml');
+        .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/');
 
     form.append('button')
         .attr('type', 'submit')
