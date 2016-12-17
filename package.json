@@ -20,7 +20,7 @@
   "keywords": [
     "tech-radar"
   ],
-  "license": "ISC",
+  "license": "AGPL-3.0",
   "devDependencies": {
     "babel-core": "^6.14.0",
     "babel-loader": "^6.2.5",
