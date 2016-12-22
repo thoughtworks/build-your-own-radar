@@ -39,6 +39,12 @@ That's it!
 
 Note: the quadrants of the radar, and the order of the rings inside the radar will be drawn in the order they appear in your Google Sheet.
 
+### Don't want to install node? Run with one line docker
+
+     $ docker run -p 8080:8080 -v $PWD:/app -w /app -it node:7.3.0 /bin/sh -c 'npm install && npm run dev'
+
+After building it will start on localhost:8080
+
 ### More complex usage
 
 To create the data representation, you can use the Google Sheet [factory](/src/util/factory.js), or you can also insert all your data straight into the code.
