@@ -39,12 +39,6 @@ That's it!
 
 Note: the quadrants of the radar, and the order of the rings inside the radar will be drawn in the order they appear in your Google Sheet.
 
-### Don't want to install node? Run with one line docker
-
-     $ docker run -p 8080:8080 -v $PWD:/app -w /app -it node:7.3.0 /bin/sh -c 'npm install && npm run dev'
-
-After building it will start on localhost:8080
-
 ### More complex usage
 
 To create the data representation, you can use the Google Sheet [factory](/src/util/factory.js), or you can also insert all your data straight into the code.
@@ -57,9 +51,16 @@ The application uses [webpack](https://webpack.github.io/) to package dependenci
 
 All tasks are defined in `package.json`.
 
-Pull requests are welcome; please write tests whenever possible.
+Pull requests are welcome; please write tests whenever possible. 
+Make sure you have nodejs installed.
 
 - `git clone git@github.com:thoughtworks/build-your-own-radar.git`
 - `npm install`
 - `npm test` - to run your tests
 - `npm run dev` - to run application in localhost:8080. This will watch the .js and .css files and rebuild on file changes
+
+### Don't want to install node? Run with one line docker
+
+     $ docker run -p 8080:8080 -v $PWD:/app -w /app -it node:7.3.0 /bin/sh -c 'npm install && npm run dev'
+
+After building it will start on localhost:8080
