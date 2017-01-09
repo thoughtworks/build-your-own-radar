@@ -60,12 +60,12 @@ const GoogleSheet = function (sheetReference, sheetName) {
                 .html(message);
         }
 
-        function createRadar(sheets, tabletop) {
+        function createRadar(__, tabletop) {
 
             try {
 
                 if (!sheetName) {
-                    sheetName = Object.keys(sheets)[0];
+                    sheetName = tabletop.foundSheetNames[0];
                 }
                 var columnNames = tabletop.sheets(sheetName).column_names;
 
