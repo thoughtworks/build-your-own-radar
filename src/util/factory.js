@@ -67,7 +67,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
                 if (!sheetName) {
                     sheetName = tabletop.foundSheetNames[0];
                 }
-                var columnNames = tabletop.sheets(sheetName).column_names;
+                var columnNames = tabletop.sheets(sheetName).columnNames;
 
                 var contentValidator = new ContentValidator(columnNames);
                 contentValidator.verifyContent();
