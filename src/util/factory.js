@@ -160,7 +160,7 @@ const GoogleSheetInput = function () {
         if (queryParams.sheetId) {
             var sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName);
             sheet.init().build();
-        } else {
+        } else if (queryParams.select) {
             var content = d3.select('body')
                 .append('div')
                 .attr('class', 'input-sheet');
@@ -178,6 +178,9 @@ const GoogleSheetInput = function () {
 
             plotFooter(content);
 
+        } else {
+            var sheet = GoogleSheet("https://docs.google.com/spreadsheets/d/1_RAVpdvXinxgqxC_vwY4JtHC2NSiXuP38u-33Hffukw/", queryParams.sheetName);
+            sheet.init().build();
         }
     };
 
@@ -229,7 +232,7 @@ function plotForm(content) {
     form.append('input')
         .attr('type', 'text')
         .attr('name', 'sheetId')
-        .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/');
+        .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/1_RAVpdvXinxgqxC_vwY4JtHC2NSiXuP38u-33Hffukw/');
 
     form.append('button')
         .attr('type', 'submit')
