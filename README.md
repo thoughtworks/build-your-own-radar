@@ -105,4 +105,3 @@ end script
 - Change to the app dir `cd ~ec2-user/build-your-own-radar`
 - Pull the changes `git pull`
 - Start the service `sudo start techradar`
-- 
