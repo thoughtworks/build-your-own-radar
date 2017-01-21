@@ -35,7 +35,7 @@ describe('Blip', function () {
       true
     );
 
-    expect(blip.isNew()).toBe(true);
+    expect(blip.isGrowth()).toBe(true);
   });
 
   it('is not new', function () {
@@ -45,6 +45,6 @@ describe('Blip', function () {
       false
     );
 
-    expect(blip.isNew()).toBe(false);
+    expect(blip.isGrowth()).toBe(false);
   });
 });

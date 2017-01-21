@@ -33,7 +33,7 @@ const InputSanitizer = function () {
       var blip = trimWhiteSpaces(rawBlip);
       blip.description = sanitizeHtml(blip.description, relaxedOptions);
       blip.name = sanitizeHtml(blip.name, restrictedOptions);
-      blip.isNew = sanitizeHtml(blip.isNew, restrictedOptions);
+      blip.isGrowth = sanitizeHtml(blip.isGrowth, restrictedOptions);
       blip.ring = sanitizeHtml(blip.ring, restrictedOptions);
       blip.quadrant = sanitizeHtml(blip.quadrant, restrictedOptions);
 

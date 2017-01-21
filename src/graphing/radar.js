@@ -204,7 +204,7 @@ const Radar = function (size, radar) {
 
           var group = quadrantGroup.append('g').attr('class', 'blip-link');
 
-          if (blip.isNew()) {
+          if (blip.isGrowth()) {
             triangle(x, y, order, group);
           } else {
             circle(x, y, order, group);

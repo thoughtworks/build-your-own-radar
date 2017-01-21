@@ -5,7 +5,7 @@ examples
 *.swa
 *.swp
 *.swo
-
+.project
 coverage/
 
 .idea/
