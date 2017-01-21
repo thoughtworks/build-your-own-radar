@@ -57,21 +57,21 @@ Pull requests are welcome; please write tests whenever possible.
 - `npm install`
 - `npm test` - to run your tests
 - `npm run dev` - to run application in localhost:8080. This will watch the .js and .css files and rebuild on file changes
-- 
+
 ## Run on AWS
 
-Currently a manual process to configure.
+Currently a manual process to configure. We will automate this at some point.
 
 - Create a new AWS Linux EC2 instance
 - Select t2.micro
 - If the WEB-DMZ security group exists add the instance to that, otherwise create a new one that allows HTTP/S access from anywhere, SSH from your current IP, and all traffic from within the SG itself
-- If the ToolsEC2Key exists and you have access to the private key use that, otherwise create a new key pair
+- If the TechRadarEC2Key exists and you have access to the private key use that, otherwise create a new key pair
 - Create a new ELB Target Group
 - Target the new instance and port 8080 (the ELB will translate from port 80 to the port 8080 that the app runs on)
 - Create a new ELB
 - Select the new Target Group you've created
 - Add to the WEB-DMZ security group
-- SSH to the instance e.g. `ssh ec2-user@[ip] -i ToolsEC2Key.pem`
+- SSH to the instance e.g. `ssh ec2-user@[ip] -i TechRadarEC2Key.pem`
 - Install Git
 - `yum install git`
 - Create a new SSH key pair and add the public key to your GitLab account in the usual way
@@ -84,7 +84,7 @@ Currently a manual process to configure.
 - Test that all works as expected via the ELB public DNS
 - Kill the process
 - Create an upstart job to run it as a OS service e.g. /etc/init/techradar.conf
-```
+
 description "techradar"
 
 start on (runlevel [345] and started network)
@@ -96,5 +96,13 @@ script
   cd /home/ec2-user/build-your-own-radar
   exec npm run dev >> /var/log/techradar.log 2>&1
 end script
-```
 
+- Start and stop using upstart e.g. `sudo start techradar`
+
+## Pulling changes to the app
+- SSH to the instance e.g. `ssh ec2-user@[ip] -i TechRadarEC2Key.pem`
+- Stop the service `sudo stop techradar`
+- Change to the app dir `cd ~ec2-user/build-your-own-radar`
+- Pull the changes `git pull`
+- Start the service `sudo start techradar`
+- 
