@@ -48,10 +48,10 @@ body {
       color: $green;
     }
     &.second .quadrant-table__name {
-      color: $blue;
+      color:$amber;
     }
     &.third .quadrant-table__name {
-      color: $orange;
+      color:$red;
     }
     &.fourth .quadrant-table__name {
       color: $violet;
@@ -203,11 +203,11 @@ body {
           stroke: none;
         }
         &.second {
-          fill: $blue;
+          fill:$amber;
           stroke: none;
         }
         &.third {
-          fill: $orange;
+          fill:$red;
           stroke: none;
         }
         &.fourth {

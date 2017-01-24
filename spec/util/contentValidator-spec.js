@@ -7,7 +7,7 @@ describe('ContentValidator', function () {
 
   describe('verifyContent', function () {
     it('does not return anything if content is valid', function () {
-      var columnNames = ["name", "ring", "quadrant", "isGrowth", "description"];
+      var columnNames = ["name", "ring", "quadrant", "growth", "description"];
       var contentValidator = new ContentValidator(columnNames);
 
       expect(contentValidator.verifyContent()).not.toBeDefined();
@@ -26,7 +26,7 @@ describe('ContentValidator', function () {
   describe('verifyHeaders', function () {
 
     it('raises an error if one of the headers is empty', function () {
-      var columnNames = ['ring', 'quadrant', 'isGrowth', 'description'];
+      var columnNames = ['ring', 'quadrant', 'growth', 'description'];
       var contentValidator = new ContentValidator(columnNames);
 
       expect(function () {
@@ -35,14 +35,14 @@ describe('ContentValidator', function () {
     });
 
     it('does not return anything if the all required headers are present', function () {
-      var columnNames = ['name', 'ring', 'quadrant', 'isGrowth', 'description'];
+      var columnNames = ['name', 'ring', 'quadrant', 'growth', 'description'];
       var contentValidator = new ContentValidator(columnNames);
 
       expect(contentValidator.verifyHeaders()).not.toBeDefined();
     });
 
     it('does not care about white spaces in the headers', function() {
-      var columnNames = [' name', 'ring ', '   quadrant', 'isGrowth   ', '   description   '];
+      var columnNames = [' name', 'ring ', '   quadrant', 'growth   ', '   description   '];
       var contentValidator = new ContentValidator(columnNames);
 
       expect(contentValidator.verifyHeaders()).not.toBeDefined();

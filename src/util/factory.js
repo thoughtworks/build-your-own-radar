@@ -95,7 +95,15 @@ const GoogleSheet = function (sheetReference, sheetName) {
                     if (!quadrants[blip.quadrant]) {
                         quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant));
                     }
-                    quadrants[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], blip.isGrowth.toLowerCase() === 'true', blip.topic, blip.description))
+                    var growth=undefined;
+                    if(blip.growth == 'growing'){
+                        growth=true;
+                    }
+                     else if(blip.growth == 'decaying'){
+                        growth=false;
+                    }
+
+                    quadrants[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], growth, blip.topic, blip.description))
                 });
 
                 var radar = new Radar();
@@ -179,8 +187,10 @@ const GoogleSheetInput = function () {
             plotFooter(content);
 
         } else {
-            var sheet = GoogleSheet("https://docs.google.com/spreadsheets/d/1_RAVpdvXinxgqxC_vwY4JtHC2NSiXuP38u-33Hffukw/", queryParams.sheetName);
+            var sheet = GoogleSheet("https://docs.google.com/spreadsheets/d/1pFJu9TckJkZrJ9LXja59_72z6nai3HbiJGNSJjqwY2s/", queryParams.sheetName);
             sheet.init().build();
+            //
+            //var sheet = GoogleSheet("https://docs.google.com/spreadsheets/d/1_RAVpdvXinxgqxC_vwY4JtHC2NSiXuP38u-33Hffukw/", queryParams.sheetName);
         }
     };
 
@@ -232,7 +242,8 @@ function plotForm(content) {
     form.append('input')
         .attr('type', 'text')
         .attr('name', 'sheetId')
-        .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/1_RAVpdvXinxgqxC_vwY4JtHC2NSiXuP38u-33Hffukw/');
+        .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/1pFJu9TckJkZrJ9LXja59_72z6nai3HbiJGNSJjqwY2s/');
+        //.attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/1_RAVpdvXinxgqxC_vwY4JtHC2NSiXuP38u-33Hffukw/');
 
     form.append('button')
         .attr('type', 'submit')

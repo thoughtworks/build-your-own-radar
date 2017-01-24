@@ -16,7 +16,7 @@ You need to make your data public in a form we can digest.
 
 Create a Google Sheet. Give it at least the below column headers, and put in the content that you want:
 
-| name          | ring   | quadrant               | isGrowth | description                                             |
+| name          | ring   | quadrant               | growth | description                                             |
 |---------------|--------|------------------------|----------|---------------------------------------------------------|
 | Composer      | adopt  | tools                  | TRUE     | Although the idea of dependency management ...          |
 | Canary builds | trial  | techniques             | FALSE    | Many projects have external code dependencies ...       |

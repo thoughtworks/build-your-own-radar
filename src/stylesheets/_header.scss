@@ -81,37 +81,37 @@ header {
 
       &.first {
         color: white;
-        background-color: $green;
+        background-color: $grey-darkest;
       }
       &.second {
         color: white;
-        background-color: $blue;
+        background-color: $grey-darkest;
       }
       &.third {
         color: white;
-        background-color: $orange;
+        background-color: $grey-darkest;
       }
       &.fourth {
         color: white;
-        background-color: $violet;
+        background-color: $grey-darkest;
       }
     }
 
     &.full-view {
       &.first {
-        background-color: $green;
+        background-color: $grey-darkest;
         color: $white;
       }
       &.second {
-        background-color: $blue;
+        background-color: $grey-darkest;
         color: $white;
       }
       &.third {
-        background-color: $orange;
+        background-color: $grey-darkest;
         color: $white;
       }
       &.fourth {
-        background-color: $violet;
+        background-color: $grey-darkest;
         color: $white;
       }
     }
