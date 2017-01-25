@@ -47,6 +47,12 @@ The app uses [Tabletop.js](https://github.com/jsoma/tabletop) to fetch the data 
 
 The application uses [webpack](https://webpack.github.io/) to package dependencies and minify all .js and .scss files.
 
+### Don't want to install node? Run with one line docker
+
+     $ docker run -p 8080:8080 -v $PWD:/app -w /app -it node:7.3.0 /bin/sh -c 'npm install && npm run dev'
+
+After building it will start on localhost:8080
+
 ## Contribute
 
 All tasks are defined in `package.json`.
