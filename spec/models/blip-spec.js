@@ -35,7 +35,7 @@ describe('Blip', function () {
       true
     );
 
-    expect(blip.isGrowth()).toBe(true);
+    expect(blip.growth()).toBe(true);
   });
 
   it('is not new', function () {
@@ -45,6 +45,16 @@ describe('Blip', function () {
       false
     );
 
-    expect(blip.isGrowth()).toBe(false);
+    expect(blip.growth()).toBe(false);
   });
+
+    it('is iether', function () {
+        blip = new Blip(
+            'My Blip',
+            new Ring('My Ring'),
+            undefined
+        );
+
+        expect(blip.growth()).toBe(undefined);
+    });
 });

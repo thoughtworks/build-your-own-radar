@@ -11,7 +11,7 @@ describe('InputSanitizer', function(){
             description: description,
             ring: '<a href="/asd">Adopt</a>',
             quadrant: '<strong>techniques & tools</strong>',
-            isGrowth: 'true<br>'
+            growth: 'true<br>'
         };
 
         blip = sanitizer.sanitize(rawBlip);
@@ -26,7 +26,7 @@ describe('InputSanitizer', function(){
     });
 
     it('strips out all tags from blip status', function(){
-        expect(blip.isGrowth).toEqual("true");
+        expect(blip.growth).toEqual("true");
     });
 
     it('strips out all tags from blip ring', function(){
