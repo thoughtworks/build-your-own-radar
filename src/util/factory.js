@@ -18,8 +18,8 @@ const SheetNotFoundError = require('../exceptions/sheetNotFoundError');
 const ContentValidator = require('./contentValidator');
 const Sheet = require('./sheet');
 const ExceptionMessages = require('./exceptionMessages');
-const GoogleDocsKey="1pFJu9TckJkZrJ9LXja59_72z6nai3HbiJGNSJjqwY2s";
-// CapGem key "1_RAVpdvXinxgqxC_vwY4JtHC2NSiXuP38u-33Hffukw"
+// PT test key: const GoogleDocsKey="1pFJu9TckJkZrJ9LXja59_72z6nai3HbiJGNSJjqwY2s";
+const GoogleDocsKey="1_RAVpdvXinxgqxC_vwY4JtHC2NSiXuP38u-33Hffukw";
 
 const GoogleSheet = function (sheetReference, sheetName) {
     var self = {};
