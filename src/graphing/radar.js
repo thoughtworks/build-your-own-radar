@@ -194,10 +194,8 @@ const Radar = function (size, radar) {
 
           if (blip.growth()) {
            triangle(x, y, 'first', group);
-             // circle(x, y, 'second', group);
           } else if(blip.growth()==false){
               triangle(x, y, 'third', group);
-              //circle(x, y, 'first', group);
           }else if(blip.growth()===undefined){
               triangle(x, y, 'second', group);
           }

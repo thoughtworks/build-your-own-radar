@@ -18,7 +18,8 @@ const SheetNotFoundError = require('../exceptions/sheetNotFoundError');
 const ContentValidator = require('./contentValidator');
 const Sheet = require('./sheet');
 const ExceptionMessages = require('./exceptionMessages');
-
+const GoogleDocsKey="1pFJu9TckJkZrJ9LXja59_72z6nai3HbiJGNSJjqwY2s";
+// CapGem key "1_RAVpdvXinxgqxC_vwY4JtHC2NSiXuP38u-33Hffukw"
 
 const GoogleSheet = function (sheetReference, sheetName) {
     var self = {};
@@ -187,10 +188,9 @@ const GoogleSheetInput = function () {
             plotFooter(content);
 
         } else {
-            var sheet = GoogleSheet("https://docs.google.com/spreadsheets/d/1pFJu9TckJkZrJ9LXja59_72z6nai3HbiJGNSJjqwY2s/", queryParams.sheetName);
+            var sheet = GoogleSheet("https://docs.google.com/spreadsheets/d/"+GoogleDocsKey+"/", queryParams.sheetName);
             sheet.init().build();
-            //
-            //var sheet = GoogleSheet("https://docs.google.com/spreadsheets/d/1_RAVpdvXinxgqxC_vwY4JtHC2NSiXuP38u-33Hffukw/", queryParams.sheetName);
+
         }
     };
 
@@ -242,8 +242,7 @@ function plotForm(content) {
     form.append('input')
         .attr('type', 'text')
         .attr('name', 'sheetId')
-        .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/1pFJu9TckJkZrJ9LXja59_72z6nai3HbiJGNSJjqwY2s/');
-        //.attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/1_RAVpdvXinxgqxC_vwY4JtHC2NSiXuP38u-33Hffukw/');
+        .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/'+GoogleDocsKey+'/');
 
     form.append('button')
         .attr('type', 'submit')
