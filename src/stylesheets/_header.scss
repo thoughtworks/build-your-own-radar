@@ -48,8 +48,12 @@ header {
     margin-left: 100px;
   }
 
+  .print-radar.button{
+    background-color: $black;
+  }
+
   .home-link {
-    color: $pink;
+    color: $blue;
     cursor: pointer;
     display: inline-block;
     font-size: $baseFont;
@@ -60,7 +64,7 @@ header {
 
   .button {
     font-size: $baseFont;
-    text-transform: capitalize;
+    text-transform: uppercase;
     display: inline-block;
     margin-right: 20px;
     border-radius: 2px;
@@ -68,54 +72,14 @@ header {
     padding: 10px 20px;
     cursor: pointer;
     transition: all .2s ease-out;
-
-    background-color: $grey-light;
-    color: $black;
-
-    &.no-capitalize {
-      text-transform: none;
-    }
+    background-color: $blue;
+    color: $white;
 
     &:hover, &.selected {
-
       transform: translate(0, -2px);
       opacity: .85;
-
-      &.first {
-        color: white;
-        background-color: $grey-darkest;
-      }
-      &.second {
-        color: white;
-        background-color: $grey-darkest;
-      }
-      &.third {
-        color: white;
-        background-color: $grey-darkest;
-      }
-      &.fourth {
-        color: white;
-        background-color: $grey-darkest;
-      }
     }
 
-    &.full-view {
-      &.first {
-        background-color: $grey-darkest;
-        color: $white;
-      }
-      &.second {
-        background-color: $grey-darkest;
-        color: $white;
-      }
-      &.third {
-        background-color: $grey-darkest;
-        color: $white;
-      }
-      &.fourth {
-        background-color: $grey-darkest;
-        color: $white;
-      }
-    }
+
   }
 }
