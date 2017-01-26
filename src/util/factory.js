@@ -19,14 +19,14 @@ const ContentValidator = require('./contentValidator');
 const Sheet = require('./sheet');
 const ExceptionMessages = require('./exceptionMessages');
 // PT test key: const GoogleDocsKey="1pFJu9TckJkZrJ9LXja59_72z6nai3HbiJGNSJjqwY2s";
-const GoogleDocsKey="1_RAVpdvXinxgqxC_vwY4JtHC2NSiXuP38u-33Hffukw";
+const GoogleDocsKey = "1_RAVpdvXinxgqxC_vwY4JtHC2NSiXuP38u-33Hffukw";
 
 const GoogleSheet = function (sheetReference, sheetName) {
     var self = {};
 
     self.build = function () {
         var sheet = new Sheet(sheetReference);
-        sheet.exists(function(notFound) {
+        sheet.exists(function (notFound) {
             if (notFound) {
                 displayErrorMessage(notFound);
                 return;
@@ -96,12 +96,12 @@ const GoogleSheet = function (sheetReference, sheetName) {
                     if (!quadrants[blip.quadrant]) {
                         quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant));
                     }
-                    var growth=undefined;
-                    if(blip.growth == 'growing'){
-                        growth=true;
+                    var growth = undefined;
+                    if (blip.growth == 'growing') {
+                        growth = true;
                     }
-                     else if(blip.growth == 'decaying'){
-                        growth=false;
+                    else if (blip.growth == 'decaying') {
+                        growth = false;
                     }
 
                     quadrants[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], growth, blip.topic, blip.description))
@@ -128,8 +128,6 @@ const GoogleSheet = function (sheetReference, sheetName) {
             .attr('class', 'loading')
             .append('div')
             .attr('class', 'input-sheet');
-
-        set_document_title();
 
         plotLogo(content);
 
@@ -172,20 +170,13 @@ const GoogleSheetInput = function () {
                 .append('div')
                 .attr('class', 'input-sheet');
 
-            set_document_title();
-
             plotLogo(content);
-
-            var bannerText = '<h1>Build your own radar</h1><p>Once you\'ve <a href ="https://info.thoughtworks.com/visualize-your-tech-strategy.html">created your Radar</a>, you can use this service' +
-                ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html">Read this first.</a></p>';
-
-            plotBanner(content, bannerText);
 
             plotForm(content);
 
 
         } else {
-            var sheet = GoogleSheet("https://docs.google.com/spreadsheets/d/"+GoogleDocsKey+"/", queryParams.sheetName);
+            var sheet = GoogleSheet("https://docs.google.com/spreadsheets/d/" + GoogleDocsKey + "/", queryParams.sheetName);
             sheet.init().build();
 
         }
@@ -193,10 +184,6 @@ const GoogleSheetInput = function () {
 
     return self;
 };
-
-function set_document_title() {
-    document.title = "Capgemini Tech Radar";
-}
 
 function plotLogo(content) {
     content.append('div')
@@ -223,7 +210,7 @@ function plotForm(content) {
     form.append('input')
         .attr('type', 'text')
         .attr('name', 'sheetId')
-        .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/'+GoogleDocsKey+'/');
+        .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/' + GoogleDocsKey + '/');
 
     form.append('button')
         .attr('type', 'submit')
