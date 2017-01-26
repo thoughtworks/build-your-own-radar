@@ -4,17 +4,17 @@
 
   p {
     font-weight: 100;
-    color: $black;
     font-size: 18px;
-
+  }
+  h1{
+    color: $white;
   }
 
   .input-sheet__logo {
-    text-align: center;
+    text-align: left;
     padding-bottom: 40px;
     a {
       border-bottom: none;
-
       img {
         width: 200px;
       }
@@ -26,9 +26,8 @@
   }
 
   .input-sheet__banner {
-    background-image: url('/images/tech-radar-201611-landing-page-wide.png');
     background-repeat: no-repeat;
-    background-color: $grey-light;
+    background-color: $black;
     background-size: cover;
     background-position: center;
     width: 100%;
@@ -36,6 +35,9 @@
     text-align: center;
     min-height: 240px;
     padding-top: 45px;
+    p{
+      color: $white;
+    }
   }
 
   .input-sheet__form {
