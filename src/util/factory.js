@@ -198,7 +198,7 @@ const GoogleSheetInput = function () {
 };
 
 function set_document_title() {
-    document.title = "Build your own Radar";
+    document.title = "Capgemini Tech Radar";
 }
 
 function plotLogo(content) {
