@@ -15,8 +15,8 @@ header {
     .radar-title__text {
       display: table-cell;
       width: 70%;
-      text-align: left;
-      padding-left: 100px;
+      text-align: centre;
+      padding-left: 10px;
       background: $black;
       h1 {
         font-size: 55px;
@@ -45,7 +45,7 @@ header {
   }
 
   .print-radar {
-    margin-left: 100px;
+    margin-left: 0px;
   }
 
   .print-radar.button{
@@ -66,8 +66,8 @@ header {
     font-size: $baseFont;
     text-transform: uppercase;
     display: inline-block;
-    margin-right: 20px;
-    border-radius: 2px;
+    margin-right: 0px;
+    border-radius: 0px;
     line-height: 1em;
     padding: 10px 20px;
     cursor: pointer;
