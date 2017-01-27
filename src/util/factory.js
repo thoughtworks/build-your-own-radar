@@ -19,14 +19,14 @@ const ContentValidator = require('./contentValidator');
 const Sheet = require('./sheet');
 const ExceptionMessages = require('./exceptionMessages');
 // PT test key: const GoogleDocsKey="1pFJu9TckJkZrJ9LXja59_72z6nai3HbiJGNSJjqwY2s";
-const GoogleDocsKey="1_RAVpdvXinxgqxC_vwY4JtHC2NSiXuP38u-33Hffukw";
+const GoogleDocsKey = "1_RAVpdvXinxgqxC_vwY4JtHC2NSiXuP38u-33Hffukw";
 
 const GoogleSheet = function (sheetReference, sheetName) {
     var self = {};
 
     self.build = function () {
         var sheet = new Sheet(sheetReference);
-        sheet.exists(function(notFound) {
+        sheet.exists(function (notFound) {
             if (notFound) {
                 displayErrorMessage(notFound);
                 return;
@@ -96,12 +96,12 @@ const GoogleSheet = function (sheetReference, sheetName) {
                     if (!quadrants[blip.quadrant]) {
                         quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant));
                     }
-                    var growth=undefined;
-                    if(blip.growth == 'growing'){
-                        growth=true;
+                    var growth = undefined;
+                    if (blip.growth == 'growing') {
+                        growth = true;
                     }
-                     else if(blip.growth == 'decaying'){
-                        growth=false;
+                    else if (blip.growth == 'decaying') {
+                        growth = false;
                     }
 
                     quadrants[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], growth, blip.topic, blip.description))
@@ -129,14 +129,10 @@ const GoogleSheet = function (sheetReference, sheetName) {
             .append('div')
             .attr('class', 'input-sheet');
 
-        set_document_title();
-
         plotLogo(content);
 
         var bannerText = '<h1>Building your radar...</h1><p>Your Technology Radar will be available in just a few seconds</p>';
         plotBanner(content, bannerText);
-        plotFooter(content);
-
 
         return self;
     };
@@ -174,21 +170,13 @@ const GoogleSheetInput = function () {
                 .append('div')
                 .attr('class', 'input-sheet');
 
-            set_document_title();
-
             plotLogo(content);
-
-            var bannerText = '<h1>Build your own radar</h1><p>Once you\'ve <a href ="https://info.thoughtworks.com/visualize-your-tech-strategy.html">created your Radar</a>, you can use this service' +
-                ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html">Read this first.</a></p>';
-
-            plotBanner(content, bannerText);
 
             plotForm(content);
 
-            plotFooter(content);
 
         } else {
-            var sheet = GoogleSheet("https://docs.google.com/spreadsheets/d/"+GoogleDocsKey+"/", queryParams.sheetName);
+            var sheet = GoogleSheet("https://docs.google.com/spreadsheets/d/" + GoogleDocsKey + "/", queryParams.sheetName);
             sheet.init().build();
 
         }
@@ -197,30 +185,10 @@ const GoogleSheetInput = function () {
     return self;
 };
 
-function set_document_title() {
-    document.title = "Build your own Radar";
-}
-
 function plotLogo(content) {
     content.append('div')
         .attr('class', 'input-sheet__logo')
         .html('<a href="https://www.uk.capgemini.com"><img src="/images/capgemini-logo.png" / ></a>');
-}
-
-function plotFooter(content) {
-    content
-        .append('div')
-        .attr('id', 'footer')
-        .append('div')
-        .attr('class', 'footer-content')
-        .append('p')
-        .html('Powered by <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. '
-        + 'By using this service you agree to <a href="https://info.thoughtworks.com/visualize-your-tech-strategy-terms-of-service.html">ThoughtWorks\' terms of use</a>. '
-        + 'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. '
-        + 'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.');
-
-
-
 }
 
 function plotBanner(content, text) {
@@ -242,7 +210,7 @@ function plotForm(content) {
     form.append('input')
         .attr('type', 'text')
         .attr('name', 'sheetId')
-        .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/'+GoogleDocsKey+'/');
+        .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/' + GoogleDocsKey + '/');
 
     form.append('button')
         .attr('type', 'submit')

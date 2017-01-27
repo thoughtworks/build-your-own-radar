@@ -1,13 +1,16 @@
-#footer{
+
+#footer {
   text-align: center;
   clear: both;
 
   .footer-content {
-    width: 50%;
+    width: 100%;
+    height: auto;
+    background-color: black;
     margin: 0 auto;
 
     p {
-      padding-top: 60px;
+      padding-top: 10px;
       font-size: $baseFont;
       font-weight: $baseWeight;
       text-align: left;
@@ -15,3 +18,4 @@
 
   }
 }
+

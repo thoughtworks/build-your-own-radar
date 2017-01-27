@@ -366,8 +366,27 @@ const Radar = function (size, radar) {
     d3.selectAll('.quadrant-group')
       .style('pointer-events', 'auto');
   }
+  //  function plotRadarFooter() {
+        // var footer = d3.select('body').insert('body','footer')
+        //     .append('div')
+        //     .attr('class', 'footer-content')
+        //     .append('h1')
+        //     .text('BOOO')
+        //  .html('<a href="https://www.thoughtworks.com/"><img src="/images/tw-logo.png" / ></a>');
+   //     return footer;
+  //  }
+    function plotRadarFooter() {
+        d3.select('body')
+            .insert('div', '#radar-plot + *')
+            .attr('id', 'footer')
+            .append('div')
+            .attr('class', 'footer-content')
+            .append('p')
+        .html('<a href="https://www.thoughtworks.com/"><img src="/images/tw-logo.png" / ></a>');
+        //  .html('Powered by <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. '       + 'By using this service you agree to <a href="https://info.thoughtworks.com/visualize-your-tech-strategy-terms-of-service.html">ThoughtWorks\' terms of use</a>. '       + 'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. '       + 'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.');
+    }
 
-  function plotRadarHeader() {
+    function plotRadarHeader() {
     var header = d3.select('body').insert('header', "#radar");
     header.append('div')
       .attr('class', 'radar-title')
@@ -377,11 +396,6 @@ const Radar = function (size, radar) {
       .text(document.title)
       .style('cursor', 'pointer')
       .on('click', redrawFullRadar);
-
-    header.select('.radar-title')
-      .append('div')
-      .attr('class', 'radar-title__logo')
-      .html('<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /> </a>');
 
     return header;
   }
@@ -409,21 +423,8 @@ const Radar = function (size, radar) {
 
     header.append('div')
       .classed('print-radar button no-capitalize', true)
-      .text('Print this radar')
+      .text('PRINT THIS RADAR')
       .on('click', window.print.bind(window));
-  }
-
-  function plotRadarFooter() {
-    d3.select('body')
-      .insert('div', '#radar-plot + *')
-      .attr('id', 'footer')
-      .append('div')
-      .attr('class', 'footer-content')
-      .append('p')
-      .html('Powered by <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. '
-      + 'By using this service you agree to <a href="https://info.thoughtworks.com/visualize-your-tech-strategy-terms-of-service.html">ThoughtWorks\' terms of use</a>. '
-      + 'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. '
-      + 'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.');
   }
 
   function mouseoverQuadrant(order) {
