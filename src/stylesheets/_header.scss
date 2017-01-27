@@ -1,23 +1,19 @@
 header {
   width: 100%;
-  line-height: 60px;
   text-align: center;
   margin-bottom: 15px;
 
   .radar-title {
     background-color: $black;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 45px;
     display: table;
     margin: auto;
     width: 100%;
 
     .radar-title__text {
-      display: table-cell;
-      width: 70%;
       text-align: centre;
-      padding-left: 10px;
       background: $black;
+      margin-bottom: 30px;
       h1 {
         font-size: 55px;
         font-weight: 900;
@@ -49,6 +45,10 @@ header {
   }
 
   .print-radar.button{
+    background-color: $blue;
+  }
+ 
+  .print-radar.seperator{
     background-color: $black;
   }
 
@@ -64,7 +64,6 @@ header {
 
   .button {
     font-size: $baseFont;
-    text-transform: uppercase;
     display: inline-block;
     margin-right: 0px;
     border-radius: 0px;
@@ -79,7 +78,6 @@ header {
       transform: translate(0, -2px);
       opacity: .85;
     }
-
 
   }
 }

@@ -402,13 +402,12 @@ const Radar = function (size, radar) {
 
   function plotQuadrantButtons(quadrants, header) {
 
-    function addButton(quadrant) {
+    function addButton(quadrant, title) {
       radarElement
         .append('div')
         .attr('class', 'quadrant-table ' + quadrant.order);
-
-
-      header.append('div')
+      
+      title.append('div')
         .attr('class', 'button ' + quadrant.order + ' full-view')
         .text(quadrant.quadrant.name())
         .on('mouseover', mouseoverQuadrant.bind({}, quadrant.order))
@@ -416,14 +415,18 @@ const Radar = function (size, radar) {
         .on('click', selectQuadrant.bind({}, quadrant.order, quadrant.startAngle));
     }
 
+    var title = d3.select('div');
+
     _.each([0, 3, 2, 1], function (i) {
-      addButton(quadrants[i]);
+      addButton(quadrants[i], title);
     });
 
+    title.append('div')
+      .classed('print-radar button seperator', true);
 
-    header.append('div')
+    title.append('div')
       .classed('print-radar button no-capitalize', true)
-      .text('PRINT THIS RADAR')
+      .text('Print this radar')
       .on('click', window.print.bind(window));
   }
 
