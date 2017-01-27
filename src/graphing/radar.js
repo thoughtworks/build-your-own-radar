@@ -275,9 +275,9 @@ const Radar = function (size, radar) {
   function drawLegend(order) {
     removeRadarLegend();
 
-    var triangleKeyGrowing = "Growing";
-    var triangleKeyStable = "Stable";
-    var triangleKeyDecaying = "Decaying";
+    var triangleKeyGood = "Well developed";
+    var triangleKeyAverage = "Underdeveloped";
+    var triangleKeyPoor = "Little experience";
 
 
     var container = d3.select('svg').append('g')
@@ -318,8 +318,8 @@ const Radar = function (size, radar) {
       .append('text')
       .attr('x', x + 15)
       .attr('y', y + 5)
-      .attr('font-size', '0.8em')
-      .text(triangleKeyGrowing);
+      .attr('font-size', '0.7em')
+      .text(triangleKeyGood);
 
       triangleLegend(x, y+20,'second', container);
 
@@ -327,8 +327,8 @@ const Radar = function (size, radar) {
       .append('text')
       .attr('x', x + 15)
       .attr('y', y + 25)
-      .attr('font-size', '0.8em')
-      .text(triangleKeyStable);
+      .attr('font-size', '0.7em')
+      .text(triangleKeyAverage);
 
       triangleLegend(x, y+40,'third', container);
 
@@ -336,8 +336,8 @@ const Radar = function (size, radar) {
           .append('text')
           .attr('x', x + 15)
           .attr('y', y + 45)
-          .attr('font-size', '0.8em')
-          .text(triangleKeyDecaying);
+          .attr('font-size', '0.7em')
+          .text(triangleKeyPoor);
   }
 
   function redrawFullRadar() {

@@ -97,10 +97,10 @@ const GoogleSheet = function (sheetReference, sheetName) {
                         quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant));
                     }
                     var growth = undefined;
-                    if (blip.growth == 'growing') {
+                    if (blip.growth == 'good') {
                         growth = true;
                     }
-                    else if (blip.growth == 'decaying') {
+                    else if (blip.growth == 'poor') {
                         growth = false;
                     }
 

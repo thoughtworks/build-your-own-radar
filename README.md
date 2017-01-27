@@ -16,12 +16,12 @@ You need to make your data public in a form we can digest.
 
 Create a Google Sheet. Give it at least the below column headers, and put in the content that you want:
 
-| name          | ring       | quadrant               | growth   | description                                             |
+| name          | ring       | quadrant               | skills   | description                                             |
 |---------------|------------|------------------------|----------|---------------------------------------------------------|
-| Composer      | adopt      | tools                  | growing  | Although the idea of dependency management ...          |
-| Canary builds | deprecate  | techniques             | decaying | Many projects have external code dependencies ...       |
-| Apache Kylin  | core       | platforms              | stable   | Apache Kylin is an open source analytics solution ...   |
-| JSF           | evaluate   | languages & frameworks | decaying | We continue to see teams run into trouble using JSF ... |
+| Composer      | adopt      | tools                  | good     | Although the idea of dependency management ...          |
+| Canary builds | deprecate  | techniques             | poor     | Many projects have external code dependencies ...       |
+| Apache Kylin  | core       | platforms              | average  | Apache Kylin is an open source analytics solution ...   |
+| JSF           | evaluate   | languages & frameworks | poor     | We continue to see teams run into trouble using JSF ... |
 
 ### Sharing the sheet
 
