@@ -412,8 +412,8 @@ const Radar = function (size, radar) {
       addButton(quadrants[i], title);
     });
 
-    title.append('div')
-      .classed('print-radar button seperator', true);
+//    title.append('div')
+//      .classed('print-radar button seperator', true);
 
     title.append('div')
       .classed('print-radar button no-capitalize', true)
