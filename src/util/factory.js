@@ -96,15 +96,15 @@ const GoogleSheet = function (sheetReference, sheetName) {
                     if (!quadrants[blip.quadrant]) {
                         quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant));
                     }
-                    var growth = undefined;
-                    if (blip.growth == 'good') {
-                        growth = true;
+                    var capability = undefined;
+                    if (blip.capability == 'good') {
+                    	capability = true;
                     }
-                    else if (blip.growth == 'poor') {
-                        growth = false;
+                    else if (blip.capability == 'poor') {
+                    	capability = false;
                     }
 
-                    quadrants[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], growth, blip.topic, blip.description))
+                    quadrants[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], capability, blip.topic, blip.description))
                 });
 
                 var radar = new Radar();

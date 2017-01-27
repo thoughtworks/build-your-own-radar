@@ -192,11 +192,11 @@ const Radar = function (size, radar) {
 
           var group = quadrantGroup.append('g').attr('class', 'blip-link');
 
-          if (blip.growth()) {
+          if (blip.capability()) {
            triangle(x, y, 'first', group);
-          } else if(blip.growth()==false){
+          } else if(blip.capability()==false){
               triangle(x, y, 'third', group);
-          }else if(blip.growth()===undefined){
+          }else if(blip.capability()===undefined){
               triangle(x, y, 'second', group);
           }
           group.append('text')

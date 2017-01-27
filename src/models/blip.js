@@ -1,4 +1,4 @@
-const Blip = function (name, ring, growth, topic, description) {
+const Blip = function (name, ring, capability, topic, description) {
   var self, number;
 
   self = {};
@@ -16,8 +16,8 @@ const Blip = function (name, ring, growth, topic, description) {
     return description || '';
   };
 
-  self.growth = function () {
-    return growth;
+  self.capability = function () {
+    return capability;
   };
 
   self.ring = function () {
