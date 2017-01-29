@@ -1,4 +1,3 @@
-
 #footer {
   text-align: center;
   clear: both;
@@ -8,14 +7,25 @@
     height: auto;
     background-color: black;
     margin: 0 auto;
-
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-bottom: 15px;
     p {
-      padding-top: 10px;
-      font-size: $baseFont;
-      font-weight: $baseWeight;
-      text-align: left;
+      a:link, a:visited, a:hover, a:active {
+        color: white; 
+        cursor: pointer;
+        border-bottom: none;
+      }
+      a:hover {
+        color: $blue; 
+        cursor: pointer;
+        text-decoration: underline;
+      }
+      font-size: 12px;
+      font-weight: normal;
+      text-align: center;
+      color: white;
     }
-
   }
 }
 

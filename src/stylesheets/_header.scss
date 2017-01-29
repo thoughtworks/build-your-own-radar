@@ -3,6 +3,19 @@ header {
   text-align: center;
   margin-bottom: 15px;
 
+  .radar-logo {
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-bottom: 15px;
+    text-align: left;
+    a {
+      border-bottom: none;
+      img {
+        width: 200px;
+      }
+    }
+  }
+
   .radar-title {
     background-color: $black;
     padding-top: 45px;
@@ -25,19 +38,6 @@ header {
       }
     }
 
-    .radar-title__logo {
-      width: 30%;
-      display: table-cell;
-      vertical-align: middle;
-      a {
-        border-bottom: none;
-      }
-      img {
-        vertical-align: middle;
-        width: 35%;
-      }
-
-    }
   }
 
   .print-radar {
@@ -48,10 +48,6 @@ header {
     background-color: $blue;
   }
  
-  .print-radar.seperator{
-    background-color: $black;
-  }
-
   .home-link {
     color: $blue;
     cursor: pointer;
@@ -75,8 +71,8 @@ header {
     color: $white;
 
     &:hover, &.selected {
-      transform: translate(0, -2px);
-      opacity: .85;
+      transform: translate(0, -5px);
+      opacity: .75;
     }
 
   }

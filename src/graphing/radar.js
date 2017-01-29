@@ -365,31 +365,43 @@ const Radar = function (size, radar) {
 
     d3.selectAll('.quadrant-group')
       .style('pointer-events', 'auto');
-  }
+	}
 
-    function plotRadarFooter() {
-        d3.select('body')
-            .insert('div', '#radar-plot + *')
-            .attr('id', 'footer')
-            .append('div')
-            .attr('class', 'footer-content')
-            .append('p')
-        .html('<a href="https://www.thoughtworks.com/"><img src="/images/tw-logo.png" / ></a>');
-  }
+	function plotRadarFooter() {
+		var year = new Date().getFullYear();
+		
+		d3.select('body').insert('div', '#radar-plot + *')
+			.attr('id', 'footer')
+			.append('div')
+			.attr('class', 'footer-content');
+		
+		var footer = d3.select('.footer-content');
+		
+		footer.append('p')
+			  .html('All content copyright Capgemini © ' + year +
+					  '<br/>Produced and distributed by Capgemini UK Public Sector Digital' +
+					  '<br/>Build your own at <a href="https://gitlab.com/PSDU/build-your-own-radar">https://gitlab.com/PSDU/build-your-own-radar</a>' +
+					  '<br/>Powered by Thoughtworks <a href="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html">https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html</a>');
+	}
 
-    function plotRadarHeader() {
-    var header = d3.select('body').insert('header', "#radar");
-    header.append('div')
-      .attr('class', 'radar-title')
-      .append('div')
-      .attr('class', 'radar-title__text')
-      .append('h1')
-      .text(document.title)
-      .style('cursor', 'pointer')
-      .on('click', redrawFullRadar);
+	function plotRadarHeader() {
+		var header = d3.select('body').insert('header', "#radar");
 
-    return header;
-  }
+		header.append('div')
+	        .attr('class', 'radar-logo')
+	        .html('<a href="https://www.uk.capgemini.com"><img src="/images/capgemini-logo.png" / ></a>');
+	    
+		header.append('div')
+			.attr('class', 'radar-title')
+			.append('div')
+			.attr('class', 'radar-title__text')
+			.append('h1')
+			.text(document.title)
+			.style('cursor', 'pointer')
+			.on('click', redrawFullRadar);
+
+		return header;
+	}
 
   function plotQuadrantButtons(quadrants, header) {
 
@@ -406,14 +418,11 @@ const Radar = function (size, radar) {
         .on('click', selectQuadrant.bind({}, quadrant.order, quadrant.startAngle));
     }
 
-    var title = d3.select('div');
+    var title = d3.select('.radar-title');
 
     _.each([0, 3, 2, 1], function (i) {
       addButton(quadrants[i], title);
     });
-
-//    title.append('div')
-//      .classed('print-radar button seperator', true);
 
     title.append('div')
       .classed('print-radar button no-capitalize', true)
