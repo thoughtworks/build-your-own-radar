@@ -1,14 +1,16 @@
-[![Build Status](https://snap-ci.com/thoughtworks/build-your-own-radar/branch/master/build_image)](https://snap-ci.com/thoughtworks/build-your-own-radar/branch/master)
-
 A library that generates an interactive radar, inspired by [thoughtworks.com/radar](http://thoughtworks.com/radar).
-
-## Demo
-
-You can see this in action at https://radar.thoughtworks.com. If you plug in [this data](https://docs.google.com/spreadsheets/d/1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI/) you'll see [this visualization](https://radar.thoughtworks.com/?sheetId=1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI). 
 
 ## How To Use
 
-The easiest way to use the app out of the box is to provide a *public* Google Sheet ID from which all the data will be fetched. You can enter that ID into the input field on the first page of the application, and your radar will be generated. The data must conform to the format below for the radar to be generated correctly.
+The easiest way to use the app out of the box is to provide a *public* Google Sheet ID from which all the data will be fetched.
+
+You can enter that ID into the input field on the 'select page' of the application, and your radar will be generated.
+
+The select page is accessed at http://host:port/select=true e.g. http://techradar.capgemini-psdu.com/?select=true
+
+Alternatively if accessed at http://host:port e.g. http://techradar.capgemini-psdu.com the application will default to the Google Sheet hard coded into /src/util/factory.js
+
+The data must conform to the format below for the radar to be generated correctly.
 
 ### Setting up your data
 
@@ -33,7 +35,7 @@ The URL will be similar to [https://docs.google.com/spreadsheets/d/1waDG0_W3-yNi
 
 ### Building the radar
 
-Paste the URL in the input field on the home page.
+Paste the URL in the input field on the select page.
 
 That's it!
 
@@ -41,17 +43,24 @@ Note: the quadrants of the radar, and the order of the rings inside the radar wi
 
 ### More complex usage
 
-To create the data representation, you can use the Google Sheet [factory](/src/util/factory.js), or you can also insert all your data straight into the code.
-
 The app uses [Tabletop.js](https://github.com/jsoma/tabletop) to fetch the data from a Google Sheet, so refer to their documentation for more advanced interaction.  The input from the Google Sheet is sanitized by whitelisting HTML tags with [sanitize-html](https://github.com/punkave/sanitize-html).
 
 The application uses [webpack](https://webpack.github.io/) to package dependencies and minify all .js and .scss files.
 
+### Running the application
+
+```
+git clone git@gitlab.com:PSDU/build-your-own-radar.git
+npm install
+npm test
+npm run dev
+```
+
+The application will listen on localhost:8080. This will also watch the .js and .css files and rebuild on file changes.
+
 ### Don't want to install node? Run with one line docker
 
      $ docker run -p 8080:8080 -v $PWD:/app -w /app -it node:7.3.0 /bin/sh -c 'npm install && npm run dev'
-
-After building it will start on localhost:8080
 
 ## Contribute
 
@@ -59,38 +68,67 @@ All tasks are defined in `package.json`.
 
 Pull requests are welcome; please write tests whenever possible.
 
-- `git clone git@github.com:thoughtworks/build-your-own-radar.git`
-- `npm install`
-- `npm test` - to run your tests
-- `npm run dev` - to run application in localhost:8080. This will watch the .js and .css files and rebuild on file changes
-
 ## Run on AWS
 
 Currently a manual process to configure. We will automate this at some point.
 
-- Create a new AWS Linux EC2 instance
-- Select t2.micro
-- If the WEB-DMZ security group exists add the instance to that, otherwise create a new one that allows HTTP/S access from anywhere, SSH from your current IP, and all traffic from within the SG itself
-- If the TechRadarEC2Key exists and you have access to the private key use that, otherwise create a new key pair
-- Create a new ELB Target Group
-- Target the new instance and port 8080 (the ELB will translate from port 80 to the port 8080 that the app runs on)
-- Create a new ELB
-- Select the new Target Group you've created
-- Add to the WEB-DMZ security group
-- SSH to the instance e.g. `ssh ec2-user@[ip] -i TechRadarEC2Key.pem`
-- Install Git
-- `yum install git`
-- Create a new SSH key pair and add the public key to your GitLab account in the usual way
-- Pull the project
-- `git clone git@[project URI]`
-- Install NPM
-- See https://nodejs.org/en/download/package-manager/
-- cd to the project dir
-- Run `npm run dev`
-- Test that all works as expected via the ELB public DNS
-- Kill the process
-- Create an upstart job to run it as a OS service e.g. /etc/init/techradar.conf
+### Create a virtual machine
 
+A t2.micro EC2 instance running AWS Linux is sufficient
+
+### Create a security group
+
+We recommend a Web DMZ type zone that allows HTTP/S from anywhere, SSH from your office locations and all other TCP traffic from elsewhere in the zone.
+
+Add the EC2 instance to this group.
+
+### Create an elastic load balancer
+
+This is necesary for two reasons.
+
+Firstly, as the application listens on port 8080, we need to translate traffic from the default HTTP/S ports 80/443.
+
+Secondly, it allows us to spin up/down the EC2 instance without affecting the public IP of the service.
+
+- Create a new Target Group pointed at the EC2 instance and port 8080 (the ELB will translate from port 80 to the port 8080 that the app runs on)
+- Create a new ELB and select the Target Group you just created
+- Add the ELB to your Web DMZ security group
+
+### Prepare the EC2 instance to run your application
+
+SSH to the machine and install Git:
+
+`yum install git`
+
+Create a new SSH key pair and add the public key to your GitLab account in the usual way. You should then be able to pull the project code:
+
+`git clone git@[project URI]`
+
+Next install NPM. See https://nodejs.org/en/download/package-manager/ for details of how to do this on AWS Linux.
+
+### Running the application
+
+You should now be able to run the application:
+
+```
+cd build-your-own-radar
+npm install
+npm run dev
+```
+
+Test that all works as expected via the ELB public DNS
+
+### Installing the application as an OS service
+
+We recommend that you configure the application to run via upstart so that it automatically restarts after e.g. the EC2 instance is rebooted.
+
+Create the upstart job configuration:
+
+`sudo vi /etc/init/techradar.conf`
+
+Example contents for this file are supplied below:
+
+```
 description "techradar"
 
 start on (runlevel [345] and started network)
@@ -102,12 +140,12 @@ script
   cd /home/ec2-user/build-your-own-radar
   exec npm run dev >> /var/log/techradar.log 2>&1
 end script
+```
 
-- Start and stop using upstart e.g. `sudo start techradar`
+You should then be able to start and stop the application using upstart e.g.:
 
-## Pulling changes to the app
-- SSH to the instance e.g. `ssh ec2-user@[ip] -i TechRadarEC2Key.pem`
-- Stop the service `sudo stop techradar`
-- Change to the app dir `cd ~ec2-user/build-your-own-radar`
-- Pull the changes `git pull`
-- Start the service `sudo start techradar`
+```
+sudo start techradar
+sudo stop techradar
+sudo restart techradar
+```
