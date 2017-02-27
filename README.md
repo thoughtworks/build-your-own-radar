@@ -101,7 +101,7 @@ SSH to the machine and install Git:
 
 `yum install git`
 
-Create a new SSH key pair and add the public key to your GitLab account in the usual way. You should then be able to pull the project code:
+Create a new SSH key pair and add the public key to your GitHub account in the usual way. You should then be able to pull the project code:
 
 `git clone git@[project URI]`
 
