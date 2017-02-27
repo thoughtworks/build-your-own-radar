@@ -68,7 +68,8 @@ The application will listen on localhost:8080. This will also watch the .js and 
 
 All tasks are defined in `package.json`.
 
-Pull requests are welcome; please write tests whenever possible.
+Pull requests are welcome; please write tests whenever possible. 
+Make sure you have nodejs installed.
 
 ## Run on AWS
 
@@ -151,3 +152,9 @@ sudo start techradar
 sudo stop techradar
 sudo restart techradar
 ```
+
+### Don't want to install node? Run with one line docker
+
+     $ docker run -p 8080:8080 -v $PWD:/app -w /app -it node:7.3.0 /bin/sh -c 'npm install && npm run dev'
+
+After building it will start on localhost:8080
