@@ -1,5 +1,3 @@
-[![build status](https://gitlab.com/PSDU/build-your-own-radar/badges/master/build.svg)](https://gitlab.com/PSDU/build-your-own-radar/commits/master)
-
 A library that generates an interactive radar, inspired by [thoughtworks.com/radar](http://thoughtworks.com/radar).
 
 ## How To Use
@@ -152,9 +150,3 @@ sudo start techradar
 sudo stop techradar
 sudo restart techradar
 ```
-
-### Don't want to install node? Run with one line docker
-
-     $ docker run -p 8080:8080 -v $PWD:/app -w /app -it node:7.3.0 /bin/sh -c 'npm install && npm run dev'
-
-After building it will start on localhost:8080
