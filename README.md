@@ -4,13 +4,7 @@ A library that generates an interactive radar, inspired by [thoughtworks.com/rad
 
 ## How To Use
 
-The easiest way to use the app out of the box is to provide a *public* Google Sheet ID from which all the data will be fetched.
-
-You can enter that ID into the input field on the 'select page' of the application, and your radar will be generated.
-
-The select page is accessed at http://host:port/select=true e.g. http://techradar.capgemini-psdu.com/?select=true
-
-Alternatively if accessed at http://host:port e.g. http://techradar.capgemini-psdu.com the application will default to the Google Sheet hard coded into /src/util/factory.js
+The easiest way to use the app out of the box is to provide a *public* (can be read-only) Google Sheet ID from which all the data will be fetched.
 
 The data must conform to the format below for the radar to be generated correctly.
 
@@ -27,23 +21,25 @@ Create a Google Sheet. Give it at least the below column headers, and put in the
 | Apache Kylin  | core       | platforms              | average  | Apache Kylin is an open source analytics solution ...   |
 | JSF           | evaluate   | languages & frameworks | poor     | We continue to see teams run into trouble using JSF ... |
 
+Note: the quadrants of the radar, and the order of the rings inside the radar will be drawn in the order they appear in your Google Sheet.
+
 ### Sharing the sheet
 
 * In Google sheets, go to 'File', choose 'Publish to the web...' and then click 'Publish'.
 * Close the 'Publish to the web' dialog.
 * Copy the URL of your editable sheet from the browser (Don't worry, this does not share the editable version). 
 
-The URL will be similar to [https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/edit](https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/edit). In theory we are only interested in the part between '/d/' and '/edit' but you can use the whole URL if you want.
+The URL will be similar to [https://docs.google.com/spreadsheets/d/1_RAVpdvXinxgqxC_vwY4JtHC2NSiXuP38u-33Hffukw/edit](https://docs.google.com/spreadsheets/d/1_RAVpdvXinxgqxC_vwY4JtHC2NSiXuP38u-33Hffukw/edit).
 
-### Building the radar
+### Configuring the radar to use your sheet
 
-Paste the URL in the input field on the select page.
+The easiest way to use the radar is to hard code the Google Sheet link in /src/util/factory.js
 
-That's it!
+Then when you run the radar and access it at e.g. http://techradar.capgemini-psdu.com the application will use that default.
 
-Note: the quadrants of the radar, and the order of the rings inside the radar will be drawn in the order they appear in your Google Sheet.
+Alternatively there is a 'select page' that allows you to specify an alternative sheet by entering the link via the radar's UI. That page is accessed at e.g. http://techradar.capgemini-psdu.com?select=true
 
-### More complex usage
+### More complex sheet interaction
 
 The app uses [Tabletop.js](https://github.com/jsoma/tabletop) to fetch the data from a Google Sheet, so refer to their documentation for more advanced interaction.  The input from the Google Sheet is sanitized by whitelisting HTML tags with [sanitize-html](https://github.com/punkave/sanitize-html).
 
@@ -52,7 +48,7 @@ The application uses [webpack](https://webpack.github.io/) to package dependenci
 ### Running the application
 
 ```
-git clone git@gitlab.com:PSDU/build-your-own-radar.git
+git clone git@github.com:capgemini-psdu/build-your-own-radar.git
 npm install
 npm test
 npm run dev
@@ -68,24 +64,25 @@ The application will listen on localhost:8080. This will also watch the .js and 
 
 All tasks are defined in `package.json`.
 
-Pull requests are welcome; please write tests whenever possible. 
-Make sure you have nodejs installed.
+Pull requests are welcome; please write tests whenever possible.
 
 ## Run on AWS
 
-Currently a manual process to configure. We will automate this at some point.
+This section describes to manual process to set this up. We will automate this process at some point.
 
-### Create a virtual machine
+### Set up the necessary AWS infra
 
-A t2.micro EC2 instance running AWS Linux is sufficient
+#### Create a virtual machine
 
-### Create a security group
+A t2.micro EC2 instance running AWS Linux is sufficient.
+
+#### Create a security group
 
 We recommend a Web DMZ type zone that allows HTTP/S from anywhere, SSH from your office locations and all other TCP traffic from elsewhere in the zone.
 
 Add the EC2 instance to this group.
 
-### Create an elastic load balancer
+#### Create an elastic load balancer
 
 This is necesary for two reasons.
 
@@ -97,23 +94,24 @@ Secondly, it allows us to spin up/down the EC2 instance without affecting the pu
 - Create a new ELB and select the Target Group you just created
 - Add the ELB to your Web DMZ security group
 
-### Prepare the EC2 instance to run your application
+#### Prepare the EC2 instance to run your application
 
-SSH to the machine and install Git:
+We need to install git and npm.
+
+SSH to the machine and install git:
 
 `yum install git`
 
-Create a new SSH key pair and add the public key to your GitHub account in the usual way. You should then be able to pull the project code:
+Create a new SSH key pair and add the public key to your GitHub account in the usual way.
 
-`git clone git@[project URI]`
+Next install npm. See https://nodejs.org/en/download/package-manager/ for details of how to do this on AWS Linux.
 
-Next install NPM. See https://nodejs.org/en/download/package-manager/ for details of how to do this on AWS Linux.
+### Deploying the application
 
-### Running the application
-
-You should now be able to run the application:
+You should now be able to pull the project code and run the application:
 
 ```
+git clone git@github.com:capgemini-psdu/build-your-own-radar.git
 cd build-your-own-radar
 npm install
 npm run dev
