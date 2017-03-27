@@ -428,12 +428,6 @@ const Radar = function (size, radar) {
       .classed('print-radar button no-capitalize', true)
       .text('Print this radar')
       .on('click', window.print.bind(window));
-
-      title.append('a')
-      .classed('about-radar button no-capitalize', true)
-      .text('About')
-      .style('font-weight','normal')
-      .attr('href', "https://capgemini-psdu.atlassian.net/wiki/display/TR/Tech+Radar+Home");
   }
 
   function mouseoverQuadrant(order) {
