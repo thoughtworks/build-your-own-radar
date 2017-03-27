@@ -108,22 +108,10 @@ const Radar = function (size, radar) {
       .attr('class', order);
   }
 
-  function triangleLegend(x, y, group) {
+  function triangleLegend(x, y,order,  group) {
     return group.append('path').attr('d', "M412.201,311.406c0.021,0,0.042,0,0.063,0c0.067,0,0.135,0,0.201,0c4.052,0,6.106-0.051,8.168-0.102c2.053-0.051,4.115-0.102,8.176-0.102h0.103c6.976-0.183,10.227-5.306,6.306-11.53c-3.988-6.121-4.97-5.407-8.598-11.224c-1.631-3.008-3.872-4.577-6.179-4.577c-2.276,0-4.613,1.528-6.48,4.699c-3.578,6.077-3.26,6.014-7.306,11.723C402.598,306.067,405.426,311.406,412.201,311.406")
-      .attr('transform', 'scale(' + (blipWidth / 64) + ') translate(' + (-404 + x * (64 / blipWidth) - 17) + ', ' + (-282 + y * (64 / blipWidth) - 17) + ')');
-  }
-
-  function circle(x, y, order, group) {
-    return (group || svg).append('path')
-      .attr('d', "M420.084,282.092c-1.073,0-2.16,0.103-3.243,0.313c-6.912,1.345-13.188,8.587-11.423,16.874c1.732,8.141,8.632,13.711,17.806,13.711c0.025,0,0.052,0,0.074-0.003c0.551-0.025,1.395-0.011,2.225-0.109c4.404-0.534,8.148-2.218,10.069-6.487c1.747-3.886,2.114-7.993,0.913-12.118C434.379,286.944,427.494,282.092,420.084,282.092")
-      .attr('transform', 'scale(' + (blipWidth / 34) + ') translate(' + (-404 + x * (34 / blipWidth) - 17) + ', ' + (-282 + y * (34 / blipWidth) - 17) + ')')
-      .attr('class', order);
-  }
-
-  function circleLegend(x, y, group) {
-    return (group || svg).append('path')
-      .attr('d', "M420.084,282.092c-1.073,0-2.16,0.103-3.243,0.313c-6.912,1.345-13.188,8.587-11.423,16.874c1.732,8.141,8.632,13.711,17.806,13.711c0.025,0,0.052,0,0.074-0.003c0.551-0.025,1.395-0.011,2.225-0.109c4.404-0.534,8.148-2.218,10.069-6.487c1.747-3.886,2.114-7.993,0.913-12.118C434.379,286.944,427.494,282.092,420.084,282.092")
-      .attr('transform', 'scale(' + (blipWidth / 64) + ') translate(' + (-404 + x * (64 / blipWidth) - 17) + ', ' + (-282 + y * (64 / blipWidth) - 17) + ')');
+      .attr('transform', 'scale(' + (blipWidth / 64) + ') translate(' + (-404 + x * (64 / blipWidth) - 17) + ', ' + (-282 + y * (64 / blipWidth) - 17) + ')')
+  .attr('class', order);
   }
 
   function addRing(ring, order) {
@@ -204,12 +192,13 @@ const Radar = function (size, radar) {
 
           var group = quadrantGroup.append('g').attr('class', 'blip-link');
 
-          if (blip.isNew()) {
-            triangle(x, y, order, group);
-          } else {
-            circle(x, y, order, group);
+          if (blip.capability()) {
+           triangle(x, y, 'first', group);
+          } else if(blip.capability()==false){
+              triangle(x, y, 'third', group);
+          }else if(blip.capability()===undefined){
+              triangle(x, y, 'second', group);
           }
-
           group.append('text')
             .attr('x', x)
             .attr('y', y + 4)
@@ -286,8 +275,10 @@ const Radar = function (size, radar) {
   function drawLegend(order) {
     removeRadarLegend();
 
-    var triangleKey = "New or moved";
-    var circleKey = "No change";
+    var triangleKeyGood = "Well developed";
+    var triangleKeyAverage = "Underdeveloped";
+    var triangleKeyPoor = "Little experience";
+
 
     var container = d3.select('svg').append('g')
       .attr('class', 'legend legend'+"-"+order);
@@ -321,24 +312,32 @@ const Radar = function (size, radar) {
       .transition()
       .style('visibility', 'visible');
 
-    triangleLegend(x, y, container);
+    triangleLegend(x, y,'first', container);
 
     container
       .append('text')
       .attr('x', x + 15)
       .attr('y', y + 5)
-      .attr('font-size', '0.8em')
-      .text(triangleKey);
+      .attr('font-size', '0.7em')
+      .text(triangleKeyGood);
 
-
-    circleLegend(x, y + 20, container);
+      triangleLegend(x, y+20,'second', container);
 
     container
       .append('text')
       .attr('x', x + 15)
       .attr('y', y + 25)
-      .attr('font-size', '0.8em')
-      .text(circleKey);
+      .attr('font-size', '0.7em')
+      .text(triangleKeyAverage);
+
+      triangleLegend(x, y+40,'third', container);
+
+      container
+          .append('text')
+          .attr('x', x + 15)
+          .attr('y', y + 45)
+          .attr('font-size', '0.7em')
+          .text(triangleKeyPoor);
   }
 
   function redrawFullRadar() {
@@ -366,36 +365,52 @@ const Radar = function (size, radar) {
 
     d3.selectAll('.quadrant-group')
       .style('pointer-events', 'auto');
-  }
+	}
 
-  function plotRadarHeader() {
-    var header = d3.select('body').insert('header', "#radar");
-    header.append('div')
-      .attr('class', 'radar-title')
-      .append('div')
-      .attr('class', 'radar-title__text')
-      .append('h1')
-      .text(document.title)
-      .style('cursor', 'pointer')
-      .on('click', redrawFullRadar);
+	function plotRadarFooter() {
+		var year = new Date().getFullYear();
+		
+		d3.select('body').insert('div', '#radar-plot + *')
+			.attr('id', 'footer')
+			.append('div')
+			.attr('class', 'footer-content');
+		
+		var footer = d3.select('.footer-content');
+		
+		footer.append('p')
+			  .html('All content copyright Capgemini © ' + year +
+					  '<br/>Produced and distributed by Capgemini UK Public Sector Digital' +
+					  '<br/>Build your own at <a href="https://gitlab.com/PSDU/build-your-own-radar">https://gitlab.com/PSDU/build-your-own-radar</a>' +
+					  '<br/>Powered by Thoughtworks <a href="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html">https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html</a>');
+	}
 
-    header.select('.radar-title')
-      .append('div')
-      .attr('class', 'radar-title__logo')
-      .html('<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /> </a>');
+	function plotRadarHeader() {
+		var header = d3.select('body').insert('header', "#radar");
 
-    return header;
-  }
+		header.append('div')
+	        .attr('class', 'radar-logo')
+	        .html('<a href="https://www.uk.capgemini.com"><img src="/images/capgemini-logo.png" / ></a>');
+	    
+		header.append('div')
+			.attr('class', 'radar-title')
+			.append('div')
+			.attr('class', 'radar-title__text')
+			.append('h1')
+			.text(document.title)
+			.style('cursor', 'pointer')
+			.on('click', redrawFullRadar);
+
+		return header;
+	}
 
   function plotQuadrantButtons(quadrants, header) {
 
-    function addButton(quadrant) {
+    function addButton(quadrant, title) {
       radarElement
         .append('div')
         .attr('class', 'quadrant-table ' + quadrant.order);
-
-
-      header.append('div')
+      
+      title.append('div')
         .attr('class', 'button ' + quadrant.order + ' full-view')
         .text(quadrant.quadrant.name())
         .on('mouseover', mouseoverQuadrant.bind({}, quadrant.order))
@@ -403,28 +418,22 @@ const Radar = function (size, radar) {
         .on('click', selectQuadrant.bind({}, quadrant.order, quadrant.startAngle));
     }
 
+    var title = d3.select('.radar-title');
+
     _.each([0, 3, 2, 1], function (i) {
-      addButton(quadrants[i]);
+      addButton(quadrants[i], title);
     });
 
-
-    header.append('div')
+    title.append('div')
       .classed('print-radar button no-capitalize', true)
       .text('Print this radar')
       .on('click', window.print.bind(window));
-  }
 
-  function plotRadarFooter() {
-    d3.select('body')
-      .insert('div', '#radar-plot + *')
-      .attr('id', 'footer')
-      .append('div')
-      .attr('class', 'footer-content')
-      .append('p')
-      .html('Powered by <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. '
-      + 'By using this service you agree to <a href="https://info.thoughtworks.com/visualize-your-tech-strategy-terms-of-service.html">ThoughtWorks\' terms of use</a>. '
-      + 'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. '
-      + 'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.');
+       title.append('a')
+      .classed('about-radar button no-capitalize', true)
+      .text('About')
+      .style('font-weight','normal')
+      .attr('href', "https://capgemini-psdu.atlassian.net/wiki/display/TR/Tech+Radar+Home");
   }
 
   function mouseoverQuadrant(order) {
