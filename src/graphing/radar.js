@@ -382,7 +382,7 @@ const Radar = function (size, radar) {
     header.select('.radar-title')
       .append('div')
       .attr('class', 'radar-title__logo')
-      .html('<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /> </a>');
+      .html('<a href="https://www.thoughtworks.com"> <img src="/images/syscologo.png"/> </a>');
 
     return header;
   }
