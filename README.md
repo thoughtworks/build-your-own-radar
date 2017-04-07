@@ -4,7 +4,7 @@ A library that generates an interactive radar, inspired by [thoughtworks.com/rad
 
 ## Demo
 
-You can see this in action at https://radar.thoughtworks.com. If you plug in [this data](https://docs.google.com/spreadsheets/d/1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI/) you'll see [this visualization](https://radar.thoughtworks.com/?sheetId=1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI). 
+You can see this in action at https://radar.thoughtworks.com. If you plug in [this data](https://docs.google.com/spreadsheets/d/1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI/) you'll see [this visualization](https://radar.thoughtworks.com/?sheetId=1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI).
 
 ## How To Use
 
@@ -27,7 +27,7 @@ Create a Google Sheet. Give it at least the below column headers, and put in the
 
 * In Google sheets, go to 'File', choose 'Publish to the web...' and then click 'Publish'.
 * Close the 'Publish to the web' dialog.
-* Copy the URL of your editable sheet from the browser (Don't worry, this does not share the editable version). 
+* Copy the URL of your editable sheet from the browser (Don't worry, this does not share the editable version).
 
 The URL will be similar to [https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/edit](https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/edit). In theory we are only interested in the part between '/d/' and '/edit' but you can use the whole URL if you want.
 
@@ -51,7 +51,7 @@ The application uses [webpack](https://webpack.github.io/) to package dependenci
 
 All tasks are defined in `package.json`.
 
-Pull requests are welcome; please write tests whenever possible. 
+Pull requests are welcome; please write tests whenever possible.
 Make sure you have nodejs installed.
 
 - `git clone git@github.com:thoughtworks/build-your-own-radar.git`
@@ -64,3 +64,7 @@ Make sure you have nodejs installed.
      $ docker run -p 8080:8080 -v $PWD:/app -w /app -it node:7.3.0 /bin/sh -c 'npm install && npm run dev'
 
 After building it will start on localhost:8080
+
+### Deploy to rancher
+
+    $ docker run -e RANCHER_URL="http://rancher.aws.na.sysco.net/v1/projects/1a58" -e RANCHER_ACCESS_KEY="<rancher_access_key>" -e RANCHER_SECRET_KEY="<rancher_secret_key>" -v $(pwd)/rancher-compose:/data sysco/rancher-compose:0.12.4 -p techradar up --upgrade -p -d
