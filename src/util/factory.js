@@ -161,23 +161,9 @@ const GoogleSheetInput = function () {
             var sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName);
             sheet.init().build();
         } else {
-            var content = d3.select('body')
-                .append('div')
-                .attr('class', 'input-sheet');
-
-            set_document_title();
-
-            plotLogo(content);
-
-            var bannerText = '<h1>Build your own radar</h1><p>Once you\'ve <a href ="https://info.thoughtworks.com/visualize-your-tech-strategy.html">created your Radar</a>, you can use this service' +
-                ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html">Read this first.</a></p>';
-
-            plotBanner(content, bannerText);
-
-            plotForm(content);
-
-            plotFooter(content);
-
+          var sheetId = 'https://docs.google.com/spreadsheets/d/1oGg0KdEyJCxfgbHc4pv7VhNpKjlFcNAIF4dXyBmuFck/edit?usp=sharing';
+          var sheet = GoogleSheet(sheetId, queryParams.sheetName);
+          sheet.init().build();
         }
     };
 
