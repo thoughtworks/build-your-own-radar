@@ -44,6 +44,7 @@ if (isProd) {
 
 module.exports = {
     entry: entry,
+    target: 'node',
 
     output: {
         path: buildPath,
