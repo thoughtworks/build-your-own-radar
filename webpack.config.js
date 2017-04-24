@@ -45,6 +45,12 @@ if (isProd) {
 module.exports = {
     entry: entry,
 
+    node: {
+        fs: 'empty',
+        net: 'empty',
+        tls: 'empty'
+    },
+
     output: {
         path: buildPath,
         publicPath: '/',
