@@ -403,7 +403,7 @@ const Radar = function (size, radar) {
         .on('click', selectQuadrant.bind({}, quadrant.order, quadrant.startAngle));
     }
 
-    _.each([0, 3, 2, 1], function (i) {
+    _.each([0, 1, 2, 3], function (i) {
       addButton(quadrants[i]);
     });
 
