@@ -6,87 +6,101 @@ const _ = {
     capitalize: require('lodash/capitalize'),
     each: require('lodash/each')
 };
-
+var XLSX = require('xlsx');
 const InputSanitizer = require('./inputSanitizer');
 const Radar = require('../models/radar');
 const Quadrant = require('../models/quadrant');
 const Ring = require('../models/ring');
 const Blip = require('../models/blip');
 const GraphingRadar = require('../graphing/radar');
-const MalformedDataError = require('../exceptions/malformedDataError');
-const SheetNotFoundError = require('../exceptions/sheetNotFoundError');
 const ContentValidator = require('./contentValidator');
 const Sheet = require('./sheet');
-const ExceptionMessages = require('./exceptionMessages');
+const fs = require('browserify-fs');
+const path = require('path');
 
+const ExcelSheet = function (fileName) {
 
-const GoogleSheet = function (sheetReference, sheetName) {
     var self = {};
 
     self.build = function () {
-        var sheet = new Sheet(sheetReference);
-        sheet.exists(function(notFound) {
-            if (notFound) {
-                displayErrorMessage(notFound);
-                return;
-            }
 
-            Tabletop.init({
-                key: sheet.id,
-                callback: createRadar
-            });
-        });
+        var url = "xls/" + fileName;
 
-        function displayErrorMessage(exception) {
-            d3.selectAll(".loading").remove();
-            var message = 'Oops! It seems like there are some problems with loading your data. ';
+        var oReq = new XMLHttpRequest();
 
-            if (exception instanceof MalformedDataError) {
-                message = message.concat(exception.message);
-            } else if (exception instanceof SheetNotFoundError) {
-                message = exception.message;
-            } else {
-                console.error(exception);
-            }
+        oReq.open("GET", url, true);
+        oReq.responseType = "arraybuffer";
 
-            message = message.concat('<br/>', 'Please check <a href="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html#faq">FAQs</a> for possible solutions.');
 
-            d3.select('body')
-                .append('div')
-                .attr('class', 'error-container')
-                .append('div')
-                .attr('class', 'error-container__message')
-                .append('p')
-                .html(message);
+       oReq.onload = function(e) {
+           console.log(e);
+
+           var arraybuffer = oReq.response;
+
+            /* convert data to binary string */
+            var data = new Uint8Array(arraybuffer);
+            var arr = new Array();
+            for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+            var bstr = arr.join("");
+
+            /* Call XLSX */
+            var workbook = XLSX.read(bstr, {type:"binary"});
+
+            /* Get worksheet */
+            var worksheet = workbook.Sheets["Feuil1"];
+
+            console.log(fileName);
+            console.log(worksheet);
+            console.log(worksheet["!ref"])
+
+            var columnsName = getColumnNames(worksheet);
+            console.log(columnsName);
+
+            createRadar(worksheet);
+
         }
 
-        function createRadar(__, tabletop) {
+        oReq.send();
+
+        function createRadar(worksheet) {
 
             try {
 
-                if (!sheetName) {
-                    sheetName = tabletop.foundSheetNames[0];
-                }
-                var columnNames = tabletop.sheets(sheetName).columnNames;
+                //if (!sheetName) {
+                //    sheetName = tabletop.foundSheetNames[0];
+                //}
+
+                var columnNames = getColumnNames(worksheet);
+                console.log("colones:");
+                console.log(columnNames);
 
                 var contentValidator = new ContentValidator(columnNames);
                 contentValidator.verifyContent();
                 contentValidator.verifyHeaders();
 
-                var all = tabletop.sheets(sheetName).all();
+               // var all = tabletop.sheets(sheetName).all();
+                console.log("all blips")
+                var all = getElements(worksheet);
+
+                console.log(all);
+
                 var blips = _.map(all, new InputSanitizer().sanitize);
 
-                document.title = tabletop.googleSheetName;
-                d3.selectAll(".loading").remove();
+                document.title = "test ok";
+                d3.selectAll(".chargement").remove();
 
                 var rings = _.map(_.uniqBy(blips, 'ring'), 'ring');
                 var ringMap = {};
                 var maxRings = 4;
 
                 _.each(rings, function (ringName, i) {
-                    if (i == maxRings) {
+
+                    console.log(rings);
+                    console.log(ringName + ": " + i + " : " + maxRings)
+
+                    /*if (i == maxRings) {
                         throw new MalformedDataError(ExceptionMessages.TOO_MANY_RINGS);
-                    }
+                    }*/
                     ringMap[ringName] = new Ring(ringName, i);
                 });
 
@@ -95,6 +109,10 @@ const GoogleSheet = function (sheetReference, sheetName) {
                     if (!quadrants[blip.quadrant]) {
                         quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant));
                     }
+
+                    console.log(blip.topic);
+                    console.log(quadrants);
+                    //quadrants[blip.quadrant] = {};
                     quadrants[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description))
                 });
 
@@ -108,15 +126,71 @@ const GoogleSheet = function (sheetReference, sheetName) {
                 new GraphingRadar(size, radar).init().plot();
 
             } catch (exception) {
+                console.log(exception);
                 displayErrorMessage(exception);
             }
+        }
+
+
+        function getColumnNames (worksheet) {
+            var columnnames = [];
+
+            var range = XLSX.utils.decode_range(worksheet['!ref']);
+            var col, line = range.s.r;
+
+            for(col = range.s.c; col <= range.e.c; ++col) {
+                var cell = worksheet[XLSX.utils.encode_cell({c:col, r:line})] /* find the cell in the first row */
+
+                if(cell !== undefined){
+                    columnnames.push(cell.h);
+
+                    //console.log(cell.h)
+                }
+
+            }
+
+            return columnnames;
+        }
+
+        function getElements (worksheet) {
+            var elementsName = [];
+
+            var range = XLSX.utils.decode_range(worksheet['!ref']);
+            var col, line = range.s.r + 1;
+
+           // console.log(col)
+            //console.log(line)
+
+            for(line = range.s.r + 1; line <= range.e.r; ++line){
+
+               // Blip = function (name, ring, isNew, topic, description) {
+
+                var blip = {};
+
+                blip.name = worksheet[XLSX.utils.encode_cell({c:0, r:line})].h;
+                blip.ring = worksheet[XLSX.utils.encode_cell({c:1, r:line})].h;
+                blip.quadrant = worksheet[XLSX.utils.encode_cell({c:2, r:line})].h;
+                blip.isNew = worksheet[XLSX.utils.encode_cell({c:3, r:line})].h;
+                blip.description = worksheet[XLSX.utils.encode_cell({c:4, r:line})].h;
+
+
+
+                console.log(blip)
+
+                elementsName.push(blip);
+
+
+            }
+
+
+            return elementsName;
         }
     };
 
     self.init = function () {
         var content = d3.select('body')
             .append('div')
-            .attr('class', 'loading')
+            .attr('class', 'chargement')
             .append('div')
             .attr('class', 'input-sheet');
 
@@ -133,7 +207,8 @@ const GoogleSheet = function (sheetReference, sheetName) {
     };
 
     return self;
-};
+}
+
 
 var QueryParams = function (queryString) {
     var decode = function (s) {
@@ -150,17 +225,83 @@ var QueryParams = function (queryString) {
     return queryParams
 };
 
+function getWorkSheet () {
+    console.log('before')
+    var url = "xls/test1.xlsx";
+    var oReq = new XMLHttpRequest();
+    oReq.open("GET", url, true);
+    oReq.responseType = "arraybuffer";
 
-const GoogleSheetInput = function () {
+    oReq.onload = function(e) {
+        var arraybuffer = oReq.response;
+
+        /* convert data to binary string */
+        var data = new Uint8Array(arraybuffer);
+        var arr = new Array();
+        for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+        var bstr = arr.join("");
+
+        /* Call XLSX */
+        var workbook = XLSX.read(bstr, {type:"binary"});
+
+        /* Get worksheet */
+        var worksheet = workbook.Sheets["Feuil1"];
+
+        return worksheet;
+    }
+
+    oReq.send();
+
+    console.log('after')
+}
+
+function getFiles (callback) {
+    console.log('before')
+    var url = "xls/directory.json";
+    var oReq = new XMLHttpRequest();
+    oReq.open("GET", url, true);
+    oReq.responseType = "json";
+
+    oReq.onload = function(e) {
+        var filesArray = oReq.response;
+
+        console.log(filesArray);
+
+        filesArray.files.forEach(function (f){
+            console.log(f);
+        })
+
+        callback(filesArray);
+    }
+
+    oReq.send();
+
+    console.log('after')
+
+
+}
+
+
+
+//Gere les requetes entrantes et le chargement de l'app
+const ExcelSheetInput = function () {
+
     var self = {};
 
+    //Point d'entrée app
     self.build = function () {
-        var queryParams = QueryParams(window.location.search.substring(1));
 
-        if (queryParams.sheetId) {
-            var sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName);
+        //recup query
+        var queryParams = QueryParams(window.location.search.substring(1));
+        console.log(queryParams);
+
+
+        //si param f ok
+        if (queryParams.f) {
+            var sheet = ExcelSheet(queryParams.f);
             sheet.init().build();
         } else {
+
             var content = d3.select('body')
                 .append('div')
                 .attr('class', 'input-sheet');
@@ -169,14 +310,32 @@ const GoogleSheetInput = function () {
 
             plotLogo(content);
 
-            var bannerText = '<h1>Build your own radar</h1><p>Once you\'ve <a href ="https://info.thoughtworks.com/visualize-your-tech-strategy.html">created your Radar</a>, you can use this service' +
-                ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html">Read this first.</a></p>';
+            var bannerText = '<h1>Build your own radar</h1>';
 
-            plotBanner(content, bannerText);
 
-            plotForm(content);
 
-            plotFooter(content);
+            getFiles(function (allFiles) {
+                console.log(allFiles);
+                allFiles.files.forEach(function (file){
+                    bannerText = bannerText.concat("<span><a href='/?f=" + file.name + "'>" + file.desc + "</a></span>");
+                    console.log(file);
+                });
+                bannerText = bannerText.concat("</p>");
+
+                console.log(bannerText);
+
+                plotBanner(content, bannerText);
+
+
+
+                plotFooter(content);
+
+            });
+
+
+
+
+
 
         }
     };
@@ -185,7 +344,7 @@ const GoogleSheetInput = function () {
 };
 
 function set_document_title() {
-    document.title = "Build your own Radar";
+    document.title = "Radar Technologique";
 }
 
 function plotLogo(content) {
@@ -201,10 +360,7 @@ function plotFooter(content) {
         .append('div')
         .attr('class', 'footer-content')
         .append('p')
-        .html('Powered by <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. '
-        + 'By using this service you agree to <a href="https://info.thoughtworks.com/visualize-your-tech-strategy-terms-of-service.html">ThoughtWorks\' terms of use</a>. '
-        + 'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. '
-        + 'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.');
+        .html('Librement inspiré du Radar Technologique de <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. ');
 
 
 
@@ -240,4 +396,4 @@ function plotForm(content) {
     form.append('p').html("<a href='https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html#faq'>Need help?</a>");
 }
 
-module.exports = GoogleSheetInput;
+module.exports = ExcelSheetInput;

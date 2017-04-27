@@ -4,11 +4,11 @@ const ExceptionMessages = require('./exceptionMessages');
 const Sheet = function (sheetReference) {
     var self = {};
 
-    (function () {
+    /** (function () {
         var matches = sheetReference.match("https:\\/\\/docs.google.com\\/spreadsheets\\/d\\/(.*?)($|\\/$|\\/.*|\\?.*)");
         self.id = matches !== null ? matches[1] : sheetReference;
     })();
-
+*/
     self.exists = function (callback) {
         var feedURL = "https://spreadsheets.google.com/feeds/worksheets/" + self.id + "/public/basic?alt=json";
 

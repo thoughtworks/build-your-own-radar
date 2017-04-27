@@ -8,7 +8,7 @@ const args = require('yargs').argv;
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-let isProd = args.prod;
+let isProd = args.prod
 let isDev = args.dev;
 
 let entry = ['./src/site.js'];
@@ -51,6 +51,9 @@ module.exports = {
         tls: 'empty'
     },
 
+   // target: 'node',
+    target: 'web',
+
     output: {
         path: buildPath,
         publicPath: '/',
@@ -66,6 +69,14 @@ module.exports = {
         ]
     },
 
+
+
+
+    externals: [
+        {
+            './cptable': 'var cptable'
+        }
+    ],
     quiet: false,
     noInfo: false,
 
