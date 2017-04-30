@@ -218,13 +218,18 @@ const Radar = function (size, radar) {
             .text(blip.number());
 
           var blipListItem = ringList.append('li');
-          var blipText = blip.number() + '. ' + blip.name() + (blip.topic() ? ('. - ' + blip.topic()) : '');
+
+          var blipText = blip.number() + '. ' + blip.name() + (blip.topic() ? (' - <span class="italic">' + blip.topic()) + "</span>" : '');
+
           blipListItem.append('div')
             .attr('class', 'blip-list-item')
-            .text(blipText);
+            .html(blipText + (blip.isNew() ? ('<span class="rounded-new">new</span>'):""));
 
           var blipItemDescription = blipListItem.append('div')
             .attr('class', 'blip-item-description');
+
+          //console.log(blip.description());
+
           if (blip.description()) {
             blipItemDescription.append('p').html(blip.description());
           }
@@ -268,7 +273,7 @@ const Radar = function (size, radar) {
   function createHomeLink(pageElement) {
     if (pageElement.select('.home-link').empty()) {
       pageElement.append('div')
-        .html('&#171; Back to Radar home')
+        .html('&#171; Vue d\'ensemble')
         .classed('home-link', true)
         .classed('selected', true)
         .on('click', redrawFullRadar)
@@ -286,8 +291,8 @@ const Radar = function (size, radar) {
   function drawLegend(order) {
     removeRadarLegend();
 
-    var triangleKey = "New or moved";
-    var circleKey = "No change";
+    var triangleKey = "Nouveau";
+    var circleKey = "Inchangé";
 
     var container = d3.select('svg').append('g')
       .attr('class', 'legend legend'+"-"+order);
@@ -412,7 +417,17 @@ const Radar = function (size, radar) {
       .classed('print-radar button no-capitalize', true)
       .text('Print this radar')
       .on('click', window.print.bind(window));
+
+      header.append('div')
+          .classed('go-home button no-capitalize', true)
+          .text('Home')
+          .on('click',function () {
+              window.location.href = "/";
+          });
+
   }
+
+
 
   function plotRadarFooter() {
     d3.select('body')
@@ -421,10 +436,7 @@ const Radar = function (size, radar) {
       .append('div')
       .attr('class', 'footer-content')
       .append('p')
-      .html('Powered by <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. '
-      + 'By using this service you agree to <a href="https://info.thoughtworks.com/visualize-your-tech-strategy-terms-of-service.html">ThoughtWorks\' terms of use</a>. '
-      + 'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. '
-      + 'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.');
+      .html();
   }
 
   function mouseoverQuadrant(order) {

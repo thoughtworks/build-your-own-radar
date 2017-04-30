@@ -1,5 +1,4 @@
 const d3 = require('d3');
-const Tabletop = require('tabletop');
 const _ = {
     map: require('lodash/map'),
     uniqBy: require('lodash/uniqBy'),
@@ -14,11 +13,10 @@ const Ring = require('../models/ring');
 const Blip = require('../models/blip');
 const GraphingRadar = require('../graphing/radar');
 const ContentValidator = require('./contentValidator');
-const Sheet = require('./sheet');
 const fs = require('browserify-fs');
 const path = require('path');
 
-const ExcelSheet = function (fileName) {
+const ExcelSheet = function (fileName, description) {
 
     var self = {};
 
@@ -26,67 +24,63 @@ const ExcelSheet = function (fileName) {
 
         var url = "xls/" + fileName;
 
+        if(description === undefined){
+            description = fileName;
+        }
+
         var oReq = new XMLHttpRequest();
 
         oReq.open("GET", url, true);
         oReq.responseType = "arraybuffer";
 
 
-       oReq.onload = function(e) {
-           console.log(e);
+        oReq.onload = function(e) {
+            console.log(e);
 
-           var arraybuffer = oReq.response;
+            var arraybuffer = oReq.response;
 
             /* convert data to binary string */
             var data = new Uint8Array(arraybuffer);
             var arr = new Array();
-            for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+
+            for(var i = 0; i != data.length; ++i) {
+                arr[i] = String.fromCharCode(data[i]);
+            }
+
             var bstr = arr.join("");
 
             /* Call XLSX */
             var workbook = XLSX.read(bstr, {type:"binary"});
 
+            console.log(workbook);
+
             /* Get worksheet */
             var worksheet = workbook.Sheets["Feuil1"];
 
-            console.log(fileName);
-            console.log(worksheet);
-            console.log(worksheet["!ref"])
-
             var columnsName = getColumnNames(worksheet);
-            console.log(columnsName);
 
-            createRadar(worksheet);
+            createRadar(worksheet,description);
 
         }
 
         oReq.send();
 
-        function createRadar(worksheet) {
+        function createRadar(worksheet,description) {
 
             try {
 
-                //if (!sheetName) {
-                //    sheetName = tabletop.foundSheetNames[0];
-                //}
-
                 var columnNames = getColumnNames(worksheet);
-                console.log("colones:");
-                console.log(columnNames);
 
                 var contentValidator = new ContentValidator(columnNames);
                 contentValidator.verifyContent();
                 contentValidator.verifyHeaders();
 
-               // var all = tabletop.sheets(sheetName).all();
-                console.log("all blips")
                 var all = getElements(worksheet);
 
-                console.log(all);
 
                 var blips = _.map(all, new InputSanitizer().sanitize);
 
-                document.title = "test ok";
+                document.title = description;
                 d3.selectAll(".chargement").remove();
 
                 var rings = _.map(_.uniqBy(blips, 'ring'), 'ring');
@@ -95,12 +89,6 @@ const ExcelSheet = function (fileName) {
 
                 _.each(rings, function (ringName, i) {
 
-                    console.log(rings);
-                    console.log(ringName + ": " + i + " : " + maxRings)
-
-                    /*if (i == maxRings) {
-                        throw new MalformedDataError(ExceptionMessages.TOO_MANY_RINGS);
-                    }*/
                     ringMap[ringName] = new Ring(ringName, i);
                 });
 
@@ -110,10 +98,12 @@ const ExcelSheet = function (fileName) {
                         quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant));
                     }
 
-                    console.log(blip.topic);
-                    console.log(quadrants);
-                    //quadrants[blip.quadrant] = {};
-                    quadrants[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description))
+                    quadrants[blip.quadrant]
+                        .add(new Blip(blip.name,
+                                ringMap[blip.ring],
+                                blip.isNew.toLowerCase() === 'true',
+                                blip.topic,
+                                blip.description))
                 });
 
                 var radar = new Radar();
@@ -127,10 +117,8 @@ const ExcelSheet = function (fileName) {
 
             } catch (exception) {
                 console.log(exception);
-                displayErrorMessage(exception);
             }
         }
-
 
         function getColumnNames (worksheet) {
             var columnnames = [];
@@ -143,10 +131,7 @@ const ExcelSheet = function (fileName) {
 
                 if(cell !== undefined){
                     columnnames.push(cell.h);
-
-                    //console.log(cell.h)
                 }
-
             }
 
             return columnnames;
@@ -158,12 +143,9 @@ const ExcelSheet = function (fileName) {
             var range = XLSX.utils.decode_range(worksheet['!ref']);
             var col, line = range.s.r + 1;
 
-           // console.log(col)
-            //console.log(line)
 
             for(line = range.s.r + 1; line <= range.e.r; ++line){
 
-               // Blip = function (name, ring, isNew, topic, description) {
 
                 var blip = {};
 
@@ -171,17 +153,23 @@ const ExcelSheet = function (fileName) {
                 blip.ring = worksheet[XLSX.utils.encode_cell({c:1, r:line})].h;
                 blip.quadrant = worksheet[XLSX.utils.encode_cell({c:2, r:line})].h;
                 blip.isNew = worksheet[XLSX.utils.encode_cell({c:3, r:line})].h;
-                blip.description = worksheet[XLSX.utils.encode_cell({c:4, r:line})].h;
+                blip.description = worksheet[XLSX.utils.encode_cell({c:4, r:line})].v;
 
+                console.log(XLSX);
+                console.log(XLSX.utils);
 
+                console.log(blip.description);
 
-                console.log(blip)
+                var topic = worksheet[XLSX.utils.encode_cell({c:5, r:line})];
+
+                if(topic !== undefined){
+                    blip.topic = topic.h;
+                }
+               // blip.topic = worksheet[XLSX.utils.encode_cell({c:5, r:line})].h;
 
                 elementsName.push(blip);
 
-
             }
-
 
             return elementsName;
         }
@@ -198,7 +186,7 @@ const ExcelSheet = function (fileName) {
 
         plotLogo(content);
 
-        var bannerText = '<h1>Building your radar...</h1><p>Your Technology Radar will be available in just a few seconds</p>';
+        var bannerText = '<h1>En cours de génération...</h1><p>Cela vient...</p>';
         plotBanner(content, bannerText);
         plotFooter(content);
 
@@ -245,7 +233,9 @@ function getWorkSheet () {
         var workbook = XLSX.read(bstr, {type:"binary"});
 
         /* Get worksheet */
-        var worksheet = workbook.Sheets["Feuil1"];
+        var worksheet = workbook.Sheets[0];
+        console.log("name")
+        //alert(worksheet.name);
 
         return worksheet;
     }
@@ -265,7 +255,7 @@ function getFiles (callback) {
     oReq.onload = function(e) {
         var filesArray = oReq.response;
 
-        console.log(filesArray);
+        //console.log(filesArray);
 
         filesArray.files.forEach(function (f){
             console.log(f);
@@ -298,7 +288,7 @@ const ExcelSheetInput = function () {
 
         //si param f ok
         if (queryParams.f) {
-            var sheet = ExcelSheet(queryParams.f);
+            var sheet = ExcelSheet(queryParams.f,queryParams.d);
             sheet.init().build();
         } else {
 
@@ -310,25 +300,34 @@ const ExcelSheetInput = function () {
 
             plotLogo(content);
 
-            var bannerText = '<h1>Build your own radar</h1>';
+            var bannerText = '<h1>Versions</h1>';
+
+            var versionsList = '<div>';
 
 
 
             getFiles(function (allFiles) {
                 console.log(allFiles);
                 allFiles.files.forEach(function (file){
-                    bannerText = bannerText.concat("<span><a href='/?f=" + file.name + "'>" + file.desc + "</a></span>");
-                    console.log(file);
+                    versionsList = versionsList.concat("<div><a class='versions-link' href='/?f=",file.name,"&d=",file.desc,"'>",file.desc,"</a></div>");
+                    //console.log(file);
                 });
-                bannerText = bannerText.concat("</p>");
+
+                versionsList = versionsList.concat("</ul></div>");
+
+                //bannerText = bannerText.concat("</p>");
 
                 console.log(bannerText);
 
+
+
                 plotBanner(content, bannerText);
 
-
+                plotVersionsList(content,versionsList);
 
                 plotFooter(content);
+
+
 
             });
 
@@ -362,38 +361,24 @@ function plotFooter(content) {
         .append('p')
         .html('Librement inspiré du Radar Technologique de <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. ');
 
-
-
+}
+function plotVersionsList(content, html){
+    content
+        .append('div')
+        .attr('class', 'versions-list')
+        .html(html);
 }
 
+
 function plotBanner(content, text) {
+
+
     content.append('div')
         .attr('class', 'input-sheet__banner')
         .html(text);
 
+
 }
 
-function plotForm(content) {
-    content.append('div')
-        .attr('class', 'input-sheet__form')
-        .append('p')
-        .html('<strong>Enter the URL of your <a href="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html#publish-byor-sheet" target="_blank">published</a> Google Sheet below…</strong>');
-
-    var form = content.select('.input-sheet__form').append('form')
-        .attr('method', 'get');
-
-    form.append('input')
-        .attr('type', 'text')
-        .attr('name', 'sheetId')
-        .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/');
-
-    form.append('button')
-        .attr('type', 'submit')
-        .append('a')
-        .attr('class', 'button')
-        .text('Build my radar');
-
-    form.append('p').html("<a href='https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html#faq'>Need help?</a>");
-}
 
 module.exports = ExcelSheetInput;
