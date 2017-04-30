@@ -6,14 +6,36 @@
 @import 'header';
 @import 'footer';
 
-@import url(https://www.thoughtworks.com/css/screen.css);
 
 body {
   font: 18px 'Open Sans';
   -webkit-font-smoothing: antialiased;
   margin: 0;
+  font-family: Tahoma;
 }
 
+.rounded-new {
+  -moz-border-radius:5px 5px 5px 5px;  // rounds corners for firefox
+  border-radius:5px 5px 5px 5px;  //rounds corners for other browsers
+  border:solid 2px red;
+  background-color:red;
+  color: white;
+  padding:1px;
+  margin-left:10px;
+}
+
+.versions-list{
+  text-align: center;
+  font-size:20px;
+}
+
+.versions-link{
+  text-decoration: none;
+}
+
+.italic{
+  font-style: italic;
+}
 @media print {
 
   body, article {
@@ -33,7 +55,7 @@ body {
   }
 
   #radar-plot {
-    display: none;
+    display: block;
   }
 
   .quadrant-table {
@@ -97,6 +119,8 @@ body {
 
   header {
     text-align: left;
+
+
 
     .radar-title .radar-title__text {
       font-size: 40px;
@@ -303,7 +327,7 @@ body {
           padding-left: 0;
 
           .blip-list-item {
-            padding: 2px 5px;
+            padding: 5px 5px;
             border-radius: 2px;
             cursor: pointer;
             font-size: $baseFont;
