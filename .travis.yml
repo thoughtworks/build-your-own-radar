@@ -11,6 +11,7 @@ jobs:
         secret_access_key: $AWS_SECRET_ACCESS_KEY
         bucket: myradar-qa
         acl: public_read
+        local_dir: dist
         on:
           repo: thoughtworks/build-your-own-radar
     - stage: Invalidate CDN
