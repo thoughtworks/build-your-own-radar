@@ -3,20 +3,16 @@ node_js:
 - '5.12'
 jobs:
   include:
-    - stage: Unit test
-      install: npm install
-      script: npm test
     - stage: Deploy QA
       script: npm run examples
       deploy:
         provider: s3
-        access_key_id: AKIAJMQJAD2JS53PW56A
-        secret_access_key:
-          secure: RDQEbYuY0jXunxMu+L1DR81DscAPW+asCAShTempM6uxhKu0b9T2HT+HNuiFVhlHH8pgDZdxoxWf3VV82rNgZikhmxBPq9xB+lcD0V1NKQBZTL4bpc/DqICyZzOvaypbfrNvxZAVboylGTGHcudCcdoPUqPV3We1xx+ORI5Os4N5XM19GkbQz7SuzSjKs5aN1wsxJO1CVQkPub87YNOdjWwfdaR7yCj4XA9D+CBpgUH4gjhRAmFBbRWa+t/9Km+TI5v1s9vrYr8aec6DBmvBLoecMkwn29sGTVm6A+Be3crEeR8WfkSDHunBi5RuxgewZkDbX2ypNKUxXqXy4yGHqJD1RzYAvvapAesh5Hf22I3wMMsX80Bucs6l/5qiz/WO4gTI7kOkGyQoN+A5ywE5/TXhZEEeAbMo3WpuK+NzIaVw92RgLXOKclc6BY34TGyM6WWjIyg1UQVjQmlHfsEnzLEHueZ1EWvCUbufAZsO0efDlQ0XTTXt1ZPkZp3JCIg3GnUBi62RlIQsa+2gXfg47qJ58vuna1HKXocGrhlnyTF8HpjLxPwhKWyeFuhKAwSzXV1fR9yTBsMl0SWfLtGeiLUffgq8+IyPXHFyHnwyqET7gdxQ2Yl4eUnQRgZmGEUsgUpZEAUYBJbmlPGbee4KgocXEMeEY6zSPyZD0aP55c0=
+        access_key_id: $AWS_ACCESS_KEY_ID
+        secret_access_key: $AWS_SECRET_ACCESS_KEY
         bucket: myradar-qa
         acl: public_read
         on:
           repo: thoughtworks/build-your-own-radar
     - stage: Invalidate CDN
-      install: npm install aws-cli
-      script: 'aws configure set preview.cloudfront true && aws cloudfront create-invalidation --distribution-id E3SEKKDFWGALF6 --paths "/*"'
+      install: pip install --user awscli && export PATH=$PATH:$HOME/.local/bin
+      script: 'aws configure set preview.cloudfront true && aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"'
