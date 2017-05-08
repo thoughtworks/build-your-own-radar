@@ -7,8 +7,7 @@ jobs:
       install: npm install
       script: npm test
     - stage: Deploy QA
-      install: npm install aws-cli
-      before_deploy: npm run examples
+      script: npm run examples
       deploy:
         provider: s3
         access_key_id: AKIAJMQJAD2JS53PW56A
@@ -18,6 +17,6 @@ jobs:
         acl: public_read
         on:
           repo: thoughtworks/build-your-own-radar
-      after_deploy:
-        - aws configure set preview.cloudfront true
-        - aws cloudfront create-invalidation --distribution-id E3SEKKDFWGALF6 --paths "/*"
+    - stage: Invalidate CDN
+      install: npm install aws-cli
+      script: 'aws configure set preview.cloudfront true && aws cloudfront create-invalidation --distribution-id E3SEKKDFWGALF6 --paths "/*"'
