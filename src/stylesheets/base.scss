@@ -170,6 +170,10 @@ body {
       }
 
       path {
+	&.ring-arc-4 {
+          stroke: none;
+          fill: $grey-darkest;
+        }
         &.ring-arc-3 {
           stroke: none;
           fill: $grey-light;
@@ -257,7 +261,7 @@ body {
       }
 
       &.first {
-        right: 20px;
+        right: -200px;
         &.selected {
           float: right;
         }
@@ -278,7 +282,7 @@ body {
       }
 
       &.fourth {
-        right: 20px;
+        right: -200px;
         &.selected {
           float: right;
         }

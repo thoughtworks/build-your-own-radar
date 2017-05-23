@@ -18,8 +18,9 @@ const SheetNotFoundError = require('../exceptions/sheetNotFoundError');
 const ContentValidator = require('./contentValidator');
 const Sheet = require('./sheet');
 const ExceptionMessages = require('./exceptionMessages');
-// PT test key: const GoogleDocsKey="1pFJu9TckJkZrJ9LXja59_72z6nai3HbiJGNSJjqwY2s";
-const GoogleDocsKey = "1_RAVpdvXinxgqxC_vwY4JtHC2NSiXuP38u-33Hffukw";
+
+const GoogleDocsKey = "1d2ymWrAS2gRqK9MCixWjc5XHFLlIk7abb7PcQ5nEog0";//Phil Tann test key
+//const GoogleDocsKey = "1_RAVpdvXinxgqxC_vwY4JtHC2NSiXuP38u-33Hffukw";
 
 const GoogleSheet = function (sheetReference, sheetName) {
     var self = {};
@@ -82,7 +83,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
 
                 var rings = _.map(_.uniqBy(blips, 'ring'), 'ring');
                 var ringMap = {};
-                var maxRings = 4;
+                var maxRings = 5;
 
                 _.each(rings, function (ringName, i) {
                     if (i == maxRings) {
@@ -112,7 +113,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
                     radar.addQuadrant(quadrant)
                 });
 
-                var size = (window.innerHeight - 133) < 620 ? 620 : window.innerHeight - 133;
+                var size = (window.innerHeight - 133) < 750 ? 750 : window.innerHeight - 133;
 
                 new GraphingRadar(size, radar).init().plot();
 
@@ -178,7 +179,6 @@ const GoogleSheetInput = function () {
         } else {
             var sheet = GoogleSheet("https://docs.google.com/spreadsheets/d/" + GoogleDocsKey + "/", queryParams.sheetName);
             sheet.init().build();
-
         }
     };
 
