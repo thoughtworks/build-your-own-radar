@@ -19,8 +19,8 @@ const ContentValidator = require('./contentValidator');
 const Sheet = require('./sheet');
 const ExceptionMessages = require('./exceptionMessages');
 
-const GoogleDocsKey = "1d2ymWrAS2gRqK9MCixWjc5XHFLlIk7abb7PcQ5nEog0";//Phil Tann test key
-//const GoogleDocsKey = "1_RAVpdvXinxgqxC_vwY4JtHC2NSiXuP38u-33Hffukw";
+//const GoogleDocsKey = "1d2ymWrAS2gRqK9MCixWjc5XHFLlIk7abb7PcQ5nEog0";//Phil Tann test key
+const GoogleDocsKey = "1_RAVpdvXinxgqxC_vwY4JtHC2NSiXuP38u-33Hffukw";
 
 const GoogleSheet = function (sheetReference, sheetName) {
     var self = {};
