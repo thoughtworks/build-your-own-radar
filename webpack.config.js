@@ -25,7 +25,11 @@ let plugins = [
         template: './src/index.html',
         inject: 'body',
         chunks: 'app'
-    })
+    }),
+    new webpack.EnvironmentPlugin([
+        'RADAR_SHEET_ID',
+        'RADAR_SHEET_NAME'
+    ])
 ];
 
 if (isProd) {

@@ -47,6 +47,8 @@ The app uses [Tabletop.js](https://github.com/jsoma/tabletop) to fetch the data 
 
 The application uses [webpack](https://webpack.github.io/) to package dependencies and minify all .js and .scss files.
 
+Bypass the URL prompt by supplying environment variables `RADAR_SHEET_ID` and `RADAR_SHEET_NAME` during the build. 
+
 ## Contribute
 
 All tasks are defined in `package.json`.
