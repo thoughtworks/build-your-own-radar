@@ -18,12 +18,14 @@ const SheetNotFoundError = require('../exceptions/sheetNotFoundError');
 const ContentValidator = require('./contentValidator');
 const Sheet = require('./sheet');
 const ExceptionMessages = require('./exceptionMessages');
+const RadarData = require('../../radars/radar.json')
 
 
 const GoogleSheet = function (sheetReference, sheetName) {
     var self = {};
 
     self.build = function () {
+      /* ************* commenting out for data
         var sheet = new Sheet(sheetReference);
         sheet.exists(function(notFound) {
             if (notFound) {
@@ -35,7 +37,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
                 key: sheet.id,
                 callback: createRadar
             });
-        });
+      ******************* */
 
         function displayErrorMessage(exception) {
             d3.selectAll(".loading").remove();
@@ -60,23 +62,22 @@ const GoogleSheet = function (sheetReference, sheetName) {
                 .html(message);
         }
 
-        function createRadar(__, tabletop) {
+        function createRadar() {
 
             try {
 
-                if (!sheetName) {
-                    sheetName = tabletop.foundSheetNames[0];
-                }
-                var columnNames = tabletop.sheets(sheetName).columnNames;
+                var columnNames = RadarData.columnNames;
 
                 var contentValidator = new ContentValidator(columnNames);
                 contentValidator.verifyContent();
                 contentValidator.verifyHeaders();
 
-                var all = tabletop.sheets(sheetName).all();
-                var blips = _.map(all, new InputSanitizer().sanitize);
+                var all = RadarData.data;
+                var blips = _.map(all, function __(x) {
+                  return { "name":x[0],"ring":x[1],"quadrant":x[2],"isNew":x[3],"description":x[4] };
+                });
 
-                document.title = tabletop.googleSheetName;
+                document.title = RadarData.title;
                 d3.selectAll(".loading").remove();
 
                 var rings = _.map(_.uniqBy(blips, 'ring'), 'ring');
@@ -111,6 +112,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
                 displayErrorMessage(exception);
             }
         }
+      createRadar();
     };
 
     self.init = function () {
@@ -157,28 +159,8 @@ const GoogleSheetInput = function () {
     self.build = function () {
         var queryParams = QueryParams(window.location.search.substring(1));
 
-        if (queryParams.sheetId) {
-            var sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName);
-            sheet.init().build();
-        } else {
-            var content = d3.select('body')
-                .append('div')
-                .attr('class', 'input-sheet');
-
-            set_document_title();
-
-            plotLogo(content);
-
-            var bannerText = '<h1>Build your own radar</h1><p>Once you\'ve <a href ="https://info.thoughtworks.com/visualize-your-tech-strategy.html">created your Radar</a>, you can use this service' +
-                ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html">Read this first.</a></p>';
-
-            plotBanner(content, bannerText);
-
-            plotForm(content);
-
-            plotFooter(content);
-
-        }
+        var sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName);
+        sheet.init().build();
     };
 
     return self;

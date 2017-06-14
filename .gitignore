@@ -5,6 +5,7 @@ examples
 *.swa
 *.swp
 *.swo
+npm-debug.log
 
 coverage/
 
