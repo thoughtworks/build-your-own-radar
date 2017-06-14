@@ -244,7 +244,6 @@ const Radar = function (size, radar) {
 
           blipListItem.on('mouseover', mouseOver).on('mouseout', mouseOut);
           group.on('mouseover', mouseOver).on('mouseout', mouseOut);
-
           var clickBlip = function () {
             d3.select('.blip-item-description.expanded').node() !== blipItemDescription.node() &&
             d3.select('.blip-item-description.expanded').classed("expanded", false);

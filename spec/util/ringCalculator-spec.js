@@ -10,7 +10,7 @@ describe('ringCalculator', function(){
     });
 
     it('sums up the sequences', function(){
-        expect(ringCalculator.sum(ringLength)).toEqual(16);
+        expect(ringCalculator.sum(ringLength)).toEqual(14);
     });
 
     it('calculates the correct radius', function(){
