@@ -197,66 +197,64 @@ const Radar = function (size, radar) {
           iterationCounter++;
         }
 
-        if (iterationCounter < maxIterations) {
-          allBlipCoordinatesInRing.push(coordinates);
-          var x = coordinates[0];
-          var y = coordinates[1];
+        allBlipCoordinatesInRing.push(coordinates);
+        var x = coordinates[0];
+        var y = coordinates[1];
 
-          var group = quadrantGroup.append('g').attr('class', 'blip-link');
+        var group = quadrantGroup.append('g').attr('class', 'blip-link');
 
-          if (blip.isNew()) {
-            triangle(x, y, order, group);
-          } else {
-            circle(x, y, order, group);
-          }
-
-          group.append('text')
-            .attr('x', x)
-            .attr('y', y + 4)
-            .attr('class', 'blip-text')
-            .attr('text-anchor', 'middle')
-            .text(blip.number());
-
-          var blipListItem = ringList.append('li');
-          var blipText = blip.number() + '. ' + blip.name() + (blip.topic() ? ('. - ' + blip.topic()) : '');
-          blipListItem.append('div')
-            .attr('class', 'blip-list-item')
-            .text(blipText);
-
-          var blipItemDescription = blipListItem.append('div')
-            .attr('class', 'blip-item-description');
-          if (blip.description()) {
-            blipItemDescription.append('p').html(blip.description());
-          }
-
-          var mouseOver = function () {
-            d3.selectAll('g.blip-link').attr('opacity', 0.3);
-            group.attr('opacity', 1.0);
-            blipListItem.selectAll('.blip-list-item').classed('highlight', true);
-            tip.show(blip.name(), group.node());
-          };
-
-          var mouseOut = function () {
-            d3.selectAll('g.blip-link').attr('opacity', 1.0);
-            blipListItem.selectAll('.blip-list-item').classed('highlight', false);
-            tip.hide().style('left', 0).style('top', 0);
-          };
-
-          blipListItem.on('mouseover', mouseOver).on('mouseout', mouseOut);
-          group.on('mouseover', mouseOver).on('mouseout', mouseOut);
-
-          var clickBlip = function () {
-            d3.select('.blip-item-description.expanded').node() !== blipItemDescription.node() &&
-            d3.select('.blip-item-description.expanded').classed("expanded", false);
-            blipItemDescription.classed("expanded", !blipItemDescription.classed("expanded"));
-
-            blipItemDescription.on('click', function () {
-              d3.event.stopPropagation();
-            });
-          };
-
-          blipListItem.on('click', clickBlip);
+        if (blip.isNew()) {
+          triangle(x, y, order, group);
+        } else {
+          circle(x, y, order, group);
         }
+
+        group.append('text')
+          .attr('x', x)
+          .attr('y', y + 4)
+          .attr('class', 'blip-text')
+          .attr('text-anchor', 'middle')
+          .text(blip.number());
+
+        var blipListItem = ringList.append('li');
+        var blipText = blip.number() + '. ' + blip.name() + (blip.topic() ? ('. - ' + blip.topic()) : '');
+        blipListItem.append('div')
+          .attr('class', 'blip-list-item')
+          .text(blipText);
+
+        var blipItemDescription = blipListItem.append('div')
+          .attr('class', 'blip-item-description');
+        if (blip.description()) {
+          blipItemDescription.append('p').html(blip.description());
+        }
+
+        var mouseOver = function () {
+          d3.selectAll('g.blip-link').attr('opacity', 0.3);
+          group.attr('opacity', 1.0);
+          blipListItem.selectAll('.blip-list-item').classed('highlight', true);
+          tip.show(blip.name(), group.node());
+        };
+
+        var mouseOut = function () {
+          d3.selectAll('g.blip-link').attr('opacity', 1.0);
+          blipListItem.selectAll('.blip-list-item').classed('highlight', false);
+          tip.hide().style('left', 0).style('top', 0);
+        };
+
+        blipListItem.on('mouseover', mouseOver).on('mouseout', mouseOut);
+        group.on('mouseover', mouseOver).on('mouseout', mouseOut);
+
+        var clickBlip = function () {
+          d3.select('.blip-item-description.expanded').node() !== blipItemDescription.node() &&
+          d3.select('.blip-item-description.expanded').classed("expanded", false);
+          blipItemDescription.classed("expanded", !blipItemDescription.classed("expanded"));
+
+          blipItemDescription.on('click', function () {
+            d3.event.stopPropagation();
+          });
+        };
+
+        blipListItem.on('click', clickBlip);
       });
     });
   }
