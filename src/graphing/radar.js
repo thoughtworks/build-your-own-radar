@@ -6,7 +6,6 @@ const _ = require('lodash/core');
 const RingCalculator = require('../util/ringCalculator');
 
 const MIN_BLIP_WIDTH = 12;
-const IDEAL_BLIP_WIDTH = 22;
 
 const Radar = function (size, radar) {
   var svg, radarElement;
@@ -191,7 +190,6 @@ const Radar = function (size, radar) {
       var allBlipCoordinatesInRing = [];
 
       ringBlips.forEach(function (blip) {
-        blip.width = IDEAL_BLIP_WIDTH;
         const coordinates = findBlipCoordinates(blip,
           minRadius,
           maxRadius,
