@@ -15,7 +15,7 @@ jobs:
         local_dir: dist
         on:
           repo: thoughtworks/build-your-own-radar
-	  condition: "$TRAVIS_PULL_REQUEST = false"
+					condition: "$TRAVIS_PULL_REQUEST = false"
     - stage: Invalidate CDN
       install: pip install --user awscli && export PATH=$PATH:$HOME/.local/bin
       script: 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then aws configure set preview.cloudfront true && aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"; fi'
