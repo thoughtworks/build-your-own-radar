@@ -204,9 +204,9 @@ const Radar = function (size, radar) {
 
   function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing) {
     const maxIterations = 200;
-    let coordinates = calculateBlipCoordinates(blip, chance, minRadius, maxRadius, startAngle);
-    let iterationCounter = 0;
-    let foundAPlace = false;
+    var coordinates = calculateBlipCoordinates(blip, chance, minRadius, maxRadius, startAngle);
+    var iterationCounter = 0;
+    var foundAPlace = false;
 
     while (iterationCounter < maxIterations) {
       if (thereIsCollision(blip, coordinates, allBlipCoordinatesInRing)) {
