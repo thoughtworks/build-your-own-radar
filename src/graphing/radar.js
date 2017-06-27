@@ -5,8 +5,10 @@ const _ = require('lodash/core');
 
 const RingCalculator = require('../util/ringCalculator');
 
+const MIN_BLIP_WIDTH = 12;
+
 const Radar = function (size, radar) {
-  var svg, radarElement, blipWidth = 22;
+  var svg, radarElement;
 
   var tip = d3tip().attr('class', 'd3-tip').html(function (text) {
     return text;
@@ -102,28 +104,28 @@ const Radar = function (size, radar) {
     });
   }
 
-  function triangle(x, y, order, group) {
+  function triangle(blip, x, y, order, group) {
     return group.append('path').attr('d', "M412.201,311.406c0.021,0,0.042,0,0.063,0c0.067,0,0.135,0,0.201,0c4.052,0,6.106-0.051,8.168-0.102c2.053-0.051,4.115-0.102,8.176-0.102h0.103c6.976-0.183,10.227-5.306,6.306-11.53c-3.988-6.121-4.97-5.407-8.598-11.224c-1.631-3.008-3.872-4.577-6.179-4.577c-2.276,0-4.613,1.528-6.48,4.699c-3.578,6.077-3.26,6.014-7.306,11.723C402.598,306.067,405.426,311.406,412.201,311.406")
-      .attr('transform', 'scale(' + (blipWidth / 34) + ') translate(' + (-404 + x * (34 / blipWidth) - 17) + ', ' + (-282 + y * (34 / blipWidth) - 17) + ')')
+      .attr('transform', 'scale(' + (blip.width / 34) + ') translate(' + (-404 + x * (34 / blip.width) - 17) + ', ' + (-282 + y * (34 / blip.width) - 17) + ')')
       .attr('class', order);
   }
 
   function triangleLegend(x, y, group) {
     return group.append('path').attr('d', "M412.201,311.406c0.021,0,0.042,0,0.063,0c0.067,0,0.135,0,0.201,0c4.052,0,6.106-0.051,8.168-0.102c2.053-0.051,4.115-0.102,8.176-0.102h0.103c6.976-0.183,10.227-5.306,6.306-11.53c-3.988-6.121-4.97-5.407-8.598-11.224c-1.631-3.008-3.872-4.577-6.179-4.577c-2.276,0-4.613,1.528-6.48,4.699c-3.578,6.077-3.26,6.014-7.306,11.723C402.598,306.067,405.426,311.406,412.201,311.406")
-      .attr('transform', 'scale(' + (blipWidth / 64) + ') translate(' + (-404 + x * (64 / blipWidth) - 17) + ', ' + (-282 + y * (64 / blipWidth) - 17) + ')');
+      .attr('transform', 'scale(' + (22 / 64) + ') translate(' + (-404 + x * (64 / 22) - 17) + ', ' + (-282 + y * (64 / 22) - 17) + ')');
   }
 
-  function circle(x, y, order, group) {
+  function circle(blip, x, y, order, group) {
     return (group || svg).append('path')
       .attr('d', "M420.084,282.092c-1.073,0-2.16,0.103-3.243,0.313c-6.912,1.345-13.188,8.587-11.423,16.874c1.732,8.141,8.632,13.711,17.806,13.711c0.025,0,0.052,0,0.074-0.003c0.551-0.025,1.395-0.011,2.225-0.109c4.404-0.534,8.148-2.218,10.069-6.487c1.747-3.886,2.114-7.993,0.913-12.118C434.379,286.944,427.494,282.092,420.084,282.092")
-      .attr('transform', 'scale(' + (blipWidth / 34) + ') translate(' + (-404 + x * (34 / blipWidth) - 17) + ', ' + (-282 + y * (34 / blipWidth) - 17) + ')')
+      .attr('transform', 'scale(' + (blip.width / 34) + ') translate(' + (-404 + x * (34 / blip.width) - 17) + ', ' + (-282 + y * (34 / blip.width) - 17) + ')')
       .attr('class', order);
   }
 
   function circleLegend(x, y, group) {
     return (group || svg).append('path')
       .attr('d', "M420.084,282.092c-1.073,0-2.16,0.103-3.243,0.313c-6.912,1.345-13.188,8.587-11.423,16.874c1.732,8.141,8.632,13.711,17.806,13.711c0.025,0,0.052,0,0.074-0.003c0.551-0.025,1.395-0.011,2.225-0.109c4.404-0.534,8.148-2.218,10.069-6.487c1.747-3.886,2.114-7.993,0.913-12.118C434.379,286.944,427.494,282.092,420.084,282.092")
-      .attr('transform', 'scale(' + (blipWidth / 64) + ') translate(' + (-404 + x * (64 / blipWidth) - 17) + ', ' + (-282 + y * (64 / blipWidth) - 17) + ')');
+      .attr('transform', 'scale(' + (22 / 64) + ') translate(' + (-404 + x * (64 / 22) - 17) + ', ' + (-282 + y * (64 / 22) - 17) + ')');
   }
 
   function addRing(ring, order) {
@@ -132,12 +134,12 @@ const Radar = function (size, radar) {
     return table.append('ul');
   }
 
-  function calculateBlipCoordinates(chance, minRadius, maxRadius, startAngle) {
+  function calculateBlipCoordinates(blip, chance, minRadius, maxRadius, startAngle) {
     var adjustX = Math.sin(toRadian(startAngle)) - Math.cos(toRadian(startAngle));
     var adjustY = -Math.cos(toRadian(startAngle)) - Math.sin(toRadian(startAngle));
 
-    var radius = chance.floating({min: minRadius + blipWidth / 2, max: maxRadius - blipWidth / 2});
-    var angleDelta = Math.asin(blipWidth / 2 / radius) * 180 / Math.PI;
+    var radius = chance.floating({min: minRadius + blip.width / 2, max: maxRadius - blip.width / 2});
+    var angleDelta = Math.asin(blip.width / 2 / radius) * 180 / Math.PI;
     angleDelta = angleDelta > 45 ? 45 : angleDelta;
     var angle = toRadian(chance.integer({min: angleDelta, max: 90 - angleDelta}));
 
@@ -147,9 +149,9 @@ const Radar = function (size, radar) {
     return [x, y];
   }
 
-  function thereIsCollision(coordinates, allCoordinates) {
+  function thereIsCollision(blip, coordinates, allCoordinates) {
     return allCoordinates.some(function (currentCoordinates) {
-      return (Math.abs(currentCoordinates[0] - coordinates[0]) < blipWidth) && (Math.abs(currentCoordinates[1] - coordinates[1]) < blipWidth)
+      return (Math.abs(currentCoordinates[0] - coordinates[0]) < blip.width) && (Math.abs(currentCoordinates[1] - coordinates[1]) < blip.width)
     });
   }
 
@@ -188,77 +190,102 @@ const Radar = function (size, radar) {
       var allBlipCoordinatesInRing = [];
 
       ringBlips.forEach(function (blip) {
-        var coordinates = calculateBlipCoordinates(chance, minRadius, maxRadius, startAngle);
-        var maxIterations = 100;
-        var iterationCounter = 0;
+        const coordinates = findBlipCoordinates(blip,
+          minRadius,
+          maxRadius,
+          startAngle,
+          allBlipCoordinatesInRing);
 
-        while (thereIsCollision(coordinates, allBlipCoordinatesInRing) && (iterationCounter < maxIterations)) {
-          coordinates = calculateBlipCoordinates(chance, minRadius, maxRadius, startAngle);
-          iterationCounter++;
-        }
-
-        if (iterationCounter < maxIterations) {
-          allBlipCoordinatesInRing.push(coordinates);
-          var x = coordinates[0];
-          var y = coordinates[1];
-
-          var group = quadrantGroup.append('g').attr('class', 'blip-link');
-
-          if (blip.isNew()) {
-            triangle(x, y, order, group);
-          } else {
-            circle(x, y, order, group);
-          }
-
-          group.append('text')
-            .attr('x', x)
-            .attr('y', y + 4)
-            .attr('class', 'blip-text')
-            .attr('text-anchor', 'middle')
-            .text(blip.number());
-
-          var blipListItem = ringList.append('li');
-          var blipText = blip.number() + '. ' + blip.name() + (blip.topic() ? ('. - ' + blip.topic()) : '');
-          blipListItem.append('div')
-            .attr('class', 'blip-list-item')
-            .text(blipText);
-
-          var blipItemDescription = blipListItem.append('div')
-            .attr('class', 'blip-item-description');
-          if (blip.description()) {
-            blipItemDescription.append('p').html(blip.description());
-          }
-
-          var mouseOver = function () {
-            d3.selectAll('g.blip-link').attr('opacity', 0.3);
-            group.attr('opacity', 1.0);
-            blipListItem.selectAll('.blip-list-item').classed('highlight', true);
-            tip.show(blip.name(), group.node());
-          };
-
-          var mouseOut = function () {
-            d3.selectAll('g.blip-link').attr('opacity', 1.0);
-            blipListItem.selectAll('.blip-list-item').classed('highlight', false);
-            tip.hide().style('left', 0).style('top', 0);
-          };
-
-          blipListItem.on('mouseover', mouseOver).on('mouseout', mouseOut);
-          group.on('mouseover', mouseOver).on('mouseout', mouseOut);
-
-          var clickBlip = function () {
-            d3.select('.blip-item-description.expanded').node() !== blipItemDescription.node() &&
-            d3.select('.blip-item-description.expanded').classed("expanded", false);
-            blipItemDescription.classed("expanded", !blipItemDescription.classed("expanded"));
-
-            blipItemDescription.on('click', function () {
-              d3.event.stopPropagation();
-            });
-          };
-
-          blipListItem.on('click', clickBlip);
-        }
+        allBlipCoordinatesInRing.push(coordinates);
+        drawBlipInCoordinates(blip, coordinates, order, quadrantGroup, ringList);
       });
     });
+  }
+
+  function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing) {
+    const maxIterations = 200;
+    var coordinates = calculateBlipCoordinates(blip, chance, minRadius, maxRadius, startAngle);
+    var iterationCounter = 0;
+    var foundAPlace = false;
+
+    while (iterationCounter < maxIterations) {
+      if (thereIsCollision(blip, coordinates, allBlipCoordinatesInRing)) {
+        coordinates = calculateBlipCoordinates(blip, chance, minRadius, maxRadius, startAngle);
+      } else {
+        foundAPlace = true;
+        break;
+      }
+      iterationCounter++;
+    }
+
+    if (!foundAPlace && blip.width > MIN_BLIP_WIDTH) {
+      blip.width = blip.width - 1;
+      return findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing);
+    } else {
+      return coordinates;
+    }
+  }
+
+  function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup, ringList) {
+    var x = coordinates[0];
+    var y = coordinates[1];
+
+    var group = quadrantGroup.append('g').attr('class', 'blip-link');
+
+    if (blip.isNew()) {
+      triangle(blip, x, y, order, group);
+    } else {
+      circle(blip, x, y, order, group);
+    }
+
+    group.append('text')
+      .attr('x', x)
+      .attr('y', y + 4)
+      .attr('class', 'blip-text')
+      // derive font-size from current blip width
+      .style('font-size', ((blip.width * 10) / 22) + 'px')
+      .attr('text-anchor', 'middle')
+      .text(blip.number());
+
+    var blipListItem = ringList.append('li');
+    var blipText = blip.number() + '. ' + blip.name() + (blip.topic() ? ('. - ' + blip.topic()) : '');
+    blipListItem.append('div')
+      .attr('class', 'blip-list-item')
+      .text(blipText);
+
+    var blipItemDescription = blipListItem.append('div')
+      .attr('class', 'blip-item-description');
+    if (blip.description()) {
+      blipItemDescription.append('p').html(blip.description());
+    }
+
+    var mouseOver = function () {
+      d3.selectAll('g.blip-link').attr('opacity', 0.3);
+      group.attr('opacity', 1.0);
+      blipListItem.selectAll('.blip-list-item').classed('highlight', true);
+      tip.show(blip.name(), group.node());
+    };
+
+    var mouseOut = function () {
+      d3.selectAll('g.blip-link').attr('opacity', 1.0);
+      blipListItem.selectAll('.blip-list-item').classed('highlight', false);
+      tip.hide().style('left', 0).style('top', 0);
+    };
+
+    blipListItem.on('mouseover', mouseOver).on('mouseout', mouseOut);
+    group.on('mouseover', mouseOver).on('mouseout', mouseOut);
+
+    var clickBlip = function () {
+      d3.select('.blip-item-description.expanded').node() !== blipItemDescription.node() &&
+        d3.select('.blip-item-description.expanded').classed("expanded", false);
+      blipItemDescription.classed("expanded", !blipItemDescription.classed("expanded"));
+
+      blipItemDescription.on('click', function () {
+        d3.event.stopPropagation();
+      });
+    };
+
+    blipListItem.on('click', clickBlip);
   }
 
   function removeHomeLink(){
