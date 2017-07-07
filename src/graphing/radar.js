@@ -169,14 +169,18 @@ const Radar = function (size, radar) {
 
     blips = quadrant.blips();
     rings.forEach(function (ring, i) {
+      var ringBlips = blips.filter(function (blip) {
+        return blip.ring() == ring;
+      });
+
+      if (ringBlips.length == 0) {
+        return;
+      }
+
       var maxRadius, minRadius;
 
       minRadius = ringCalculator.getRadius(i);
       maxRadius = ringCalculator.getRadius(i + 1);
-
-      var ringBlips = blips.filter(function (blip) {
-        return blip.ring() == ring;
-      });
 
       var sumRing = ring.name().split('').reduce(function (p, c) {
         return p + c.charCodeAt(0);
