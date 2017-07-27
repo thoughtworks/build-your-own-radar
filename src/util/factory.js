@@ -154,9 +154,9 @@ var QueryParams = function (queryString) {
 const GoogleSheetInput = function () {
     var self = {};
 
-    self.build = function () {
-        var queryParams = QueryParams(window.location.search.substring(1));
+    self.build = function (preDefinedSheetName) {
 
+        var queryParams = preDefinedSheetName ? QueryParams("sheetId="+preDefinedSheetName) : QueryParams(window.location.search.substring(1));
         if (queryParams.sheetId) {
             var sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName);
             sheet.init().build();

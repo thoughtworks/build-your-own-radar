@@ -6,5 +6,6 @@ require('./images/favicon.ico');
 require('./images/radar_legend.png');
 
 const GoogleSheetInput = require('./util/factory');
-
-GoogleSheetInput().build();
+const PredefinedSheetLocation = require('./predefinedSheetLocation')
+console.log("hello", PredefinedSheetLocation);
+GoogleSheetInput().build(PredefinedSheetLocation);
