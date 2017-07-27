@@ -31,6 +31,12 @@ Create a Google Sheet. Give it at least the below column headers, and put in the
 
 The URL will be similar to [https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/edit](https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/edit). In theory we are only interested in the part between '/d/' and '/edit' but you can use the whole URL if you want.
 
+### Predefining a sheet in an environment variable
+
+If you want to have the google spreadsheet predefined and not appear in the url, you can predefine it in an environment variable called PREDEFINED_SHEET_LOCATION. This is especially useful if you are using the prebuilt docker container, where you can just start the container with this command :
+
+     $ docker run -d --name your_tech_radar -p 8080:8080 -e PREDEFINED_SHEET_LOCATION='[Your sheet URL here]' gyg/tech_radar
+
 ### Building the radar
 
 Paste the URL in the input field on the home page.
