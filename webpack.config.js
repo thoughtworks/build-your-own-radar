@@ -25,6 +25,9 @@ let plugins = [
         template: './src/index.html',
         inject: 'body',
         chunks: 'app'
+    }),
+    new webpack.DefinePlugin({
+        'process.env.PREDEFINED_SHEET_LOCATION' : JSON.stringify(process.env.PREDEFINED_SHEET_LOCATION || undefined) 
     })
 ];
 
@@ -40,6 +43,7 @@ if (isProd) {
         }),
         new webpack.optimize.OccurenceOrderPlugin()
     );
+    entry.push('webpack-dev-server/client?http://0.0.0.0:8080');
 }
 
 module.exports = {
