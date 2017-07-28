@@ -31,12 +31,6 @@ Create a Google Sheet. Give it at least the below column headers, and put in the
 
 The URL will be similar to [https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/edit](https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/edit). In theory we are only interested in the part between '/d/' and '/edit' but you can use the whole URL if you want.
 
-### Predefining a sheet in an environment variable
-
-If you want to have the google spreadsheet predefined and not appear in the url, you can predefine it in an environment variable called PREDEFINED_SHEET_LOCATION. This is especially useful if you are using the prebuilt docker container, where you can just start the container with this command :
-
-     $ docker run -d --name your_tech_radar -p 8080:8080 -e PREDEFINED_SHEET_LOCATION='[Your sheet URL here]' gyg/tech_radar
-
 ### Building the radar
 
 Paste the URL in the input field on the home page.
@@ -70,3 +64,15 @@ Make sure you have nodejs installed.
      $ docker run -p 8080:8080 -v $PWD:/app -w /app -it node:7.3.0 /bin/sh -c 'npm install && npm run dev'
 
 After building it will start on localhost:8080
+
+### Running directly from the docker container
+
+If you would like to run the radar directly from the docker container based on docker hub, you can with this command
+
+     $ docker run -d --name your_tech_radar -p 8080:8080 gyg/tech_radar
+
+### Predefining a sheet in an environment variable
+
+If you want to have the google spreadsheet predefined and not appear in the url, you can predefine it in an environment variable called PREDEFINED_SHEET_LOCATION. You can start the container with this command :
+
+     $ docker run -d --name your_tech_radar -p 8080:8080 -e PREDEFINED_SHEET_LOCATION='Your sheet URL here' gyg/tech_radar

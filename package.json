@@ -6,7 +6,7 @@
   "scripts": {
     "test": "istanbul cover jasmine",
     "dev": "webpack-dev-server --dev --inline",
-    "prod": "webpack-dev-server",
+    "prod": "webpack --prod && node ./prodServer.js",
     "build": "webpack --prod",
     "examples:clean": "rm -rf examples/",
     "examples:copy": "mkdir examples && cp -r dist/* examples",
@@ -44,6 +44,7 @@
     "chance": "^1.0.4",
     "d3": "^4.2.6",
     "d3-tip": "^0.7.1",
+    "express": "^4.15.3",
     "lodash": "^4.16.2",
     "sanitize-html": "^1.13.0",
     "tabletop": "^1.4.3"
