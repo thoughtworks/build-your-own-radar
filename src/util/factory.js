@@ -19,6 +19,38 @@ const ContentValidator = require('./contentValidator');
 const Sheet = require('./sheet');
 const ExceptionMessages = require('./exceptionMessages');
 
+const plotRadar = function (title, blips) {
+    document.title = title;
+    d3.selectAll(".loading").remove();
+
+    var rings = _.map(_.uniqBy(blips, 'ring'), 'ring');
+    var ringMap = {};
+    var maxRings = 4;
+
+    _.each(rings, function (ringName, i) {
+        if (i == maxRings) {
+            throw new MalformedDataError(ExceptionMessages.TOO_MANY_RINGS);
+        }
+        ringMap[ringName] = new Ring(ringName, i);
+    });
+
+    var quadrants = {};
+    _.each(blips, function (blip) {
+        if (!quadrants[blip.quadrant]) {
+            quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant));
+        }
+        quadrants[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description))
+    });
+
+    var radar = new Radar();
+    _.each(quadrants, function (quadrant) {
+        radar.addQuadrant(quadrant)
+    });
+
+    var size = (window.innerHeight - 133) < 620 ? 620 : window.innerHeight - 133;
+
+    new GraphingRadar(size, radar).init().plot();
+}
 
 const GoogleSheet = function (sheetReference, sheetName) {
     var self = {};
@@ -33,7 +65,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
 
             Tabletop.init({
                 key: sheet.id,
-                callback: createRadar
+                callback: createBlips
             });
         });
 
@@ -60,7 +92,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
                 .html(message);
         }
 
-        function createRadar(__, tabletop) {
+        function createBlips(__, tabletop) {
 
             try {
 
@@ -76,37 +108,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
                 var all = tabletop.sheets(sheetName).all();
                 var blips = _.map(all, new InputSanitizer().sanitize);
 
-                document.title = tabletop.googleSheetName;
-                d3.selectAll(".loading").remove();
-
-                var rings = _.map(_.uniqBy(blips, 'ring'), 'ring');
-                var ringMap = {};
-                var maxRings = 4;
-
-                _.each(rings, function (ringName, i) {
-                    if (i == maxRings) {
-                        throw new MalformedDataError(ExceptionMessages.TOO_MANY_RINGS);
-                    }
-                    ringMap[ringName] = new Ring(ringName, i);
-                });
-
-                var quadrants = {};
-                _.each(blips, function (blip) {
-                    if (!quadrants[blip.quadrant]) {
-                        quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant));
-                    }
-                    quadrants[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description))
-                });
-
-                var radar = new Radar();
-                _.each(quadrants, function (quadrant) {
-                    radar.addQuadrant(quadrant)
-                });
-
-                var size = (window.innerHeight - 133) < 620 ? 620 : window.innerHeight - 133;
-
-                new GraphingRadar(size, radar).init().plot();
-
+                plotRadar(tabletop.googleSheetName, blips);
             } catch (exception) {
                 displayErrorMessage(exception);
             }
@@ -114,28 +116,34 @@ const GoogleSheet = function (sheetReference, sheetName) {
     };
 
     self.init = function () {
-        var content = d3.select('body')
-            .append('div')
-            .attr('class', 'loading')
-            .append('div')
-            .attr('class', 'input-sheet');
-
-        set_document_title();
-
-        plotLogo(content);
-
-        var bannerText = '<h1>Building your radar...</h1><p>Your Technology Radar will be available in just a few seconds</p>';
-        plotBanner(content, bannerText);
-        plotFooter(content);
-
-
+        plotLoading();
         return self;
     };
 
     return self;
 };
 
-var QueryParams = function (queryString) {
+const CSVDocument = function (url) {
+    var self = {};
+
+    self.build = function () {
+        d3.csv(url, createBlips);
+    }
+
+    var createBlips = function (data) {
+        delete data['columns'];
+        plotRadar(FileName(url), data);
+    }
+
+    self.init = function () {
+        plotLoading();
+        return self;
+    };
+
+    return self;
+};
+
+const QueryParams = function (queryString) {
     var decode = function (s) {
         return decodeURIComponent(s.replace(/\+/g, " "));
     };
@@ -150,15 +158,36 @@ var QueryParams = function (queryString) {
     return queryParams
 };
 
+const DomainName = function (url) {
+    var search = /.+:\/\/([^\/]+)/;
+    var match = search.exec(decodeURIComponent(url.replace(/\+/g, " ")));
+    return match == null ? null : match[1];
+}
+
+
+const FileName = function (url) {
+    var search = /([^\/]+)$/;
+    var match = search.exec(decodeURIComponent(url.replace(/\+/g, " ")));
+    if (match != null) {
+        var str = match[1];
+        return str;
+    }
+    return url;
+}
+
 
 const GoogleSheetInput = function () {
     var self = {};
     
     self.build = function () {
+        var domainName = DomainName(window.location.search.substring(1));
         var queryParams = QueryParams(window.location.search.substring(1));
 
-        if (queryParams.sheetId) {
+        if (domainName && domainName.endsWith('google.com') && queryParams.sheetId) {
             var sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName);
+            sheet.init().build();
+        } else if (domainName) {
+            var sheet = CSVDocument(queryParams.sheetId);
             sheet.init().build();
         } else {
             var content = d3.select('body')
@@ -186,6 +215,22 @@ const GoogleSheetInput = function () {
 
 function set_document_title() {
     document.title = "Build your own Radar";
+}
+
+function plotLoading(content) {
+            var content = d3.select('body')
+            .append('div')
+            .attr('class', 'loading')
+            .append('div')
+            .attr('class', 'input-sheet');
+
+        set_document_title();
+
+        plotLogo(content);
+
+        var bannerText = '<h1>Building your radar...</h1><p>Your Technology Radar will be available in just a few seconds</p>';
+        plotBanner(content, bannerText);
+        plotFooter(content);
 }
 
 function plotLogo(content) {
@@ -221,7 +266,7 @@ function plotForm(content) {
     content.append('div')
         .attr('class', 'input-sheet__form')
         .append('p')
-        .html('<strong>Enter the URL of your <a href="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html#publish-byor-sheet" target="_blank">published</a> Google Sheet below…</strong>');
+        .html('<strong>Enter the URL of your <a href="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html#publish-byor-sheet" target="_blank">published</a> Google Sheet or CSV file below…</strong>');
 
     var form = content.select('.input-sheet__form').append('form')
         .attr('method', 'get');
