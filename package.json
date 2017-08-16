@@ -40,11 +40,11 @@
     "yargs": "^5.0.0"
   },
   "dependencies": {
-    "chance": "^1.0.4",
-    "d3": "^4.2.6",
+    "chance": "^1.0.10",
+    "d3": "^4.10.0",
     "d3-tip": "^0.7.1",
-    "lodash": "^4.16.2",
-    "sanitize-html": "^1.13.0",
-    "tabletop": "^1.4.3"
+    "lodash": "^4.17.4",
+    "sanitize-html": "^1.14.1",
+    "tabletop": "^1.5.2"
   }
 }
