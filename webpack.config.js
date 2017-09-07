@@ -56,7 +56,9 @@ module.exports = {
         publicPath: '',
         filename: '[name].js'
     },
-
+externals:[{
+    xmlhttprequest: '{XMLHttpRequest:XMLHttpRequest}'
+}],
     module: {
         loaders: [
             { test: /\.json$/, loader: 'json'},
