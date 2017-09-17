@@ -59,7 +59,8 @@ Make sure you have nodejs installed.
 - 'npm update'
 - `npm install`
 - `npm test` - to run your tests
-- `npm run dev` - to run application in localhost:8080. This will watch the .js and .css files and rebuild on file changes
+- `npm run dev` - to run application in localhost:443. This will watch the .js and .css files and rebuild on file changes
+- Make sure you open the inbound TCP port in the firewall
 
 ### Don't want to install node? Run with one line docker
 
