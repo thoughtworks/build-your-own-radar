@@ -59,7 +59,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
         var sheet = new Sheet(sheetReference);
         sheet.exists(function(notFound) {
             if (notFound) {
-                displayErrorMessage(notFound);
+                plotErrorMessage(notFound);
                 return;
             }
 
@@ -68,29 +68,6 @@ const GoogleSheet = function (sheetReference, sheetName) {
                 callback: createBlips
             });
         });
-
-        function displayErrorMessage(exception) {
-            d3.selectAll(".loading").remove();
-            var message = 'Oops! It seems like there are some problems with loading your data. ';
-
-            if (exception instanceof MalformedDataError) {
-                message = message.concat(exception.message);
-            } else if (exception instanceof SheetNotFoundError) {
-                message = exception.message;
-            } else {
-                console.error(exception);
-            }
-
-            message = message.concat('<br/>', 'Please check <a href="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html#faq">FAQs</a> for possible solutions.');
-
-            d3.select('body')
-                .append('div')
-                .attr('class', 'error-container')
-                .append('div')
-                .attr('class', 'error-container__message')
-                .append('p')
-                .html(message);
-        }
 
         function createBlips(__, tabletop) {
 
@@ -110,7 +87,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
 
                 plotRadar(tabletop.googleSheetName, blips);
             } catch (exception) {
-                displayErrorMessage(exception);
+                plotErrorMessage(exception);
             }
         }
     };
@@ -131,8 +108,17 @@ const CSVDocument = function (url) {
     }
 
     var createBlips = function (data) {
-        delete data['columns'];
-        plotRadar(FileName(url), data);
+        try {
+            var columnNames = data['columns'];
+            delete data['columns'];
+            var contentValidator = new ContentValidator(columnNames);
+            contentValidator.verifyContent();
+            contentValidator.verifyHeaders();
+            var blips = _.map(data, new InputSanitizer().sanitize);
+            plotRadar(FileName(url), blips);
+        } catch (exception) {
+            plotErrorMessage(exception);
+        }
     }
 
     self.init = function () {
@@ -218,19 +204,19 @@ function set_document_title() {
 }
 
 function plotLoading(content) {
-            var content = d3.select('body')
-            .append('div')
-            .attr('class', 'loading')
-            .append('div')
-            .attr('class', 'input-sheet');
+    var content = d3.select('body')
+        .append('div')
+        .attr('class', 'loading')
+        .append('div')
+        .attr('class', 'input-sheet');
 
-        set_document_title();
+    set_document_title();
 
-        plotLogo(content);
+    plotLogo(content);
 
-        var bannerText = '<h1>Building your radar...</h1><p>Your Technology Radar will be available in just a few seconds</p>';
-        plotBanner(content, bannerText);
-        plotFooter(content);
+    var bannerText = '<h1>Building your radar...</h1><p>Your Technology Radar will be available in just a few seconds</p>';
+    plotBanner(content, bannerText);
+    plotFooter(content);
 }
 
 function plotLogo(content) {
@@ -284,6 +270,29 @@ function plotForm(content) {
         .text('Build my radar');
 
     form.append('p').html("<a href='https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html#faq'>Need help?</a>");
+}
+
+function plotErrorMessage(exception) {
+    d3.selectAll(".loading").remove();
+    var message = 'Oops! It seems like there are some problems with loading your data. ';
+
+    if (exception instanceof MalformedDataError) {
+        message = message.concat(exception.message);
+    } else if (exception instanceof SheetNotFoundError) {
+        message = exception.message;
+    } else {
+        console.error(exception);
+    }
+
+    message = message.concat('<br/>', 'Please check <a href="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html#faq">FAQs</a> for possible solutions.');
+
+    d3.select('body')
+        .append('div')
+        .attr('class', 'error-container')
+        .append('div')
+        .attr('class', 'error-container__message')
+        .append('p')
+        .html(message);
 }
 
 module.exports = GoogleSheetInput;
