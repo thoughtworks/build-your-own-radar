@@ -31,19 +31,32 @@ Create a Google Sheet. Give it at least the below column headers, and put in the
 
 The URL will be similar to [https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/edit](https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/edit). In theory we are only interested in the part between '/d/' and '/edit' but you can use the whole URL if you want.
 
+### Using CSV data
+The other way to provide your data is using CSV document format.
+You can enter any URL that responds CSV data into the input field on the first page.
+The format is just the same as that of the Google Sheet, the example is as follows:
+
+"name","ring","quadrant","isNew","description"
+"Composer","adopt","tools","TRUE","Although the idea of dependency management ..."
+"Canary builds","trial","techniques","FALSE","Many projects have external code dependencies ..."
+"Apache Kylin","assess","platforms","TRUE","Apache Kylin is an open source analytics solution ..."
+"JSF","hold","languages & frameworks","FALSE","We continue to see teams run into trouble using JSF ..."
+
+Note: The CSV file parsing is using D3 library, so consult the D3 documentation for the data format details.
+
 ### Building the radar
 
 Paste the URL in the input field on the home page.
 
 That's it!
 
-Note: the quadrants of the radar, and the order of the rings inside the radar will be drawn in the order they appear in your Google Sheet.
+Note: the quadrants of the radar, and the order of the rings inside the radar will be drawn in the order they appear in your data.
 
 ### More complex usage
 
-To create the data representation, you can use the Google Sheet [factory](/src/util/factory.js), or you can also insert all your data straight into the code.
+To create the data representation, you can use the Google Sheet [factory](/src/util/factory.js) or CSV, or you can also insert all your data straight into the code.
 
-The app uses [Tabletop.js](https://github.com/jsoma/tabletop) to fetch the data from a Google Sheet, so refer to their documentation for more advanced interaction.  The input from the Google Sheet is sanitized by whitelisting HTML tags with [sanitize-html](https://github.com/punkave/sanitize-html).
+The app uses [Tabletop.js](https://github.com/jsoma/tabletop) to fetch the data from a Google Sheet or [D3.js](https://d3js.org/) if supplied as CSV, so refer to their documentation for more advanced interaction.  The input data is sanitized by whitelisting HTML tags with [sanitize-html](https://github.com/punkave/sanitize-html).
 
 The application uses [webpack](https://webpack.github.io/) to package dependencies and minify all .js and .scss files.
 
