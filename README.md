@@ -1,4 +1,4 @@
-.A library that generates an interactive radar, inspired by [thoughtworks.com/radar](http://thoughtworks.com/radar).
+A library that generates an interactive radar, inspired by [thoughtworks.com/radar](http://thoughtworks.com/radar).
 
 ## Demo
 
@@ -14,7 +14,7 @@ The second option is to provide a data.csv file with your radar data.  The data 
 
 ## Setting up your data
 
-If using the Google Sheet option, create a Google Sheet. Give it at least the below column headers, and put in the content below that you want.  If using the local data file, create a data.csv file (src/resources/data) give it at least the below column headers.
+If using the Google Sheet option, create a Google Sheet. Give it at least the below column headers, and put in the content below that you want.  If using the local data file, create a data.csv file (in the folder src/resources/data) give it at least the below column headers.
 
 | name          | ring   | quadrant               | isNew | description                                             |
 |---------------|--------|------------------------|-------|---------------------------------------------------------|
