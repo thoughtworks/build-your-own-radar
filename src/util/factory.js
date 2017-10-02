@@ -1,4 +1,4 @@
-const d3 = require('d3');
+﻿const d3 = require('d3');
 const Tabletop = require('tabletop');
 const _ = {
     map: require('lodash/map'),
@@ -20,22 +20,43 @@ const Sheet = require('./sheet');
 const ExceptionMessages = require('./exceptionMessages');
 
 
-const GoogleSheet = function (sheetReference, sheetName) {
+
+
+const GoogleSheet = function (sheetReference, sheetName, localFile) {
+
+//if using google sheets do this
+
     var self = {};
 
     self.build = function () {
-        var sheet = new Sheet(sheetReference);
-        sheet.exists(function(notFound) {
-            if (notFound) {
-                displayErrorMessage(notFound);
-                return;
-            }
-
-            Tabletop.init({
-                key: sheet.id,
-                callback: createRadar
-            });
-        });
+	console.log("executing sheetReference if");
+    	if (sheetReference)
+	{        
+		console.log("in sheetReference if");
+		var sheet = new Sheet(sheetReference);
+        	sheet.exists(function(notFound) {
+	            if (notFound) {
+        	        displayErrorMessage(notFound);
+                	return;
+	            }
+	
+        	    Tabletop.init({
+                	key: sheet.id,
+	                callback: createRadar
+        	    });
+        	});
+	}
+	
+	console.log("executing localfile if");
+	if (localFile) 
+	{
+		console.log("localFile is " + localFile);
+		localFile = "'" + localFile + "'";
+		console.log("localFile is " + localFile);
+		var data = require('../resources/data/data.csv');		
+		console.log("in localFile if, calling local function");
+		createRadarLocal(data);
+	}
 
         function displayErrorMessage(exception) {
             d3.selectAll(".loading").remove();
@@ -59,6 +80,42 @@ const GoogleSheet = function (sheetReference, sheetName) {
                 .append('p')
                 .html(message);
         }
+
+function createRadarLocal(data) {
+      console.log(data);
+      try {
+          var columnNames = ['name','ring','quadrant','isNew','description'];
+
+          var contentValidator = new ContentValidator(columnNames);
+          contentValidator.verifyContent();
+          contentValidator.verifyHeaders();
+
+          var all = data;
+          var blips = _.map(all, new InputSanitizer().sanitize);
+
+          d3.selectAll(".loading").remove();
+
+          var rings = _.map(_.uniqBy(blips, 'ring'), 'ring');
+          var ringMap = {};
+          var maxRings = 4;
+
+          _.each(rings, function (ringName, i) {
+              if (i == maxRings) {
+                  throw new MalformedDataError(ExceptionMessages.TOO_MANY_RINGS);
+              }
+              ringMap[ringName] = new Ring(ringName, i);
+          });
+
+          var quadrants = {};
+          _.each(blips, function (blip) {
+              if (!quadrants[blip.quadrant]) {
+                  quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant));
+              }
+              quadrants[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() ===
+       'true', blip.topic, blip.description)) });  var radar = new Radar(); _.each(quadrants, function (quadrant) {
+       radar.addQuadrant(quadrant) });  var size = (window.innerHeight - 133) < 620 ? 620 : window.innerHeight - 133;
+        new GraphingRadar(size, radar).init().plot();  } catch (exception) { displayErrorMessage(exception); }
+    };
 
         function createRadar(__, tabletop) {
 
@@ -157,10 +214,10 @@ const GoogleSheetInput = function () {
     self.build = function () {
         var queryParams = QueryParams(window.location.search.substring(1));
 
-        if (queryParams.sheetId) {
-            var sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName);
+        if (queryParams.sheetId || queryParams.localFile) {
+            var sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName, queryParams.localFile);
             sheet.init().build();
-        } else {
+	} else	{
             var content = d3.select('body')
                 .append('div')
                 .attr('class', 'input-sheet');
@@ -231,6 +288,13 @@ function plotForm(content) {
         .attr('name', 'sheetId')
         .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/');
 
+    form.append('p').html("<strong>Or check the box below to use a local csv file ... (/src/resources/data/data.csv)</strong>");
+
+    form.append('input')
+        .attr('type', 'checkbox')
+        .attr('name', 'localFile')
+    
+    form.append('p').html("<br>");
     form.append('button')
         .attr('type', 'submit')
         .append('a')

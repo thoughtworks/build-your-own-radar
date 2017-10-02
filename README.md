@@ -8,13 +8,17 @@ You can see this in action at https://radar.thoughtworks.com. If you plug in [th
 
 ## How To Use
 
-The easiest way to use the app out of the box is to provide a *public* Google Sheet ID from which all the data will be fetched. You can enter that ID into the input field on the first page of the application, and your radar will be generated. The data must conform to the format below for the radar to be generated correctly.
+There are two options for sourcing your data for the app out of the box.
+The first is to provide a *public* Google Sheet ID from which all the data will be fetched. You can enter that ID into the input field on the first page of the application, and your radar will be generated. The data must conform to the format below for the radar to be generated correctly.
+
+The second option is to provide a data.csv file with your radar data.  The data must conform to the format below for the radar to be generated correctly. 
 
 ### Setting up your data
 
 You need to make your data public in a form we can digest.
 
-Create a Google Sheet. Give it at least the below column headers, and put in the content that you want:
+If using the Google Sheet option, create a Google Sheet. Give it at least the below column headers, and put in the content below that you want
+If using the local data file, create a data.csv file (src/resources/data) give it at least the below column headers.
 
 | name          | ring   | quadrant               | isNew | description                                             |
 |---------------|--------|------------------------|-------|---------------------------------------------------------|
