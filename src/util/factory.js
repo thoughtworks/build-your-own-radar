@@ -1,10 +1,10 @@
 ﻿const d3 = require('d3');
 const Tabletop = require('tabletop');
 const _ = {
-    map: require('lodash/map'),
-    uniqBy: require('lodash/uniqBy'),
-    capitalize: require('lodash/capitalize'),
-    each: require('lodash/each')
+  map: require('lodash/map'),
+  uniqBy: require('lodash/uniqBy'),
+  capitalize: require('lodash/capitalize'),
+  each: require('lodash/each')
 };
 
 const InputSanitizer = require('./inputSanitizer');
@@ -19,8 +19,7 @@ const ContentValidator = require('./contentValidator');
 const Sheet = require('./sheet');
 const ExceptionMessages = require('./exceptionMessages');
 
-
-
+var data = require('../resources/data/data.csv');
 
 const GoogleSheet = function (sheetReference, sheetName, localFile) {
 
@@ -58,29 +57,6 @@ const GoogleSheet = function (sheetReference, sheetName, localFile) {
 		createRadarLocal(data);
 	}
 
-        function displayErrorMessage(exception) {
-            d3.selectAll(".loading").remove();
-            var message = 'Oops! It seems like there are some problems with loading your data. ';
-
-            if (exception instanceof MalformedDataError) {
-                message = message.concat(exception.message);
-            } else if (exception instanceof SheetNotFoundError) {
-                message = exception.message;
-            } else {
-                console.error(exception);
-            }
-
-            message = message.concat('<br/>', 'Please check <a href="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html#faq">FAQs</a> for possible solutions.');
-
-            d3.select('body')
-                .append('div')
-                .attr('class', 'error-container')
-                .append('div')
-                .attr('class', 'error-container__message')
-                .append('p')
-                .html(message);
-        }
-
 function createRadarLocal(data) {
       console.log(data);
       try {
@@ -116,6 +92,29 @@ function createRadarLocal(data) {
        radar.addQuadrant(quadrant) });  var size = (window.innerHeight - 133) < 620 ? 620 : window.innerHeight - 133;
         new GraphingRadar(size, radar).init().plot();  } catch (exception) { displayErrorMessage(exception); }
     };
+
+  function displayErrorMessage(exception) {
+            d3.selectAll(".loading").remove();
+            var message = 'Oops! It seems like there are some problems with loading your data. ';
+
+            if (exception instanceof MalformedDataError) {
+                message = message.concat(exception.message);
+            } else if (exception instanceof SheetNotFoundError) {
+                message = exception.message;
+            } else {
+                console.error(exception);
+            }
+
+            message = message.concat('<br/>', 'Please check <a href="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html#faq">FAQs</a> for possible solutions.');
+
+            d3.select('body')
+                .append('div')
+                .attr('class', 'error-container')
+                .append('div')
+                .attr('class', 'error-container__message')
+                .append('p')
+                .html(message);
+        }
 
         function createRadar(__, tabletop) {
 
@@ -170,41 +169,42 @@ function createRadarLocal(data) {
         }
     };
 
-    self.init = function () {
-        var content = d3.select('body')
-            .append('div')
-            .attr('class', 'loading')
-            .append('div')
-            .attr('class', 'input-sheet');
 
-        set_document_title();
+  self.init = function() {
+    var content = d3.select('body')
+      .append('div')
+      .attr('class', 'loading')
+      .append('div')
+      .attr('class', 'input-sheet');
 
-        plotLogo(content);
+    set_document_title();
 
-        var bannerText = '<h1>Building your radar...</h1><p>Your Technology Radar will be available in just a few seconds</p>';
-        plotBanner(content, bannerText);
-        plotFooter(content);
+    plotLogo(content);
 
+    var bannerText = '<h1>Building your radar...</h1><p>Your Technology Radar will be available in just a few seconds</p>';
+    plotBanner(content, bannerText);
+    plotFooter(content);
 
-        return self;
-    };
 
     return self;
+  };
+
+  return self;
 };
 
-var QueryParams = function (queryString) {
-    var decode = function (s) {
-        return decodeURIComponent(s.replace(/\+/g, " "));
-    };
+var QueryParams = function(queryString) {
+  var decode = function(s) {
+    return decodeURIComponent(s.replace(/\+/g, " "));
+  };
 
-    var search = /([^&=]+)=?([^&]*)/g;
+  var search = /([^&=]+)=?([^&]*)/g;
 
-    var queryParams = {};
-    var match;
-    while (match = search.exec(queryString))
-        queryParams[decode(match[1])] = decode(match[2]);
+  var queryParams = {};
+  var match;
+  while (match = search.exec(queryString))
+    queryParams[decode(match[1])] = decode(match[2]);
 
-    return queryParams
+  return queryParams
 };
 
 
@@ -214,10 +214,10 @@ const GoogleSheetInput = function () {
     self.build = function () {
         var queryParams = QueryParams(window.location.search.substring(1));
 
-        if (queryParams.sheetId || queryParams.localFile) {
-            var sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName, queryParams.localFile);
+        if (queryParams.sheetId) {
+            var sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName);
             sheet.init().build();
-	} else	{
+        } else {
             var content = d3.select('body')
                 .append('div')
                 .attr('class', 'input-sheet');
@@ -226,8 +226,7 @@ const GoogleSheetInput = function () {
 
             plotLogo(content);
 
-            var bannerText = '<h1>Build your own radar</h1><p>Once you\'ve <a href ="https://info.thoughtworks.com/visualize-your-tech-strategy.html">created your Radar</a>, you can use this service' +
-                ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html">Read this first.</a></p>';
+            var bannerText = '<h1>Build your own radar</h1><p>Once you\'ve <a href ="https://info.thoughtworks.com/visualize-your-tech-strategy.html">created your Radar</a>, you can use this service' +' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html">Read this first.</a></p>';
 
             plotBanner(content, bannerText);
 
@@ -238,18 +237,20 @@ const GoogleSheetInput = function () {
         }
     };
 
+
     return self;
 };
 
 function set_document_title() {
-    document.title = "Build your own Radar";
+  document.title = "Build your own Radar";
 }
 
 function plotLogo(content) {
-    content.append('div')
-        .attr('class', 'input-sheet__logo')
-        .html('<a href="https://www.thoughtworks.com"><img src="/images/tw-logo.png" / ></a>');
+  content.append('div')
+    .attr('class', 'input-sheet__logo')
+    .html('<a href="https://www.thoughtworks.com"><img src="/images/tw-logo.png" / ></a>');
 }
+
 
 function plotFooter(content) {
     content
@@ -262,15 +263,12 @@ function plotFooter(content) {
         + 'By using this service you agree to <a href="https://info.thoughtworks.com/visualize-your-tech-strategy-terms-of-service.html">ThoughtWorks\' terms of use</a>. '
         + 'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. '
         + 'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.');
-
-
-
 }
 
 function plotBanner(content, text) {
-    content.append('div')
-        .attr('class', 'input-sheet__banner')
-        .html(text);
+  content.append('div')
+    .attr('class', 'input-sheet__banner')
+    .html(text);
 
 }
 
