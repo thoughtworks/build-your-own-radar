@@ -23,15 +23,13 @@ var data = require('../resources/data/data.csv');
 
 const GoogleSheet = function (sheetReference, sheetName, localFile) {
 
-//if using google sheets do this
-
     var self = {};
 
     self.build = function () {
-	console.log("executing sheetReference if");
+
+	//if using google sheets do this
     	if (sheetReference)
 	{        
-		console.log("in sheetReference if");
 		var sheet = new Sheet(sheetReference);
         	sheet.exists(function(notFound) {
 	            if (notFound) {
@@ -46,14 +44,10 @@ const GoogleSheet = function (sheetReference, sheetName, localFile) {
         	});
 	}
 	
-	console.log("executing localfile if");
+	//if using local file, do this
 	if (localFile) 
 	{
-		console.log("localFile is " + localFile);
-		localFile = "'" + localFile + "'";
-		console.log("localFile is " + localFile);
 		var data = require('../resources/data/data.csv');		
-		console.log("in localFile if, calling local function");
 		createRadarLocal(data);
 	}
 
@@ -214,8 +208,8 @@ const GoogleSheetInput = function () {
     self.build = function () {
         var queryParams = QueryParams(window.location.search.substring(1));
 
-        if (queryParams.sheetId) {
-            var sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName);
+        if (queryParams.sheetId || queryParams.localFile) {
+            var sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName, queryParams.localFile);
             sheet.init().build();
         } else {
             var content = d3.select('body')
