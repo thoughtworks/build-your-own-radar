@@ -25,11 +25,6 @@ let plugins = [
         template: './src/index.html',
         inject: 'body',
         chunks: 'app'
-    }),
-    new HtmlWebpackPlugin({
-        template: './src/error.html',
-        inject: 'body',
-        chunks: 'app'
     })
 ];
 
