@@ -155,7 +155,15 @@ const GoogleSheetInput = function () {
     var self = {};
 
     self.build = function () {
-        var queryParams = QueryParams(window.location.search.substring(1));
+        var queryParams;
+        if (process.env.RADAR_SHEET_ID) {
+          queryParams = {
+            'sheetId':   process.env.RADAR_SHEET_ID,
+            'sheetName': process.env.RADAR_SHEET_NAME
+          };
+        } else {
+          queryParams = QueryParams(window.location.search.substring(1));
+        }
 
         if (queryParams.sheetId) {
             var sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName);
