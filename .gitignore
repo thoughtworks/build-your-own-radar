@@ -1,12 +1,16 @@
+.idea/
+*.iml
+_site
+*.log
 node_modules
 bower_components
-dist
+dist/
 examples
 *.swa
 *.swp
 *.swo
 
 coverage/
+temp/
 
-.idea/
 .DS_Store
