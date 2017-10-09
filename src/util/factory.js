@@ -153,7 +153,7 @@ var QueryParams = function (queryString) {
 
 const GoogleSheetInput = function () {
     var self = {};
-
+    
     self.build = function () {
         var queryParams = QueryParams(window.location.search.substring(1));
 
@@ -169,8 +169,8 @@ const GoogleSheetInput = function () {
 
             plotLogo(content);
 
-            var bannerText = '<h1>Build your own radar</h1><p>Once you\'ve <a href ="https://info.thoughtworks.com/visualize-your-tech-strategy.html">created your Radar</a>, you can use this service' +
-                ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html">Read this first.</a></p>';
+            var bannerText = '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://info.thoughtworks.com/visualize-your-tech-strategy.html">created your Radar</a>, you can use this service' +
+                ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://info.thoughtworks.com/visualize-your-tech-strategy-guide.html">Read this first.</a></p></div>';
 
             plotBanner(content, bannerText);
 

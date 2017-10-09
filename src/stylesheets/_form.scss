@@ -34,8 +34,13 @@
     width: 100%;
     margin: 0 auto;
     text-align: center;
-    min-height: 240px;
-    padding-top: 45px;
+    min-height: 285px;
+    display: table;
+
+    div {
+      display: table-cell;
+      vertical-align: middle;
+    }
   }
 
   .input-sheet__form {

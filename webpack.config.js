@@ -11,11 +11,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 let isProd = args.prod;
 let isDev = args.dev;
 
-let entry = ['./src/site.js'];
+let main = ['./src/site.js'];
+let common = ['./src/common.js'];
 let devtool;
 
 if (isDev) {
-    entry.push('webpack-dev-server/client?http://0.0.0.0:8080');
+    main.push('webpack-dev-server/client?http://0.0.0.0:8080');
     devtool = 'source-map';
 }
 
@@ -23,8 +24,14 @@ let plugins = [
     new ExtractTextPlugin('[name].[hash].css'),
     new HtmlWebpackPlugin({
         template: './src/index.html',
+        chunks: ['main'],
+        inject: 'body'
+    }),
+    new HtmlWebpackPlugin({
+        template: './src/error.html',
+        chunks: ['common'],
         inject: 'body',
-        chunks: 'app'
+        filename: 'error.html'
     })
 ];
 
@@ -43,8 +50,10 @@ if (isProd) {
 }
 
 module.exports = {
-    entry: entry,
-
+    entry: {
+        'main' : main,
+        'common' : common
+    },
     node: {
         fs: 'empty',
         net: 'empty',
