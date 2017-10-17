@@ -6,11 +6,7 @@
   "scripts": {
     "test": "istanbul cover jasmine",
     "dev": "webpack-dev-server --dev --inline",
-    "build": "webpack --prod",
-    "examples:clean": "rm -rf examples/",
-    "examples:copy": "mkdir examples && cp -r dist/* examples",
-    "examples": "npm run build && npm run examples:clean && npm run examples:copy",
-    "publishExamples": "node ./scripts/publish-examples.js"
+    "build": "webpack --prod"
   },
   "author": "ThoughtWorks",
   "repository": {
