@@ -1,0 +1,28 @@
+# default server block to handle undefined domain names
+server {
+  listen 80 default_server;
+  server_name _;
+  return 403;
+}
+
+# server block for static file serving
+server {
+  listen 80;
+  server_name ${SERVER_NAMES};
+  location / {
+    root /opt/build-your-own-radar;
+    index index.html;
+  }
+
+  # custom error page for 404 errors
+  error_page 404 /error.html;
+  location = /error.html {
+    root /opt/build-your-own-radar;
+  }
+
+  # nginx default error page for 50x errors
+  error_page 500 502 503 504 /50x.html;
+  location = /50x.html {
+    root /usr/share/nginx/html;
+  }
+}
