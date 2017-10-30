@@ -169,11 +169,14 @@ const GoogleSheetInput = function () {
         var domainName = DomainName(window.location.search.substring(1));
         var queryParams = QueryParams(window.location.search.substring(1));
 
-        if (domainName && domainName.endsWith('google.com') && queryParams.sheetId) {
-            var sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName);
-            sheet.init().build();
-        } else if (domainName) {
+        if (domainName && queryParams.sheetId.endsWith('csv')) {
             var sheet = CSVDocument(queryParams.sheetId);
+            sheet.init().build();
+        }
+        else if (domainName && domainName.endsWith('google.com') && queryParams.sheetId) {
+            var sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName);
+            console.log(queryParams.sheetName)
+
             sheet.init().build();
         } else {
             var content = d3.select('body')
