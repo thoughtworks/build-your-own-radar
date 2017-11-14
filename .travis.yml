@@ -15,7 +15,7 @@ jobs:
         - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
       script: npm run examples
       after_success:
-        - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+        - docker login -u $DOCKER_USER -p $DOCKER_PASS
         - export REPO=wwwthoughtworks/build-your-own-radar
         - docker build -f Dockerfile -t $REPO:$COMMIT .
         - docker push $REPO:$COMMIT
