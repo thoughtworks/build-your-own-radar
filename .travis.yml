@@ -17,10 +17,8 @@ jobs:
       after_success:
         - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
         - export REPO=wwwthoughtworks/build-your-own-radar
-        - export TAG=latest
         - docker build -f Dockerfile -t $REPO:$COMMIT .
-        - docker tag $REPO:$COMMIT $REPO:$TAG
-        - docker push $REPO
+        - docker push $REPO:$COMMIT
       deploy:
         provider: s3
         access_key_id: $AWS_ACCESS_KEY_ID
