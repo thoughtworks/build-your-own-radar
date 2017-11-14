@@ -1,10 +1,23 @@
 language: node_js
 node_js:
 - '7'
+sudo: required
+services:
+  - docker
+env:
+  global:
+    - COMMIT=${TRAVIS_COMMIT::8}
 jobs:
   include:
     - stage: Deploy QA
       script: npm run examples
+      after_success:
+        - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+        - export REPO=wwwthoughtworks/build-your-own-radar
+        - export TAG=latest
+        - docker build -f Dockerfile -t $REPO:$COMMIT .
+        - docker tag $REPO:$COMMIT $REPO:$TAG
+        - docker push $REPO
       deploy:
         provider: s3
         access_key_id: $AWS_ACCESS_KEY_ID
