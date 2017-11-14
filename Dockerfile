@@ -1,4 +1,4 @@
-FROM node:7.10.1 as source
+FROM node:9.1.0 as source
 WORKDIR /src/build-your-own-radar
 COPY package.json ./
 RUN npm install
