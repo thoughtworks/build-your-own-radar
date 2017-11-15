@@ -1,12 +1,6 @@
 language: node_js
 node_js:
 - '7'
-sudo: required
-services:
-  - docker
-env:
-  global:
-    - COMMIT=${TRAVIS_COMMIT::8}
 jobs:
   include:
     - stage: Deploy QA
@@ -22,18 +16,6 @@ jobs:
         on:
           repo: thoughtworks/build-your-own-radar
           condition: "$TRAVIS_PULL_REQUEST = false"
-    - stage: Push to DockerHub
-      before_install:
-        - sudo apt-get update
-        - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
-      script:
-        - docker login -u $DOCKER_USER -p $DOCKER_PASS
-        - export REPO=wwwthoughtworks/build-your-own-radar
-        - export TAG=latest
-        - docker build -f Dockerfile -t $REPO:$COMMIT .
-        - docker tag $REPO:$COMMIT $REPO:$TAG
-        - docker push $REPO
-
     - stage: Invalidate CDN
       install: pip install --user awscli && export PATH=$PATH:$HOME/.local/bin
       script: 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then aws configure set preview.cloudfront true && aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"; fi'
