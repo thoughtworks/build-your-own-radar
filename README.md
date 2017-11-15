@@ -62,6 +62,15 @@ The app uses [Tabletop.js](https://github.com/jsoma/tabletop) to fetch the data 
 
 The application uses [webpack](https://webpack.github.io/) to package dependencies and minify all .js and .scss files.
 
+## Docker Image
+We have released BYOR as a docker image for our users. The image is available in our [DockerHub Repo](https://hub.docker.com/r/wwwthoughtworks/build-your-own-radar/). To pull and run the image, run the following commands.
+
+```
+$ docker pull wwwthoughtworks/build-your-own-radar
+$ docker run --rm -p 8080:80 -e SERVER_NAMES="localhost 127.0.0.1" wwwthoughtworks/build-your-own-radar
+$ open http://localhost:8080
+```
+
 ## Contribute
 
 All tasks are defined in `package.json`.
