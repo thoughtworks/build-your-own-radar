@@ -20,7 +20,7 @@ jobs:
         - export TAG=latest
         - docker build -f Dockerfile -t $REPO:$COMMIT .
         - docker tag $REPO:$COMMIT $REPO:$TAG
-        - docker push $REPO:$COMMIT
+        - docker push $REPO
       deploy:
         provider: s3
         access_key_id: $AWS_ACCESS_KEY_ID
