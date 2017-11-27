@@ -26,7 +26,7 @@
   }
 
   .input-sheet__banner {
-    background-image: url('/images/tech-radar-201611-landing-page-wide.png');
+    background-image: url('/images/tech-radar-201711-landing-page-wide.png');
     background-repeat: no-repeat;
     background-color: $grey-light;
     background-size: cover;
@@ -40,6 +40,9 @@
     div {
       display: table-cell;
       vertical-align: middle;
+    }
+    p, h1 {
+      color: $white;
     }
   }
 
