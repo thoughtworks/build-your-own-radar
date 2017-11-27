@@ -182,7 +182,6 @@ const GoogleSheetInput = function () {
             var content = d3.select('body')
                 .append('div')
                 .attr('class', 'input-sheet');
-            console.log('Do nothing!!')
             set_document_title();
 
             plotLogo(content);
