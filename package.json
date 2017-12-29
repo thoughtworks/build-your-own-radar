@@ -30,7 +30,7 @@
     "html-webpack-plugin": "^2.22.0",
     "istanbul": "^0.4.5",
     "jasmine": "^2.5.2",
-    "json-loader": "^0.5.4",
+    "json-loader": "^0.5.7",
     "node-sass": "^3.10.0",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
