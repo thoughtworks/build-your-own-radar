@@ -5,6 +5,13 @@ require('./images/tw-logo.png');
 require('./images/favicon.ico');
 require('./images/radar_legend.png');
 
-const GoogleSheetInput = require('./util/factory');
+var csvContent = require('./radar.csv');
 
-GoogleSheetInput().build();
+var {
+    CSVContent,
+    plotRadar
+} = require('./util/factory')
+
+var blips = CSVContent(csvContent)
+
+plotRadar('title', blips);
