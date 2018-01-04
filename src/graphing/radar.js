@@ -13,13 +13,13 @@ const Radar = function (size, radar) {
   });
 
   tip.direction(function () {
-    if (d3.select('.quadrant-table.selected').node()) {
-      var selectedQuadrant = d3.select('.quadrant-table.selected');
-      if (selectedQuadrant.classed('first') || selectedQuadrant.classed('fourth'))
-        return 'ne';
-      else
-        return 'nw';
-    }
+    // if (d3.select('.quadrant-table.selected').node()) {
+    //   var selectedQuadrant = d3.select('.quadrant-table.selected');
+    //   if (selectedQuadrant.classed('first') || selectedQuadrant.classed('fourth'))
+    //     return 'ne';
+    //   else
+    //     return 'nw';
+    // }
     return 'n';
   });
 
@@ -35,29 +35,29 @@ const Radar = function (size, radar) {
     return Math.PI * angleInDegrees / 180;
   }
 
-  function plotLines(quadrantGroup, quadrant) {
-    var startX = size * (1 - (-Math.sin(toRadian(quadrant.startAngle)) + 1) / 2);
-    var endX = size * (1 - (-Math.sin(toRadian(quadrant.startAngle - 90)) + 1) / 2);
+  // function plotLines(quadrantGroup, quadrant) {
+  //   var startX = size * (1 - (-Math.sin(toRadian(quadrant.startAngle)) + 1) / 2);
+  //   var endX = size * (1 - (-Math.sin(toRadian(quadrant.startAngle - 90)) + 1) / 2);
 
-    var startY = size * (1 - (Math.cos(toRadian(quadrant.startAngle)) + 1) / 2);
-    var endY = size * (1 - (Math.cos(toRadian(quadrant.startAngle - 90)) + 1) / 2);
+  //   var startY = size * (1 - (Math.cos(toRadian(quadrant.startAngle)) + 1) / 2);
+  //   var endY = size * (1 - (Math.cos(toRadian(quadrant.startAngle - 90)) + 1) / 2);
 
-    if (startY > endY) {
-      var aux = endY;
-      endY = startY;
-      startY = aux;
-    }
+  //   if (startY > endY) {
+  //     var aux = endY;
+  //     endY = startY;
+  //     startY = aux;
+  //   }
 
-    quadrantGroup.append('line')
-      .attr('x1', center()).attr('x2', center())
-      .attr('y1', startY - 2).attr('y2', endY + 2)
-      .attr('stroke-width', 10);
+  //   quadrantGroup.append('line')
+  //     .attr('x1', center()).attr('x2', center())
+  //     .attr('y1', startY - 2).attr('y2', endY + 2)
+  //     .attr('stroke-width', 10);
 
-    quadrantGroup.append('line')
-      .attr('x1', endX).attr('y1', center())
-      .attr('x2', startX).attr('y2', center())
-      .attr('stroke-width', 10);
-  }
+  //   quadrantGroup.append('line')
+  //     .attr('x1', endX).attr('y1', center())
+  //     .attr('x2', startX).attr('y2', center())
+  //     .attr('stroke-width', 10);
+  // }
 
   function plotQuadrant(rings, quadrant) {
     var quadrantGroup = svg.append('g')
@@ -71,7 +71,7 @@ const Radar = function (size, radar) {
         .innerRadius(ringCalculator.getRadius(i))
         .outerRadius(ringCalculator.getRadius(i + 1))
         .startAngle(toRadian(quadrant.startAngle))
-        .endAngle(toRadian(quadrant.startAngle - 90));
+        .endAngle(toRadian(quadrant.startAngle + quadrant.angle));
 
       quadrantGroup.append('path')
         .attr('d', arc)
@@ -82,25 +82,25 @@ const Radar = function (size, radar) {
     return quadrantGroup;
   }
 
-  function plotTexts(quadrantGroup, rings, quadrant) {
-    rings.forEach(function (ring, i) {
-      if (quadrant.order === 'first' || quadrant.order === 'fourth') {
-        quadrantGroup.append('text')
-          .attr('class', 'line-text')
-          .attr('y', center() + 4)
-          .attr('x', center() + (ringCalculator.getRadius(i) + ringCalculator.getRadius(i + 1)) / 2)
-          .attr('text-anchor', 'middle')
-          .text(ring.name());
-      } else {
-        quadrantGroup.append('text')
-          .attr('class', 'line-text')
-          .attr('y', center() + 4)
-          .attr('x', center() - (ringCalculator.getRadius(i) + ringCalculator.getRadius(i + 1)) / 2)
-          .attr('text-anchor', 'middle')
-          .text(ring.name());
-      }
-    });
-  }
+  // function plotTexts(quadrantGroup, rings, quadrant) {
+  //   rings.forEach(function (ring, i) {
+  //     if (quadrant.order === 'first' || quadrant.order === 'fourth') {
+  //       quadrantGroup.append('text')
+  //         .attr('class', 'line-text')
+  //         .attr('y', center() + 4)
+  //         .attr('x', center() + (ringCalculator.getRadius(i) + ringCalculator.getRadius(i + 1)) / 2)
+  //         .attr('text-anchor', 'middle')
+  //         .text(ring.name());
+  //     } else {
+  //       quadrantGroup.append('text')
+  //         .attr('class', 'line-text')
+  //         .attr('y', center() + 4)
+  //         .attr('x', center() - (ringCalculator.getRadius(i) + ringCalculator.getRadius(i + 1)) / 2)
+  //         .attr('text-anchor', 'middle')
+  //         .text(ring.name());
+  //     }
+  //   });
+  // }
 
   function triangle(x, y, order, group) {
     return group.append('path').attr('d', "M412.201,311.406c0.021,0,0.042,0,0.063,0c0.067,0,0.135,0,0.201,0c4.052,0,6.106-0.051,8.168-0.102c2.053-0.051,4.115-0.102,8.176-0.102h0.103c6.976-0.183,10.227-5.306,6.306-11.53c-3.988-6.121-4.97-5.407-8.598-11.224c-1.631-3.008-3.872-4.577-6.179-4.577c-2.276,0-4.613,1.528-6.48,4.699c-3.578,6.077-3.26,6.014-7.306,11.723C402.598,306.067,405.426,311.406,412.201,311.406")
@@ -154,10 +154,11 @@ const Radar = function (size, radar) {
   }
 
   function plotBlips(quadrantGroup, rings, quadrantWrapper) {
-    var blips, quadrant, startAngle, order;
+    var blips, quadrant, startAngle, order, endAngle;
 
     quadrant = quadrantWrapper.quadrant;
     startAngle = quadrantWrapper.startAngle;
+    endAngle = quadrantWrapper.startAngle + quadrantWrapper.angle;
     order = quadrantWrapper.order;
 
     d3.select('.quadrant-table.' + order)
@@ -188,12 +189,12 @@ const Radar = function (size, radar) {
       var allBlipCoordinatesInRing = [];
 
       ringBlips.forEach(function (blip) {
-        var coordinates = calculateBlipCoordinates(chance, minRadius, maxRadius, startAngle);
+        var coordinates = calculateBlipCoordinates(chance, minRadius, maxRadius, startAngle, endAngle);
         var maxIterations = 100;
         var iterationCounter = 0;
 
         while (thereIsCollision(coordinates, allBlipCoordinatesInRing) && (iterationCounter < maxIterations)) {
-          coordinates = calculateBlipCoordinates(chance, minRadius, maxRadius, startAngle);
+          coordinates = calculateBlipCoordinates(chance, minRadius, maxRadius, startAngle, endAngle);
           iterationCounter++;
         }
 
@@ -283,63 +284,63 @@ const Radar = function (size, radar) {
     d3.select('.legend').remove();
   }
 
-  function drawLegend(order) {
-    removeRadarLegend();
+  // function drawLegend(order) {
+  //   removeRadarLegend();
 
-    var triangleKey = "New or moved";
-    var circleKey = "No change";
+  //   var triangleKey = "New or moved";
+  //   var circleKey = "No change";
 
-    var container = d3.select('svg').append('g')
-      .attr('class', 'legend legend'+"-"+order);
+  //   var container = d3.select('svg').append('g')
+  //     .attr('class', 'legend legend'+"-"+order);
 
-    var x = 10;
-    var y = 10;
-
-
-    if(order == "first") {
-      x = 4 * size / 5;
-      y = 1 * size / 5;
-    }
-
-    if(order == "second") {
-      x = 1 * size / 5 - 15;
-      y = 1 * size / 5 - 20;
-    }
-
-    if(order == "third") {
-      x = 1 * size / 5 - 15;
-      y = 4 * size / 5 + 15;
-    }
-
-    if(order == "fourth") {
-      x = 4 * size / 5;
-      y = 4 * size / 5;
-    }
-
-    d3.select('.legend')
-      .attr('class', 'legend legend-'+order)
-      .transition()
-      .style('visibility', 'visible');
-
-    triangleLegend(x, y, container);
-
-    container
-      .append('text')
-      .attr('x', x + 15)
-      .attr('y', y + 5)
-      .attr('font-size', '0.8em')
-      .text(triangleKey);
+  //   var x = 10;
+  //   var y = 10;
 
 
-    circleLegend(x, y + 20, container);
+  //   if(order == "first") {
+  //     x = 4 * size / 5;
+  //     y = 1 * size / 5;
+  //   }
 
-    container
-      .append('text')
-      .attr('x', x + 15)
-      .attr('y', y + 25)
-      .attr('font-size', '0.8em')
-      .text(circleKey);
-  }
+  //   if(order == "second") {
+  //     x = 1 * size / 5 - 15;
+  //     y = 1 * size / 5 - 20;
+  //   }
+
+  //   if(order == "third") {
+  //     x = 1 * size / 5 - 15;
+  //     y = 4 * size / 5 + 15;
+  //   }
+
+  //   if(order == "fourth") {
+  //     x = 4 * size / 5;
+  //     y = 4 * size / 5;
+  //   }
+
+  //   d3.select('.legend')
+  //     .attr('class', 'legend legend-'+order)
+  //     .transition()
+  //     .style('visibility', 'visible');
+
+  //   triangleLegend(x, y, container);
+
+  //   container
+  //     .append('text')
+  //     .attr('x', x + 15)
+  //     .attr('y', y + 5)
+  //     .attr('font-size', '0.8em')
+  //     .text(triangleKey);
+
+
+  //   circleLegend(x, y + 20, container);
+
+  //   container
+  //     .append('text')
+  //     .attr('x', x + 15)
+  //     .attr('y', y + 25)
+  //     .attr('font-size', '0.8em')
+  //     .text(circleKey);
+  // }
 
   function redrawFullRadar() {
     removeHomeLink();
@@ -403,8 +404,8 @@ const Radar = function (size, radar) {
         .on('click', selectQuadrant.bind({}, quadrant.order, quadrant.startAngle));
     }
 
-    _.each([0, 3, 2, 1], function (i) {
-      addButton(quadrants[i]);
+    _.each(quadrants, function (quadrant) {
+      addButton(quadrant);
     });
 
 
@@ -489,7 +490,7 @@ const Radar = function (size, radar) {
 
 
     if (d3.select('.legend.legend-' + order).empty()){
-      drawLegend(order);
+      // drawLegend(order);
     }
   }
 
@@ -513,8 +514,8 @@ const Radar = function (size, radar) {
 
     _.each(quadrants, function (quadrant) {
       var quadrantGroup = plotQuadrant(rings, quadrant);
-      plotLines(quadrantGroup, quadrant);
-      plotTexts(quadrantGroup, rings, quadrant);
+      // plotLines(quadrantGroup, quadrant);
+      // plotTexts(quadrantGroup, rings, quadrant);
       plotBlips(quadrantGroup, rings, quadrant);
     });
 

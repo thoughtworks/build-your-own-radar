@@ -33,18 +33,15 @@ const plotRadar = function (title, blips) {
         ringMap[ringName] = new Ring(ringName, i);
     });
 
-    var quadrants = {};
+    var arcs = {};
     _.each(blips, function (blip) {
-        if (!quadrants[blip.quadrant]) {
-            quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant));
+        if (!arcs[blip.quadrant]) {
+            arcs[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant));
         }
-        quadrants[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description))
+        arcs[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description))
     });
-
-    var radar = new Radar();
-    _.each(quadrants, function (quadrant) {
-        radar.addQuadrant(quadrant)
-    });
+    
+    var radar = new Radar({arcs});
 
     var size = (window.innerHeight - 133) < 620 ? 620 : window.innerHeight - 133;
 
