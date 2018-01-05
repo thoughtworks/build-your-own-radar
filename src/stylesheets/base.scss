@@ -44,17 +44,30 @@ body {
       margin-bottom: 20px;
     }
 
-    &.first .quadrant-table__name {
+    &.pie-0 .quadrant-table__name {
       color: $green;
     }
-    &.second .quadrant-table__name {
+    &.pie-1 .quadrant-table__name {
       color: $blue;
     }
-    &.third .quadrant-table__name {
+    &.pie-2 .quadrant-table__name {
       color: $orange;
     }
-    &.fourth .quadrant-table__name {
+    &.pie-3 .quadrant-table__name {
       color: $violet;
+    }
+
+    &.pie-4 .quadrant-table__name {
+      color: invert($green);
+    }
+    &.pie-5 .quadrant-table__name {
+      color: invert($blue);
+    }
+    &.pie-6 .quadrant-table__name {
+      color: invert($orange);
+    }
+    &.pie-7 .quadrant-table__name {
+      color: invert($violet);
     }
   }
 
@@ -198,20 +211,37 @@ body {
       }
 
       circle, polygon, path {
-        &.first {
+        &.pie-0 {
           fill: $green;
           stroke: none;
         }
-        &.second {
+        &.pie-1 {
           fill: $blue;
           stroke: none;
         }
-        &.third {
+        &.pie-2 {
           fill: $orange;
           stroke: none;
         }
-        &.fourth {
+        &.pie-3 {
           fill: $violet;
+          stroke: none;
+        }
+
+        &.pie-4 {
+          fill: invert($green);
+          stroke: none;
+        }
+        &.pie-5 {
+          fill: invert($blue);
+          stroke: none;
+        }
+        &.pie-6 {
+          fill: invert($orange);
+          stroke: none;
+        }
+        &.pie-7 {
+          fill: invert($violet);
           stroke: none;
         }
       }
@@ -256,7 +286,7 @@ body {
         font-weight: bold;
       }
 
-      &.first {
+      &.pie-0 {
         right: 20px;
 
         &.selected {
@@ -264,23 +294,55 @@ body {
         }
       }
 
-      &.second {
+      &.pie-1 {
         left: 20px;
 
         &.selected {
-          float: left;
+          float: right;
         }
       }
 
-      &.third {
+      &.pie-2 {
         left: 20px;
 
         &.selected {
-          float: left;
+          float: right;
         }
       }
 
-      &.fourth {
+      &.pie-3 {
+        right: 20px;
+
+        &.selected {
+          float: right;
+        }
+      }
+
+      &.pie-4 {
+        right: 20px;
+
+        &.selected {
+          float: right;
+        }
+      }
+
+      &.pie-5 {
+        left: 20px;
+
+        &.selected {
+          float: right;
+        }
+      }
+
+      &.pie-6 {
+        left: 20px;
+
+        &.selected {
+          float: right;
+        }
+      }
+
+      &.pie-7 {
         right: 20px;
 
         &.selected {

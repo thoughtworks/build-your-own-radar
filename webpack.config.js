@@ -69,8 +69,8 @@ module.exports = {
 
     module: {
         loaders: [
-            { test: /\.json$/, loader: 'json'},
-            { test: /\.js$/, exclude: /node_modules/, loader: 'babel'},
+            { test: /\.json$/, loader: 'json' },
+            { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
             { test: /\.scss$/, exclude: /node_modules/, loader: ExtractTextPlugin.extract('style', 'css?sourceMap!sass') },
             { test: /\.(png|jpg|ico)$/, exclude: /node_modules/, loader: 'file-loader?name=images/[name].[ext]&context=./src/images' }
         ]
@@ -87,6 +87,16 @@ module.exports = {
         contentBase: buildPath,
         host: '0.0.0.0',
         port: 8080
-    }
+    },
+    node: {
+        console: 'empty',
+        fs: 'empty',
+        net: 'empty',
+        tls: 'empty'
+    },
+
+    externals: [{
+        xmlhttprequest: '{XMLHttpRequest:XMLHttpRequest}'
+    }]
 };
 
