@@ -79,39 +79,73 @@ header {
       transform: translate(0, -2px);
       opacity: .85;
 
-      &.first {
+      &.pie-0 {
         color: white;
         background-color: $green;
       }
-      &.second {
+      &.pie-1 {
         color: white;
         background-color: $blue;
       }
-      &.third {
+      &.pie-2 {
         color: white;
         background-color: $orange;
       }
-      &.fourth {
+      &.pie-3 {
         color: white;
         background-color: $violet;
+      }
+
+      &.pie-4 {
+        color: white;
+        background-color: invert($green);
+      }
+      &.pie-5 {
+        color: white;
+        background-color: invert($blue);
+      }
+      &.pie-6 {
+        color: white;
+        background-color: invert($orange);
+      }
+      &.pie-7 {
+        color: white;
+        background-color: invert($violet);
       }
     }
 
     &.full-view {
-      &.first {
+      &.pie-0 {
         background-color: $green;
         color: $white;
       }
-      &.second {
+      &.pie-1 {
         background-color: $blue;
         color: $white;
       }
-      &.third {
+      &.pie-2 {
         background-color: $orange;
         color: $white;
       }
-      &.fourth {
+      &.pie-3 {
         background-color: $violet;
+        color: $white;
+      }
+
+      &.pie-4 {
+        background-color: invert($green);
+        color: $white;
+      }
+      &.pie-5 {
+        background-color: invert($blue);
+        color: $white;
+      }
+      &.pie-6 {
+        background-color: invert($orange);
+        color: $white;
+      }
+      &.pie-7 {
+        background-color: invert($violet);
         color: $white;
       }
     }

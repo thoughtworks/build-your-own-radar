@@ -132,17 +132,28 @@ const Radar = function (size, radar) {
     return table.append('ul');
   }
 
-  function calculateBlipCoordinates(chance, minRadius, maxRadius, startAngle) {
-    var adjustX = Math.sin(toRadian(startAngle)) - Math.cos(toRadian(startAngle));
-    var adjustY = -Math.cos(toRadian(startAngle)) - Math.sin(toRadian(startAngle));
+  function calculateBlipCoordinates(chance, minRadius, maxRadius, startAngle, endAngle) {
+    const emptyAngle = 4;
 
-    var radius = chance.floating({min: minRadius + blipWidth / 2, max: maxRadius - blipWidth / 2});
-    var angleDelta = Math.asin(blipWidth / 2 / radius) * 180 / Math.PI;
-    angleDelta = angleDelta > 45 ? 45 : angleDelta;
-    var angle = toRadian(chance.integer({min: angleDelta, max: 90 - angleDelta}));
+    var radius = chance.floating({min: minRadius + blipWidth , max: maxRadius - blipWidth / 2});
 
-    var x = center() + radius * Math.cos(angle) * adjustX;
-    var y = center() + radius * Math.sin(angle) * adjustY;
+    var randomAngle = 90 - chance.floating({
+      max: startAngle - emptyAngle,
+      min: endAngle + emptyAngle
+    });
+    
+    randomAngle = toRadian(randomAngle);
+
+    // var adjustX = Math.sin(toRadian(startAngle)) - Math.cos(toRadian(startAngle));
+    // var adjustY = -Math.cos(toRadian(startAngle)) - Math.sin(toRadian(startAngle));
+
+    // var radius = chance.floating({min: minRadius + blipWidth / 2, max: maxRadius - blipWidth / 2});
+    // var angleDelta = Math.asin(blipWidth / 2 / radius) * 180 / Math.PI;
+    // angleDelta = angleDelta > 45 ? 45 : angleDelta;
+    // var angle = toRadian(chance.integer({min: angleDelta, max: 90 - angleDelta}));
+
+    var x = center() + radius * Math.cos(randomAngle);
+    var y = center() - radius * Math.sin(randomAngle);
 
     return [x, y];
   }
@@ -154,7 +165,7 @@ const Radar = function (size, radar) {
   }
 
   function plotBlips(quadrantGroup, rings, quadrantWrapper) {
-    var blips, quadrant, startAngle, order, endAngle;
+    var blips, quadrant, startAngle, order, angle;
 
     quadrant = quadrantWrapper.quadrant;
     startAngle = quadrantWrapper.startAngle;
