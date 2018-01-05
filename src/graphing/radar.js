@@ -136,6 +136,9 @@ const Radar = function (size, radar) {
     const emptyAngle = 4;
 
     var radius = chance.floating({min: minRadius + blipWidth , max: maxRadius - blipWidth / 2});
+    if(minRadius === 0){
+      minRadius = maxRadius / 4;
+    }
 
     var randomAngle = 90 - chance.floating({
       max: startAngle - emptyAngle,
@@ -357,7 +360,9 @@ const Radar = function (size, radar) {
     removeHomeLink();
     removeRadarLegend();
 
-    svg.style('left', 0).style('right', 0);
+    svg.transition()
+        .style('left', 0).style('right', 0)
+        .style('margin-left', null);
 
     d3.selectAll('.button')
       .classed('selected', false)
@@ -458,24 +463,25 @@ const Radar = function (size, radar) {
     d3.selectAll('.quadrant-table.' + order).classed('selected', true);
     d3.selectAll('.blip-item-description').classed('expanded', false);
 
-    var scale = 2;
+    var scale = 1;
 
-    var adjustX = Math.sin(toRadian(startAngle)) - Math.cos(toRadian(startAngle));
-    var adjustY = Math.cos(toRadian(startAngle)) + Math.sin(toRadian(startAngle));
+    var adjustX = 1;//Math.sin(toRadian(startAngle)) - Math.cos(toRadian(startAngle));
+    var adjustY = 1;//Math.cos(toRadian(startAngle)) + Math.sin(toRadian(startAngle));
 
-    var translateX = (-1 * (1 + adjustX) * size / 2 * (scale - 1)) + (-adjustX * (1 - scale / 2) * size);
-    var translateY = (-1 * (1 - adjustY) * (size / 2 - 7) * (scale - 1)) - ((1 - adjustY) / 2 * (1 - scale / 2) * size);
+    var translateX = 0;//(-1 * (1 + adjustX) * size / 2 * (scale - 1)) + (-adjustX * (1 - scale / 2) * size);
+    var translateY = 0;//(-1 * (1 - adjustY) * (size / 2 - 7) * (scale - 1)) - ((1 - adjustY) / 2 * (1 - scale / 2) * size);
 
     var translateXAll = (1 - adjustX) / 2 * size * scale / 2 + ((1 - adjustX) / 2 * (1 - scale / 2) * size);
     var translateYAll = (1 + adjustY) / 2 * size * scale / 2;
 
-    var moveRight = (1 + adjustX) * (0.8 * window.innerWidth - size) / 2;
-    var moveLeft = (1 - adjustX) * (0.8 * window.innerWidth - size) / 2;
+    var moveLeft  = 0;
 
-    var blipScale = 3 / 4;
+    var blipScale = 1;
     var blipTranslate = (1 - blipScale) / blipScale;
 
-    svg.style('left', moveLeft + 'px').style('right', moveRight + 'px');
+    svg.transition()
+        .style('left', moveLeft + 'px')
+        .style('margin-left', 0);
     d3.select('.quadrant-group-' + order)
       .transition()
       .duration(1000)
@@ -484,9 +490,9 @@ const Radar = function (size, radar) {
       var x = d3.select(this).attr('x');
       var y = d3.select(this).attr('y');
       d3.select(this.parentNode)
-        .transition()
-        .duration(1000)
-        .attr('transform', 'scale(' + blipScale + ')translate(' + blipTranslate * x + ',' + blipTranslate * y + ')');
+        // .transition()
+        // .duration(1000)
+        // .attr('transform', 'scale(' + blipScale + ')translate(' + blipTranslate * x + ',' + blipTranslate * y + ')');
     });
 
     d3.selectAll('.quadrant-group')
