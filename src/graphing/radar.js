@@ -377,8 +377,8 @@ const Radar = function (size, radar) {
       .attr('transform', 'scale(1)');
 
     d3.selectAll('.quadrant-group .blip-link')
-      .transition()
-      .duration(1000)
+      // .transition()
+      // .duration(1000)
       .attr('transform', 'scale(1)');
 
     d3.selectAll('.quadrant-group')
@@ -479,20 +479,23 @@ const Radar = function (size, radar) {
     var blipScale = 1;
     var blipTranslate = (1 - blipScale) / blipScale;
 
+    var rotateAngle = 90 - startAngle;
+
     svg.transition()
         .style('left', moveLeft + 'px')
         .style('margin-left', 0);
     d3.select('.quadrant-group-' + order)
       .transition()
       .duration(1000)
-      .attr('transform', 'translate(' + translateX + ',' + translateY + ')scale(' + scale + ')');
+      .attr('transform', 'translate(' + translateX + ',' + translateY + ')scale(' + scale + ') rotate(' + (rotateAngle) + ', ' + (center()) + ', ' + (center()) + ')')
+      // .attr('transform', 'rotate(1)');
     d3.selectAll('.quadrant-group-' + order + ' .blip-link text').each(function () {
       var x = d3.select(this).attr('x');
       var y = d3.select(this).attr('y');
       d3.select(this.parentNode)
         // .transition()
         // .duration(1000)
-        // .attr('transform', 'scale(' + blipScale + ')translate(' + blipTranslate * x + ',' + blipTranslate * y + ')');
+        .attr('transform', ' rotate(' + (-rotateAngle) + ', ' + x + ', ' + y + ')');
     });
 
     d3.selectAll('.quadrant-group')
