@@ -5,8 +5,10 @@ RUN npm install
 COPY . ./
 RUN npm run build
 
-FROM nginx:1.13.5
+FROM nginx:1.13.8-alpine
+RUN apk add --update --no-cache tini
+ENTRYPOINT ["tini", "-g", "--"]
 WORKDIR /opt/build-your-own-radar
 COPY --from=source /src/build-your-own-radar/dist .
 COPY default.template /etc/nginx/conf.d/default.template
-CMD /bin/bash -c "envsubst < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+CMD /bin/sh -c "envsubst < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
