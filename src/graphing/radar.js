@@ -4,6 +4,7 @@ const Chance = require('chance');
 const _ = require('lodash/core');
 
 const RingCalculator = require('../util/ringCalculator');
+const QueryParams = require('../util/queryParamProcessor');
 
 const MIN_BLIP_WIDTH = 12;
 
@@ -529,11 +530,33 @@ const Radar = function (size, radar) {
     return self;
   };
 
+  function plotAlternativeRadars(alternatives, currentSheet) {
+    var alternativeDiv = d3.select('body')
+      .insert('div', '#radar-plot + *')
+      .attr('id', 'alternative-buttons');
+
+    alternatives.forEach(function(alternative) {
+      if (alternative !== currentSheet) {
+        alternativeDiv
+        .append('div')
+          .attr('class', 'button first full-view alternative')
+          .text(alternative)
+          .on('click', function(){
+            var noParamUrl = window.location.href.substring(0,window.location.href.indexOf(window.location.search));
+            var queryParams = QueryParams(window.location.search.substring(1));
+            window.location = noParamUrl + '?sheetId=' + queryParams.sheetId + '&sheetName=' + encodeURIComponent(alternative);
+          });
+      }
+    });
+  }
+
   self.plot = function () {
-    var rings, quadrants;
+    var rings, quadrants, alternatives, currentSheet;
 
     rings = radar.rings();
     quadrants = radar.quadrants();
+    alternatives = radar.getAlternatives();
+    currentSheet = radar.getCurrentSheet();
     var header = plotRadarHeader();
 
     plotQuadrantButtons(quadrants, header);
@@ -549,6 +572,7 @@ const Radar = function (size, radar) {
       plotBlips(quadrantGroup, rings, quadrant);
     });
 
+    plotAlternativeRadars(alternatives, currentSheet);
     plotRadarFooter();
   };
 

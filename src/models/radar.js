@@ -18,12 +18,30 @@ const Radar = function() {
     {order: 'third', startAngle: -90},
     {order: 'fourth', startAngle: -180}
   ];
+  alternatives = [];
+  currentSheetName = "";
   self = {};
 
   function setNumbers(blips) {
     blips.forEach(function (blip) {
       blip.setNumber(++blipNumber);
     });
+  }
+
+  self.addAlternative = function (sheetName) {
+    alternatives.push(sheetName);
+  }
+
+  self.getAlternatives = function () {
+    return alternatives;
+  }
+
+  self.setCurrentSheet = function (sheetName) {
+    currentSheetName = sheetName;
+  }
+
+  self.getCurrentSheet = function () {
+    return currentSheetName;
   }
 
   self.addQuadrant = function (quadrant) {
