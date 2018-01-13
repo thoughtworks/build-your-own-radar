@@ -137,6 +137,20 @@ describe('Radar', function () {
     });
   });
 
+  describe('alternatives', function() {
+    it('returns a provided alternatives', function() {
+      var radar = new Radar();
+
+      var alternative1 = 'alternative1';
+      var alternative2 = 'alternative2';
+
+      radar.addAlternative(alternative1);
+      radar.addAlternative(alternative2);
+
+      expect(radar.getAlternatives()).toEqual([alternative1, alternative2]);
+    });
+  });
+
   describe('rings', function () {
     var quadrant, radar, firstRing, secondRing, otherQuadrant;
 
