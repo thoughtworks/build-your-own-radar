@@ -8,7 +8,7 @@ server {
 # server block for static file serving
 server {
   listen 80;
-  server_name {{ .Env.SERVER_NAMES }};
+  server_name {{ default .Env.SERVER_NAMES "localhost" }};
   location / {
     root /opt/build-your-own-radar;
     index index.html;
