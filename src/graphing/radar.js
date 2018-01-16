@@ -67,6 +67,8 @@ const Radar = function (size, radar) {
     }
   }
 
+  const PADANGLE = toRadian(1);
+
   function plotQuadrant(rings, quadrant) {
     var quadrantGroup = svg.append('g')
       .attr('class', 'quadrant-group quadrant-group-' + quadrant.order)
@@ -79,7 +81,8 @@ const Radar = function (size, radar) {
         .innerRadius(ringCalculator.getRadius(i))
         .outerRadius(ringCalculator.getRadius(i + 1))
         .startAngle(toRadian(quadrant.startAngle))
-        .endAngle(toRadian(quadrant.startAngle + quadrant.angle));
+        .endAngle(toRadian(quadrant.startAngle + quadrant.angle))
+        .padAngle( PADANGLE / (i + 1) );
 
       quadrantGroup.append('path')
         .attr('d', arc)
@@ -141,11 +144,11 @@ const Radar = function (size, radar) {
 
   function calculateBlipCoordinates(chance, minRadius, maxRadius, startAngle, endAngle) {
     const emptyAngle = 4;
-
-    var radius = chance.floating({ min: minRadius + blipWidth, max: maxRadius - blipWidth / 2 });
+    
     if (minRadius === 0) {
-      minRadius = maxRadius / 4;
+      minRadius = maxRadius / 5;
     }
+    var radius = chance.floating({ min: minRadius + blipWidth, max: maxRadius - blipWidth / 2 });
 
     var randomAngle = 90 - chance.floating({
       max: startAngle - emptyAngle,

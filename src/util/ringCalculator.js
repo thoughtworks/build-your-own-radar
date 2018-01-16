@@ -6,7 +6,7 @@ const RingCalculator = function (numberOfRings, maxRadius) {
   self.sum = function(length) {
     return sequence.slice(0, length + 1).reduce(function (previous, current) {
       return previous + current;
-    }, 0);
+    }, 0.3);
   };
 
   self.getRadius = function(ring) {
