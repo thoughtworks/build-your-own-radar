@@ -2,7 +2,7 @@
 
 const webpack = require('webpack');
 const path = require('path');
-const buildPath = path.join(__dirname, './dist');
+const buildPath = path.join(__dirname, './dist-radar');
 const args = require('yargs').argv;
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
