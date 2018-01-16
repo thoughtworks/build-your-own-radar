@@ -8,5 +8,7 @@ examples
 
 coverage/
 
+/dist-radar
+
 .idea/
 .DS_Store

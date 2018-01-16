@@ -7,12 +7,14 @@
     "test": "istanbul cover jasmine",
     "dev": "webpack-dev-server --dev --inline",
     "build": "webpack --prod",
+    "start": "npm run build && npm run runprod",
+    "runprod": "node server.js",
     "examples:clean": "rm -rf examples/",
     "examples:copy": "mkdir examples && cp -r dist/* examples",
     "examples": "npm run build && npm run examples:clean && npm run examples:copy",
     "publishExamples": "node ./scripts/publish-examples.js"
   },
-  "author": "ThoughtWorks",
+  "authors": ["ThoughtWorks", "yousfi.saad@gmail.com"],
   "repository": {
     "type": "git",
     "url": "https://github.com/thoughtworks/build-your-own-radar"
@@ -43,6 +45,7 @@
     "chance": "^1.0.4",
     "d3": "^4.2.6",
     "d3-tip": "^0.7.1",
+    "express": "^4.16.2",
     "lodash": "^4.16.2",
     "sanitize-html": "^1.13.0",
     "tabletop": "^1.4.3"
