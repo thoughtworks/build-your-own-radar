@@ -13,16 +13,18 @@ import { CSVContent, plotRadar } from './util/factory';
 import csvContent from './radar.csv';
 import axios from 'axios';
 
-const POSTURL = '/api'
+const API = '/api';
 
-var blips = CSVContent(csvContent);
-
-plotRadar('title', blips);
+axios.get(API + '/data')
+  .then(({ data }) => {
+    var blips = CSVContent(csvContent);
+    plotRadar('title', blips);
+  });
 
 
 class App extends React.Component {
   handleNewUserMessage(newMessage) {
-    axios.post(POSTURL + '/feedback', { msg: newMessage })
+    axios.post(API + '/feedback', { msg: newMessage })
       .then(({ data }) => {
         addResponseMessage(data);
       });
