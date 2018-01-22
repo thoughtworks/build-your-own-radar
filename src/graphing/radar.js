@@ -178,7 +178,7 @@ const Radar = function (size, radar) {
   }
 
   function plotBlips(quadrantGroup, rings, quadrantWrapper) {
-    var blips, quadrant, startAngle, order, angle;
+    var blips, quadrant, startAngle, order, angle, endAngle;
 
     quadrant = quadrantWrapper.quadrant;
     startAngle = quadrantWrapper.startAngle;

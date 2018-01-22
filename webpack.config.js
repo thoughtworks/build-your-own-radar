@@ -38,7 +38,10 @@ if (isProd) {
         //     },
         //     mangle: true
         // }),
-        new webpack.optimize.OccurenceOrderPlugin()
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.ProvidePlugin({
+            "React": "react",
+        }),
     );
 }
 
@@ -70,7 +73,10 @@ module.exports = {
     devServer: {
         contentBase: buildPath,
         host: '0.0.0.0',
-        port: 8080
+        port: 8080,
+        proxy: {
+            '/api/*': 'http://localhost:8000'
+        }
     },
     node: {
         console: 'empty',
@@ -80,7 +86,8 @@ module.exports = {
     },
 
     externals: [{
-        xmlhttprequest: '{XMLHttpRequest:XMLHttpRequest}'
-    }]
+            xmlhttprequest: '{XMLHttpRequest:XMLHttpRequest}',
+            // 'react': 'React'
+        }]
 };
 
