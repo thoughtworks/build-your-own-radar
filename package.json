@@ -8,7 +8,7 @@
     "dev": "webpack-dev-server --dev --inline",
     "build": "webpack --prod",
     "start": "npm run build && npm run runprod",
-    "runprod": "node server.js",
+    "runprod": "node ./back/server.js",
     "examples:clean": "rm -rf examples/",
     "examples:copy": "mkdir examples && cp -r dist/* examples",
     "examples": "npm run build && npm run examples:clean && npm run examples:copy",
