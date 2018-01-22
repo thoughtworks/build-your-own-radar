@@ -12,7 +12,6 @@ import { Widget, addResponseMessage } from 'react-chat-widget';
 import { CSVContent, plotRadar } from './util/factory';
 import csvContent from './radar.csv';
 import axios from 'axios';
-import Rx from 'rxjs';
 
 const POSTURL = '/api'
 
