@@ -5,7 +5,7 @@ const _ = {
   each: require('lodash/each')
 };
 
-const MalformedDataError = require('../../src/exceptions/malformedDataError');
+const MalformedDataError = require('../exceptions/malformedDataError');
 const ExceptionMessages = require('./exceptionMessages');
 
 

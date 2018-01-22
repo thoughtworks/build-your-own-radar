@@ -1,4 +1,4 @@
-const SheetNotFoundError = require('../../src/exceptions/sheetNotFoundError');
+const SheetNotFoundError = require('../exceptions/sheetNotFoundError');
 const ExceptionMessages = require('./exceptionMessages');
 
 const Sheet = function (sheetReference) {

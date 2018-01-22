@@ -11,7 +11,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 let isProd = args.prod;
 let isDev = args.dev;
 
-let entry = ['./src/site.js'];
+let entry = ['./src-radar/site.js'];
 let devtool;
 
 if (isDev) {
@@ -22,7 +22,7 @@ if (isDev) {
 let plugins = [
     new ExtractTextPlugin('[name].[hash].css'),
     new HtmlWebpackPlugin({
-        template: './src/index.html',
+        template: './src-radar/index.html',
         inject: 'body',
         chunks: 'app'
     })
@@ -59,7 +59,7 @@ module.exports = {
             { test: /\.json$/, loader: 'json' },
             { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
             { test: /\.scss$/, exclude: /node_modules/, loader: ExtractTextPlugin.extract('style', 'css?sourceMap!sass') },
-            { test: /\.(png|jpg|ico)$/, exclude: /node_modules/, loader: 'file-loader?name=images/[name].[ext]&context=./src/images' }
+            { test: /\.(png|jpg|ico)$/, exclude: /node_modules/, loader: 'file-loader?name=images/[name].[ext]&context=./src-radar/images' }
         ]
     },
 
