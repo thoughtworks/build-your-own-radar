@@ -8,7 +8,7 @@ COPY . ./
 
 RUN yarn install && npm rebuild node-sass
 
-EXPOSE 8080
+EXPOSE 8000
 
 CMD [ "npm", "start" ]
 
