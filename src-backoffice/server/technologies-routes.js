@@ -59,7 +59,7 @@ router.post('/', postLimiter, (req, res) => {
     ring,
     quadrant,
     description,
-    isNew,
+    isNews,
   });
 
   newTechnologie.save()
@@ -73,7 +73,7 @@ router.post('/', postLimiter, (req, res) => {
           ring: result.ring,
           quadrant: result.quadrant,
           description: result.description,
-          isNew: result.isNew
+          isNew: result.isNews
         }
       });
     })
@@ -115,7 +115,7 @@ router.put('/:id', (req, res) => {
     ring,
     quadrant,
     description,
-    isNew
+    isNews
   };
 
   Technology.findOneAndUpdate({ _id: req.params.id }, updatedTechnologie, { runValidators: true, context: 'query' })
@@ -131,7 +131,7 @@ router.put('/:id', (req, res) => {
               ring: newResult.ring,
               quadrant: newResult.quadrant,
               description: newResult.description,
-              isNew: newResult.isNew
+              isNew: newResult.isNews
             }
           });
         })
@@ -178,7 +178,7 @@ router.delete('/:id', (req, res) => {
           ring: result.ring,
           quadrant: result.quadrant,
           description: result.description,
-          isNew: result.isNew
+          isNew: result.isNews
         }
       });
     })
@@ -204,4 +204,4 @@ module.exports = router;
 // sanitizeGender = (gender) => {
 //   // Return empty if it's neither of the two
 //   return (gender === 'm' || gender === 'f') ? gender : '';
-}
+// }

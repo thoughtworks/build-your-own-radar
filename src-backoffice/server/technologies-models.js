@@ -47,7 +47,7 @@ const descriptionValidator = [
   })
 ];
 // todo replace this when upgrading the models
-const isNewValidator = [
+const isNewsValidator = [
   validate({
     validator: 'isBoolean'
   })
@@ -66,19 +66,21 @@ const TechnologySchema = new mongoose.Schema({
     type: String,
     required: [true, 'ring is required.'],
     validate: ringValidator
-  
   },
   quadrant: {
     type: String,
+    required: [true, 'quadrant is required.'],
     validate: quadrantValidator
   },
   description: {
     type: String,
+    required: [true, 'description is required.'],
     validate: descriptionValidator
   },
-  isNew: {
+  isNews: {
     type: Boolean,
-    validate: isNewValidator
+    required: [true, 'isNews is required.'],
+    validate: isNewsValidator
   }
 });
 

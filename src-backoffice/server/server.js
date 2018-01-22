@@ -47,6 +47,7 @@ app.use(bodyParser.json());
 
 // Initialize routes middleware
 app.use('/api/users', require('./users-routes'));
+app.use('/api/technologies', require('./technologies-routes'));
 
 // Use express's default error handling middleware
 app.use((err, req, res, next) => {
