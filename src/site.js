@@ -7,11 +7,12 @@ require('./images/radar_legend.png');
 require('./stylesheets/feedback.scss');
 
 import React from 'react';
-import  ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom';
 import { Widget, addResponseMessage } from 'react-chat-widget';
-import { CSVContent,  plotRadar } from './util/factory';
+import { CSVContent, plotRadar } from './util/factory';
 import csvContent from './radar.csv';
 import axios from 'axios';
+import Rx from 'rxjs';
 
 const POSTURL = '/api'
 
@@ -19,27 +20,28 @@ var blips = CSVContent(csvContent);
 
 plotRadar('title', blips);
 
+
 class App extends React.Component {
-    handleNewUserMessage(newMessage) {
-        axios.post(POSTURL + '/addFeedback', {msg: newMessage})
-            .then(({data})=>{
-                addResponseMessage(data);
-            });
-    }
-  
-    render() {
-      return (
-        <div className="App">
-          <Widget
-            handleNewUserMessage={this.handleNewUserMessage}
-            title="Feedback"
-            subtitle="your feedback might be helpful"
-            showCloseButton
-          />
-        </div>
-      );
-    }
+  handleNewUserMessage(newMessage) {
+    axios.post(POSTURL + '/feedback', { msg: newMessage })
+      .then(({ data }) => {
+        addResponseMessage(data);
+      });
   }
-  
+
+  render() {
+    return (
+      <div className="App">
+        <Widget
+          handleNewUserMessage={this.handleNewUserMessage}
+          title="Feedback"
+          subtitle="your feedback might be helpful"
+          showCloseButton
+        />
+      </div>
+    );
+  }
+}
+
 
 ReactDOM.render(<App />, document.getElementById('wid'));

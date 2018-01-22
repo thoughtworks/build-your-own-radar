@@ -8,11 +8,14 @@ var app = express();
 
 var apiRouter = express.Router();
 apiRouter.use(bodyParser.json());
-apiRouter.post('/addFeedback', (req, res) => {
+apiRouter.post('/feedback', (req, res) => {
     var msg = req.body.msg || '';
     fs.appendFile('data/feedbacks.txt', `${msg}\n`, (err)=>{
         res.send('Thank you for yousr feed back');
     });
+});
+apiRouter.get('/feedbacks', (req, res) => {
+    res.download('data/feedbacks.txt');
 });
 
 

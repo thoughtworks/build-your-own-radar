@@ -11,6 +11,6 @@
     background-color: $violet;
   }
   #messages > .message > .client{
-    background-color: invert($violet);
+    background-color: $violet;
     color: white;
   }
