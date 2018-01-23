@@ -15,15 +15,15 @@ class App extends Component {
   constructor() {
     super();
 
-    this.server = process.env.REACT_APP_API_URL || '';
+    this.server = process.env.REACT_APP_API_URL || 'http://localhost:3000';
     this.socket = io.connect(this.server);
 
     this.state = {
-      users: [],
+      technologies: [],
       online: 0
     }
 
-    this.fetchUsers = this.fetchUsers.bind(this);
+    this.fetchTechnologies = this.fetchTechnologies.bind(this);
     this.handleUserAdded = this.handleUserAdded.bind(this);
     this.handleUserUpdated = this.handleUserUpdated.bind(this);
     this.handleUserDeleted = this.handleUserDeleted.bind(this);
@@ -31,7 +31,7 @@ class App extends Component {
 
   // Place socket.io code inside here
   componentDidMount() {
-    this.fetchUsers();
+    this.fetchTechnologies();
     this.socket.on('visitor enters', data => this.setState({ online: data }));
     this.socket.on('visitor exits', data => this.setState({ online: data }));
     this.socket.on('add', data => this.handleUserAdded(data));
@@ -40,10 +40,10 @@ class App extends Component {
   }
 
   // Fetch data from the back-end
-  fetchUsers() {
-    axios.get(`${this.server}/api/users/`)
+  fetchTechnologies() {
+    axios.get(`${this.server}/api/technologies/`)
     .then((response) => {
-      this.setState({ users: response.data });
+      this.setState({ technologies: response.data });
     })
     .catch((err) => {
       console.log(err);
@@ -51,23 +51,24 @@ class App extends Component {
   }
 
   handleUserAdded(user) {
-    let users = this.state.users.slice();
-    users.push(user);
-    this.setState({ users: users });
+    let technologies = this.state.technologies.slice();
+    technologies.push(user);
+    this.setState({ technologies: technologies });
   }
 
-  handleUserUpdated(user) {
-    let users = this.state.users.slice();
-    for (let i = 0, n = users.length; i < n; i++) {
-      if (users[i]._id === user._id) {
-        users[i].name = user.name;
-        users[i].email = user.email;
-        users[i].age = user.age;
-        users[i].gender = user.gender;
+  handleUserUpdated(technology) {
+    let technologies = this.state.technologies.slice();
+    for (let i = 0, n = technologies.length; i < n; i++) {
+      if (technologies[i]._id === technology._id) {
+        technologies[i].name = technology.name;
+        technologies[i].ring = technology.ring;
+        technologies[i].quadrant = technology.quadrant;
+        technologies[i].isNew = technology.isNew;
+        technologies[i].description = technology.description;
         break; // Stop this loop, we found it!
       }
     }
-    this.setState({ users: users });
+    this.setState({ technologies });
   }
 
   handleUserDeleted(user) {
@@ -113,7 +114,7 @@ class App extends Component {
           <TableUser
             onUserUpdated={this.handleUserUpdated}
             onUserDeleted={this.handleUserDeleted}
-            users={this.state.users}
+            technologies={this.state.technologies}
             server={this.server}
             socket={this.socket}
           />

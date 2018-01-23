@@ -32,7 +32,15 @@ router.get('/:id', (req, res) => {
 router.get('/', (req, res) => {
   Technology.find({})
     .then((result) => {
-      res.json(result);
+      res.json(result.map((tech)=>{
+        return {
+          name: tech.name,
+          ring: tech.ring,
+          quadrant: tech.quadrant,
+          description: tech.description,
+          isNew: tech.isNews,
+        };
+      }));
     })
     .catch((err) => {
       res.status(500).json({ success: false, msg: `Something went wrong. ${err}` });

@@ -8,14 +8,15 @@ class TableUser extends Component {
 
   render() {
 
-    let users = this.props.users;
+    let technologies = this.props.technologies;
 
-    users = users.map((user) => 
+    technologies = technologies.map((user) => 
       <Table.Row key={user._id}>
         <Table.Cell>{user.name}</Table.Cell>
-        <Table.Cell>{user.email}</Table.Cell>
-        <Table.Cell>{user.age}</Table.Cell>
-        <Table.Cell>{user.gender}</Table.Cell>
+        <Table.Cell>{user.ring}</Table.Cell>
+        <Table.Cell>{user.quadrant}</Table.Cell>
+        <Table.Cell>{String(user.isNew)}</Table.Cell>
+        {/* <Table.Cell>{user.description}</Table.Cell> */}
         <Table.Cell>
           <ModalUser
             headerTitle='Edit User'
@@ -41,21 +42,22 @@ class TableUser extends Component {
     );
 
     // Make every new user appear on top of the list
-    users =  [...users].reverse();
+    technologies =  [...technologies].reverse();
 
     return (
       <Table singleLine>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>Name</Table.HeaderCell>
-            <Table.HeaderCell>Email</Table.HeaderCell>
-            <Table.HeaderCell>Age</Table.HeaderCell>
-            <Table.HeaderCell>Gender</Table.HeaderCell>
+            <Table.HeaderCell>name</Table.HeaderCell>
+            <Table.HeaderCell>ring</Table.HeaderCell>
+            <Table.HeaderCell>quadrant</Table.HeaderCell>
+            <Table.HeaderCell>isNew</Table.HeaderCell>
+            {/* <Table.HeaderCell>description</Table.HeaderCell> */}
             <Table.HeaderCell>Actions</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {users}
+          {technologies}
         </Table.Body>
       </Table>
     );
