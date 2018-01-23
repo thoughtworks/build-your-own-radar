@@ -4,12 +4,18 @@ const webpack = require('webpack');
 const path = require('path');
 const buildPath = path.join(__dirname, './dist');
 const args = require('yargs').argv;
+const truthy = require('truthy');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 let isProd = args.prod;
 let isDev = args.dev;
+let env = args.envFile;
+if (env) {
+    // Load env file
+    require('dotenv').config({ path: env });
+}
 
 let main = ['./src/site.js'];
 let common = ['./src/common.js'];
@@ -32,6 +38,11 @@ let plugins = [
         chunks: ['common'],
         inject: 'body',
         filename: 'error.html'
+    }),
+    new webpack.DefinePlugin({
+        'process.env.CLIENT_ID': JSON.stringify(process.env.CLIENT_ID),
+        'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
+        'process.env.USE_AUTHENTICATION': truthy(process.env.USE_AUTHENTICATION)
     })
 ];
 
@@ -51,8 +62,8 @@ if (isProd) {
 
 module.exports = {
     entry: {
-        'main' : main,
-        'common' : common
+        'main': main,
+        'common': common
     },
     node: {
         fs: 'empty',
@@ -69,8 +80,8 @@ module.exports = {
 
     module: {
         loaders: [
-            { test: /\.json$/, loader: 'json'},
-            { test: /\.js$/, exclude: /node_modules/, loader: 'babel'},
+            { test: /\.json$/, loader: 'json' },
+            { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
             { test: /\.scss$/, exclude: /node_modules/, loader: ExtractTextPlugin.extract('style', 'css?sourceMap!sass') },
             { test: /\.(png|jpg|ico)$/, exclude: /node_modules/, loader: 'file-loader?name=images/[name].[ext]&context=./src/images' }
         ]

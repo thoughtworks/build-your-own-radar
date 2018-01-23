@@ -15,9 +15,15 @@ const Blip = require('../models/blip');
 const GraphingRadar = require('../graphing/radar');
 const MalformedDataError = require('../exceptions/malformedDataError');
 const SheetNotFoundError = require('../exceptions/sheetNotFoundError');
+const UnauthorizedError = require('../exceptions/unauthorizedError');
 const ContentValidator = require('./contentValidator');
 const Sheet = require('./sheet');
 const ExceptionMessages = require('./exceptionMessages');
+const GoogleAuth = require('./googleAuth');
+const LoginForm = require('./loginForm');
+const ProfileMenu = require('./profileMenu');
+
+const USE_AUTHENTICATION = process.env.USE_AUTHENTICATION;
 
 const plotRadar = function (title, blips) {
     document.title = title;
@@ -57,16 +63,27 @@ const GoogleSheet = function (sheetReference, sheetName) {
 
     self.build = function () {
         var sheet = new Sheet(sheetReference);
-        sheet.exists(function(notFound) {
-            if (notFound) {
-                plotErrorMessage(notFound);
-                return;
-            }
+        sheet.getSheet().then(function (sheetResponse) {
+            const sheetName = sheetResponse.result.sheets[0].properties.title;
+            sheet.getData(sheetName + '!A1:E')
+                .then(function (response) {
+                    response.result.values.forEach(function (value) {
+                        var contentValidator = new ContentValidator(response.result.values[0]);
+                        contentValidator.verifyContent();
+                        contentValidator.verifyHeaders();
+                    });
 
-            Tabletop.init({
-                key: sheet.id,
-                callback: createBlips
-            });
+                    const all = response.result.values;
+                    all.shift();
+                    var blips = _.map(all, new InputSanitizer().sanitize);
+                    plotRadar(sheetName, blips);
+                });
+        }, function (error) {
+            if (error.status === 403) {
+                plotErrorMessage(new UnauthorizedError(ExceptionMessages.UNAUTHORIZED));
+            } else if (error.status === 404) {
+                plotErrorMessage(new SheetNotFoundError(ExceptionMessages.SHEET_NOT_FOUND));
+            }
         });
 
         function createBlips(__, tabletop) {
@@ -83,8 +100,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
                 contentValidator.verifyHeaders();
 
                 var all = tabletop.sheets(sheetName).all();
-                var blips = _.map(all, new InputSanitizer().sanitize);
-
+                var blips = _.map(all.shift(), new InputSanitizer().sanitize);
                 plotRadar(tabletop.googleSheetName, blips);
             } catch (exception) {
                 plotErrorMessage(exception);
@@ -164,37 +180,60 @@ const FileName = function (url) {
 
 const GoogleSheetInput = function () {
     var self = {};
-    
-    self.build = function () {
+    self.cleanUpRender = function () {
+        d3.select('.input-sheet').remove();
+    }
+
+    self.render = function () {
         var domainName = DomainName(window.location.search.substring(1));
         var queryParams = QueryParams(window.location.search.substring(1));
 
-        if (domainName && queryParams.sheetId.endsWith('csv')) {
+        self.cleanUpRender();
+        if (self.isLoggedIn && domainName && queryParams.sheetId.endsWith('csv')) {
             var sheet = CSVDocument(queryParams.sheetId);
             sheet.init().build();
         }
-        else if (domainName && domainName.endsWith('google.com') && queryParams.sheetId) {
+        else if (self.isLoggedIn && domainName && domainName.endsWith('google.com') && queryParams.sheetId) {
             var sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName);
-            console.log(queryParams.sheetName)
 
             sheet.init().build();
         } else {
+
             var content = d3.select('body')
                 .append('div')
                 .attr('class', 'input-sheet');
+
             set_document_title();
 
-            plotLogo(content);
+            plotLogo(content, self.isLoggedIn);
 
             var bannerText = '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://www.thoughtworks.com/radar/byor">created your Radar</a>, you can use this service' +
                 ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a></p></div>';
 
             plotBanner(content, bannerText);
 
-            plotForm(content);
+            if (self.isLoggedIn) {
+                content
+                    .append('div')
+                    .attr('class', 'input-sheet__form');
+                plotForm(content);
+            } else {
+                LoginForm.build(content);
+            }
 
             plotFooter(content);
 
+        }
+    }
+    self.build = function () {
+        if (USE_AUTHENTICATION) {
+            GoogleAuth.isAuthorized(function (isLoggedIn) {
+                self.isLoggedIn = isLoggedIn;
+                self.render();
+            });
+        } else {
+            self.isLoggedIn = true;
+            self.render();
         }
     };
 
@@ -222,10 +261,16 @@ function plotLoading(content) {
 }
 
 function plotLogo(content) {
-    content.append('div')
-        .attr('class', 'input-sheet__logo')
-        .html('<a href="https://www.thoughtworks.com"><img src="/images/tw-logo.png" / ></a>');
+    const header = content.append('div')
+        .attr('class', 'input-sheet__header');
+    const logo = header.append('div')
+        .attr('class', 'input-sheet__logo');
+
+    logo.html('<a href="https://www.thoughtworks.com"><img src="/images/tw-logo.png" / ></a>');
+
+    ProfileMenu.build(header);
 }
+
 
 function plotFooter(content) {
     content
@@ -235,12 +280,9 @@ function plotFooter(content) {
         .attr('class', 'footer-content')
         .append('p')
         .html('Powered by <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. '
-        + 'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">ThoughtWorks\' terms of use</a>. '
-        + 'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. '
-        + 'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.');
-
-
-
+            + 'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">ThoughtWorks\' terms of use</a>. '
+            + 'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. '
+            + 'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.');
 }
 
 function plotBanner(content, text) {
@@ -251,10 +293,10 @@ function plotBanner(content, text) {
 }
 
 function plotForm(content) {
-    content.append('div')
-        .attr('class', 'input-sheet__form')
+    content.select('.input-sheet__form')
         .append('p')
         .html('<strong>Enter the URL of your <a href="https://www.thoughtworks.com/radar/how-to-byor" target="_blank">published</a> Google Sheet or CSV file below…</strong>');
+
 
     var form = content.select('.input-sheet__form').append('form')
         .attr('method', 'get');
@@ -262,8 +304,8 @@ function plotForm(content) {
     form.append('input')
         .attr('type', 'text')
         .attr('name', 'sheetId')
-        .attr('placeholder', "e.g. https://docs.google.com/spreadsheets/d/<\sheetid\> or hosted CSV file")
-        .attr('required','');
+        .attr('placeholder', "e.g. https://docs.google.com/spreadsheets/d/<\sheetid\>")
+        .attr('required', '');
 
     form.append('button')
         .attr('type', 'submit')
@@ -281,6 +323,8 @@ function plotErrorMessage(exception) {
     if (exception instanceof MalformedDataError) {
         message = message.concat(exception.message);
     } else if (exception instanceof SheetNotFoundError) {
+        message = exception.message;
+    } else if (exception instanceof UnauthorizedError) {
         message = exception.message;
     } else {
         console.error(exception);

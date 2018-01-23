@@ -1,0 +1,41 @@
+.profile {
+  height: 100%;
+  width: 50px;
+  float: left;
+
+  img {
+    margin-top: 60px;
+    margin-bottom: 40px;
+    border-radius: 100%;
+    width: 30.8px;
+    height: 30.8px;
+    cursor: pointer;
+  }
+
+  .profile__menu {
+    width: 150px;
+    background: #d7d7d7;
+    position: relative;
+    left: -110px;
+    top: -40px;
+    display: none;
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding-left: 0;
+      width: 100%;
+
+      li {
+        width: 100%;
+        padding-left: 0;
+        text-align: center;
+
+        a {
+          padding: 10px;
+          display: block;
+        }
+      }
+    }
+  }
+}

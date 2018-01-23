@@ -6,13 +6,13 @@ describe('InputSanitizer', function(){
     beforeAll(function(){
         sanitizer = new InputSanitizer();
         var description = "<b>Hello</b> <script>alert('dangerous');</script>there <h1>heading</h1>";
-        rawBlip = {
-            name: "Hello <script>alert('dangerous');</script>there <h1>blip</h1>",
-            description: description,
-            ring: '<a href="/asd">Adopt</a>',
-            quadrant: '<strong>techniques & tools</strong>',
-            isNew: 'true<br>'
-        };
+        rawBlip = [
+            "Hello <script>alert('dangerous');</script>there <h1>blip</h1>",
+            '<a href="/asd">Adopt</a>',
+            '<strong>techniques & tools</strong>',
+            'true<br>',
+            description
+        ];
 
         blip = sanitizer.sanitize(rawBlip);
     });
@@ -38,10 +38,9 @@ describe('InputSanitizer', function(){
     });
 
     it('trims white spaces in keys and values', function() {
-      rawBlip = {
-          ' name': '   Some name ',
-          '   ring ': '    Some ring name ',
-      };
+      rawBlip = [];
+      rawBlip[0] = '   Some name ';
+      rawBlip[1] = '    Some ring name ';
       blip = sanitizer.sanitize(rawBlip);
 
       expect(blip.name).toEqual('Some name');

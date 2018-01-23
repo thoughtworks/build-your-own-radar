@@ -31,6 +31,8 @@ Create a Google Sheet. Give it at least the below column headers, and put in the
 
 The URL will be similar to [https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/edit](https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/edit). In theory we are only interested in the part between '/d/' and '/edit' but you can use the whole URL if you want.
 
+[Do not want to Publish your Google Sheet?](#allow-authentication)
+
 ### Using CSV data
 The other way to provide your data is using CSV document format.
 You can enter any URL that responds CSV data into the input field on the first page.
@@ -58,7 +60,7 @@ Note: the quadrants of the radar, and the order of the rings inside the radar wi
 
 To create the data representation, you can use the Google Sheet [factory](/src/util/factory.js) or CSV, or you can also insert all your data straight into the code.
 
-The app uses [Tabletop.js](https://github.com/jsoma/tabletop) to fetch the data from a Google Sheet or [D3.js](https://d3js.org/) if supplied as CSV, so refer to their documentation for more advanced interaction.  The input data is sanitized by whitelisting HTML tags with [sanitize-html](https://github.com/punkave/sanitize-html).
+The app uses the [Sheets API](https://developers.google.com/sheets/api/quickstart/js) to fetch the data from a Google Sheet or [D3.js](https://d3js.org/) if supplied as CSV, so refer to their documentation for more advanced interaction.  The input data is sanitized by whitelisting HTML tags with [sanitize-html](https://github.com/punkave/sanitize-html).
 
 The application uses [webpack](https://webpack.github.io/) to package dependencies and minify all .js and .scss files.
 
@@ -71,11 +73,54 @@ $ docker run --rm -p 8080:80 -e SERVER_NAMES="localhost 127.0.0.1" wwwthoughtwor
 $ open http://localhost:8080
 ```
 
+## Allow Authentication
+
+This radar can be run with [Google OAuth 2.0](https://developers.google.com/identity/protocols/OAuth2) access. This feature is useful, when you do not want to make your Google Sheet public, or if you have an intranet-"Google Drive"-solution. Users, which are allowed to view the referenced Google Sheet, can also view the radar. This feature can be configured by using the following environment variables
+
+| Variable           | Type    | Description                                                                                     |
+|--------------------|---------|-------------------------------------------------------------------------------------------------|
+| USE_AUTHENTICATION | Boolean | If the user must be authenticated using Google OAuth 2.0 in order to view the site                  |
+| API_KEY            | String  | The API Key for the Google OAuth 2.0 Authentication. Gets ignored if USE_AUTHENTICATION=false   |
+| CLIENT_ID          | String  | The Client ID for the Google OAuth 2.0 Authentication. Gets ignored if USE_AUTHENTICATION=false |
+| ENV_FILE           | String  | The path to the .env-File which have the above environment variables configured                 |
+
+If you prefer an environment file, copy the `template.env` file of this repository, and change the values.
+
+### Get the CLIENT_ID and API_KEY from Google
+
+[Google: Authorizing requests with OAuth 2.0](https://developers.google.com/sheets/api/guides/authorizing#OAuth2Authorizing).
+The radar will use the scope `spreadsheets.readonly`.
+
+### Docker
+
+The environment variables must be set during building. They can not be altered when the docker image is already built
+
+```bash
+docker build --build-arg ENV_FILE=./template.env -t build-your-own-radar .
+# or use --build-arg USE_AUTHENTICATION=true --build-arg CLIENT_ID=<ID> --build-arg API_KEY=<KEY>
+# in case you do not want to use an environment file
+docker run --rm -p 8080:80 -e SERVER_NAMES="localhost 127.0.0.1" build-your-own-radar
+```
+
+### Developing
+
+When you want to change settings while developing, you can use environment variables.
+
+```bash
+USE_AUTHENTICATION=true API_KEY=<KEY> CLIENT_ID=<ID> npm run dev
+```
+
+or give your environment file as parameter
+
+```bash
+npm run dev -- --env-file ./template.env
+```
+
 ## Contribute
 
 All tasks are defined in `package.json`.
 
-Pull requests are welcome; please write tests whenever possible. 
+Pull requests are welcome; please write tests whenever possible.
 Make sure you have nodejs installed.
 
 - `git clone git@github.com:thoughtworks/build-your-own-radar.git`

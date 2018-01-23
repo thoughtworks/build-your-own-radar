@@ -9,22 +9,15 @@ const Sheet = function (sheetReference) {
         self.id = matches !== null ? matches[1] : sheetReference;
     })();
 
-    self.exists = function (callback) {
-        var feedURL = "https://spreadsheets.google.com/feeds/worksheets/" + self.id + "/public/basic?alt=json";
+    self.getSheet = function () {
+        return gapi.client.sheets.spreadsheets.get({ spreadsheetId: self.id });
+    }
 
-        // TODO: Move this out (as HTTPClient)
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', feedURL, true);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    return callback();
-                } else {
-                    return callback(new SheetNotFoundError(ExceptionMessages.SHEET_NOT_FOUND));
-                }
-            }
-        };
-        xhr.send(null);
+    self.getData = function (range) {
+        return gapi.client.sheets.spreadsheets.values.get({
+            spreadsheetId: self.id,
+            range: range,
+        });
     };
 
     return self;

@@ -10,3 +10,6 @@ coverage/
 
 .idea/
 .DS_Store
+
+*.env
+!template.env

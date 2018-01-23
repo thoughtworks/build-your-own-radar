@@ -1,22 +1,27 @@
 .input-sheet {
 
-  margin: 60px auto;
-
   p {
     font-weight: 100;
     color: $black;
     font-size: 18px;
 
   }
+  .input-sheet__header {
 
-  .input-sheet__logo {
-    text-align: center;
-    padding-bottom: 40px;
-    a {
-      border-bottom: none;
+    height: 136px;
 
-      img {
-        width: 200px;
+    .input-sheet__logo {
+      margin-top: 60px;
+      margin-bottom: 40px;
+      margin-left: 25%;
+      width: 50%;
+      text-align: center;
+      float: left;
+      a {
+        border-bottom: none;
+        img {
+          width: 200px;
+        }
       }
     }
   }
@@ -51,7 +56,7 @@
     }
   }
 
-  .input-sheet__form {
+  .input-sheet__form, .input-sheet__login {
     width: 50%;
     margin: 0 auto;
     text-align: center;
