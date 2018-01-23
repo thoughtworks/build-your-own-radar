@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
-import { Message, Button, Form, Select } from 'semantic-ui-react';
+import { Message, Button, Form, TextArea } from 'semantic-ui-react';
 import axios from 'axios';
 
-const genderOptions = [
-  { key: 'm', text: 'Male', value: 'm' },
-  { key: 'f', text: 'Female', value: 'f' },
-  { key: 'o', text: 'Do Not Disclose', value: 'o' }
-]
+// const genderOptions = [
+//   { key: 'm', text: 'Male', value: 'm' },
+//   { key: 'f', text: 'Female', value: 'f' },
+//   { key: 'o', text: 'Do Not Disclose', value: 'o' }
+// ]
 
 class FormUser extends Component {
 
   constructor(props) {
     super(props);
-    
+
     this.state = {
       name: '',
-      email: '',
-      age: '',
-      gender: '',
+      ring: '',
+      quadrant: '',
+      isNew: '',
+      description: '',
       formClassName: '',
       formSuccessMessage: '',
       formErrorMessage: ''
@@ -31,18 +32,19 @@ class FormUser extends Component {
   componentWillMount() {
     // Fill in the form with the appropriate data if user id is provided
     if (this.props.userID) {
-      axios.get(`${this.props.server}/api/users/${this.props.userID}`)
-      .then((response) => {
-        this.setState({
-          name: response.data.name,
-          email: response.data.email,
-          age: (response.data.age === null) ? '' : response.data.age,
-          gender: response.data.gender,
+      axios.get(`${this.props.server}/api/technologies/${this.props.userID}`)
+        .then((response) => {
+          this.setState({
+            name: response.data.name,
+            ring: response.data.ring,
+            quadrant: response.data.quadrant,
+            isNew: response.data.isNew,
+            description: response.data.description,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
         });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
     }
   }
 
@@ -55,7 +57,7 @@ class FormUser extends Component {
   }
 
   handleSelectChange(e, data) {
-    this.setState({ gender: data.value });
+    this.setState({ isNew: data.value });
   }
 
   handleSubmit(e) {
@@ -64,9 +66,10 @@ class FormUser extends Component {
 
     const user = {
       name: this.state.name,
-      email: this.state.email,
-      age: this.state.age,
-      gender: this.state.gender
+      ring: this.state.ring,
+      quadrant: this.state.quadrant,
+      isNew: this.state.isNew,
+      description: this.state.description
     }
 
     // Acknowledge that if the user id is provided, we're updating via PUT
@@ -77,47 +80,48 @@ class FormUser extends Component {
     axios({
       method: method,
       responseType: 'json',
-      url: `${this.props.server}/api/users/${params}`,
+      url: `${this.props.server}/api/technologies/${params}`,
       data: user
     })
-    .then((response) => {
-      this.setState({
-        formClassName: 'success',
-        formSuccessMessage: response.data.msg
-      });
-
-      if (!this.props.userID) {
+      .then((response) => {
         this.setState({
-          name: '',
-          email: '',
-          age: '',
-          gender: ''
+          formClassName: 'success',
+          formSuccessMessage: response.data.msg
         });
-        this.props.onUserAdded(response.data.result);
-        this.props.socket.emit('add', response.data.result);
-      }
-      else {
-        this.props.onUserUpdated(response.data.result);
-        this.props.socket.emit('update', response.data.result);
-      }
-      
-    })
-    .catch((err) => {
-      if (err.response) {
-        if (err.response.data) {
+
+        if (!this.props.userID) {
+          this.setState({
+            name: '',
+            ring: '',
+            quadrant: '',
+            isNew: '',
+            description: ''
+          });
+          this.props.onUserAdded(response.data.result);
+          this.props.socket.emit('add', response.data.result);
+        }
+        else {
+          this.props.onUserUpdated(response.data.result);
+          this.props.socket.emit('update', response.data.result);
+        }
+
+      })
+      .catch((err) => {
+        if (err.response) {
+          if (err.response.data) {
+            this.setState({
+              formClassName: 'warning',
+              formErrorMessage: err.response.data.msg
+            });
+          }
+        }
+        else {
           this.setState({
             formClassName: 'warning',
-            formErrorMessage: err.response.data.msg
+            formErrorMessage: 'Something went wrong. ' + err
           });
         }
-      }
-      else {
-        this.setState({
-          formClassName: 'warning',
-          formErrorMessage: 'Something went wrong. ' + err
-        });
-      }
-    });
+      });
   }
 
   render() {
@@ -128,46 +132,51 @@ class FormUser extends Component {
 
     return (
       <Form className={formClassName} onSubmit={this.handleSubmit}>
-        <Form.Input
-          label='Name'
-          type='text'
-          placeholder='Elon Musk'
-          name='name'
-          maxLength='40'
-          required
-          value={this.state.name}
-          onChange={this.handleInputChange}
-        />
-        <Form.Input
-          label='Email'
-          type='email'
-          placeholder='elonmusk@tesla.com'
-          name='email'
-          maxLength='40'
-          required
-          value={this.state.email}
-          onChange={this.handleInputChange}
-        />
         <Form.Group widths='equal'>
           <Form.Input
-            label='Age'
-            type='number'
-            placeholder='18'
-            min={5}
-            max={130}
-            name='age'
-            value={this.state.age}
+            label='Name'
+            type='text'
+            placeholder='Technology ...'
+            name='name'
+            maxLength='40'
+            required
+            value={this.state.name}
             onChange={this.handleInputChange}
           />
-          <Form.Field
-            control={Select}
-            label='Gender'
-            options={genderOptions}
-            placeholder='Gender'
-            value={this.state.gender}
-            onChange={this.handleSelectChange}
+          <Form.Input
+            label='Ring'
+            type='text'
+            placeholder='adopt, trial, assess or hold'
+            name='ring'
+            maxLength='40'
+            required
+            value={this.state.ring}
+            onChange={this.handleInputChange}
           />
         </Form.Group>
+        <Form.Group widths='equal'>
+        <Form.Input
+          label='Quadrant'
+          type='text'
+          placeholder='Type of technology'
+          name='quadrant'
+          value={this.state.quadrant}
+          onChange={this.handleInputChange}
+        />
+        <Form.Input
+          label='Is new ?'
+          type='checkbox'
+          placeholder='true / false'
+          name='isNew'
+          checked={this.state.isNew}
+          onChange={this.handleInputChange}
+        />
+        </Form.Group>
+        <TextArea
+          value={this.state.description}
+          autoHeight
+          placeholder='Technologie description ...'
+        />
         <Message
           success
           color='green'

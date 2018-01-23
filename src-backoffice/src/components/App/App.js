@@ -50,9 +50,9 @@ class App extends Component {
     });
   }
 
-  handleUserAdded(user) {
+  handleUserAdded(technology) {
     let technologies = this.state.technologies.slice();
-    technologies.push(user);
+    technologies.push(technology);
     this.setState({ technologies: technologies });
   }
 
@@ -72,9 +72,9 @@ class App extends Component {
   }
 
   handleUserDeleted(user) {
-    let users = this.state.users.slice();
-    users = users.filter(u => { return u._id !== user._id; });
-    this.setState({ users: users });
+    let technologies = this.state.technologies.slice();
+    technologies = technologies.filter(u => { return u._id !== user._id; });
+    this.setState({ technologies: technologies });
   }
 
   render() {
