@@ -17,11 +17,22 @@ const postLimiter = new RateLimit({
   }
 });
 
+const mapNewsToNew = (tech) => {
+  return {
+    _id: tech._id,
+    name: tech.name,
+    ring: tech.ring,
+    quadrant: tech.quadrant,
+    description: tech.description,
+    isNew: tech.isNews,
+  };
+};
+
 // READ (ONE)
 router.get('/:id', (req, res) => {
   Technology.findById(req.params.id)
     .then((result) => {
-      res.json(result);
+      res.json(mapNewsToNew(result));
     })
     .catch((err) => {
       res.status(404).json({ success: false, msg: `No such technologie.` });
@@ -32,15 +43,7 @@ router.get('/:id', (req, res) => {
 router.get('/', (req, res) => {
   Technology.find({})
     .then((result) => {
-      res.json(result.map((tech)=>{
-        return {
-          name: tech.name,
-          ring: tech.ring,
-          quadrant: tech.quadrant,
-          description: tech.description,
-          isNew: tech.isNews,
-        };
-      }));
+      res.json(result.map(mapNewsToNew));
     })
     .catch((err) => {
       res.status(500).json({ success: false, msg: `Something went wrong. ${err}` });
@@ -123,7 +126,7 @@ router.put('/:id', (req, res) => {
     ring,
     quadrant,
     description,
-    isNews
+    isNews : isNew
   };
 
   Technology.findOneAndUpdate({ _id: req.params.id }, updatedTechnologie, { runValidators: true, context: 'query' })

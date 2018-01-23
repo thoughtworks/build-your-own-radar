@@ -47,11 +47,11 @@ const descriptionValidator = [
   })
 ];
 // todo replace this when upgrading the models
-const isNewsValidator = [
-  validate({
-    validator: 'isBoolean'
-  })
-];
+// const isNewsValidator = [
+//   validate({
+//     validator: 'isBoolean'
+//   })
+// ];
 
 
 // Define the database model
@@ -80,7 +80,7 @@ const TechnologySchema = new mongoose.Schema({
   isNews: {
     type: Boolean,
     required: [true, 'isNews is required.'],
-    validate: isNewsValidator
+    // validate: isNewsValidator
   }
 });
 
