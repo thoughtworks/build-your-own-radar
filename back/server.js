@@ -4,7 +4,7 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 
 const config = {
-    db: 'mongodb://localhost/mern-crud'
+    db: 'mongodb://mongo/mern-crud'
 };
 
 // Use Node's default promise instead of Mongoose's promise library
@@ -27,6 +27,9 @@ var app = express();
 const apiRouter = require('./apiRouter');
 
 app.use('/api', apiRouter);
+app.use('/admin', express.static(resolve(__dirname, '..', 'dist-backoffice')));
+// todo
+app.use('/static', express.static(resolve(__dirname, '..', 'dist-backoffice', 'static')));
 app.use('/', express.static(resolve(__dirname, '..', 'dist-radar')));
 
 

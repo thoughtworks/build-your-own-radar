@@ -67,7 +67,7 @@ router.get('/:id', (req, res) => {
 router.get('/', (req, res) => {
   Technology.find({})
     .then((result) => {
-      res.csv(result.map(mapNewsToNew));
+      res.json(result.map(mapNewsToNew));
     })
     .catch((err) => {
       res.status(500).json({ success: false, msg: `Something went wrong. ${err}` });

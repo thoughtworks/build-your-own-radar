@@ -68,7 +68,7 @@ class FormUser extends Component {
       name: this.state.name,
       ring: this.state.ring,
       quadrant: this.state.quadrant,
-      isNew: this.state.isNew,
+      isNew: this.state.isNew || false,
       description: this.state.description
     }
 

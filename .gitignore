@@ -9,6 +9,7 @@ examples
 coverage/
 
 /dist-radar
+/dist-backoffice
 
 .idea/
 .DS_Store
