@@ -49,7 +49,7 @@ const plotRadar = function (title, blips) {
 }
 
 const CSVContent = function (fileContent) {
-    var data = d3.csvParse(fileContent)
+    var data = d3.csvParse(fileContent);
     var columnNames = data['columns'];
     delete data['columns'];
     var contentValidator = new ContentValidator(columnNames);

@@ -10,14 +10,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Widget, addResponseMessage } from 'react-chat-widget';
 import { CSVContent, plotRadar } from './util/factory';
-import csvContent from './radar.csv';
 import axios from 'axios';
 
 const API = '/api';
 
-axios.get(API + '/data')
+axios.get( API + '/technologies/_csv_' )
   .then(({ data }) => {
-    var blips = CSVContent(csvContent);
+    var blips = CSVContent(data);
     plotRadar('title', blips);
   });
 

@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 const RateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
-const stringCapitalizeName = require('string-capitalize-name');
+const jsonexport = require('jsonexport');
+
+// const stringCapitalizeName = require('string-capitalize-name');
 
 const Technology = require('./technologies-models');
 
@@ -27,7 +29,29 @@ const mapNewsToNew = (tech) => {
     isNew: tech.isNews,
   };
 };
+const mapNewsToNewWoId = (tech) => {
+  return {
+    // _id: tech._id,
+    name: tech.name,
+    ring: tech.ring,
+    quadrant: tech.quadrant,
+    description: tech.description,
+    isNew: tech.isNews,
+  };
+};
 
+// READ (ALL)
+router.get('/_csv_', (req, res) => {
+  Technology.find({})
+    .then((result) => {
+      jsonexport(result.map(mapNewsToNewWoId), (err, data)=>{
+        res.send(data);
+      })
+    })
+    .catch((err) => {
+      res.status(500).json({ success: false, msg: `Something went wrong. ${err}` });
+    });
+});
 // READ (ONE)
 router.get('/:id', (req, res) => {
   Technology.findById(req.params.id)
@@ -43,7 +67,7 @@ router.get('/:id', (req, res) => {
 router.get('/', (req, res) => {
   Technology.find({})
     .then((result) => {
-      res.json(result.map(mapNewsToNew));
+      res.csv(result.map(mapNewsToNew));
     })
     .catch((err) => {
       res.status(500).json({ success: false, msg: `Something went wrong. ${err}` });
