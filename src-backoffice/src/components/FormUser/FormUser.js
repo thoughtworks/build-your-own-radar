@@ -175,7 +175,9 @@ class FormUser extends Component {
         <TextArea
           value={this.state.description}
           autoHeight
+          name='description'
           placeholder='Technologie description ...'
+          onChange={this.handleInputChange}
         />
         <Message
           success

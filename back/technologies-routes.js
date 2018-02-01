@@ -94,7 +94,7 @@ router.post('/', postLimiter, (req, res) => {
     ring,
     quadrant,
     description,
-    isNews,
+    isNews : isNew,
   });
 
   newTechnologie.save()
