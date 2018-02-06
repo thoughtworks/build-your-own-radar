@@ -79,15 +79,15 @@ module.exports = {
         }
     },
     node: {
-        console: 'empty',
+        // console: 'empty',
         fs: 'empty',
         net: 'empty',
         tls: 'empty'
     },
 
     externals: [{
-            xmlhttprequest: '{XMLHttpRequest:XMLHttpRequest}',
-            // 'react': 'React'
-        }]
+        xmlhttprequest: '{XMLHttpRequest:XMLHttpRequest}',
+        // 'react': 'React'
+    }]
 };
 
