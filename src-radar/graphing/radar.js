@@ -414,7 +414,7 @@ const Radar = function (size, radar) {
     header.select('.radar-title')
       .append('div')
       .attr('class', 'radar-title__logo')
-      .html('<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /> </a>');
+      // .html('<a href="/about"> About </a>');
 
     return header;
   }
@@ -442,8 +442,10 @@ const Radar = function (size, radar) {
 
     header.append('div')
       .classed('print-radar button no-capitalize', true)
-      .text('Print this radar')
-      .on('click', window.print.bind(window));
+      .text('About')
+      .on('click', function(){
+        window.location = '/about';
+      });
   }
 
   function plotRadarFooter() {
