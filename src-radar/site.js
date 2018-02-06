@@ -1,5 +1,4 @@
 require('./stylesheets/base.scss');
-require('./images/logo.png');
 require('./images/tech-radar-201611-landing-page-wide.png');
 require('./images/tw-logo.png');
 require('./images/favicon.ico');
@@ -17,7 +16,7 @@ const API = '/api';
 axios.get( API + '/technologies/_csv_' )
   .then(({ data }) => {
     var blips = CSVContent(data);
-    plotRadar('title', blips);
+    plotRadar('Technology radar', blips);
   });
 
 
