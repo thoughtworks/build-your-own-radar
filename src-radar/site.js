@@ -4,6 +4,7 @@ require('./images/tw-logo.png');
 require('./images/favicon.ico');
 require('./images/radar_legend.png');
 require('./stylesheets/feedback.scss');
+require('./images/SQLI_logo.png');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -16,7 +17,7 @@ const API = '/api';
 axios.get( API + '/technologies/_csv_' )
   .then(({ data }) => {
     var blips = CSVContent(data);
-    plotRadar('Technology radar', blips);
+    plotRadar('Technology Radar - SQLi ISCM', blips);
   });
 
 

@@ -1,10 +1,10 @@
 {
-  "short_name": "MERN CRUD",
-  "name": "MERN CRUD",
+  "short_name": "admin area",
+  "name": "admin area",
   "icons": [
     {
       "src": "favicon.ico",
-      "sizes": "192x192",
+      "sizes": "16x16",
       "type": "image/png"
     }
   ],
