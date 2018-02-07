@@ -54,7 +54,8 @@ const Radar = function (size, radar) {
     //   .attr('x1', center()).attr('x2', center())
     //   .attr('y1', startY - 2).attr('y2', endY + 2)
     //   .attr('stroke-width', 10);
-    var line = svg.select('line');
+    var line = svg.select('line')
+                  .attr('opacity', 0.8);
     if (erase) {
       if (!line.empty()) {
         line.remove();
@@ -63,11 +64,11 @@ const Radar = function (size, radar) {
       svg.append('line')
         .attr('x1', endX).attr('y1', center())
         .attr('x2', startX).attr('y2', center())
-        .attr('stroke-width', 10);
+        .attr('stroke-width', 6);
     }
   }
 
-  const PADANGLE = toRadian(1);
+  const PADANGLE = toRadian(3);
 
   function plotQuadrant(rings, quadrant) {
     var quadrantGroup = svg.append('g')
@@ -144,10 +145,9 @@ const Radar = function (size, radar) {
 
   function calculateBlipCoordinates(chance, minRadius, maxRadius, startAngle, endAngle) {
     const emptyAngle = 4;
+
+    minRadius = Math.max(minRadius, 20);
     
-    if (minRadius === 0) {
-      minRadius = maxRadius / 5;
-    }
     var radius = chance.floating({ min: minRadius + blipWidth, max: maxRadius - blipWidth / 2 });
 
     var randomAngle = 90 - chance.floating({
@@ -373,8 +373,8 @@ const Radar = function (size, radar) {
   function redrawFullRadar() {
     removeHomeLink();
     removeRadarLegend();
-    plotLine(true);
-    plotTexts(true);
+    // plotLine(true);
+    // plotTexts(true);
     svg.transition()
       .style('left', 0).style('right', 0)
       .style('margin-left', null);
@@ -499,8 +499,8 @@ const Radar = function (size, radar) {
 
     var rotateAngle = 90 - startAngle;
 
-    plotLine();
-    plotTexts();
+    // plotLine();
+    // plotTexts();
 
     svg.transition()
       .style('left', moveLeft + 'px')
@@ -560,9 +560,13 @@ const Radar = function (size, radar) {
       var quadrantGroup = plotQuadrant(rings, quadrant);
       // plotLines(quadrantGroup, quadrant);
       // plotTexts(quadrantGroup, rings, quadrant);
+
       plotBlips(quadrantGroup, rings, quadrant);
     });
 
+    plotLine();
+    plotTexts();
+    
     plotRadarFooter();
 
   };
