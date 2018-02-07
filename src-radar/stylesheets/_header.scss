@@ -27,8 +27,15 @@ header {
       }
     }
 
+    .sqli-logo{
+      float: left;
+      margin-right: 30px;
+      height: 89px;
+      width: auto;
+    }
+
     .radar-title__logo {
-      width: 30%;
+      // width: 30%;
       display: table-cell;
       vertical-align: middle;
       a {

@@ -3,3 +3,14 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.sqli-logo{
+  height: 43px;
+  float: left;
+  margin-left: 10%;
+  margin-right: -15%;
+  background-color: white;
+  padding: 4px;
+  border-radius: 2px;
+  opacity: .8;
+}
