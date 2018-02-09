@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "basic-auth": "^2.0.0",
     "body-parser": "^1.18.2",
     "chance": "^1.0.13",
     "cors": "^2.8.4",

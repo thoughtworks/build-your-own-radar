@@ -2,6 +2,7 @@ const express = require('express');
 const { resolve } = require('path');
 const fs = require('fs');
 const mongoose = require('mongoose');
+const authMid = require('./auth');
 
 let mongodb = 'mongo';
 if(process.env.ENV == 'DEV') {
@@ -32,8 +33,11 @@ var app = express();
 
 const apiRouter = require('./apiRouter');
 
+
 app.use('/api', apiRouter);
-app.use('/admin', express.static(resolve(__dirname, '..', 'dist-backoffice')));
+app.use('/admin', authMid, express.static(resolve(__dirname, '..', 'dist-backoffice')));
+
+
 app.use('/about', express.static(resolve(__dirname, '..', 'about')));
 // todo
 app.use('/static', express.static(resolve(__dirname, '..', 'dist-backoffice', 'static')));
