@@ -13,6 +13,7 @@ class TableUser extends Component {
     technologies = technologies.map((user) => 
       <Table.Row key={user._id}>
         <Table.Cell>{user.name}</Table.Cell>
+        <Table.Cell>{user.pole}</Table.Cell>
         <Table.Cell>{user.ring}</Table.Cell>
         <Table.Cell>{user.quadrant}</Table.Cell>
         <Table.Cell>{String(user.isNew)}</Table.Cell>
@@ -49,6 +50,7 @@ class TableUser extends Component {
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>name</Table.HeaderCell>
+            <Table.HeaderCell>techno</Table.HeaderCell>
             <Table.HeaderCell>ring</Table.HeaderCell>
             <Table.HeaderCell>quadrant</Table.HeaderCell>
             <Table.HeaderCell>isNew</Table.HeaderCell>
