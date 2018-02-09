@@ -36,7 +36,7 @@ const mapNewsToNewWoId = (tech) => {
     name: tech.name,
     ring: tech.ring,
     quadrant: tech.quadrant,
-    pole: tech.quadrant,
+    pole: tech.pole,
     description: tech.description,
     isNew: tech.isNews,
   };
