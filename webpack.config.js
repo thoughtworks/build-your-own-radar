@@ -2,7 +2,7 @@
 
 const webpack = require('webpack');
 const path = require('path');
-const buildPath = path.join(__dirname, './dist');
+const buildPath = path.join(__dirname, './dist-radar');
 const args = require('yargs').argv;
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -11,7 +11,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 let isProd = args.prod;
 let isDev = args.dev;
 
-let entry = ['./src/site.js'];
+let entry = ['./src-radar/site.js'];
 let devtool;
 
 if (isDev) {
@@ -22,7 +22,7 @@ if (isDev) {
 let plugins = [
     new ExtractTextPlugin('[name].[hash].css'),
     new HtmlWebpackPlugin({
-        template: './src/index.html',
+        template: './src-radar/index.html',
         inject: 'body',
         chunks: 'app'
     })
@@ -32,13 +32,16 @@ if (isProd) {
     plugins.push(
         new webpack.NoErrorsPlugin(),
         new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            },
-            mangle: true
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {
+        //         warnings: false
+        //     },
+        //     mangle: true
+        // }),
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.ProvidePlugin({
+            "React": "react",
         }),
-        new webpack.optimize.OccurenceOrderPlugin()
     );
 }
 
@@ -53,10 +56,10 @@ module.exports = {
 
     module: {
         loaders: [
-            { test: /\.json$/, loader: 'json'},
-            { test: /\.js$/, exclude: /node_modules/, loader: 'babel'},
+            { test: /\.json$/, loader: 'json' },
+            { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
             { test: /\.scss$/, exclude: /node_modules/, loader: ExtractTextPlugin.extract('style', 'css?sourceMap!sass') },
-            { test: /\.(png|jpg|ico)$/, exclude: /node_modules/, loader: 'file-loader?name=images/[name].[ext]&context=./src/images' }
+            { test: /\.(png|jpg|ico)$/, exclude: /node_modules/, loader: 'file-loader?name=images/[name].[ext]&context=./src-radar/images' }
         ]
     },
 
@@ -70,7 +73,23 @@ module.exports = {
     devServer: {
         contentBase: buildPath,
         host: '0.0.0.0',
-        port: 8080
-    }
+        port: 8080,
+        proxy: {
+            '/api/*': 'http://[::1]:8000',
+            '/admin/*' : 'http://[::1]:8000',
+            '/about/*' : 'http://[::1]:8000'
+        }
+    },
+    node: {
+        // console: 'empty',
+        fs: 'empty',
+        net: 'empty',
+        tls: 'empty'
+    },
+
+    externals: [{
+        xmlhttprequest: '{XMLHttpRequest:XMLHttpRequest}',
+        // 'react': 'React'
+    }]
 };
 
