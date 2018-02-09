@@ -2,13 +2,14 @@ const express = require('express');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const path = require('path');
+const authMid = require('./auth');
 
 const technologiesRouter = require('./technologies-routes');
 
 var apiRouter = express.Router();
 
 apiRouter.use(bodyParser.json());
-
+apiRouter.use('/feedbacks', authMid);
 apiRouter.post('/feedback', (req, res) => {
     var msg = req.body.msg || '';
     fs.appendFile('data/feedbacks.txt', `${msg}\n`, (err) => {
