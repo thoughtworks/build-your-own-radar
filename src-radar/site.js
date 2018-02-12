@@ -57,6 +57,7 @@ class App extends React.Component {
 }
 const FilterComponent = ({ options, onChange }) => (
   <Dropdown placeholder='Filters ...' fluid multiple search selection
+    defaultOpen={true}
     options={options}
     onChange={onChange}
     />
