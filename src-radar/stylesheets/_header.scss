@@ -63,7 +63,18 @@ header {
     font-size: $baseFont;
     padding-bottom: 15px;
     text-align: left;
-    width: 80%;
+    width: 60%;
+  }
+
+  #filter{
+    display: inline-block;
+    // float: right;
+    padding-bottom: 15px;
+    width: 20%;
+
+    input{
+      height: 19px;
+    }
   }
 
   .button {

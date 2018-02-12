@@ -8,16 +8,29 @@ require('./images/SQLI_logo.png');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Dropdown } from 'semantic-ui-react'
 import { Widget, addResponseMessage } from 'react-chat-widget';
-import { CSVContent, plotRadar } from './util/factory';
+import { CSVContent, plotRadar, hideBlips } from './util/factory';
+import filtering from './util/filtering';
 import axios from 'axios';
 
 const API = '/api';
 
-axios.get( API + '/technologies/_csv_' )
+axios.get(API + '/technologies/_csv_')
   .then(({ data }) => {
     var blips = CSVContent(data);
     plotRadar('Technology Radar - SQLi ISCM', blips);
+
+    let stateOptions = filtering.getPoles(blips);
+
+    ReactDOM.render(<FilterComponent
+      options={stateOptions}
+      onChange={function (e, { value:values }){
+        // console.log(arguments);
+        let indexes = filtering.filrerBy(blips, values);
+        hideBlips(indexes);
+      }}
+    />, document.getElementById('filter'));
   });
 
 
@@ -42,6 +55,12 @@ class App extends React.Component {
     );
   }
 }
+const FilterComponent = ({ options, onChange }) => (
+  <Dropdown placeholder='Filters ...' fluid multiple search selection
+    options={options}
+    onChange={onChange}
+    />
+);
 
 
 ReactDOM.render(<App />, document.getElementById('wid'));

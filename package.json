@@ -65,6 +65,7 @@
     "react-chat-widget": "^2.1.2",
     "react-dom": "^16.2.0",
     "sanitize-html": "^1.17.0",
+    "semantic-ui-react": "^0.78.2",
     "socket.io": "^2.0.4",
     "tabletop": "^1.4.3"
   }
