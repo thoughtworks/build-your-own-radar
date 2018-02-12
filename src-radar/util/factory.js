@@ -60,7 +60,24 @@ const CSVContent = function (fileContent) {
 }
 
 
+const hideBlips = function(indexes){
+    let allBlips = d3.selectAll('g.blip-link');
+    if(indexes.length === 0){
+        allBlips.style('display', null);
+    } else {
+        allBlips.nodes().forEach((e)=>{
+            let intx = parseInt(e.textContent);
+            if (indexes.indexOf(intx) === -1){
+                e.style.display = 'none';
+            }else{
+                e.style.display = null;
+            }
+        });
+    }
+}
+
 module.exports = {
     CSVContent,
-    plotRadar
+    plotRadar,
+    hideBlips
 };

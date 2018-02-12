@@ -39,6 +39,14 @@ const quadrantValidator = [
   })
 ];
 
+const poleValidator = [
+  validate({
+    validator: 'isLength',
+    arguments: [4, 40],
+    message: 'ring must not exceed {ARGS[1]} characters.'
+  })
+];
+
 const descriptionValidator = [
   validate({
     validator: 'isLength',
@@ -71,6 +79,11 @@ const TechnologySchema = new mongoose.Schema({
     type: String,
     required: [true, 'quadrant is required.'],
     validate: quadrantValidator
+  },
+  pole: {
+    type: String,
+    required: [true, 'pole is required.'],
+    validate: poleValidator
   },
   description: {
     type: String,

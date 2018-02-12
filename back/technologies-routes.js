@@ -25,6 +25,7 @@ const mapNewsToNew = (tech) => {
     name: tech.name,
     ring: tech.ring,
     quadrant: tech.quadrant,
+    pole: tech.pole,
     description: tech.description,
     isNew: tech.isNews,
   };
@@ -35,6 +36,7 @@ const mapNewsToNewWoId = (tech) => {
     name: tech.name,
     ring: tech.ring,
     quadrant: tech.quadrant,
+    pole: tech.pole,
     description: tech.description,
     isNew: tech.isNews,
   };
@@ -85,6 +87,7 @@ router.post('/', postLimiter, (req, res) => {
     name,
     ring,
     quadrant,
+    pole,
     description,
     isNew,
   } = req.body;
@@ -93,6 +96,7 @@ router.post('/', postLimiter, (req, res) => {
     name,
     ring,
     quadrant,
+    pole,
     description,
     isNews : isNew,
   });
@@ -107,6 +111,7 @@ router.post('/', postLimiter, (req, res) => {
           name: result.name,
           ring: result.ring,
           quadrant: result.quadrant,
+          pole: result.pole,
           description: result.description,
           isNew: result.isNews
         }
@@ -143,12 +148,13 @@ router.put('/:id', (req, res) => {
   // let age = sanitizeAge(req.body.age);
   // if (age < 5 && age != '') return res.status(403).json({ success: false, msg: `You're too young for this.` });
   // else if (age > 130 && age != '') return res.status(403).json({ success: false, msg: `You're too old for this.` });
-  let { name, ring, quadrant, description, isNew } = req.body;
+  let { name, ring, quadrant, pole, description, isNew } = req.body;
 
   let updatedTechnologie = {
     name,
     ring,
     quadrant,
+    pole,
     description,
     isNews : isNew
   };
@@ -165,6 +171,7 @@ router.put('/:id', (req, res) => {
               name: newResult.name,
               ring: newResult.ring,
               quadrant: newResult.quadrant,
+              pole: newResult.pole,
               description: newResult.description,
               isNew: newResult.isNews
             }
@@ -212,6 +219,7 @@ router.delete('/:id', (req, res) => {
           name: result.name,
           ring: result.ring,
           quadrant: result.quadrant,
+          pole: result.pole,
           description: result.description,
           isNew: result.isNews
         }

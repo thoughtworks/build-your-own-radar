@@ -7,7 +7,7 @@ import TableUser from '../TableUser/TableUser';
 import ModalUser from '../ModalUser/ModalUser';
 
 import logo from '../../SQLI_logo.png';
-import shirts from '../../shirts.png';
+// import shirts from '../../shirts.png';
 import './App.css';
 
 const appHeaderStyles = {
@@ -67,6 +67,7 @@ class App extends Component {
         technologies[i].name = technology.name;
         technologies[i].ring = technology.ring;
         technologies[i].quadrant = technology.quadrant;
+        technologies[i].pole = technology.pole;
         technologies[i].isNew = technology.isNew;
         technologies[i].description = technology.description;
         break; // Stop this loop, we found it!
@@ -84,8 +85,8 @@ class App extends Component {
   render() {
 
     let online = this.state.online;
-    let verb = (online <= 1) ? 'is' : 'are'; // linking verb, if you'd prefer
-    let noun = (online <= 1) ? 'person' : 'people';
+    // let verb = (online <= 1) ? 'is' : 'are'; // linking verb, if you'd prefer
+    // let noun = (online <= 1) ? 'person' : 'people';
 
     return (
       <div>
@@ -99,7 +100,7 @@ class App extends Component {
         </div>
         <Container>
           <ModalUser
-            headerTitle='Add User'
+            headerTitle='Add Technology'
             buttonTriggerTitle='Add New'
             buttonSubmitTitle='Add'
             buttonColor='green'
@@ -107,7 +108,7 @@ class App extends Component {
             server={this.server}
             socket={this.socket}
           />
-          <em id='online'>{`${online} ${noun} ${verb} online.`}</em>
+          {/* <em id='online'>{`${online} ${noun} ${verb} online.`}</em> */}
           <TableUser
             onUserUpdated={this.handleUserUpdated}
             onUserDeleted={this.handleUserDeleted}

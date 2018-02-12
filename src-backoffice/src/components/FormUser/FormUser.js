@@ -16,6 +16,7 @@ class FormUser extends Component {
     this.state = {
       name: '',
       ring: '',
+      pole: '',
       quadrant: '',
       isNew: '',
       description: '',
@@ -37,6 +38,7 @@ class FormUser extends Component {
           this.setState({
             name: response.data.name,
             ring: response.data.ring,
+            pole: response.data.pole,
             quadrant: response.data.quadrant,
             isNew: response.data.isNew,
             description: response.data.description,
@@ -67,6 +69,7 @@ class FormUser extends Component {
     const user = {
       name: this.state.name,
       ring: this.state.ring,
+      pole: this.state.pole,
       quadrant: this.state.quadrant,
       isNew: this.state.isNew || false,
       description: this.state.description
@@ -93,6 +96,7 @@ class FormUser extends Component {
           this.setState({
             name: '',
             ring: '',
+            pole: '',
             quadrant: '',
             isNew: '',
             description: ''
@@ -154,23 +158,33 @@ class FormUser extends Component {
             onChange={this.handleInputChange}
           />
         </Form.Group>
-        <Form.Group widths='equal'>
-        <Form.Input
-          label='Quadrant'
-          type='text'
-          placeholder='Type of technology'
-          name='quadrant'
-          value={this.state.quadrant}
-          onChange={this.handleInputChange}
-        />
-        <Form.Input
-          label='Is new ?'
-          type='checkbox'
-          placeholder='true / false'
-          name='isNew'
-          checked={this.state.isNew}
-          onChange={this.handleInputChange}
-        />
+        <Form.Group widths='even'>
+          <Form.Input
+            label='Quadrant'
+            type='text'
+            placeholder='Type of technology'
+            name='quadrant'
+            value={this.state.quadrant}
+            onChange={this.handleInputChange}
+          />
+          <Form.Input
+            label='Techno'
+            type='text'
+            placeholder=''
+            name='pole'
+            maxLength='40'
+            required
+            value={this.state.pole}
+            onChange={this.handleInputChange}
+          />
+          <Form.Input
+            label='Is new ?'
+            type='checkbox'
+            placeholder='true / false'
+            name='isNew'
+            checked={this.state.isNew}
+            onChange={this.handleInputChange}
+          />
         </Form.Group>
         <TextArea
           value={this.state.description}

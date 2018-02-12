@@ -414,7 +414,7 @@ const Radar = function (size, radar) {
 
     header.select('.radar-title')
       .append('div')
-      .attr('class', 'radar-title__logo')
+      .attr('class', 'radar-title__logo');
       // .html('<a href="/about"> About </a>');
 
     return header;
@@ -474,6 +474,7 @@ const Radar = function (size, radar) {
   function selectQuadrant(order, startAngle) {
     d3.selectAll('.home-link').classed('selected', false);
     createHomeLink(d3.select('header'));
+
 
     d3.selectAll('.button').classed('selected', false).classed('full-view', false);
     d3.selectAll('.button.' + order).classed('selected', true);
@@ -552,6 +553,10 @@ const Radar = function (size, radar) {
 
     createHomeLink(d3.select('header'));
 
+    d3.select('header')
+      .append('div')
+      .attr('id', 'filter');
+      
     radarElement.style('height', size + 14 + 'px');
     svg = radarElement.append("svg").call(tip);
     svg.attr('id', 'radar-plot').attr('width', size).attr('height', size + 14);
