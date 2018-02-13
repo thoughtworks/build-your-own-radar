@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container } from 'semantic-ui-react';
+import { Container, Input, Dropdown } from 'semantic-ui-react';
 import axios from 'axios';
 import io from 'socket.io-client';
 
@@ -14,6 +14,13 @@ const appHeaderStyles = {
   'font-size': '18px'
 };
 
+const options = [
+  { key: 'name', text: 'name', value: 'name' },
+  { key: 'pole', text: 'techno', value: 'pole' },
+  { key: 'ring', text: 'ring', value: 'ring' },
+  { key: 'quadrant', text: 'quadrant', value: 'quadrant' },
+]
+
 class App extends Component {
 
   constructor() {
@@ -24,15 +31,36 @@ class App extends Component {
 
     this.state = {
       technologies: [],
-      online: 0
+      online: 0,
+      filtertext: '',
+      filterfield: options[0].key
     }
 
     this.fetchTechnologies = this.fetchTechnologies.bind(this);
     this.handleUserAdded = this.handleUserAdded.bind(this);
     this.handleUserUpdated = this.handleUserUpdated.bind(this);
     this.handleUserDeleted = this.handleUserDeleted.bind(this);
+    this.handleFilterChange = this.handleFilterChange.bind(this);
   }
 
+  filterEntries(){
+    let filteredTechnologies =
+      this.state.allTechnologies.filter((technology) => {
+        return (technology[this.state.filterfield] || '').indexOf(this.state.filtertext) !== -1;
+      });
+    this.setState({
+      technologies: filteredTechnologies
+    });
+  }
+
+  handleFilterChange(e, targ) {
+    // todo: refactor
+    let name = targ.name,
+        value = targ.value;
+    this.setState({
+      [name]: value
+    }, this.filterEntries.bind(this));
+  }
   // Place socket.io code inside here
   componentDidMount() {
     this.fetchTechnologies();
@@ -46,12 +74,15 @@ class App extends Component {
   // Fetch data from the back-end
   fetchTechnologies() {
     axios.get(`${this.server}/api/technologies/`)
-    .then((response) => {
-      this.setState({ technologies: response.data });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .then((response) => {
+        this.setState({
+          allTechnologies: response.data
+        });
+        this.filterEntries();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   handleUserAdded(technology) {
@@ -84,7 +115,7 @@ class App extends Component {
 
   render() {
 
-    let online = this.state.online;
+    // let online = this.state.online;
     // let verb = (online <= 1) ? 'is' : 'are'; // linking verb, if you'd prefer
     // let noun = (online <= 1) ? 'person' : 'people';
 
@@ -99,6 +130,22 @@ class App extends Component {
           </div>
         </div>
         <Container>
+          <Input
+            value={this.state.filtertext}
+            name='filtertext'
+            label={
+              <Dropdown
+                name='filterfield'
+                value={this.state.filterfield}
+                onChange={this.handleFilterChange}
+                defaultValue={options[0].key}
+                options={options}
+              />
+            }
+            labelPosition='right'
+            placeholder='Filter ...'
+            onChange={this.handleFilterChange}
+          />
           <ModalUser
             headerTitle='Add Technology'
             buttonTriggerTitle='Add New'
@@ -117,7 +164,7 @@ class App extends Component {
             socket={this.socket}
           />
         </Container>
-        <br/>
+        <br />
       </div>
     );
   }
