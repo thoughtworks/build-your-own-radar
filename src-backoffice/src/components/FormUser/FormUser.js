@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { Message, Button, Form, TextArea } from 'semantic-ui-react';
 import axios from 'axios';
 
-// const genderOptions = [
-//   { key: 'm', text: 'Male', value: 'm' },
-//   { key: 'f', text: 'Female', value: 'f' },
-//   { key: 'o', text: 'Do Not Disclose', value: 'o' }
-// ]
+const rings = [
+  { key: 'adopt', text: 'adopt', value: 'adopt' },
+  { key: 'trial', text: 'trial', value: 'trial' },
+  { key: 'assess', text: 'assess', value: 'assess' },
+  { key: 'hold', text: 'hold', value: 'hold' }
+]
 
 class FormUser extends Component {
 
@@ -50,10 +51,10 @@ class FormUser extends Component {
     }
   }
 
-  handleInputChange(e) {
+  handleInputChange(e, targ) {
     const target = e.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
+    const value = target.type === 'checkbox' ? target.checked : (target.value || targ.value);
+    const name = ( target.name || targ.name );
 
     this.setState({ [name]: value });
   }
@@ -147,7 +148,8 @@ class FormUser extends Component {
             value={this.state.name}
             onChange={this.handleInputChange}
           />
-          <Form.Input
+          <Form.Dropdown
+            options={rings}
             label='Ring'
             type='text'
             placeholder='adopt, trial, assess or hold'
