@@ -46,7 +46,9 @@ class App extends Component {
   filterEntries(){
     let filteredTechnologies =
       this.state.allTechnologies.filter((technology) => {
-        return (technology[this.state.filterfield] || '').indexOf(this.state.filtertext) !== -1;
+        return (technology[this.state.filterfield] || '')
+          .toLowerCase()
+          .indexOf(this.state.filtertext.toLowerCase()) !== -1;
       });
     this.setState({
       technologies: filteredTechnologies
