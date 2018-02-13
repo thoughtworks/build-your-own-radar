@@ -21,7 +21,7 @@ const ExceptionMessages = require('./exceptionMessages');
 
 const plotRadar = function (title, blips) {
     document.title = title;
-
+    var blipsObjs = [];
     var rings = _.map(_.uniqBy(blips, 'ring'), 'ring');
     var ringMap = {};
     var maxRings = 4;
@@ -38,7 +38,11 @@ const plotRadar = function (title, blips) {
         if (!arcs[blip.quadrant]) {
             arcs[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant));
         }
-        arcs[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description))
+        let newBlip = new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description);
+        // todo: refactor
+        newBlip.pole = blip.pole;
+        arcs[blip.quadrant].add(newBlip);
+        blipsObjs.push(newBlip);
     });
     
     var radar = new Radar({arcs});
@@ -46,6 +50,8 @@ const plotRadar = function (title, blips) {
     var size = (window.innerHeight - 133) < 620 ? 620 : window.innerHeight - 133;
 
     new GraphingRadar(size, radar).init().plot();
+
+    return blipsObjs;
 }
 
 const CSVContent = function (fileContent) {

@@ -18,8 +18,8 @@ const API = '/api';
 
 axios.get(API + '/technologies/_csv_')
   .then(({ data }) => {
-    var blips = CSVContent(data);
-    plotRadar('Technology Radar - SQLi ISCM', blips);
+    var blipsO = CSVContent(data);
+    var blips = plotRadar('Technology Radar - SQLi ISCM', blipsO);
 
     let stateOptions = filtering.getPoles(blips);
 

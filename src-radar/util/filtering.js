@@ -4,9 +4,9 @@ import { map, uniqBy } from 'lodash';
 
 const getIndexes = function(blips, values){
     let indexes = [];
-    blips.forEach((element, idx) => {
-        if(values.indexOf(element.pole) !== -1){
-            indexes.push(idx + 1);
+    blips.forEach((blip, idx) => {
+        if(values.indexOf(blip.pole) !== -1){
+            indexes.push(blip.number());
         }
     });
 
