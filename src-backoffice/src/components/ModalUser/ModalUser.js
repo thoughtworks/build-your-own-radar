@@ -3,12 +3,16 @@ import { Button, Modal } from 'semantic-ui-react';
 
 import FormUser from '../FormUser/FormUser';
 
+const addNewButton = {
+  'float': 'right'
+};
+
 class ModalUser extends Component {
 
   render() {
     return (
       <Modal
-        trigger={<Button color={this.props.buttonColor}>{this.props.buttonTriggerTitle}</Button>}
+        trigger={<Button style={addNewButton} color={this.props.buttonColor}>{this.props.buttonTriggerTitle}</Button>}
         dimmer='inverted'
         size='tiny'
         closeIcon='close'
