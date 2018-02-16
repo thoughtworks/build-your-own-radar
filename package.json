@@ -4,15 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "istanbul cover jasmine",
-    "dev": "webpack-dev-server --dev --inline",
-    "build": "webpack --prod",
-    "start": "npm run build && npm run runprod",
-    "runprod": "node ./back/server.js",
-    "examples:clean": "rm -rf examples/",
-    "examples:copy": "mkdir examples && cp -r dist/* examples",
-    "examples": "npm run build && npm run examples:clean && npm run examples:copy",
-    "publishExamples": "node ./scripts/publish-examples.js"
+    "watch": "webpack -d --watch",
+    "build": "webpack",
+    "serve": "serve ./dist"
   },
   "authors": [
     "ThoughtWorks",
@@ -64,6 +58,7 @@
     "react": "^16.2.0",
     "react-chat-widget": "^2.1.2",
     "react-dom": "^16.2.0",
+    "react-router": "^4.2.0",
     "sanitize-html": "^1.17.0",
     "semantic-ui-react": "^0.78.2",
     "socket.io": "^2.0.4",

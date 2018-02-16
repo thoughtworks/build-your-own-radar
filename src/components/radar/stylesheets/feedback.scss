@@ -1,0 +1,16 @@
+@import 'colors';
+.conversation-container > .header {
+    background-color: $violet;
+  }
+  
+  .message > .response {
+    background-color: black;
+    color: white;
+  }
+  .widget-container > .launcher {
+    background-color: $violet;
+  }
+  #messages > .message > .client{
+    background-color: $violet;
+    color: white;
+  }
