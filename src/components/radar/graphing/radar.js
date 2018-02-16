@@ -4,7 +4,6 @@ const Chance = require('chance');
 const _ = require('lodash/core');
 
 const RingCalculator = require('../util/ringCalculator');
-
 const Radar = function (size, radar) {
   var svg, radarElement, blipWidth = 22;
 
@@ -370,7 +369,7 @@ const Radar = function (size, radar) {
   //     .text(circleKey);
   // }
 
-  function redrawFullRadar() {
+  function redrawFullRadar () {
     removeHomeLink();
     removeRadarLegend();
     // plotLine(true);
@@ -422,23 +421,7 @@ const Radar = function (size, radar) {
 
   function plotQuadrantButtons(quadrants, header) {
 
-    function addButton(quadrant) {
-      radarElement
-        .append('div')
-        .attr('class', 'quadrant-table ' + quadrant.order);
 
-
-      header.append('div')
-        .attr('class', 'button ' + quadrant.order + ' full-view')
-        .text(quadrant.quadrant.name())
-        .on('mouseover', mouseoverQuadrant.bind({}, quadrant.order))
-        .on('mouseout', mouseoutQuadrant.bind({}, quadrant.order))
-        .on('click', selectQuadrant.bind({}, quadrant.order, quadrant.startAngle));
-    }
-
-    _.each(quadrants, function (quadrant) {
-      addButton(quadrant);
-    });
 
 
     header.append('div')
@@ -541,21 +524,40 @@ const Radar = function (size, radar) {
     return self;
   };
 
+  self.redrawFullRadar = redrawFullRadar;
+
   self.plot = function () {
     var rings, quadrants;
 
     rings = radar.rings();
     quadrants = radar.quadrants();
-    var header = plotRadarHeader();
+    // var header = plotRadarHeader();
+
+    function addButton(quadrant) {
+      radarElement
+        .append('div')
+        .attr('class', 'quadrant-table ' + quadrant.order);
 
 
-    plotQuadrantButtons(quadrants, header);
+      // header.append('div')
+      //   .attr('class', 'button ' + quadrant.order + ' full-view')
+      //   .text(quadrant.quadrant.name())
+      //   .on('mouseover', mouseoverQuadrant.bind({}, quadrant.order))
+      //   .on('mouseout', mouseoutQuadrant.bind({}, quadrant.order))
+      //   .on('click', selectQuadrant.bind({}, quadrant.order, quadrant.startAngle));
+    }
 
-    createHomeLink(d3.select('header'));
+    _.each(quadrants, function (quadrant) {
+      addButton(quadrant);
+    });
 
-    d3.select('header')
-      .append('div')
-      .attr('id', 'filter');
+    // plotQuadrantButtons(quadrants, header);
+
+    // createHomeLink(d3.select('header'));
+
+    // d3.select('header')
+    //   .append('div')
+    //   .attr('id', 'filter');
       
     radarElement.style('height', size + 14 + 'px');
     svg = radarElement.append("svg").call(tip);
@@ -572,7 +574,7 @@ const Radar = function (size, radar) {
     plotLine();
     plotTexts();
     
-    plotRadarFooter();
+    // plotRadarFooter();
 
   };
 

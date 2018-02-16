@@ -5,7 +5,7 @@ const _ = {
   each: require('lodash/each')
 };
 
-const MalformedDataError = require('../exceptions/malformedDataError');
+// // const MalformedDataError = require('../exceptions/malformedDataError');
 const ExceptionMessages = require('./exceptionMessages');
 
 
@@ -17,14 +17,14 @@ const ContentValidator = function (columnNames) {
 
   self.verifyContent = function() {
     if(columnNames.length == 0){
-      throw new MalformedDataError(ExceptionMessages.MISSING_CONTENT);
+      // throw new MalformedDataError(ExceptionMessages.MISSING_CONTENT);
     }
   };
 
   self.verifyHeaders = function() {
     _.each(['name', 'ring', 'quadrant', 'isNew', 'description'], function (field) {
       if (columnNames.indexOf(field) == -1) {
-        throw new MalformedDataError(ExceptionMessages.MISSING_HEADERS);
+        // throw new MalformedDataError(ExceptionMessages.MISSING_HEADERS);
       }
     });
   };

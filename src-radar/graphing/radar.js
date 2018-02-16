@@ -579,4 +579,6 @@ const Radar = function (size, radar) {
   return self;
 };
 
-module.exports = Radar;
+module.exports = {
+  Radar
+};

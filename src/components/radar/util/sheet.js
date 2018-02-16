@@ -1,4 +1,4 @@
-const SheetNotFoundError = require('../exceptions/sheetNotFoundError');
+// // const SheetNotFoundError = require('../exceptions/sheetNotFoundError');
 const ExceptionMessages = require('./exceptionMessages');
 
 const Sheet = function (sheetReference) {
@@ -20,7 +20,7 @@ const Sheet = function (sheetReference) {
                 if (xhr.status === 200) {
                     return callback();
                 } else {
-                    return callback(new SheetNotFoundError(ExceptionMessages.SHEET_NOT_FOUND));
+                    // return callback(new SheetNotFoundError(ExceptionMessages.SHEET_NOT_FOUND));
                 }
             }
         };

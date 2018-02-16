@@ -9,82 +9,50 @@ require('./images/SQLI_logo.png');
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Feed, { Dropdown } from 'semantic-ui-react'
-import { Widget, addResponseMessage } from 'react-chat-widget';
-import { CSVContent, plotRadar, hideBlips } from './util/factory';
+import { CSVContent, plotRadar, hideBlips} from './util/factory';
 import filtering from './util/filtering';
 import axios from 'axios';
 import Radar from './Radar';
+import Feedbacks from './Feedbacks';
+import Header from './Header';
 
 const API = '/api';
 
-
-
-
-class Feedbacks extends React.Component {
-  handleNewUserMessage(newMessage) {
-    axios.post(API + '/feedback', { msg: newMessage })
-      .then(({ data }) => {
-        addResponseMessage(data);
-      });
-  }
-
-  render() {
-    return (
-      <div className="feedbacks">
-        <Widget
-          handleNewUserMessage={this.handleNewUserMessage}
-          title="Feedback"
-          subtitle="your feedback might be helpful"
-          showCloseButton
-        />
-      </div>
-    );
-  }
-}
-const FilterComponent = ({ options, onChange }) => (
-  <Dropdown placeholder='Filters ...' fluid multiple search selection
-    defaultOpen={true}
-    options={options}
-    onChange={onChange}
-  />
-);
-
-
-// ReactDOM.render(<Feedbacks />, document.getElementById('wid'));
-
-
 class RadarContent extends React.Component {
   constructor() {
+    super();
     this.state = {
       categories: [],
       stateOptions: []
     }
+    this.redrawFullRadar = this.redrawFullRadar.bind(this);
   }
   componentDidMount() {
     axios.get(API + '/technologies/_csv_')
       .then(({ data }) => {
         var blipsO = CSVContent(data);
-        var blips = plotRadar('Technology Radar - SQLi ISCM', blipsO);
+        var {blips, radarIn} = plotRadar(blipsO);
 
+        this.radarIn = radarIn;
+        
         let stateOptions = filtering.getPoles(blips);
 
-        this.setState({stateOptions});
+        this.setState({
+          stateOptions
+        });
 
-        ReactDOM.render(<FilterComponent
-          options={stateOptions}
-          onChange={function (e, { value: values }) {
-            // console.log(arguments);
-            let indexes = filtering.filrerBy(blips, values);
-            hideBlips(indexes);
-          }}
-        />, document.getElementById('filter'));
       });
+  }
+  redrawFullRadar(){
+    this.radarIn.redrawFullRadar();
   }
   render() {
     return <div className="wid">
       <Feedbacks />
-      <Header categories={this.state.categories} />
-      <Radar stateOptions={this.state.stateOptions} />
+      <Header redrawFullRadar={this.redrawFullRadar} stateOptions={this.state.stateOptions} categories={this.state.categories} />
+      <Radar/>
     </div>
   }
 }
+
+module.exports = RadarContent;

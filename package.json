@@ -6,7 +6,8 @@
   "scripts": {
     "watch": "webpack -d --watch",
     "build": "webpack",
-    "serve": "serve ./dist"
+    "serve": "serve ./dist",
+    "dev-server": "webpack-dev-server --progress --colors --inline --dev"
   },
   "authors": [
     "ThoughtWorks",
@@ -59,6 +60,7 @@
     "react-chat-widget": "^2.1.2",
     "react-dom": "^16.2.0",
     "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
     "sanitize-html": "^1.17.0",
     "semantic-ui-react": "^0.78.2",
     "socket.io": "^2.0.4",

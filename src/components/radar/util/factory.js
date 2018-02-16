@@ -13,14 +13,13 @@ const Quadrant = require('../models/quadrant');
 const Ring = require('../models/ring');
 const Blip = require('../models/blip');
 const GraphingRadar = require('../graphing/radar');
-const MalformedDataError = require('../exceptions/malformedDataError');
-const SheetNotFoundError = require('../exceptions/sheetNotFoundError');
+// // const MalformedDataError = require('../exceptions/malformedDataError');
+// // const SheetNotFoundError = require('../exceptions/sheetNotFoundError');
 const ContentValidator = require('./contentValidator');
 const Sheet = require('./sheet');
 const ExceptionMessages = require('./exceptionMessages');
 
-const plotRadar = function (title, blips) {
-    document.title = title;
+const plotRadar = function (blips) {
     var blipsObjs = [];
     var rings = _.map(_.uniqBy(blips, 'ring'), 'ring');
     var ringMap = {};
@@ -28,7 +27,7 @@ const plotRadar = function (title, blips) {
 
     _.each(rings, function (ringName, i) {
         if (i == maxRings) {
-            throw new MalformedDataError(ExceptionMessages.TOO_MANY_RINGS);
+            // throw new MalformedDataError(ExceptionMessages.TOO_MANY_RINGS);
         }
         ringMap[ringName] = new Ring(ringName, i);
     });
@@ -49,9 +48,10 @@ const plotRadar = function (title, blips) {
 
     var size = (window.innerHeight - 133) < 620 ? 620 : window.innerHeight - 133;
 
-    new GraphingRadar(size, radar).init().plot();
+    var radarIn = new GraphingRadar(size, radar).init()
+    radarIn.plot();
 
-    return blipsObjs;
+    return {blipsObjs, radarIn};
 }
 
 const CSVContent = function (fileContent) {

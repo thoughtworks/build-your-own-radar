@@ -1,4 +1,4 @@
-const MalformedDataError = require('../exceptions/malformedDataError');
+// // const MalformedDataError = require('../exceptions/malformedDataError');
 const ExceptionMessages = require('../util/exceptionMessages');
 
 const _ = {
@@ -30,7 +30,7 @@ const Radar = function({arcs}) {
 
   self.addQuadrant = function (quadrant) {
     // if(addingQuadrant >= 4) {
-    //   throw new MalformedDataError(ExceptionMessages.TOO_MANY_QUADRANTS);
+      // throw new MalformedDataError(ExceptionMessages.TOO_MANY_QUADRANTS);
     // }
     quadrants[addingQuadrant].quadrant = quadrant;
     setNumbers(quadrant.blips());
