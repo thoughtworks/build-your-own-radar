@@ -15,6 +15,8 @@ import axios from 'axios';
 import Radar from './Radar';
 import Feedbacks from './Feedbacks';
 import Header from './Header';
+import { map, uniqBy } from 'lodash';
+
 
 const API = '/api';
 
@@ -25,31 +27,32 @@ class RadarContent extends React.Component {
       categories: [],
       stateOptions: []
     }
-    this.redrawFullRadar = this.redrawFullRadar.bind(this);
+    // this.redrawFullRadar = this.redrawFullRadar.bind(this);
   }
   componentDidMount() {
     axios.get(API + '/technologies/_csv_')
       .then(({ data }) => {
         var blipsO = CSVContent(data);
-        var {blips, radarIn} = plotRadar(blipsO);
+        var {blipsObjs:blips, radarIn} = plotRadar(blipsO);
 
         this.radarIn = radarIn;
-        
+        this.blips = blips;
+
         let stateOptions = filtering.getPoles(blips);
+        let categories = map(uniqBy(blips, 'category'), 'category');
 
         this.setState({
-          stateOptions
+          stateOptions,
+          categories
         });
 
       });
   }
-  redrawFullRadar(){
-    this.radarIn.redrawFullRadar();
-  }
+
   render() {
     return <div className="wid">
       <Feedbacks />
-      <Header redrawFullRadar={this.redrawFullRadar} stateOptions={this.state.stateOptions} categories={this.state.categories} />
+      <Header hideBlips={hideBlips} blips={this.blips} radarIn={this.radarIn} stateOptions={this.state.stateOptions} categories={this.state.categories} />
       <Radar/>
     </div>
   }

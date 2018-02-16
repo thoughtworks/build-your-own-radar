@@ -41,6 +41,7 @@ const plotRadar = function (title, blips) {
         let newBlip = new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description);
         // todo: refactor
         newBlip.pole = blip.pole;
+        newBlip.category = blip.ring;
         arcs[blip.quadrant].add(newBlip);
         blipsObjs.push(newBlip);
     });

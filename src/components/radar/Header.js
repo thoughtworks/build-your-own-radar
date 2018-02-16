@@ -1,6 +1,7 @@
 import React from 'react';
 import hideBlips from './util/factory';
 import { Dropdown } from 'semantic-ui-react'
+import filtering from './util/filtering';
 
 const FilterComponent = ({ options, onChange }) => (
     <div id='filter'>
@@ -11,7 +12,15 @@ const FilterComponent = ({ options, onChange }) => (
     </div>
 );
 
-const Header = ({redrawFullRadar, categories, selectedCategory, stateOptions }) => {
+const Header = ({hideBlips, blips=[], radarIn, categories, selectedCategory, stateOptions }) => {
+    const none = function(){};
+    radarIn = radarIn || {
+        mouseoverQuadrant: none,
+        mouseoutQuadrant: none,
+        selectQuadrant: none,
+        redrawFullRadar: none
+    }
+    hideBlips = hideBlips || none;
     return (
         <header>
             <div className="radar-title">
@@ -25,12 +34,21 @@ const Header = ({redrawFullRadar, categories, selectedCategory, stateOptions }) 
             </div>
             {
                 categories.map((category, index) => {
-                    return <div className={"button pie-" + index + (category === selectedCategory ? " selected" : '')}>{category}</div>
+                    return <div
+                        key={index}
+                        className={(selectedCategory ? '' : 'full-view ') + "button pie-" + index + (category === selectedCategory ? " selected" : '')}
+                        onMouseOver={radarIn.mouseoverQuadrant.bind({}, 'pie-' + index)}
+                        onMouseOut={radarIn.mouseoutQuadrant.bind({}, 'pie-' + index)}
+                        onClick={radarIn.selectQuadrant.bind({}, 'pie-' + index, null)}
+                    >{category}</div>
                 })
             }
             {/* todo: link to about page */}
             <div className="print-radar button no-capitalize">About</div>
-            <div onClick={redrawFullRadar} className="home-link" style={{ visibility: 'visible' }}>
+            <div onClick={radarIn.redrawFullRadar}
+                className="home-link"
+                style={{ visibility: 'hidden' }}
+            >
                 « Back to Radar home
         </div>
             <FilterComponent

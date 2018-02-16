@@ -449,15 +449,20 @@ const Radar = function (size, radar) {
     d3.select('.quadrant-group-' + order).style('opacity', 1);
     d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')').style('opacity', 0.3);
   }
-
+  self.mouseoverQuadrant = mouseoverQuadrant;
   function mouseoutQuadrant(order) {
     d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')').style('opacity', 1);
   }
-
+  self.mouseoutQuadrant = mouseoutQuadrant;
   function selectQuadrant(order, startAngle) {
     d3.selectAll('.home-link').classed('selected', false);
     createHomeLink(d3.select('header'));
 
+    if(startAngle === null){
+      var quadrants = radar.quadrants();
+      var indice = parseInt(order.slice(4));
+      startAngle = quadrants[indice].startAngle;
+    }
 
     d3.selectAll('.button').classed('selected', false).classed('full-view', false);
     d3.selectAll('.button.' + order).classed('selected', true);
@@ -518,6 +523,7 @@ const Radar = function (size, radar) {
       // drawLegend(order);
     }
   }
+  self.selectQuadrant = selectQuadrant;
 
   self.init = function () {
     radarElement = d3.select('body').append('div').attr('id', 'radar');
