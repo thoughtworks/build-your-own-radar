@@ -1,0 +1,9 @@
+.error-container {
+  text-align: center;
+  padding-top: 300px;
+
+  .error-container__message {
+    width: 60%;
+    display: inline-block;
+  }
+}

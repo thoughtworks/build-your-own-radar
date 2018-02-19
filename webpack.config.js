@@ -76,7 +76,8 @@ module.exports = {
         port: 8080,
         proxy: {
             '/api/*': 'http://[::1]:8000'
-        }
+        },
+        historyApiFallback: true
     },
     node: {
         // console: 'empty',

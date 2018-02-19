@@ -103,11 +103,11 @@ class FormUser extends Component {
             description: ''
           });
           this.props.onUserAdded(response.data.result);
-          this.props.socket.emit('add', response.data.result);
+          // this.props.socket.emit('add', response.data.result);
         }
         else {
           this.props.onUserUpdated(response.data.result);
-          this.props.socket.emit('update', response.data.result);
+          // this.props.socket.emit('update', response.data.result);
         }
 
       })

@@ -31,7 +31,7 @@ class ModalConfirmDelete extends Component {
     .then((response) => {
       this.handleClose();
       this.props.onUserDeleted(response.data.result);
-      this.props.socket.emit('delete', response.data.result);
+      // this.props.socket.emit('delete', response.data.result);
     })
     .catch((err) => {
       this.handleClose();

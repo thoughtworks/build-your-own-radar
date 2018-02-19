@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { Container, Input, Dropdown } from 'semantic-ui-react';
 import axios from 'axios';
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 
 import TableUser from '../TableUser/TableUser';
 import ModalUser from '../ModalUser/ModalUser';
 
 import logo from '../../SQLI_logo.png';
 // import shirts from '../../shirts.png';
-import './App.css';
+import './App.scss';
 
 const appHeaderStyles = {
-  'font-size': '18px'
+  'fontSize': '18px'
 };
 
 const options = [
@@ -27,7 +27,7 @@ class App extends Component {
     super();
 
     this.server = process.env.REACT_APP_API_URL || '';
-    this.socket = io.connect(this.server);
+    // this.socket = io.connect(this.server);
 
     this.state = {
       technologies: [],
@@ -66,11 +66,11 @@ class App extends Component {
   // Place socket.io code inside here
   componentDidMount() {
     this.fetchTechnologies();
-    this.socket.on('visitor enters', data => this.setState({ online: data }));
-    this.socket.on('visitor exits', data => this.setState({ online: data }));
-    this.socket.on('add', data => this.handleUserAdded(data));
-    this.socket.on('update', data => this.handleUserUpdated(data));
-    this.socket.on('delete', data => this.handleUserDeleted(data));
+    // this.socket.on('visitor enters', data => this.setState({ online: data }));
+    // this.socket.on('visitor exits', data => this.setState({ online: data }));
+    // this.socket.on('add', data => this.handleUserAdded(data));
+    // this.socket.on('update', data => this.handleUserUpdated(data));
+    // this.socket.on('delete', data => this.handleUserDeleted(data));
   }
 
   // Fetch data from the back-end
@@ -125,7 +125,7 @@ class App extends Component {
       <div>
         <div className='App'>
           <div style={appHeaderStyles} className='App-header'>
-            <img src={logo} className="sqli-logo" />
+            <img src={logo} className="sqli-logo-b" />
             <p>
               Technology Radar - Entries
             </p>
@@ -138,14 +138,19 @@ class App extends Component {
             label={
               <Dropdown
                 name='filterfield'
-                value={this.state.filterfield}
+                // value={this.state.filterfield}
                 onChange={this.handleFilterChange}
                 defaultValue={options[0].key}
                 options={options}
+                style={{
+                  height: '38px',
+                  paddingTop: '11px'
+                }}
               />
             }
             labelPosition='right'
             placeholder='Filter ...'
+            style={{float:'left'}}
             onChange={this.handleFilterChange}
           />
           <ModalUser
@@ -155,7 +160,7 @@ class App extends Component {
             buttonColor='green'
             onUserAdded={this.handleUserAdded}
             server={this.server}
-            socket={this.socket}
+            // socket={this.socket}
           />
           {/* <em id='online'>{`${online} ${noun} ${verb} online.`}</em> */}
           <TableUser
@@ -163,7 +168,7 @@ class App extends Component {
             onUserDeleted={this.handleUserDeleted}
             technologies={this.state.technologies}
             server={this.server}
-            socket={this.socket}
+            // socket={this.socket}
           />
         </Container>
         <br />

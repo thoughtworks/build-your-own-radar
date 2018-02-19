@@ -4,7 +4,8 @@ import { Button, Modal } from 'semantic-ui-react';
 import FormUser from '../FormUser/FormUser';
 
 const addNewButton = {
-  'float': 'right'
+  'float': 'right',
+  'margin': '4px'
 };
 
 class ModalUser extends Component {
@@ -25,8 +26,8 @@ class ModalUser extends Component {
             userID={this.props.userID}
             onUserAdded={this.props.onUserAdded}
             onUserUpdated={this.props.onUserUpdated}
-            server={this.props.server}
-            socket={this.props.socket}
+            // server={this.props.server}
+            // socket={this.props.socket}
           />
         </Modal.Content>
       </Modal>
