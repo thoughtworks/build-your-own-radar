@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { Container, Input, Dropdown } from 'semantic-ui-react';
 import axios from 'axios';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 // import io from 'socket.io-client';
 
 import TableUser from '../TableUser/TableUser';
 import ModalUser from '../ModalUser/ModalUser';
+import Feedbacks from '../Feedbacks'
 
 import logo from '../../SQLI_logo.png';
 // import shirts from '../../shirts.png';
@@ -43,7 +46,7 @@ class App extends Component {
     this.handleFilterChange = this.handleFilterChange.bind(this);
   }
 
-  filterEntries(){
+  filterEntries() {
     let filteredTechnologies =
       this.state.allTechnologies.filter((technology) => {
         return (technology[this.state.filterfield] || '')
@@ -58,7 +61,7 @@ class App extends Component {
   handleFilterChange(e, targ) {
     // todo: refactor
     let name = targ.name,
-        value = targ.value;
+      value = targ.value;
     this.setState({
       [name]: value
     }, this.filterEntries.bind(this));
@@ -122,59 +125,75 @@ class App extends Component {
     // let noun = (online <= 1) ? 'person' : 'people';
 
     return (
+      <Container>
+        <Input
+          value={this.state.filtertext}
+          name='filtertext'
+          label={
+            <Dropdown
+              name='filterfield'
+              // value={this.state.filterfield}
+              onChange={this.handleFilterChange}
+              defaultValue={options[0].key}
+              options={options}
+              style={{
+                height: '38px',
+                paddingTop: '11px'
+              }}
+            />
+          }
+          labelPosition='right'
+          placeholder='Filter ...'
+          style={{ float: 'left' }}
+          onChange={this.handleFilterChange}
+        />
+        <ModalUser
+          headerTitle='Add Technology'
+          buttonTriggerTitle='Add New'
+          buttonSubmitTitle='Add'
+          buttonColor='green'
+          onUserAdded={this.handleUserAdded}
+          server={this.server}
+        // socket={this.socket}
+        />
+        {/* <em id='online'>{`${online} ${noun} ${verb} online.`}</em> */}
+        <TableUser
+          onUserUpdated={this.handleUserUpdated}
+          onUserDeleted={this.handleUserDeleted}
+          technologies={this.state.technologies}
+          server={this.server}
+        // socket={this.socket}
+        />
+      </Container>
+    );
+  }
+}
+
+
+class GApp extends Component {
+  render() {
+    let url = this.props.match.url;
+    const title = url !== '/feedbacks' ? 
+          'Entries'
+          : 'Feedbacks';
+    
+    return (
       <div>
         <div className='App'>
           <div style={appHeaderStyles} className='App-header'>
             <img src={logo} className="sqli-logo-b" />
             <p>
-              Technology Radar - Entries
-            </p>
+              Technology Radar - {title}
+        </p>
           </div>
         </div>
-        <Container>
-          <Input
-            value={this.state.filtertext}
-            name='filtertext'
-            label={
-              <Dropdown
-                name='filterfield'
-                // value={this.state.filterfield}
-                onChange={this.handleFilterChange}
-                defaultValue={options[0].key}
-                options={options}
-                style={{
-                  height: '38px',
-                  paddingTop: '11px'
-                }}
-              />
-            }
-            labelPosition='right'
-            placeholder='Filter ...'
-            style={{float:'left'}}
-            onChange={this.handleFilterChange}
-          />
-          <ModalUser
-            headerTitle='Add Technology'
-            buttonTriggerTitle='Add New'
-            buttonSubmitTitle='Add'
-            buttonColor='green'
-            onUserAdded={this.handleUserAdded}
-            server={this.server}
-            // socket={this.socket}
-          />
-          {/* <em id='online'>{`${online} ${noun} ${verb} online.`}</em> */}
-          <TableUser
-            onUserUpdated={this.handleUserUpdated}
-            onUserDeleted={this.handleUserDeleted}
-            technologies={this.state.technologies}
-            server={this.server}
-            // socket={this.socket}
-          />
-        </Container>
+        <Route path="/admin" component={App} />
+        <Route path="/feedbacks" component={Feedbacks} />
         <br />
       </div>
     );
   }
 }
 
-export default App;
+
+export default GApp;

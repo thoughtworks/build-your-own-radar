@@ -1,11 +1,11 @@
 
 import { Widget, addResponseMessage } from 'react-chat-widget';
 import React from 'React';
-
+import axios from 'axios';
 
 class Feedbacks extends React.Component {
     handleNewUserMessage(newMessage) {
-      axios.post(API + '/feedback', { msg: newMessage })
+      axios.post('/api/feedback', { msg: newMessage })
         .then(({ data }) => {
           addResponseMessage(data);
         });
