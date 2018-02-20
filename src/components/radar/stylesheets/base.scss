@@ -6,7 +6,7 @@
 @import 'header';
 @import 'footer';
 
-@import url(https://www.thoughtworks.com/css/screen.css);
+// @import url(https://www.thoughtworks.com/css/screen.css);
 
 body {
   font: 18px 'Open Sans';
@@ -109,10 +109,12 @@ body {
   }
 
   header {
+
     text-align: left;
 
     color: black;
     font-size: 120%;
+    margin-top: 100px;
     
     .radar-title .radar-title__text {
       font-size: 40px;

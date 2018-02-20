@@ -20,7 +20,7 @@ if (isDev) {
 }
 
 let plugins = [
-    new ExtractTextPlugin('[name].[hash].css'),
+    new ExtractTextPlugin('assets/[name].[hash].css'),
     new HtmlWebpackPlugin({
         template: './src/index.html',
         inject: 'body',
@@ -51,7 +51,7 @@ module.exports = {
     output: {
         path: buildPath,
         publicPath: '/',
-        filename: '[name].[hash].js'
+        filename: 'assets/[name].[hash].js'
     },
 
     module: {
@@ -59,7 +59,7 @@ module.exports = {
             { test: /\.json$/, loader: 'json' },
             { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
             { test: /\.scss$/, exclude: /node_modules/, loader: ExtractTextPlugin.extract('style', 'css?sourceMap!sass') },
-            { test: /\.(png|jpg|ico)$/, exclude: /node_modules/, loader: 'file-loader?name=images/[name].[ext]&context=./src-radar/images' }
+            { test: /\.(png|jpg|ico)$/, exclude: /node_modules/, loader: 'file-loader?name=assets/images/[name].[ext]&context=./src/images' }
         ]
     },
 

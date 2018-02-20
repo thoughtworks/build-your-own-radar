@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "webpack -d --watch",
     "build": "webpack",
-    "serve": "serve ./dist",
+    "serve": "node back/server.js",
     "dev-server": "webpack-dev-server --progress --colors --inline --dev"
   },
   "authors": [

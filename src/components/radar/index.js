@@ -14,7 +14,7 @@ import filtering from './util/filtering';
 import axios from 'axios';
 import Radar from './Radar';
 import Feedbacks from './Feedbacks';
-import Header from './Header';
+import RHeader from './RHeader';
 import { map, uniqBy } from 'lodash';
 
 
@@ -52,7 +52,7 @@ class RadarContent extends React.Component {
   render() {
     return <div className="wid">
       <Feedbacks />
-      <Header hideBlips={hideBlips} blips={this.blips} radarIn={this.radarIn} stateOptions={this.state.stateOptions} categories={this.state.categories} />
+      <RHeader hideBlips={hideBlips} blips={this.blips} radarIn={this.radarIn} stateOptions={this.state.stateOptions} categories={this.state.categories} />
       <Radar/>
     </div>
   }

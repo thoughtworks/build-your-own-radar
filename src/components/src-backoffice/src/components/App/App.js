@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Input, Dropdown } from 'semantic-ui-react';
+import { Container, Input, Dropdown, Menu, Image } from 'semantic-ui-react';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
@@ -7,13 +7,15 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import TableUser from '../TableUser/TableUser';
 import ModalUser from '../ModalUser/ModalUser';
-import Feedbacks from '../Feedbacks'
+import Feedbacks from '../Feedbacks';
+import Header from '../Header';
+import About from '../About';
 
 import logo from '../../SQLI_logo.png';
 // import shirts from '../../shirts.png';
 import './App.scss';
 
-const appHeaderStyles = {
+const appHeader = {
   'fontSize': '18px'
 };
 
@@ -125,7 +127,7 @@ class App extends Component {
     // let noun = (online <= 1) ? 'person' : 'people';
 
     return (
-      <Container>
+      <Container style={{ marginTop: '6em' }}>
         <Input
           value={this.state.filtertext}
           name='filtertext'
@@ -136,15 +138,14 @@ class App extends Component {
               onChange={this.handleFilterChange}
               defaultValue={options[0].key}
               options={options}
-              style={{
-                height: '38px',
-                paddingTop: '11px'
-              }}
             />
           }
           labelPosition='right'
           placeholder='Filter ...'
-          style={{ float: 'left' }}
+          style={{
+            float: 'left',
+            marginBottom: '11px'
+          }}
           onChange={this.handleFilterChange}
         />
         <ModalUser
@@ -172,23 +173,25 @@ class App extends Component {
 
 class GApp extends Component {
   render() {
-    let url = this.props.match.url;
-    const title = url !== '/feedbacks' ? 
-          'Entries'
-          : 'Feedbacks';
-    
+    // let url = this.props.match.url;
+    // const title = url !== '/feedbacks' ?
+    //   'Entries'
+    //   : 'Feedbacks';
+
     return (
       <div>
-        <div className='App'>
-          <div style={appHeaderStyles} className='App-header'>
+        <Header />
+        {/* <div className='App'>
+          <div style={appHeader} className='App-header'>
             <img src={logo} className="sqli-logo-b" />
             <p>
-              Technology Radar - {title}
-        </p>
+              Technologies Radar - {title}
+            </p>
           </div>
-        </div>
+        </div> */}
         <Route path="/admin" component={App} />
         <Route path="/feedbacks" component={Feedbacks} />
+        <Route path="/about" component={About} />
         <br />
       </div>
     );

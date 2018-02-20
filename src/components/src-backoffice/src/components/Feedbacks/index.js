@@ -13,7 +13,7 @@ class FormUser extends Component {
   }
 
   componentDidMount() {
-    axios.get('./api/feedbacks-json')
+    axios.get('/api/feedbacks-json')
       .then(({ data: feedbacks }) => {
         this.setState({ feedbacks })
       })
@@ -21,7 +21,7 @@ class FormUser extends Component {
 
   render() {
     const feedbacks = this.state.feedbacks;
-    return <Container>
+    return <Container style={{ marginTop: '6em' }}>
       <Table>
         <Table.Header>
           <Table.Row>

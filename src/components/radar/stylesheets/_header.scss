@@ -3,7 +3,13 @@ header {
   line-height: 60px;
   text-align: center;
   margin-bottom: 15px;
+  margin-top: 100px;
 
+  .button{
+    font-weight: 100;
+    color: #fff;
+  }
+  
   .radar-title {
     background-color: $grey-light;
     padding-top: 30px;

@@ -405,7 +405,7 @@ const Radar = function (size, radar) {
       .attr('class', 'radar-title')
       .append('div')
       .attr('class', 'radar-title__text')
-      .html('<img src="/images/SQLI_logo.png" class="radar-title__logo sqli-logo">')
+      .html('<img src="/assets/images/SQLI_logo.png" class="radar-title__logo sqli-logo">')
       .append('h1')
       .text(document.title)
       .style('cursor', 'pointer')
@@ -426,9 +426,10 @@ const Radar = function (size, radar) {
 
     header.append('div')
       .classed('print-radar button no-capitalize', true)
-      .text('About')
+      .text('Abouto')
       .on('click', function(){
-        window.location = '/about';
+        debugger;
+        window.location.pathname = '/about';
       });
   }
 
@@ -526,7 +527,7 @@ const Radar = function (size, radar) {
   self.selectQuadrant = selectQuadrant;
 
   self.init = function () {
-    radarElement = d3.select('body').append('div').attr('id', 'radar');
+    radarElement = d3.select('#radar');
     return self;
   };
 

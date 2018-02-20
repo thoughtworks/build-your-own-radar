@@ -35,13 +35,14 @@ const apiRouter = require('./apiRouter');
 
 
 app.use('/api', apiRouter);
-app.use('/admin', authMid, express.static(resolve(__dirname, '..', 'dist-backoffice')));
+// app.use('/admin', authMid, express.static(resolve(__dirname, '..', 'dist-backoffice')));
 
 
 app.use('/about', express.static(resolve(__dirname, '..', 'about')));
 // todo
-app.use('/static', express.static(resolve(__dirname, '..', 'dist-backoffice', 'static')));
-app.use('/', express.static(resolve(__dirname, '..', 'dist-radar')));
+app.use('/static', express.static(resolve(__dirname, '..', 'static')));
+app.use('/assets', express.static(resolve(__dirname, '..', 'dist', 'assets')));
+app.use('/*', express.static(resolve(__dirname, '..', 'dist')));
 
 
 app.listen(8000, function () {

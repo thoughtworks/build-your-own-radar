@@ -1,3 +1,4 @@
+const { resolve } = require('path');
 const express = require('express');
 const fs = require('fs');
 const bodyParser = require('body-parser');
@@ -21,6 +22,9 @@ apiRouter.post('/feedback', (req, res) => {
 
 apiRouter.get('/feedbacks', (req, res) => {
     res.download(FEEDBACKSDATAFILENAME);
+});
+apiRouter.get('/about-content', (req, res) => {
+    res.sendFile(resolve('about', 'index.html'));
 });
 apiRouter.get('/feedbacks-json', (req, res) => {
     fs.readFile(FEEDBACKSDATAFILENAME, "utf8", (err, fileContent) => {
