@@ -180,7 +180,6 @@ class GApp extends Component {
 
     return (
       <div>
-        <Header />
         {/* <div className='App'>
           <div style={appHeader} className='App-header'>
             <img src={logo} className="sqli-logo-b" />

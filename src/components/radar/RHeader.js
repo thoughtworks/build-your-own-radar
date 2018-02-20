@@ -26,7 +26,6 @@ const RHeader = ({ hideBlips, blips = [], radarIn, categories, selectedCategory,
     hideBlips = hideBlips || none;
     return (
         <header>
-            <Header />
             {/* <div className="radar-title">
                 <div className="radar-title__text">
                     <img src="/assets/images/SQLI_logo.png" className="radar-title__logo sqli-logo" />
