@@ -1,0 +1,102 @@
+import logo from '../../SQLI_logo.png';
+import React, { Component } from 'react'
+import { Link, withRouter } from 'react-router-dom';
+import { Modal, Button, Form, Grid, Header, Image, Message, Segment, Menu } from 'semantic-ui-react'
+
+class LoginForm extends Component {
+  componentWillMount() {
+    this.setState({
+      username: '',
+      password: '',
+      loading: false
+    })
+  }
+
+  handleChange = (e, { name, value }) => this.setState({ [name]: value });
+
+  login = () => {
+    // debugger;
+    this.setState({
+      loading: true
+    }, () => {
+      setTimeout(() => {
+        // debugger;
+        this.props.login(this.state.username);
+        this.setState({
+          loading: false
+        });
+      }, 300);
+    })
+  };
+
+  render() {
+    return <div>
+      <Modal.Header
+        style={{
+          // todo remove radar css
+          backgroundColor: 'white',
+          color: 'Black'
+        }}
+      >
+        <Image
+          size='tiny'
+          src={logo}
+          style={{ margin: 'auto' }}
+        />
+        {' '}Log-in to your account
+      </Modal.Header>
+      <Modal.Content>
+        <Header as='h2' textAlign='center'>
+        </Header>
+        <Form onSubmit={this.login} loading={this.state.loading} size='large'>
+          <Segment stacked>
+            <Form.Input
+              onChange={this.handleChange}
+              name='username'
+              fluid
+              icon='user'
+              iconPosition='left'
+              placeholder='User Name'
+            />
+            <Form.Input
+              onChange={this.handleChange}
+              name='password'
+              fluid
+              icon='lock'
+              iconPosition='left'
+              placeholder='Password'
+              type='password'
+            />
+            <Button color='blue' fluid size='large'>Login</Button>
+          </Segment>
+        </Form>
+      </Modal.Content>
+    </div>;
+  }
+}
+
+
+class LoginLogout extends Component {
+  render() {
+    const logout = this.props.onLogout;
+    const username = this.props.username;
+    if (username) {
+      return <Menu.Item
+      onClick={logout}
+      position='right'
+    >{username + ', Logout'}</Menu.Item>;
+    } else {
+      return <Modal
+        onClose={this.onClose}
+        size='tiny'
+        trigger={<Menu.Item
+          position='right'
+        >Login</Menu.Item>}
+      >
+        <LoginForm login={this.props.onLogin} />
+      </Modal>
+    }
+  }
+}
+
+export default withRouter(LoginLogout);

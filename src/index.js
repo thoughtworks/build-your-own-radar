@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Header from './components/src-backoffice/src/components/Header'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+// import Login from './components/src-backoffice/src/components/Login';
 // import React from 'react';
 
 import Home from './components/radar/index';
@@ -16,6 +17,7 @@ class App extends Component {
         <Route path="/admin" component={Admin} />
         <Route path="/about" component={Admin} />
         <Route path="/feedbacks" component={Admin} />
+        {/* <Route path='/:page/login' component={Login}/> */}
       </div >
     </Router >;
   }
