@@ -3,41 +3,94 @@ import { Link } from 'react-router-dom'
 import { Container, Input, Dropdown, Menu, Image } from 'semantic-ui-react';
 import { withRouter, Route } from 'react-router-dom';
 import LoginLogout from '../LoginLogout';
-
+import axios from 'axios';
 import logo from '../../SQLI_logo.png';
+import cookie from 'cookie-machine';
+import jwtDecode from 'jwt-decode';
 
 const MenuItemWithActiveState = withRouter((props) => {
-  // debugger;
-  if(props.staticContext){
-    delete props.staticContext;
-  }
   const pathname = props.location.pathname;
   const to = props.to;
-  return <Menu.Item active={to === pathname} {...props}/>;
-  // {props.children} </Menu.Item>;
+  return <Menu.Item active={to === pathname} {...props} />;
 });
 
+const HEADERKEY = 'x-access-token';
+
 class Header extends Component {
-  componentWillMount(){
+  constructor() {
+    super();
+
+    axios.interceptors.request.use(function (config) {
+      const token = cookie.get(HEADERKEY);
+      debugger;
+      if (token != null) {
+        config.headers[HEADERKEY] = token;
+      }
+
+      return config;
+    }, function (err) {
+      return Promise.reject(err);
+    });
+
+    this.server = process.env.REACT_APP_API_URL || '';
+  }
+  componentWillMount() {
     this.setState({
-      username: null
+      username: null,
+      loading: false
     })
   }
 
-  onLogin = (username)=>{
+  onLogin = ({ username, password }) => {
     this.setState({
-      username
+      loading: true
+    }, () => {
+      axios.post(this.server + '/api/login', {
+        username,
+        password
+      }).then(({data, status}) => {
+        if(status === 200){
+          cookie.set(HEADERKEY, data.token);
+          let {username} = jwtDecode(data.token);
+          debugger;
+          this.setState({
+            loading: false,
+            username
+          });
+        }
+      })
+        .catch(() => {
+          cookie.remove(HEADERKEY);
+          debugger;
+          this.setState({
+            loading: false,
+            username: null
+          });
+        });
     });
   };
-  
-  onLogout = ()=>{
+
+  onLogout = () => {
     this.setState({
-      username: null
+      loading: true
+    }, () => {
+      axios.get(this.server + '/api/logout', {
+        auth: {
+          username: '',
+          password: ''
+        }
+      }).finally(() => {
+        this.setState({
+          username: null,
+          loading: false
+        });
+      });
     });
   };
-  
+
   render() {
-    const adminAreaVisible = !! this.state.username;
+    const adminAreaVisible = !!this.state.username;
+
     return <Menu fixed='top'>
       <Container style={{ fontSize: "130%" }}>
         <MenuItemWithActiveState as={Link} to='/' header style={{ flexDirection: 'row' }}>
@@ -51,7 +104,12 @@ class Header extends Component {
         {adminAreaVisible && <MenuItemWithActiveState as={Link} to='/admin'>Admin</MenuItemWithActiveState>}
         {adminAreaVisible && <MenuItemWithActiveState as={Link} to='/feedbacks'>Feedbacks</MenuItemWithActiveState>}
         <MenuItemWithActiveState as={Link} to='/about'>About</MenuItemWithActiveState>
-        <LoginLogout onLogin={this.onLogin} onLogout={this.onLogout} username={this.state.username} />
+        <LoginLogout
+          loading={this.state.loading}
+          onLogin={this.onLogin}
+          onLogout={this.onLogout}
+          username={this.state.username}
+        />
       </Container>
     </Menu>
   }

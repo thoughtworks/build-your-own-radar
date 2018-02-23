@@ -2,31 +2,23 @@ import logo from '../../SQLI_logo.png';
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom';
 import { Modal, Button, Form, Grid, Header, Image, Message, Segment, Menu } from 'semantic-ui-react'
+// import PropTypes from 'prop-types';
 
 class LoginForm extends Component {
   componentWillMount() {
     this.setState({
       username: '',
-      password: '',
-      loading: false
+      password: ''
     })
   }
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
   login = () => {
-    // debugger;
-    this.setState({
-      loading: true
-    }, () => {
-      setTimeout(() => {
-        // debugger;
-        this.props.login(this.state.username);
-        this.setState({
-          loading: false
-        });
-      }, 300);
-    })
+    this.props.login({
+      username: this.state.username,
+      password: this.state.password
+    });
   };
 
   render() {
@@ -48,7 +40,7 @@ class LoginForm extends Component {
       <Modal.Content>
         <Header as='h2' textAlign='center'>
         </Header>
-        <Form onSubmit={this.login} loading={this.state.loading} size='large'>
+        <Form onSubmit={this.login} loading={this.props.loading} size='large'>
           <Segment stacked>
             <Form.Input
               onChange={this.handleChange}
@@ -87,16 +79,20 @@ class LoginLogout extends Component {
     >{username + ', Logout'}</Menu.Item>;
     } else {
       return <Modal
-        onClose={this.onClose}
+        // onClose={this.onClose}
         size='tiny'
         trigger={<Menu.Item
           position='right'
         >Login</Menu.Item>}
       >
-        <LoginForm login={this.props.onLogin} />
+        <LoginForm loading={this.props.loading} login={this.props.onLogin} />
       </Modal>
     }
   }
 }
+
+// LoginForm.prototype = {
+//   loading: PropTypes.bool
+// };
 
 export default withRouter(LoginLogout);

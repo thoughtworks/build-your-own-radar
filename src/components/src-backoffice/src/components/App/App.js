@@ -3,8 +3,6 @@ import { Container, Input, Dropdown, Menu, Image } from 'semantic-ui-react';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-// import io from 'socket.io-client';
-
 import TableUser from '../TableUser/TableUser';
 import ModalUser from '../ModalUser/ModalUser';
 import Feedbacks from '../Feedbacks';
@@ -12,7 +10,6 @@ import Header from '../Header';
 import About from '../About';
 
 import logo from '../../SQLI_logo.png';
-// import shirts from '../../shirts.png';
 import './App.scss';
 
 const appHeader = {
@@ -121,11 +118,6 @@ class App extends Component {
   }
 
   render() {
-
-    // let online = this.state.online;
-    // let verb = (online <= 1) ? 'is' : 'are'; // linking verb, if you'd prefer
-    // let noun = (online <= 1) ? 'person' : 'people';
-
     return (
       <Container style={{ marginTop: '6em' }}>
         <Input
@@ -134,7 +126,6 @@ class App extends Component {
           label={
             <Dropdown
               name='filterfield'
-              // value={this.state.filterfield}
               onChange={this.handleFilterChange}
               defaultValue={options[0].key}
               options={options}
@@ -155,15 +146,13 @@ class App extends Component {
           buttonColor='green'
           onUserAdded={this.handleUserAdded}
           server={this.server}
-        // socket={this.socket}
         />
-        {/* <em id='online'>{`${online} ${noun} ${verb} online.`}</em> */}
+        
         <TableUser
           onUserUpdated={this.handleUserUpdated}
           onUserDeleted={this.handleUserDeleted}
           technologies={this.state.technologies}
           server={this.server}
-        // socket={this.socket}
         />
       </Container>
     );
@@ -173,21 +162,8 @@ class App extends Component {
 
 class GApp extends Component {
   render() {
-    // let url = this.props.match.url;
-    // const title = url !== '/feedbacks' ?
-    //   'Entries'
-    //   : 'Feedbacks';
-
     return (
       <div>
-        {/* <div className='App'>
-          <div style={appHeader} className='App-header'>
-            <img src={logo} className="sqli-logo-b" />
-            <p>
-              Technologies Radar - {title}
-            </p>
-          </div>
-        </div> */}
         <Route path="/admin" component={App} />
         <Route path="/feedbacks" component={Feedbacks} />
         <Route path="/about" component={About} />
