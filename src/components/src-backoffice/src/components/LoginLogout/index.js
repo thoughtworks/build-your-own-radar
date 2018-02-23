@@ -70,11 +70,10 @@ class LoginForm extends Component {
 
 class LoginLogout extends Component {
   render() {
-    const logout = this.props.onLogout;
     const username = this.props.username;
     if (username) {
       return <Menu.Item
-      onClick={logout}
+      onClick={this.props.logout}
       position='right'
     >{username + ', Logout'}</Menu.Item>;
     } else {
@@ -85,7 +84,7 @@ class LoginLogout extends Component {
           position='right'
         >Login</Menu.Item>}
       >
-        <LoginForm loading={this.props.loading} login={this.props.onLogin} />
+        <LoginForm {...this.props} />
       </Modal>
     }
   }

@@ -14,8 +14,7 @@ const MenuItemWithActiveState = withRouter((props) => {
 class Header extends Component {
 
   render() {
-    const {username, loading} = this.props;
-    const {onLogin, onLogout} = this.props;
+    const {username, loading, login, logout} = this.props;
 
     const adminAreaVisible = !!username;
 
@@ -34,8 +33,8 @@ class Header extends Component {
         <MenuItemWithActiveState as={Link} to='/about'>About</MenuItemWithActiveState>
         <LoginLogout
           loading={loading}
-          onLogin={onLogin}
-          onLogout={onLogout}
+          login={login}
+          logout={logout}
           username={username}
         />
       </Container>

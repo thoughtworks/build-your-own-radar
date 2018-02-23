@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import TableUser from '../TableUser/TableUser';
 import ModalUser from '../ModalUser/ModalUser';
-import Feedbacks from '../Feedbacks';
+import Feedbacks from '../FeedbacksApp';
 import Header from '../Header';
 import About from '../About';
 
@@ -175,3 +175,4 @@ class GApp extends Component {
 
 
 export default GApp;
+export {App};
