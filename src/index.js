@@ -19,7 +19,7 @@ class App extends Component {
     super();
     axios.interceptors.request.use(function (config) {
       const token = cookie.get(HEADERKEY);
-      debugger;
+      
       if (token != null) {
         config.headers[HEADERKEY] = token;
       }
@@ -35,7 +35,7 @@ class App extends Component {
   componentWillMount(){
     const token = cookie.get(HEADERKEY);
     let username = null;
-    debugger;
+    
     if (token != null) {
       username = jwtDecode(token).username;
     }
@@ -57,7 +57,7 @@ class App extends Component {
         if(status === 200){
           cookie.set(HEADERKEY, data.token);
           let {username} = jwtDecode(data.token);
-          debugger;
+          
           this.setState({
             loading: false,
             username
@@ -66,7 +66,7 @@ class App extends Component {
       })
         .catch(() => {
           cookie.remove(HEADERKEY);
-          debugger;
+          
           this.setState({
             loading: false,
             username: null

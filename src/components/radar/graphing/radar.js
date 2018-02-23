@@ -428,7 +428,6 @@ const Radar = function (size, radar) {
       .classed('print-radar button no-capitalize', true)
       .text('Abouto')
       .on('click', function(){
-        // debugger;
         window.location.pathname = '/about';
       });
   }
