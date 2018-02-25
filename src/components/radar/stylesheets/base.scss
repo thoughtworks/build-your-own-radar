@@ -8,6 +8,18 @@
 
 // @import url(https://www.thoughtworks.com/css/screen.css);
 
+.ui.green.success.message {
+  .header{
+    background-color: #e5f9e7;
+  }
+}
+
+.ui.yellow.warning.message {
+  .header{
+    background-color: #fff8db;
+  }
+}
+
 body {
   font: 18px 'Open Sans';
   -webkit-font-smoothing: antialiased;
