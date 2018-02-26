@@ -6,9 +6,10 @@ WORKDIR /radar
 
 COPY . ./
 
-# RUN yarn install && npm rebuild node-sass
+RUN yarn install && npm rebuild node-sass\
+npm run build
 
 EXPOSE 8000
 
-CMD [ "npm", "run", "runprod" ]
+CMD [ "npm", "run", "serve" ]
 

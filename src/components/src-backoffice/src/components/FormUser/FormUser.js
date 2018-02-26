@@ -14,6 +14,8 @@ class FormUser extends Component {
   constructor(props) {
     super(props);
 
+    this.server = process.env.REACT_APP_API_URL || '';
+
     this.state = {
       name: '',
       ring: '',
@@ -34,7 +36,7 @@ class FormUser extends Component {
   componentWillMount() {
     // Fill in the form with the appropriate data if user id is provided
     if (this.props.userID) {
-      axios.get(`${this.props.server}/api/technologies/${this.props.userID}`)
+      axios.get(`${this.server}/api/technologies/${this.props.userID}`)
         .then((response) => {
           this.setState({
             name: response.data.name,
@@ -84,7 +86,7 @@ class FormUser extends Component {
     axios({
       method: method,
       responseType: 'json',
-      url: `${this.props.server}/api/technologies/${params}`,
+      url: `${this.server}/api/technologies/${params}`,
       data: user
     })
       .then((response) => {

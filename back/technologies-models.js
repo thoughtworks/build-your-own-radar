@@ -42,8 +42,8 @@ const quadrantValidator = [
 const poleValidator = [
   validate({
     validator: 'isLength',
-    arguments: [4, 40],
-    message: 'ring must not exceed {ARGS[1]} characters.'
+    arguments: [3, 40],
+    message: 'pole must not exceed {ARGS[1]} characters.'
   })
 ];
 

@@ -47,7 +47,7 @@ const mapNewsToNewWoId = (tech) => {
 router.get('/_csv_', (req, res) => {
   Technology.find({})
     .then((result) => {
-      jsonexport(result.map(mapNewsToNewWoId), (err, data)=>{
+      jsonexport(result.map(mapNewsToNewWoId), (err, data) => {
         res.send(data);
       })
     })
@@ -99,7 +99,7 @@ router.post('/', postLimiter, verifyMiddleware, (req, res) => {
     quadrant,
     pole,
     description,
-    isNews : isNew,
+    isNews: isNew,
   });
 
   newTechnologie.save()
@@ -157,7 +157,7 @@ router.put('/:id', verifyMiddleware, (req, res) => {
     quadrant,
     pole,
     description,
-    isNews : isNew
+    isNews: isNew
   };
 
   Technology.findOneAndUpdate({ _id: req.params.id }, updatedTechnologie, { runValidators: true, context: 'query' })
@@ -229,6 +229,27 @@ router.delete('/:id', verifyMiddleware, (req, res) => {
     .catch((err) => {
       res.status(404).json({ success: false, msg: 'Nothing to delete.' });
     });
+});
+
+router.post('/csv', verifyMiddleware, (req, res) => {
+  // todo customize overwrite
+  Technology.remove({}, () => {
+    let technologiesP = req.body.csv.map((o) => {
+      return (new Technology(o)).save();
+    });
+    Promise.all(technologiesP).then((saved) => {
+      //todo optim
+      Technology.find({})
+        .then((result) => {
+          res.json(result.map(mapNewsToNew));
+        })
+        .catch((err) => {
+          res.status(500).json({ success: false, msg: `Something went wrong. ${err}` });
+        });
+    }).catch((err) => {
+      res.status(500).json({ success: false, msg: `Something went wrong. ${err}` });
+    });
+  });
 });
 
 module.exports = router;
