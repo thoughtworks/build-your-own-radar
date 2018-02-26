@@ -3,6 +3,8 @@ import axios from 'axios';
 import { CSVContent, plotRadar, hideBlips } from './util/factory';
 import React from 'React';
 
+// TODO DABA : rings names
+
 class Radar extends React.Component {
     constructor(){
         super();
@@ -12,7 +14,7 @@ class Radar extends React.Component {
         this.radarDom = domEl;
     }
     shouldComponentUpdate(){
-        return false;
+        // return false;
     }
     componentWillUnmount(){
         this.radarDom.innerHTML = "";

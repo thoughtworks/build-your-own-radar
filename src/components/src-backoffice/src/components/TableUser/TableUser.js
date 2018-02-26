@@ -20,7 +20,7 @@ class TableUser extends Component {
         {/* <Table.Cell>{user.description}</Table.Cell> */}
         <Table.Cell>
           <ModalUser
-            headerTitle='Edit Entry'
+            headerTitle='Edit Technology'
             buttonTriggerTitle='Edit'
             buttonSubmitTitle='Save'
             buttonColor='blue'
@@ -42,7 +42,7 @@ class TableUser extends Component {
       </Table.Row>
     );
 
-    // Make every new user appear on top of the list
+    // Make every new entry appear on top of the list
     technologies =  [...technologies].reverse();
 
     return (

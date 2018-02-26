@@ -5,9 +5,12 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import TableUser from '../TableUser/TableUser';
 import ModalUser from '../ModalUser/ModalUser';
+import ModalImport from '../ModalImport/ModalImport';
 import Feedbacks from '../FeedbacksApp';
 import Header from '../Header';
 import About from '../About';
+
+import { CSVContent } from '../../../../radar/util/factory';
 
 import logo from '../../SQLI_logo.png';
 import './App.scss';
@@ -43,6 +46,7 @@ class App extends Component {
     this.handleUserUpdated = this.handleUserUpdated.bind(this);
     this.handleUserDeleted = this.handleUserDeleted.bind(this);
     this.handleFilterChange = this.handleFilterChange.bind(this);
+    this.handleImport = this.handleImport.bind(this);
   }
 
   filterEntries() {
@@ -95,6 +99,30 @@ class App extends Component {
     this.setState({ technologies: technologies });
   }
 
+  postCSVContent = (overwrite, ev) => {
+    let fileContent = ev.target.result;
+    let csv = CSVContent(fileContent).map((tech) => {
+      tech.isNews = tech.isNew === 'TRUE';
+      return tech;
+    });
+    return axios.post(this.server + '/api/technologies/csv', {
+      overwrite,
+      csv
+    }).then(({ data }) => {
+      this.setState({ allTechnologies: data });
+    });
+  }
+
+  handleImport({ fileBlob, overwrite }) {
+    let reader = new FileReader();
+    return new Promise((res, rej) => {
+      reader.onload = (...args) => {
+        this.postCSVContent(overwrite, ...args).finally(res);
+      };
+      reader.readAsBinaryString(fileBlob);
+    });
+  }
+
   handleUserUpdated(technology) {
     let technologies = this.state.technologies.slice();
     for (let i = 0, n = technologies.length; i < n; i++) {
@@ -112,9 +140,10 @@ class App extends Component {
   }
 
   handleUserDeleted(user) {
-    let technologies = this.state.technologies.slice();
+    let technologies = this.state.allTechnologies.slice();
     technologies = technologies.filter(u => { return u._id !== user._id; });
-    this.setState({ technologies: technologies });
+    this.setState({ allTechnologies: technologies });
+    this.filterEntries()
   }
 
   render() {
@@ -139,6 +168,7 @@ class App extends Component {
           }}
           onChange={this.handleFilterChange}
         />
+
         <ModalUser
           headerTitle='Add Technology'
           buttonTriggerTitle='Add New'
@@ -147,7 +177,16 @@ class App extends Component {
           onUserAdded={this.handleUserAdded}
           server={this.server}
         />
-        
+
+        <ModalImport
+          headerTitle='Import csv'
+          buttonTriggerTitle='Import CSV'
+          buttonSubmitTitle='Import'
+          buttonColor='green'
+          handleSubmit={this.handleImport}
+          server={this.server}
+        />
+
         <TableUser
           onUserUpdated={this.handleUserUpdated}
           onUserDeleted={this.handleUserDeleted}
@@ -175,4 +214,4 @@ class GApp extends Component {
 
 
 export default GApp;
-export {App};
+export { App };
