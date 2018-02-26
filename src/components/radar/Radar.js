@@ -3,7 +3,7 @@ import axios from 'axios';
 import { CSVContent, plotRadar, hideBlips } from './util/factory';
 import React from 'React';
 
-// TODO DABA : rings names
+// TODO DABA : rings names 
 
 class Radar extends React.Component {
     constructor(){

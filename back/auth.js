@@ -21,7 +21,7 @@ const signMiddlware = (req, res, next) => {
       token: sign({username})
     });
   }else{
-    returnres.status(401).send({ auth: false, message: 'incorrect user/pass.' });
+    return res.status(401).send({ auth: false, message: 'incorrect user/pass.' });
   }
 };
 
