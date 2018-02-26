@@ -1,39 +1,40 @@
-
-// http://www.danielstjules.com/2014/08/03/basic-auth-with-express-4/
-
-/**
- * Your utility library for express
- */
-
-var basicAuth = require('basic-auth');
-
-/**
- * Simple basic auth middleware for use with Express 4.x.
- *
- * @example
- * app.use('/api-requiring-auth', utils.basicAuth('username', 'password'));
- *
- * @param   {string}   username Expected username
- * @param   {string}   password Expected password
- * @returns {function} Express 4 middleware requiring the given credentials
- */
-const basicAuthe = function(username, password) {
-  return function(req, res, next) {
-    var user = basicAuth(req);
-
-    if (!user || user.name !== username || user.pass !== password) {
-      res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
-      return res.sendStatus(401);
-    }
-
-    next();
-  };
-};
+const jwt = require('jsonwebtoken');
 
 
+const SECRET = 'stek-stek-secret';
+const HEADERKEY = 'x-access-token';
 const CRED = {
-  USER : 'admin',
-  PASS : 'passwod'
+  username: 'admin',
+  password: 'passwod'
 };
 
-module.exports = basicAuthe(CRED.USER, CRED.PASS);
+const sign = (obj) => {
+  return jwt.sign(obj, SECRET);
+};
+
+const signMiddlware = (req, res, next) => {
+  let { username, password } = req.body;
+  if(username && username === CRED.username && password && password === CRED.password) {
+    return res.status(200).send({
+      auth: true,
+      message: 'auth success',
+      token: sign({username})
+    });
+  }else{
+    returnres.status(401).send({ auth: false, message: 'incorrect user/pass.' });
+  }
+};
+
+const verifyMiddleware = ( req, res, next ) => {
+  var token = req.headers[HEADERKEY];
+  if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
+  
+  jwt.verify(token, SECRET, function(err, decoded) {
+    if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
+    else {
+      next();
+    }
+  });
+}
+
+module.exports = {signMiddlware, verifyMiddleware}

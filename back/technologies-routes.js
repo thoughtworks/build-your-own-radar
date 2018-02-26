@@ -3,6 +3,7 @@ const router = express.Router();
 const RateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
 const jsonexport = require('jsonexport');
+const { verifyMiddleware } = require('./auth');
 
 // const stringCapitalizeName = require('string-capitalize-name');
 
@@ -77,7 +78,7 @@ router.get('/', (req, res) => {
 });
 
 // CREATE
-router.post('/', postLimiter, (req, res) => {
+router.post('/', postLimiter, verifyMiddleware, (req, res) => {
 
   // Validate the age
   // let age = sanitizeAge(req.body.age);
@@ -142,7 +143,7 @@ router.post('/', postLimiter, (req, res) => {
 });
 
 // UPDATE
-router.put('/:id', (req, res) => {
+router.put('/:id', verifyMiddleware, (req, res) => {
 
   // Validate the age
   // let age = sanitizeAge(req.body.age);
@@ -207,7 +208,7 @@ router.put('/:id', (req, res) => {
 });
 
 // DELETE
-router.delete('/:id', (req, res) => {
+router.delete('/:id', verifyMiddleware, (req, res) => {
 
   Technology.findByIdAndRemove(req.params.id)
     .then((result) => {

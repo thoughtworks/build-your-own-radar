@@ -8,7 +8,10 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}/back/server.js"
+            "program": "${workspaceFolder}/back/server.js",
+            "env": {
+                "ENV":"DEV"
+            }
         }
     ]
 }
