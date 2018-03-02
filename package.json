@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "watch": "webpack -d --watch",
-    "build": "webpack",
+    "build": "webpack --prod",
     "serve": "node back/server.js",
     "dev-server": "webpack-dev-server --progress --colors --inline --dev"
   },

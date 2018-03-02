@@ -13,9 +13,9 @@ class Radar extends React.Component {
     setredarDom(domEl){
         this.radarDom = domEl;
     }
-    shouldComponentUpdate(){
-        // return false;
-    }
+    // shouldComponentUpdate(){
+    //     return false;
+    // }
     componentWillUnmount(){
         this.radarDom.innerHTML = "";
     }

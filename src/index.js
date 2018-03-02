@@ -81,16 +81,10 @@ class App extends Component {
     this.setState({
       loading: true
     }, () => {
-      axios.get(this.server + '/api/logout', {
-        auth: {
-          username: '',
-          password: ''
-        }
-      }).finally(() => {
-        this.setState({
-          username: null,
-          loading: false
-        });
+      cookie.remove(HEADERKEY);
+      this.setState({
+        username: null,
+        loading: false
       });
     });
   };
@@ -114,10 +108,10 @@ class App extends Component {
         {/* {username && <Route path="/admin" render={()=>{
           <RadarApp/>
         }} />} */}
-        <Route path='/admin' render={this.renderIfLogged(<AdminApp/>)} />
+        <Route path='/admin' render={this.renderIfLogged(<AdminApp />)} />
 
         {/* {username && <Route path="/feedbacks" component={Admin} />} */}
-        <Route path='/feedbacks' render={this.renderIfLogged(<FeedbacksApp/>)} />
+        <Route path='/feedbacks' render={this.renderIfLogged(<FeedbacksApp />)} />
         {/* {username && <Route path="/feedbacks" render={()=>{
           <FeedbacksApp/>
         }} />} */}

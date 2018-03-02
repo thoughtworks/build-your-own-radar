@@ -38,7 +38,7 @@ app.use('/api', apiRouter);
 // app.use('/admin', authMid, express.static(resolve(__dirname, '..', 'dist-backoffice')));
 
 
-app.use('/about', express.static(resolve(__dirname, '..', 'about')));
+// app.use('/about', express.static(resolve(__dirname, '..', 'about')));
 // todo
 app.use('/static', express.static(resolve(__dirname, '..', 'static')));
 app.use('/assets', express.static(resolve(__dirname, '..', 'dist', 'assets')));

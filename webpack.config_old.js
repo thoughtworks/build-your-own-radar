@@ -75,9 +75,7 @@ module.exports = {
         host: '0.0.0.0',
         port: 8080,
         proxy: {
-            '/api/*': 'http://[::1]:8000',
-            '/admin/*' : 'http://[::1]:8000',
-            '/about/*' : 'http://[::1]:8000'
+            '/api/*': 'http://[::1]:8000'
         }
     },
     node: {

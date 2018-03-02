@@ -6,8 +6,8 @@ WORKDIR /radar
 
 COPY . ./
 
-RUN yarn install && npm rebuild node-sass\
-npm run build
+# RUN yarn install
+# RUN yarn run build
 
 EXPOSE 8000
 

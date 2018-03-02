@@ -3,10 +3,15 @@ const jwt = require('jsonwebtoken');
 
 const SECRET = 'stek-stek-secret';
 const HEADERKEY = 'x-access-token';
+
 const CRED = {
   username: 'admin',
   password: 'passwod'
 };
+
+if(process.env.ENV == 'DEV') {
+  CRED.password = 'password';
+}
 
 const sign = (obj) => {
   return jwt.sign(obj, SECRET);
