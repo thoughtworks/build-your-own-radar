@@ -62,7 +62,7 @@ router.get('/downloadCSV', (req, res) => {
     .then((result) => {
       jsonexport(result.map(mapNewsToNewWoId), (err, data) => {
         res.setHeader('Content-disposition', `attachment; filename=Radar-backup-${new Date().toLocaleString()}.csv`);
-        res.setHeader('Content-type', 'text/csv');
+        res.setHeader('Content-type', 'text/csv; charset=utf-8');
 
         res.send(data);
       })

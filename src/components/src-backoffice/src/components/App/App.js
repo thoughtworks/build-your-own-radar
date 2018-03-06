@@ -107,7 +107,7 @@ class App extends Component {
   postCSVContent = (overwrite, ev) => {
     let fileContent = ev.target.result;
     let csv = CSVContent(fileContent).map((tech) => {
-      tech.isNews = tech.isNew === 'TRUE';
+      tech.isNews = tech.isNew.toLowerCase() === 'true';
       return tech;
     });
     return axios.post(this.server + '/api/technologies/csv', {
@@ -115,6 +115,7 @@ class App extends Component {
       csv
     }).then(({ data }) => {
       this.setState({ allTechnologies: data });
+      this.filterEntries();
     });
   }
 
@@ -148,7 +149,7 @@ class App extends Component {
     let technologies = this.state.allTechnologies.slice();
     technologies = technologies.filter(u => { return u._id !== user._id; });
     this.setState({ allTechnologies: technologies });
-    this.filterEntries()
+    this.filterEntries();
   }
 
   downloadCSV = () => {
