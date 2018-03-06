@@ -44,15 +44,15 @@ const plotRadar = function (blips) {
         arcs[blip.quadrant].add(newBlip);
         blipsObjs.push(newBlip);
     });
-    
-    var radar = new Radar({arcs});
+
+    var radar = new Radar({ arcs });
 
     var size = (window.innerHeight - 133) < 620 ? 620 : window.innerHeight - 133;
 
     var radarIn = new GraphingRadar(size, radar).init()
     radarIn.plot();
 
-    return {blipsObjs, radarIn};
+    return { blipsObjs, radarIn };
 }
 
 const CSVContent = function (fileContent) {
@@ -66,20 +66,34 @@ const CSVContent = function (fileContent) {
     return blips;
 }
 
+const hideIf = (indexes) => (getId) => (e) => {
+    // let intx = parseInt(e.textContent);
+    let intx = getId(e);
+    if (indexes.indexOf(intx) === -1) {
+        e.style.display = 'none';
+    } else {
+        e.style.display = null;
+    }
+}
 
-const hideBlips = function(indexes){
+const hideBlips = function (indexes) {
+    // todo refactor
     let allBlips = d3.selectAll('g.blip-link');
-    if(indexes.length === 0){
+    let allLi = d3.selectAll('.quadrant-table li');
+    debugger;
+    if (indexes.length === 0) {
+        allLi.style('display', null);
         allBlips.style('display', null);
     } else {
-        allBlips.nodes().forEach((e)=>{
-            let intx = parseInt(e.textContent);
-            if (indexes.indexOf(intx) === -1){
-                e.style.display = 'none';
-            }else{
-                e.style.display = null;
-            }
-        });
+        let hideifWID = hideIf(indexes);
+
+        allBlips.nodes().forEach(hideifWID((e) => parseInt(e.textContent)));
+        allLi   .nodes().forEach(hideifWID((e) => {
+            let titleContent = e.querySelector('.blip-list-item').textContent;
+            let idS = titleContent.split('.')[0];
+            return parseInt(idS);
+        }));
+
     }
 }
 
