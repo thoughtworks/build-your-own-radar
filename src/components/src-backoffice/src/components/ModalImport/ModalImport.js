@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Modal, Form, TextArea } from 'semantic-ui-react';
+import { Button, Modal, Form, TextArea, Icon} from 'semantic-ui-react';
 
 import FormUser from '../FormUser/FormUser';
 
@@ -22,9 +22,9 @@ class ModalImport extends Component {
     const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : (target.value || targ.value);
     const name = (target.name || targ.name);
-    if(targ.type === 'file'){
+    if (targ.type === 'file') {
       this.setState({
-        fileBlob : e.target.files[0]
+        fileBlob: e.target.files[0]
       })
     }
     this.setState({ [name]: value });
@@ -48,7 +48,11 @@ class ModalImport extends Component {
     return (
       <Modal
         closeIcon
-        trigger={<Button style={addNewButton} secondary color={this.props.buttonColor}>{this.props.buttonTriggerTitle}</Button>}
+        trigger={
+          <Button style={addNewButton} secondary color={this.props.buttonColor}>
+            <Icon name='upload' />{this.props.buttonTriggerTitle}
+          </Button>
+        }
         dimmer='inverted'
         size='tiny'
         closeIcon='close'

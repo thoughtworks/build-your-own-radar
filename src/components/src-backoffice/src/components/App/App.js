@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Input, Dropdown, Menu, Image, Button } from 'semantic-ui-react';
+import { Container, Input, Dropdown, Menu, Image, Button, Icon } from 'semantic-ui-react';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
@@ -178,16 +178,19 @@ class App extends Component {
           onChange={this.handleFilterChange}
         />
 
+        {/* todo refactor, and create a dutonWithIcon component */}
         <ModalUser
           headerTitle='Add Technology'
-          buttonTriggerTitle='Add New'
           buttonSubmitTitle='Add'
+          buttonTriggerTitle={ <React.Fragment> <Icon name='plus'/>{'Add New'} </React.Fragment>}
           buttonColor='green'
           onUserAdded={this.handleUserAdded}
           server={this.server}
         />
         
-        <Button onClick={this.downloadCSV} style={addNewButton} secondary >Export CSV</Button>
+        <Button onClick={this.downloadCSV} style={addNewButton} secondary >
+        <Icon name='download'/>Export CSV
+        </Button>
 
         <ModalImport
           headerTitle='Import csv'
