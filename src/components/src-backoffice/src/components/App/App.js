@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Input, Dropdown, Menu, Image } from 'semantic-ui-react';
+import { Container, Input, Dropdown, Menu, Image, Button } from 'semantic-ui-react';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
@@ -14,6 +14,11 @@ import { CSVContent } from '../../../../radar/util/factory';
 
 import logo from '../../SQLI_logo.png';
 import './App.scss';
+
+const addNewButton = {
+  'float': 'right',
+  'margin': '4px'
+};
 
 const appHeader = {
   'fontSize': '18px'
@@ -30,7 +35,7 @@ class App extends Component {
 
   constructor() {
     super();
-
+    //todo: this.api...
     this.server = process.env.REACT_APP_API_URL || '';
     // this.socket = io.connect(this.server);
 
@@ -146,6 +151,10 @@ class App extends Component {
     this.filterEntries()
   }
 
+  downloadCSV = () => {
+    window.open(this.server + '/api/technologies/downloadCSV');
+  }
+
   render() {
     return (
       <Container style={{ marginTop: '6em' }}>
@@ -177,6 +186,8 @@ class App extends Component {
           onUserAdded={this.handleUserAdded}
           server={this.server}
         />
+        
+        <Button onClick={this.downloadCSV} style={addNewButton} secondary >Export CSV</Button>
 
         <ModalImport
           headerTitle='Import csv'

@@ -55,6 +55,23 @@ router.get('/_csv_', (req, res) => {
       res.status(500).json({ success: false, msg: `Something went wrong. ${err}` });
     });
 });
+
+// READ (ALL)
+router.get('/downloadCSV', (req, res) => {
+  Technology.find({})
+    .then((result) => {
+      jsonexport(result.map(mapNewsToNewWoId), (err, data) => {
+        res.setHeader('Content-disposition', `attachment; filename=Radar-backup-${new Date().toLocaleString()}.csv`);
+        res.setHeader('Content-type', 'text/csv');
+
+        res.send(data);
+      })
+    })
+    .catch((err) => {
+      res.status(500).json({ success: false, msg: `Something went wrong. ${err}` });
+    });
+});
+
 // READ (ONE)
 router.get('/:id', (req, res) => {
   Technology.findById(req.params.id)
