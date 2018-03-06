@@ -38,7 +38,6 @@ class ModalImport extends Component {
         fileBlob: this.state.fileBlob,
         overwrite: this.state.overwrite
       }).finally(() => {
-        // debugger;
         this.setState({ loading: false });
       });
     })

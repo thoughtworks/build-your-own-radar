@@ -80,7 +80,6 @@ const hideBlips = function (indexes) {
     // todo refactor
     let allBlips = d3.selectAll('g.blip-link');
     let allLi = d3.selectAll('.quadrant-table li');
-    debugger;
     if (indexes.length === 0) {
         allLi.style('display', null);
         allBlips.style('display', null);

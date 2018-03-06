@@ -35,6 +35,14 @@ const RHeader = ({ hideBlips, blips = [], radarIn, categories, selectedCategory,
                 <div className="radar-title__logo">
                 </div>
             </div> */}
+            <FilterComponent
+                options={stateOptions}
+                onChange={function (e, { value: values }) {
+                    // console.log(arguments);
+                    let indexes = filtering.filrerBy(blips, values);
+                    hideBlips(indexes);
+                }}
+            />
             {
                 categories.map((category, index) => {
                     return <div
@@ -47,23 +55,16 @@ const RHeader = ({ hideBlips, blips = [], radarIn, categories, selectedCategory,
                 })
             }
             {/* todo: link to about page */}
-            <Link to="/about">
+            {/* <Link to="/about">
                 <div className="print-radar button no-capitalize">About</div>
-            </Link>
+            </Link> */}
             <div onClick={radarIn.redrawFullRadar}
                 className="home-link"
                 style={{ visibility: 'hidden' }}
             >
                 « Back to Radar home
         </div>
-            <FilterComponent
-                options={stateOptions}
-                onChange={function (e, { value: values }) {
-                    // console.log(arguments);
-                    let indexes = filtering.filrerBy(blips, values);
-                    hideBlips(indexes);
-                }}
-            />
+
         </header>
     );
 };
