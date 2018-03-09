@@ -40,7 +40,7 @@ app.use('/api', apiRouter);
 
 // app.use('/about', express.static(resolve(__dirname, '..', 'about')));
 // todo
-app.use('/static', express.static(resolve(__dirname, '..', 'static')));
+// app.use('/static', express.static(resolve(__dirname, '..', 'static')));
 app.use('/assets', express.static(resolve(__dirname, '..', 'dist', 'assets')));
 app.use('/*', express.static(resolve(__dirname, '..', 'dist')));
 

@@ -26,15 +26,6 @@ const RHeader = ({ hideBlips, blips = [], radarIn, categories, selectedCategory,
     hideBlips = hideBlips || none;
     return (
         <header>
-            {/* <div className="radar-title">
-                <div className="radar-title__text">
-                    <img src="/assets/images/SQLI_logo.png" className="radar-title__logo sqli-logo" />
-                    <h1 style={{ cursor: 'pointer' }}>
-                        Technology Radar - SQLi ISCM</h1>
-                </div>
-                <div className="radar-title__logo">
-                </div>
-            </div> */}
             <FilterComponent
                 options={stateOptions}
                 onChange={function (e, { value: values }) {

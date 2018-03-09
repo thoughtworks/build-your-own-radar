@@ -15,7 +15,8 @@ FROM node:8
 
 WORKDIR /radar
 
-COPY --from=builder /radar/dist .
+COPY --from=builder /radar/dist ./dist
+COPY /data ./data
 COPY ./package.json .
 COPY ./yarn.lock .
 COPY ./back ./back

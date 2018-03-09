@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { Container, Input, Dropdown, Menu, Image } from 'semantic-ui-react';
 import { withRouter, Route } from 'react-router-dom';
 import LoginLogout from '../LoginLogout';
-import logo from '../../SQLI_logo.png';
 
 const MenuItemWithActiveState = withRouter((props) => {
   const pathname = props.location.pathname;
@@ -23,8 +22,8 @@ class Header extends Component {
         <MenuItemWithActiveState as={Link} to='/' header style={{ flexDirection: 'row' }}>
           <Image
             size='tiny'
-            src={logo}
-            style={{ marginRight: '1.5em' }}
+            src="/assets/images/brand_logo.png"
+            style={{ marginRight: '1.5em', height: '52px', width: 'auto'}}
           />
           Technologies Radar
         </MenuItemWithActiveState>

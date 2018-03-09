@@ -1,8 +1,6 @@
-import logo from '../../SQLI_logo.png';
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom';
 import { Modal, Button, Form, Grid, Header, Image, Message, Segment, Menu } from 'semantic-ui-react'
-// import PropTypes from 'prop-types';
 
 class LoginForm extends Component {
   componentWillMount() {
@@ -32,7 +30,7 @@ class LoginForm extends Component {
       >
         <Image
           size='tiny'
-          src={logo}
+          src="/assets/images/brand_logo.png"
           style={{ margin: 'auto' }}
         />
         {' '}Log-in to your account

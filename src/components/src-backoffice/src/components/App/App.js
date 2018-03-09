@@ -12,7 +12,6 @@ import About from '../About';
 
 import { CSVContent } from '../../../../radar/util/factory';
 
-import logo from '../../SQLI_logo.png';
 import './App.scss';
 
 const addNewButton = {
