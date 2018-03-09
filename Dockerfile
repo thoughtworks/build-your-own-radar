@@ -1,15 +1,29 @@
-FROM node:8.9.4
+FROM node:8 as builder
 
 WORKDIR /radar
 
-# RUN npm install -g yarn
-
+RUN npm install -g yarn
+COPY ./package.json ./
+COPY ./yarn.lock ./
+RUN npm rebuild node-sass
+RUN yarn install
 COPY . ./
+# RUN rm -rf ./dist
+RUN yarn run build
 
-# RUN yarn install
-# RUN yarn run build
+FROM node:8
 
-EXPOSE 8000
+WORKDIR /radar
 
-CMD [ "npm", "run", "serve" ]
+COPY --from=builder /radar/dist .
+COPY ./package.json .
+COPY ./yarn.lock .
+COPY ./back ./back
+
+RUN yarn install --production=true
+
+EXPOSE 80
+
+# CMD [ "bash" ]
+CMD [ "node", "back/server.js" ]
 

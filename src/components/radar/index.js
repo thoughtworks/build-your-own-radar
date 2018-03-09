@@ -13,7 +13,7 @@ import { CSVContent, plotRadar, hideBlips} from './util/factory';
 import filtering from './util/filtering';
 import axios from 'axios';
 import Radar from './Radar';
-import Feedbacks from './Feedbacks';
+import Feedbacks from './FeedBacks';
 import RHeader from './RHeader';
 import { map, uniqBy } from 'lodash';
 

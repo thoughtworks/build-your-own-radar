@@ -1,6 +1,6 @@
 
 import { Widget, addResponseMessage } from 'react-chat-widget';
-import React from 'React';
+import React from 'react';
 import axios from 'axios';
 
 class Feedbacks extends React.Component {
@@ -24,4 +24,5 @@ class Feedbacks extends React.Component {
       );
     }
   }
+
   module.exports = Feedbacks;
