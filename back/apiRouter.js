@@ -28,7 +28,7 @@ apiRouter.get('/about-content', (req, res) => {
 });
 apiRouter.get('/feedbacks-json', verifyMiddleware, (req, res) => {
     fs.readFile(FEEDBACKSDATAFILENAME, "utf8", (err, fileContent) => {
-        res.json(fileContent.trim().split(os.EOL));
+        res.json((fileContent || "").trim().split(os.EOL));
     });
     // res.download(FEEDBACKSDATAFILENAME);
 });

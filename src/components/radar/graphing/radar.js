@@ -405,7 +405,7 @@ const Radar = function (size, radar) {
       .attr('class', 'radar-title')
       .append('div')
       .attr('class', 'radar-title__text')
-      .html('<img src="/assets/images/SQLI_logo.png" class="radar-title__logo sqli-logo">')
+      .html('<img src="/assets/images/brand_logo.png" class="radar-title__logo brand-logo">')
       .append('h1')
       .text(document.title)
       .style('cursor', 'pointer')

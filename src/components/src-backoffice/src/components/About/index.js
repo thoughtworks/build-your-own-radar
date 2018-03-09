@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import { Container, Input, Dropdown, Menu, Image } from 'semantic-ui-react';
 
-import logo from '../../SQLI_logo.png';
 import Axios from 'axios';
 
 
