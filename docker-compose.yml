@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # image: node:8
+    # ports:
+    #   - "80:8000"
+    networks:
+      - radarnet
+    # environment:
+    #   - ENV=PROD
+    # volumes:
+    #   - sonarqube_conf:/opt/sonarqube/conf
+    #   - sonarqube_data:/opt/sonarqube/data
+    #   - sonarqube_extensions:/opt/sonarqube/extensions
+    #   - sonarqube_bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+    ports:
+      - 80:8000
+    # tty: true
+    command: "node back/server.js"
+
+  db:
+    image: mongo
+    # hostname: mongo
+    networks:
+      radarnet:
+        aliases:
+          - mongo
+
+    # volumes:
+    #   - postgresql:/var/lib/postgresql
+    #   # This needs explicit mapping due to https://github.com/docker-library/postgres/blob/4e48e3228a30763913ece952c611e5e9b95c8759/Dockerfile.template#L52
+    #   - postgresql_data:/var/lib/postgresql/data
+
+networks:
+  radarnet:
+    driver: bridge
+
+# volumes:
+#   sonarqube_conf:
+#   sonarqube_data:
+#   sonarqube_extensions:
+#   sonarqube_bundled-plugins:
+#   postgresql:
+#   postgresql_data:
+

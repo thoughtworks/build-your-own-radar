@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 import { CSVContent, plotRadar, hideBlips } from './util/factory';
-import React from 'React';
+import React from 'react';
 
 // TODO DABA : rings names 
 
