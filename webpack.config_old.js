@@ -2,7 +2,7 @@
 
 const webpack = require('webpack');
 const path = require('path');
-const buildPath = path.join(__dirname, './dist');
+const buildPath = path.join(__dirname, './dist-radar');
 const args = require('yargs').argv;
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -11,7 +11,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 let isProd = args.prod;
 let isDev = args.dev;
 
-let entry = ['./src/index.js'];
+let entry = ['./src-radar/site.js'];
 let devtool;
 
 if (isDev) {
@@ -20,9 +20,9 @@ if (isDev) {
 }
 
 let plugins = [
-    new ExtractTextPlugin('assets/[name].[hash].css'),
+    new ExtractTextPlugin('[name].[hash].css'),
     new HtmlWebpackPlugin({
-        template: './src/index.html',
+        template: './src-radar/index.html',
         inject: 'body',
         chunks: 'app'
     })
@@ -30,17 +30,14 @@ let plugins = [
 
 if (isProd) {
     plugins.push(
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('production')
-        }),
         new webpack.NoErrorsPlugin(),
         new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            },
-            mangle: true
-        }),
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {
+        //         warnings: false
+        //     },
+        //     mangle: true
+        // }),
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.ProvidePlugin({
             "React": "react",
@@ -54,7 +51,7 @@ module.exports = {
     output: {
         path: buildPath,
         publicPath: '/',
-        filename: 'assets/[name].[hash].js'
+        filename: '[name].[hash].js'
     },
 
     module: {
@@ -62,7 +59,7 @@ module.exports = {
             { test: /\.json$/, loader: 'json' },
             { test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
             { test: /\.scss$/, exclude: /node_modules/, loader: ExtractTextPlugin.extract('style', 'css?sourceMap!sass') },
-            { test: /\.(png|jpg|ico)$/, exclude: /node_modules/, loader: 'file-loader?name=assets/images/[name].[ext]&context=./src/images' }
+            { test: /\.(png|jpg|ico)$/, exclude: /node_modules/, loader: 'file-loader?name=images/[name].[ext]&context=./src-radar/images' }
         ]
     },
 
@@ -79,8 +76,7 @@ module.exports = {
         port: 8080,
         proxy: {
             '/api/*': 'http://[::1]:8000'
-        },
-        historyApiFallback: true
+        }
     },
     node: {
         // console: 'empty',

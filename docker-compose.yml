@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    
+    volumes:
+      - $PWD/customs/images:/radar/dist/assets/images
+      - $PWD/customs/about:/radar/about
+
+    networks:
+      - radarnet
+    environment:
+      - ENV=PROD
+      
+    ports:
+      - 80:8000
+    # tty: true
+    command: "node back/server.js"
+
+  db:
+    image: mongo
+    # hostname: mongo
+    networks:
+      radarnet:
+        aliases:
+          - mongo
+
+    volumes:
+      - $PWD/mongo-data:/data/db
+      
+
+networks:
+  radarnet:
+    driver: bridge
+
