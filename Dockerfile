@@ -1,12 +1,30 @@
-FROM node:7.10.1 as source
-WORKDIR /src/build-your-own-radar
-COPY package.json ./
-RUN npm install
-COPY . ./
-RUN npm run build
+FROM node:8 as builder
 
-FROM nginx:1.13.5
-WORKDIR /opt/build-your-own-radar
-COPY --from=source /src/build-your-own-radar/dist .
-COPY default.template /etc/nginx/conf.d/default.template
-CMD /bin/bash -c "envsubst < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+WORKDIR /radar
+
+RUN npm install -g yarn
+COPY ./package.json ./
+COPY ./yarn.lock ./
+RUN npm rebuild node-sass
+RUN yarn install
+COPY . ./
+# RUN rm -rf ./dist
+RUN yarn run build
+
+FROM node:8
+
+WORKDIR /radar
+
+COPY --from=builder /radar/dist ./dist
+COPY /data ./data
+COPY ./package.json .
+COPY ./yarn.lock .
+COPY ./back ./back
+
+RUN yarn install --production=true
+
+EXPOSE 80
+
+# CMD [ "bash" ]
+CMD [ "node", "back/server.js" ]
+

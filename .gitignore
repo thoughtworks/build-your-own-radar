@@ -8,5 +8,10 @@ examples
 
 coverage/
 
+/dist-radar
+/dist-backoffice
+/dist
+/mongo-data
+
 .idea/
 .DS_Store
