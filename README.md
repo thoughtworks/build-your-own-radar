@@ -54,7 +54,7 @@ All tasks are defined in `package.json`.
 Pull requests are welcome; please write tests whenever possible.
 Make sure you have nodejs installed.
 
-- `git clone git@github.com:SyscoCorporation/build-your-own-radar.git`
+- `git clone git@github.com:SyscoCorporation/tech-radar.git`
 - `npm install`
 - `npm test` - to run your tests
 - `npm run dev` - to run application in localhost:8080. This will watch the .js and .css files and rebuild on file changes
