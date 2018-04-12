@@ -104,6 +104,9 @@ const CSVDocument = function (url) {
     var self = {};
 
     self.build = function () {
+        if (window.location) {
+            url = window.location.origin + url;
+        }
         d3.csv(url, createBlips);
     }
 
@@ -169,7 +172,7 @@ const GoogleSheetInput = function () {
         var domainName = DomainName(window.location.search.substring(1));
         var queryParams = QueryParams(window.location.search.substring(1));
 
-        if (domainName && queryParams.sheetId.endsWith('csv')) {
+        if (queryParams.sheetId.endsWith('csv')) {
             var sheet = CSVDocument(queryParams.sheetId);
             sheet.init().build();
         }
