@@ -1,14 +1,6 @@
-# default server block to handle undefined domain names
-server {
-  listen 80 default_server;
-  server_name _;
-  return 403;
-}
-
 # server block for static file serving
 server {
   listen 80;
-  server_name ${SERVER_NAMES};
   location / {
     root /opt/build-your-own-radar;
     index index.html;
