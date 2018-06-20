@@ -7,6 +7,7 @@ const args = require('yargs').argv;
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 let isProd = args.prod;
 let isDev = args.dev;
@@ -32,7 +33,10 @@ let plugins = [
         chunks: ['common'],
         inject: 'body',
         filename: 'error.html'
-    })
+    }),
+    new CopyWebpackPlugin([
+        { from: './src/csv', to: buildPath + '/csv' }
+    ])
 ];
 
 if (isProd) {
@@ -85,6 +89,7 @@ module.exports = {
 
     devServer: {
         contentBase: buildPath,
+        outputPath: buildPath,
         host: '0.0.0.0',
         port: 8080
     }
