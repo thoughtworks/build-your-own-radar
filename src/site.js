@@ -1,4 +1,4 @@
-require('./stylesheets/base.scss');
+require('./common');
 require('./images/logo.png');
 require('./images/syscologo.png');
 require('./images/tech-radar-201611-landing-page-wide.png');

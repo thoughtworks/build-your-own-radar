@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+- '7'
+jobs:
+  include:
+    - stage: Deploy QA
+      script: npm run build
+      deploy:
+        provider: s3
+        access_key_id: $AWS_ACCESS_KEY_ID
+        secret_access_key: $AWS_SECRET_ACCESS_KEY
+        bucket: myradar-qa
+        acl: public_read
+        skip_cleanup: true
+        local_dir: dist
+        on:
+          repo: thoughtworks/build-your-own-radar
+          condition: "$TRAVIS_PULL_REQUEST = false"
+    - stage: Invalidate CDN
+      install: pip install --user awscli && export PATH=$PATH:$HOME/.local/bin
+      script: 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then aws configure set preview.cloudfront true && aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"; fi'
