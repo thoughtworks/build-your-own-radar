@@ -1,0 +1,6 @@
+version: "2"
+services:
+  techradar:
+    image: sysco/techradar
+    ports:
+      - 8080:8080

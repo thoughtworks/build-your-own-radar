@@ -1,12 +1,17 @@
-FROM node:7.10.1 as source
-WORKDIR /src/build-your-own-radar
-COPY package.json ./
-RUN npm install
-COPY . ./
-RUN npm run build
+FROM node:7.3.0
+LABEL maintainer "brocchini.mozart@corp.sysco.com"
 
-FROM nginx:1.13.5
-WORKDIR /opt/build-your-own-radar
-COPY --from=source /src/build-your-own-radar/dist .
-COPY default.template /etc/nginx/conf.d/default.conf
-CMD ["nginx", "-g", "daemon off;"]
+
+# Create app directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+# Install app dependencies
+COPY package.json /usr/src/app/
+RUN npm install
+
+# Bundle app source
+COPY . /usr/src/app
+
+EXPOSE 8080
+CMD [ "npm", "run", "dev" ]

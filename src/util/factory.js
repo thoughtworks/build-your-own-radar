@@ -179,6 +179,9 @@ const GoogleSheetInput = function () {
 
             sheet.init().build();
         } else {
+          var sheetId = 'https://docs.google.com/spreadsheets/d/1oGg0KdEyJCxfgbHc4pv7VhNpKjlFcNAIF4dXyBmuFck/edit?usp=sharing';
+          var sheet = GoogleSheet(sheetId, queryParams.sheetName);
+          sheet.init().build();
             var content = d3.select('body')
                 .append('div')
                 .attr('class', 'input-sheet');
@@ -194,7 +197,6 @@ const GoogleSheetInput = function () {
             plotForm(content);
 
             plotFooter(content);
-
         }
     };
 
