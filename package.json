@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node ./prodServer.js",
     "test": "istanbul cover jasmine",
     "dev": "webpack-dev-server --dev --inline",
     "prod": "webpack --prod && node ./prodServer.js",

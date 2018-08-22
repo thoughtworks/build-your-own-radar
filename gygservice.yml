@@ -1,0 +1,12 @@
+version: '1'
+service:
+  name: tech-radar
+  owner: devops
+  template: node-7
+  dronefile: .drone.yml
+deployments:
+  internal:
+    image_name: devops/tech-radar-internal
+    ingress: techradar.gygadmin.com
+  external:
+    image_name: devops/tech-radar-external

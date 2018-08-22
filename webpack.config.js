@@ -81,6 +81,9 @@ module.exports = {
         contentBase: buildPath,
         host: '0.0.0.0',
         port: 8080
-    }
+    },
+    externals:[{
+        xmlhttprequest: '{XMLHttpRequest:XMLHttpRequest}'
+    }]
 };
 

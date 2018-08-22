@@ -3,6 +3,6 @@
 var express = require('express');
 var server = express();
 server.use('/', express.static(__dirname + '/dist/'));
-server.listen(8080);
+server.listen(3000);
 
-console.log("webserver listening on 8080 ", Date());
+console.log("webserver listening on 3000 ", Date());
