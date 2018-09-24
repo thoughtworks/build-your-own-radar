@@ -2,6 +2,7 @@ version: '1'
 service:
   name: tech-radar
   owner: devops
+  repo: "https://github.com/getyourguide/build-your-own-radar"
   template: node-7
   dronefile: .drone.yml
 deployments:
