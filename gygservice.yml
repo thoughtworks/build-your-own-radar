@@ -6,19 +6,29 @@ service:
   repo: "https://github.com/getyourguide/build-your-own-radar"
   template: node-7
   dronefile: .drone.yml
-  containers:
-    web:
-      resources:
-        requests:
-          memory: 64Mi
-          cpu: 256m
-        limits:
-          memory: 64Mi
-          cpu: 512m
 deployments:
   internal:
+    containers:
+      web:
+        resources:
+          requests:
+            memory: 64Mi
+            cpu: 256m
+          limits:
+            memory: 64Mi
+            cpu: 512m
     image_name: devops/tech-radar-internal
     ingress: techradar.gygadmin.com
   external:
+    containers:
+      web:
+        resources:
+          requests:
+            memory: 64Mi
+            cpu: 256m
+          limits:
+            memory: 64Mi
+            cpu: 512m
     image_name: devops/tech-radar-external
+    
 
