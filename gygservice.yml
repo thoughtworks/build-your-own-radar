@@ -21,3 +21,4 @@ deployments:
     ingress: techradar.gygadmin.com
   external:
     image_name: devops/tech-radar-external
+
