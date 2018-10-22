@@ -85,6 +85,10 @@ module.exports = {
         test: /\.(png|jpg|ico)$/,
         exclude: /node_modules/,
         use: [{ loader: 'file-loader?name=images/[name].[ext]&context=./src/images' }]
+      },
+      {
+        test: require.resolve('jquery'),
+        use: [{ loader: 'expose-loader', options: 'jQuery' }, { loader: 'expose-loader', options: '$' }]
       }
     ]
   },

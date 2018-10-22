@@ -2,11 +2,14 @@ const d3 = require('d3')
 const d3tip = require('d3-tip')
 const Chance = require('chance')
 const _ = require('lodash/core')
+const $ = require('jquery')
+require('jquery-ui/ui/widgets/autocomplete')
 
 const RingCalculator = require('../util/ringCalculator')
 const QueryParams = require('../util/queryParamProcessor')
 
 const MIN_BLIP_WIDTH = 12
+const ANIMATION_DURATION = 1000
 
 const Radar = function (size, radar) {
   var svg, radarElement
@@ -233,7 +236,7 @@ const Radar = function (size, radar) {
     var x = coordinates[0]
     var y = coordinates[1]
 
-    var group = quadrantGroup.append('g').attr('class', 'blip-link')
+    var group = quadrantGroup.append('g').attr('class', 'blip-link').attr('id', 'blip-link-' + blip.number())
 
     if (blip.isNew()) {
       triangle(blip, x, y, order, group)
@@ -254,9 +257,11 @@ const Radar = function (size, radar) {
     var blipText = blip.number() + '. ' + blip.name() + (blip.topic() ? ('. - ' + blip.topic()) : '')
     blipListItem.append('div')
       .attr('class', 'blip-list-item')
+      .attr('id', 'blip-list-item-' + blip.number())
       .text(blipText)
 
     var blipItemDescription = blipListItem.append('div')
+      .attr('id', 'blip-description-' + blip.number())
       .attr('class', 'blip-item-description')
     if (blip.description()) {
       blipItemDescription.append('p').html(blip.description())
@@ -372,6 +377,8 @@ const Radar = function (size, radar) {
   function redrawFullRadar () {
     removeHomeLink()
     removeRadarLegend()
+    tip.hide()
+    d3.selectAll('g.blip-link').attr('opacity', 1.0)
 
     svg.style('left', 0).style('right', 0)
 
@@ -384,16 +391,42 @@ const Radar = function (size, radar) {
 
     d3.selectAll('.quadrant-group')
       .transition()
-      .duration(1000)
+      .duration(ANIMATION_DURATION)
       .attr('transform', 'scale(1)')
 
     d3.selectAll('.quadrant-group .blip-link')
       .transition()
-      .duration(1000)
+      .duration(ANIMATION_DURATION)
       .attr('transform', 'scale(1)')
 
     d3.selectAll('.quadrant-group')
       .style('pointer-events', 'auto')
+  }
+
+  function searchBlip (_e, ui) {
+    const { blip, quadrant } = ui.item
+    const isQuadrantSelected = d3.select('div.button.' + quadrant.order).classed('selected')
+    selectQuadrant.bind({}, quadrant.order, quadrant.startAngle)()
+    const selectedDesc = d3.select('#blip-description-' + blip.number())
+    d3.select('.blip-item-description.expanded').node() !== selectedDesc.node() &&
+        d3.select('.blip-item-description.expanded').classed('expanded', false)
+    selectedDesc.classed('expanded', true)
+
+    d3.selectAll('g.blip-link').attr('opacity', 0.3)
+    const group = d3.select('#blip-link-' + blip.number())
+    group.attr('opacity', 1.0)
+    d3.selectAll('.blip-list-item').classed('highlight', false)
+    d3.select('#blip-list-item-' + blip.number()).classed('highlight', true)
+    if (isQuadrantSelected) {
+      tip.show(blip.name(), group.node())
+    } else {
+      // need to account for the animation time associated with selecting a quadrant
+      tip.hide()
+
+      setTimeout(function () {
+        tip.show(blip.name(), group.node())
+      }, ANIMATION_DURATION)
+    }
   }
 
   function plotRadarHeader () {
@@ -437,6 +470,21 @@ const Radar = function (size, radar) {
       .classed('print-radar button no-capitalize', true)
       .text('Print this radar')
       .on('click', window.print.bind(window))
+
+    header.append('input')
+      .attr('id', 'auto-complete')
+      .attr('placeholder', 'Search...')
+      .classed('search-radar', true)
+
+    $('#auto-complete').autocomplete({
+      source: _.flatten(_.map(quadrants, function (q, i) {
+        return _.map(q.quadrant.blips(), function (b) {
+          const name = b.name()
+          return { label: name, value: name, blip: b, quadrant: q }
+        })
+      })),
+      select: searchBlip.bind({})
+    })
   }
 
   function plotRadarFooter () {
@@ -491,14 +539,14 @@ const Radar = function (size, radar) {
     svg.style('left', moveLeft + 'px').style('right', moveRight + 'px')
     d3.select('.quadrant-group-' + order)
       .transition()
-      .duration(1000)
+      .duration(ANIMATION_DURATION)
       .attr('transform', 'translate(' + translateX + ',' + translateY + ')scale(' + scale + ')')
     d3.selectAll('.quadrant-group-' + order + ' .blip-link text').each(function () {
       var x = d3.select(this).attr('x')
       var y = d3.select(this).attr('y')
       d3.select(this.parentNode)
         .transition()
-        .duration(1000)
+        .duration(ANIMATION_DURATION)
         .attr('transform', 'scale(' + blipScale + ')translate(' + blipTranslate * x + ',' + blipTranslate * y + ')')
     })
 
@@ -507,7 +555,7 @@ const Radar = function (size, radar) {
 
     d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')')
       .transition()
-      .duration(1000)
+      .duration(ANIMATION_DURATION)
       .style('pointer-events', 'none')
       .attr('transform', 'translate(' + translateXAll + ',' + translateYAll + ')scale(0)')
 
