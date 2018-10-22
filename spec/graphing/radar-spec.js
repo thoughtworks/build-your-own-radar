@@ -170,4 +170,4 @@ xdescribe('tr.graphing.Radar', function () {
       expect(svg.text).toHaveBeenCalledWith('Hold')
     }).pend('This references very old code that no longer exists the tests for graphing will have to be rewritten')
   })
-})
+});

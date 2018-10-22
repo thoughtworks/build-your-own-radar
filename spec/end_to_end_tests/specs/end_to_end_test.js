@@ -26,6 +26,8 @@ describe('Validate multiple sheet', function () {
     cy.visit(Cypress.env('host'))
     byorPage.provideExcelName()
     byorPage.clickSubmitButton()
+    radarPage.searchTheBlip()
+    radarPage.validateBlipSearch()
     radarPage.clickSheet2()
     radarPage.clickTheBlipFromInteractiveSection()
     radarPage.clickTheBlip()
