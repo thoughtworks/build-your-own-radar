@@ -18,7 +18,9 @@ deployments:
             memory: 64Mi
             cpu: 512m
     image_name: devops/tech-radar-internal
-    ingress: techradar.gygadmin.com
+    ingress:
+      domain: techradar.gygadmin.com
+      authenticated: yes
   external:
     containers:
       web:
