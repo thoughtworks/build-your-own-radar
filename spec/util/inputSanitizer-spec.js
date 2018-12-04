@@ -11,7 +11,8 @@ describe('InputSanitizer', function(){
             description: description,
             ring: '<a href="/asd">Adopt</a>',
             quadrant: '<strong>techniques & tools</strong>',
-            isNew: 'true<br>'
+            isNew: 'true<br>',
+            tag: 'new'
         };
 
         blip = sanitizer.sanitize(rawBlip);
@@ -22,7 +23,7 @@ describe('InputSanitizer', function(){
     });
 
     it('strips out all tags from blip name', function(){
-        expect(blip.name).toEqual("Hello there blip");
+        expect(blip.name).toEqual("Hello there blip [new]");
     });
 
     it('strips out all tags from blip status', function(){

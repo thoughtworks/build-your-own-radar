@@ -100,7 +100,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
     return self;
 };
 
-const CSVDocument = function (url) {
+const CSVDocument = function (url, title) {
     var self = {};
 
     self.build = function () {
@@ -115,7 +115,7 @@ const CSVDocument = function (url) {
             contentValidator.verifyContent();
             contentValidator.verifyHeaders();
             var blips = _.map(data, new InputSanitizer().sanitize);
-            plotRadar(FileName(url), blips);
+            plotRadar(title, blips);
         } catch (exception) {
             plotErrorMessage(exception);
         }
@@ -169,8 +169,11 @@ const GoogleSheetInput = function () {
         var domainName = DomainName(window.location.search.substring(1));
         var queryParams = QueryParams(window.location.search.substring(1));
 
-        if (domainName && queryParams.sheetId.endsWith('csv')) {
-            var sheet = CSVDocument(queryParams.sheetId);
+        if (Object.keys(queryParams).length == 0) {
+          var sheet = CSVDocument(window.location.origin + '/techradar.csv', 'Nutmeg Technical Radar');
+          sheet.init().build();
+        } else if (domainName && queryParams.sheetId.endsWith('csv')) {
+            var sheet = CSVDocument(queryParams.sheetId, FileName(queryParams.sheetId));
             sheet.init().build();
         }
         else if (domainName && domainName.endsWith('google.com') && queryParams.sheetId) {

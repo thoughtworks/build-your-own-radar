@@ -37,6 +37,12 @@ const InputSanitizer = function () {
       blip.ring = sanitizeHtml(blip.ring, restrictedOptions);
       blip.quadrant = sanitizeHtml(blip.quadrant, restrictedOptions);
 
+      if (blip.tag) {
+        var tag = sanitizeHtml(blip.tag, restrictedOptions);
+        if (tag != '')
+          blip.name = blip.name + ' [' + tag + ']';
+      }
+
       return blip;
     };
 

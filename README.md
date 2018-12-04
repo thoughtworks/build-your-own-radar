@@ -2,6 +2,21 @@
 
 A library that generates an interactive radar, inspired by [thoughtworks.com/radar](http://thoughtworks.com/radar).
 
+## Nutmeg specific
+
+### Adding an blip
+
+Edit techradar.csv file and add an entry in there. Be careful to put it next to the other entries in the same ring (e.g., adopt, trial); otherwise, the radar does not display them in the right order, which should be hold -> assess -> trial -> adopt.
+
+### Building and running locally
+
+Use docker:
+
+```bash
+docker build . --no-cache -t nutmegdevelopment/build-your-own-radar
+docker run --rm -p 8080:80 -e SERVER_NAMES="localhost 127.0.0.1" nutmegdevelopment/build-your-own-radar
+```
+
 ## Demo
 
 You can see this in action at https://radar.thoughtworks.com. If you plug in [this data](https://docs.google.com/spreadsheets/d/1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI/) you'll see [this visualization](https://radar.thoughtworks.com/?sheetId=1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI). 
