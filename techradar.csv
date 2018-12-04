@@ -1,0 +1,20 @@
+﻿name,ring,quadrant,isNew,tag,description
+Spring Boot,Adopt,"Language, Framework & Libraries",FALSE,,Spring Boot is Nutmeg's default framework for new microservices
+Oracle Java 8,Adopt,Platforms,FALSE,,Java 8 is our currently Nutmeg's standard language and runtime
+Docker,Adopt,Platforms,FALSE,,Docker is currently Nutmeg's standard containarisation tool
+Microservices,Adopt,Techniques,FALSE,,Microservices are currently Nutmeg's default architectural pattern
+REST-without-PUT,Adopt,Techniques,FALSE,,"Interpretation of REST architectural pattern, promoting command and query separation over CRUD patterns. Nutmeg's new API is designed around this principle"
+RDS MySQL,Adopt,Tools,FALSE,,RDS MySQL is currently Nutmeg's default relational database option
+CDC,Trial,"Language, Framework & Libraries",FALSE,,"Change Data Capture is a technique to extract data from a data storages to Kafka for integration purposes. Kafka Connector natively supporting MySQL, to capture data changes at table level and propagate as Kafka messages. Particularly useful for data migration in integration with the monolith"
+Vavr.io,Trial,"Language, Framework & Libraries",FALSE,,Vavr (formerly called Javaslang) is a Java8+ library providing FP functionalities like collections and functional control structures.
+Kubernetes,Trial,Platforms,FALSE,,Open Source container orchestration and scheduling platform
+Event Storming,Trial,Techniques,FALSE,,Workshop-based technique to quickly find out what is happening in the domain of a software program. Event Useful for business process modelling and requirements discovery
+Event-driven architecture,Trial,Techniques,FALSE,,"A software architecture pattern promoting the production, detection, consumption of, and reaction to events. Currently the pattern Nutmegs wants to move to"
+Kafka,Trial,Tools,FALSE,,Open Source stream-processing platform
+Kafka Connect,Trial,Tools,FALSE,,"Framework for connecting Kafka with external datasources like databases, NoSQL, file system. Specialised Connectors supports different technologies as Source and/or Sink"
+Hashicorp Vault,Trial,Tools,FALSE,,"Opens Source, cross-plaftorm secret management and authentication tool, by HashiCorp"
+Spring Batch,Assess,"Language, Framework & Libraries",FALSE,,"Batch processing framework in Spring ecosystem. It provides features for job management, chunking/partitioning, but not scheduling "
+OpenJDK 11,Assess,Platforms,FALSE,,"New LTS Java runtime version, providing support for new language features"
+Strategic DDD,Assess,Techniques,FALSE,,"Collection of techniques and concepts from Domain Driven Design (e.g. Context mapping, Ubiquitous Language) for tackling domain complexity in software development. Some of these concepts, like Bounded Contexts, are recognised as best practices to define microservice boundaries"
+Kotlin,Hold,"Language, Framework & Libraries",FALSE,new,"Kotlin provides more advanced FP features and terser code than modern Java, still maintaining full interoperability with Java"
+AWS SNS/SQS,Hold,Tools,FALSE,deprecated,AWS pub/sub and queue messaging services

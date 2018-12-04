@@ -169,7 +169,10 @@ const GoogleSheetInput = function () {
         var domainName = DomainName(window.location.search.substring(1));
         var queryParams = QueryParams(window.location.search.substring(1));
 
-        if (domainName && queryParams.sheetId.endsWith('csv')) {
+        if (Object.keys(queryParams).length == 0) {
+          var sheet = CSVDocument(window.location.origin + '/techradar.csv');
+          sheet.init().build();
+        } else if (domainName && queryParams.sheetId.endsWith('csv')) {
             var sheet = CSVDocument(queryParams.sheetId);
             sheet.init().build();
         }

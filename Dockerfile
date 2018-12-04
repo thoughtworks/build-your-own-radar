@@ -9,4 +9,5 @@ FROM nginx:1.13.5
 WORKDIR /opt/build-your-own-radar
 COPY --from=source /src/build-your-own-radar/dist .
 COPY default.template /etc/nginx/conf.d/default.conf
+COPY techradar.csv .
 CMD ["nginx", "-g", "daemon off;"]
