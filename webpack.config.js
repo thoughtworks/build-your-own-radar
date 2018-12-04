@@ -39,12 +39,13 @@ if (isProd) {
     plugins.push(
         new webpack.NoErrorsPlugin(),
         new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            },
-            mangle: true
-        }),
+       // // Uglify breaks with the current version of punycode: https://github.com/bestiejs/punycode.js/issues/57
+       // new webpack.optimize.UglifyJsPlugin({
+       //     compress: {
+       //         warnings: false
+       //     },
+       //     mangle: true
+       // }),
         new webpack.optimize.OccurenceOrderPlugin()
     );
 }
