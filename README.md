@@ -4,6 +4,12 @@ A library that generates an interactive radar, inspired by [thoughtworks.com/rad
 
 ## Nutmeg specific
 
+### How does this work?
+
+We have put together a comprehensive guideline to Tech Radars and Nutmeg specifically in our [Engineering Strategy site](http://engineering-strategy.prod.nutmeg.co.uk/policy/tech_radar/)
+
+Please, have a look before starting making changes to the radar here.
+
 ### Adding an blip
 
 Edit techradar.csv file and add an entry in there. Be careful to put it next to the other entries in the same ring (e.g., adopt, trial); otherwise, the radar does not display them in the right order, which should be hold -> assess -> trial -> adopt.
