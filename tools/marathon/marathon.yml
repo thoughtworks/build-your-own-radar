@@ -1,0 +1,30 @@
+id: {{APP_NAME}}
+cpus: 0.01
+mem: 64
+instances: 1
+container:
+  docker:
+    image: registry.nutmeg.co.uk:8443/build-your-own-radar:{{VERSION}}
+    portMappings:
+      - containerPort: 80
+    parameters:
+      -
+        key: "label"
+        value: "APP_NAME={{APP_NAME}}"
+      -
+        key: "label"
+        value: "APP_BUILD={{VERSION}}"
+labels:
+  HAPROXY_GROUP: internal
+  HAPROXY_0_VHOST: tech-radar.prod.nutmeg.co.uk
+healthChecks:
+  -
+    protocol: HTTP
+    path: /
+    gracePeriodSeconds: 10
+    intervalSeconds: 100
+    timeoutSeconds: 5
+    maxConsecutiveFailures: 2
+upgradeStrategy:
+  minimumHealthCapacity: 0.5
+  maximumOverCapacity: 0
