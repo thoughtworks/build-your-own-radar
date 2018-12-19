@@ -36,6 +36,10 @@ body {
     display: none;
   }
 
+  #alternative-buttons {
+    display: none;
+  }
+
   .quadrant-table {
     .quadrant-table__name {
       display: block;
@@ -150,6 +154,27 @@ body {
 
 
 @media screen {
+
+  div a{
+    margin-right: 10px;
+    &.alternative {
+    }
+  }
+
+  #alternative-buttons {
+    text-align: center;
+    margin: 0px 720px 0px 40px;
+
+    p{
+      font-size: 16px;
+      margin-bottom: 10px;
+      margin-left: 25px;
+    }
+  }
+
+  .highlight{
+    font-weight: bold;
+  }
 
   #radar {
     width: 80%;

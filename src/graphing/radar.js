@@ -4,6 +4,7 @@ const Chance = require('chance');
 const _ = require('lodash/core');
 
 const RingCalculator = require('../util/ringCalculator');
+const QueryParams = require('../util/queryParamProcessor');
 
 const MIN_BLIP_WIDTH = 12;
 
@@ -529,11 +530,42 @@ const Radar = function (size, radar) {
     return self;
   };
 
+  function constructSheetUrl(sheet_name) {
+      var noParamUrl = window.location.href.substring(0, window.location.href.indexOf(window.location.search));
+      var queryParams = QueryParams(window.location.search.substring(1));
+      var sheetUrl = noParamUrl + '?sheetId=' + queryParams.sheetId + '&sheetName=' + encodeURIComponent(sheet_name);
+      return sheetUrl
+  }
+
+    function plotAlternativeRadars(alternatives, currentSheet) {
+      var alternativeDiv = d3.select('body')
+          .insert('div', '#radar')
+          .attr('id', 'alternative-buttons');
+
+      alternativeDiv.append('p').text('Chose a sheet to populate radar');
+      alternatives.forEach(function (alternative) {
+          alternativeDiv
+              .append('div:a')
+              .attr('class', 'first full-view alternative')
+              .attr('href', constructSheetUrl(alternative))
+              .text(alternative);
+
+          if (alternative === currentSheet) {
+
+              d3.selectAll('.alternative').filter(function () {
+                  return d3.select(this).text() === alternative
+              }).attr('class', 'highlight');
+          }
+      });
+  }
+
   self.plot = function () {
-    var rings, quadrants;
+    var rings, quadrants, alternatives, currentSheet;
 
     rings = radar.rings();
     quadrants = radar.quadrants();
+    alternatives = radar.getAlternatives();
+    currentSheet = radar.getCurrentSheet();
     var header = plotRadarHeader();
 
     plotQuadrantButtons(quadrants, header);
@@ -549,6 +581,7 @@ const Radar = function (size, radar) {
       plotBlips(quadrantGroup, rings, quadrant);
     });
 
+    plotAlternativeRadars(alternatives, currentSheet);
     plotRadarFooter();
   };
 

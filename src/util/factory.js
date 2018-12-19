@@ -13,13 +13,14 @@ const Quadrant = require('../models/quadrant');
 const Ring = require('../models/ring');
 const Blip = require('../models/blip');
 const GraphingRadar = require('../graphing/radar');
+const QueryParams = require('./queryParamProcessor');
 const MalformedDataError = require('../exceptions/malformedDataError');
 const SheetNotFoundError = require('../exceptions/sheetNotFoundError');
 const ContentValidator = require('./contentValidator');
 const Sheet = require('./sheet');
 const ExceptionMessages = require('./exceptionMessages');
 
-const plotRadar = function (title, blips) {
+const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
     document.title = title;
     d3.selectAll(".loading").remove();
 
@@ -46,6 +47,16 @@ const plotRadar = function (title, blips) {
     _.each(quadrants, function (quadrant) {
         radar.addQuadrant(quadrant)
     });
+
+    if(alternativeRadars != undefined || true) {
+        alternativeRadars.forEach(function(sheetName) {
+            radar.addAlternative(sheetName);
+        });
+    }
+    
+    if(currentRadarName != undefined || true) {
+        radar.setCurrentSheet(currentRadarName);
+    }
 
     var size = (window.innerHeight - 133) < 620 ? 620 : window.innerHeight - 133;
 
@@ -85,7 +96,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
                 var all = tabletop.sheets(sheetName).all();
                 var blips = _.map(all, new InputSanitizer().sanitize);
 
-                plotRadar(tabletop.googleSheetName, blips);
+                plotRadar(tabletop.googleSheetName + ' - ' + sheetName, blips, sheetName, tabletop.foundSheetNames);
             } catch (exception) {
                 plotErrorMessage(exception);
             }
@@ -115,7 +126,7 @@ const CSVDocument = function (url) {
             contentValidator.verifyContent();
             contentValidator.verifyHeaders();
             var blips = _.map(data, new InputSanitizer().sanitize);
-            plotRadar(FileName(url), blips);
+            plotRadar(FileName(url), blips, "CSV File", []);
         } catch (exception) {
             plotErrorMessage(exception);
         }
@@ -127,21 +138,6 @@ const CSVDocument = function (url) {
     };
 
     return self;
-};
-
-const QueryParams = function (queryString) {
-    var decode = function (s) {
-        return decodeURIComponent(s.replace(/\+/g, " "));
-    };
-
-    var search = /([^&=]+)=?([^&]*)/g;
-
-    var queryParams = {};
-    var match;
-    while (match = search.exec(queryString))
-        queryParams[decode(match[1])] = decode(match[2]);
-
-    return queryParams
 };
 
 const DomainName = function (url) {
@@ -167,7 +163,8 @@ const GoogleSheetInput = function () {
     
     self.build = function () {
         var domainName = DomainName(window.location.search.substring(1));
-        var queryParams = QueryParams(window.location.search.substring(1));
+        var queryString = window.location.href.match(/sheetId(.*)/);
+        var queryParams = queryString ? QueryParams(queryString[0]) : {};
 
         if (domainName && queryParams.sheetId.endsWith('csv')) {
             var sheet = CSVDocument(queryParams.sheetId);
