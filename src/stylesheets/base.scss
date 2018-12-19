@@ -155,16 +155,25 @@ body {
 
 @media screen {
 
-  .button {
-
+  div a{
+    margin-right: 10px;
     &.alternative {
-      margin-top: 20px;
     }
-
   }
 
   #alternative-buttons {
     text-align: center;
+    margin: 0px 720px 0px 40px;
+
+    p{
+      font-size: 16px;
+      margin-bottom: 10px;
+      margin-left: 25px;
+    }
+  }
+
+  .highlight{
+    font-weight: bold;
   }
 
   #radar {

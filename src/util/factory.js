@@ -163,7 +163,8 @@ const GoogleSheetInput = function () {
     
     self.build = function () {
         var domainName = DomainName(window.location.search.substring(1));
-        var queryParams = QueryParams(window.location.search.substring(1));
+        var queryString = window.location.href.match(/sheetId(.*)/);
+        var queryParams = queryString ? QueryParams(queryString[0]) : {};
 
         if (domainName && queryParams.sheetId.endsWith('csv')) {
             var sheet = CSVDocument(queryParams.sheetId);
