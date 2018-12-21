@@ -3,6 +3,8 @@ node_js:
 - '10'
 jobs:
   include:
+    - stage: Unit Test
+      script: npm test
     - stage: Deploy QA
       script: npm run build
       deploy:
@@ -19,3 +21,5 @@ jobs:
     - stage: Invalidate CDN
       install: pip install --user awscli && export PATH=$PATH:$HOME/.local/bin
       script: 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then aws configure set preview.cloudfront true && aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"; fi'
+    - stage: End to end test
+      script: npm run end_to_end_test
