@@ -82,6 +82,7 @@ Make sure you have nodejs installed.
 - `npm install`
 - `npm test` - to run your tests
 - `npm run dev` - to run application in localhost:8080. This will watch the .js and .css files and rebuild on file changes
+- `TEST_URL="your_url" npm run end_to_end_test` - to run end to end tests
 
 ### Don't want to install node? Run with one line docker
 
