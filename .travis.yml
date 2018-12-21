@@ -24,4 +24,4 @@ jobs:
     - stage: End to end test
       script: npm run end_to_end_test
       on:
-        condition: "$TRAVIS_PULL_REQUEST = false"
+          branch: master
