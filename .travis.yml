@@ -23,3 +23,5 @@ jobs:
       script: 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then aws configure set preview.cloudfront true && aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"; fi'
     - stage: End to end test
       script: npm run end_to_end_test
+      on:
+        condition: "$TRAVIS_PULL_REQUEST = false"
