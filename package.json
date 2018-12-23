@@ -48,12 +48,12 @@
     "yargs": "^12.0.5"
   },
   "dependencies": {
-    "chance": "^1.0.4",
+    "chance": "^1.0.18",
     "d3": "^4.2.6",
     "d3-tip": "^0.7.1",
-    "lodash": "^4.16.2",
-    "sanitize-html": "^1.13.0",
-    "tabletop": "^1.4.3"
+    "lodash": "^4.17.11",
+    "sanitize-html": "^1.20.0",
+    "tabletop": "^1.5.2"
   },
   "peerDependencies": {
     "mocha": "*"
