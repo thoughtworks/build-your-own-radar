@@ -537,14 +537,14 @@ const Radar = function (size, radar) {
     alternatives.forEach(function (alternative) {
       alternativeDiv
         .append('div:a')
-        .attr('class', 'first full-view alternative')
+        .attr('class', 'first full-view alternative multiple-sheet-button')
         .attr('href', constructSheetUrl(alternative))
         .text(alternative)
 
       if (alternative === currentSheet) {
         d3.selectAll('.alternative').filter(function () {
           return d3.select(this).text() === alternative
-        }).attr('class', 'highlight')
+        }).attr('class', 'highlight multiple-sheet-button')
       }
     })
   }

@@ -5,7 +5,6 @@
 @import 'error';
 @import 'header';
 @import 'footer';
-
 @import url(https://www.thoughtworks.com/css/screen.css);
 
 body {
@@ -51,12 +50,15 @@ body {
     &.first .quadrant-table__name {
       color: $green;
     }
+
     &.second .quadrant-table__name {
       color: $blue;
     }
+
     &.third .quadrant-table__name {
       color: $orange;
     }
+
     &.fourth .quadrant-table__name {
       color: $violet;
     }
@@ -106,7 +108,7 @@ body {
       font-size: 40px;
       width: 100%;
       padding: 10px;
-      display:block;
+      display: block;
     }
 
     .radar-title .radar-title__logo {
@@ -116,10 +118,12 @@ body {
       a {
         padding: 40px 10px 0;
         display: block;
+
         &::after {
           display: none;
         }
       }
+
       img {
         max-width: 150px;
       }
@@ -132,7 +136,7 @@ body {
     .home-link {
       display: none;
 
-      &.selected{
+      &.selected {
         display: none;
       }
     }
@@ -155,24 +159,22 @@ body {
 
 @media screen {
 
-  div a{
+  .multiple-sheet-button {
     margin-right: 10px;
-    &.alternative {
-    }
   }
 
   #alternative-buttons {
     text-align: center;
     margin: 0px 720px 0px 40px;
 
-    p{
+    p {
       font-size: 16px;
       margin-bottom: 10px;
       margin-left: 25px;
     }
   }
 
-  .highlight{
+  .highlight {
     font-weight: bold;
   }
 
@@ -199,14 +201,17 @@ body {
           stroke: none;
           fill: $grey-light;
         }
+
         &.ring-arc-2 {
           stroke: none;
           fill: $grey;
         }
+
         &.ring-arc-1 {
           stroke: none;
           fill: $grey-dark;
         }
+
         &.ring-arc-0 {
           stroke: none;
           fill: $grey-darkest;
@@ -227,14 +232,17 @@ body {
           fill: $green;
           stroke: none;
         }
+
         &.second {
           fill: $blue;
           stroke: none;
         }
+
         &.third {
           fill: $orange;
           stroke: none;
         }
+
         &.fourth {
           fill: $violet;
           stroke: none;
@@ -356,6 +364,7 @@ body {
             }
 
             transition: max-height 0.2s ease;
+
             &.expanded {
               transition: max-height 0.5s ease 0.2s;
               max-height: 1000px;
