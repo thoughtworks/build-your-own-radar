@@ -3,33 +3,32 @@ const _ = {
   uniqBy: require('lodash/uniqBy'),
   capitalize: require('lodash/capitalize'),
   each: require('lodash/each')
-};
+}
 
-const MalformedDataError = require('../../src/exceptions/malformedDataError');
-const ExceptionMessages = require('./exceptionMessages');
-
+const MalformedDataError = require('../../src/exceptions/malformedDataError')
+const ExceptionMessages = require('./exceptionMessages')
 
 const ContentValidator = function (columnNames) {
-  var self = {};
-  columnNames = columnNames.map(function(columnName) {
-    return columnName.trim();
-  });
+  var self = {}
+  columnNames = columnNames.map(function (columnName) {
+    return columnName.trim()
+  })
 
-  self.verifyContent = function() {
-    if(columnNames.length == 0){
-      throw new MalformedDataError(ExceptionMessages.MISSING_CONTENT);
+  self.verifyContent = function () {
+    if (columnNames.length === 0) {
+      throw new MalformedDataError(ExceptionMessages.MISSING_CONTENT)
     }
-  };
+  }
 
-  self.verifyHeaders = function() {
+  self.verifyHeaders = function () {
     _.each(['name', 'ring', 'quadrant', 'isNew', 'description'], function (field) {
-      if (columnNames.indexOf(field) == -1) {
-        throw new MalformedDataError(ExceptionMessages.MISSING_HEADERS);
+      if (columnNames.indexOf(field) === -1) {
+        throw new MalformedDataError(ExceptionMessages.MISSING_HEADERS)
       }
-    });
-  };
+    })
+  }
 
-  return self;
-};
+  return self
+}
 
-module.exports = ContentValidator;
+module.exports = ContentValidator

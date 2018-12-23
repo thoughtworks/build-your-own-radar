@@ -1,9 +1,9 @@
-class base_page{
+/* eslint no-useless-constructor: "off" */
 
-    constructor(){
+class BasePage {
+  constructor () {
 
-    }
-
+  }
 }
 
-module.exports = new base_page();
+module.exports = new BasePage()

@@ -1,7 +1,7 @@
-require('./common');
-require('./images/logo.png');
-require('./images/radar_legend.png');
+require('./common')
+require('./images/logo.png')
+require('./images/radar_legend.png')
 
-const GoogleSheetInput = require('./util/factory');
+const GoogleSheetInput = require('./util/factory')
 
-GoogleSheetInput().build();
+GoogleSheetInput().build()

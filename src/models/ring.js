@@ -1,15 +1,15 @@
 const Ring = function (name, order) {
-  var self = {};
+  var self = {}
 
   self.name = function () {
-    return name;
-  };
+    return name
+  }
 
   self.order = function () {
-    return order;
-  };
+    return order
+  }
 
-  return self;
-};
+  return self
+}
 
-module.exports = Ring;
+module.exports = Ring
