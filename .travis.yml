@@ -25,4 +25,4 @@ jobs:
       deploy:
         script: npm run end_to_end_test
         on:
-          branch: master
+          condition: "$TRAVIS_PULL_REQUEST = false"
