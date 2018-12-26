@@ -6,8 +6,8 @@ jobs:
     - stage: Unit Test
       script: npm test
     - stage: Deploy QA
-      script: npm run build
       deploy:
+        script: npm run build
         provider: s3
         access_key_id: $AWS_ACCESS_KEY_ID
         secret_access_key: $AWS_SECRET_ACCESS_KEY
@@ -22,6 +22,7 @@ jobs:
       install: pip install --user awscli && export PATH=$PATH:$HOME/.local/bin
       script: 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then aws configure set preview.cloudfront true && aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"; fi'
     - stage: End to end test
-      script: npm run end_to_end_test
-      on:
-          branch: master
+      deploy:
+        script: npm run end_to_end_test
+        on:
+          condition: "$TRAVIS_PULL_REQUEST = false"
