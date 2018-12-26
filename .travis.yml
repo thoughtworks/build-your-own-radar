@@ -6,7 +6,7 @@ stages:
   - name: Deploy QA
   - name: Invalidate CDN
   - name: End to end test
-    if: branch = master
+    if: "$TRAVIS_PULL_REQUEST = false"
 jobs:
   include:
     - stage: Unit Test
