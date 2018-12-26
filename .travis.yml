@@ -1,6 +1,12 @@
 language: node_js
 node_js:
 - '10'
+stages:
+  - name: Unit Test
+  - name: Deploy QA
+  - name: Invalidate CDN
+  - name: End to end test
+    if: branch = master
 jobs:
   include:
     - stage: Unit Test
@@ -23,6 +29,3 @@ jobs:
       script: 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then aws configure set preview.cloudfront true && aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"; fi'
     - stage: End to end test
       script: npm run end_to_end_test
-      deploy:
-        on:
-          condition: "$TRAVIS_PULL_REQUEST = false"
