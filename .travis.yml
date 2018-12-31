@@ -22,4 +22,5 @@ jobs:
       install: pip install --user awscli && export PATH=$PATH:$HOME/.local/bin
       script: 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then aws configure set preview.cloudfront true && aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"; fi'
     - stage: End to end test
+      if: branch = master
       script: npm run end_to_end_test
