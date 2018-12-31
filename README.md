@@ -89,6 +89,15 @@ Make sure you have nodejs installed.
 - `npm test` - to run your tests
 - `npm run dev` - to run application in localhost:8080. This will watch the .js and .css files and rebuild on file changes
 
+To run End to End tests in headless mode
+- add a new environment variable 'TEST_URL' and set it to 'http://localhost:8080/'
+- `npm run end_to_end_test`
+
+To run End to End tests in debug mode
+- add a new environment variable 'TEST_URL' and set it to 'http://localhost:8080/'
+- `npm run start`
+- Click on 'Run all specs' in cypress window
+
 ### Don't want to install node? Run with one line docker
 
      $ docker run -p 8080:8080 -v $PWD:/app -w /app -it node:10.14.2 /bin/sh -c 'npm install && npm run dev'

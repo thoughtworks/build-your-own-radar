@@ -9,7 +9,7 @@
     "dev": "webpack-dev-server --mode development --inline",
     "build": "webpack --mode production",
     "end_to_end_test": "node_modules/.bin/cypress run --env host=$TEST_URL",
-    "start": "node_modules/.bin/cypress open"
+    "start": "node_modules/.bin/cypress open --env host=$TEST_URL"
   },
   "author": "ThoughtWorks",
   "repository": {

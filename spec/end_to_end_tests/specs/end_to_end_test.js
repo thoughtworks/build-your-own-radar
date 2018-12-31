@@ -34,11 +34,11 @@ describe('Validate multiple sheet', function () {
 })
 
 describe('Validate search', function () {
-    it('validate search', function () {
-        cy.visit(Cypress.env('host'))
-        byorPage.provideExcelName()
-        byorPage.clickSubmitButton()
-        radarPage.searchTheBlip()
-        radarPage.validateBlipSearch()
-    })
+  it('validate search', function () {
+    cy.visit(Cypress.env('host'))
+    byorPage.provideExcelName()
+    byorPage.clickSubmitButton()
+    radarPage.searchTheBlip()
+    radarPage.validateBlipSearch()
+  })
 })
