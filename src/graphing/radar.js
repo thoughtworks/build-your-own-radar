@@ -12,7 +12,7 @@ const MIN_BLIP_WIDTH = 12
 const ANIMATION_DURATION = 1000
 
 const Radar = function (size, radar) {
-  var svg, radarElement
+  var svg, radarElement, quadrantButtons, buttonsGroup, header, alternativeDiv
 
   var tip = d3tip().attr('class', 'd3-tip').html(function (text) {
     return text
@@ -302,7 +302,7 @@ const Radar = function (size, radar) {
 
   function createHomeLink (pageElement) {
     if (pageElement.select('.home-link').empty()) {
-      pageElement.append('div')
+      pageElement.insert('div', 'div#alternative-buttons')
         .html('&#171; Back to Radar home')
         .classed('home-link', true)
         .classed('selected', true)
@@ -430,7 +430,7 @@ const Radar = function (size, radar) {
   }
 
   function plotRadarHeader () {
-    var header = d3.select('body').insert('header', '#radar')
+    header = d3.select('body').insert('header', '#radar')
     header.append('div')
       .attr('class', 'radar-title')
       .append('div')
@@ -445,6 +445,15 @@ const Radar = function (size, radar) {
       .attr('class', 'radar-title__logo')
       .html('<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /> </a>')
 
+    buttonsGroup = header.append('div')
+      .classed('buttons-group', true)
+
+    quadrantButtons = buttonsGroup.append('div')
+      .classed('quadrant-btn--group', true)
+
+    alternativeDiv = header.append('div')
+      .attr('id', 'alternative-buttons')
+
     return header
   }
 
@@ -454,7 +463,7 @@ const Radar = function (size, radar) {
         .append('div')
         .attr('class', 'quadrant-table ' + quadrant.order)
 
-      header.append('div')
+      quadrantButtons.append('div')
         .attr('class', 'button ' + quadrant.order + ' full-view')
         .text(quadrant.quadrant.name())
         .on('mouseover', mouseoverQuadrant.bind({}, quadrant.order))
@@ -466,14 +475,18 @@ const Radar = function (size, radar) {
       addButton(quadrants[i])
     })
 
-    header.append('div')
+    buttonsGroup.append('div')
+      .classed('print-radar-btn', true)
+      .append('div')
       .classed('print-radar button no-capitalize', true)
       .text('Print this radar')
       .on('click', window.print.bind(window))
 
-    header.append('input')
+    alternativeDiv.append('div')
+      .classed('search-box', true)
+      .append('input')
       .attr('id', 'auto-complete')
-      .attr('placeholder', 'Search...')
+      .attr('placeholder', 'Search')
       .classed('search-radar', true)
 
     $('#auto-complete').autocomplete({
@@ -577,13 +590,13 @@ const Radar = function (size, radar) {
   }
 
   function plotAlternativeRadars (alternatives, currentSheet) {
-    var alternativeDiv = d3.select('body')
-      .insert('div', '#radar')
-      .attr('id', 'alternative-buttons')
+    var alternativeSheetButton = alternativeDiv
+      .append('div')
+      .classed('multiple-sheet-button-group', true)
 
-    alternativeDiv.append('p').text('Chose a sheet to populate radar')
+    alternativeSheetButton.append('p').text('Choose a sheet to populate radar')
     alternatives.forEach(function (alternative) {
-      alternativeDiv
+      alternativeSheetButton
         .append('div:a')
         .attr('class', 'first full-view alternative multiple-sheet-button')
         .attr('href', constructSheetUrl(alternative))
@@ -606,6 +619,8 @@ const Radar = function (size, radar) {
     currentSheet = radar.getCurrentSheet()
     var header = plotRadarHeader()
 
+    plotAlternativeRadars(alternatives, currentSheet)
+
     plotQuadrantButtons(quadrants, header)
 
     radarElement.style('height', size + 14 + 'px')
@@ -619,7 +634,6 @@ const Radar = function (size, radar) {
       plotBlips(quadrantGroup, rings, quadrant)
     })
 
-    plotAlternativeRadars(alternatives, currentSheet)
     plotRadarFooter()
   }
 

@@ -35,10 +35,6 @@ body {
     display: none;
   }
 
-  #alternative-buttons {
-    display: none;
-  }
-
   .quadrant-table {
     .quadrant-table__name {
       display: block;
@@ -129,7 +125,7 @@ body {
       }
     }
 
-    .button {
+    .buttons-group {
       display: none;
     }
 
@@ -139,6 +135,10 @@ body {
       &.selected {
         display: none;
       }
+    }
+
+    #alternative-buttons {
+      display: none;
     }
 
     .print-radar {
@@ -158,25 +158,6 @@ body {
 
 
 @media screen {
-
-  .multiple-sheet-button {
-    margin-right: 10px;
-  }
-
-  #alternative-buttons {
-    text-align: center;
-    margin: 0px 720px 0px 40px;
-
-    p {
-      font-size: 16px;
-      margin-bottom: 10px;
-      margin-left: 25px;
-    }
-  }
-
-  .highlight {
-    font-weight: bold;
-  }
 
   #radar {
     width: 80%;
@@ -264,7 +245,7 @@ body {
           font-weight: bold;
           text-transform: uppercase;
           fill: $black;
-          font-size: 11px;
+          font-size: 7px;
         }
       }
     }
@@ -290,32 +271,24 @@ body {
       }
 
       &.first {
-        right: 20px;
-
         &.selected {
           float: right;
         }
       }
 
       &.second {
-        left: 20px;
-
         &.selected {
           float: left;
         }
       }
 
       &.third {
-        left: 20px;
-
         &.selected {
           float: left;
         }
       }
 
       &.fourth {
-        right: 20px;
-
         &.selected {
           float: right;
         }

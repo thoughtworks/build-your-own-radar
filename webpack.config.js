@@ -82,6 +82,10 @@ module.exports = {
         }, 'sass-loader']
       },
       {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        loader: 'file-loader?name=images/[name].[ext]'
+      },
+      {
         test: /\.(png|jpg|ico)$/,
         exclude: /node_modules/,
         use: [{ loader: 'file-loader?name=images/[name].[ext]&context=./src/images' }]
