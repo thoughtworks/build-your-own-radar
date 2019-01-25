@@ -1,4 +1,6 @@
+/* global gapi */
 const SheetNotFoundError = require('../../src/exceptions/sheetNotFoundError')
+const UnauthorizedError = require('../../src/exceptions/unauthorizedError')
 const ExceptionMessages = require('./exceptionMessages')
 
 const Sheet = function (sheetReference) {
@@ -9,7 +11,7 @@ const Sheet = function (sheetReference) {
     self.id = matches !== null ? matches[1] : sheetReference
   })()
 
-  self.exists = function (callback) {
+  self.validate = function (callback) {
     var feedURL = 'https://spreadsheets.google.com/feeds/worksheets/' + self.id + '/public/basic?alt=json'
 
     // TODO: Move this out (as HTTPClient)
@@ -19,12 +21,37 @@ const Sheet = function (sheetReference) {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
           return callback()
-        } else {
+        } else if (xhr.status === 404) {
           return callback(new SheetNotFoundError(ExceptionMessages.SHEET_NOT_FOUND))
+        } else {
+          return callback(new UnauthorizedError(ExceptionMessages.UNAUTHORIZED))
         }
       }
     }
     xhr.send(null)
+  }
+
+  self.getSheet = function () {
+    return gapi.client.sheets.spreadsheets.get({ spreadsheetId: self.id })
+  }
+
+  self.getData = function (range) {
+    return gapi.client.sheets.spreadsheets.values.get({
+      spreadsheetId: self.id,
+      range: range
+    })
+  }
+
+  self.processSheetResponse = function (sheetName, createBlips, handleError) {
+    self.getSheet().then(response => processSheetData(sheetName, response, createBlips, handleError)).catch(handleError)
+  }
+
+  function processSheetData (sheetName, sheetResponse, createBlips, handleError) {
+    const sheetNames = sheetResponse.result.sheets.map(s => s.properties.title)
+    sheetName = !sheetName ? sheetNames[0] : sheetName
+    self.getData(sheetName + '!A1:E')
+      .then(r => createBlips(r.result.values, sheetNames))
+      .catch(handleError)
   }
 
   return self

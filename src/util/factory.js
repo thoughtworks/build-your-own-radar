@@ -21,6 +21,7 @@ const SheetNotFoundError = require('../exceptions/sheetNotFoundError')
 const ContentValidator = require('./contentValidator')
 const Sheet = require('./sheet')
 const ExceptionMessages = require('./exceptionMessages')
+const GoogleAuth = require('./googleAuth')
 
 const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   document.title = title
@@ -70,17 +71,37 @@ const GoogleSheet = function (sheetReference, sheetName) {
 
   self.build = function () {
     var sheet = new Sheet(sheetReference)
-    sheet.exists(function (notFound) {
-      if (notFound) {
-        plotErrorMessage(notFound)
+    sheet.validate(function (error) {
+      if (!error) {
+        Tabletop.init({
+          key: sheet.id,
+          callback: createBlips
+        })
         return
       }
 
-      Tabletop.init({
-        key: sheet.id,
-        callback: createBlips
+      if (error instanceof SheetNotFoundError) {
+        plotErrorMessage(error)
+        return
+      }
+
+      GoogleAuth.loadGoogle(function (e) {
+        GoogleAuth.login(_ => sheet.processSheetResponse(sheetName, createBlipsForProtectedSheet, plotErrorMessage))
       })
     })
+
+    function createBlipsForProtectedSheet (values, sheetNames) {
+      values.forEach(function (value) {
+        var contentValidator = new ContentValidator(values[0])
+        contentValidator.verifyContent()
+        contentValidator.verifyHeaders()
+      })
+
+      const all = values
+      const header = all.shift()
+      var blips = _.map(all, blip => new InputSanitizer().sanitizeForProtectedSheet(blip, header))
+      plotRadar(sheetName, blips, sheetName, sheetNames)
+    }
 
     function createBlips (__, tabletop) {
       try {
@@ -182,7 +203,7 @@ const GoogleSheetInput = function () {
       plotLogo(content)
 
       var bannerText = '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://www.thoughtworks.com/radar/byor">created your Radar</a>, you can use this service' +
-                ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a></p></div>'
+        ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a></p></div>'
 
       plotBanner(content, bannerText)
 
@@ -229,9 +250,9 @@ function plotFooter (content) {
     .attr('class', 'footer-content')
     .append('p')
     .html('Powered by <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. ' +
-        'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">ThoughtWorks\' terms of use</a>. ' +
-        'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
-        'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.')
+      'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">ThoughtWorks\' terms of use</a>. ' +
+      'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
+      'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.')
 }
 
 function plotBanner (content, text) {

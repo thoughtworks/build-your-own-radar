@@ -12,6 +12,11 @@ const cssnano = require('cssnano')
 
 let isProd = args.prod
 let isDev = args.dev
+let env = args.envFile
+if (env) {
+  // Load env file
+  require('dotenv').config({ path: env })
+}
 
 let main = ['./src/site.js']
 let common = ['./src/common.js']
@@ -34,6 +39,10 @@ let plugins = [
     chunks: ['common'],
     inject: 'body',
     filename: 'error.html'
+  }),
+  new webpack.DefinePlugin({
+    'process.env.CLIENT_ID': JSON.stringify(process.env.CLIENT_ID),
+    'process.env.API_KEY': JSON.stringify(process.env.API_KEY)
   })
 ]
 
@@ -70,7 +79,8 @@ module.exports = {
         use: ['style-loader', MiniCssExtractPlugin.loader, {
           loader: 'css-loader',
           options: { importLoaders: 1 }
-        }, {
+        },
+        {
           loader: 'postcss-loader',
           options: {
             ident: 'postcss',
