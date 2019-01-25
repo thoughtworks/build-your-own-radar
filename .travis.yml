@@ -6,7 +6,7 @@ jobs:
     - stage: Unit Test
       script: npm test
     - stage: Deploy QA
-      script: npm run build
+      script: API_KEY=$API_KEY CLIENT_ID=$CLIENT_ID npm run build
       deploy:
         provider: s3
         access_key_id: $AWS_ACCESS_KEY_ID
