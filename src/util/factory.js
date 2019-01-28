@@ -90,7 +90,10 @@ const GoogleSheet = function (sheetReference, sheetName) {
       })
     })
 
-    function createBlipsForProtectedSheet (values, sheetNames) {
+    function createBlipsForProtectedSheet (documentTitle, values, sheetNames) {
+      if (!sheetName) {
+        sheetName = sheetNames[0]
+      }
       values.forEach(function (value) {
         var contentValidator = new ContentValidator(values[0])
         contentValidator.verifyContent()
@@ -100,7 +103,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
       const all = values
       const header = all.shift()
       var blips = _.map(all, blip => new InputSanitizer().sanitizeForProtectedSheet(blip, header))
-      plotRadar(sheetName, blips, sheetName, sheetNames)
+      plotRadar(documentTitle + ' - ' + sheetName, blips, sheetName, sheetNames)
     }
 
     function createBlips (__, tabletop) {
