@@ -84,26 +84,10 @@ const GoogleSheet = function (sheetReference, sheetName) {
         plotErrorMessage(error)
         return
       }
-
-      GoogleAuth.loadGoogle(function (e) {
-        GoogleAuth.login(_ => sheet.processSheetResponse(sheetName, createBlipsForProtectedSheet, plotErrorMessage))
-      })
+      self.authenticate(false)
     })
 
-    function createBlipsForProtectedSheet (values, sheetNames) {
-      values.forEach(function (value) {
-        var contentValidator = new ContentValidator(values[0])
-        contentValidator.verifyContent()
-        contentValidator.verifyHeaders()
-      })
-
-      const all = values
-      const header = all.shift()
-      var blips = _.map(all, blip => new InputSanitizer().sanitizeForProtectedSheet(blip, header))
-      plotRadar(sheetName, blips, sheetName, sheetNames)
-    }
-
-    function createBlips (__, tabletop) {
+    function createBlips(__, tabletop) {
       try {
         if (!sheetName) {
           sheetName = tabletop.foundSheetNames[0]
@@ -122,6 +106,39 @@ const GoogleSheet = function (sheetReference, sheetName) {
         plotErrorMessage(exception)
       }
     }
+  }
+
+  function createBlipsForProtectedSheet(documentTitle, values, sheetNames) {
+    if (!sheetName) {
+      sheetName = sheetNames[0]
+    }
+    values.forEach(function (value) {
+      var contentValidator = new ContentValidator(values[0])
+      contentValidator.verifyContent()
+      contentValidator.verifyHeaders()
+    })
+
+    const all = values
+    const header = all.shift()
+    var blips = _.map(all, blip => new InputSanitizer().sanitizeForProtectedSheet(blip, header))
+    plotRadar(documentTitle + ' - ' + sheetName, blips, sheetName, sheetNames)
+  }
+
+  self.authenticate = function (force = false, callback) {
+    GoogleAuth.loadGoogle(function (e) {
+      GoogleAuth.login(_ => {
+        var sheet = new Sheet(sheetReference)
+        sheet.processSheetResponse(sheetName, createBlipsForProtectedSheet, error => {
+          if (error.status === 403) {
+            plotUnauthorizedErrorMessage()
+          } else {
+            plotErrorMessage(error)
+          }
+        })
+        if (callback)
+          callback()
+      }, force)
+    })
   }
 
   self.init = function () {
@@ -216,11 +233,11 @@ const GoogleSheetInput = function () {
   return self
 }
 
-function setDocumentTitle () {
+function setDocumentTitle() {
   document.title = 'Build your own Radar'
 }
 
-function plotLoading (content) {
+function plotLoading(content) {
   content = d3.select('body')
     .append('div')
     .attr('class', 'loading')
@@ -236,13 +253,13 @@ function plotLoading (content) {
   plotFooter(content)
 }
 
-function plotLogo (content) {
+function plotLogo(content) {
   content.append('div')
     .attr('class', 'input-sheet__logo')
     .html('<a href="https://www.thoughtworks.com"><img src="/images/tw-logo.png" / ></a>')
 }
 
-function plotFooter (content) {
+function plotFooter(content) {
   content
     .append('div')
     .attr('id', 'footer')
@@ -255,13 +272,13 @@ function plotFooter (content) {
       'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.')
 }
 
-function plotBanner (content, text) {
+function plotBanner(content, text) {
   content.append('div')
     .attr('class', 'input-sheet__banner')
     .html(text)
 }
 
-function plotForm (content) {
+function plotForm(content) {
   content.append('div')
     .attr('class', 'input-sheet__form')
     .append('p')
@@ -285,12 +302,14 @@ function plotForm (content) {
   form.append('p').html("<a href='https://www.thoughtworks.com/radar/how-to-byor'>Need help?</a>")
 }
 
-function plotErrorMessage (exception) {
+function plotErrorMessage(exception) {
   d3.selectAll('.loading').remove()
   var message = 'Oops! It seems like there are some problems with loading your data. '
 
   if (exception instanceof MalformedDataError) {
     message = message.concat(exception.message)
+  } else if (exception instanceof SheetNotFoundError) {
+    message = exception.message
   } else if (exception instanceof SheetNotFoundError) {
     message = exception.message
   } else {
@@ -306,6 +325,33 @@ function plotErrorMessage (exception) {
     .attr('class', 'error-container__message')
     .append('p')
     .html(message)
+}
+
+function plotUnauthorizedErrorMessage() {
+  d3.selectAll('.loading').remove()
+  var message = "Oops! It seems like you don't have permission to this sheet. "
+
+  const container = d3.select('body')
+    .append('div')
+    .attr('class', 'error-container')
+
+  container.append('div')
+    .attr('class', 'error-container__message')
+    .append('p')
+    .html(message)
+
+  const button = container.append('button')
+    .attr('class', 'retry-button')
+    .text('Retry')
+
+  button.on('click', _ => {
+    var queryString = window.location.href.match(/sheetId(.*)/)
+    var queryParams = queryString ? QueryParams(queryString[0]) : {}
+    const sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
+    sheet.authenticate(true, _ => {
+      container.remove()
+    })
+  })
 }
 
 module.exports = GoogleSheetInput
