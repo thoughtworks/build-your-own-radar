@@ -388,7 +388,7 @@ function plotUnauthorizedErrorMessage () {
     var queryParams = queryString ? QueryParams(queryString[0]) : {}
     const sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
     sheet.authenticate(true, _ => {
-      container.remove()
+      content.remove()
     })
   })
 
