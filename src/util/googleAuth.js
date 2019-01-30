@@ -82,12 +82,24 @@ const GoogleAuth = function () {
     gapi.auth2.getAuthInstance().signOut()
   }
 
-  self.login = function (callback, errorHandler) {
+  self.geEmail = _ => {
+    const isLoggedIn = gapi.auth2.getAuthInstance().isSignedIn.get()
+    if (isLoggedIn) {
+      return gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail()
+    }
+  }
+
+  self.login = function (callback, force = false) {
+    if (force) {
+      gapi.auth2.getAuthInstance().signIn({ prompt: 'select_account' }).then(callback)
+      return
+    }
+
     const isLoggedIn = gapi.auth2.getAuthInstance().isSignedIn.get()
     if (isLoggedIn) {
       callback()
     } else {
-      gapi.auth2.getAuthInstance().signIn().then(callback).catch(errorHandler)
+      gapi.auth2.getAuthInstance().signIn().then(callback)
     }
   }
 

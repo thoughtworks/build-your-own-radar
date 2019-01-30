@@ -1,10 +1,22 @@
 .error-container {
   text-align: center;
-  padding-top: 300px;
+  padding-top: 50px;
 
   .error-container__message {
     width: 60%;
     display: inline-block;
+  }
+
+  .error-title{
+    font-weight: 400;
+  }
+
+  .error-subtitle{
+    margin-top: -10px;
+  }
+
+  .switch-account-button{
+    margin: 0px 0px 35px 0px;
   }
 }
 
