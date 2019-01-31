@@ -353,8 +353,7 @@ function plotUnauthorizedErrorMessage () {
 
   plotLogo(content)
 
-  var bannerText = '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://www.thoughtworks.com/radar/byor">created your Radar</a>, you can use this service' +
-    ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a></p></div>'
+  var bannerText = '<div><h1>Build your own radar</h1></div>'
 
   plotBanner(content, bannerText)
 
@@ -363,7 +362,7 @@ function plotUnauthorizedErrorMessage () {
   let homePageURL = window.location.protocol + '//' + window.location.hostname
   homePageURL += (window.location.port === '' ? '' : ':' + window.location.port)
   const goBack = '<a href=' + homePageURL + '>GO BACK</a>'
-  const message = `Oops, looks like you are accessing this sheet using <b>${currentUser}</b>, which does not have permission.Try switching to another account.`
+  const message = `<strong>Oops!</strong> Looks like you are accessing this sheet using <b>${currentUser}</b>, which does not have permission.Try switching to another account.`
 
   const container = content.append('div').attr('class', 'error-container')
 
@@ -383,7 +382,6 @@ function plotUnauthorizedErrorMessage () {
     .html(`or ${goBack} to try a different sheet.`)
 
   button.on('click', _ => {
-    console.log(homePageURL)
     var queryString = window.location.href.match(/sheetId(.*)/)
     var queryParams = queryString ? QueryParams(queryString[0]) : {}
     const sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
@@ -391,8 +389,6 @@ function plotUnauthorizedErrorMessage () {
       content.remove()
     })
   })
-
-  plotFooter(content)
 }
 
 module.exports = GoogleSheetInput
