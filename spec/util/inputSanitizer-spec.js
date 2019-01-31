@@ -63,7 +63,7 @@ describe('Input Santizer for Protected sheet', function () {
 
     rawBlip = [
       "Hello <script>alert('dangerous');</script>there <h1>blip</h1>",
-      '<strong>techniques and tools</strong>',
+      '<strong>techniques & tools</strong>',
       "<a href='/asd'>Adopt</a>",
       'true<br>',
       "<b>Hello</b> <script>alert('dangerous');</script>there <h1>heading</h1>"
@@ -89,7 +89,7 @@ describe('Input Santizer for Protected sheet', function () {
   })
 
   it('strips out all tags from blip quadrant', function () {
-    expect(blip.quadrant).toEqual('techniques and tools')
+    expect(blip.quadrant).toEqual('techniques & tools')
   })
 
   it('trims white spaces in keys and values', function () {

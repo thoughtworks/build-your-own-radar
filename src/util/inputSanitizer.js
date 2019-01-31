@@ -16,7 +16,7 @@ const InputSanitizer = function () {
     allowedTags: [],
     allowedAttributes: {},
     textFilter: function (text) {
-      return text.replace(/&amp/, '&')
+      return text.replace(/&amp;/, '&')
     }
   }
 
