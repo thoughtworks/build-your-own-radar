@@ -178,24 +178,84 @@ body {
       }
 
       path {
-        &.ring-arc-3 {
+        &.first-ring-arc-3 {
           stroke: none;
-          fill: $grey-light;
+          fill: #D1EACF;
         }
 
-        &.ring-arc-2 {
+        &.first-ring-arc-2 {
           stroke: none;
-          fill: $grey;
+          fill: #BFE3BC;
         }
 
-        &.ring-arc-1 {
+        &.first-ring-arc-1 {
           stroke: none;
-          fill: $grey-dark;
+          fill: #AFE3AA;
         }
 
-        &.ring-arc-0 {
+        &.first-ring-arc-0 {
           stroke: none;
-          fill: $grey-darkest;
+          fill: #86b782;
+        }
+
+        &.second-ring-arc-3 {
+          stroke: none;
+          fill: #C8EBEF;
+        }
+
+        &.second-ring-arc-2 {
+          stroke: none;
+          fill: #AEE0E5;
+        }
+
+        &.second-ring-arc-1 {
+          stroke: none;
+          fill: #85D9E2;
+        }
+
+        &.second-ring-arc-0 {
+          stroke: none;
+          fill: #1ebccd;
+        }
+
+        &.third-ring-arc-3 {
+          stroke: none;
+          fill: #F7D1B4;
+        }
+
+        &.third-ring-arc-2 {
+          stroke: none;
+          fill: #F0B384;
+        }
+
+        &.third-ring-arc-1 {
+          stroke: none;
+          fill: #F09F61;
+        }
+
+        &.third-ring-arc-0 {
+          stroke: none;
+          fill: #f38a3e;
+        }
+
+        &.fourth-ring-arc-3 {
+          stroke: none;
+          fill: #EFBCCF;
+        }
+
+        &.fourth-ring-arc-2 {
+          stroke: none;
+          fill: #D188A3;
+        }
+
+        &.fourth-ring-arc-1 {
+          stroke: none;
+          fill: #C46487;
+        }
+
+        &.fourth-ring-arc-0 {
+          stroke: none;
+          fill: #b32059;
         }
       }
 
@@ -231,13 +291,13 @@ body {
       }
 
       line {
-        stroke: white;
+        stroke: lightgray;
       }
 
       text {
         &.blip-text {
           font-size: 9px;
-          font-style: italic;
+          //font-style: italic;
           fill: $white;
         }
 

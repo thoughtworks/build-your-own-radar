@@ -8,11 +8,11 @@ require('jquery-ui/ui/widgets/autocomplete')
 const RingCalculator = require('../util/ringCalculator')
 const QueryParams = require('../util/queryParamProcessor')
 
-const MIN_BLIP_WIDTH = 12
+const MIN_BLIP_WIDTH = 20
 const ANIMATION_DURATION = 1000
 
 const Radar = function (size, radar) {
-  var svg, radarElement, quadrantButtons, buttonsGroup, header, alternativeDiv
+  var svg, radarElement, quadrantButtons, buttonsGroup, header
 
   var tip = d3tip().attr('class', 'd3-tip').html(function (text) {
     return text
@@ -79,7 +79,7 @@ const Radar = function (size, radar) {
 
       quadrantGroup.append('path')
         .attr('d', arc)
-        .attr('class', 'ring-arc-' + ring.order())
+        .attr('class', quadrant.order + '-ring-arc-' + ring.order())
         .attr('transform', 'translate(' + center() + ', ' + center() + ')')
     })
 
@@ -238,20 +238,21 @@ const Radar = function (size, radar) {
 
     var group = quadrantGroup.append('g').attr('class', 'blip-link').attr('id', 'blip-link-' + blip.number())
 
-    if (blip.isNew()) {
-      triangle(blip, x, y, order, group)
-    } else {
-      circle(blip, x, y, order, group)
-    }
+    // if (blip.isNew()) {
+    //   triangle(blip, x, y, order, group)
+    // } else {
+    //   circle(blip, x, y, order, group)
+    // }
 
     group.append('text')
       .attr('x', x)
       .attr('y', y + 4)
       .attr('class', 'blip-text')
       // derive font-size from current blip width
-      .style('font-size', ((blip.width * 10) / 22) + 'px')
+      .style('font-size', '8px')
+      .style('font-weight', 'bold')
       .attr('text-anchor', 'middle')
-      .text(blip.number())
+      .text(blip.name())
 
     var blipListItem = ringList.append('li')
     var blipText = blip.number() + '. ' + blip.name() + (blip.topic() ? ('. - ' + blip.topic()) : '')
@@ -285,7 +286,7 @@ const Radar = function (size, radar) {
 
     var clickBlip = function () {
       d3.select('.blip-item-description.expanded').node() !== blipItemDescription.node() &&
-        d3.select('.blip-item-description.expanded').classed('expanded', false)
+      d3.select('.blip-item-description.expanded').classed('expanded', false)
       blipItemDescription.classed('expanded', !blipItemDescription.classed('expanded'))
 
       blipItemDescription.on('click', function () {
@@ -355,23 +356,23 @@ const Radar = function (size, radar) {
       .transition()
       .style('visibility', 'visible')
 
-    triangleLegend(x, y, container)
-
-    container
-      .append('text')
-      .attr('x', x + 15)
-      .attr('y', y + 5)
-      .attr('font-size', '0.8em')
-      .text(triangleKey)
-
-    circleLegend(x, y + 20, container)
-
-    container
-      .append('text')
-      .attr('x', x + 15)
-      .attr('y', y + 25)
-      .attr('font-size', '0.8em')
-      .text(circleKey)
+    // triangleLegend(x, y, container)
+    //
+    // container
+    //   .append('text')
+    //   .attr('x', x + 15)
+    //   .attr('y', y + 5)
+    //   .attr('font-size', '0.8em')
+    //   .text(triangleKey)
+    //
+    // circleLegend(x, y + 20, container)
+    //
+    // container
+    //   .append('text')
+    //   .attr('x', x + 15)
+    //   .attr('y', y + 25)
+    //   .attr('font-size', '0.8em')
+    //   .text(circleKey)
   }
 
   function redrawFullRadar () {
@@ -409,7 +410,7 @@ const Radar = function (size, radar) {
     selectQuadrant.bind({}, quadrant.order, quadrant.startAngle)()
     const selectedDesc = d3.select('#blip-description-' + blip.number())
     d3.select('.blip-item-description.expanded').node() !== selectedDesc.node() &&
-        d3.select('.blip-item-description.expanded').classed('expanded', false)
+    d3.select('.blip-item-description.expanded').classed('expanded', false)
     selectedDesc.classed('expanded', true)
 
     d3.selectAll('g.blip-link').attr('opacity', 0.3)
@@ -451,8 +452,8 @@ const Radar = function (size, radar) {
     quadrantButtons = buttonsGroup.append('div')
       .classed('quadrant-btn--group', true)
 
-    alternativeDiv = header.append('div')
-      .attr('id', 'alternative-buttons')
+    // alternativeDiv = header.append('div')
+    //   .attr('id', 'alternative-buttons')
 
     return header
   }
@@ -475,14 +476,14 @@ const Radar = function (size, radar) {
       addButton(quadrants[i])
     })
 
-    buttonsGroup.append('div')
-      .classed('print-radar-btn', true)
-      .append('div')
-      .classed('print-radar button no-capitalize', true)
-      .text('Print this radar')
-      .on('click', window.print.bind(window))
+    // buttonsGroup.append('div')
+    //   .classed('print-radar-btn', true)
+    //   .append('div')
+    //   .classed('print-radar button no-capitalize', true)
+    //   .text('Print this radar')
+    //   .on('click', window.print.bind(window))
 
-    alternativeDiv.append('div')
+    buttonsGroup.append('div')
       .classed('search-box', true)
       .append('input')
       .attr('id', 'auto-complete')
@@ -508,9 +509,9 @@ const Radar = function (size, radar) {
       .attr('class', 'footer-content')
       .append('p')
       .html('Powered by <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. ' +
-      'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">ThoughtWorks\' terms of use</a>. ' +
-      'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
-      'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.')
+        'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">ThoughtWorks\' terms of use</a>. ' +
+        'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
+        'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.')
   }
 
   function mouseoverQuadrant (order) {
@@ -578,7 +579,7 @@ const Radar = function (size, radar) {
   }
 
   self.init = function () {
-    radarElement = d3.select('body').append('div').attr('id', 'radar')
+    radarElement = d3.select('body').append('div').attr('id', 'radar').attr('style', '"width:1000px;margin:auto"')
     return self
   }
 
@@ -589,26 +590,26 @@ const Radar = function (size, radar) {
     return sheetUrl
   }
 
-  function plotAlternativeRadars (alternatives, currentSheet) {
-    var alternativeSheetButton = alternativeDiv
-      .append('div')
-      .classed('multiple-sheet-button-group', true)
-
-    alternativeSheetButton.append('p').text('Choose a sheet to populate radar')
-    alternatives.forEach(function (alternative) {
-      alternativeSheetButton
-        .append('div:a')
-        .attr('class', 'first full-view alternative multiple-sheet-button')
-        .attr('href', constructSheetUrl(alternative))
-        .text(alternative)
-
-      if (alternative === currentSheet) {
-        d3.selectAll('.alternative').filter(function () {
-          return d3.select(this).text() === alternative
-        }).attr('class', 'highlight multiple-sheet-button')
-      }
-    })
-  }
+  // function plotAlternativeRadars (alternatives, currentSheet) {
+  //   var alternativeSheetButton = alternativeDiv
+  //     .append('div')
+  //     .classed('multiple-sheet-button-group', true)
+  //
+  //   alternativeSheetButton.append('p').text('Choose a sheet to populate radar')
+  //   alternatives.forEach(function (alternative) {
+  //     alternativeSheetButton
+  //       .append('div:a')
+  //       .attr('class', 'first full-view alternative multiple-sheet-button')
+  //       .attr('href', constructSheetUrl(alternative))
+  //       .text(alternative)
+  //
+  //     if (alternative === currentSheet) {
+  //       d3.selectAll('.alternative').filter(function () {
+  //         return d3.select(this).text() === alternative
+  //       }).attr('class', 'highlight multiple-sheet-button')
+  //     }
+  //   })
+  // }
 
   self.plot = function () {
     var rings, quadrants, alternatives, currentSheet
@@ -619,7 +620,7 @@ const Radar = function (size, radar) {
     currentSheet = radar.getCurrentSheet()
     var header = plotRadarHeader()
 
-    plotAlternativeRadars(alternatives, currentSheet)
+    // plotAlternativeRadars(alternatives, currentSheet)
 
     plotQuadrantButtons(quadrants, header)
 
