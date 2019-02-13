@@ -195,7 +195,7 @@ body {
 
         &.first-ring-arc-0 {
           stroke: none;
-          fill: #86b782;
+          fill: $green;
         }
 
         &.second-ring-arc-3 {
@@ -215,7 +215,7 @@ body {
 
         &.second-ring-arc-0 {
           stroke: none;
-          fill: #1ebccd;
+          fill: $blue;
         }
 
         &.third-ring-arc-3 {
@@ -235,7 +235,7 @@ body {
 
         &.third-ring-arc-0 {
           stroke: none;
-          fill: #f38a3e;
+          fill: $orange;
         }
 
         &.fourth-ring-arc-3 {
@@ -255,7 +255,7 @@ body {
 
         &.fourth-ring-arc-0 {
           stroke: none;
-          fill: #b32059;
+          fill: $violet;
         }
       }
 
