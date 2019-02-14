@@ -436,15 +436,15 @@ const Radar = function (size, radar) {
       .attr('class', 'radar-title')
       .append('div')
       .attr('class', 'radar-title__text')
-      .append('h1')
+      .append('div')
       .text(document.title)
       .style('cursor', 'pointer')
       .on('click', redrawFullRadar)
 
-    header.select('.radar-title')
-      .append('div')
-      .attr('class', 'radar-title__logo')
-      .html('<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /> </a>')
+    // header.select('.radar-title')
+    //   .append('div')
+    //   .attr('class', 'radar-title__logo')
+    //   .html('<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /> </a>')
 
     buttonsGroup = header.append('div')
       .classed('buttons-group', true)
@@ -547,7 +547,7 @@ const Radar = function (size, radar) {
     var moveRight = (1 + adjustX) * (0.8 * window.innerWidth - size) / 2
     var moveLeft = (1 - adjustX) * (0.8 * window.innerWidth - size) / 2
 
-    var blipScale = 0.8
+    var blipScale = 0.95
     var blipTranslate = (1 - blipScale) / blipScale
 
     svg.style('left', moveLeft + 'px').style('right', moveRight + 'px')

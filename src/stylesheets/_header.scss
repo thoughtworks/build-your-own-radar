@@ -11,8 +11,8 @@ header {
   }
 
   .radar-title {
-    background-color: $grey-light;
-    padding: 30px 0;
+    background-color: #1c2f5e;
+    padding: 15px 0;
 
     display: table;
     margin: auto;
@@ -25,15 +25,9 @@ header {
 
       text-align: left;
       padding-left: 10%;
-
-      h1 {
-        font-size: 55px;
-        font-weight: 900;
-        letter-spacing: -.04em;
-        line-height: 0.8em;
-        margin: 0;
-        text-transform: uppercase;
-      }
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
     }
 
     .radar-title__logo {
@@ -103,23 +97,31 @@ header {
       opacity: .85;
 
       &.first {
-        color: white;
+        color: black;
         background-color: $green;
+        font-weight: bold;
+        font-size: 20px;
       }
 
       &.second {
-        color: white;
+        color: black;
         background-color: $blue;
+        font-weight: bold;
+        font-size: 20px;
       }
 
       &.third {
-        color: white;
+        color: black;
         background-color: $orange;
+        font-weight: bold;
+        font-size: 20px;
       }
 
       &.fourth {
-        color: white;
+        color: black;
         background-color: $violet;
+        font-weight: bold;
+        font-size: 20px;
       }
     }
 
