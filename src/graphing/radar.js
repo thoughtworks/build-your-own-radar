@@ -8,7 +8,7 @@ require('jquery-ui/ui/widgets/autocomplete')
 const RingCalculator = require('../util/ringCalculator')
 const QueryParams = require('../util/queryParamProcessor')
 
-const MIN_BLIP_WIDTH = 20
+const MIN_BLIP_WIDTH = 30
 const ANIMATION_DURATION = 1000
 
 const Radar = function (size, radar) {
@@ -547,7 +547,7 @@ const Radar = function (size, radar) {
     var moveRight = (1 + adjustX) * (0.8 * window.innerWidth - size) / 2
     var moveLeft = (1 - adjustX) * (0.8 * window.innerWidth - size) / 2
 
-    var blipScale = 3 / 4
+    var blipScale = 0.8
     var blipTranslate = (1 - blipScale) / blipScale
 
     svg.style('left', moveLeft + 'px').style('right', moveRight + 'px')
