@@ -12,7 +12,7 @@ const MIN_BLIP_WIDTH = 30
 const ANIMATION_DURATION = 1000
 
 const Radar = function (size, radar) {
-  var svg, radarElement, quadrantButtons, buttonsGroup, header
+  var svg, radarElement, quadrantButtons, buttonsGroup, header, alternativeDiv
 
   var tip = d3tip().attr('class', 'd3-tip').html(function (text) {
     return text
@@ -106,29 +106,29 @@ const Radar = function (size, radar) {
     })
   }
 
-  function triangle (blip, x, y, order, group) {
-    return group.append('path').attr('d', 'M412.201,311.406c0.021,0,0.042,0,0.063,0c0.067,0,0.135,0,0.201,0c4.052,0,6.106-0.051,8.168-0.102c2.053-0.051,4.115-0.102,8.176-0.102h0.103c6.976-0.183,10.227-5.306,6.306-11.53c-3.988-6.121-4.97-5.407-8.598-11.224c-1.631-3.008-3.872-4.577-6.179-4.577c-2.276,0-4.613,1.528-6.48,4.699c-3.578,6.077-3.26,6.014-7.306,11.723C402.598,306.067,405.426,311.406,412.201,311.406')
-      .attr('transform', 'scale(' + (blip.width / 34) + ') translate(' + (-404 + x * (34 / blip.width) - 17) + ', ' + (-282 + y * (34 / blip.width) - 17) + ')')
-      .attr('class', order)
-  }
-
-  function triangleLegend (x, y, group) {
-    return group.append('path').attr('d', 'M412.201,311.406c0.021,0,0.042,0,0.063,0c0.067,0,0.135,0,0.201,0c4.052,0,6.106-0.051,8.168-0.102c2.053-0.051,4.115-0.102,8.176-0.102h0.103c6.976-0.183,10.227-5.306,6.306-11.53c-3.988-6.121-4.97-5.407-8.598-11.224c-1.631-3.008-3.872-4.577-6.179-4.577c-2.276,0-4.613,1.528-6.48,4.699c-3.578,6.077-3.26,6.014-7.306,11.723C402.598,306.067,405.426,311.406,412.201,311.406')
-      .attr('transform', 'scale(' + (22 / 64) + ') translate(' + (-404 + x * (64 / 22) - 17) + ', ' + (-282 + y * (64 / 22) - 17) + ')')
-  }
-
-  function circle (blip, x, y, order, group) {
-    return (group || svg).append('path')
-      .attr('d', 'M420.084,282.092c-1.073,0-2.16,0.103-3.243,0.313c-6.912,1.345-13.188,8.587-11.423,16.874c1.732,8.141,8.632,13.711,17.806,13.711c0.025,0,0.052,0,0.074-0.003c0.551-0.025,1.395-0.011,2.225-0.109c4.404-0.534,8.148-2.218,10.069-6.487c1.747-3.886,2.114-7.993,0.913-12.118C434.379,286.944,427.494,282.092,420.084,282.092')
-      .attr('transform', 'scale(' + (blip.width / 34) + ') translate(' + (-404 + x * (34 / blip.width) - 17) + ', ' + (-282 + y * (34 / blip.width) - 17) + ')')
-      .attr('class', order)
-  }
-
-  function circleLegend (x, y, group) {
-    return (group || svg).append('path')
-      .attr('d', 'M420.084,282.092c-1.073,0-2.16,0.103-3.243,0.313c-6.912,1.345-13.188,8.587-11.423,16.874c1.732,8.141,8.632,13.711,17.806,13.711c0.025,0,0.052,0,0.074-0.003c0.551-0.025,1.395-0.011,2.225-0.109c4.404-0.534,8.148-2.218,10.069-6.487c1.747-3.886,2.114-7.993,0.913-12.118C434.379,286.944,427.494,282.092,420.084,282.092')
-      .attr('transform', 'scale(' + (22 / 64) + ') translate(' + (-404 + x * (64 / 22) - 17) + ', ' + (-282 + y * (64 / 22) - 17) + ')')
-  }
+  // function triangle (blip, x, y, order, group) {
+  //   return group.append('path').attr('d', 'M412.201,311.406c0.021,0,0.042,0,0.063,0c0.067,0,0.135,0,0.201,0c4.052,0,6.106-0.051,8.168-0.102c2.053-0.051,4.115-0.102,8.176-0.102h0.103c6.976-0.183,10.227-5.306,6.306-11.53c-3.988-6.121-4.97-5.407-8.598-11.224c-1.631-3.008-3.872-4.577-6.179-4.577c-2.276,0-4.613,1.528-6.48,4.699c-3.578,6.077-3.26,6.014-7.306,11.723C402.598,306.067,405.426,311.406,412.201,311.406')
+  //     .attr('transform', 'scale(' + (blip.width / 34) + ') translate(' + (-404 + x * (34 / blip.width) - 17) + ', ' + (-282 + y * (34 / blip.width) - 17) + ')')
+  //     .attr('class', order)
+  // }
+  //
+  // function triangleLegend (x, y, group) {
+  //   return group.append('path').attr('d', 'M412.201,311.406c0.021,0,0.042,0,0.063,0c0.067,0,0.135,0,0.201,0c4.052,0,6.106-0.051,8.168-0.102c2.053-0.051,4.115-0.102,8.176-0.102h0.103c6.976-0.183,10.227-5.306,6.306-11.53c-3.988-6.121-4.97-5.407-8.598-11.224c-1.631-3.008-3.872-4.577-6.179-4.577c-2.276,0-4.613,1.528-6.48,4.699c-3.578,6.077-3.26,6.014-7.306,11.723C402.598,306.067,405.426,311.406,412.201,311.406')
+  //     .attr('transform', 'scale(' + (22 / 64) + ') translate(' + (-404 + x * (64 / 22) - 17) + ', ' + (-282 + y * (64 / 22) - 17) + ')')
+  // }
+  //
+  // function circle (blip, x, y, order, group) {
+  //   return (group || svg).append('path')
+  //     .attr('d', 'M420.084,282.092c-1.073,0-2.16,0.103-3.243,0.313c-6.912,1.345-13.188,8.587-11.423,16.874c1.732,8.141,8.632,13.711,17.806,13.711c0.025,0,0.052,0,0.074-0.003c0.551-0.025,1.395-0.011,2.225-0.109c4.404-0.534,8.148-2.218,10.069-6.487c1.747-3.886,2.114-7.993,0.913-12.118C434.379,286.944,427.494,282.092,420.084,282.092')
+  //     .attr('transform', 'scale(' + (blip.width / 34) + ') translate(' + (-404 + x * (34 / blip.width) - 17) + ', ' + (-282 + y * (34 / blip.width) - 17) + ')')
+  //     .attr('class', order)
+  // }
+  //
+  // function circleLegend (x, y, group) {
+  //   return (group || svg).append('path')
+  //     .attr('d', 'M420.084,282.092c-1.073,0-2.16,0.103-3.243,0.313c-6.912,1.345-13.188,8.587-11.423,16.874c1.732,8.141,8.632,13.711,17.806,13.711c0.025,0,0.052,0,0.074-0.003c0.551-0.025,1.395-0.011,2.225-0.109c4.404-0.534,8.148-2.218,10.069-6.487c1.747-3.886,2.114-7.993,0.913-12.118C434.379,286.944,427.494,282.092,420.084,282.092')
+  //     .attr('transform', 'scale(' + (22 / 64) + ') translate(' + (-404 + x * (64 / 22) - 17) + ', ' + (-282 + y * (64 / 22) - 17) + ')')
+  // }
 
   function addRing (ring, order) {
     var table = d3.select('.quadrant-table.' + order)
@@ -322,34 +322,34 @@ const Radar = function (size, radar) {
   function drawLegend (order) {
     removeRadarLegend()
 
-    var triangleKey = 'New or moved'
-    var circleKey = 'No change'
-
-    var container = d3.select('svg').append('g')
-      .attr('class', 'legend legend' + '-' + order)
-
-    var x = 10
-    var y = 10
-
-    if (order === 'first') {
-      x = 4 * size / 5
-      y = 1 * size / 5
-    }
-
-    if (order === 'second') {
-      x = 1 * size / 5 - 15
-      y = 1 * size / 5 - 20
-    }
-
-    if (order === 'third') {
-      x = 1 * size / 5 - 15
-      y = 4 * size / 5 + 15
-    }
-
-    if (order === 'fourth') {
-      x = 4 * size / 5
-      y = 4 * size / 5
-    }
+    // var triangleKey = 'New or moved'
+    // var circleKey = 'No change'
+    //
+    // var container = d3.select('svg').append('g')
+    //   .attr('class', 'legend legend' + '-' + order)
+    //
+    // var x = 10
+    // var y = 10
+    //
+    // if (order === 'first') {
+    //   x = 4 * size / 5
+    //   y = 1 * size / 5
+    // }
+    //
+    // if (order === 'second') {
+    //   x = 1 * size / 5 - 15
+    //   y = 1 * size / 5 - 20
+    // }
+    //
+    // if (order === 'third') {
+    //   x = 1 * size / 5 - 15
+    //   y = 4 * size / 5 + 15
+    // }
+    //
+    // if (order === 'fourth') {
+    //   x = 4 * size / 5
+    //   y = 4 * size / 5
+    // }
 
     d3.select('.legend')
       .attr('class', 'legend legend-' + order)
@@ -452,8 +452,8 @@ const Radar = function (size, radar) {
     quadrantButtons = buttonsGroup.append('div')
       .classed('quadrant-btn--group', true)
 
-    // alternativeDiv = header.append('div')
-    //   .attr('id', 'alternative-buttons')
+    alternativeDiv = header.append('div')
+      .attr('id', 'alternative-buttons')
 
     return header
   }
@@ -547,7 +547,7 @@ const Radar = function (size, radar) {
     var moveRight = (1 + adjustX) * (0.8 * window.innerWidth - size) / 2
     var moveLeft = (1 - adjustX) * (0.8 * window.innerWidth - size) / 2
 
-    var blipScale = 0.85
+    var blipScale = 0.95
     var blipTranslate = (1 - blipScale) / blipScale
 
     svg.style('left', moveLeft + 'px').style('right', moveRight + 'px')
@@ -590,26 +590,26 @@ const Radar = function (size, radar) {
     return sheetUrl
   }
 
-  // function plotAlternativeRadars (alternatives, currentSheet) {
-  //   var alternativeSheetButton = alternativeDiv
-  //     .append('div')
-  //     .classed('multiple-sheet-button-group', true)
-  //
-  //   alternativeSheetButton.append('p').text('Choose a sheet to populate radar')
-  //   alternatives.forEach(function (alternative) {
-  //     alternativeSheetButton
-  //       .append('div:a')
-  //       .attr('class', 'first full-view alternative multiple-sheet-button')
-  //       .attr('href', constructSheetUrl(alternative))
-  //       .text(alternative)
-  //
-  //     if (alternative === currentSheet) {
-  //       d3.selectAll('.alternative').filter(function () {
-  //         return d3.select(this).text() === alternative
-  //       }).attr('class', 'highlight multiple-sheet-button')
-  //     }
-  //   })
-  // }
+  function plotAlternativeRadars (alternatives, currentSheet) {
+    var alternativeSheetButton = alternativeDiv
+      .append('div')
+      .classed('multiple-sheet-button-group', true)
+
+    alternativeSheetButton.append('p').text('Choose a sheet to populate radar')
+    alternatives.forEach(function (alternative) {
+      alternativeSheetButton
+        .append('div:a')
+        .attr('class', 'first full-view alternative multiple-sheet-button')
+        .attr('href', constructSheetUrl(alternative))
+        .text(alternative)
+
+      if (alternative === currentSheet) {
+        d3.selectAll('.alternative').filter(function () {
+          return d3.select(this).text() === alternative
+        }).attr('class', 'highlight multiple-sheet-button')
+      }
+    })
+  }
 
   self.plot = function () {
     var rings, quadrants, alternatives, currentSheet
@@ -620,7 +620,7 @@ const Radar = function (size, radar) {
     currentSheet = radar.getCurrentSheet()
     var header = plotRadarHeader()
 
-    // plotAlternativeRadars(alternatives, currentSheet)
+    plotAlternativeRadars(alternatives, currentSheet)
 
     plotQuadrantButtons(quadrants, header)
 
