@@ -547,7 +547,7 @@ const Radar = function (size, radar) {
     var moveRight = (1 + adjustX) * (0.8 * window.innerWidth - size) / 2
     var moveLeft = (1 - adjustX) * (0.8 * window.innerWidth - size) / 2
 
-    var blipScale = 0.95
+    var blipScale = 0.85
     var blipTranslate = (1 - blipScale) / blipScale
 
     svg.style('left', moveLeft + 'px').style('right', moveRight + 'px')

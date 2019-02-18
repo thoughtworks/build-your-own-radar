@@ -129,22 +129,26 @@ header {
 
       &.first {
         background-color: $green;
-        color: $white;
+        color: $black;
+        font-weight: bold;
       }
 
       &.second {
         background-color: $blue;
-        color: $white;
+        color: $black;
+        font-weight: bold;
       }
 
       &.third {
         background-color: $orange;
-        color: $white;
+        color: $black;
+        font-weight: bold;
       }
 
       &.fourth {
         background-color: $violet;
-        color: $white;
+        color: $black;
+        font-weight: bold;
       }
     }
   }
