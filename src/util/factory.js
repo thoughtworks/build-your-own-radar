@@ -281,7 +281,7 @@ function plotForm (content) {
   content.append('div')
     .attr('class', 'input-sheet__form')
     .append('p')
-    .html('<strong>Enter the URL of your <a href="https://www.thoughtworks.com/radar/how-to-byor" target="_blank">published</a> Google Sheet or CSV file below…</strong>')
+    .html('<strong>Enter the URL of your <a href="https://www.thoughtworks.com/radar/how-to-byor" target="_blank">Google Sheet or CSV</a> file below…</strong>')
 
   var form = content.select('.input-sheet__form').append('form')
     .attr('method', 'get')

@@ -62,6 +62,12 @@ That's it!
 
 Note: the quadrants of the radar, and the order of the rings inside the radar will be drawn in the order they appear in your data.
 
+### Protected Sheets
+
+If the sheet is protected, user will be prompted to enter credentials. User has to allow access to view the sheet in the google authentication prompt dialog. The radar will be drawn after successful authentication.
+
+Note: If the logged in user do not have access to the sheet, user will be provided an option to switch the account.
+
 ### More complex usage
 
 To create the data representation, you can use the Google Sheet [factory](/src/util/factory.js) or CSV, or you can also insert all your data straight into the code.
