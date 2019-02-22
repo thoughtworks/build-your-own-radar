@@ -52,7 +52,7 @@ Apache Kylin,assess,platforms,TRUE,"Apache Kylin is an open source analytics sol
 JSF,hold,languages & frameworks,FALSE,"We continue to see teams run into trouble using JSF ..."  
 ```
 
-Note: The CSV file parsing is using D3 library, so consult the D3 documentation for the data format details.
+***Note:*** The CSV file parsing is using D3 library, so consult the D3 documentation for the data format details.
 
 ### Building the radar
 
@@ -60,13 +60,13 @@ Paste the URL in the input field on the home page.
 
 That's it!
 
-Note: the quadrants of the radar, and the order of the rings inside the radar will be drawn in the order they appear in your data.
+***Note:*** the quadrants of the radar, and the order of the rings inside the radar will be drawn in the order they appear in your data.
 
 ### Protected Sheets
 
 If the sheet is protected, user will be prompted to enter credentials. User has to allow access to view the sheet in the google authentication prompt dialog. The radar will be drawn after successful authentication.
 
-Note: If the logged in user do not have access to the sheet, user will be provided an option to switch the account.
+***Note:*** If the logged in user do not have access to the sheet, user will be provided an option to switch the account.
 
 ### More complex usage
 
