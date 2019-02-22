@@ -60,7 +60,7 @@ Paste the URL in the input field on the home page.
 
 That's it!
 
-***Note:*** the quadrants of the radar, and the order of the rings inside the radar will be drawn in the order they appear in your data.
+***Note:*** The quadrants of the radar, and the order of the rings inside the radar will be drawn in the order they appear in your data.
 
 ### Protected Sheets
 
