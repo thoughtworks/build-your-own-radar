@@ -619,7 +619,9 @@ const Radar = function (size, radar) {
     currentSheet = radar.getCurrentSheet()
     var header = plotRadarHeader()
 
-    plotAlternativeRadars(alternatives, currentSheet)
+    if (alternatives.length) {
+      plotAlternativeRadars(alternatives, currentSheet)
+    }
 
     plotQuadrantButtons(quadrants, header)
 
