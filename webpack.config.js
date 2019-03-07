@@ -55,7 +55,7 @@ if (isProd) {
 module.exports = {
   entry: {
     'main': main,
-    'common': common
+    'common': common,
   },
   node: {
     fs: 'empty',
@@ -72,7 +72,8 @@ module.exports = {
 
   module: {
     rules: [
-      { test: /\.js$/, exclude: /node_modules/, use: [{ loader: 'babel-loader' }] },
+      { test: /\.js$/, exclude: /node_modules/, use: [{ loader: 'babel-loader',
+        options: {presets:['@babel/preset-env']}}] },
       {
         test: /\.scss$/,
         exclude: /node_modules/,

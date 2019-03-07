@@ -1,3 +1,4 @@
+require('@babel/polyfill')
 require('./common')
 require('./images/logo.png')
 require('./images/radar_legend.png')
