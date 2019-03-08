@@ -71,16 +71,20 @@ const GoogleSheet = function (sheetReference, sheetName) {
 
   self.build = function () {
     var sheet = new Sheet(sheetReference)
-    sheet.validate(function (notFound) {
-      if (notFound) {
-        plotErrorMessage(notFound)
+    sheet.validate(function (error) {
+      if (!error) {
+        Tabletop.init({
+          key: sheet.id,
+          callback: createBlips
+        })
         return
       }
 
-      Tabletop.init({
-        key: sheet.id,
-        callback: createBlips
-      })
+      if (error instanceof SheetNotFoundError) {
+        plotErrorMessage(error)
+        return
+      }
+      self.authenticate(false)
     })
 
     function createBlips (__, tabletop) {
