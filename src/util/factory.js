@@ -24,6 +24,9 @@ const ExceptionMessages = require('./exceptionMessages')
 const GoogleAuth = require('./googleAuth')
 
 const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
+  if (title.endsWith('.csv')) {
+    title = title.substring(0, title.length - 4)
+  }
   document.title = title
   d3.selectAll('.loading').remove()
 
