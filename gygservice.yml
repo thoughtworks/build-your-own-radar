@@ -32,5 +32,3 @@ deployments:
             memory: 64Mi
             cpu: 512m
     image_name: devops/tech-radar-external
-    
-

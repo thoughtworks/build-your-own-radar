@@ -1,8 +1,9 @@
-'use strict';
-
 var express = require('express');
-var server = express();
-server.use('/', express.static(__dirname + '/dist/'));
-server.listen(3000);
+var app = express();
 
-console.log("webserver listening on 3000 ", Date());
+app.get('/', function (req, res) {
+  res.redirect(302, 'https://tech-radar.getyourguide.com');
+});
+
+app.listen(3000);
+console.log("App listening on 3000 ", Date());
