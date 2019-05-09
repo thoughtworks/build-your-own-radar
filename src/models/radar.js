@@ -50,6 +50,7 @@ const Radar = function () {
   }
 
   self.rings = function () {
+    if (addingQuadrant !== 4) throw new MalformedDataError(ExceptionMessages.LESS_THAN_FOUR_QUADRANTS)
     return (getConfig()).rings.map(function (el, i) { return new Ring(el, i) })
   }
 
