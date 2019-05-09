@@ -15,6 +15,20 @@ A library that generates an interactive radar, inspired by [thoughtworks.com/rad
 
 You can see this in action at https://radar.thoughtworks.com. If you plug in [this data](https://docs.google.com/spreadsheets/d/1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI/) you'll see [this visualization](https://radar.thoughtworks.com/?sheetId=https://docs.google.com/spreadsheets/d/1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI). 
 
+## Configuration
+
+You can provide a configuration file named `config.json` in the main folder and define many of the radars properties this way.
+This will allow you to display empty quadrants and rings. 
+In this case, the created quardants and rings will be based on your `config.json` instead of the provided sheet.
+For a basic setup simply just rename the `example.config.json` file in the main folder to `config.json`.
+
+config.json properties:
+
+- `legend` The `triangleKey` and `circlekey` keys refere to the description next to the triangle and circle icons in the legend.
+- `rings` Array that defines the names of the rings. Rings will be displayed in the order in which they are listed starting from the center.
+- `quadrants` Array that defines the names of the quadrants. Quadrants will be displayed in the order in which they are listed starting from the upper right and continuing counterclockwise. Must have 4 entries.
+- `logo` is a logo displayed in the upper right corner, on the left side of the ThoughtWorks logo. the logo string must be a valid url or the name of an image file you placed in the `src/images` folder.
+
 ## How To Use
 
 The easiest way to use the app out of the box is to provide a *public* Google Sheet ID from which all the data will be fetched. You can enter that ID into the input field on the first page of the application, and your radar will be generated. The data must conform to the format below for the radar to be generated correctly.
@@ -61,8 +75,13 @@ Paste the URL in the input field on the home page.
 
 That's it!
 
-***Note:*** The quadrants of the radar, and the order of the rings inside the radar will be drawn in the order they appear in your data.
+***Note:*** The quadrants of the radar, and the order of the rings inside the radar will be drawn in the order they appear in your configuration.
 
+### Protected Sheets
+
+If the sheet is protected, user will be prompted to enter credentials. User has to allow access to view the sheet in the google authentication prompt dialog. The radar will be drawn after successful authentication.
+
+***Note:*** If the logged in user do not have access to the sheet, user will be provided an option to switch the account.
 
 ### More complex usage
 
@@ -89,9 +108,12 @@ Pull requests are welcome; please write tests whenever possible.
 Make sure you have nodejs installed.
 
 - `git clone git@github.com:thoughtworks/build-your-own-radar.git`
+- `cp example.config.json config.json` - OPTIONAL: example.config.json will give you an idea of a basic configuration
 - `npm install`
 - `npm test` - to run your tests
 - `npm run dev` - to run application in localhost:8080. This will watch the .js and .css files and rebuild on file changes
+
+if the optional step is skipped the quadrants/rings will be deducted from the provided sheet.
 
 To run End to End tests in headless mode
 - add a new environment variable 'TEST_URL' and set it to 'http://localhost:8080/'

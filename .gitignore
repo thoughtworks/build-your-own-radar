@@ -4,6 +4,8 @@ dist
 *.swa
 *.swp
 *.swo
+config.json
+src/images/additionalLogo.png
 
 coverage/
 

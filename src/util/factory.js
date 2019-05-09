@@ -8,6 +8,7 @@ const _ = {
   capitalize: require('lodash/capitalize'),
   each: require('lodash/each')
 }
+const { getConfig } = require('../util/normalizedConfig')
 
 const InputSanitizer = require('./inputSanitizer')
 const Radar = require('../models/radar')
@@ -26,8 +27,9 @@ const GoogleAuth = require('./googleAuth')
 const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   document.title = title
   d3.selectAll('.loading').remove()
+  const normalizedConfig = getConfig(blips)
 
-  var rings = _.map(_.uniqBy(blips, 'ring'), 'ring')
+  var rings = normalizedConfig.rings
   var ringMap = {}
   var maxRings = 4
 
@@ -37,13 +39,19 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
     }
     ringMap[ringName] = new Ring(ringName, i)
   })
-
   var quadrants = {}
+  normalizedConfig.quadrants.forEach(function (name) { quadrants[name] = new Quadrant(_.capitalize(name)) })
+
   _.each(blips, function (blip) {
-    if (!quadrants[blip.quadrant]) {
-      quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant))
+    // errorhandling in case
+    const currentQuadrant = quadrants[blip.quadrant.toLowerCase()]
+    const currentRing = ringMap[blip.ring.toLowerCase()]
+    if (!currentQuadrant) {
+      throw new Error(`Invalid Quadrant ${blip.quadrant} in Sheet enty ${blip.name}`)
+    } else if (!currentRing) {
+      throw new Error(`Invalid ring ${blip.ring} in Sheet enty ${blip.name}`)
     }
-    quadrants[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description))
+    currentQuadrant.add(new Blip(blip.name, currentRing, blip.isNew.toLowerCase() === 'true', blip.topic, blip.description))
   })
 
   var radar = new Radar()
@@ -165,7 +173,8 @@ const CSVDocument = function (url) {
       var blips = _.map(data, new InputSanitizer().sanitize)
       plotRadar(FileName(url), blips, 'CSV File', [])
     } catch (exception) {
-      plotErrorMessage(exception)
+      throw exception
+      // plotErrorMessage(exception) prevents us from getting the real error?
     }
   }
 
@@ -207,7 +216,6 @@ const GoogleSheetInput = function () {
       sheet.init().build()
     } else if (domainName && domainName.endsWith('google.com') && queryParams.sheetId) {
       sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
-      console.log(queryParams.sheetName)
 
       sheet.init().build()
     } else {

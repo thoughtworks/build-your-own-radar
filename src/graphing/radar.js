@@ -4,6 +4,7 @@ const Chance = require('chance')
 const _ = require('lodash/core')
 const $ = require('jquery')
 require('jquery-ui/ui/widgets/autocomplete')
+const { getConfig } = require('../util/normalizedConfig')
 
 const RingCalculator = require('../util/ringCalculator')
 const QueryParams = require('../util/queryParamProcessor')
@@ -13,7 +14,7 @@ const ANIMATION_DURATION = 1000
 
 const Radar = function (size, radar) {
   var svg, radarElement, quadrantButtons, buttonsGroup, header, alternativeDiv
-
+  const normalizedConfig = getConfig()
   var tip = d3tip().attr('class', 'd3-tip').html(function (text) {
     return text
   })
@@ -26,7 +27,7 @@ const Radar = function (size, radar) {
     return 'n'
   })
 
-  var ringCalculator = new RingCalculator(radar.rings().length, center())
+  var ringCalculator = new RingCalculator(normalizedConfig.rings.length, center())
 
   var self = {}
   var chance
@@ -168,11 +169,10 @@ const Radar = function (size, radar) {
       .append('h2')
       .attr('class', 'quadrant-table__name')
       .text(quadrant.name())
-
     blips = quadrant.blips()
     rings.forEach(function (ring, i) {
       var ringBlips = blips.filter(function (blip) {
-        return blip.ring() === ring
+        return blip.ring().name() === ring.name()
       })
 
       if (ringBlips.length === 0) {
@@ -321,8 +321,8 @@ const Radar = function (size, radar) {
   function drawLegend (order) {
     removeRadarLegend()
 
-    var triangleKey = 'New or moved'
-    var circleKey = 'No change'
+    var triangleKey = normalizedConfig.legend.triangleKey
+    var circleKey = normalizedConfig.legend.circleKey
 
     var container = d3.select('svg').append('g')
       .attr('class', 'legend legend' + '-' + order)
@@ -440,11 +440,14 @@ const Radar = function (size, radar) {
       .style('cursor', 'pointer')
       .on('click', redrawFullRadar)
 
-    header.select('.radar-title')
-      .append('div')
-      .attr('class', 'radar-title__logo')
-      .html('<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /> </a>')
-
+    if (normalizedConfig.logo) {
+      const logoSource = ((normalizedConfig.logo && !normalizedConfig.logo.match(/http(s):/)) ? '/images/' : '') + normalizedConfig.logo
+      header.select('.radar-title')
+        .append('div')
+        .attr('class', 'radar-title__logo')
+        .html('<a href="#" style="margin-right: 15px;"><img src="' + logoSource + '" /></a>' +
+        '<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /></a>')
+    }
     buttonsGroup = header.append('div')
       .classed('buttons-group', true)
 

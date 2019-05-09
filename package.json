@@ -21,8 +21,11 @@
   ],
   "license": "AGPL-3.0",
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "babel-loader": "^8.0.4",
+    "@babel/core": "^7.4.3",
+    "@babel/plugin-transform-modules-commonjs": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/register": "^7.4.0",
+    "babel-loader": "^8.0.5",
     "babel-preset-env": "^1.7.0",
     "css-loader": "^2.0.1",
     "cssnano": "^4.1.7",
@@ -51,7 +54,10 @@
     "yargs": "^12.0.5"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.4.3",
+    "acorn": "^6.1.1",
     "chance": "^1.0.18",
+    "core-js": "^3.0.1",
     "d3": "^4.2.6",
     "d3-tip": "^0.7.1",
     "jquery": "^3.3.1",

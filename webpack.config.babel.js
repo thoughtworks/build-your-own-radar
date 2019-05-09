@@ -71,39 +71,63 @@ module.exports = {
   },
 
   module: {
-    rules: [
-      { test: /\.js$/, exclude: /node_modules/, use: [{ loader: 'babel-loader' }] },
-      {
-        test: /\.scss$/,
-        exclude: /node_modules/,
-        use: ['style-loader', MiniCssExtractPlugin.loader, {
-          loader: 'css-loader',
-          options: { importLoaders: 1 }
-        },
+    rules: [{
+      test: /\.js$/,
+      exclude: /node_modules/,
+      use: [
         {
-          loader: 'postcss-loader',
+          loader: 'babel-loader',
           options: {
-            ident: 'postcss',
-            plugins: () => [
-              postcssPresetEnv({ browsers: 'last 2 versions' }),
-              cssnano({ preset: ['default', { discardComments: { removeAll: true } }] })
-            ]
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  targets: {
+                    firefox: 24,
+                    ie: 11
+                  },
+                  useBuiltIns: 'usage',
+                  corejs: 3,
+                  debug: true
+                }
+              ]
+            ],
+            plugins: ['@babel/plugin-transform-modules-commonjs']
           }
-        }, 'sass-loader']
+        }
+      ]
+    },
+    {
+      test: /\.scss$/,
+      exclude: /node_modules/,
+      use: ['style-loader', MiniCssExtractPlugin.loader, {
+        loader: 'css-loader',
+        options: { importLoaders: 1 }
       },
       {
-        test: /\.(eot|svg|ttf|woff|woff2)$/,
-        loader: 'file-loader?name=images/[name].[ext]'
-      },
-      {
-        test: /\.(png|jpg|ico)$/,
-        exclude: /node_modules/,
-        use: [{ loader: 'file-loader?name=images/[name].[ext]&context=./src/images' }]
-      },
-      {
-        test: require.resolve('jquery'),
-        use: [{ loader: 'expose-loader', options: 'jQuery' }, { loader: 'expose-loader', options: '$' }]
-      }
+        loader: 'postcss-loader',
+        options: {
+          ident: 'postcss',
+          plugins: () => [
+            postcssPresetEnv({ browsers: 'last 2 versions' }),
+            cssnano({ preset: ['default', { discardComments: { removeAll: true } }] })
+          ]
+        }
+      }, 'sass-loader']
+    },
+    {
+      test: /\.(eot|svg|ttf|woff|woff2)$/,
+      loader: 'file-loader?name=images/[name].[ext]'
+    },
+    {
+      test: /\.(png|jpg|ico)$/,
+      exclude: /node_modules/,
+      use: [{ loader: 'file-loader?name=images/[name].[ext]&context=./src/images' }]
+    },
+    {
+      test: require.resolve('jquery'),
+      use: [{ loader: 'expose-loader', options: 'jQuery' }, { loader: 'expose-loader', options: '$' }]
+    }
     ]
   },
 
