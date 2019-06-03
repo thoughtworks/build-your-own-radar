@@ -440,6 +440,14 @@ const Radar = function (size, radar) {
       .style('cursor', 'pointer')
       .on('click', redrawFullRadar)
 
+    header.select('.radar-title__text')
+      .append('div')
+      .attr('class', 'radar-sub-title__text')
+      .append('h2')
+      .text(document.subTitle)
+      .style('cursor', 'pointer')
+      .on('click', redrawFullRadar)
+
     header.select('.radar-title')
       .append('div')
       .attr('class', 'radar-title__logo')

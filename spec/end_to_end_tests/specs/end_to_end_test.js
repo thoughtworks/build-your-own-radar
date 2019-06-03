@@ -10,6 +10,25 @@ var radarPage = require('../pageObjects/radar_page')
 //   return false
 // })
 
+describe('Build your radar with csv file', function () {
+
+  it('display title and subtitle for csv', function () {
+    const baseUrl = Cypress.env('host')
+    let csvUrlPath = encodeURI(baseUrl + 'resources/sampleBlips.csv')
+    cy.visit(baseUrl + '?title=buildyourownradar&subtitle=byor&sheetId=' + csvUrlPath)
+    radarPage.verifyTitle('buildyourownradar')
+    radarPage.verifySubTitle('byor')
+  })
+
+  it('display default title as sheetId and subtitle as empty for csv path when params not given', function () {
+    const baseUrl = Cypress.env('host')
+    let csvUrlPath = encodeURI(baseUrl + 'resources/sampleBlips.csv')
+    cy.visit(baseUrl + '?sheetId=' + csvUrlPath)
+    radarPage.verifyTitle('sampleBlips')
+    radarPage.verifyEmptySubTitle()
+  })
+})
+
 describe('Build your radar', function () {
   it('validate 1st sheet', function () {
     cy.visit(Cypress.env('host'))

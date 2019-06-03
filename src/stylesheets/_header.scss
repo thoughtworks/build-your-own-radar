@@ -33,6 +33,20 @@ header {
         margin: 0;
         text-transform: uppercase;
       }
+
+      .radar-sub-title__text {
+        padding-left: 2%;
+
+        h2 {
+          font-size: 30px;
+          font-weight: 300;
+          letter-spacing: -.04em;
+          line-height: 0.8em;
+          margin-top: 5px;
+
+        }
+      }
+
     }
 
     .radar-title__logo {

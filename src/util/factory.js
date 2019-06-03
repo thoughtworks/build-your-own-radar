@@ -23,11 +23,12 @@ const Sheet = require('./sheet')
 const ExceptionMessages = require('./exceptionMessages')
 const GoogleAuth = require('./googleAuth')
 
-const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
+const plotRadar = function (title, subtitle, blips, currentRadarName, alternativeRadars) {
   if (title.endsWith('.csv')) {
     title = title.substring(0, title.length - 4)
   }
   document.title = title
+  document.subTitle = subtitle || ''
   d3.selectAll('.loading').remove()
 
   var rings = _.map(_.uniqBy(blips, 'ring'), 'ring')
@@ -104,7 +105,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
         var all = tabletop.sheets(sheetName).all()
         var blips = _.map(all, new InputSanitizer().sanitize)
 
-        plotRadar(tabletop.googleSheetName + ' - ' + sheetName, blips, sheetName, tabletop.foundSheetNames)
+        plotRadar(tabletop.googleSheetName + ' - ' + sheetName, '', blips, sheetName, tabletop.foundSheetNames)
       } catch (exception) {
         plotErrorMessage(exception)
       }
@@ -124,7 +125,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
     const all = values
     const header = all.shift()
     var blips = _.map(all, blip => new InputSanitizer().sanitizeForProtectedSheet(blip, header))
-    plotRadar(documentTitle + ' - ' + sheetName, blips, sheetName, sheetNames)
+    plotRadar(documentTitle + ' - ' + sheetName, '', blips, sheetName, sheetNames)
   }
 
   self.authenticate = function (force = false, callback) {
@@ -151,7 +152,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
   return self
 }
 
-const CSVDocument = function (url) {
+const CSVDocument = function (url, title, subtitle) {
   var self = {}
 
   self.build = function () {
@@ -166,7 +167,7 @@ const CSVDocument = function (url) {
       contentValidator.verifyContent()
       contentValidator.verifyHeaders()
       var blips = _.map(data, new InputSanitizer().sanitize)
-      plotRadar(FileName(url), blips, 'CSV File', [])
+      plotRadar(title, subtitle, blips, 'CSV File', [])
     } catch (exception) {
       plotErrorMessage(exception)
     }
@@ -202,11 +203,11 @@ const GoogleSheetInput = function () {
 
   self.build = function () {
     var domainName = DomainName(window.location.search.substring(1))
-    var queryString = window.location.href.match(/sheetId(.*)/)
-    var queryParams = queryString ? QueryParams(queryString[0]) : {}
+    var queryString = window.location.href.match(/\?(.*)/)
+    var queryParams = queryString ? QueryParams(queryString[1]) : {}
 
     if (domainName && queryParams.sheetId.endsWith('csv')) {
-      sheet = CSVDocument(queryParams.sheetId)
+      sheet = CSVDocument(queryParams.sheetId, queryParams.title || FileName(queryParams.sheetId), queryParams.subtitle)
       sheet.init().build()
     } else if (domainName && domainName.endsWith('google.com') && queryParams.sheetId) {
       sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
