@@ -11,7 +11,6 @@ var radarPage = require('../pageObjects/radar_page')
 // })
 
 describe('Build your radar with csv file', function () {
-
   it('display title and subtitle for csv', function () {
     const baseUrl = Cypress.env('host')
     let csvUrlPath = encodeURI(baseUrl + 'resources/sampleBlips.csv')
