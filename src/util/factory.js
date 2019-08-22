@@ -24,9 +24,6 @@ const ExceptionMessages = require('./exceptionMessages')
 const GoogleAuth = require('./googleAuth')
 
 const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
-  if (title.endsWith('.csv')) {
-    title = title.substring(0, title.length - 4)
-  }
   document.title = title
   d3.selectAll('.loading').remove()
 
@@ -69,7 +66,7 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   new GraphingRadar(size, radar).init().plot()
 }
 
-const GoogleSheet = function (sheetReference, sheetName) {
+const GoogleSheet = function (sheetReference, sheetName, documentTitle) {
   var self = {}
 
   self.build = function () {
@@ -104,7 +101,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
         var all = tabletop.sheets(sheetName).all()
         var blips = _.map(all, new InputSanitizer().sanitize)
 
-        plotRadar(tabletop.googleSheetName + ' - ' + sheetName, blips, sheetName, tabletop.foundSheetNames)
+        plotRadar((documentTitle || tabletop.googleSheetName) + ' - ' + sheetName, blips, sheetName, tabletop.foundSheetNames)
       } catch (exception) {
         plotErrorMessage(exception)
       }
@@ -151,8 +148,15 @@ const GoogleSheet = function (sheetReference, sheetName) {
   return self
 }
 
-const CSVDocument = function (url) {
+const CSVDocument = function (url, title) {
   var self = {}
+
+  if (!title) {
+    title = FileName(url)
+    if (title.endsWith('.csv')) {
+      title = title.substring(0, title.length - 4)
+    }
+  }
 
   self.build = function () {
     d3.csv(url, createBlips)
@@ -166,7 +170,7 @@ const CSVDocument = function (url) {
       contentValidator.verifyContent()
       contentValidator.verifyHeaders()
       var blips = _.map(data, new InputSanitizer().sanitize)
-      plotRadar(FileName(url), blips, 'CSV File', [])
+      plotRadar(title, blips, 'CSV File', [])
     } catch (exception) {
       plotErrorMessage(exception)
     }
@@ -201,17 +205,15 @@ const GoogleSheetInput = function () {
   var sheet
 
   self.build = function () {
-    var domainName = DomainName(window.location.search.substring(1))
-    var queryString = window.location.href.match(/sheetId(.*)/)
-    var queryParams = queryString ? QueryParams(queryString[0]) : {}
+    var queryString = window.location.search.substring(1)
+    var domainName = DomainName(queryString)
+    var queryParams = QueryParams(queryString)
 
     if (domainName && queryParams.sheetId.endsWith('csv')) {
-      sheet = CSVDocument(queryParams.sheetId)
+      sheet = CSVDocument(queryParams.sheetId, queryParams.documentTitle)
       sheet.init().build()
     } else if (domainName && domainName.endsWith('google.com') && queryParams.sheetId) {
-      sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
-      console.log(queryParams.sheetName)
-
+      sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName, queryParams.documentTitle)
       sheet.init().build()
     } else {
       var content = d3.select('body')
@@ -385,9 +387,9 @@ function plotUnauthorizedErrorMessage () {
     .html(`or ${goBack} to try a different sheet.`)
 
   button.on('click', _ => {
-    var queryString = window.location.href.match(/sheetId(.*)/)
-    var queryParams = queryString ? QueryParams(queryString[0]) : {}
-    const sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
+    var queryString = window.location.search.substring(1)
+    var queryParams = QueryParams(queryString)
+    const sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName, queryParams.documentTitle)
     sheet.authenticate(true, _ => {
       content.remove()
     })
