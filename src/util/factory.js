@@ -30,6 +30,7 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   document.title = title
   d3.selectAll('.loading').remove()
 
+  var highestNumberOfDuplicates=1
   var rings = _.map(_.uniqBy(blips, 'ring'), 'ring')
   var ringMap = {}
   var maxRings = 4
@@ -41,12 +42,13 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
     ringMap[ringName] = new Ring(ringName, i)
   })
 
+
   var quadrants = {}
   _.each(blips, function (blip) {
     if (!quadrants[blip.quadrant]) {
       quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant))
     }
-    quadrants[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description))
+    quadrants[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description, blip.size))
   })
 
   var radar = new Radar()
@@ -103,7 +105,6 @@ const GoogleSheet = function (sheetReference, sheetName) {
 
         var all = tabletop.sheets(sheetName).all()
         var blips = _.map(all, new InputSanitizer().sanitize)
-
         plotRadar(tabletop.googleSheetName + ' - ' + sheetName, blips, sheetName, tabletop.foundSheetNames)
       } catch (exception) {
         plotErrorMessage(exception)
