@@ -4,7 +4,6 @@
 @import 'form';
 @import 'error';
 @import 'header';
-@import 'footer';
 @import url(https://www.thoughtworks.com/css/screen.css);
 
 body {
@@ -107,7 +106,7 @@ body {
       display: block;
     }
 
-    .radar-title .radar-title__logo {
+    .radar-title {
       display: block;
       width: auto;
 
@@ -146,10 +145,6 @@ body {
     }
   }
 
-  #footer {
-    display: none;
-  }
-
   .error-container {
     display: none;
   }
@@ -162,6 +157,7 @@ body {
   #radar {
     width: 80%;
     margin: 0 auto;
+    padding-bottom: 200px;
     position: relative;
 
     svg#radar-plot {
