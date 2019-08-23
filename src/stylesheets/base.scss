@@ -4,7 +4,6 @@
 @import 'form';
 @import 'error';
 @import 'header';
-@import 'footer';
 @import url(https://www.thoughtworks.com/css/screen.css);
 
 body {
@@ -144,10 +143,6 @@ body {
     .print-radar {
       display: none;
     }
-  }
-
-  #footer {
-    display: none;
   }
 
   .error-container {
