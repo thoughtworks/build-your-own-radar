@@ -1,7 +1,7 @@
 const IDEAL_BLIP_WIDTH = 15
 const BLIP_WIDTH_LARGEST = 80
 const BLIP_WIDTH_SMALLEST = IDEAL_BLIP_WIDTH 
-const SCALE_FACTOR = 4
+const SCALE_FACTOR = 10
 const Blip = function (name, ring, isNew, topic, description, size) {
   var self, number
 
