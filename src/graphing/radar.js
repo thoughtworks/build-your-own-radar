@@ -465,7 +465,6 @@ const Radar = function (size, radar) {
       .append('div')
       .attr('class', 'team-description__text')
       .text(teamDescriptions[radar.getCurrentSheet()])
-
     buttonsGroup = header.append('div')
       .classed('buttons-group', true)
 
@@ -496,13 +495,6 @@ const Radar = function (size, radar) {
       addButton(quadrants[i])
     })
 
-    buttonsGroup.append('div')
-      .classed('print-radar-btn', true)
-      .append('div')
-      .classed('print-radar button no-capitalize', true)
-      .text('Print this radar')
-      .on('click', window.print.bind(window))
-
     alternativeDiv.append('div')
       .classed('search-box', true)
       .append('input')
@@ -519,19 +511,6 @@ const Radar = function (size, radar) {
       })),
       select: searchBlip.bind({})
     })
-  }
-
-  function plotRadarFooter () {
-    d3.select('body')
-      .insert('div', '#radar-plot + *')
-      .attr('id', 'footer')
-      .append('div')
-      .attr('class', 'footer-content')
-      .append('p')
-      .html('Powered by <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. ' +
-      'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">ThoughtWorks\' terms of use</a>. ' +
-      'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
-      'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.')
   }
 
   function mouseoverQuadrant (order) {
@@ -615,8 +594,12 @@ const Radar = function (size, radar) {
       .append('div')
       .classed('multiple-sheet-button-group', true)
 
+      const shouldIncludeSheet = sheetName => sheetName !== 'helper';
+
     alternativeSheetButton.append('p').text('Choose a sheet to populate radar')
-    alternatives.forEach(function (alternative) {
+    alternatives
+      .filter(shouldIncludeSheet)
+      .forEach(function (alternative) {
       alternativeSheetButton
         .append('div:a')
         .attr('class', 'first full-view alternative multiple-sheet-button')
@@ -654,8 +637,6 @@ const Radar = function (size, radar) {
       plotTexts(quadrantGroup, rings, quadrant)
       plotBlips(quadrantGroup, rings, quadrant)
     })
-
-    plotRadarFooter()
   }
 
   return self
