@@ -329,8 +329,6 @@ function plotErrorMessage (exception) {
 
   errorContainer.append('div').append('p')
     .html(homePage)
-
-  plotFooter(content)
 }
 
 function plotUnauthorizedErrorMessage () {

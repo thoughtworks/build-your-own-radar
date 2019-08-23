@@ -472,6 +472,8 @@ const Radar = function (size, radar) {
       .attr('href', slackLink)
       .text(slackName)
 
+    buttonsGroup = header.append('div')
+      .classed('buttons-group', true)
 
     quadrantButtons = buttonsGroup.append('div')
       .classed('quadrant-btn--group', true)
