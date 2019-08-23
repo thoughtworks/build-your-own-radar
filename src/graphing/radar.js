@@ -5,7 +5,7 @@ const _ = require('lodash/core')
 const $ = require('jquery')
 require('jquery-ui/ui/widgets/autocomplete')
 
-const teamDescriptions = require('../data/teamDescriptions')
+const teamConfig = require('../data/teamConfig')
 
 const RingCalculator = require('../util/ringCalculator')
 const QueryParams = require('../util/queryParamProcessor')
@@ -431,8 +431,6 @@ const Radar = function (size, radar) {
     }
   }
 
-  function plotTeamDescription(){}
-
   function getTeamDescriptionTitle(sheetName){
     if (sheetName == 'All'){
       return ''
@@ -454,8 +452,11 @@ const Radar = function (size, radar) {
 
     header.select('.radar-title')
       .append('div')
-      .attr('class', 'radar-title__logo')
-      .html('<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /> </a>')
+
+      const { description, slackLink, slackName } = teamConfig[radar.getCurrentSheet()] || {};
+
+      alternativeDiv = header.append('div')
+      .attr('id', 'alternative-buttons')
 
       header.append('div')
       .attr('class', 'team-description')
@@ -464,15 +465,19 @@ const Radar = function (size, radar) {
       .text(getTeamDescriptionTitle(radar.getCurrentSheet()))
       .append('div')
       .attr('class', 'team-description__text')
-      .text(teamDescriptions[radar.getCurrentSheet()])
+      .text(description)
+      .append('div')
+      .append('strong')
+      .text('Slack Channel: ')
+      .append('a')
+      .attr('href', slackLink)
+      .text(slackName)
+
     buttonsGroup = header.append('div')
       .classed('buttons-group', true)
 
     quadrantButtons = buttonsGroup.append('div')
       .classed('quadrant-btn--group', true)
-
-    alternativeDiv = header.append('div')
-      .attr('id', 'alternative-buttons')
 
     return header
   }
@@ -596,7 +601,6 @@ const Radar = function (size, radar) {
 
       const shouldIncludeSheet = sheetName => sheetName !== 'helper';
 
-    alternativeSheetButton.append('p').text('Choose a sheet to populate radar')
     alternatives
       .filter(shouldIncludeSheet)
       .forEach(function (alternative) {
