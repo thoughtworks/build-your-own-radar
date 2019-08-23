@@ -5,7 +5,7 @@ const _ = require('lodash/core')
 const $ = require('jquery')
 require('jquery-ui/ui/widgets/autocomplete')
 
-const teamDescriptions = require('../data/teamDescriptions')
+const teamConfig = require('../data/teamConfig')
 
 const RingCalculator = require('../util/ringCalculator')
 const QueryParams = require('../util/queryParamProcessor')
@@ -431,8 +431,6 @@ const Radar = function (size, radar) {
     }
   }
 
-  function plotTeamDescription(){}
-
   function getTeamDescriptionTitle(sheetName){
     if (sheetName == 'All'){
       return ''
@@ -457,6 +455,8 @@ const Radar = function (size, radar) {
       .attr('class', 'radar-title__logo')
       .html('<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /> </a>')
 
+      const { description, slackLink, slackName } = teamConfig[radar.getCurrentSheet()];
+
       header.append('div')
       .attr('class', 'team-description')
       .append('h3')
@@ -464,9 +464,14 @@ const Radar = function (size, radar) {
       .text(getTeamDescriptionTitle(radar.getCurrentSheet()))
       .append('div')
       .attr('class', 'team-description__text')
-      .text(teamDescriptions[radar.getCurrentSheet()])
-    buttonsGroup = header.append('div')
-      .classed('buttons-group', true)
+      .text(description)
+      .append('div')
+      .append('strong')
+      .text('Slack Channel: ')
+      .append('a')
+      .attr('href', slackLink)
+      .text(slackName)
+
 
     quadrantButtons = buttonsGroup.append('div')
       .classed('quadrant-btn--group', true)
