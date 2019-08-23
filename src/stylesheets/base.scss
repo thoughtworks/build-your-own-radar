@@ -152,6 +152,65 @@ body {
 }
 
 
+
+@keyframes pulse-blue{
+  from {
+    fill: $blue;
+  }
+
+  50% {
+    fill: $bright-blue;
+  }
+
+  to {
+    fill: $blue;
+  }
+}
+
+
+@keyframes pulse-orange{
+  from {
+    fill: $orange;
+  }
+
+  50% {
+    fill: $yellow;
+  }
+
+  to {
+    fill: $orange;
+  }
+}
+
+
+@keyframes pulse-green{
+  from {
+    fill: $green;
+  }
+
+  50% {
+    fill: $bright-green;
+  }
+
+  to {
+    fill: $green;
+  }
+}
+
+@keyframes pulse-violet {
+  from {
+    fill: $violet;
+  }
+
+  50% {
+    fill: $bright-violet;
+  }
+
+  to {
+    fill: $violet;
+  }
+}
+
 @media screen {
 
   #radar {
@@ -208,22 +267,39 @@ body {
         &.first {
           fill: $green;
           stroke: none;
+
+          &.changed {
+            animation: pulse-green 4s infinite;
+          }
         }
 
         &.second {
           fill: $blue;
-          stroke: none;
+          stroke: none; 
+          &.changed {
+            animation: pulse-blue 4s infinite;
+          }
         }
 
         &.third {
           fill: $orange;
           stroke: none;
+          &.changed {
+            animation: pulse-orange 4s infinite;
+          }
         }
 
         &.fourth {
           fill: $violet;
           stroke: none;
+
+          &.changed {
+            animation-name: pulse-violet;
+            animation-duration: 4s;
+          }
         }
+
+        
       }
 
       line {

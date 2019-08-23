@@ -1,0 +1,35 @@
+{
+  "team": "Funky cool stuff",
+  "radar": [
+    {
+      "name": "React",
+      "ring": "in use",
+      "quadrant": "languages & frameworks",
+      "isNew": false
+    },
+    {
+      "name": "PHP",
+      "ring": "retired",
+      "quadrant": "languages & frameworks",
+      "isNew": false
+    },
+    {
+      "name": "Morph",
+      "ring": "in use",
+      "quadrant": "platforms",
+      "isNew": false
+    },
+    {
+      "name": "Elastic Search",
+      "ring": "in use",
+      "quadrant": "tools",
+      "isNew": false
+    },
+    {
+      "name": "BDD",
+      "ring": "trial",
+      "quadrant": "techniques",
+      "isNew": false
+    }
+  ]
+}

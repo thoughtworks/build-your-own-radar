@@ -1,7 +1,8 @@
 const IDEAL_BLIP_WIDTH = 20
 const BLIP_WIDTH_LARGEST = 50
 const BLIP_WIDTH_SMALLEST = IDEAL_BLIP_WIDTH 
-const Blip = function (name, ring, isNew, topic, description, size) {
+const Blip = function (name, ring, isNew, topic, description, size, previousRing) {
+  console.log("previous ", previousRing);
   var self, number
 
   self = {}
@@ -51,6 +52,11 @@ const Blip = function (name, ring, isNew, topic, description, size) {
 
   self.setNumber = function (newNumber) {
     number = newNumber
+  }
+
+  self.changed = function() {
+    const changed = previousRing !== '' && previousRing !== ring
+    return changed;
   }
 
   return self

@@ -106,10 +106,10 @@ const Radar = function (size, radar) {
     })
   }
 
-  function triangle (blip, x, y, order, group) {
+  function triangle (blip, x, y, order, group, changed) {
     return group.append('path').attr('d', 'M412.201,311.406c0.021,0,0.042,0,0.063,0c0.067,0,0.135,0,0.201,0c4.052,0,6.106-0.051,8.168-0.102c2.053-0.051,4.115-0.102,8.176-0.102h0.103c6.976-0.183,10.227-5.306,6.306-11.53c-3.988-6.121-4.97-5.407-8.598-11.224c-1.631-3.008-3.872-4.577-6.179-4.577c-2.276,0-4.613,1.528-6.48,4.699c-3.578,6.077-3.26,6.014-7.306,11.723C402.598,306.067,405.426,311.406,412.201,311.406')
       .attr('transform', 'scale(' + (blip.width / 34) + ') translate(' + (-404 + x * (34 / blip.width) - 17) + ', ' + (-282 + y * (34 / blip.width) - 17) + ')')
-      .attr('class', order)
+      .attr('class', order + changed ? ' changed' : '')
   }
 
   function triangleLegend (x, y, group) {
@@ -117,11 +117,11 @@ const Radar = function (size, radar) {
       .attr('transform', 'scale(' + (22 / 64) + ') translate(' + (-404 + x * (64 / 22) - 17) + ', ' + (-282 + y * (64 / 22) - 17) + ')')
   }
 
-  function circle (blip, x, y, order, group) {
+  function circle (blip, x, y, order, group, changed) {
     return (group || svg).append('path')
       .attr('d', 'M420.084,282.092c-1.073,0-2.16,0.103-3.243,0.313c-6.912,1.345-13.188,8.587-11.423,16.874c1.732,8.141,8.632,13.711,17.806,13.711c0.025,0,0.052,0,0.074-0.003c0.551-0.025,1.395-0.011,2.225-0.109c4.404-0.534,8.148-2.218,10.069-6.487c1.747-3.886,2.114-7.993,0.913-12.118C434.379,286.944,427.494,282.092,420.084,282.092')
       .attr('transform', 'scale(' + (blip.width / 34) + ') translate(' + (-404 + x * (34 / blip.width) - 17) + ', ' + (-282 + y * (34 / blip.width) - 17) + ')')
-      .attr('class', order)
+      .attr('class', order + (changed ? ' changed' : ''))
   }
 
   function circleLegend (x, y, group) {
@@ -239,9 +239,9 @@ const Radar = function (size, radar) {
     var group = quadrantGroup.append('g').attr('class', 'blip-link').attr('id', 'blip-link-' + blip.number())
 
     if (blip.isNew()) {
-      triangle(blip, x, y, order, group)
+      triangle(blip, x, y, order, group, blip.changed())
     } else {
-      circle(blip, x, y, order, group)
+      circle(blip, x, y, order, group, blip.changed())
     }
 
     group.append('text')
