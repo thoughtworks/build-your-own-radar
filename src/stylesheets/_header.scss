@@ -80,6 +80,9 @@ header {
   .search-box {
     margin-left: auto;
     margin-right: 10%;
+    position: relative;
+    top: 2px;
+    margin-top: 10px;
   }
 
   .buttons-group {
@@ -164,8 +167,6 @@ header {
   }
 
   #alternative-buttons {
-    margin-bottom: 50px;
-
     .highlight {
       border-bottom: none;
       font-weight: bold;

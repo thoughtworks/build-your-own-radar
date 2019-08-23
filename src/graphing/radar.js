@@ -453,7 +453,10 @@ const Radar = function (size, radar) {
     header.select('.radar-title')
       .append('div')
 
-      const { description, slackLink, slackName } = teamConfig[radar.getCurrentSheet()];
+      const { description, slackLink, slackName } = teamConfig[radar.getCurrentSheet()] || {};
+
+      alternativeDiv = header.append('div')
+      .attr('id', 'alternative-buttons')
 
       header.append('div')
       .attr('class', 'team-description')
@@ -475,9 +478,6 @@ const Radar = function (size, radar) {
 
     quadrantButtons = buttonsGroup.append('div')
       .classed('quadrant-btn--group', true)
-
-    alternativeDiv = header.append('div')
-      .attr('id', 'alternative-buttons')
 
     return header
   }
@@ -601,7 +601,6 @@ const Radar = function (size, radar) {
 
       const shouldIncludeSheet = sheetName => sheetName !== 'helper';
 
-    alternativeSheetButton.append('p').text('Choose a sheet to populate radar')
     alternatives
       .filter(shouldIncludeSheet)
       .forEach(function (alternative) {
