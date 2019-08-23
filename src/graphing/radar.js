@@ -5,6 +5,8 @@ const _ = require('lodash/core')
 const $ = require('jquery')
 require('jquery-ui/ui/widgets/autocomplete')
 
+const teamConfig = require('../data/teamConfig')
+
 const RingCalculator = require('../util/ringCalculator')
 const QueryParams = require('../util/queryParamProcessor')
 
@@ -429,8 +431,16 @@ const Radar = function (size, radar) {
     }
   }
 
+  function getTeamDescriptionTitle(sheetName){
+    if (sheetName == 'All'){
+      return ''
+    }
+    return 'Team '+ sheetName
+  }
+
   function plotRadarHeader () {
     header = d3.select('body').insert('header', '#radar')
+
     header.append('div')
       .attr('class', 'radar-title')
       .append('div')
@@ -440,14 +450,36 @@ const Radar = function (size, radar) {
       .style('cursor', 'pointer')
       .on('click', redrawFullRadar)
 
+    header.select('.radar-title')
+      .append('div')
+
+      const { description, slackLink, slackName } = teamConfig[radar.getCurrentSheet()] || {};
+
+      alternativeDiv = header.append('div')
+      .attr('id', 'alternative-buttons')
+
+      if (radar.getCurrentSheet() !== 'All') {
+        header.append('div')
+          .attr('class', 'team-description')
+          .append('h3')
+          .attr('class', 'team-description__title')
+          .text(getTeamDescriptionTitle(radar.getCurrentSheet()))
+          .append('div')
+          .attr('class', 'team-description__text')
+          .text(description)
+          .append('div')
+          .append('strong')
+          .text('Slack Channel: ')
+          .append('a')
+          .attr('href', slackLink)
+          .text(slackName)
+      }
+
     buttonsGroup = header.append('div')
       .classed('buttons-group', true)
 
     quadrantButtons = buttonsGroup.append('div')
       .classed('quadrant-btn--group', true)
-
-    alternativeDiv = header.append('div')
-      .attr('id', 'alternative-buttons')
 
     return header
   }
@@ -569,8 +601,11 @@ const Radar = function (size, radar) {
       .append('div')
       .classed('multiple-sheet-button-group', true)
 
-    alternativeSheetButton.append('p').text('Choose a sheet to populate radar')
-    alternatives.forEach(function (alternative) {
+      const shouldIncludeSheet = sheetName => sheetName !== 'helper';
+
+    alternatives
+      .filter(shouldIncludeSheet)
+      .forEach(function (alternative) {
       alternativeSheetButton
         .append('div:a')
         .attr('class', 'first full-view alternative multiple-sheet-button')

@@ -256,7 +256,7 @@ function plotLoading (content) {
 function plotLogo (content) {
   content.append('div')
     .attr('class', 'input-sheet__logo')
-    .html('<a href="https://www.thoughtworks.com"><img src="/images/tw-logo.png" / ></a>')
+    .html('<a href="https://www.thoughtworks.com"><img src="/images/bbc-logo.png" / ></a>')
 }
 
 function plotBanner (content, text) {
@@ -329,8 +329,6 @@ function plotErrorMessage (exception) {
 
   errorContainer.append('div').append('p')
     .html(homePage)
-
-  plotFooter(content)
 }
 
 function plotUnauthorizedErrorMessage () {

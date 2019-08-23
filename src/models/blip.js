@@ -1,19 +1,22 @@
-const IDEAL_BLIP_WIDTH = 20
-const BLIP_WIDTH_LARGEST = 50
+const IDEAL_BLIP_WIDTH = 15
+const BLIP_WIDTH_LARGEST = 80
 const BLIP_WIDTH_SMALLEST = IDEAL_BLIP_WIDTH 
+const SCALE_FACTOR = 10
 const Blip = function (name, ring, isNew, topic, description, size, previousRing) {
-  console.log("previous ", previousRing);
   var self, number
 
   self = {}
   number = -1
 
   if (size){
-    self.width = size
-    if (size > BLIP_WIDTH_LARGEST){
+    const scaledSize = size * SCALE_FACTOR + BLIP_WIDTH_SMALLEST
+    console.log(scaledSize)
+    self.width = scaledSize
+
+    if (scaledSize > BLIP_WIDTH_LARGEST){
       self.width = BLIP_WIDTH_LARGEST
     }
-    if (size < BLIP_WIDTH_SMALLEST){
+    if (scaledSize < BLIP_WIDTH_SMALLEST){
       self.width = BLIP_WIDTH_SMALLEST
     }
 
@@ -22,7 +25,6 @@ const Blip = function (name, ring, isNew, topic, description, size, previousRing
 
 
   self.size = function () {
-    console.log (size)
     return size
   }
 
