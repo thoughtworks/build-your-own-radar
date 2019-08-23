@@ -594,8 +594,12 @@ const Radar = function (size, radar) {
       .append('div')
       .classed('multiple-sheet-button-group', true)
 
+      const shouldIncludeSheet = sheetName => sheetName !== 'helper';
+
     alternativeSheetButton.append('p').text('Choose a sheet to populate radar')
-    alternatives.forEach(function (alternative) {
+    alternatives
+      .filter(shouldIncludeSheet)
+      .forEach(function (alternative) {
       alternativeSheetButton
         .append('div:a')
         .attr('class', 'first full-view alternative multiple-sheet-button')
