@@ -452,8 +452,6 @@ const Radar = function (size, radar) {
 
     header.select('.radar-title')
       .append('div')
-      .attr('class', 'radar-title__logo')
-      .html('<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /> </a>')
 
       const { description, slackLink, slackName } = teamConfig[radar.getCurrentSheet()];
 
