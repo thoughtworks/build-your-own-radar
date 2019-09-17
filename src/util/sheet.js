@@ -12,7 +12,7 @@ const Sheet = function (sheetReference) {
   })()
 
   self.validate = function (callback) {
-    var feedURL = 'https://spreadsheets.google.com/feeds/worksheets/' + self.id + '/public/basic?alt=json'
+    var feedURL = 'https://sheets.googleapis.com/v4/spreadsheets/' + self.id + '?key=' + process.env.API_KEY;
 
     // TODO: Move this out (as HTTPClient)
     var xhr = new XMLHttpRequest()
