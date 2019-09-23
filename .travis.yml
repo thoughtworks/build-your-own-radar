@@ -1,6 +1,8 @@
 language: node_js
 node_js:
 - '10'
+env:
+  - TEST_URL=http://localhost:8080/
 jobs:
   include:
     - stage: Unit Test
@@ -24,3 +26,7 @@ jobs:
     - stage: End to end test
       if: branch = master
       script: npm run end_to_end_test
+addons:
+  apt:
+    packages:
+    - libgconf-2-4

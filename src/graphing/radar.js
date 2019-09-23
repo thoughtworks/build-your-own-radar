@@ -590,6 +590,15 @@ const Radar = function (size, radar) {
   }
 
   function plotAlternativeRadars (alternatives, currentSheet) {
+    // if there are no alternatives altogether OR the only one is the current one,
+    // don't render the toggle.
+    if (
+      alternatives.length === 0 ||
+      (alternatives.length === 1 && currentSheet === alternatives[0])
+    ) {
+      return
+    }
+
     var alternativeSheetButton = alternativeDiv
       .append('div')
       .classed('multiple-sheet-button-group', true)
