@@ -54,7 +54,7 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
     radar.addQuadrant(quadrant)
   })
 
-  if (alternativeRadars !== undefined || true) {
+  if (alternativeRadars || alternativeRadars.length > 0) {
     alternativeRadars.forEach(function (sheetName) {
       radar.addAlternative(sheetName)
     })
