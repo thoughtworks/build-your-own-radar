@@ -1,5 +1,5 @@
 {
-  "excel": "https://docs.google.com/spreadsheets/d/1Yozpcv58-etk1UNvxS0HxMqw7V5Amf4dgWBnekJcHcc/edit#gid=0",
+  "excel": "https://docs.google.com/spreadsheets/d/1Yozpcv58-etk1UNvxS0HxMqw7V5Amf4dgWBnekJcHcc/edit?usp=sharing",
   "integrationFolder":"spec/end_to_end_tests/specs",
   "chromeWebSecurity": false,
   "screenshotsFolder": "spec/end_to_end_tests/reports/screenshots",
