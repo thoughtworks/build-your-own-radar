@@ -1,11 +1,7 @@
 const MalformedDataError = require('../exceptions/malformedDataError')
 const ExceptionMessages = require('../util/exceptionMessages')
-
-const _ = {
-  map: require('lodash/map'),
-  uniqBy: require('lodash/uniqBy'),
-  sortBy: require('lodash/sortBy')
-}
+const { getConfig } = require('../util/normalizedConfig')
+const Ring = require('../models/ring')
 
 const Radar = function () {
   var self, quadrants, blipNumber, addingQuadrant, alternatives, currentSheetName
@@ -53,26 +49,9 @@ const Radar = function () {
     addingQuadrant++
   }
 
-  function allQuadrants () {
-    if (addingQuadrant < 4) { throw new MalformedDataError(ExceptionMessages.LESS_THAN_FOUR_QUADRANTS) }
-
-    return _.map(quadrants, 'quadrant')
-  }
-
-  function allBlips () {
-    return allQuadrants().reduce(function (blips, quadrant) {
-      return blips.concat(quadrant.blips())
-    }, [])
-  }
-
   self.rings = function () {
-    return _.sortBy(_.map(_.uniqBy(allBlips(), function (blip) {
-      return blip.ring().name()
-    }), function (blip) {
-      return blip.ring()
-    }), function (ring) {
-      return ring.order()
-    })
+    if (addingQuadrant !== 4) throw new MalformedDataError(ExceptionMessages.LESS_THAN_FOUR_QUADRANTS)
+    return (getConfig()).rings.map(function (el, i) { return new Ring(el, i) })
   }
 
   self.quadrants = function () {

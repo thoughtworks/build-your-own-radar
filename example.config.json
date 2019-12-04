@@ -1,0 +1,20 @@
+{
+  "legend": {
+    "triangleKey": "New or moved",
+    "circleKey": "no change"
+  },
+  "quadrants": [
+    "tools",
+    "platforms",
+    "languages", 
+    "frameworks"   
+  ],
+  "rings": [
+    "adopt",
+    "trial",
+    "assess",
+    "hold"
+  ],
+  "logoUrl": "example.com"
+
+}

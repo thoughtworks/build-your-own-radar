@@ -150,7 +150,7 @@ describe('Radar', function () {
     })
   })
 
-  describe('rings', function () {
+/*   describe('rings', function () {
     var quadrant, radar, firstRing, secondRing, otherQuadrant
 
     beforeEach(function () {
@@ -204,5 +204,5 @@ describe('Radar', function () {
 
       expect(radar.rings()).toEqual([firstRing, secondRing])
     })
-  })
+  }) */
 })
