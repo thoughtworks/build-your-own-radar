@@ -10,16 +10,16 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const postcssPresetEnv = require('postcss-preset-env')
 const cssnano = require('cssnano')
 
-let isProd = args.prod
-let isDev = args.dev
-let env = args.envFile
+const isProd = args.prod
+const isDev = args.dev
+const env = args.envFile
 if (env) {
   // Load env file
   require('dotenv').config({ path: env })
 }
 
-let main = ['./src/site.js']
-let common = ['./src/common.js']
+const main = ['./src/site.js']
+const common = ['./src/common.js']
 let devtool
 
 if (isDev) {
@@ -27,7 +27,7 @@ if (isDev) {
   devtool = 'source-map'
 }
 
-let plugins = [
+const plugins = [
   new MiniCssExtractPlugin({ filename: '[name].[hash].css' }),
   new HtmlWebpackPlugin({
     template: './src/index.html',
@@ -54,8 +54,8 @@ if (isProd) {
 
 module.exports = {
   entry: {
-    'main': main,
-    'common': common
+    main: main,
+    common: common
   },
   node: {
     fs: 'empty',
