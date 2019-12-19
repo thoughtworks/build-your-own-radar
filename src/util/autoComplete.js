@@ -11,7 +11,7 @@ $.widget('custom.radarcomplete', $.ui.autocomplete, {
 
     items.forEach((item) => {
       const quadrantName = item.quadrant.quadrant.name()
-      if (quadrantName != currentQuadrant) {
+      if (quadrantName !== currentQuadrant) {
         ul.append(`<li class='ui-autocomplete-quadrant'>${quadrantName}</li>`)
         currentQuadrant = quadrantName
       }
