@@ -2,11 +2,10 @@ const d3 = require('d3')
 const d3tip = require('d3-tip')
 const Chance = require('chance')
 const _ = require('lodash/core')
-const $ = require('jquery')
-require('jquery-ui/ui/widgets/autocomplete')
 
 const RingCalculator = require('../util/ringCalculator')
 const QueryParams = require('../util/queryParamProcessor')
+const AutoComplete = require('../util/autoComplete')
 
 const MIN_BLIP_WIDTH = 12
 const ANIMATION_DURATION = 1000
@@ -489,15 +488,7 @@ const Radar = function (size, radar) {
       .attr('placeholder', 'Search')
       .classed('search-radar', true)
 
-    $('#auto-complete').autocomplete({
-      source: _.flatten(_.map(quadrants, function (q, i) {
-        return _.map(q.quadrant.blips(), function (b) {
-          const name = b.name()
-          return { label: name, value: name, blip: b, quadrant: q }
-        })
-      })),
-      select: searchBlip.bind({})
-    })
+    AutoComplete('#auto-complete', quadrants, searchBlip)
   }
 
   function plotRadarFooter () {
