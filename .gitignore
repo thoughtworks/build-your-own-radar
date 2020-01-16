@@ -9,6 +9,7 @@ coverage/
 
 .idea/
 .DS_Store
+.firebase/
 
 spec/end_to_end_tests/reports/
 cypress/
