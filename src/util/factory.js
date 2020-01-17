@@ -151,6 +151,26 @@ const GoogleSheet = function (sheetReference, sheetName) {
   return self
 }
 
+const JSONData = function (title, rawBlips) {
+  var self = {}
+
+  self.build = function () {
+    try {
+      var blips = _.map(rawBlips, new InputSanitizer().sanitize)
+      plotRadar(title, blips, 'JSON', [])
+    } catch (exception) {
+      plotErrorMessage(exception)
+    }
+  }
+
+  self.init = function () {
+    plotLoading()
+    return self
+  }
+
+  return self
+}
+
 const CSVDocument = function (url) {
   var self = {}
 
@@ -213,6 +233,23 @@ const GoogleSheetInput = function () {
       console.log(queryParams.sheetName)
 
       sheet.init().build()
+    } else if (window.RADAR_ID) {
+      // Fetch radar data
+      try {
+        var db = firebase.firestore()
+        const blips = db.collection('radars').doc(window.RADAR_ID)
+          .collection('blips')
+        blips.get().then(function (snapshot) {
+          var blipData = []
+          snapshot.forEach((doc) => {
+            blipData.push(doc.data())
+          })
+          sheet = JSONData(window.RADAR_TITLE, blipData)
+          sheet.init().build()
+        })
+      } catch (exception) {
+        plotErrorMessage(exception)  
+      }
     } else {
       var content = d3.select('body')
         .append('div')
