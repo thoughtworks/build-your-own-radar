@@ -157,6 +157,9 @@ const JSONData = function (title, rawBlips) {
   self.build = function () {
     try {
       var blips = _.map(rawBlips, new InputSanitizer().sanitize)
+      // Sort by ring: adopt, trial, assess, hold
+      rank = {'adopt': 0, 'trial': 1, 'assess': 2, 'hold': 3}
+      blips.sort((a, b) => (rank[a.ring] > rank[b.ring]) ? 1: -1)
       plotRadar(title, blips, 'JSON', [])
     } catch (exception) {
       plotErrorMessage(exception)
