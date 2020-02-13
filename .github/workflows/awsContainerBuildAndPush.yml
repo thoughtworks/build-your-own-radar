@@ -34,7 +34,8 @@ jobs:
   push-metadata:
     name: Push Metadata
     needs: deploy
-    runs-on: octopusdeploy/octo:6.17.3-alpine
+    runs-on: ubuntu-latest
+    container: octopusdeploy/octo:6.17.3-alpine
     steps:
     - name: Push Metadata
       env:
