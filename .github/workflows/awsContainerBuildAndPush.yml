@@ -37,6 +37,8 @@ jobs:
     runs-on: ubuntu-latest
     container: octopusdeploy/octo:6.17.3-alpine
     steps:
+    - name: Checkout
+      uses: actions/checkout@v2
     - name: Push Metadata
       env:
         OCTOPUS_APIKEY: ${{ secrets.OCTOPUS_APIKEY }}
@@ -46,4 +48,3 @@ jobs:
       run: |
         octo pack --id $ECR_REPOSITORY --version $IMAGE_TAG --basePath=Dockerfile --outFolder ./out --format zip
         octo push --package ./out/$ECR_REPOSITORY.$IMAGE_TAG.zip  --server $OCTOPUS_SERVER --apiKey $OCTOPUS_APIKEY
-        
