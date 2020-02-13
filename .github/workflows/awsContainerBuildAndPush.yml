@@ -41,9 +41,8 @@ jobs:
       env:
         OCTOPUS_APIKEY: ${{ secrets.OCTOPUS_APIKEY }}
         OCTOPUS_SERVER: ${{ secrets.OCTOPUS_SERVER }}
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: build-your-own-radar
         IMAGE_TAG: 1.${{ github.run_number }}
       run: |
-        octo pack --id $ECR_REPOSITORY --version $IMAGE_TAG --basePath=./.github/workflows/ --outFolder ./out --format zip
+        octo pack --id $ECR_REPOSITORY --version $IMAGE_TAG --basePath=.github/workflows/ --outFolder ./out --format zip
         octo push --package ./out/$ECR_REPOSITORY.$IMAGE_TAG.zip  --server $OCTOPUS_SERVER --apiKey $OCTOPUS_APIKEY
