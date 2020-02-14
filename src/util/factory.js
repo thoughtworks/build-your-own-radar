@@ -23,11 +23,13 @@ const Sheet = require('./sheet')
 const ExceptionMessages = require('./exceptionMessages')
 const GoogleAuth = require('./googleAuth')
 
+const radars = require('../data/radars')
+
 const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   if (title.endsWith('.csv')) {
     title = title.substring(0, title.length - 4)
   }
-  document.title = title
+  setDocumentTitle(title)
   d3.selectAll('.loading').remove()
 
   var rings = _.map(_.uniqBy(blips, 'ring'), 'ring')
@@ -151,7 +153,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
   return self
 }
 
-const CSVDocument = function (url) {
+const CSVDocument = function (url, title) {
   var self = {}
 
   self.build = function () {
@@ -166,7 +168,7 @@ const CSVDocument = function (url) {
       contentValidator.verifyContent()
       contentValidator.verifyHeaders()
       var blips = _.map(data, new InputSanitizer().sanitize)
-      plotRadar(FileName(url), blips, 'CSV File', [])
+      plotRadar(title, blips, 'CSV File', [])
     } catch (exception) {
       plotErrorMessage(exception)
     }
@@ -199,44 +201,56 @@ const FileName = function (url) {
 const GoogleSheetInput = function () {
   var self = {}
   var sheet
+  var radarId, radar, radarHeader, radarTitle, radarChoices
+  var content
 
   self.build = function () {
-    var domainName = DomainName(window.location.search.substring(1))
-    var queryString = window.location.href.match(/sheetId(.*)/)
-    var queryParams = queryString ? QueryParams(queryString[0]) : {}
+    radarId = window.location.pathname.substring(1).replace(/\//g, '')
+    radar = radars[radarId]
 
-    if (domainName && queryParams.sheetId.endsWith('csv')) {
-      sheet = CSVDocument(queryParams.sheetId)
-      sheet.init().build()
-    } else if (domainName && domainName.endsWith('google.com') && queryParams.sheetId) {
-      sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
-      console.log(queryParams.sheetName)
-
-      sheet.init().build()
-    } else {
-      var content = d3.select('body')
-        .append('div')
-        .attr('class', 'input-sheet')
+    if (!radarId) {
       setDocumentTitle()
+      radarHeader = d3.select('body').append('header')
+      radarTitle = radarHeader
+        .append('div')
+        .attr('class', 'radar-title')
+      radarTitle
+        .append('div')
+        .attr('class', 'radar-title__text')
+        .append('h1')
+        .html('MyBook Technology Radar')
+      radarTitle
+        .append('div')
+        .attr('class', 'radar-title__logo')
+        .html('<a href="https://www.thoughtworks.com"><img src="/images/logo.png" / ></a>')
 
-      plotLogo(content)
+      radarChoices = radarHeader
+        .append('div')
+        .attr('class', 'radars')
 
-      var bannerText = '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://www.thoughtworks.com/radar/byor">created your Radar</a>, you can use this service' +
-        ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a></p></div>'
+      _.each(radars, function (radarChoice, radarChoiceId) {
+        radarChoices
+          .append('a')
+          .attr('class', 'button')
+          .attr('href', '/' + radarChoiceId)
+          .html(_.capitalize(radarChoiceId.replace(/[-_]+/g, ' ')))
+      })
 
-      plotBanner(content, bannerText)
-
-      plotForm(content)
-
+      content = d3.select('body').append('div')
       plotFooter(content)
+    } else if (!radar) {
+      plotErrorMessage()
+    } else {
+      sheet = CSVDocument(radar.csv, radar.title)
+      sheet.init().build()
     }
   }
 
   return self
 }
 
-function setDocumentTitle () {
-  document.title = 'Build your own Radar'
+function setDocumentTitle (title = null) {
+  document.title = title || 'MyBook Technology Radar'
 }
 
 function plotLoading (content) {

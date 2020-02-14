@@ -6,7 +6,7 @@
   "scripts": {
     "test": "standard --fix && istanbul cover jasmine",
     "test:lint": "npx standard",
-    "dev": "webpack-dev-server --mode development --inline",
+    "dev": "webpack-dev-server --mode development --inline --history-api-fallback",
     "build": "webpack --mode production",
     "end_to_end_test": "node_modules/.bin/cypress run --env host=$TEST_URL",
     "start": "node_modules/.bin/cypress open --env host=$TEST_URL"

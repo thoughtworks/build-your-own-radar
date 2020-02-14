@@ -54,6 +54,25 @@ header {
     }
   }
 
+  .radars {
+    margin-top: 15px;
+    a {
+      color: white;
+      text-decoration: none;
+      &:nth-child(1n) {
+        background-color: #00AAFF;
+      }
+      &:nth-child(2n) {
+        background-color: #FF6163;
+      }
+      &:nth-child(3n) {
+        background-color: #A169F7;
+      }
+      &:nth-child(4n) {
+        background-color: #97CF26;
+      }
+    }
+  }
 
   .quadrant-btn--group, .multiple-sheet-button-group {
     text-align: left;
