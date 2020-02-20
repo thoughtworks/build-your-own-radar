@@ -5,6 +5,7 @@ const path = require('path')
 const buildPath = path.join(__dirname, './dist')
 const args = require('yargs').argv
 
+const CopyPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const postcssPresetEnv = require('postcss-preset-env')
@@ -28,6 +29,12 @@ if (isDev) {
 }
 
 const plugins = [
+  new CopyPlugin([
+    { 
+      from: 'src/technology_radar.csv',
+      to: 'dist'
+    }
+  ]),
   new MiniCssExtractPlugin({ filename: '[name].[hash].css' }),
   new HtmlWebpackPlugin({
     template: './src/index.html',
