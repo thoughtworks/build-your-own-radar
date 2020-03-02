@@ -1,0 +1,94 @@
+name,quadrant,ring,isNew,description
+React,Frontend,Adopt,TRUE,Leader in the market for tooling and developer eco system.
+React scripts,Frontend,Adopt,TRUE,Use React Script to build the application.
+Redux,Frontend,Adopt,TRUE,Redux enables better management of complex state. 
+Typescript,Frontend,Adopt,TRUE,Typescript provides strong typing and better tooling. Ultimately leading to more stable code.
+webpack,Frontend,Adopt,TRUE,coming
+Yarn,Frontend,Adopt,TRUE,coming
+Jest,Frontend,Adopt,TRUE,coming
+KendoReact,Frontend,Adopt,TRUE,Pre built component library. 
+SASS,Frontend,Adopt,TRUE,Broader adoption and faster than LESS.
+Cypress,Frontend,Trial,TRUE,coming
+React Native,Frontend,Trial,TRUE,coming
+LESS,Frontend,Hold,TRUE,Less is less than SASS
+Karma,Frontend,Hold,TRUE,coming
+Angular,Frontend,Hold,TRUE,coming
+AngularJS,Frontend,Hold,TRUE,coming
+Jasmine,Frontend,Hold,TRUE,Jest uses Jasmine but Jasmine alone no.
+Protractor,Frontend,Hold,TRUE,"There are better tools today, no, dang it."
+Foundation,Frontend,Hold,TRUE,coming
+NPM CLI,Frontend,Hold,TRUE,"We'll still be using NPM as a registry for packages but we'll use the yarn command for building, packing, and running the server."
+Unity3D,Frontend,Hold,TRUE,Unity3D is great for 3D applications on any platform.
+ASP.Net Core,Backend,Adopt,TRUE,Fast and awesome :)
+.Net Core App,Backend,Adopt,TRUE,Background processing of items. This would likely be implemented as a lambda function or a kubernetes job.
+xUnit,Backend,Adopt,TRUE,xUnit is directly supported in native applications.
+Java + Spring,Backend,Adopt,TRUE,coming
+Jmeter,Backend,Adopt,TRUE,Good provider for load testing which can be done as k8s jobs in a distributed model for large scale tests. 
+gRPC,Backend,Trial,TRUE,Useful for interservice communication amongst microservices. 
+GraphQL,Backend,Trial,TRUE,Useful for flexible data interfaces.
+Azure web apps,Backend,Hold,TRUE,coming
+Azure cloud services,Backend,Hold,TRUE,ew
+Node,Backend,Hold,TRUE,coming
+Ruby,Backend,Hold,TRUE,coming
+Sidekiq,Backend,Hold,TRUE,coming
+Go,Backend,Hold,TRUE,coming
+nUnit,Backend,Hold,TRUE,
+Kinesis,Data,Adopt,TRUE,coming
+SNS,Data,Adopt,TRUE,coming
+Snowflake,Data,Adopt,TRUE,coming
+DynamoDB,Data,Adopt,TRUE,"<p>Dynamo is a NOSQL database hosted and manged by AWS. It is built with scale in mind and we have had good experiences building solid scalable applications.</p>
+<h3>Pros</h3>
+<ul>
+<li>Very inexpensive</li>
+<li>Practically infinite scale</li>
+<li>Incredible fast response times</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Requires up front knowledge of query patterns</li>
+<li>Difficult to query ad-hoc</li>
+</ul>
+<p>Dynamo should be used by default for any microservice that is storing things as operational records that do not have heavy query requirements. For more information see <a href=""https://medium.com/imaginelearning/bring-dynamo-to-the-data-science-party-2d961b72bb8d?source=friends_link&amp;sk=5dd7bd16cbf678bb926122549d83cb4a"">This great Medium article</a></p>"
+Elasticsearch,Data,Adopt,TRUE,Specifically for report delivery. Easy aggregations and faceted searches.
+Redis,Data,Adopt,TRUE,coming
+Postgres,Data,Adopt,TRUE,coming
+PowerBI,Data,Adopt,TRUE,coming
+Kinesis Data Analytics (Apache Flink),Data,Trial,TRUE,coming
+Postgres (Aurora Serverless),Data,Trial,TRUE,coming
+Databricks,Data,Trial,TRUE,coming
+Redshift,Data,Hold,TRUE,coming
+MySQL,Data,Hold,TRUE,coming
+SQL Server,Data,Hold,TRUE,coming
+MongoDB,Data,Hold,TRUE,coming
+Ruby Active Warehouse,Data,Hold,TRUE,coming
+QuickSight,Data,Hold,TRUE,coming
+Glue,Data,Hold,TRUE,coming
+Periscope,Data,Hold,TRUE,coming
+EMR (Spark),Data,Hold,TRUE,coming
+ELK,Infrastructure,Adopt,TRUE,For logging specifically. 
+Kubernetes,Infrastructure,Adopt,TRUE,Container orchestration.
+Docker,Infrastructure,Adopt,TRUE,coming
+AWS Lambda (event processing),Infrastructure,Adopt,TRUE,Specifically for event processing. Should not be used as long term API handlers. 
+Terraform,Infrastructure,Adopt,TRUE,coming
+FluentD,Infrastructure,Adopt,TRUE,coming
+Github source control,Infrastructure,Adopt,TRUE,coming
+Teamcity,Infrastructure,Adopt,TRUE,coming
+Claire,Infrastructure,Adopt,TRUE,coming
+Jenkins,Infrastructure,Adopt,TRUE,coming
+Jira,Infrastructure,Adopt,TRUE,coming
+Spinnaker,Infrastructure,Adopt,TRUE,coming
+Datadog,Infrastructure,Adopt,TRUE,coming
+Prometheus + Grafana,Infrastructure,Adopt,TRUE,coming
+Velero (Heptio Ark),Infrastructure,Adopt,TRUE,coming
+Athena,Infrastructure,Adopt,TRUE,coming
+EKS,Infrastructure,Trial,TRUE,coming
+Concourse CI,Infrastructure,Trial,TRUE,coming
+NewRelic,Infrastructure,Trial,TRUE,coming
+ECS,Infrastructure,Hold,TRUE,coming
+ECR,Infrastructure,Hold,TRUE,coming
+AWS Api Gateway,Infrastructure,Hold,TRUE,coming
+Serverless.com,Infrastructure,Hold,TRUE,coming
+Cloud Formation,Infrastructure,Hold,TRUE,coming
+TFS,Infrastructure,Hold,TRUE,coming
+Chef Infra,Infrastructure,Hold,TRUE,coming
+Github issues,Infrastructure,Hold,TRUE,coming

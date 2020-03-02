@@ -4,6 +4,7 @@ const webpack = require('webpack')
 const path = require('path')
 const buildPath = path.join(__dirname, './dist')
 const args = require('yargs').argv
+const express = require('express');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -115,6 +116,9 @@ module.exports = {
   devServer: {
     contentBase: buildPath,
     host: '0.0.0.0',
-    port: 8080
+    port: 8080,
+    setup: app => {
+      app.use('/radars', express.static(path.join(__dirname, 'radars')));
+    }  
   }
 }
