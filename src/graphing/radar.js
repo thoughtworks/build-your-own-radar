@@ -240,10 +240,10 @@ const Radar = function (size, radar) {
     if (blip.isNew()) {
       //triangle(blip, x, y, order, group)
       group.append('text')
-      .attr('x', x)
-      .attr('y', y + 4)
-      //.attr('font-size', function(d) { return d.size+'em'} )
-      .text('\uf030');
+        .attr('x', x)
+        .attr('y', y + 4)
+        .attr('class', 'fa')
+        .text('\uf030');
     } else {
       circle(blip, x, y, order, group)
     }
@@ -624,15 +624,6 @@ const Radar = function (size, radar) {
     radarElement.style('height', size + 14 + 'px')
     svg = radarElement.append('svg').call(tip)
     svg.attr('id', 'radar-plot').attr('width', size).attr('height', size + 14)
-    svg.append('style')
-        .attr('type', 'text/css')
-        .text(`@font-face {
-          font-family: Font Awesome\ 5 Free;
-          font-style: normal;
-          font-weight: 400;
-          font-display:auto;src: url(/images/fa-regular-400.eot);
-          src: url(/images/fa-regular-400.eot?#iefix) format("embedded-opentype"),url(/images/fa-regular-400.woff2) format("woff2"),url(/images/fa-regular-400.woff) format("woff"),url(/images/fa-regular-400.ttf) format("truetype"),url(/images/fa-regular-400.svg#fontawesome) format("svg")
-      }`);
 
     _.each(quadrants, function (quadrant) {
       var quadrantGroup = plotQuadrant(rings, quadrant)
