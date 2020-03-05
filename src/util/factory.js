@@ -183,7 +183,7 @@ const CSVDocument = function (url) {
 const DomainName = function (url) {
   var search = /.+:\/\/([^\\/]+)/
   var match = search.exec(decodeURIComponent(url.replace(/\+/g, ' ')))
-  return match == null ? null : match[1]
+  return match == null ? window.location.protocol + '//' + window.location.host : match[1]
 }
 
 const FileName = function (url) {
@@ -205,7 +205,7 @@ const GoogleSheetInput = function () {
     var queryString = window.location.href.match(/sheetId(.*)/)
     var queryParams = queryString ? QueryParams(queryString[0]) : {}
 
-    if (domainName && queryParams.sheetId.endsWith('csv')) {
+    if (queryParams.sheetId && queryParams.sheetId.endsWith('csv')) {
       sheet = CSVDocument(queryParams.sheetId)
       sheet.init().build()
     } else if (domainName && domainName.endsWith('google.com') && queryParams.sheetId) {
@@ -221,8 +221,7 @@ const GoogleSheetInput = function () {
 
       plotLogo(content)
 
-      var bannerText = '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://www.thoughtworks.com/radar/byor">created your Radar</a>, you can use this service' +
-        ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a></p></div>'
+      var bannerText = '<div><h1>WNE Technology Radar</h1></div>'
 
       plotBanner(content, bannerText)
 
@@ -236,7 +235,7 @@ const GoogleSheetInput = function () {
 }
 
 function setDocumentTitle () {
-  document.title = 'Build your own Radar'
+  document.title = 'WNE Technology Radar'
 }
 
 function plotLoading (content) {
@@ -258,7 +257,7 @@ function plotLoading (content) {
 function plotLogo (content) {
   content.append('div')
     .attr('class', 'input-sheet__logo')
-    .html('<a href="https://www.thoughtworks.com"><img src="/images/tw-logo.png" / ></a>')
+    .html('<a href="https://www.weldnorth.com/wp-content/uploads/2020/01/wne-logo-1-300x57.png" / ></a>')
 }
 
 function plotFooter (content) {
@@ -284,24 +283,26 @@ function plotForm (content) {
   content.append('div')
     .attr('class', 'input-sheet__form')
     .append('p')
-    .html('<strong>Enter the URL of your <a href="https://www.thoughtworks.com/radar/how-to-byor" target="_blank">Google Sheet or CSV</a> file below…</strong>')
+    .html('<strong>Select your radar</strong>')
 
   var form = content.select('.input-sheet__form').append('form')
     .attr('method', 'get')
 
-  form.append('input')
-    .attr('type', 'text')
+  var years = ["/radars/WNE_2020_2021.csv"]
+  form.append('select')
     .attr('name', 'sheetId')
-    .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/<sheetid> or hosted CSV file')
-    .attr('required', '')
+    .selectAll('years')
+      .data(years)
+    .enter()
+      .append('option')
+    .text(function (d) { return d.substring(8, 21); })
+    .attr("value", function (d) { return d; })
 
   form.append('button')
     .attr('type', 'submit')
     .append('a')
     .attr('class', 'button')
-    .text('Build my radar')
-
-  form.append('p').html("<a href='https://www.thoughtworks.com/radar/how-to-byor'>Need help?</a>")
+    .text('Show me the radar')
 }
 
 function plotErrorMessage (exception) {

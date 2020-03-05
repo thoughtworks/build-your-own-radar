@@ -1,6 +1,6 @@
 require('./common')
 require('./images/logo.png')
-require('./images/radar_legend.png')
+require('./images/wne_banner.png')
 
 const GoogleSheetInput = require('./util/factory')
 
