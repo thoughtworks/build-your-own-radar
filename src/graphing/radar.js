@@ -261,10 +261,15 @@ const Radar = function (size, radar) {
         .text(LOCK_CODE);
         break;
     }
+    group.append('circle')
+      .attr('r', blip.width / 2)
+      .attr('cx', x - 4)
+      .attr('cy', y + 4)
+      .attr('class', 'blip-text-background')
 
     group.append('text')
-      .attr('x', x)
-      .attr('y', y + 4)
+      .attr('x', x - 4)
+      .attr('y', y + 8)
       .attr('class', 'blip-text')
       // derive font-size from current blip width
       .style('font-size', ((blip.width * 10) / 22) + 'px')
