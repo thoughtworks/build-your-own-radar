@@ -233,6 +233,10 @@ body {
           fill: $violet;
           stroke: none;
         }
+
+        &.blip-text-background {
+          fill: rgba(255, 255, 255, 0.6);
+        }
       }
 
       line {
@@ -243,7 +247,7 @@ body {
         &.blip-text {
           font-size: 9px;
           font-style: italic;
-          fill: $white;
+          fill: $black;
         }
 
         &.line-text {
