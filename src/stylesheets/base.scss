@@ -1,3 +1,4 @@
+@import 'variables';
 @import 'colors';
 @import 'fonts';
 @import 'tip';
@@ -5,6 +6,10 @@
 @import 'error';
 @import 'header';
 @import 'footer';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free/scss/regular.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+
 @import url(https://www.thoughtworks.com/css/k8s_production/screen.css);
 
 body {
@@ -228,6 +233,10 @@ body {
           fill: $violet;
           stroke: none;
         }
+
+        &.blip-text-background {
+          fill: rgba(255, 255, 255, 0.6);
+        }
       }
 
       line {
@@ -238,7 +247,7 @@ body {
         &.blip-text {
           font-size: 9px;
           font-style: italic;
-          fill: $white;
+          fill: $black;
         }
 
         &.line-text {
@@ -326,14 +335,27 @@ body {
             overflow: hidden;
             width: 300px;
 
-            p {
+            > p {
               margin: 0;
               border-top: 1px solid rgb(119, 119, 119);
               border-bottom: 1px solid rgb(119, 119, 119);
               padding: 20px;
               color: $grey-text;
               font-weight: 100;
-              font-size: 14px;
+              font-size: 14px; 
+
+              p {
+                font-size: 14px;
+              }
+
+              ul {
+                padding: 0;
+                margin-left: 20px;
+        
+                li {
+                  list-style-type: disc;
+                }
+              }
             }
 
             transition: max-height 0.2s ease;

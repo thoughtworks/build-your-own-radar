@@ -10,6 +10,12 @@ const AutoComplete = require('../util/autoComplete')
 const MIN_BLIP_WIDTH = 12
 const ANIMATION_DURATION = 1000
 
+const NONE_CODE = '\uf244'
+const BUDDING_CODE = '\uf243'
+const LEANING_CODE = '\uf242'
+const CONFIDENT_CODE = '\uf241'
+const LOCK_CODE = '\uf240'
+
 const Radar = function (size, radar) {
   var svg, radarElement, quadrantButtons, buttonsGroup, header, alternativeDiv
 
@@ -103,30 +109,6 @@ const Radar = function (size, radar) {
           .text(ring.name())
       }
     })
-  }
-
-  function triangle (blip, x, y, order, group) {
-    return group.append('path').attr('d', 'M412.201,311.406c0.021,0,0.042,0,0.063,0c0.067,0,0.135,0,0.201,0c4.052,0,6.106-0.051,8.168-0.102c2.053-0.051,4.115-0.102,8.176-0.102h0.103c6.976-0.183,10.227-5.306,6.306-11.53c-3.988-6.121-4.97-5.407-8.598-11.224c-1.631-3.008-3.872-4.577-6.179-4.577c-2.276,0-4.613,1.528-6.48,4.699c-3.578,6.077-3.26,6.014-7.306,11.723C402.598,306.067,405.426,311.406,412.201,311.406')
-      .attr('transform', 'scale(' + (blip.width / 34) + ') translate(' + (-404 + x * (34 / blip.width) - 17) + ', ' + (-282 + y * (34 / blip.width) - 17) + ')')
-      .attr('class', order)
-  }
-
-  function triangleLegend (x, y, group) {
-    return group.append('path').attr('d', 'M412.201,311.406c0.021,0,0.042,0,0.063,0c0.067,0,0.135,0,0.201,0c4.052,0,6.106-0.051,8.168-0.102c2.053-0.051,4.115-0.102,8.176-0.102h0.103c6.976-0.183,10.227-5.306,6.306-11.53c-3.988-6.121-4.97-5.407-8.598-11.224c-1.631-3.008-3.872-4.577-6.179-4.577c-2.276,0-4.613,1.528-6.48,4.699c-3.578,6.077-3.26,6.014-7.306,11.723C402.598,306.067,405.426,311.406,412.201,311.406')
-      .attr('transform', 'scale(' + (22 / 64) + ') translate(' + (-404 + x * (64 / 22) - 17) + ', ' + (-282 + y * (64 / 22) - 17) + ')')
-  }
-
-  function circle (blip, x, y, order, group) {
-    return (group || svg).append('path')
-      .attr('d', 'M420.084,282.092c-1.073,0-2.16,0.103-3.243,0.313c-6.912,1.345-13.188,8.587-11.423,16.874c1.732,8.141,8.632,13.711,17.806,13.711c0.025,0,0.052,0,0.074-0.003c0.551-0.025,1.395-0.011,2.225-0.109c4.404-0.534,8.148-2.218,10.069-6.487c1.747-3.886,2.114-7.993,0.913-12.118C434.379,286.944,427.494,282.092,420.084,282.092')
-      .attr('transform', 'scale(' + (blip.width / 34) + ') translate(' + (-404 + x * (34 / blip.width) - 17) + ', ' + (-282 + y * (34 / blip.width) - 17) + ')')
-      .attr('class', order)
-  }
-
-  function circleLegend (x, y, group) {
-    return (group || svg).append('path')
-      .attr('d', 'M420.084,282.092c-1.073,0-2.16,0.103-3.243,0.313c-6.912,1.345-13.188,8.587-11.423,16.874c1.732,8.141,8.632,13.711,17.806,13.711c0.025,0,0.052,0,0.074-0.003c0.551-0.025,1.395-0.011,2.225-0.109c4.404-0.534,8.148-2.218,10.069-6.487c1.747-3.886,2.114-7.993,0.913-12.118C434.379,286.944,427.494,282.092,420.084,282.092')
-      .attr('transform', 'scale(' + (22 / 64) + ') translate(' + (-404 + x * (64 / 22) - 17) + ', ' + (-282 + y * (64 / 22) - 17) + ')')
   }
 
   function addRing (ring, order) {
@@ -237,15 +219,57 @@ const Radar = function (size, radar) {
 
     var group = quadrantGroup.append('g').attr('class', 'blip-link').attr('id', 'blip-link-' + blip.number())
 
-    if (blip.isNew()) {
-      triangle(blip, x, y, order, group)
-    } else {
-      circle(blip, x, y, order, group)
+    switch(blip.icon()){
+      case 'none':
+        group.append('text')
+        .attr('x', x)
+        .attr('y', y + 4)
+        .attr('class', 'fa')
+        .attr('style', 'fill:red')
+        .text(NONE_CODE);
+        break;
+      case 'budding':
+        group.append('text')
+        .attr('x', x)
+        .attr('y', y + 4)
+        .attr('class', 'fa')
+        .attr('style', 'fill:orange')
+        .text(BUDDING_CODE);
+        break;
+      case 'leaning':
+        group.append('text')
+        .attr('x', x)
+        .attr('y', y + 4)
+        .attr('class', 'fa')
+        .attr('style', 'fill:yellow')
+        .text(LEANING_CODE);
+        break;
+      case 'confident':
+        group.append('text')
+        .attr('x', x)
+        .attr('y', y + 4)
+        .attr('class', 'fa')
+        .attr('style', 'fill:lightgreen')
+        .text(CONFIDENT_CODE);
+        break;
+      case 'lock':
+        group.append('text')
+        .attr('x', x)
+        .attr('y', y + 4)
+        .attr('class', 'fa')
+        .attr('style', 'fill:green')
+        .text(LOCK_CODE);
+        break;
     }
+    group.append('circle')
+      .attr('r', blip.width / 2)
+      .attr('cx', x - 4)
+      .attr('cy', y + 4)
+      .attr('class', 'blip-text-background')
 
     group.append('text')
-      .attr('x', x)
-      .attr('y', y + 4)
+      .attr('x', x - 4)
+      .attr('y', y + 8)
       .attr('class', 'blip-text')
       // derive font-size from current blip width
       .style('font-size', ((blip.width * 10) / 22) + 'px')
@@ -320,9 +344,6 @@ const Radar = function (size, radar) {
   function drawLegend (order) {
     removeRadarLegend()
 
-    var triangleKey = 'New or moved'
-    var circleKey = 'No change'
-
     var container = d3.select('svg').append('g')
       .attr('class', 'legend legend' + '-' + order)
 
@@ -354,23 +375,80 @@ const Radar = function (size, radar) {
       .transition()
       .style('visibility', 'visible')
 
-    triangleLegend(x, y, container)
-
+    var none = 'none'
+    container
+      .append('text')
+      .attr('x', x - 10)
+      .attr('y', y + 2)
+      .attr('class', 'fa')
+      .attr('style', 'fill:red')
+      .text(NONE_CODE);
     container
       .append('text')
       .attr('x', x + 15)
-      .attr('y', y + 5)
+      .attr('y', y)
       .attr('font-size', '0.8em')
-      .text(triangleKey)
+      .text(none)
 
-    circleLegend(x, y + 20, container)
-
+    var budding = 'budding'
+    container
+      .append('text')
+      .attr('x', x - 10)
+      .attr('y', y + 22)
+      .attr('class', 'fa')
+      .attr('style', 'fill:orange')
+      .text(BUDDING_CODE);
     container
       .append('text')
       .attr('x', x + 15)
-      .attr('y', y + 25)
+      .attr('y', y + 20)
       .attr('font-size', '0.8em')
-      .text(circleKey)
+      .text(budding)
+
+    var leaning = 'leaning'
+      container
+      .append('text')
+      .attr('x', x - 10)
+      .attr('y', y + 42)
+      .attr('class', 'fa')
+      .attr('style', 'fill:yellow')
+      .text(LEANING_CODE);
+      container
+      .append('text')
+      .attr('x', x + 15)
+      .attr('y', y + 40)
+      .attr('font-size', '0.8em')
+      .text(leaning)
+
+      var confident = 'confident'
+      container
+      .append('text')
+      .attr('x', x - 10)
+      .attr('y', y + 62)
+      .attr('class', 'fa')
+      .attr('style', 'fill:lightgreen')
+      .text(CONFIDENT_CODE);
+      container
+      .append('text')
+      .attr('x', x + 15)
+      .attr('y', y + 60)
+      .attr('font-size', '0.8em')
+      .text(confident)
+
+      var lock = 'lock'
+      container
+      .append('text')
+      .attr('x', x - 10)
+      .attr('y', y + 82)
+      .attr('class', 'fa')
+      .attr('style', 'fill:green')
+      .text(LOCK_CODE);
+      container
+      .append('text')
+      .attr('x', x + 15)
+      .attr('y', y + 80)
+      .attr('font-size', '0.8em')
+      .text(lock)
   }
 
   function redrawFullRadar () {

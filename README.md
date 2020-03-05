@@ -25,7 +25,7 @@ You need to make your data public in a form we can digest.
 
 Create a Google Sheet. Give it at least the below column headers, and put in the content that you want:
 
-| name          | ring   | quadrant               | isNew | description                                             |
+| name          | ring   | quadrant               | icon | description                                             |
 |---------------|--------|------------------------|-------|---------------------------------------------------------|
 | Composer      | adopt  | tools                  | TRUE  | Although the idea of dependency management ...          |
 | Canary builds | trial  | techniques             | FALSE | Many projects have external code dependencies ...       |
@@ -46,7 +46,7 @@ You can enter any URL that responds CSV data into the input field on the first p
 The format is just the same as that of the Google Sheet, the example is as follows:
 
 ```
-name,ring,quadrant,isNew,description  
+name,ring,quadrant,icon,description  
 Composer,adopt,tools,TRUE,"Although the idea of dependency management ..."  
 Canary builds,trial,techniques,FALSE,"Many projects have external code dependencies ..."  
 Apache Kylin,assess,platforms,TRUE,"Apache Kylin is an open source analytics solution ..."  

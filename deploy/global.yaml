@@ -1,0 +1,11 @@
+# This file contains all the things that are the same between environments,
+# or need to be shared with the build templating.
+templateVersion: 5                  # The template version to use. Invalid or unspecified values will use version 1.
+
+service:
+  name: "tech-radar"                  # The name of the service.
+  imageRepository: "tech-radar"       # The name of the image repository to pull from.
+  gitRepository: "build-your-own-radar"
+
+network:
+  port: 80                          # What port does the Docker container expose?
