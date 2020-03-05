@@ -47,7 +47,7 @@ spec:
       - name: registry.imaginelearning.net
       containers:
       - name: techradar
-        image: registry.imagineleanring.net/ilprovo/tech-radar
+        image: registry.imaginelearning.net/ilprovo/tech-radar
         imagePullPolicy: IfNotPresent
         resources:
           limits:
