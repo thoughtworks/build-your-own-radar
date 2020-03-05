@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: techradar-svc
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: techradar
+      name: http
+  selector:
+    app: techradar
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  name: techradar-ingress
+spec:
+  rules:
+  - host: radar.imaginelearning.net
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: techradar-svc
+          servicePort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: techradar
+  labels:
+    app: techradar
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: techradar
+  template:
+    metadata:
+      labels:
+        app: techradar
+    spec:
+      containers:
+      - name: techradar
+        image: registry.imagineleanring.net/ilprovo/tech-radar
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1000Mi
+          requests:
+            cpu: 100m
+            memory: 500Mi
+        ports:
+        - containerPort: 80
+          name: techradar
+
