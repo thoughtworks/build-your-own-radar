@@ -43,6 +43,8 @@ spec:
       labels:
         app: techradar
     spec:
+      imagePullSecrets:
+      - name: registry.imaginelearning.net
       containers:
       - name: techradar
         image: registry.imagineleanring.net/ilprovo/tech-radar
