@@ -219,6 +219,21 @@ const Radar = function (size, radar) {
 
     var group = quadrantGroup.append('g').attr('class', 'blip-link').attr('id', 'blip-link-' + blip.number())
 
+    group.append('circle')
+      .attr('r', blip.width / 2)
+      .attr('cx', x - 4)
+      .attr('cy', y + 4)
+      .attr('class', 'blip-text-background')
+
+    group.append('text')
+      .attr('x', x - 4)
+      .attr('y', y + 8)
+      .attr('class', 'blip-text')
+      // derive font-size from current blip width
+      .style('font-size', ((blip.width * 10) / 22) + 'px')
+      .attr('text-anchor', 'middle')
+      .text(blip.number())
+
     switch(blip.icon()){
       case 'none':
         group.append('text')
@@ -261,20 +276,7 @@ const Radar = function (size, radar) {
         .text(LOCK_CODE);
         break;
     }
-    group.append('circle')
-      .attr('r', blip.width / 2)
-      .attr('cx', x - 4)
-      .attr('cy', y + 4)
-      .attr('class', 'blip-text-background')
-
-    group.append('text')
-      .attr('x', x - 4)
-      .attr('y', y + 8)
-      .attr('class', 'blip-text')
-      // derive font-size from current blip width
-      .style('font-size', ((blip.width * 10) / 22) + 'px')
-      .attr('text-anchor', 'middle')
-      .text(blip.number())
+    
 
     var blipListItem = ringList.append('li')
     var blipText = blip.number() + '. ' + blip.name() + (blip.topic() ? ('. - ' + blip.topic()) : '')
