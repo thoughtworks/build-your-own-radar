@@ -1,5 +1,17 @@
 name,quadrant,ring,icon,description
-React,Frontend,Adopt,lock,Leader in the market for tooling and developer eco system.
+React,Frontend,Adopt,lock,"<p>React is a simple and lightweight javascript framework for developing modern applications.</p>
+<h3>Pros</h3>
+<ul>
+<li>Lightweigth</li>
+<li>Fast</li>
+<li>Fantastic developer eco-system</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Generally requires many plugins to get desired functionality</li>
+</ul>
+<p>When decision made: 3/5/2020
+When decision will be revisted: 01/01/2022</p>"
 React scripts,Frontend,Adopt,confident,Use React Script to build the application.
 Redux,Frontend,Adopt,confident,Redux enables better management of complex state. 
 Typescript,Frontend,Adopt,confident,Typescript provides strong typing and better tooling. Ultimately leading to more stable code.
