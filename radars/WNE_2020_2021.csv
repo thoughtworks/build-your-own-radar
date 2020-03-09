@@ -11,7 +11,8 @@ React,Frontend,Adopt,lock,"<p>React is a simple and lightweight javascript frame
 <li>Generally requires many plugins to get desired functionality</li>
 </ul>
 <p>When decision made: 3/5/2020
-When decision will be revisted: 01/01/2022</p>"
+When decision will be revisted: 01/01/2022</p>
+<p>Replaces <a href="""">Angular</a></p>"
 React scripts,Frontend,Adopt,confident,Use React Script to build the application.
 Redux,Frontend,Adopt,confident,Redux enables better management of complex state. 
 Typescript,Frontend,Adopt,confident,Typescript provides strong typing and better tooling. Ultimately leading to more stable code.
@@ -68,6 +69,20 @@ PowerBI,Data,Adopt,confident,coming
 Kinesis Data Analytics (Apache Flink),Data,Trial,budding,coming
 Postgres (Aurora Serverless),Data,Trial,budding,coming
 Databricks,Data,Trial,budding,coming
+Matillion,Data,Hold,confident,"<p>Matillion is a purpose-built ETL designer and job engine. It’s a cloud-only product (cannot run locally in virtual machines or docker containers) and supports Redshift and Snowflake. The design canvas has a tree of job definitions and each job definition is represented as a graph of visual components. The user is able to drag and drop the components and alter their properties. Though the intent is largely to expose a point and click interface, it also supports custom SQL in various components and in practice Imagine Learning has used a fair amount of custom SQL.</p>
+<p>While the product falls under an ETL umbrella, it is more accurately an ELT engine because the work is mostly executed in the target Redshift or Snowflake engine. In other words, executing a job (scheduled or otherwise) results in the Matillion runtime executing queries against Redshift/Snowflake such that the inputs and outputs of the queries are different tables in Redshift/Snowflake. The Matillion software itself runs on an EC2 instance but the resource utilization is relatively light there. Cost is based on actual EC2 cost plus a licensing fee to Matillion.</p>
+<p>Matillion includes support for extraction from many source technologies. The pattern is such that queries can be executed against source systems and the results are placed in the target Redshift / Snowflake, and then transforms are executed in the form of SQL on the target system to move and transform the data to destination tables (such as fact and dimension tables).</p>
+<h3>Pros</h3>
+<ul>
+<li>Potentially quicker to path to working ETL system than custom coded spark/glue/emr/databricks</li>
+<li>SQL-centric nature well received by data engineers with extensive SQL background</li>
+<li>Support for both Redshift and Snowflake as destination systems</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Cloud-only. No means to execute locally.</li>
+<li>Compared to ETL where the majority of the T is done out-of-process from redshift / snowflake, a heaver load is placed on redshift / snowflake.</li>
+</ul>"
 Redshift,Data,Hold,none,coming
 MySQL,Data,Hold,none,coming
 SQL Server,Data,Hold,none,coming
@@ -92,7 +107,44 @@ Spinnaker,Infrastructure,Adopt,leaning,coming
 Datadog,Infrastructure,Adopt,leaning,coming
 Prometheus + Grafana,Infrastructure,Adopt,confident,coming
 Velero (Heptio Ark),Infrastructure,Adopt,confident,coming
-Athena,Infrastructure,Adopt,confident,coming
+Athena,Infrastructure,Adopt,confident,"<p>Athena is a managed / on-demand query execution service. To date Imagine Learning has used it to execute SQL queries against data stored in S3. Athena can query data in S3 that is structured (parquet or ORC files) or semi-structured (JSON, XML, CSV).</p>
+<p>A common scenario is that data exists in a data source that does not support SQL queries. For instance, the Imagine Learning L&amp;L and Spanish products store student data as JSON in Azure Blob storage. By replicating that data to S3 as parquet or ORC files, SQL queries can be executed against the data.</p>
+<p>Sample use cases:</p>
+<ul>
+<li>Engineers and QA personnel can query ILEvents that operational services have emitted such as rostering events. In this use case, Athena is useful to explore the data or to troubleshoot whether a particular event was sent.</li>
+<li>Engineers, QA, and data analysts can query student data for the Imagine Learning L&amp;L and Spanish products for the purposes of troubleshooting or for the purposes of producing an ad-hoc report.</li>
+<li></li>
+</ul>
+<p>Some technology companies use Athena to transform data.  This might include taking a dataset from S3, executing a transform query, and storing the results to a second dataset in S3.</p>
+<p>The cost structure of Athena queries is based on the volume of data that's read from S3 to execute the query. The partitioning strategy of the S3 data is especially important and care should be taken to utilize the partitioning in query filters. For instance if data is partitioned by date and the Athena query has a corresponding filter then only a small subset of the S3 dataset is read when the query is executed.</p>
+<p>AWS exposes a web interface for authoring and executing Athena queries which is sufficient for casual usage. Power users will more likely want to utilize an ODBC or JDBC driver so that a full-featured IDE can be used to author and execute queries, or in cases where an automated job is executing the query.</p>
+<h3>Pros</h3>
+<ul>
+<li>Provides an SQL query interface to structured and semi-structed data stored in S3.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Without an adequate partitioning strategy and utilization of that strategy as part of the queries, costs to execute can be relatively high. As an example, the student data from L&amp;L / Spanish can cost up to $2.50 per query if the entire S3 dataset is read.  The worst case cost is entirely a function of the size of the dataset which suggests that documentation should exist to provide guidance depending on the dataset.</li>
+<li>While Athena supports an ANSI SQL compatibility level, this may not be as full featured as SQL variants supported by other relational databases such as Microsoft SQL Server
+In some cases, other technologies like Spark could be a prefered means to query the S3 data.  This might be for performance reasons (more control over the node types that execute the query).</li>
+</ul>"
+S3,Infrastructure,Adopt,confident,"<p>S3 is a distributed file system. It is highly scalable and has many uses. Recommended usages are diverse. One such scenario: it is the recommended WNE technology for data lakes including two types of zones:</p>
+<ol>
+<li>Raw (such as a copy of operational data stores or as the history of operational events)</li>
+<li>Curated/gold (post cleanse and transform)</li>
+</ol>
+<p>Since S3 is a file system, there are many choices for data format. Structured formats include parquet (recommended) and ORC. Semi-structured formats include JSON (recommend JSON per line), XML, and CSV. Unstructured formats include media files such as audio and video.</p>
+<p>Related to above, we see it being used as the source of master data (entities) and as the underlying source of analytical data (with replication to serving databases potentially outside S3).</p>
+<h3>Pros</h3>
+<ul>
+<li>Cost effective storage (keep in mind that there are multiple tiers selected based on data access frequency and latency requirements)</li>
+<li>High scale</li>
+<li>Reasonable latency</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Without oversight it’s easy to accumulate data that does not have value</li>
+</ul>"
 EKS,Infrastructure,Trial,budding,coming
 Concourse CI,Infrastructure,Trial,budding,coming
 NewRelic,Infrastructure,Trial,budding,coming

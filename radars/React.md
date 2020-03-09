@@ -11,3 +11,5 @@ React is a simple and lightweight javascript framework for developing modern app
 When decision made: 3/5/2020
 When decision will be revisted: 01/01/2022
 
+Replaces [Angular]()
+
