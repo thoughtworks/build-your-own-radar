@@ -138,7 +138,7 @@ const Radar = function (size, radar) {
     })
   }
 
-  function plotBlips (quadrantGroup, rings, quadrantWrapper) {
+  function plotBlips (quadrantGroup, rings, quadrantWrapper, findBlip) {
     var blips, quadrant, startAngle, order
 
     quadrant = quadrantWrapper.quadrant
@@ -184,7 +184,7 @@ const Radar = function (size, radar) {
           allBlipCoordinatesInRing)
 
         allBlipCoordinatesInRing.push(coordinates)
-        drawBlipInCoordinates(blip, coordinates, order, quadrantGroup, ringList)
+        drawBlipInCoordinates(blip, coordinates, order, quadrantGroup, ringList, findBlip)
       })
     })
   }
@@ -213,7 +213,7 @@ const Radar = function (size, radar) {
     }
   }
 
-  function drawBlipInCoordinates (blip, coordinates, order, quadrantGroup, ringList) {
+  function drawBlipInCoordinates (blip, coordinates, order, quadrantGroup, ringList, findBlip) {
     var x = coordinates[0]
     var y = coordinates[1]
 
@@ -312,6 +312,19 @@ const Radar = function (size, radar) {
       blipItemDescription.classed('expanded', !blipItemDescription.classed('expanded'))
 
       blipItemDescription.on('click', function () {
+        var linkClicked = d3.event.toElement;
+        if(linkClicked && linkClicked.localName === 'a' && linkClicked.href === window.location.href) {
+          //this is a self link to direct them over to the correct item
+          
+          const linkedBlip = findBlip(linkClicked.text)
+          if (linkedBlip.length > 0) {
+            searchBlip(null, {item: linkedBlip[0]})
+          }
+          
+          //stop the event from going further
+          d3.event.preventDefault();
+        }
+
         d3.event.stopPropagation()
       })
     }
@@ -679,6 +692,12 @@ const Radar = function (size, radar) {
     })
   }
 
+  function createBlipGroups(quadrants){
+    return quadrants.reduce((acc, quadrant) => {
+      return [...acc, ...quadrant.quadrant.blips().map((blip) => ({ blip, quadrant }))]
+    }, [])
+  }
+
   self.plot = function () {
     var rings, quadrants, alternatives, currentSheet
 
@@ -698,14 +717,21 @@ const Radar = function (size, radar) {
     svg = radarElement.append('svg').call(tip)
     svg.attr('id', 'radar-plot').attr('width', size).attr('height', size + 14)
 
+    let blips = []
+    const findBlip = (name) => {
+      return blips.filter(item => item.blip.name() === name)
+    }
+
     _.each(quadrants, function (quadrant) {
       var quadrantGroup = plotQuadrant(rings, quadrant)
       plotLines(quadrantGroup, quadrant)
       plotTexts(quadrantGroup, rings, quadrant)
-      plotBlips(quadrantGroup, rings, quadrant)
+      plotBlips(quadrantGroup, rings, quadrant, findBlip)
     })
 
+    blips = createBlipGroups(quadrants)
     plotRadarFooter()
+    
   }
 
   return self
