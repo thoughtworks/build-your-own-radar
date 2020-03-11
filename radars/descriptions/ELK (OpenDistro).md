@@ -1,4 +1,4 @@
-ELK is the combination of Elasticsearch, Kibana and Logstash. See (Elasticsearch)[] for more information on that but Logstash is a good ingester of data into Elasticsearch. This combination of services makes for a solid logging solution. Additionally, AWS has contributed back to the community with [OpenDistro](https://opendistro.github.io/for-elasticsearch/) to fill the gaps in authentication and management of the system.
+ELK is the combination of Elasticsearch, Kibana and Logstash. See [Elasticsearch]() for more information on that but Logstash is a good ingester of data into Elasticsearch. This combination of services makes for a solid logging solution. Additionally, AWS has contributed back to the community with [OpenDistro](https://opendistro.github.io/for-elasticsearch/) to fill the gaps in authentication and management of the system.
 
 ### Pros
 * Can handle large amounts of log data

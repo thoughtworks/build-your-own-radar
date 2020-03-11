@@ -108,7 +108,7 @@ QuickSight,Data,Hold,none,coming
 Glue,Data,Hold,none,coming
 Periscope,Data,Hold,none,coming
 EMR (Spark),Data,Hold,none,coming
-ELK (OpenDistro),Infrastructure,Adopt,confident,"<p>ELK is the combination of Elasticsearch, Kibana and Logstash. See (Elasticsearch)[] for more information on that but Logstash is a good ingester of data into Elasticsearch. This combination of services makes for a solid logging solution. Additionally, AWS has contributed back to the community with <a href=""https://opendistro.github.io/for-elasticsearch/"">OpenDistro</a> to fill the gaps in authentication and management of the system.</p>
+ELK (OpenDistro),Infrastructure,Adopt,confident,"<p>ELK is the combination of Elasticsearch, Kibana and Logstash. See <a href="""">Elasticsearch</a> for more information on that but Logstash is a good ingester of data into Elasticsearch. This combination of services makes for a solid logging solution. Additionally, AWS has contributed back to the community with <a href=""https://opendistro.github.io/for-elasticsearch/"">OpenDistro</a> to fill the gaps in authentication and management of the system.</p>
 <h3>Pros</h3>
 <ul>
 <li>Can handle large amounts of log data</li>
