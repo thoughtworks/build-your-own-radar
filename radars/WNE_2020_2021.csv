@@ -10,9 +10,10 @@ React,Frontend,Adopt,lock,"<p>React is a simple and lightweight javascript frame
 <ul>
 <li>Generally requires many plugins to get desired functionality</li>
 </ul>
-<p>When decision made: 3/5/2020
+<p>When decision made: 3/5/2020<br />
 When decision will be revisted: 01/01/2022</p>
-<p>Replaces <a href="""">Angular</a></p>"
+<p>Replaces <a href="""">Angular</a></p>
+"
 React scripts,Frontend,Adopt,confident,Use React Script to build the application.
 Redux,Frontend,Adopt,confident,Redux enables better management of complex state. 
 Typescript,Frontend,Adopt,confident,Typescript provides strong typing and better tooling. Ultimately leading to more stable code.
@@ -62,14 +63,28 @@ DynamoDB,Data,Adopt,lock,"<p>Dynamo is a NOSQL database hosted and manged by AWS
 <li>Difficult to query ad-hoc</li>
 </ul>
 <p>Dynamo should be used by default for any microservice that is storing things as operational records that do not have heavy query requirements. For more information see <a href=""https://medium.com/imaginelearning/bring-dynamo-to-the-data-science-party-2d961b72bb8d?source=friends_link&amp;sk=5dd7bd16cbf678bb926122549d83cb4a"">This great Medium article</a></p>"
-Elasticsearch,Data,Adopt,confident,Specifically for report delivery. Easy aggregations and faceted searches.
+Elasticsearch,Data,Adopt,confident,"<p>Elasticsearch is a NOSQL database. Elasticsearch is a great tool for submillisecond latency and containing large amounts of data.</p>
+<h3>Pros</h3>
+<ul>
+<li>Extremely efficient text searching</li>
+<li>Great for simple metric aggregations</li>
+<li>Extremely fast response times</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>No ability to join documents directly</li>
+<li>Can be difficult to setup and maintain</li>
+</ul>
+<p>When decision made:</p>
+<p>When decision will be revisted:</p>
+"
 Redis,Data,Adopt,confident,coming
 Postgres,Data,Adopt,lock,coming
 PowerBI,Data,Adopt,confident,coming
 Kinesis Data Analytics (Apache Flink),Data,Trial,budding,coming
 Postgres (Aurora Serverless),Data,Trial,budding,coming
 Databricks,Data,Trial,budding,coming
-Matillion,Data,Hold,confident,"<p>Matillion is a purpose-built ETL designer and job engine. ItÕs a cloud-only product (cannot run locally in virtual machines or docker containers) and supports Redshift and Snowflake. The design canvas has a tree of job definitions and each job definition is represented as a graph of visual components. The user is able to drag and drop the components and alter their properties. Though the intent is largely to expose a point and click interface, it also supports custom SQL in various components and in practice Imagine Learning has used a fair amount of custom SQL.</p>
+Matillion,Data,Hold,confident,"<p>Matillion is a purpose-built ETL designer and job engine. Itâ€™s a cloud-only product (cannot run locally in virtual machines or docker containers) and supports Redshift and Snowflake. The design canvas has a tree of job definitions and each job definition is represented as a graph of visual components. The user is able to drag and drop the components and alter their properties. Though the intent is largely to expose a point and click interface, it also supports custom SQL in various components and in practice Imagine Learning has used a fair amount of custom SQL.</p>
 <p>While the product falls under an ETL umbrella, it is more accurately an ELT engine because the work is mostly executed in the target Redshift or Snowflake engine. In other words, executing a job (scheduled or otherwise) results in the Matillion runtime executing queries against Redshift/Snowflake such that the inputs and outputs of the queries are different tables in Redshift/Snowflake. The Matillion software itself runs on an EC2 instance but the resource utilization is relatively light there. Cost is based on actual EC2 cost plus a licensing fee to Matillion.</p>
 <p>Matillion includes support for extraction from many source technologies. The pattern is such that queries can be executed against source systems and the results are placed in the target Redshift / Snowflake, and then transforms are executed in the form of SQL on the target system to move and transform the data to destination tables (such as fact and dimension tables).</p>
 <h3>Pros</h3>
@@ -82,7 +97,8 @@ Matillion,Data,Hold,confident,"<p>Matillion is a purpose-built ETL designer and 
 <ul>
 <li>Cloud-only. No means to execute locally.</li>
 <li>Compared to ETL where the majority of the T is done out-of-process from redshift / snowflake, a heaver load is placed on redshift / snowflake.</li>
-</ul>"
+</ul>
+"
 Redshift,Data,Hold,none,coming
 MySQL,Data,Hold,none,coming
 SQL Server,Data,Hold,none,coming
@@ -116,7 +132,7 @@ Athena,Infrastructure,Adopt,confident,"<p>Athena is a managed / on-demand query 
 <li></li>
 </ul>
 <p>Some technology companies use Athena to transform data.  This might include taking a dataset from S3, executing a transform query, and storing the results to a second dataset in S3.</p>
-<p>The cost structure of Athena queries is based on the volume of data that's read from S3 to execute the query. The partitioning strategy of the S3 data is especially important and care should be taken to utilize the partitioning in query filters. For instance if data is partitioned by date and the Athena query has a corresponding filter then only a small subset of the S3 dataset is read when the query is executed.</p>
+<p>The cost structure of Athena queries is based on the volume of data thatâ€™s read from S3 to execute the query. The partitioning strategy of the S3 data is especially important and care should be taken to utilize the partitioning in query filters. For instance if data is partitioned by date and the Athena query has a corresponding filter then only a small subset of the S3 dataset is read when the query is executed.</p>
 <p>AWS exposes a web interface for authoring and executing Athena queries which is sufficient for casual usage. Power users will more likely want to utilize an ODBC or JDBC driver so that a full-featured IDE can be used to author and execute queries, or in cases where an automated job is executing the query.</p>
 <h3>Pros</h3>
 <ul>
@@ -125,9 +141,10 @@ Athena,Infrastructure,Adopt,confident,"<p>Athena is a managed / on-demand query 
 <h3>Cons</h3>
 <ul>
 <li>Without an adequate partitioning strategy and utilization of that strategy as part of the queries, costs to execute can be relatively high. As an example, the student data from L&amp;L / Spanish can cost up to $2.50 per query if the entire S3 dataset is read.  The worst case cost is entirely a function of the size of the dataset which suggests that documentation should exist to provide guidance depending on the dataset.</li>
-<li>While Athena supports an ANSI SQL compatibility level, this may not be as full featured as SQL variants supported by other relational databases such as Microsoft SQL Server
+<li>While Athena supports an ANSI SQL compatibility level, this may not be as full featured as SQL variants supported by other relational databases such as Microsoft SQL Server<br />
 In some cases, other technologies like Spark could be a prefered means to query the S3 data.  This might be for performance reasons (more control over the node types that execute the query).</li>
-</ul>"
+</ul>
+"
 S3,Infrastructure,Adopt,confident,"<p>S3 is a distributed file system. It is highly scalable and has many uses. Recommended usages are diverse. One such scenario: it is the recommended WNE technology for data lakes including two types of zones:</p>
 <ol>
 <li>Raw (such as a copy of operational data stores or as the history of operational events)</li>
@@ -143,8 +160,9 @@ S3,Infrastructure,Adopt,confident,"<p>S3 is a distributed file system. It is hig
 </ul>
 <h3>Cons</h3>
 <ul>
-<li>Without oversight itÕs easy to accumulate data that does not have value</li>
-</ul>"
+<li>Without oversight itâ€™s easy to accumulate data that does not have value</li>
+</ul>
+"
 EKS,Infrastructure,Trial,budding,coming
 Concourse CI,Infrastructure,Trial,budding,coming
 NewRelic,Infrastructure,Trial,budding,coming
