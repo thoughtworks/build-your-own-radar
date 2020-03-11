@@ -108,17 +108,177 @@ QuickSight,Data,Hold,none,coming
 Glue,Data,Hold,none,coming
 Periscope,Data,Hold,none,coming
 EMR (Spark),Data,Hold,none,coming
-ELK,Infrastructure,Adopt,confident,For logging specifically. 
-Kubernetes,Infrastructure,Adopt,lock,Container orchestration.
-Docker,Infrastructure,Adopt,lock,coming
-AWS Lambda (event processing),Infrastructure,Adopt,confident,Specifically for event processing. Should not be used as long term API handlers. 
-Terraform,Infrastructure,Adopt,lock,coming
-FluentD,Infrastructure,Adopt,confident,coming
-Github source control,Infrastructure,Adopt,lock,coming
-Teamcity,Infrastructure,Adopt,leaning,coming
-Claire,Infrastructure,Adopt,leaning,coming
-Jenkins,Infrastructure,Adopt,leaning,coming
-Jira,Infrastructure,Adopt,lock,coming
+ELK (OpenDistro),Infrastructure,Adopt,confident,"<p>ELK is the combination of Elasticsearch, Kibana and Logstash. See (Elasticsearch)[] for more information on that but Logstash is a good ingester of data into Elasticsearch. This combination of services makes for a solid logging solution. Additionally, AWS has contributed back to the community with <a href=""https://opendistro.github.io/for-elasticsearch/"">OpenDistro</a> to fill the gaps in authentication and management of the system.</p>
+<h3>Pros</h3>
+<ul>
+<li>Can handle large amounts of log data</li>
+<li>Very low cost because there are no license restrictions</li>
+<li>Automatic ingestion of any log</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Requires some maintenance and consideration on the indices themselves</li>
+<li>Doesn’t have</li>
+</ul>
+<p><a href=""https://engineering.grab.com/structured-logging"">Structured logs</a> should be used where possible to make the searches as efficient as possible.</p>
+<p>When decision made:</p>
+<p>When decision will be revisted:</p>
+"
+Kibana,Infrastructure,Adopt,confident,"<p>Kibana is a great frontend system for Elasticsearch. Look at (ELk)[] for more information as by itself it is merely a visualization tool.</p>
+"
+Kubernetes,Infrastructure,Adopt,lock,"<p>Kubernetes is a container orchestration system. Kubernetes has become the de facto standard in the last few years when it comes to running containers.</p>
+<h3>Pros</h3>
+<ul>
+<li>Provides infinite scaling abilities</li>
+<li>Self healing pods when configured with health and readiness probes</li>
+<li>Efficiently packs applications onto the nodes to achieve greater application density which leads to lower costs</li>
+<li>Extremely active community that is constantly contributing back to the ecosystem</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Initial configuration can be very daunting</li>
+<li>Required updates on the regular to not fall behind</li>
+</ul>
+<p>When decision made:</p>
+<p>When decision will be revisted:</p>
+"
+Docker,Infrastructure,Adopt,lock,"<p>Docker is a means of packaging an application with all of its dependencies required to run. You can think of a Docker container as a lightweight virtual machine without the overhead of the OS. Typically we prefer smaller containers based on the Alpine images. When you build your applications this way you can have the same deployment patterns with all applications regardless of language.</p>
+<h3>Pros</h3>
+<ul>
+<li>Provides a means to control the running environments easily</li>
+<li>The container provides a consistent experience across the board</li>
+<li>Containers enable greater application density to use every ounce of server resources efficiently</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Debugging can be more difficult if there is an issue with the container itself</li>
+</ul>
+<p>Combining these benefits with <a href="""">Kubernetes</a> leads to a great way to manage all applications efficiently.</p>
+<p>When decision made:</p>
+<p>When decision will be revisted:</p>
+"
+AWS Lambda (event processing),Infrastructure,Adopt,confident,"<p>AWS Lambda functions are a great way to run snippets of code without worrying about the underlying infrastructure the code would run on. Currently this is most useful as means to cheaply process events from Kinesis, DynamoDb streams, SNS, or SQS. AWS has provided all of the plumbing to handle this efficiently.</p>
+<h3>Pros</h3>
+<ul>
+<li>Very cheap, insanely cheap</li>
+<li>Effectively infinite scale</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Not a good fit for IO bound operations</li>
+<li>Deployment pipelines for the functions themselves is not ideal. Even when using <a href="""">Terraform</a> you have to resort to zip files.</li>
+<li>You must wait for updated frameworks (new versions of Node or .NET core for example) to be available on AWS</li>
+</ul>
+<p>When decision made:</p>
+<p>When decision will be revisted:</p>
+"
+Terraform,Infrastructure,Adopt,lock,"<p><a href=""https://www.terraform.io/"">Terraform</a> is an open source tool to use <code>Infrastructure as Code</code> principles. As your infrastructure is created you can always make modifications and deploy all of your infra like you would with code.</p>
+<h3>Pros</h3>
+<ul>
+<li>Syntactically superior to other tools</li>
+<li>Free</li>
+<li>Active community</li>
+<li>Can be used with any type of infra, not just AWS</li>
+<li>Leads to repeatable infra with less errors</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Doesn’t provided direct drift detection</li>
+<li>IAM access is required to use Terraform effectively</li>
+</ul>
+<p>Terraform workspaces should be employed to separate different environments.<br />
+Replaces <a href="""">Cloud Formation</a></p>
+<p>When decision made:</p>
+<p>When decision will be revisted:</p>
+"
+Fluentd,Infrastructure,Adopt,confident,"<p><a href=""https://www.fluentd.org/"">Fluentd</a> is an open source tool that will automatically collect your logs and send them to an archiving source. There are many possibilities with the tool but we have found that running Fluentd as a daemon-set on our <a href="""">Kubernetes</a> cluster and logging things to <code>stdout</code> as the most effective logging solution.</p>
+<h3>Pros</h3>
+<ul>
+<li>Automatic collection of logs from simple sources</li>
+<li>Can do some log enrichment and manipulation</li>
+<li>Can batch and send logs directly to Elasticsearch</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Configuration is a bit cryptic</li>
+</ul>
+<p>When decision made:</p>
+<p>When decision will be revisted:</p>
+"
+Github (source),Infrastructure,Adopt,lock,"<p><a href=""https://github.com/"">Github</a> is a platform to host all of your git based repositories. By extension <a href=""https://git-scm.com"">git</a> should be used as your distributed version control system.</p>
+<h3>Pros</h3>
+<ul>
+<li>Provides incredible integration and tooling</li>
+<li>Well structured pull requests for code reviews</li>
+<li>Ability to integrate bots to accomplish tasks</li>
+<li>Builtin security scanning</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Occasional outages can affect engineering</li>
+</ul>
+<p>When decision made:</p>
+<p>When decision will be revisted:</p>
+"
+Teamcity,Infrastructure,Adopt,leaning,"<p><a href=""https://www.jetbrains.com/teamcity/"">Teamcity</a> is a build system. Built by the folks at Jetbrains it provides all the functionality needed for continuous integration.</p>
+<h3>Pros</h3>
+<ul>
+<li>Solid interface</li>
+<li>Build templating</li>
+<li>Well built plugins built by the Teamcity team</li>
+<li>Great cloud build agent support on Kubernetes or using AWS AMIs</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Not as popular as Jenkins and so there are less plugins</li>
+<li>Costs money</li>
+</ul>
+<p>When decision made:</p>
+<p>When decision will be revisted:</p>
+"
+Clair,Infrastructure,Adopt,leaning,"<p><a href=""https://coreos.com/clair/docs/latest/"">Clair</a> is a security scanner for Docker containers. Using Clair you are able to determine if there are known security issues with your container.</p>
+<h3>Pros</h3>
+<ul>
+<li>Integrates well with a private Docker registry</li>
+<li>Free</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>No UI</li>
+<li>Configuration isn’t straightforward</li>
+</ul>
+<p>When decision made:</p>
+<p>When decision will be revisted:</p>
+"
+Jenkins,Infrastructure,Adopt,leaning,"<p><a href=""https://jenkins.io/"">Jenkins</a> is a build system. Built by the open source community it provides all the functionality needed for continuous integration.</p>
+<h3>Pros</h3>
+<ul>
+<li>Innumerable plugins</li>
+<li>Not the easiest interface to work with</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Sometimes low quality plugins due to open source community</li>
+</ul>
+<p>When decision made:</p>
+<p>When decision will be revisted:</p>
+"
+Jira,Infrastructure,Adopt,lock,"<p><a href=""https://www.atlassian.com/software/jira"">Jira</a> is project management software.</p>
+<h3>Pros</h3>
+<ul>
+<li>Can use multiple workflows to accommodate different agile practices</li>
+<li>Not the easiest interface to work with’</li>
+<li>Cloud hosted</li>
+<li>Good plugin support</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Can feel really clunky at times</li>
+<li>Teams can be blocked when there are service interruptions</li>
+</ul>
+<p>When decision made:</p>
+<p>When decision will be revisted:</p>
+"
 Spinnaker,Infrastructure,Adopt,leaning,coming
 Datadog,Infrastructure,Adopt,leaning,coming
 Prometheus + Grafana,Infrastructure,Adopt,confident,coming

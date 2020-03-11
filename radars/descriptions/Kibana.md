@@ -1,0 +1,1 @@
+Kibana is a great frontend system for Elasticsearch. Look at (ELk)[] for more information as by itself it is merely a visualization tool. 
