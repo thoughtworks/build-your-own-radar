@@ -23,7 +23,11 @@ See the Dockerfile in the repo if you want to build your own container.
 
 ## Contribute
 
-The descriptions folder contains a series of markdown files that have descriptions for the items that exist in the CSV file. So, if you add a row in the CSV file for a particular technology you will want to create a `<name_of_tech.md>` file in the `radar/descriptions` directory. ***This name of this tech from the csv must match the filename exactly***
+The descriptions folder contains a series of markdown files that have descriptions for the items that exist in the CSV file. So, if you add a row in the CSV file for a particular technology you will want to create a `<name_of_tech.md>` file in the `radar/descriptions` directory. 
+***This name of this tech from the csv must match the filename exactly***
+
+If you want to link to another description from inside a markdown file you can simply put an empty href like `[Angular]()`. When that empty reference is clicked the site will navigate to the description for you. 
+***The name must match exactly***
 
 Once you've added your descriptions and items to the csv you can parse the markdown files so that their html is placed into the description column in the csv. 
 
