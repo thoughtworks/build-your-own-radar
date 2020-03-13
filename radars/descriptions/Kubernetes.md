@@ -12,4 +12,4 @@ Kubernetes is a container orchestration system. Kubernetes has become the de fac
 
 When decision made:
 
-When decision will be revisted:
+When decision will be revisited:

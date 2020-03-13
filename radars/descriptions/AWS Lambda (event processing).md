@@ -12,4 +12,4 @@ AWS Lambda functions are a great way to run snippets of code without worrying ab
 
 When decision made:
 
-When decision will be revisted:
+When decision will be revisited:

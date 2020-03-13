@@ -2,7 +2,7 @@ name,quadrant,ring,icon,description
 React,Frontend,Adopt,lock,"<p>React is a simple and lightweight javascript framework for developing modern applications.</p>
 <h3>Pros</h3>
 <ul>
-<li>Lightweigth</li>
+<li>Lightweight</li>
 <li>Fast</li>
 <li>Fantastic developer eco-system</li>
 </ul>
@@ -11,7 +11,7 @@ React,Frontend,Adopt,lock,"<p>React is a simple and lightweight javascript frame
 <li>Generally requires many plugins to get desired functionality</li>
 </ul>
 <p>When decision made: 3/5/2020<br />
-When decision will be revisted: 01/01/2022</p>
+When decision will be revisited: 01/01/2022</p>
 <p>Replaces <a href="""">Angular</a></p>
 "
 React scripts,Frontend,Adopt,confident,Use React Script to build the application.
@@ -76,7 +76,7 @@ Elasticsearch,Data,Adopt,confident,"<p>Elasticsearch is a NOSQL database. Elasti
 <li>Can be difficult to setup and maintain</li>
 </ul>
 <p>When decision made:</p>
-<p>When decision will be revisted:</p>
+<p>When decision will be revisited:</p>
 "
 Redis,Data,Adopt,confident,coming
 Postgres,Data,Adopt,lock,coming
@@ -122,7 +122,7 @@ ELK (OpenDistro),Infrastructure,Adopt,confident,"<p>ELK is the combination of El
 </ul>
 <p><a href=""https://engineering.grab.com/structured-logging"">Structured logs</a> should be used where possible to make the searches as efficient as possible.</p>
 <p>When decision made:</p>
-<p>When decision will be revisted:</p>
+<p>When decision will be revisited:</p>
 "
 Kibana,Infrastructure,Adopt,confident,"<p>Kibana is a great frontend system for Elasticsearch. Look at (ELk)[] for more information as by itself it is merely a visualization tool.</p>
 "
@@ -140,7 +140,7 @@ Kubernetes,Infrastructure,Adopt,lock,"<p>Kubernetes is a container orchestration
 <li>Required updates on the regular to not fall behind</li>
 </ul>
 <p>When decision made:</p>
-<p>When decision will be revisted:</p>
+<p>When decision will be revisited:</p>
 "
 Docker,Infrastructure,Adopt,lock,"<p>Docker is a means of packaging an application with all of its dependencies required to run. You can think of a Docker container as a lightweight virtual machine without the overhead of the OS. Typically we prefer smaller containers based on the Alpine images. When you build your applications this way you can have the same deployment patterns with all applications regardless of language.</p>
 <h3>Pros</h3>
@@ -155,7 +155,7 @@ Docker,Infrastructure,Adopt,lock,"<p>Docker is a means of packaging an applicati
 </ul>
 <p>Combining these benefits with <a href="""">Kubernetes</a> leads to a great way to manage all applications efficiently.</p>
 <p>When decision made:</p>
-<p>When decision will be revisted:</p>
+<p>When decision will be revisited:</p>
 "
 AWS Lambda (event processing),Infrastructure,Adopt,confident,"<p>AWS Lambda functions are a great way to run snippets of code without worrying about the underlying infrastructure the code would run on. Currently this is most useful as means to cheaply process events from Kinesis, DynamoDb streams, SNS, or SQS. AWS has provided all of the plumbing to handle this efficiently.</p>
 <h3>Pros</h3>
@@ -170,7 +170,7 @@ AWS Lambda (event processing),Infrastructure,Adopt,confident,"<p>AWS Lambda func
 <li>You must wait for updated frameworks (new versions of Node or .NET core for example) to be available on AWS</li>
 </ul>
 <p>When decision made:</p>
-<p>When decision will be revisted:</p>
+<p>When decision will be revisited:</p>
 "
 Terraform,Infrastructure,Adopt,lock,"<p><a href=""https://www.terraform.io/"">Terraform</a> is an open source tool to use <code>Infrastructure as Code</code> principles. As your infrastructure is created you can always make modifications and deploy all of your infra like you would with code.</p>
 <h3>Pros</h3>
@@ -189,7 +189,7 @@ Terraform,Infrastructure,Adopt,lock,"<p><a href=""https://www.terraform.io/"">Te
 <p>Terraform workspaces should be employed to separate different environments.<br />
 Replaces <a href="""">Cloud Formation</a></p>
 <p>When decision made:</p>
-<p>When decision will be revisted:</p>
+<p>When decision will be revisited:</p>
 "
 Fluentd,Infrastructure,Adopt,confident,"<p><a href=""https://www.fluentd.org/"">Fluentd</a> is an open source tool that will automatically collect your logs and send them to an archiving source. There are many possibilities with the tool but we have found that running Fluentd as a daemon-set on our <a href="""">Kubernetes</a> cluster and logging things to <code>stdout</code> as the most effective logging solution.</p>
 <h3>Pros</h3>
@@ -203,7 +203,7 @@ Fluentd,Infrastructure,Adopt,confident,"<p><a href=""https://www.fluentd.org/"">
 <li>Configuration is a bit cryptic</li>
 </ul>
 <p>When decision made:</p>
-<p>When decision will be revisted:</p>
+<p>When decision will be revisited:</p>
 "
 Github (source),Infrastructure,Adopt,lock,"<p><a href=""https://github.com/"">Github</a> is a platform to host all of your git based repositories. By extension <a href=""https://git-scm.com"">git</a> should be used as your distributed version control system.</p>
 <h3>Pros</h3>
@@ -218,7 +218,7 @@ Github (source),Infrastructure,Adopt,lock,"<p><a href=""https://github.com/"">Gi
 <li>Occasional outages can affect engineering</li>
 </ul>
 <p>When decision made:</p>
-<p>When decision will be revisted:</p>
+<p>When decision will be revisited:</p>
 "
 Teamcity,Infrastructure,Adopt,leaning,"<p><a href=""https://www.jetbrains.com/teamcity/"">Teamcity</a> is a build system. Built by the folks at Jetbrains it provides all the functionality needed for continuous integration.</p>
 <h3>Pros</h3>
@@ -234,7 +234,7 @@ Teamcity,Infrastructure,Adopt,leaning,"<p><a href=""https://www.jetbrains.com/te
 <li>Costs money</li>
 </ul>
 <p>When decision made:</p>
-<p>When decision will be revisted:</p>
+<p>When decision will be revisited:</p>
 "
 Clair,Infrastructure,Adopt,leaning,"<p><a href=""https://coreos.com/clair/docs/latest/"">Clair</a> is a security scanner for Docker containers. Using Clair you are able to determine if there are known security issues with your container.</p>
 <h3>Pros</h3>
@@ -248,7 +248,7 @@ Clair,Infrastructure,Adopt,leaning,"<p><a href=""https://coreos.com/clair/docs/l
 <li>Configuration isn’t straightforward</li>
 </ul>
 <p>When decision made:</p>
-<p>When decision will be revisted:</p>
+<p>When decision will be revisited:</p>
 "
 Jenkins,Infrastructure,Adopt,leaning,"<p><a href=""https://jenkins.io/"">Jenkins</a> is a build system. Built by the open source community it provides all the functionality needed for continuous integration.</p>
 <h3>Pros</h3>
@@ -261,7 +261,7 @@ Jenkins,Infrastructure,Adopt,leaning,"<p><a href=""https://jenkins.io/"">Jenkins
 <li>Sometimes low quality plugins due to open source community</li>
 </ul>
 <p>When decision made:</p>
-<p>When decision will be revisted:</p>
+<p>When decision will be revisited:</p>
 "
 Jira,Infrastructure,Adopt,lock,"<p><a href=""https://www.atlassian.com/software/jira"">Jira</a> is project management software.</p>
 <h3>Pros</h3>
@@ -277,12 +277,72 @@ Jira,Infrastructure,Adopt,lock,"<p><a href=""https://www.atlassian.com/software/
 <li>Teams can be blocked when there are service interruptions</li>
 </ul>
 <p>When decision made:</p>
-<p>When decision will be revisted:</p>
+<p>When decision will be revisited:</p>
 "
-Spinnaker,Infrastructure,Adopt,leaning,coming
-Datadog,Infrastructure,Adopt,leaning,coming
-Prometheus + Grafana,Infrastructure,Adopt,confident,coming
-Velero (Heptio Ark),Infrastructure,Adopt,confident,coming
+Spinnaker,Infrastructure,Adopt,leaning,"<p><a href=""https://www.spinnaker.io/"">Spinnaker</a> is a continuous delivery tool that can work with many different types of infrastructure. While Spinnaker can work with anything we have chosen to use it primarily to manage the deployment pipelines for the applications that reside on our Kubernetes cluster.</p>
+<h3>Pros</h3>
+<ul>
+<li>Visual workflow for releases</li>
+<li>Very customizable</li>
+<li>Constantly evolving</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Very resource heavy application</li>
+<li>Difficult configuration</li>
+<li>Occasional there are significant changes required to upgrade</li>
+<li>Not super well documented</li>
+</ul>
+<p>When decision made: 3/5/2020<br />
+When decision will be revisited: 01/01/2022</p>
+"
+Datadog,Infrastructure,Adopt,leaning,"<p><a href=""https://www.datadoghq.com/"">Datadog</a> is a hosted platform for monitoring and analytics. Datadog enables easy instrumentation of many types of applications and infrastructure.</p>
+<h3>Pros</h3>
+<ul>
+<li>Very quick to implement</li>
+<li>Lots of canned reports and dashboards</li>
+<li>Compared to other providers they have been cheaper</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>No Azure support</li>
+<li>Dashboards aren’t very straightforward</li>
+</ul>
+<p>When decision made: 3/5/2020<br />
+When decision will be revisited: 01/01/2022</p>
+"
+Prometheus + Grafana,Infrastructure,Adopt,confident,"<p><a href=""https://prometheus.io/"">Prometheus</a> is an open source time series database. Prometheus implements a pull model for metrics rather than a push model. Meaning your applications need to have an endpoint, typically <code>/metrics</code> that Prometheus can scrape metrics from.</p>
+<p><a href=""https://grafana.com/"">Grafana</a> is an open source visualization tool that can connect to many different data sources to visualize data. Grafana also can provide alerting.</p>
+<p>Because one is the data source and the other the visualization we are combining the two of them here.</p>
+<h3>Pros</h3>
+<ul>
+<li>No cost</li>
+<li>Large community support</li>
+<li>Very customizable</li>
+<li>Many open source libraries to easily add a metrics endpoint to any type of application</li>
+<li>Can integrate with Elasticsearch and OpsGenie</li>
+<li>Community made dashboards available</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>We administer these services ourselves</li>
+<li>Lack of cohesion sometimes</li>
+</ul>
+<p>When decision made: 3/5/2020<br />
+When decision will be revisited: 01/01/2022</p>
+"
+Velero (Heptio Ark),Infrastructure,Adopt,confident,"<p><a href=""https://velero.io/"">Velero</a> formerly Heptio Ark is an automated backup solution native for Kubernetes. Velero automatically backs up your k8s configuration and takes snapshots of persistent volumes if necessary.</p>
+<h3>Pros</h3>
+<ul>
+<li>Any container automatically gets backed up</li>
+<li>Easy to restore entire cluster if necessary</li>
+<li>No licensing cost</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Requires maintenance</li>
+</ul>
+"
 Athena,Infrastructure,Adopt,confident,"<p>Athena is a managed / on-demand query execution service. To date Imagine Learning has used it to execute SQL queries against data stored in S3. Athena can query data in S3 that is structured (parquet or ORC files) or semi-structured (JSON, XML, CSV).</p>
 <p>A common scenario is that data exists in a data source that does not support SQL queries. For instance, the Imagine Learning L&amp;L and Spanish products store student data as JSON in Azure Blob storage. By replicating that data to S3 as parquet or ORC files, SQL queries can be executed against the data.</p>
 <p>Sample use cases:</p>
@@ -323,7 +383,23 @@ S3,Infrastructure,Adopt,confident,"<p>S3 is a distributed file system. It is hig
 <li>Without oversight it’s easy to accumulate data that does not have value</li>
 </ul>
 "
-EKS,Infrastructure,Trial,budding,coming
+EKS,Infrastructure,Trial,budding,"<p><a href="""">Kubernetes</a> is the best container orchestration system around. AWS has decided to make it a first class citizen on AWS by offering a managed system. The idea here is to make it easier to maintain your k8s cluster for minimal cost.</p>
+<h3>Pros</h3>
+<ul>
+<li>Easy to set up</li>
+<li>Easier to stay up to date with k8s releases through managed nodes</li>
+<li>Don’t have to worry about the control plane (master nodes)</li>
+<li>More strictly adheres to best security practices</li>
+<li>Integrated IAM support (though can be added to home spun clusters)</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Tied to AWS</li>
+<li>Less ability to customize</li>
+</ul>
+<h3>Trial Goal</h3>
+<p>The goal of trialing EKS is see if we can become more efficient and stay up to date without manually upgrading the cluster constantly with added security.</p>
+"
 Concourse CI,Infrastructure,Trial,budding,coming
 NewRelic,Infrastructure,Trial,budding,coming
 ECS,Infrastructure,Hold,none,coming

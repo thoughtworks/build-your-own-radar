@@ -11,5 +11,5 @@ Elasticsearch is a NOSQL database. Elasticsearch is a great tool for submillisec
 
 When decision made:
 
-When decision will be revisted:
+When decision will be revisited:
 

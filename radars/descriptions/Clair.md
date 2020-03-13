@@ -10,4 +10,4 @@
 
 When decision made:
 
-When decision will be revisted:
+When decision will be revisited:

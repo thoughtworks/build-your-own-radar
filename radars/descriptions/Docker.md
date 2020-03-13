@@ -12,4 +12,4 @@ Combining these benefits with [Kubernetes]() leads to a great way to manage all 
 
 When decision made:
 
-When decision will be revisted:
+When decision will be revisited:

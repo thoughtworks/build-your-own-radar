@@ -13,5 +13,5 @@ Dynamo should be used by default for any microservice that is storing things as 
 
 When decision made:
 
-When decision will be revisted:
+When decision will be revisited:
 

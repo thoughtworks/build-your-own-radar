@@ -13,5 +13,5 @@ ELK is the combination of Elasticsearch, Kibana and Logstash. See [Elasticsearch
 
 When decision made:
 
-When decision will be revisted:
+When decision will be revisited:
 
