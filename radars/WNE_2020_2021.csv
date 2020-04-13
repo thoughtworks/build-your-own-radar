@@ -31,7 +31,22 @@ React scripts,Frontend,Adopt,confident,"<p>Package that includes the scripts and
 When decision will be revisited: 01/01/2022</p>
 <p>Replaces <a href="""">Angular CLI</a>.</p>
 "
-Redux,Frontend,Adopt,confident,Redux enables better management of complex state. 
+Redux,Frontend,Adopt,confident,"<p>A predictable state container for JavaScript applications.</p>
+<h3>Pros</h3>
+<ul>
+<li>Centralized logic for managing global application state. Not tied to view.</li>
+<li>One-way data flow makes it easy to test and debug.</li>
+<li>Easily extensible via middleware.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Requires more “boilerplate” code.</li>
+<li>Performance implications for too much state in global store.</li>
+<li>Difficult for inexperienced developers to determine what belongs in Redux.</li>
+</ul>
+<p>When decision made: 03/05/2020<br />
+When decision will be revisited: 01/01/2022</p>
+"
 TypeScript,Frontend,Adopt,confident,Typescript provides strong typing and better tooling. Ultimately leading to more stable code.
 webpack,Frontend,Adopt,lock,coming
 Yarn,Frontend,Adopt,leaning,coming
