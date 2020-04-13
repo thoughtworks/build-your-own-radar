@@ -1,22 +1,38 @@
 name,quadrant,ring,icon,description
-React,Frontend,Adopt,lock,"<p>React is a simple and lightweight javascript framework for developing modern applications.</p>
+React,Frontend,Adopt,lock,"<p>React is a simple and lightweight JavaScript library for developing user interfaces in modern applications.</p>
 <h3>Pros</h3>
 <ul>
-<li>Lightweight</li>
-<li>Fast</li>
-<li>Fantastic developer eco-system</li>
+<li>Simple, lightweight, and fast.</li>
+<li>Project backed by Facebook and has a massive community around it.</li>
+<li>Fantastic developer ecosystem.</li>
 </ul>
 <h3>Cons</h3>
 <ul>
-<li>Generally requires many plugins to get desired functionality</li>
+<li>Not a full-featured framework. Generally requires many different libraries to get desired functionality.</li>
+<li>Rapidly evolving API can cause challenges in maintaining consistency between multiple applications on different versions.</li>
 </ul>
-<p>When decision made: 3/5/2020<br />
+<p>When decision made: 03/05/2020<br />
 When decision will be revisited: 01/01/2022</p>
-<p>Replaces <a href="""">Angular</a></p>
+<p>Replaces <a href="""">Angular</a>.</p>
 "
-React scripts,Frontend,Adopt,confident,Use React Script to build the application.
+React scripts,Frontend,Adopt,confident,"<p>Package that includes the scripts and configuration used by <a href=""https://github.com/facebook/create-react-app"">Create React App</a>.</p>
+<h3>Pros</h3>
+<ul>
+<li>Create new React applications with no build configuration.</li>
+<li>Single dependency for build tooling.</li>
+<li>Support for ES6, <a href="""">TypeScript</a>, and <a href="""">SASS</a> right out of the box.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Opinionated configuration. Not easily customizable without ejecting.</li>
+<li>Focused on building single-page applications. Not well suited for building libraries or applications with server-side rendering.</li>
+</ul>
+<p>When decision made: 03/05/2020<br />
+When decision will be revisited: 01/01/2022</p>
+<p>Replaces <a href="""">Angular CLI</a>.</p>
+"
 Redux,Frontend,Adopt,confident,Redux enables better management of complex state. 
-Typescript,Frontend,Adopt,confident,Typescript provides strong typing and better tooling. Ultimately leading to more stable code.
+TypeScript,Frontend,Adopt,confident,Typescript provides strong typing and better tooling. Ultimately leading to more stable code.
 webpack,Frontend,Adopt,lock,coming
 Yarn,Frontend,Adopt,leaning,coming
 Jest,Frontend,Adopt,leaning,coming
@@ -27,6 +43,7 @@ React Native,Frontend,Trial,budding,coming
 LESS,Frontend,Hold,none,Less is less than SASS
 Karma,Frontend,Hold,none,coming
 Angular,Frontend,Hold,none,coming
+Angular CLI,Frontend,Hold,none,coming
 AngularJS,Frontend,Hold,none,coming
 Jasmine,Frontend,Hold,none,Jest uses Jasmine but Jasmine alone no.
 Protractor,Frontend,Hold,none,"There are better tools today, no, dang it."
