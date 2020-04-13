@@ -10,7 +10,8 @@
     "build": "webpack --mode production",
     "end_to_end_test": "node_modules/.bin/cypress run --env host=$TEST_URL",
     "start": "node_modules/.bin/cypress open --env host=$TEST_URL",
-    "parse_markdown": "node scripts/parse_markdown.js"
+    "parse_markdown": "node scripts/parse_markdown.js",
+    "watch_markdown": "nodemon -e md scripts/parse_markdown.js"
   },
   "author": "ThoughtWorks",
   "repository": {
@@ -44,6 +45,7 @@
     "mocha": "^5.2.0",
     "mochawesome": "^4.1.0",
     "node-sass": "^4.13.0",
+    "nodemon": "^2.0.3",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.5.0",
     "sass-loader": "^8.0.0",
