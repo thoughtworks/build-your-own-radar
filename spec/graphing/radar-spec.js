@@ -1,71 +1,78 @@
 // This references very old code that no longer exists
 // the tests for graphing will have to be rewritten
-require('../../src/graphing/radar.js')
+const RadarGraph = require('../../src/graphing/radar.js')
+const Radar = require('../../src/models/radar')
+const Ring = require('../../src/models/ring')
+const Quadrant = require('../../src/models/quadrant')
+const d3 = require('d3')
 
-xdescribe('tr.graphing.Radar', function () {
-  var radar
+describe('tr.graphing.Radar', function () {
+  var radar, c
 
   beforeEach(function () {
-    radar = new tr.models.Radar()
+    radar = new Radar();
     spyOn(radar, 'rings').and.returnValue([])
   })
 
+
   describe('init', function () {
-    it('appends the svg', function () {
+    it('appends the div', function () {
       var radarGraph, selection
 
-      radarGraph = new tr.graphing.Radar(500, radar)
-      selection = { append: jasmine.createSpy() }
-      spyOn(d3, 'select').and.returnValue(selection)
-
+      radarGraph = new RadarGraph(500, radar)
+      
       radarGraph.init()
-
-      expect(selection.append).toHaveBeenCalledWith('svg')
-    }).pend('This references very old code that no longer exists the tests for graphing will have to be rewritten')
+      expect(getDiv()).not.toBeNull()
+    })
 
     it('selects body if no selector provided', function () {
       var radarGraph
 
-      radarGraph = new tr.graphing.Radar(500, radar)
-      spyOn(d3, 'select').and.callThrough()
+      radarGraph = new RadarGraph(500, radar)
 
       radarGraph.init()
-
-      expect(d3.select).toHaveBeenCalledWith('body')
-    }).pend('This references very old code that no longer exists the tests for graphing will have to be rewritten')
+      expect(getBody()).not.toBeNull()
+    })
 
     it('selects the selector if provided', function () {
       var radarGraph
 
-      radarGraph = new tr.graphing.Radar(500, radar)
-      spyOn(d3, 'select').and.callThrough()
+      radarGraph = new RadarGraph(500, radar)
 
       radarGraph.init('#radar')
 
-      expect(d3.select).toHaveBeenCalledWith('#radar')
-    }).pend('This references very old code that no longer exists the tests for graphing will have to be rewritten')
+      expect(getDiv().attr('id')).toBe('radar')
+    })
   })
 
   it('sets the size', function () {
     var svg, radarGraph
 
-    radarGraph = new tr.graphing.Radar(500, radar)
+    radar.addQuadrant(new Quadrant('Adopt'))
+    radar.addQuadrant(new Quadrant('Tools'))
+    radar.addQuadrant(new Quadrant('Language'))
+    radar.addQuadrant(new Quadrant('Frameworks'))
+    
+    radarGraph = new RadarGraph(500, radar)
     radarGraph.init()
 
-    svg = radarGraph.svg()
-    spyOn(svg, 'attr').and.returnValue(svg)
+    // svg = radarGraph.svg()
+    // spyOn(svg, 'attr').and.returnValue(svg)
 
     radarGraph.plot()
+    svg = getSvg()
 
-    expect(svg.attr).toHaveBeenCalledWith('width', 500)
-    expect(svg.attr).toHaveBeenCalledWith('height', 500)
-  }).pend('This references very old code that no longer exists the tests for graphing will have to be rewritten')
+    expect(svg.attr('width')).toBe(500)
+    expect(svg.attr('height')).toBe(500)
+    // expect(svg.attr).toHaveBeenCalledWith('width', 500)
+    // expect(svg.attr).toHaveBeenCalledWith('height', 500)
+  })
 
   describe('lines', function () {
     it('plots a vertical line in the center', function () {
       var radarGraph, svg
 
-      radarGraph = new tr.graphing.Radar(500, radar)
+      radarGraph = new RadarGraph(500, radar)
       radarGraph.init()
 
       svg = radarGraph.svg()
@@ -109,12 +116,12 @@ xdescribe('tr.graphing.Radar', function () {
     beforeEach(function () {
       var radar
 
-      radar = new tr.models.Radar()
+      radar = new Radar()
       spyOn(radar, 'rings').and.returnValue([
-        new tr.models.Ring('Adopt'),
-        new tr.models.Ring('Hold')
+        new Ring('Adopt'),
+        new Ring('Hold')
       ])
-      radarGraph = new tr.graphing.Radar(500, radar)
+      radarGraph = new RadarGraph(500, radar)
       radarGraph.init()
 
       svg = radarGraph.svg()
@@ -170,4 +177,16 @@ xdescribe('tr.graphing.Radar', function () {
       expect(svg.text).toHaveBeenCalledWith('Hold')
     }).pend('This references very old code that no longer exists the tests for graphing will have to be rewritten')
   })
+
+  function getDiv() {
+    return d3.select('div')
+  }
+
+  function getBody() {
+    return d3.select('body')
+  }
+
+  function getSvg() {
+    return d3.select('svg')
+  }
 });
