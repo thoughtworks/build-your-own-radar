@@ -47,7 +47,22 @@ Redux,Frontend,Adopt,confident,"<p>A predictable state container for JavaScript 
 <p>When decision made: 03/05/2020<br />
 When decision will be revisited: 01/01/2022</p>
 "
-TypeScript,Frontend,Adopt,confident,Typescript provides strong typing and better tooling. Ultimately leading to more stable code.
+TypeScript,Frontend,Adopt,confident,"<p>A typed superset of JavaScript that compiles to plain JavaScript.</p>
+<h3>Pros</h3>
+<ul>
+<li>Types enable use of highly-productive development tools and practices like static checking and code refactoring.</li>
+<li>Support for the latest and evolving JavaScript features.</li>
+<li>Supported by <a href="""">Angular CLI</a> and <a href="""">React scripts</a>.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Defining types can add to “boilerplate” code.</li>
+<li>Adding JavaScript libraries without type definitions requires jumping through additional hoops.</li>
+<li>Lacks the flexibility that comes with dynamic types in JavaScript.</li>
+</ul>
+<p>When decision made: Mar. 2020<br />
+When decision will be revisited: Jan. 2022</p>
+"
 webpack,Frontend,Adopt,lock,coming
 Yarn,Frontend,Adopt,leaning,coming
 Jest,Frontend,Adopt,leaning,coming
