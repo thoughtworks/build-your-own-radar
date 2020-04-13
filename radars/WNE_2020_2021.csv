@@ -63,7 +63,20 @@ TypeScript,Frontend,Adopt,confident,"<p>A typed superset of JavaScript that comp
 <p>When decision made: Mar. 2020<br />
 When decision will be revisited: Jan. 2022</p>
 "
-webpack,Frontend,Adopt,lock,coming
+webpack,Frontend,Adopt,lock,"<p>A module bundler for bundling JavaScript files for usage in a browser.</p>
+<p>It is used under the hood by both <a href="""">Angular CLI</a> and <a href="""">React scripts</a>.</p>
+<h3>Pros</h3>
+<ul>
+<li>Powerful, configurable bundler with a large ecosystem of plugins.</li>
+<li>Supports code-splitting, lazy-loading, and tree shaking.</li>
+<li>Lots of documentation available.</li>
+<li>Comes with simple web server with live reloading.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Configuration can be complicated and unwieldy.</li>
+</ul>
+"
 Yarn,Frontend,Adopt,leaning,coming
 Jest,Frontend,Adopt,leaning,coming
 KendoReact,Frontend,Adopt,leaning,Pre built component library. 
