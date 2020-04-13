@@ -35,7 +35,7 @@ const AutoComplete = (el, quadrants, cb) => {
         const searchable = `${blip.name()} ${blip.description()}`.toLowerCase()
         return request.term.split(' ').every((term) => searchable.includes(term.toLowerCase()))
       })
-      response(matches.map((item) => ({ item, value: item.blip.name() })))
+      response(matches.map((item) => ({ ...item, value: item.blip.name() })))
     },
     select: cb.bind({})
   })
