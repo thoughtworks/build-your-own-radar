@@ -1,0 +1,19 @@
+/*
+    Loading screen
+*/
+.input-sheet {
+  & &__banner {
+    background: none;
+    background-color: black;
+    min-height: auto;
+  }
+  & &__logo {
+    a img {
+      width: 100px;
+    }
+  }
+}
+
+/**
+    Radar main screen
+*/

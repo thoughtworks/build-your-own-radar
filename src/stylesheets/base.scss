@@ -7,6 +7,9 @@
 @import 'footer';
 @import url(https://www.thoughtworks.com/css/k8s_production/screen.css);
 
+/* WAY Stylesheet */
+@import "./src_way/css/_way.scss";
+
 body {
   font: 18px 'Open Sans';
   -webkit-font-smoothing: antialiased;
