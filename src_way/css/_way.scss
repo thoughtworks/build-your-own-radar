@@ -1,3 +1,5 @@
+$way-logo-width: 50px;
+
 /*
     Loading screen
 */
@@ -9,7 +11,7 @@
   }
   & &__logo {
     a img {
-      width: 100px;
+      width: $way-logo-width;
     }
   }
 }
@@ -17,3 +19,26 @@
 /**
     Radar main screen
 */
+
+header {
+  .radar-title {
+    direction: rtl;
+    
+    .radar-title {
+      &__text {
+        text-align: right;
+        padding: 0 10% 0 0;
+        vertical-align: middle;
+      }
+
+      &__logo {
+        padding-left: 10%;
+        text-align:left; 
+
+        img {
+          width: $way-logo-width;
+        }  
+      }
+    }
+  }
+}
