@@ -1,4 +1,8 @@
 @import 'colors';
+
+/* WAY Settings */
+@import "./src_way/css/settings";
+
 @import 'fonts';
 @import 'tip';
 @import 'form';
@@ -7,8 +11,8 @@
 @import 'footer';
 @import url(https://www.thoughtworks.com/css/k8s_production/screen.css);
 
-/* WAY Stylesheet */
-@import "./src_way/css/_way.scss";
+/* WAY Base */
+@import "./src_way/css/base";
 
 body {
   font: 18px 'Open Sans';

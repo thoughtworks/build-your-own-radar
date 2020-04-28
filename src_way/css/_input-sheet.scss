@@ -1,0 +1,13 @@
+.input-sheet {
+    & &__banner {
+      background: none;
+      background-color: black;
+      min-height: auto;
+    }
+    & &__logo {
+      a img {
+        width: $way-logo-width;
+      }
+    }
+  }
+  

@@ -1,0 +1,17 @@
+.button {
+    &, 
+    .buttons-group .quadrant-btn--group &.full-view {
+        color: $black;
+    }
+
+    &.print-radar {
+        background: none;
+        color: $grey-darkest;
+        padding: 0;
+
+        &:hover {
+            transform: none;
+        }
+    }
+}
+
