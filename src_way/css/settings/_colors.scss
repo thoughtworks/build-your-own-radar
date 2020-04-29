@@ -1,0 +1,34 @@
+/**
+  WAY Colors
+*/
+$color-selago: #f5d9ff;
+$color-bright-turquoise:#26ffc9;
+$color-lightning-yellow: #ffc926;
+$color-dodger-blue:#42bafe;
+
+$color-grey-darker: #666666;
+$color-grey-dark: #939393;
+$color-grey: #a8a8a8;
+$color-grey-light: #b9b9b9;
+
+/**
+  Color mappings on default colors
+  Disabled var's still contain default BYOR values
+*/
+$green: $color-selago;
+$blue: $color-bright-turquoise;
+$orange: $color-lightning-yellow;
+$violet: $color-dodger-blue;
+$pink: $color-dodger-blue;
+
+//$grey-even-darker: #d7d7d7;
+$grey-darkest: $color-grey-darker;
+$grey-dark: $color-grey-dark;
+$grey: $color-grey;
+$grey-light: $color-grey-darker;
+//$grey-lightest: #fafafa;
+
+//$white: #fff;
+//$black: #000;
+//$grey-text: rgb(51, 51, 51);
+//$grey-alpha-03: rgba(255, 255, 255, 0.3);

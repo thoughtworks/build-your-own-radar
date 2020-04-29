@@ -1,10 +1,22 @@
-@import 'settings';
+@import 'settings/settings';
 @import 'input-sheet';
 @import 'header';
 @import 'button';
 @import 'search-box';
+@import 'radar';
+@import 'footer';
 
 body {
   background-color: $black;
   color: $white;
+}
+
+a {
+  color: $white;
+  border-bottom-color: $white;
+
+  &:hover{
+    color: $color-dodger-blue;
+    border-bottom-color: $color-dodger-blue;
+  }
 }

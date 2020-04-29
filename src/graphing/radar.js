@@ -498,7 +498,7 @@ const Radar = function (size, radar) {
       .append('div')
       .attr('class', 'footer-content')
       .append('p')
-      .html('This is a We Are You tech radar with all the things!')
+      .html('This is a We Are You tech radar with all the things! Powered by <a href="https://www.thoughtworks.com/radar" target="_blank">ThoughtWorks</a>')
   }
 
   function mouseoverQuadrant (order) {
