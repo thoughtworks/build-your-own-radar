@@ -1,10 +1,16 @@
-.search-box {
-    input.search-radar {
-        background-color: $white !important;
-        margin-bottom: 0;
-    }
-
+#alternative-buttons .search-box {
     .search-radar {
-        //background-image: url(../../src_way/images/search-logo-2x.svg) !important;
+        background-color: $white;
+        margin-bottom: 0;
+        padding: 0 35px 0 10px;
+        background-position: calc(100% - 10px);
+        border: 1px solid $color-grey;
+        border-radius: 3px;
+        background-image: url(../../src_way/images/search-logo-2x.svg) !important;
+        width: 200px;
+
+        &, &::placeholder {
+            color: $black;
+        }
     }
 }
