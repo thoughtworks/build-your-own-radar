@@ -1,20 +1,37 @@
 .button {
+    @media #{$mq-mobile} {
+        margin-bottom:10px;
+        width: auto;
+        display: block;
+    }  
+
     &, 
     header .buttons-group .quadrant-btn--group & {
         &, &:hover, &.selected {
             color: $black;
-            border-radius:22px;
+            border-radius: $way-btn-radius;
             margin-right: 15px;
             transform: translateY(0);
             opacity: 1;
+
+            @media #{$mq-mobile} {
+                margin-right: 0;
+                padding-bottom: 10px;
+            }
         }
 
         &:hover, &.selected {
             color: $white;    
         }
     }
+}
 
-    &.print-radar {
+.print-radar-btn {
+    @media #{$mq-mobile} {
+        display: none;
+    }
+
+    .print-radar {
         background: none;
         color: $grey;
         padding: 0;
@@ -28,4 +45,3 @@
         }
     }
 }
-

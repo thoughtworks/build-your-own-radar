@@ -29,9 +29,10 @@
         }
     }
 
-    // svg#radar-plot {
-    //     max-width: 70%;
-    //     left: 0;
-    //     right: auto;
-    // }
+    @media #{$mq-mobile} {
+        // Hide radar visual on mobile
+        svg#radar-plot {
+            display: none;
+        }    
+    }
 }

@@ -1,4 +1,10 @@
 #alternative-buttons .search-box {
+    @media #{$mq-mobile} {
+        margin: 0 10%;
+        display: block;
+        width: 100%;
+    }
+
     .search-radar {
         background-color: $white;
         margin-bottom: 0;
@@ -9,6 +15,12 @@
         background-image: url(/images/search.svg) !important;
         width: 200px;
 
+        @media #{$mq-mobile} {
+            padding-left: 15px;
+            width: 100%;    
+            border-radius: $way-btn-radius;
+        }
+    
         &, &::placeholder {
             color: $black;
         }

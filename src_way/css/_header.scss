@@ -8,6 +8,13 @@ header {
           text-align: right;
           padding: 0 10% 0 0;
           vertical-align: middle;
+
+          @media #{$mq-mobile} {
+            h1 {
+              font-size: 32px;
+              line-height: 1em;
+            }          
+          }
         }
   
         &__logo {
@@ -29,11 +36,21 @@ header {
       }
     }
 
-    .buttons-group{
+    .buttons-group {
+      @media #{$mq-mobile} {
         padding-bottom: 0;
+      }
     }
 
     #alternative-buttons {
         margin-bottom: 30px;
     }
-  }
+
+    .quadrant-btn--group {
+      @media #{$mq-mobile} {
+        padding: 0 10%;
+        width:100%;
+      }
+    }
+
+}
