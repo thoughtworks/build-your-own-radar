@@ -26,10 +26,17 @@
             background: rgba(0,0,0,0.5);
             padding: 15px;
             max-width: 30%;            
+
+            @media #{$mq-mobile} {
+                max-width: 100%;
+                padding: 15px 0 0 0;
+            }
         }
     }
 
     @media #{$mq-mobile} {
+        height: auto !important; 
+
         // Hide radar visual on mobile
         svg#radar-plot {
             display: none;

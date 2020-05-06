@@ -5,4 +5,13 @@
     p {
         font-size: 14px;
     }
+
+    @media #{$mq-mobile} {
+        padding: 5px 10% 15px 10%;
+        width: auto;
+
+        p {
+            padding: 0;
+        }
+    }
 }
