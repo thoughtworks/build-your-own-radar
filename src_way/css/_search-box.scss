@@ -7,10 +7,11 @@
 
     .search-radar {
         background-color: $white;
+        color: $black !important;
         margin-bottom: 0;
         padding: 0 35px 0 10px;
         background-position: calc(100% - 10px);
-        border: 1px solid $color-grey;
+        border: none;
         border-radius: 3px;
         background-image: url(/images/search.svg) !important;
         width: 200px;
@@ -22,7 +23,7 @@
         }
     
         &, &::placeholder {
-            color: $black;
+            color: $color-grey;
         }
     }
 }

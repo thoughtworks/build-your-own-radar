@@ -18,7 +18,7 @@ header {
         }
   
         &__logo {
-          padding-left: 10%;
+          padding-left: $way-side-margin;
           text-align:left; 
   
           img {
@@ -29,6 +29,10 @@ header {
     }
 
     .home-link {
+      position: absolute;
+      left: $way-side-margin;
+      font-size: 14px;
+
       &, &.selected {
         color: $white;
         margin-bottom: 0;
@@ -42,19 +46,17 @@ header {
     }
 
     .buttons-group {
-      @media #{$mq-mobile} {
-        padding-bottom: 0;
-      }
+      padding-bottom: 0;
     }
 
     #alternative-buttons {
-        margin-bottom: 30px;
+        margin-bottom: 40px;
     }
 
     .quadrant-btn--group {
       @media #{$mq-mobile} {
         padding: 0 10%;
-        width:100%;
+        width: 100%;
       }
     }
 

@@ -14,22 +14,31 @@
                     border-top: 1px solid $white;
                     margin: 10px 0 20px 0;
                 }
+                
                 p {
                     color: white !important;
                     padding: 15px 10px !important;                
                 }    
-            }    
+            }
+        }
+
+        .quadrant-table__name + h3 {
+            margin-top: 15px;
+            
+            @media #{$mq-mobile} {
+                margin-top: 15px;
+            }
         }
 
         &.selected {
             z-index: 1000;
             background: rgba(0,0,0,0.5);
-            padding: 15px;
+            padding: 0 15px;
             max-width: 30%;            
 
             @media #{$mq-mobile} {
                 max-width: 100%;
-                padding: 15px 0 0 0;
+                padding: 0;
             }
         }
     }

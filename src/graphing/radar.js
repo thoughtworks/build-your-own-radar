@@ -498,7 +498,17 @@ const Radar = function (size, radar) {
       .append('div')
       .attr('class', 'footer-content')
       .append('p')
-      .html('This is a We Are You tech radar with all the things! Powered by <a href="https://www.thoughtworks.com/radar" target="_blank">ThoughtWorks</a>')
+      .html('Welcome at the We Are You technology radar.'+
+      'It represents a list of the technologies we use in our company.<br/>'+
+      '<br/>'+
+      '<strong>Legend:</strong><br/>'+
+      '<ul>'+
+      '<li>HOLD: Do not use anymore</li>'+
+      '<li>ASSESS: Try-out stage, some high-level testing and discussion</li>'+
+      '<li>TRIAL: Try-out before implementation</li>'+
+      '<li>ADOPT: Adopted for company-wide usage</li>'+
+      '</ul><br/><br/>'+
+      'Powered by <a href="https://www.thoughtworks.com/radar" target="_blank">ThoughtWorks</a>')
   }
 
   function mouseoverQuadrant (order) {
