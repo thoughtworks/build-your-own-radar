@@ -4,7 +4,34 @@
         fill: $black !important;
     }
 
-    .blip-item-description p {
-        color: white !important;
+    div.quadrant-table {
+        ul li {
+            .blip-item-description {
+                width: 100%; 
+    
+                &.expanded {
+                    border-bottom: 1px solid $white;
+                    border-top: 1px solid $white;
+                    margin: 10px 0 20px 0;
+                }
+                p {
+                    color: white !important;
+                    padding: 15px 10px !important;                
+                }    
+            }    
+        }
+
+        &.selected {
+            z-index: 1000;
+            background: rgba(0,0,0,0.5);
+            padding: 15px;
+            max-width: 30%;            
+        }
     }
+
+    // svg#radar-plot {
+    //     max-width: 70%;
+    //     left: 0;
+    //     right: auto;
+    // }
 }

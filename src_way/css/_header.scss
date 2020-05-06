@@ -21,6 +21,14 @@ header {
       }
     }
 
+    .home-link {
+      &, &.selected {
+        color: $white;
+        margin-bottom: 0;
+        margin-top: 10px;
+      }
+    }
+
     .buttons-group{
         padding-bottom: 0;
     }
