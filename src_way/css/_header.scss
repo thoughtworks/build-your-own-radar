@@ -11,11 +11,14 @@ header {
           padding: 0 10% 0 0;
           vertical-align: middle;
 
-          @media #{$mq-mobile} {
             h1 {
-              font-size: 32px;
-              line-height: 1em;
-            }          
+              font-family: #{$way-font-family-bold};
+              letter-spacing: 1px; 
+
+              @media #{$mq-mobile} {
+                font-size: 32px;
+                line-height: 1em;
+              }          
           }
         }
   

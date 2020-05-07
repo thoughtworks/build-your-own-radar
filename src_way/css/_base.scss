@@ -11,6 +11,10 @@ body {
   color: $white;
 }
 
+body * {
+  font-family: #{$way-font-family-book};
+}
+
 a {
   color: $white;
   border-bottom-color: $white;
@@ -19,4 +23,10 @@ a {
     color: $color-dodger-blue;
     border-bottom-color: $color-dodger-blue;
   }
+}
+
+strong {
+  font-family: #{$way-font-family-bold};
+  font-weight: normal;
+  font-style: normal;
 }

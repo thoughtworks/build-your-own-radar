@@ -7,3 +7,32 @@
 // $font-size-normal: 16px;
 $font-size-small: 14px;
 // $font-size-tiny: 12px;
+
+$way-font-family-book: "'relative-book','Open Sans','Microsoft YaHei','Hiragino Sans GB','Hiragino Sans GB W3','Helvetica Neue',Arial,sans-serif !important";
+$way-font-family-bold: "'relative-bold','Open Sans','Microsoft YaHei','Hiragino Sans GB','Hiragino Sans GB W3','Helvetica Neue',Arial,sans-serif !important";
+
+/**
+  WAY fonts
+*/
+
+ @font-face {
+  font-family: 'relative-bold';
+  src: url('/font/relative-bold-desktop-web/relative-bold.eot');
+  src: url('/font/relative-bold-desktop-web/relative-bold.eot?#iefix') format('embedded-opentype'),
+       url('/font/relative-bold-desktop-web/relative-bold.woff') format('woff'),
+       url('/font/relative-bold-desktop-web/relative-bold.woff2') format('woff2'),
+       url('/font/relative-bold-desktop-web/relative-bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'relative-book';
+  src: url('/font/relative-book-desktop-web/relative-book.eot');
+  src: url('/font/relative-book-desktop-web/relative-book.eot?#iefix') format('embedded-opentype'),
+       url('/font/relative-book-desktop-web/relative-book.woff') format('woff'),
+       url('/font/relative-book-desktop-web/relative-book.woff2') format('woff2'),
+       url('/font/relative-book-desktop-web/relative-book.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

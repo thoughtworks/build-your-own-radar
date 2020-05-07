@@ -5,6 +5,8 @@
     }
 
     div.quadrant-table {
+        border-radius: 2px; 
+        
         ul li {
             .blip-item-description {
                 width: 100%; 
@@ -32,7 +34,7 @@
 
         &.selected {
             z-index: 1000;
-            background: rgba(0,0,0,0.5);
+            background: rgba(50,50,50,0.4);
             padding: 0 15px;
             max-width: 30%;            
 
@@ -40,6 +42,12 @@
                 max-width: 100%;
                 padding: 0;
             }
+
+            // Item hover
+            .blip-list-item.highlight {
+                background: $white;
+                color: $black;
+            }            
         }
     }
 
