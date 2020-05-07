@@ -1,5 +1,18 @@
 .button {
+    $way-button-spacing-x: 15px;
+
     margin-bottom:10px;
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        display: block;
+        width: 35px;
+        height: 100%;
+        right: -$way-button-spacing-x;
+        top: 0;
+    }
 
     @media #{$mq-mobile} {
         width: auto;
@@ -11,7 +24,7 @@
         &, &:hover, &.selected {
             color: $black;
             border-radius: $way-btn-radius;
-            margin-right: 15px;
+            margin-right: $way-button-spacing-x;
             transform: translateY(0);
             opacity: 1;
 
