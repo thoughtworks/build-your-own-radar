@@ -1,6 +1,7 @@
 .button {
+    margin-bottom:10px;
+
     @media #{$mq-mobile} {
-        margin-bottom:10px;
         width: auto;
         display: block;
     }  
@@ -36,6 +37,7 @@
         color: $grey;
         padding: 0;
         font-size: $font-size-small;
+        white-space: nowrap;
 
         &:hover {
             transform: none;

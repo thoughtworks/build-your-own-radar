@@ -1,4 +1,6 @@
 header {
+    position: relative;
+
     .radar-title {
       direction: rtl;
       background: transparent;
@@ -28,25 +30,31 @@ header {
       }
     }
 
+    // Back button
     .home-link {
-      position: absolute;
-      left: $way-side-margin;
-      font-size: 14px;
+      $way-home-link-pos: calc(#{$way-side-margin} + 5px);
 
-      &, &.selected {
-        color: $white;
-        margin-bottom: 0;
-        margin-top: 10px;
+      position: absolute;
+      left: $way-home-link-pos;
+      margin-top: 10px;
+      font-size: 14px;
+      transition: all .2s ease-out;
+      color: $white;
+
+      &:hover {
+        opacity: .85;
       }
 
       @media #{$mq-mobile} {
-        // Hide Search-box on Button selected
-        display: none;
+        bottom: -40px;
+        left: auto;
+        right: $way-home-link-pos;
+        text-align: right;
       }
     }
 
     .buttons-group {
-      padding-bottom: 0;
+      padding-bottom: 0px;
     }
 
     #alternative-buttons {
