@@ -1,0 +1,25 @@
+/*
+ * Web Fonts from colophon-foundry.org
+ *
+ * The fonts included in this stylesheet are subject to the End User License you purchased
+ * from Colophon Foundry. The fonts are protected under domestic and international trademark and 
+ * copyright law. You are prohibited from modifying, reverse engineering, duplicating, or
+ * distributing this font software.
+ *
+ * (c) 2018 Colophon Foundry
+ *
+ * Licenced to A.M. Vogelaar Colours B.V.
+ */
+
+@font-face {
+    font-family: 'relative-book';
+    src: url('relative-book.eot');
+    src: url('relative-book.eot?#iefix') format('embedded-opentype'),
+         url('relative-book.woff') format('woff'),
+         url('relative-book.woff2') format('woff2'),
+         url('relative-book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
