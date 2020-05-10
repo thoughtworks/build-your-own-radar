@@ -10,7 +10,7 @@
         ul li {
             .blip-item-description {
                 width: 100%; 
-    
+                        
                 &.expanded {
                     border-bottom: 1px solid $white;
                     border-top: 1px solid $white;
@@ -40,7 +40,8 @@
 
             @media #{$mq-mobile} {
                 max-width: 100%;
-                padding: 0;
+                padding: 0 15px;
+                margin-bottom: 45px;
             }
 
             // Item hover
@@ -48,6 +49,42 @@
                 background: $white;
                 color: $black;
             }            
+        }
+    }
+
+    path {
+        &.ring-arc-3 {
+          fill: $color-grey-darker !important;
+        }
+
+        &.ring-arc-2 {
+          fill: $color-grey-dark !important;
+        }
+
+        &.ring-arc-1 {
+          fill: $color-grey !important;
+        }
+
+        &.ring-arc-0 {
+          fill: $color-grey-light !important;
+        }
+    }
+
+    circle, polygon, path {
+        &.first {
+          fill: $color-selago !important;
+        }
+
+        &.second {
+          fill: $color-bright-turquoise !important;
+        }
+
+        &.third {
+          fill: $color-lightning-yellow !important;
+        }
+
+        &.fourth {
+          fill: $color-dodger-blue !important;
         }
     }
 

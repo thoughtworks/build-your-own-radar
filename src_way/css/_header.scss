@@ -14,6 +14,7 @@ header {
             h1 {
               font-family: #{$way-font-family-bold};
               letter-spacing: 1px; 
+              text-transform: capitalize;
 
               @media #{$mq-mobile} {
                 font-size: 32px;
@@ -61,7 +62,7 @@ header {
     }
 
     #alternative-buttons {
-        margin-bottom: 40px;
+        margin-bottom: 45px;
     }
 
     .quadrant-btn--group {

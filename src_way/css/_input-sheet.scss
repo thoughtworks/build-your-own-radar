@@ -1,13 +1,25 @@
 .input-sheet {
-    & &__banner {
-      background: none;
-      background-color: black;
-      min-height: auto;
-    }
-    & &__logo {
-      a img {
-        width: $way-logo-width;
-      }
+    
+  & &__banner {
+    background: none;
+    background-color: black;
+    min-height: auto;
+
+    h1 {
+      font-family: #{$way-font-family-bold};
+      letter-spacing: 1px; 
+      text-transform: capitalize;
+      font-weight: normal;
+      margin-top: 0;
+      font-size: 60px;
+    }    
+  }
+
+  & &__logo {
+    a img {
+      width: $way-logo-width;
     }
   }
+
+}
   

@@ -1,11 +1,4 @@
 @import 'colors';
-
-/**
-  WAY Settings
-  See WAY-Base-Styling import at the end of this file (is is there due to cascade)
-*/
-@import "./src_way/css/settings/settings";
-
 @import 'fonts';
 @import 'tip';
 @import 'form';
@@ -355,6 +348,3 @@ body {
     }
   }
 }
-
-/* WAY Base Styling */
-@import './src_way/css/base';

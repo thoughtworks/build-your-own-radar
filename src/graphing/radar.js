@@ -498,8 +498,8 @@ const Radar = function (size, radar) {
       .append('div')
       .attr('class', 'footer-content')
       .append('p')
-      .html('Welcome at the We Are You technology radar.'+
-      'It represents a list of the technologies we use in our company.<br/>'+
+      .html('Welcome at the We Are You technology radar. '+
+      'The radar represents the technologies used within the We Are You company.<br/>'+
       '<br/>'+
       '<strong>Legend:</strong><br/>'+
       '<ul>'+
@@ -528,7 +528,7 @@ const Radar = function (size, radar) {
     d3.selectAll('.button.' + order).classed('selected', true)
     d3.selectAll('.quadrant-table').classed('selected', false)
     d3.selectAll('.quadrant-table.' + order).classed('selected', true)
-    d3.selectAll('.blip-item-description').classed('expanded', false)
+    //d3.selectAll('.blip-item-description').classed('expanded', false)
 
     var scale = 2
 

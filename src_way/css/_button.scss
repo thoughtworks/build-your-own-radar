@@ -19,6 +19,19 @@
         display: block;
     }  
 
+    &.first {
+        background-color: $color-selago !important;
+    }
+    &.second {
+        background-color: $color-bright-turquoise !important;
+    }
+    &.third {
+        background-color: $color-lightning-yellow !important;
+    }
+    &.fourth {
+        background-color: $color-dodger-blue !important;
+    }
+
     &, 
     header .buttons-group .quadrant-btn--group & {
         &, &:hover, &.selected {
@@ -47,7 +60,7 @@
 
     .print-radar {
         background: none;
-        color: $grey;
+        color: $color-grey;
         padding: 0;
         font-size: $font-size-small;
         white-space: nowrap;

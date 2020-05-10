@@ -20,6 +20,7 @@ if (env) {
 
 const main = ['./src/site.js']
 const common = ['./src/common.js']
+const way = ["./src_way/js/base.js", "./src_way/css/base.scss"]; // WAY JS + CSS files addition
 let devtool
 
 if (isDev) {
@@ -31,7 +32,7 @@ const plugins = [
   new MiniCssExtractPlugin({ filename: '[name].[hash].css' }),
   new HtmlWebpackPlugin({
     template: './src/index.html',
-    chunks: ['main'],
+    chunks: ['main', 'way'],  // WAY addition
     inject: 'body'
   }),
   new HtmlWebpackPlugin({
@@ -56,7 +57,8 @@ if (isProd) {
 module.exports = {
   entry: {
     main: main,
-    common: common
+    common: common,
+    way: way // WAY addition
   },
   node: {
     fs: 'empty',
