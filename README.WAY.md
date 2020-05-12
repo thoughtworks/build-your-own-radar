@@ -1,4 +1,4 @@
-## We Are You: Tech Radar
+# We Are You: Tech Radar
 
 This is a fork of the [ThoughtWorks Tech Radar](https://www.thoughtworks.com/radar).
 It is modified for use within the We Are You (WAY) company for sharing knowledge to collegues and the world in a more visual way.
@@ -38,9 +38,7 @@ _NOTE/TODO: Probably this can be solved somehow with Webpack by adding/modifying
 
 The modifications that are made in the original project files are only in two files at the moment. The changes are mainly concentrated around the Webpack config file to minimize changes to the original ThoughtWorks files.
 
-```
-webpack.config
-```
+#### webpack.config
 
 The webpack config is modified to merge the WAY scss and js files with the original project in the build.
 _The modified lines in the config are:_
@@ -69,9 +67,7 @@ Line 119 | host: "127.0.0.1",
 
 Changed from 0.0.0.0 to localhost.
 
-```
-src/index.html
-```
+#### src/index.html
 
 Minor change. In this file the Favicon is commented and not shown due to this. It is not automatically loading the version from the dist folder (like with the other images). So for the quick win, for now, it is disabled.
 _Could be a TODO._
