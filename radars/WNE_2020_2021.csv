@@ -77,7 +77,20 @@ webpack,Frontend,Adopt,lock,"<p>A module bundler for bundling JavaScript files f
 <li>Configuration can be complicated and unwieldy.</li>
 </ul>
 "
-Yarn,Frontend,Adopt,leaning,coming
+Yarn,Frontend,Adopt,leaning,"<p>Yarn is a fast, stable JavaScript package manager.</p>
+<h3>Pros</h3>
+<ul>
+<li>Utilizes caching for faster installs.</li>
+<li>Optimizations for working with monorepos through <a href=""https://yarnpkg.com/features/workspaces"">workspaces</a>.</li>
+<li>v1 can work as a drop-in replacment for <a href="""">NPM CLI</a>.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Separate install from Node.</li>
+<li>v2 has a completely different API.</li>
+</ul>
+<p>Replaces <a href="""">NPM CLI</a>.</p>
+"
 Jest,Frontend,Adopt,leaning,coming
 KendoReact,Frontend,Adopt,leaning,Pre built component library. 
 SASS,Frontend,Adopt,leaning,Broader adoption and faster than LESS.
