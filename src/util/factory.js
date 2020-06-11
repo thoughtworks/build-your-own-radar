@@ -86,9 +86,8 @@ const GoogleSheet = function (sheetReference, sheetName) {
       if (error instanceof SheetNotFoundError) {
         plotErrorMessage(error)
         return
-      } else {
-        plotErrorMessage(error)
       }
+
       self.authenticate(false)
     })
 
@@ -322,11 +321,12 @@ function plotErrorMessage (exception) {
   plotBanner(content, bannerText)
 
   d3.selectAll('.loading').remove()
+  message = "Oops! We can't find the Google Sheet you've entered"
   var faqMessage = 'Please check <a href="https://www.thoughtworks.com/radar/how-to-byor">FAQs</a> for possible solutions.'
   if (exception instanceof MalformedDataError) {
     message = message.concat(exception.message)
   } else if (exception instanceof SheetNotFoundError) {
-    message = "Oops! We can't find the Google Sheet you've entered"
+    message = exception.message
   } else {
     console.error(exception)
   }
