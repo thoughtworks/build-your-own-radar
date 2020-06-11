@@ -73,6 +73,15 @@ The app uses [Tabletop.js](https://github.com/jsoma/tabletop) to fetch the data 
 
 The application uses [webpack](https://webpack.github.io/) to package dependencies and minify all .js and .scss files.
 
+The application also supports private google sheets. Following flags need to be set for private sheets to work. API key and OAuth Client ID can be obtained from your Google developer console.
+
+
+```
+export ENABLE_GOOGLE_AUTH=true
+export API_KEY=[Google API Key]
+export CLIENT_ID=[Google Client ID]
+```
+
 ## Docker Image
 We have released BYOR as a docker image for our users. The image is available in our [DockerHub Repo](https://hub.docker.com/r/wwwthoughtworks/build-your-own-radar/). To pull and run the image, run the following commands.
 
