@@ -12,8 +12,8 @@ const Sheet = function (sheetReference) {
   })()
 
   self.validate = function (callback) {
-    var skipGoogleAuth = process.env.SKIP_GOOGLE_AUTH || false
-    var feedURL = skipGoogleAuth ? 'https://spreadsheets.google.com/feeds/worksheets/' + self.id + '/public/basic?alt=json' : 'https://sheets.googleapis.com/v4/spreadsheets/' + self.id + '?key=' + process.env.API_KEY
+    var enableGoogleAuth = process.env.ENABLE_GOOGLE_AUTH || false
+    var feedURL = enableGoogleAuth ? 'https://sheets.googleapis.com/v4/spreadsheets/' + self.id + '?key=' + process.env.API_KEY : 'https://spreadsheets.google.com/feeds/worksheets/' + self.id + '/public/basic?alt=json'
 
     // TODO: Move this out (as HTTPClient)
     var xhr = new XMLHttpRequest()
