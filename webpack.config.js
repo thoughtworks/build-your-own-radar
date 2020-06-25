@@ -68,7 +68,7 @@ module.exports = {
 
   output: {
     path: buildPath,
-    publicPath: '/',
+    publicPath: '.',
     filename: '[name].[hash].js'
   },
 
@@ -96,6 +96,10 @@ module.exports = {
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
         loader: 'file-loader?name=images/[name].[ext]'
+      },
+      {
+        test: /\.(csv)$/,
+        loader: 'file-loader?name=data/[name].[ext]'
       },
       {
         test: /\.(png|jpg|ico)$/,

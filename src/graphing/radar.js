@@ -430,19 +430,19 @@ const Radar = function (size, radar) {
 
   function plotRadarHeader () {
     header = d3.select('body').insert('header', '#radar')
-    header.append('div')
-      .attr('class', 'radar-title')
-      .append('div')
-      .attr('class', 'radar-title__text')
-      .append('h1')
-      .text(document.title)
-      .style('cursor', 'pointer')
-      .on('click', redrawFullRadar)
+    // header.append('div')
+    //   .attr('class', 'radar-title')
+    //   .append('div')
+    //   .attr('class', 'radar-title__text')
+    //   .append('h1')
+    //   .text(document.title)
+    //   .style('cursor', 'pointer')
+    //   .on('click', redrawFullRadar)
 
-    header.select('.radar-title')
-      .append('div')
-      .attr('class', 'radar-title__logo')
-      .html('<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /> </a>')
+    // header.select('.radar-title')
+    //   .append('div')
+    //   .attr('class', 'radar-title__logo')
+    //   .html('<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /> </a>')
 
     buttonsGroup = header.append('div')
       .classed('buttons-group', true)
@@ -498,10 +498,7 @@ const Radar = function (size, radar) {
       .append('div')
       .attr('class', 'footer-content')
       .append('p')
-      .html('Powered by <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. ' +
-      'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">ThoughtWorks\' terms of use</a>. ' +
-      'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
-      'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.')
+      .html('Powered by <a href="https://www.thoughtworks.com"> ThoughtWorks</a>.')
   }
 
   function mouseoverQuadrant (order) {
