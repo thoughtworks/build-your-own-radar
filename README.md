@@ -1,4 +1,24 @@
 
+## Building and testing the project
+
+Pull requests are welcome; please write tests whenever possible. Make sure you have nodejs installed.
+
+* npm install
+* npm test - to run your tests
+* npm run dev - to run application in localhost:8080. This will watch the .js and .css files and rebuild on file changes
+
+To run End to End tests in headless mode
+
+* add a new environment variable 'TEST_URL' and set it to 'http://localhost:8080/'
+* npm run end_to_end_test
+
+To run End to End tests in debug mode
+
+* add a new environment variable 'TEST_URL' and set it to 'http://localhost:8080/'
+* npm run start
+* Click on 'Run all specs' in cypress window
+
+
 ## Setting up the data
 
 The current format of the CSV can be found in one of the csv files found in the radars folder (e.g. WNE_2020_2021.csv). 

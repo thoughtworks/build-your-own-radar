@@ -106,20 +106,183 @@ Protractor,Frontend,Hold,none,"There are better tools today, no, dang it."
 Foundation,Frontend,Hold,none,coming
 NPM CLI,Frontend,Hold,none,"We'll still be using NPM as a registry for packages but we'll use the yarn command for building, packing, and running the server."
 Unity3D,Frontend,Hold,none,Unity3D is great for 3D applications on any platform.
-ASP.Net Core,Backend,Adopt,lock,Fast and awesome :)
-.Net Core App,Backend,Adopt,lock,Background processing of items. This would likely be implemented as a lambda function or a kubernetes job.
-xUnit,Backend,Adopt,leaning,xUnit is directly supported in native applications.
-Java + Spring,Backend,Adopt,lock,coming
-Jmeter,Backend,Adopt,confident,Good provider for load testing which can be done as k8s jobs in a distributed model for large scale tests. 
-gRPC,Backend,Trial,budding,Useful for interservice communication amongst microservices. 
-GraphQL,Backend,Trial,budding,Useful for flexible data interfaces.
-Azure web apps,Backend,Hold,none,coming
-Azure cloud services,Backend,Hold,none,ew
-Node,Backend,Hold,none,coming
-Ruby,Backend,Hold,none,coming
-Sidekiq,Backend,Hold,none,coming
-Go,Backend,Hold,none,coming
-nUnit,Backend,Hold,none,
+ASP.NET Core,Backend,Adopt,lock,"<p><a href=""https://dotnet.microsoft.com/learn/aspnet/what-is-aspnet-core"">ASP.NET Core</a> is built on the new <a href="""">.NET Core</a> framework but is designed for the web. As with .NET Core this is an open source framework. While <a href=""http://ASP.NET"">ASP.NET</a> can be used for server side rendering pages the WNE strong preference is that the frontend apps are single page applications (SPAs) using <a href="""">React</a>.</p>
+<h3>Pros</h3>
+<ul>
+<li>One of the fastest web frameworks around today</li>
+<li>Works very well in containers</li>
+<li>Great support for building APIs</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Lack of packages in some scenarios</li>
+</ul>
+<p>When decision made: 1/1/2020</p>
+<p>When decision will be revisited: 1/1/2022</p>
+"
+.NET Core App,Backend,Adopt,lock,"<p><a href=""https://docs.microsoft.com/en-us/dotnet/core/about"">.NET Core</a> is the successor the .NET framework. It differs from the legacy .NET framework by being cross platform and open source. In many respects .NET core has learned from Node and Ruby and other languages and made a modern ecosystem for C# programmers. AWS Lambda functions are a great way to run snippets of code without worrying about the underlying infrastructure the code would run on. Currently this is most useful as means to cheaply process events from Kinesis, DynamoDb streams, SNS, or SQS. AWS has provided all of the plumbing to handle this efficiently.</p>
+<h3>Pros</h3>
+<ul>
+<li>Works well as Kubernetes jobs</li>
+<li>Small and lightweight containers</li>
+<li>Fast background processing</li>
+<li>Native asynchronous support</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Not as wide of a package base as some other language frameworks</li>
+<li>Cannot be compiled as a single standalone binary (you must have .Net Core runtime available)</li>
+</ul>
+<p>When decision made: 1/1/2020</p>
+<p>When decision will be revisited: 1/1/2022</p>
+"
+Java + Spring,Backend,Adopt,lock,"<p><a href=""https://spring.io/"">Java + Spring</a> makes programming Java quicker, easier, and safer for everybody. Spring’s focus on speed, simplicity, and productivity has made it the world’s most popular Java framework.</p>
+<h3>Pros</h3>
+<ul>
+<li>Spring is the most popular Java framework</li>
+<li>Opinionated framework makes creating applications easy</li>
+<li>Massive amount of third party libraries available</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Not as performant as some other offerings</li>
+<li>When used in Docker contexts the size can be somewhat large</li>
+</ul>
+<p>When decision made: 1/1/2020</p>
+<p>When decision will be revisited: 1/1/2022</p>
+"
+jMeter,Backend,Adopt,confident,"<p><a href=""https://jmeter.apache.org/"">jMeter</a> is open source software, a 100% pure Java application designed to load test functional behavior and measure performance. It was originally designed for testing Web Applications but has since expanded to other test functions.</p>
+<h3>Pros</h3>
+<ul>
+<li>Open source</li>
+<li>Works well for many different types of tests</li>
+<li>Has a client server mode where very large load tests can be run</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>UI is not very intuitive</li>
+<li>Can be very complex to set up</li>
+</ul>
+<p>When decision made: 1/1/2020</p>
+<p>When decision will be revisited: 1/1/2022</p>
+"
+gRPC,Backend,Trial,budding,"<p><a href=""https://grpc.io/"">gRPC</a> is a modern open source high performance RPC framework that can run in any environment. It can efficiently connect services in and across data centers with pluggable support for load balancing, tracing, health checking and authentication. It is also applicable in last mile of distributed computing to connect devices, mobile applications and browsers to backend services.</p>
+<h3>Pros</h3>
+<ul>
+<li>CNCF incubating project</li>
+<li>Bi-directional communication</li>
+<li>Faster than standard REST based services</li>
+<li>Integrated authentication</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Not universally supported</li>
+</ul>
+<p>** Being considered for interservice communication requests</p>
+<p>When decision made: 1/1/2020</p>
+<p>When decision will be revisited: 1/1/2022</p>
+"
+GraphQL,Backend,Trial,budding,"<p><a href=""https://graphql.org/"">GraphQL</a> is a query language for APIs and a runtime for fulfilling those queries with your existing data. GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.</p>
+<h3>Pros</h3>
+<ul>
+<li>Front end developers don’t have to wait for backend engineers to adjust apis</li>
+<li>Combine data from multiple sources in a single request</li>
+<li>Self documented</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Possible to create extremely costly queries unintentionally</li>
+<li>Lacks support by all libraries and packages</li>
+</ul>
+<p>When decision made: 1/1/2020</p>
+<p>When decision will be revisited: 1/1/2022</p>
+"
+Azure web apps,Backend,Hold,none,"<p><a href=""https://azure.microsoft.com/en-us/services/app-service/web/"">Azure Web Apps</a> is a simple way to manage web applications built on <a href=""http://ASP.NET"">ASP.NET</a>. The application can then be bundled and placed on these servers that are running IIS. Generally speaking we do not encourage web apps. Containers should be utilized within <a href="""">Kubernetes</a>.</p>
+<h3>Pros</h3>
+<ul>
+<li>Can leverage service plans for reusing the same sets of hardware</li>
+<li>Scales extremely quickly</li>
+<li>Relatively inexpensive</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>IIS</li>
+<li>Slow hardware</li>
+<li>Customization is difficult (e.g. put an updated version of .NET Framework in place)</li>
+</ul>
+<p>When decision made: 1/1/2020</p>
+<p>When decision will be revisited: 1/1/2022</p>
+"
+Azure cloud services,Backend,Hold,none,"<p><a href=""https://azure.microsoft.com/en-us/services/cloud-services/"">Azure Cloud Services</a> is a simple way to manage a fleet of virual machines. An application bundle is built and then placed on the machines. Generally speaking we do not encourage provisioning an entire VM for a single application. Containers should be utilized within <a href="""">Kubernetes</a>.</p>
+<h3>Pros</h3>
+<ul>
+<li>Simple and easy way to manage a fleet of virtual machines with the same software</li>
+<li>Can scale to meet increased demand</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Slow Startup (~15 minutes)</li>
+<li>Expensive</li>
+<li>Customization is difficult (e.g. put an updated version of .NET Framework in place)</li>
+</ul>
+<p>When decision made: 1/1/2020</p>
+<p>When decision will be revisited: 1/1/2022</p>
+"
+Node,Backend,Hold,none,"<p><a href=""https://nodejs.org"">Node</a> is similar in design to, and influenced by, systems like Ruby’s Event Machine and Python’s Twisted. Node.js takes the event model a bit further. It presents an event loop as a runtime construct instead of as a library. In other systems, there is always a blocking call to start the event-loop. Typically, behavior is defined through callbacks at the beginning of a script, and at the end a server is started through a blocking call like EventMachine::run(). In Node.js, there is no such start-the-event-loop call. Node.js simply enters the event loop after executing the input script. Node.js exits the event loop when there are no more callbacks to perform. This behavior is like browser JavaScript — the event loop is hidden from the user.</p>
+<p>HTTP is a first-class citizen in Node.js, designed with streaming and low latency in mind. This makes Node.js well suited for the foundation of a web library or framework.</p>
+<p>Node.js being designed without threads doesn’t mean you can’t take advantage of multiple cores in your environment. Child processes can be spawned by using our child_process.fork() API, and are designed to be easy to communicate with. Built upon that same interface is the cluster module, which allows you to share sockets between processes to enable load balancing over your cores.</p>
+<h3>Pros</h3>
+<ul>
+<li>Open source</li>
+<li>Very easy to start and set up an application</li>
+<li>Large amount of libraries available through NPM</li>
+<li>Fast</li>
+<li>Can use Javascript on frontend and backend</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Not statically typed</li>
+<li>Enterprise support can be an issue</li>
+</ul>
+<p>When decision made: 1/1/2020</p>
+<p>When decision will be revisited: 1/1/2022</p>
+"
+Ruby on Rails,Backend,Hold,none,"<p><a href=""https://www.ruby-lang.org/en/"">Ruby on Rails</a> Ruby is a dynamic, open source programming language with a focus on simplicity and productivity. It has an elegant syntax that is natural to read and easy to write. Rails is a web application development framework written in the Ruby programming language. It is designed to make programming web applications easier by making assumptions about what every developer needs to get started. It allows you to write less code while accomplishing more than many other languages and frameworks. Experienced Rails developers also report that it makes web application development more fun.</p>
+<p>Rails is opinionated software. It makes the assumption that there is a “best” way to do things, and it’s designed to encourage that way - and in some cases to discourage alternatives. If you learn “The Rails Way” you’ll probably discover a tremendous increase in productivity. If you persist in bringing old habits from other languages to your Rails development, and trying to use patterns you learned elsewhere, you may have a less happy experience.</p>
+<h3>Pros</h3>
+<ul>
+<li>Highly opinionated syntax and application architecture</li>
+<li>Fast development</li>
+<li>Large amount of gems available</li>
+<li>Very devoted and active community</li>
+<li>Convention over configuration</li>
+</ul>
+<p>npm</p>
+<h3>Cons</h3>
+<ul>
+<li>Scaling is possible but not as easy as some other languages</li>
+<li>Not as performant as other more modern approaches</li>
+<li>Lack of flexibility</li>
+</ul>
+<p>When decision made: 1/1/2020</p>
+<p>When decision will be revisited: 1/1/2022</p>
+"
+Go,Backend,Hold,budding,"<p><a href=""https://golang.org/"">Go</a> is a C style language with influence from JAVA. Go is expressive, concise, clean, and efficient. Its concurrency mechanisms make it easy to write programs that get the most out of multicore and networked machines, while its novel type system enables flexible and modular program construction. Go compiles quickly to machine code yet has the convenience of garbage collection and the power of run-time reflection. It’s a fast, statically typed, compiled language that feels like a dynamically typed, interpreted language.</p>
+<h3>Pros</h3>
+<ul>
+<li>Extremely fast</li>
+<li>Compiles to machine code</li>
+<li>Concise and clean</li>
+<li>Great for frameworks or multithreaded jobs</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Package management is still lacking</li>
+<li>Not well suited for web apis</li>
+</ul>
+<p>When decision made: 1/1/2020</p>
+<p>When decision will be revisited: 1/1/2022</p>
+"
 Kinesis,Data,Adopt,confident,coming
 SNS,Data,Adopt,confident,coming
 Snowflake,Data,Adopt,lock,coming
@@ -156,7 +319,7 @@ Postgres,Data,Adopt,lock,coming
 PowerBI,Data,Adopt,confident,coming
 Kinesis Data Analytics (Apache Flink),Data,Trial,budding,coming
 Postgres (Aurora Serverless),Data,Trial,budding,coming
-Databricks,Data,Trial,budding,coming
+Databricks,Data,Trial,confident,coming
 Matillion,Data,Hold,confident,"<p>Matillion is a purpose-built ETL designer and job engine. It’s a cloud-only product (cannot run locally in virtual machines or docker containers) and supports Redshift and Snowflake. The design canvas has a tree of job definitions and each job definition is represented as a graph of visual components. The user is able to drag and drop the components and alter their properties. Though the intent is largely to expose a point and click interface, it also supports custom SQL in various components and in practice Imagine Learning has used a fair amount of custom SQL.</p>
 <p>While the product falls under an ETL umbrella, it is more accurately an ELT engine because the work is mostly executed in the target Redshift or Snowflake engine. In other words, executing a job (scheduled or otherwise) results in the Matillion runtime executing queries against Redshift/Snowflake such that the inputs and outputs of the queries are different tables in Redshift/Snowflake. The Matillion software itself runs on an EC2 instance but the resource utilization is relatively light there. Cost is based on actual EC2 cost plus a licensing fee to Matillion.</p>
 <p>Matillion includes support for extraction from many source technologies. The pattern is such that queries can be executed against source systems and the results are placed in the target Redshift / Snowflake, and then transforms are executed in the form of SQL on the target system to move and transform the data to destination tables (such as fact and dimension tables).</p>

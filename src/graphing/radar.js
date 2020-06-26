@@ -388,6 +388,12 @@ const Radar = function (size, radar) {
       .transition()
       .style('visibility', 'visible')
 
+    container
+      .append('text')
+      .attr('x', x - 10)
+      .attr('y', y - 20)
+      .text('Confidence Level')
+    
     var none = 'none'
     container
       .append('text')
