@@ -299,7 +299,7 @@ DynamoDB,Data,Adopt,lock,"<p>Dynamo is a NOSQL database hosted and manged by AWS
 <li>Difficult to query ad-hoc</li>
 </ul>
 <p>Dynamo should be used by default for any microservice that is storing things as operational records that do not have heavy query requirements. For more information see <a href=""https://medium.com/imaginelearning/bring-dynamo-to-the-data-science-party-2d961b72bb8d?source=friends_link&amp;sk=5dd7bd16cbf678bb926122549d83cb4a"">This great Medium article</a></p>"
-Elasticsearch,Data,Adopt,confident,"<p>Elasticsearch is a NOSQL database. Elasticsearch is a great tool for submillisecond latency and containing large amounts of data.</p>
+Elasticsearch,Data,Adopt,confident,"<p><a href=""https://elastic.co"">Elasticsearch</a> is a distributed, RESTful search and analytics engine capable of addressing a growing number of use cases. As the heart of the Elastic Stack, it centrally stores your data for lightning fast search, fine‑tuned relevancy, and powerful analytics that scale with ease.</p>
 <h3>Pros</h3>
 <ul>
 <li>Extremely efficient text searching</li>
@@ -311,8 +311,8 @@ Elasticsearch,Data,Adopt,confident,"<p>Elasticsearch is a NOSQL database. Elasti
 <li>No ability to join documents directly</li>
 <li>Can be difficult to setup and maintain</li>
 </ul>
-<p>When decision made:</p>
-<p>When decision will be revisited:</p>
+<p>When decision made: 1/1/2020</p>
+<p>When decision will be revisited: 1/1/2021</p>
 "
 Redis,Data,Adopt,confident,coming
 Postgres,Data,Adopt,lock,coming
@@ -532,20 +532,23 @@ Spinnaker,Infrastructure,Adopt,leaning,"<p><a href=""https://www.spinnaker.io/""
 <p>When decision made: 3/5/2020<br />
 When decision will be revisited: 01/01/2022</p>
 "
-Datadog,Infrastructure,Adopt,leaning,"<p><a href=""https://www.datadoghq.com/"">Datadog</a> is a hosted platform for monitoring and analytics. Datadog enables easy instrumentation of many types of applications and infrastructure.</p>
+New Relic,Infrastructure,Adopt,confident,"<p><a href=""https://newrelic.com/"">New Relic</a> is an analytics package that can be used to gain insights about your application. NewRelic can be depoyed as an Application Performance Monitor (APM) or to your infrastructure for insights into how the system is performing as a whole. New Relic should be used instead of <a href="""">Datadog</a>.</p>
 <h3>Pros</h3>
 <ul>
-<li>Very quick to implement</li>
-<li>Lots of canned reports and dashboards</li>
-<li>Compared to other providers they have been cheaper</li>
+<li>Works across Azure and NewRelic</li>
+<li>Powerful insights and dashboarding</li>
+<li>Can be customized withing the New Relic ONE platform</li>
+<li>Extremely easy integration into applications</li>
+<li>Docker support</li>
+<li>Easy to read tracing</li>
 </ul>
 <h3>Cons</h3>
 <ul>
-<li>No Azure support</li>
-<li>Dashboards aren’t very straightforward</li>
+<li>More expensive than some other offerings</li>
+<li>Cost prohibitive to use for logs as well</li>
 </ul>
-<p>When decision made: 3/5/2020<br />
-When decision will be revisited: 01/01/2022</p>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2022 (under 2 year contract)</p>
 "
 Prometheus + Grafana,Infrastructure,Adopt,confident,"<p><a href=""https://prometheus.io/"">Prometheus</a> is an open source time series database. Prometheus implements a pull model for metrics rather than a push model. Meaning your applications need to have an endpoint, typically <code>/metrics</code> that Prometheus can scrape metrics from.</p>
 <p><a href=""https://grafana.com/"">Grafana</a> is an open source visualization tool that can connect to many different data sources to visualize data. Grafana also can provide alerting.</p>
@@ -636,13 +639,141 @@ EKS,Infrastructure,Trial,budding,"<p><a href="""">Kubernetes</a> is the best con
 <h3>Trial Goal</h3>
 <p>The goal of trialing EKS is see if we can become more efficient and stay up to date without manually upgrading the cluster constantly with added security.</p>
 "
-Concourse CI,Infrastructure,Trial,budding,coming
-NewRelic,Infrastructure,Trial,budding,coming
-ECS,Infrastructure,Hold,none,coming
-ECR,Infrastructure,Hold,none,coming
-AWS Api Gateway,Infrastructure,Hold,none,coming
-Serverless.com,Infrastructure,Hold,none,coming
-Cloud Formation,Infrastructure,Hold,none,coming
-TFS,Infrastructure,Hold,none,coming
-Chef Infra,Infrastructure,Hold,none,coming
-Github issues,Infrastructure,Hold,none,coming
+Concourse CI,Infrastructure,Trial,budding,"<p><a href=""https://concourse-ci.org/"">Concourse CI</a> is an open-source continuous thing-doer. Built on the simple mechanics of resources, tasks, and jobs, Concourse presents a general approach to automation that makes it great for CI/CD. Could potentially replace <a href="""">Spinnaker</a> for CI.</p>
+<h3>Pros</h3>
+<ul>
+<li>Native Kubernetes support</li>
+<li>CI is under source control by default</li>
+<li>Lightweight</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Fairly new system</li>
+<li>Lack of plugins (design decision)</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
+Harbor,Infrastructure,Trial,budding,"<p><a href=""https://goharbor.io"">Harbor</a> is an open source registry that secures artifacts with policies and role-based access control, ensures images are scanned and free from vulnerabilities, and signs images as trusted. As a CNCF Graduated project, Harbor delivers compliance, performance, and interoperability to help you consistently and securely manage artifacts across cloud native compute platforms like Kubernetes and Docker.</p>
+<h3>Pros</h3>
+<ul>
+<li>Built in security scanning through <a href="""">Clair</a></li>
+<li>CNCF incubating</li>
+<li>Active community</li>
+<li>Integrated web ui</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>We would host ourselves</li>
+<li>Cost prohibitive to use for logs as well</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
+ECS,Infrastructure,Hold,none,"<p><a href=""https://aws.amazon.com/ecs/"">Elastic Container Service (ECS)</a> is a fully managed container orchestration service. Customers such as Duolingo, Samsung, GE, and Cookpad use ECS to run their most sensitive and mission critical applications because of its security, reliability, and scalability.</p>
+<h3>Pros</h3>
+<ul>
+<li>Support for serverless containers through Fargate</li>
+<li>AWS native</li>
+<li>Managed infrastructure</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Lacks community support</li>
+<li>Only works with AWS</li>
+</ul>
+<p>While ECS and Kubernetes are very similar <a href="""">Kubernetes</a> is favored heavily.</p>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
+Datadog,Infrastructure,Hold,confident,"<p><a href=""https://www.datadoghq.com/"">Datadog</a> is a hosted platform for monitoring and analytics. Datadog enables easy instrumentation of many types of applications and infrastructure.</p>
+<h3>Pros</h3>
+<ul>
+<li>Very quick to implement</li>
+<li>Lots of canned reports and dashboards</li>
+<li>Compared to other providers they have been cheaper</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>No Azure support</li>
+<li>Dashboards aren’t very straightforward</li>
+</ul>
+<p>When decision made: 3/5/2020<br />
+When decision will be revisited: 01/01/2022</p>
+"
+ECR,Infrastructure,Hold,none,"<p><a href=""https://aws.amazon.com/ecr/"">ECR</a> is a fully-managed Docker container registry that makes it easy for developers to store, manage, and deploy Docker container images. Amazon ECR is integrated with Amazon Elastic Container Service (ECS), simplifying your development to production workflow. Amazon ECR eliminates the need to operate your own container repositories or worry about scaling the underlying infrastructure. Amazon ECR hosts your images in a highly available and scalable architecture, allowing you to reliably deploy containers for your applications.</p>
+<h3>Pros</h3>
+<ul>
+<li>Integration with IAM</li>
+<li>Fully managed and hosted</li>
+<li>Powerful insights and dashboarding</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>No security scanning</li>
+<li>Interface is lacking</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
+AWS Api Gateway,Infrastructure,Hold,none,"<p><a href=""https://aws.amazon.com/api-gateway/"">Api Gateway</a> is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, and secure APIs at any scale. APIs act as the “front door” for applications to access data, business logic, or functionality from your backend services. Using API Gateway, you can create RESTful APIs and WebSocket APIs that enable real-time two-way communication applications. API Gateway supports containerized and serverless workloads, as well as web applications.</p>
+<p>Generally speaking Api Gateway is a cool technology but there is a strong preference to run appliations on our existing <a href="""">Kubernetes</a> clusters to take advantage of free resources that are already available.</p>
+<h3>Pros</h3>
+<ul>
+<li>Fully managed</li>
+<li>Simple to setup and get started</li>
+<li>Direct integration into other services</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Api gateway can be more expensive when dealing with large loads</li>
+<li>Difficult to have large application cohesion</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
+Serverless.com,Infrastructure,Hold,none,"<p><a href=""https://serverless.com/"">Serverless</a> The Serverless Framework gives you everything you need to develop, deploy, monitor and secure serverless applications on any cloud.</p>
+<h3>Pros</h3>
+<ul>
+<li>Cloud agnostic</li>
+<li>Easy to use tooling</li>
+<li>Well documented</li>
+<li>Can save significant amounts of money over traditional monolithic applications</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Path to serverless is generally a rewrite</li>
+<li>Other applications can be dockerized and ran on existing resources</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
+Cloud Formation,Infrastructure,Hold,none,"<p><a href=""https://aws.amazon.com/cloudformation/"">CloudFormation</a> iprovides a common language for you to model and provision AWS and third party application resources in your cloud environment. AWS CloudFormation allows you to use programming languages or a simple text file to model and provision, in an automated and secure manner, all the resources needed for your applications across all regions and accounts. This gives you a single source of truth for your AWS and third party resources.</p>
+<h3>Pros</h3>
+<ul>
+<li>Native integration with AWS</li>
+<li>Drift detection</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Only works with AWS</li>
+<li>Tools and syntax are arguably unintuitive</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
+Chef Infra,Infrastructure,Hold,none,"<p><a href=""https://www.chef.io/products/chef-infra/"">Chef Infra</a> automates infrastructure configuration, ensuring every system is configured correctly and consistently. Relatively new addition to the infrastructure as code arena but <a href="""">Terraform</a> or <a href="""">Cloud Formation</a> are strongly preferred.</p>
+<h3>Pros</h3>
+<ul>
+<li>Manage your infrastructure declaratively</li>
+<li>Drift detection</li>
+<li>Easty to get started</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Lack of community support</li>
+<li>Not open source</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"

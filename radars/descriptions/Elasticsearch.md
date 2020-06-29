@@ -1,4 +1,4 @@
-Elasticsearch is a NOSQL database. Elasticsearch is a great tool for submillisecond latency and containing large amounts of data.
+[Elasticsearch](https://elastic.co) is a distributed, RESTful search and analytics engine capable of addressing a growing number of use cases. As the heart of the Elastic Stack, it centrally stores your data for lightning fast search, fine‑tuned relevancy, and powerful analytics that scale with ease. 
 
 ### Pros
 * Extremely efficient text searching
@@ -9,7 +9,7 @@ Elasticsearch is a NOSQL database. Elasticsearch is a great tool for submillisec
 * No ability to join documents directly
 * Can be difficult to setup and maintain
 
-When decision made:
+When decision made: 1/1/2020
 
-When decision will be revisited:
+When decision will be revisited: 1/1/2021
 
