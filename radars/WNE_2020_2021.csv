@@ -96,6 +96,20 @@ KendoReact,Frontend,Invest,leaning,Pre built component library.
 SASS,Frontend,Invest,leaning,Broader adoption and faster than LESS.
 Cypress,Frontend,Trial,budding,coming
 React Native,Frontend,Trial,budding,coming
+Tailwind CSS,Frontend,Trial,budding,"<p><a href=""https://tailwindcss.com/"">Tailwind CSS</a> is a highly customizable, low-level CSS framework that gives you all of the building blocks you need to build bespoke designs without any annoying opinionated styles you have to fight to override.</p>
+<h3>Pros</h3>
+<ul>
+<li>Provides low-level utility classes that let you build completely custom designs without writing any CSS.</li>
+<li>All utility classes come with responsive variants, facilitating mobile-first design.</li>
+<li>Highly customizable. Allows configuring colors, border sizes, font weights, spacing utilities, breapoints, shadows, and more.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>It’s recommended to use as a <a href=""https://postcss.org/"">PostCSS</a> plugin, which requires extra configuration with build tools.</li>
+<li>Larger learning curve due to the number of utility classes available.</li>
+<li>Can result in massive CSS bundles if tooling is not configured to purge unused classes for production builds.</li>
+</ul>
+"
 Karma,Frontend,Maintain,none,coming
 Angular,Frontend,Maintain,none,coming
 Angular CLI,Frontend,Maintain,none,coming
