@@ -3,3 +3,8 @@ require('./images/tech-radar-landing-page-wide.png')
 require('./images/tw-logo.png')
 require('./images/favicon.ico')
 require('./images/search-logo-2x.svg')
+require('./images/0-percent-icon.svg');
+require('./images/25-percent-icon.svg');
+require('./images/50-percent-icon.svg');
+require('./images/75-percent-icon.svg');
+require('./images/100-percent-icon.svg');

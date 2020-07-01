@@ -10,12 +10,6 @@ const AutoComplete = require('../util/autoComplete')
 const MIN_BLIP_WIDTH = 12
 const ANIMATION_DURATION = 1000
 
-const NONE_CODE = '\uf244'
-const BUDDING_CODE = '\uf243'
-const LEANING_CODE = '\uf242'
-const CONFIDENT_CODE = '\uf241'
-const LOCK_CODE = '\uf240'
-
 const Radar = function (size, radar) {
   var svg, radarElement, quadrantButtons, buttonsGroup, header, alternativeDiv
 
@@ -218,54 +212,13 @@ const Radar = function (size, radar) {
     var y = coordinates[1]
 
     var group = quadrantGroup.append('g').attr('class', 'blip-link').attr('id', 'blip-link-' + blip.number())
-
-    switch(blip.icon()){
-      case 'none':
-        group.append('text')
-        .attr('x', x)
-        .attr('y', y + 4)
-        .attr('class', 'fa')
-        .attr('style', 'fill:red')
-        .text(NONE_CODE);
-        break;
-      case 'budding':
-        group.append('text')
-        .attr('x', x)
-        .attr('y', y + 4)
-        .attr('class', 'fa')
-        .attr('style', 'fill:orange')
-        .text(BUDDING_CODE);
-        break;
-      case 'leaning':
-        group.append('text')
-        .attr('x', x)
-        .attr('y', y + 4)
-        .attr('class', 'fa')
-        .attr('style', 'fill:yellow')
-        .text(LEANING_CODE);
-        break;
-      case 'confident':
-        group.append('text')
-        .attr('x', x)
-        .attr('y', y + 4)
-        .attr('class', 'fa')
-        .attr('style', 'fill:lightgreen')
-        .text(CONFIDENT_CODE);
-        break;
-      case 'lock':
-        group.append('text')
-        .attr('x', x)
-        .attr('y', y + 4)
-        .attr('class', 'fa')
-        .attr('style', 'fill:green')
-        .text(LOCK_CODE);
-        break;
-    }
-    group.append('circle')
-      .attr('r', blip.width / 2)
-      .attr('cx', x - 4)
-      .attr('cy', y + 4)
-      .attr('class', 'blip-text-background')
+    
+    group.append('image')
+      .attr('x', x - 15)
+      .attr('y', y - 7)
+      .attr('width', blip.width)
+      .attr('height', blip.width)
+      .attr('xlink:href', getIconHref(blip.icon()));
 
     group.append('text')
       .attr('x', x - 4)
@@ -386,88 +339,29 @@ const Radar = function (size, radar) {
     d3.select('.legend')
       .attr('class', 'legend legend-' + order)
       .transition()
-      .style('visibility', 'visible')
+      .style('visibility', 'visible');
 
     container
       .append('text')
-      .attr('x', x - 10)
+      .attr('x', x - 15)
       .attr('y', y - 20)
-      .text('Confidence Level')
+      .text('Confidence Level');
     
-    var none = 'none'
-    container
-      .append('text')
-      .attr('x', x - 10)
-      .attr('y', y + 2)
-      .attr('class', 'fa')
-      .attr('style', 'fill:red')
-      .text(NONE_CODE);
-    container
-      .append('text')
-      .attr('x', x + 15)
-      .attr('y', y)
-      .attr('font-size', '0.8em')
-      .text(none)
+    ['none', 'budding', 'leaning', 'confident', 'lock'].forEach(function(ring, i) {
+      container.append('image')
+        .attr('x', x - 15)
+        .attr('y', y + (i * 24))
+        .attr('width', 22)
+        .attr('height', 22)
+        .attr('xlink:href', getIconHref(ring));
 
-    var budding = 'budding'
-    container
-      .append('text')
-      .attr('x', x - 10)
-      .attr('y', y + 22)
-      .attr('class', 'fa')
-      .attr('style', 'fill:orange')
-      .text(BUDDING_CODE);
-    container
-      .append('text')
-      .attr('x', x + 15)
-      .attr('y', y + 20)
-      .attr('font-size', '0.8em')
-      .text(budding)
-
-    var leaning = 'leaning'
       container
-      .append('text')
-      .attr('x', x - 10)
-      .attr('y', y + 42)
-      .attr('class', 'fa')
-      .attr('style', 'fill:yellow')
-      .text(LEANING_CODE);
-      container
-      .append('text')
-      .attr('x', x + 15)
-      .attr('y', y + 40)
-      .attr('font-size', '0.8em')
-      .text(leaning)
-
-      var confident = 'confident'
-      container
-      .append('text')
-      .attr('x', x - 10)
-      .attr('y', y + 62)
-      .attr('class', 'fa')
-      .attr('style', 'fill:lightgreen')
-      .text(CONFIDENT_CODE);
-      container
-      .append('text')
-      .attr('x', x + 15)
-      .attr('y', y + 60)
-      .attr('font-size', '0.8em')
-      .text(confident)
-
-      var lock = 'lock'
-      container
-      .append('text')
-      .attr('x', x - 10)
-      .attr('y', y + 82)
-      .attr('class', 'fa')
-      .attr('style', 'fill:green')
-      .text(LOCK_CODE);
-      container
-      .append('text')
-      .attr('x', x + 15)
-      .attr('y', y + 80)
-      .attr('font-size', '0.8em')
-      .text(lock)
+        .append('text')
+        .attr('x', x + 15)
+        .attr('y', y + 15 + (i * 24))
+        .attr('font-size', '0.8em')
+        .text(ring);
+    });
   }
 
   function redrawFullRadar () {
@@ -637,7 +531,6 @@ const Radar = function (size, radar) {
     var blipScale = 3 / 4
     var blipTranslate = (1 - blipScale) / blipScale
 
-    svg.style('left', moveLeft + 'px').style('right', moveRight + 'px')
     d3.select('.quadrant-group-' + order)
       .transition()
       .duration(ANIMATION_DURATION)
@@ -719,9 +612,20 @@ const Radar = function (size, radar) {
 
     plotQuadrantButtons(quadrants, header)
 
-    radarElement.style('height', size + 14 + 'px')
-    svg = radarElement.append('svg').call(tip)
-    svg.attr('id', 'radar-plot').attr('width', size).attr('height', size + 14)
+    svg = radarElement
+      .append('div')
+      .attr('class', 'radar-plot-container')
+      .append('svg').call(tip);
+
+    svg
+      .attr('id', 'radar-plot')
+      .attr('viewBox', '0 0 ' + size + ' ' + (size + 14));
+
+    // First and fourth quadrants need to come after the radar plot container
+    // in the DOM for the flexbox layout to work properly.
+    radarElement.selectAll('.quadrant-table').filter(function(_, i) {
+      return i === 0 || i === 3;
+    }).raise();
 
     let blips = []
     const findBlip = (name) => {
@@ -741,6 +645,23 @@ const Radar = function (size, radar) {
   }
 
   return self
+}
+
+function getIconHref(ring) {
+  switch (ring) {
+    case 'none':
+        return '/images/0-percent-icon.svg';
+      case 'budding':
+        return '/images/25-percent-icon.svg';
+      case 'leaning':
+        return '/images/50-percent-icon.svg';
+      case 'confident':
+       return '/images/75-percent-icon.svg';
+      case 'lock':
+        return '/images/100-percent-icon.svg';
+      default:
+        return undefined;
+  }
 }
 
 module.exports = Radar

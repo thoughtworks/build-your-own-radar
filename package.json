@@ -59,7 +59,6 @@
     "yargs": "^15.0.2"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.12.1",
     "chance": "^1.0.18",
     "d3": "^5.14.2",
     "d3-tip": "^0.7.1",

@@ -1,4 +1,3 @@
-@import 'variables';
 @import 'colors';
 @import 'fonts';
 @import 'tip';
@@ -6,9 +5,6 @@
 @import 'error';
 @import 'header';
 @import 'footer';
-@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
-@import '~@fortawesome/fontawesome-free/scss/regular.scss';
-@import '~@fortawesome/fontawesome-free/scss/solid.scss';
 
 @import url(https://www.thoughtworks.com/css/k8s_production/screen.css);
 
@@ -165,16 +161,23 @@ body {
 @media screen {
 
   #radar {
-    width: 80%;
+    display: flex;
+    align-items: flex-start;
+    max-width: 1440px;
     margin: 0 auto;
     position: relative;
 
+    .radar-plot-container {
+      width: 100%;
+      padding: 0 10px;
+    }
+
     svg#radar-plot {
+      width: 100%;
+      height: 100%;
+      max-height: 100vh;
       margin: 0 auto;
       transition: all 1s ease;
-      position: absolute;
-      left: 0;
-      right: 0;
 
       .legend {
         visibility: hidden;
@@ -267,7 +270,6 @@ body {
 
       max-height: 0;
       max-width: 0;
-      position: absolute;
       overflow: hidden;
 
       transition: max-height 0.5s ease 1s;
@@ -279,34 +281,20 @@ body {
         font-weight: bold;
       }
 
-      &.first {
-        &.selected {
-          float: right;
-        }
-      }
-
-      &.second {
-        &.selected {
-          float: left;
-        }
-      }
-
-      &.third {
-        &.selected {
-          float: left;
-        }
-      }
-
-      &.fourth {
-        &.selected {
-          float: right;
-        }
-      }
-
       &.selected {
-        position: relative;
         max-height: 10000px;
         max-width: 40%;
+        min-width: 25%;
+
+        &.first,
+        &.fourth {
+          padding: 0 10px 0 5px;
+        }
+
+        &.second,
+        &.third {
+          padding: 0 5px 0 10px;
+        }
       }
 
       ul {
@@ -333,7 +321,7 @@ body {
           .blip-item-description {
             max-height: 0;
             overflow: hidden;
-            width: 300px;
+            max-width: 300px;
 
             > p {
               margin: 0;

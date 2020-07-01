@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<circle cx="50" cy="50" r="50" style="fill: rgba(200, 255, 0, 0.6);"></circle>
+	<path
+		d="
+      M 50,50
+      m 0,-40
+      a 40,40 0 1 1 0,80
+      a 40,40 0 1 1 0,-80
+    "
+		stroke-width="8"
+		fill-opacity="0"
+		style="
+			stroke: rgb(255, 255, 255);
+			stroke-dasharray: 251.327px, 251.327px;
+			stroke-dashoffset: 62.8319px;
+			stroke-linecap: round;
+		"
+	></path>
+</svg>
