@@ -1,4 +1,4 @@
-React is a simple and lightweight JavaScript library for developing user interfaces in modern applications.
+[React](https://reactjs.org) is a simple and lightweight JavaScript library for developing user interfaces in modern applications.
 
 ### Pros
 
