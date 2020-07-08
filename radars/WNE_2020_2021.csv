@@ -176,14 +176,14 @@ Tailwind CSS,Frontend,Trial,budding,"<p><a href=""https://tailwindcss.com/"">Tai
 <li>Can result in massive CSS bundles if tooling is not configured to purge unused classes for production builds.</li>
 </ul>
 "
-Angular,Frontend,Maintain,none,coming
-Angular CLI,Frontend,Maintain,none,coming
-Protractor,Frontend,Maintain,none,"There are better tools today, no, dang it."
-Karma,Frontend,Maintain,none,coming
-Jasmine,Frontend,Maintain,none,Jest uses Jasmine but Jasmine alone no.
-Foundation,Frontend,Maintain,none,coming
-NPM CLI,Frontend,Maintain,none,"We'll still be using NPM as a registry for packages but we'll use the yarn command for building, packing, and running the server."
-Unity3D,Frontend,Maintain,none,Unity3D is great for 3D applications on any platform.
+Angular,Frontend,Hold,none,coming
+Angular CLI,Frontend,Hold,none,coming
+Protractor,Frontend,Hold,none,"There are better tools today, no, dang it."
+Karma,Frontend,Hold,none,coming
+Jasmine,Frontend,Hold,none,Jest uses Jasmine but Jasmine alone no.
+Foundation,Frontend,Hold,none,coming
+NPM CLI,Frontend,Hold,none,"We'll still be using NPM as a registry for packages but we'll use the yarn command for building, packing, and running the server."
+Unity3D,Frontend,Hold,none,Unity3D is great for 3D applications on any platform.
 AngularJS,Frontend,Divest,none,coming
 LESS,Frontend,Divest,none,Less is less than SASS
 ASP.NET Core,Backend,Invest,lock,"<p><a href=""https://dotnet.microsoft.com/learn/aspnet/what-is-aspnet-core"">ASP.NET Core</a> is built on the new <a href="""">.NET Core</a> framework but is designed for the web. As with .NET Core this is an open source framework. While <a href=""http://ASP.NET"">ASP.NET</a> can be used for server side rendering pages the WNE strong preference is that the frontend apps are single page applications (SPAs) using <a href="""">React</a>.</p>
@@ -279,7 +279,7 @@ GraphQL,Backend,Trial,budding,"<p><a href=""https://graphql.org/"">GraphQL</a> i
 <p>When decision made: 1/1/2020</p>
 <p>When decision will be revisited: 1/1/2022</p>
 "
-Node,Backend,Maintain,none,"<p><a href=""https://nodejs.org"">Node</a> is similar in design to, and influenced by, systems like Ruby’s Event Machine and Python’s Twisted. Node.js takes the event model a bit further. It presents an event loop as a runtime construct instead of as a library. In other systems, there is always a blocking call to start the event-loop. Typically, behavior is defined through callbacks at the beginning of a script, and at the end a server is started through a blocking call like EventMachine::run(). In Node.js, there is no such start-the-event-loop call. Node.js simply enters the event loop after executing the input script. Node.js exits the event loop when there are no more callbacks to perform. This behavior is like browser JavaScript — the event loop is hidden from the user.</p>
+Node,Backend,Hold,none,"<p><a href=""https://nodejs.org"">Node</a> is similar in design to, and influenced by, systems like Ruby’s Event Machine and Python’s Twisted. Node.js takes the event model a bit further. It presents an event loop as a runtime construct instead of as a library. In other systems, there is always a blocking call to start the event-loop. Typically, behavior is defined through callbacks at the beginning of a script, and at the end a server is started through a blocking call like EventMachine::run(). In Node.js, there is no such start-the-event-loop call. Node.js simply enters the event loop after executing the input script. Node.js exits the event loop when there are no more callbacks to perform. This behavior is like browser JavaScript — the event loop is hidden from the user.</p>
 <p>HTTP is a first-class citizen in Node.js, designed with streaming and low latency in mind. This makes Node.js well suited for the foundation of a web library or framework.</p>
 <p>Node.js being designed without threads doesn’t mean you can’t take advantage of multiple cores in your environment. Child processes can be spawned by using our child_process.fork() API, and are designed to be easy to communicate with. Built upon that same interface is the cluster module, which allows you to share sockets between processes to enable load balancing over your cores.</p>
 <h3>Pros</h3>
@@ -298,7 +298,7 @@ Node,Backend,Maintain,none,"<p><a href=""https://nodejs.org"">Node</a> is simila
 <p>When decision made: 1/1/2020</p>
 <p>When decision will be revisited: 1/1/2022</p>
 "
-Go,Backend,Maintain,budding,"<p><a href=""https://golang.org/"">Go</a> is a C style language with influence from JAVA. Go is expressive, concise, clean, and efficient. Its concurrency mechanisms make it easy to write programs that get the most out of multicore and networked machines, while its novel type system enables flexible and modular program construction. Go compiles quickly to machine code yet has the convenience of garbage collection and the power of run-time reflection. It’s a fast, statically typed, compiled language that feels like a dynamically typed, interpreted language.</p>
+Go,Backend,Hold,budding,"<p><a href=""https://golang.org/"">Go</a> is a C style language with influence from JAVA. Go is expressive, concise, clean, and efficient. Its concurrency mechanisms make it easy to write programs that get the most out of multicore and networked machines, while its novel type system enables flexible and modular program construction. Go compiles quickly to machine code yet has the convenience of garbage collection and the power of run-time reflection. It’s a fast, statically typed, compiled language that feels like a dynamically typed, interpreted language.</p>
 <h3>Pros</h3>
 <ul>
 <li>Extremely fast</li>
@@ -314,7 +314,7 @@ Go,Backend,Maintain,budding,"<p><a href=""https://golang.org/"">Go</a> is a C st
 <p>When decision made: 1/1/2020</p>
 <p>When decision will be revisited: 1/1/2022</p>
 "
-Ruby on Rails,Backend,Divest,none,"<p><a href=""https://www.ruby-lang.org/en/"">Ruby on Rails</a> Ruby is a dynamic, open source programming language with a focus on simplicity and productivity. It has an elegant syntax that is natural to read and easy to write. Rails is a web application development framework written in the Ruby programming language. It is designed to make programming web applications easier by making assumptions about what every developer needs to get started. It allows you to write less code while accomplishing more than many other languages and frameworks. Experienced Rails developers also report that it makes web application development more fun.</p>
+Ruby on Rails,Backend,Hold,budding,"<p><a href=""https://www.ruby-lang.org/en/"">Ruby on Rails</a> Ruby is a dynamic, open source programming language with a focus on simplicity and productivity. It has an elegant syntax that is natural to read and easy to write. Rails is a web application development framework written in the Ruby programming language. It is designed to make programming web applications easier by making assumptions about what every developer needs to get started. It allows you to write less code while accomplishing more than many other languages and frameworks. Experienced Rails developers also report that it makes web application development more fun.</p>
 <p>Rails is opinionated software. It makes the assumption that there is a “best” way to do things, and it’s designed to encourage that way - and in some cases to discourage alternatives. If you learn “The Rails Way” you’ll probably discover a tremendous increase in productivity. If you persist in bringing old habits from other languages to your Rails development, and trying to use patterns you learned elsewhere, you may have a less happy experience.</p>
 <h3>Pros</h3>
 <ul>
@@ -365,6 +365,8 @@ Azure cloud services,Backend,Divest,none,"<p><a href=""https://azure.microsoft.c
 <p>When decision made: 1/1/2020</p>
 <p>When decision will be revisited: 1/1/2022</p>
 "
+VB.Net,Backend,Divest,none,coming
+.NET Full Framework,Backend,Divest,none,coming
 AWS Kinesis,Data,Invest,confident,"<p><a href=""https://aws.amazon.com/kinesis/"">AWS Kinesis</a> makes it easy to collect, process, and analyze real-time, streaming data so you can get timely insights and react quickly to new information. Amazon Kinesis offers key capabilities to cost-effectively process streaming data at any scale, along with the flexibility to choose the tools that best suit the requirements of your application. With Amazon Kinesis, you can ingest real-time data such as video, audio, application logs, website clickstreams, and IoT telemetry data for machine learning, analytics, and other applications. Amazon Kinesis enables you to process and analyze data as it arrives and respond instantly instead of having to wait until all your data is collected before the processing can begin.</p>
 <h3>Pros</h3>
 <ul>
@@ -530,7 +532,7 @@ Databricks,Data,Trial,confident,"<p><a href=""https://databricks.com"">Databrick
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-Matillion,Data,Maintain,confident,"<p>Matillion is a purpose-built ETL designer and job engine. It’s a cloud-only product (cannot run locally in virtual machines or docker containers) and supports Redshift and Snowflake. The design canvas has a tree of job definitions and each job definition is represented as a graph of visual components. The user is able to drag and drop the components and alter their properties. Though the intent is largely to expose a point and click interface, it also supports custom SQL in various components and in practice Imagine Learning has used a fair amount of custom SQL.</p>
+Matillion,Data,Hold,confident,"<p>Matillion is a purpose-built ETL designer and job engine. It’s a cloud-only product (cannot run locally in virtual machines or docker containers) and supports Redshift and Snowflake. The design canvas has a tree of job definitions and each job definition is represented as a graph of visual components. The user is able to drag and drop the components and alter their properties. Though the intent is largely to expose a point and click interface, it also supports custom SQL in various components and in practice Imagine Learning has used a fair amount of custom SQL.</p>
 <p>While the product falls under an ETL umbrella, it is more accurately an ELT engine because the work is mostly executed in the target Redshift or Snowflake engine. In other words, executing a job (scheduled or otherwise) results in the Matillion runtime executing queries against Redshift/Snowflake such that the inputs and outputs of the queries are different tables in Redshift/Snowflake. The Matillion software itself runs on an EC2 instance but the resource utilization is relatively light there. Cost is based on actual EC2 cost plus a licensing fee to Matillion.</p>
 <p>Matillion includes support for extraction from many source technologies. The pattern is such that queries can be executed against source systems and the results are placed in the target Redshift / Snowflake, and then transforms are executed in the form of SQL on the target system to move and transform the data to destination tables (such as fact and dimension tables).</p>
 <h3>Pros</h3>
@@ -545,7 +547,7 @@ Matillion,Data,Maintain,confident,"<p>Matillion is a purpose-built ETL designer 
 <li>Compared to ETL where the majority of the T is done out-of-process from redshift / snowflake, a heaver load is placed on redshift / snowflake.</li>
 </ul>
 "
-MongoDB,Data,Maintain,none,"<p><a href=""hhttps://www.mongodb.com/"">MongoDB</a> is a general purpose, document-based, distributed database built for modern application developers and for the cloud era.</p>
+MongoDB,Data,Hold,none,"<p><a href=""hhttps://www.mongodb.com/"">MongoDB</a> is a general purpose, document-based, distributed database built for modern application developers and for the cloud era.</p>
 <h3>Pros</h3>
 <ul>
 <li>Very fast document storage</li>
@@ -561,7 +563,7 @@ MongoDB,Data,Maintain,none,"<p><a href=""hhttps://www.mongodb.com/"">MongoDB</a>
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-AWS Glue,Data,Maintain,none,"<p><a href=""https://aws.amazon.com/glue/?whats-new-cards.sort-by=item.additionalFields.postDateTime&amp;whats-new-cards.sort-order=desc"">AWS Glue</a> is a fully managed extract, transform, and load (ETL) service that makes it easy for customers to prepare and load their data for analytics. You can create and run an ETL job with a few clicks in the AWS Management Console. You simply point AWS Glue to your data stored on AWS, and AWS Glue discovers your data and stores the associated metadata (e.g. table definition and schema) in the AWS Glue Data Catalog. Once cataloged, your data is immediately searchable, queryable, and available for ETL.</p>
+AWS Glue,Data,Hold,none,"<p><a href=""https://aws.amazon.com/glue/?whats-new-cards.sort-by=item.additionalFields.postDateTime&amp;whats-new-cards.sort-order=desc"">AWS Glue</a> is a fully managed extract, transform, and load (ETL) service that makes it easy for customers to prepare and load their data for analytics. You can create and run an ETL job with a few clicks in the AWS Management Console. You simply point AWS Glue to your data stored on AWS, and AWS Glue discovers your data and stores the associated metadata (e.g. table definition and schema) in the AWS Glue Data Catalog. Once cataloged, your data is immediately searchable, queryable, and available for ETL.</p>
 <h3>Pros</h3>
 <ul>
 <li>Fully managed</li>
@@ -576,7 +578,7 @@ AWS Glue,Data,Maintain,none,"<p><a href=""https://aws.amazon.com/glue/?whats-new
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-AWS EMR (Spark),Data,Maintain,none,"<p><a href=""https://aws.amazon.com/emr/?nc=sn&amp;loc=1&amp;whats-new-cards.sort-by=item.additionalFields.postDateTime&amp;whats-new-cards.sort-order=desc"">AWS EMR</a> is the industry-leading cloud big data platform for processing vast amounts of data using open source tools such as Apache Spark, Apache Hive, Apache HBase, Apache Flink, Apache Hudi, and Presto. With EMR you can run Petabyte-scale analysis at less than half of the cost of traditional on-premises solutions and over 3x faster than standard Apache Spark.</p>
+AWS EMR (Spark),Data,Hold,none,"<p><a href=""https://aws.amazon.com/emr/?nc=sn&amp;loc=1&amp;whats-new-cards.sort-by=item.additionalFields.postDateTime&amp;whats-new-cards.sort-order=desc"">AWS EMR</a> is the industry-leading cloud big data platform for processing vast amounts of data using open source tools such as Apache Spark, Apache Hive, Apache HBase, Apache Flink, Apache Hudi, and Presto. With EMR you can run Petabyte-scale analysis at less than half of the cost of traditional on-premises solutions and over 3x faster than standard Apache Spark.</p>
 <h3>Pros</h3>
 <ul>
 <li>Fully managed</li>
@@ -644,7 +646,26 @@ Active Warehouse (Ruby),Data,Divest,none,"<p>The <a href=""https://github.com/ac
 <p>Data warehousing is migrating to <a href="""">Snowflake</a>.</p>
 "
 Periscope,Data,Divest,none,coming
-AWS QuickSight,Data,Divest,none,coming
+AWS QuickSight,Data,Divest,none,"<p><a href=""https://aws.amazon.com/quicksight/"">Amazon QuickSight</a> is a fast, cloud-powered business intelligence service that makes it easy to deliver insights to everyone in your organization.</p>
+<p>As a fully managed service, QuickSight lets you easily create and publish interactive dashboards that include ML Insights. Dashboards can then be accessed from any device, and embedded into your applications, portals, and websites.</p>
+<h3>Pros</h3>
+<ul>
+<li>Amazon data sources are easy to integrate with</li>
+<li>SPICE engine requires no prior setup</li>
+<li>Cost friendly (pay as you go)</li>
+<li>Visualization recommendations</li>
+<li>Simple configuration and seup</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>No Android support</li>
+<li>Not as feature rich as other offerings</li>
+<li>Limited options for graphs/charts</li>
+<li>Difficult to have large application cohesion</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
 MySQL,Data,Divest,none,"<p><a href=""https://www.mysql.com/"">MySQL</a> enables you to deliver high-performance and scalable Online Transaction Processing (OLTP) applications. It provides the ease of use that has made MySQL famous along with industrial strength performance and reliability.</p>
 <h3>Pros</h3>
 <ul>
@@ -873,6 +894,7 @@ S3,Infrastructure,Invest,confident,"<p>S3 is a distributed file system. It is hi
 <li>Without oversight it’s easy to accumulate data that does not have value</li>
 </ul>
 "
+Ansible (Configuration Management),Infrastructure,Invest,confident,coming
 EKS,Infrastructure,Trial,budding,"<p><a href="""">Kubernetes</a> is the best container orchestration system around. AWS has decided to make it a first class citizen on AWS by offering a managed system. The idea here is to make it easier to maintain your k8s cluster for minimal cost.</p>
 <h3>Pros</h3>
 <ul>
@@ -951,7 +973,7 @@ Concourse CI,Infrastructure,Trial,budding,"<p><a href=""https://concourse-ci.org
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-Terraform,Infrastructure,Trial,leaning,"<p><a href=""https://www.terraform.io/"">Terraform</a> is an open source tool to use <code>Infrastructure as Code</code> principles. As your infrastructure is created you can always make modifications and deploy all of your infra like you would with code.</p>
+Terraform (Provisioning),Infrastructure,Trial,leaning,"<p><a href=""https://www.terraform.io/"">Terraform</a> is an open source tool to use <code>Infrastructure as Code</code> principles. As your infrastructure is created you can always make modifications and deploy all of your infra like you would with code.</p>
 <h3>Pros</h3>
 <ul>
 <li>Syntactically superior to other tools</li>
@@ -970,7 +992,7 @@ Replaces <a href="""">Cloud Formation</a></p>
 <p>When decision made:</p>
 <p>When decision will be revisited:</p>
 "
-Cloud Formation,Infrastructure,Trial,leaning,"<p><a href=""https://aws.amazon.com/cloudformation/"">CloudFormation</a> iprovides a common language for you to model and provision AWS and third party application resources in your cloud environment. AWS CloudFormation allows you to use programming languages or a simple text file to model and provision, in an automated and secure manner, all the resources needed for your applications across all regions and accounts. This gives you a single source of truth for your AWS and third party resources.</p>
+AWS Cloud Formation,Infrastructure,Trial,leaning,"<p><a href=""https://aws.amazon.com/cloudformation/"">CloudFormation</a> iprovides a common language for you to model and provision AWS and third party application resources in your cloud environment. AWS CloudFormation allows you to use programming languages or a simple text file to model and provision, in an automated and secure manner, all the resources needed for your applications across all regions and accounts. This gives you a single source of truth for your AWS and third party resources.</p>
 <h3>Pros</h3>
 <ul>
 <li>Native integration with AWS</li>
@@ -1015,7 +1037,7 @@ ECR,Infrastructure,Trial,budding,"<p><a href=""https://aws.amazon.com/ecr/"">ECR
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-AWS Api Gateway,Infrastructure,Maintain,none,"<p><a href=""https://aws.amazon.com/api-gateway/"">Api Gateway</a> is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, and secure APIs at any scale. APIs act as the “front door” for applications to access data, business logic, or functionality from your backend services. Using API Gateway, you can create RESTful APIs and WebSocket APIs that enable real-time two-way communication applications. API Gateway supports containerized and serverless workloads, as well as web applications.</p>
+AWS Api Gateway,Infrastructure,Hold,none,"<p><a href=""https://aws.amazon.com/api-gateway/"">Api Gateway</a> is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, and secure APIs at any scale. APIs act as the “front door” for applications to access data, business logic, or functionality from your backend services. Using API Gateway, you can create RESTful APIs and WebSocket APIs that enable real-time two-way communication applications. API Gateway supports containerized and serverless workloads, as well as web applications.</p>
 <p>Generally speaking Api Gateway is a cool technology but there is a strong preference to run appliations on our existing <a href="""">Kubernetes</a> clusters to take advantage of free resources that are already available.</p>
 <h3>Pros</h3>
 <ul>
@@ -1031,7 +1053,7 @@ AWS Api Gateway,Infrastructure,Maintain,none,"<p><a href=""https://aws.amazon.co
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-Serverless.com,Infrastructure,Maintain,none,"<p><a href=""https://serverless.com/"">Serverless</a> The Serverless Framework gives you everything you need to develop, deploy, monitor and secure serverless applications on any cloud.</p>
+Serverless.com,Infrastructure,Hold,none,"<p><a href=""https://serverless.com/"">Serverless</a> The Serverless Framework gives you everything you need to develop, deploy, monitor and secure serverless applications on any cloud.</p>
 <h3>Pros</h3>
 <ul>
 <li>Cloud agnostic</li>
@@ -1047,7 +1069,7 @@ Serverless.com,Infrastructure,Maintain,none,"<p><a href=""https://serverless.com
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-Chef Infra,Infrastructure,Divest,none,"<p><a href=""https://www.chef.io/products/chef-infra/"">Chef Infra</a> automates infrastructure configuration, ensuring every system is configured correctly and consistently. Relatively new addition to the infrastructure as code arena but <a href="""">Terraform</a> or <a href="""">Cloud Formation</a> are strongly preferred.</p>
+Chef (All),Infrastructure,Divest,none,"<p><a href=""https://www.chef.io/products/chef-infra/"">Chef Infra</a> automates infrastructure configuration, ensuring every system is configured correctly and consistently. Relatively new addition to the infrastructure as code arena but <a href="""">Terraform</a> or <a href="""">Cloud Formation</a> are strongly preferred.</p>
 <h3>Pros</h3>
 <ul>
 <li>Manage your infrastructure declaratively</li>
@@ -1093,3 +1115,8 @@ Datadog,Infrastructure,Divest,none,"<p><a href=""https://www.datadoghq.com/"">Da
 <p>When decision made: 3/5/2020<br />
 When decision will be revisited: 01/01/2022</p>
 "
+TFS,Infrastructure,Divest,none,coming
+Subversion,Infrastructure,Divest,none,coming
+Stackify,Infrastructure,Divest,none,coming
+App Dynamics,Infrastructure,Divest,none,coming
+AMI (Custom built),Infrastructure,Divest,none,coming
