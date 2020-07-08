@@ -15,6 +15,7 @@ React,Frontend,Invest,lock,"<p><a href=""https://reactjs.org"">React</a> is a si
 When decision will be revisited: 01/01/2022</p>
 <p>Replaces <a href="""">Angular</a>.</p>
 "
+React hooks,Frontend,Invest,confident,coming
 React scripts,Frontend,Invest,confident,"<p>Package that includes the scripts and configuration used by <a href=""https://github.com/facebook/create-react-app"">Create React App</a>.</p>
 <h3>Pros</h3>
 <ul>
@@ -175,15 +176,15 @@ Tailwind CSS,Frontend,Trial,budding,"<p><a href=""https://tailwindcss.com/"">Tai
 <li>Can result in massive CSS bundles if tooling is not configured to purge unused classes for production builds.</li>
 </ul>
 "
-Karma,Frontend,Maintain,none,coming
 Angular,Frontend,Maintain,none,coming
 Angular CLI,Frontend,Maintain,none,coming
-AngularJS,Frontend,Maintain,none,coming
-Jasmine,Frontend,Maintain,none,Jest uses Jasmine but Jasmine alone no.
 Protractor,Frontend,Maintain,none,"There are better tools today, no, dang it."
+Karma,Frontend,Maintain,none,coming
+Jasmine,Frontend,Maintain,none,Jest uses Jasmine but Jasmine alone no.
 Foundation,Frontend,Maintain,none,coming
 NPM CLI,Frontend,Maintain,none,"We'll still be using NPM as a registry for packages but we'll use the yarn command for building, packing, and running the server."
 Unity3D,Frontend,Maintain,none,Unity3D is great for 3D applications on any platform.
+AngularJS,Frontend,Divest,none,coming
 LESS,Frontend,Divest,none,Less is less than SASS
 ASP.NET Core,Backend,Invest,lock,"<p><a href=""https://dotnet.microsoft.com/learn/aspnet/what-is-aspnet-core"">ASP.NET Core</a> is built on the new <a href="""">.NET Core</a> framework but is designed for the web. As with .NET Core this is an open source framework. While <a href=""http://ASP.NET"">ASP.NET</a> can be used for server side rendering pages the WNE strong preference is that the frontend apps are single page applications (SPAs) using <a href="""">React</a>.</p>
 <h3>Pros</h3>
