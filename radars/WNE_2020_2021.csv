@@ -399,7 +399,27 @@ AWS SNS,Data,Invest,confident,"<p><a href=""https://aws.amazon.com/sns/?whats-ne
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-Snowflake,Data,Invest,lock,coming
+Snowflake,Data,Invest,lock,"<p><a href=""hhttps://www.snowflake.com/"">Snowflake</a> is a modern data warehouse meant to augment data lakes.</p>
+<p>Generally speaking Api Gateway is a cool technology but there is a strong preference to run appliations on our existing <a href="""">Kubernetes</a> clusters to take advantage of free resources that are already available.</p>
+<h3>Pros</h3>
+<ul>
+<li>Very fast scale up of resources</li>
+<li>CPU and storage capacities can be configured separately</li>
+<li>Automatic performance tuning</li>
+<li>Fully managed infrastructure</li>
+<li>Cheaper than some other data warehouse technologies</li>
+<li>Supports multi cloud</li>
+<li>Simple to setup and get started</li>
+<li>Direct integration into other services</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>No on premise option</li>
+<li>May not perform as well as other technologies when optimized</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
 DynamoDB,Data,Invest,lock,"<p>Dynamo is a NOSQL database hosted and manged by AWS. It is built with scale in mind and we have had good experiences building solid scalable applications.</p>
 <h3>Pros</h3>
 <ul>
@@ -428,11 +448,71 @@ Elasticsearch,Data,Invest,confident,"<p><a href=""https://elastic.co"">Elasticse
 <p>When decision made: 1/1/2020</p>
 <p>When decision will be revisited: 1/1/2021</p>
 "
-Redis,Data,Invest,confident,coming
-Postgres,Data,Invest,lock,coming
-PowerBI,Data,Invest,confident,coming
+Redis,Data,Invest,confident,"<p><a href=""https://redis.io/"">Redis</a> is an open source (BSD licensed), in-memory data structure store, used as a database, cache and message broker. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperloglogs, geospatial indexes with radius queries and streams.</p>
+<h3>Pros</h3>
+<ul>
+<li>Extremely fast response times</li>
+<li>Has become the standard caching store for many systems</li>
+<li>Easy to use</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Replication isn’t simple if required</li>
+<li>No autoscaling options froms cloud providers</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
+Postgres,Data,Invest,lock,"<p><a href=""https://www.postgresql.org/"">Postgres</a> s a powerful, open source object-relational database system with over 30 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance.</p>
+<h3>Pros</h3>
+<ul>
+<li>Document support (NoSQL like objects)</li>
+<li>Broad array of enterprise features</li>
+<li>Direct integration into other services</li>
+<li>Open source (no licensing cost)</li>
+<li>Solid profiling tools</li>
+<li>Supports a notion of objects within the database (ORDBMS)</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Scaling for large loads can be challenging</li>
+<li>Setup and configuration can require more work than other databases</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
+PowerBI,Data,Invest,confident,"<p><a href=""https://powerbi.microsoft.com/en-us/"">PowerBI</a> is a collection of analytics tools developed by Microsoft. Over the years, it is one of the top BI tools used by analysts. When it comes to visualisation, Power BI is resolute and has a wide plethora of options and customisation. What’s more, it can even load various customisations from other BI platforms.</p>
+<h3>Pros</h3>
+<ul>
+<li>Integrates with many different data sources easily</li>
+<li>Powerful graphing and charting tools</li>
+<li>Cost is less than Tableau or QlikView</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Setup and installation is a hassle</li>
+<li>Report sharing requires a license</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
 Kinesis Data Analytics (Apache Flink),Data,Trial,budding,coming
-Postgres (Aurora Serverless),Data,Trial,budding,coming
+Postgres (Aurora Serverless),Data,Trial,budding,"<p><a href=""https://aws.amazon.com/rds/aurora/serverless/?nc=sn&amp;loc=2&amp;dn=6"">Aurora Serverless (Postgres compatible)</a> is an on-demand, auto-scaling configuration for Amazon Aurora (MySQL-compatible and PostgreSQL-compatible editions), where the database will automatically start up, shut down, and scale capacity up or down based on your application’s needs. It enables you to run your database in the cloud without managing any database instances. It’s a simple, cost-effective option for infrequent, intermittent, or unpredictable workloads.</p>
+<h3>Pros</h3>
+<ul>
+<li>Much cheaper than RDS provisioned instances</li>
+<li>Auto scaling</li>
+<li>Great for dev and test databases</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Will not perform as well as some other options</li>
+<li>Only supported with specific versions of Postgres</li>
+</ul>
+<p>*** Should only be considered for non production use cases ***</p>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
 Databricks,Data,Trial,confident,"<p><a href=""https://databricks.com"">Databricks</a> is a service built around data systems and its processes. The intent is to make the configuration of data systems simpler and more accessible to the masses.</p>
 <h3>Pros</h3>
 <ul>
@@ -514,7 +594,22 @@ AWS EMR (Spark),Data,Maintain,none,"<p><a href=""https://aws.amazon.com/emr/?nc=
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-SQL Server,Data,Divest,none,coming
+SQL Server,Data,Divest,none,"<p><a href=""https://www.microsoft.com/en-us/sql-server"">SQL Server</a> is a relational database technology backed by Microsoft. SQL Server has been around for many years and has improved significantly over the years to work well with enterprise applications.</p>
+<h3>Pros</h3>
+<ul>
+<li>Built in security</li>
+<li>Well known and used database</li>
+<li>High performance</li>
+<li>An array of tools built around the database</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>High licensing cost</li>
+<li>Not a first class citizen on AWS</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
 AWS Redshift,Data,Divest,none,"<p><a href=""https://aws.amazon.com/redshift/"">AWS Redshift</a> is the world’s fastest cloud data warehouse and gets faster every year. For performance intensive workloads you can use the new RA3 instances to get up to 3x the performance of any cloud data warehouse.</p>
 <p>Generally speaking Api Gateway is a cool technology but there is a strong preference to run appliations on our existing <a href="""">Kubernetes</a> clusters to take advantage of free resources that are already available.</p>
 <h3>Pros</h3>
