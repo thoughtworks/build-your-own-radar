@@ -1,5 +1,5 @@
 name,quadrant,ring,icon,description
-React,Frontend,Invest,lock,"<p>React is a simple and lightweight JavaScript library for developing user interfaces in modern applications.</p>
+React,Frontend,Invest,lock,"<p><a href=""https://reactjs.org"">React</a> is a simple and lightweight JavaScript library for developing user interfaces in modern applications.</p>
 <h3>Pros</h3>
 <ul>
 <li>Simple, lightweight, and fast.</li>
@@ -91,11 +91,76 @@ Yarn,Frontend,Invest,leaning,"<p>Yarn is a fast, stable JavaScript package manag
 </ul>
 <p>Replaces <a href="""">NPM CLI</a>.</p>
 "
-Jest,Frontend,Invest,leaning,coming
-KendoReact,Frontend,Invest,leaning,Pre built component library. 
-SASS,Frontend,Invest,leaning,Broader adoption and faster than LESS.
-Cypress,Frontend,Trial,budding,coming
-React Native,Frontend,Trial,budding,coming
+Jest,Frontend,Invest,leaning,"<p>Jest is a delightful JavaScript Testing Framework with a focus on simplicity.</p>
+<h3>Pros</h3>
+<ul>
+<li>Works out of the box, config free, on most JavaScript projects.</li>
+<li>Already built into <a href="""">React scripts</a>.</li>
+<li>Runs fast, running previously failed tests first and reorganizing runs based on how long test files take.</li>
+<li>Includes functionality for dependency mocking, snapshot testing, and parallelization.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Doesn’t have as large a community around it as <a href="""">Karma</a>/<a href="""">Jasmine</a>.</li>
+<li>Runs tests in a Node process by default, which can be harder to debug than tests run in a browser.</li>
+</ul>
+<p>Replaces <a href="""">Karma</a> and <a href="""">Jasmine</a>.</p>
+"
+KendoReact,Frontend,Invest,leaning,"<p>KendoReact is a UI and data visualization component library for React, built by <a href=""https://telerik.com"">Telerik</a>.</p>
+<h3>Pros</h3>
+<ul>
+<li>Includes a huge number of components and utilities for building application UIs and data visualizations.</li>
+<li>Comes with accessbility and localization features built in.</li>
+<li>Tested and supported by Telerik.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Expensive ($899+ <em>per developer</em>).</li>
+<li>Bulky. Can add a lot of size your application bundle.</li>
+</ul>
+"
+SASS,Frontend,Invest,leaning,"<p><a href=""https://sass-lang.com"">Sass</a> claims to be the most mature, stable, and powerful professional grade CSS extension language in the world.</p>
+<h3>Pros</h3>
+<ul>
+<li>Completely compatible with all versions of CSS.</li>
+<li>Makes sharing styles throughout your application more convenient through variables and mixins.</li>
+<li>Actively supported and developed by a consortium of several tech companies and hundreds of developers.</li>
+<li>Faster than <a href="""">LESS</a>.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Makes it really easy to write bad CSS, like deeply nested selectors.</li>
+<li>Another thing to configure in your build tooling.</li>
+</ul>
+"
+Cypress,Frontend,Trial,budding,"<p><a href=""https://cypress.io"">Cypress</a> is a tool for fast, easy, reliable testing of anything that runs in a browser.</p>
+<h3>Pros</h3>
+<ul>
+<li>Easy to debug using familiar tools like Chrome DevTools.</li>
+<li>Takes snapshots as tests run, making it possible to click through step by step and see exactly what happened.</li>
+<li>No more async hell. Cypress automatically waits for commands and assertions before moving on.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Does not support as many browsers as tools built on <a href=""https://www.selenium.dev/"">Selenium</a>.</li>
+<li>Does not allow scripts to execute across multiple domains, causing complications with things like 3rd-party OAuth flows.</li>
+</ul>
+<p>Replaces <a href="""">Protractor</a>.</p>
+"
+React Native,Frontend,Trial,budding,"<p><a href=""https://reactnative.dev"">React Native</a> is a framework for building native mobile applications using <a href="""">React</a>.</p>
+<h3>Pros</h3>
+<ul>
+<li>Create truly native apps while writing React code in JavaScript or <a href="""">TypeScript</a>.</li>
+<li>Target multiple platforms from a single codebase.</li>
+<li>Maintained by Facebook with a massive community around it.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Can have performance problems.</li>
+<li>Still hasn’t hit a 1.0 release. Developers can run into breaking changes in tools and dependencies between versions.</li>
+<li>Still need native mobile development experience for implementing more advanced features.</li>
+</ul>
+"
 Tailwind CSS,Frontend,Trial,budding,"<p><a href=""https://tailwindcss.com/"">Tailwind CSS</a> is a highly customizable, low-level CSS framework that gives you all of the building blocks you need to build bespoke designs without any annoying opinionated styles you have to fight to override.</p>
 <h3>Pros</h3>
 <ul>
@@ -150,17 +215,19 @@ ASP.NET Core,Backend,Invest,lock,"<p><a href=""https://dotnet.microsoft.com/lear
 <p>When decision made: 1/1/2020</p>
 <p>When decision will be revisited: 1/1/2022</p>
 "
-Java + Spring Boot,Backend,Invest,lock,"<p><a href=""https://spring.io/"">Java + Spring</a> makes programming Java quicker, easier, and safer for everybody. Spring’s focus on speed, simplicity, and productivity has made it the world’s most popular Java framework.</p>
+Java + Spring Boot,Backend,Invest,lock,"<p><a href=""https://spring.io/"">Java + Spring Boot</a> makes it easy to create stand-alone, production-grade Spring based Applications that you can “just run”.</p>
+<p>We take an opinionated view of the Spring platform and third-party libraries so you can get started with minimum fuss. Most Spring Boot applications need minimal Spring configuration.</p>
 <h3>Pros</h3>
 <ul>
 <li>Spring is the most popular Java framework</li>
 <li>Opinionated framework makes creating applications easy</li>
+<li>Not as heavy as full</li>
 <li>Massive amount of third party libraries available</li>
 </ul>
 <h3>Cons</h3>
 <ul>
-<li>Not as performant as some other offerings</li>
-<li>When used in Docker contexts the size can be somewhat large</li>
+<li>Unused libraries can bloat overall application size</li>
+<li>Limited control of your application</li>
 </ul>
 <p>When decision made: 1/1/2020</p>
 <p>When decision will be revisited: 1/1/2022</p>
@@ -297,8 +364,40 @@ Azure cloud services,Backend,Divest,none,"<p><a href=""https://azure.microsoft.c
 <p>When decision made: 1/1/2020</p>
 <p>When decision will be revisited: 1/1/2022</p>
 "
-AWS Kinesis,Data,Invest,confident,coming
-AWS SNS,Data,Invest,confident,coming
+AWS Kinesis,Data,Invest,confident,"<p><a href=""https://aws.amazon.com/kinesis/"">AWS Kinesis</a> makes it easy to collect, process, and analyze real-time, streaming data so you can get timely insights and react quickly to new information. Amazon Kinesis offers key capabilities to cost-effectively process streaming data at any scale, along with the flexibility to choose the tools that best suit the requirements of your application. With Amazon Kinesis, you can ingest real-time data such as video, audio, application logs, website clickstreams, and IoT telemetry data for machine learning, analytics, and other applications. Amazon Kinesis enables you to process and analyze data as it arrives and respond instantly instead of having to wait until all your data is collected before the processing can begin.</p>
+<h3>Pros</h3>
+<ul>
+<li>Fully managed</li>
+<li>Guaranteed ordering</li>
+<li>Direct integration into other services</li>
+<li>Easy integration into Lambda</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>No autoscaling</li>
+<li>Expensive</li>
+<li>Possible to hit throughput limits on a given partition within a shard easily</li>
+<li>Consumers must use the Kinesis Client Library (Java)</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
+AWS SNS,Data,Invest,confident,"<p><a href=""https://aws.amazon.com/sns/?whats-new-cards.sort-by=item.additionalFields.postDateTime&amp;whats-new-cards.sort-order=desc"">AWS SNS</a> is a highly available, durable, secure, fully managed pub/sub messaging service that enables you to decouple microservices, distributed systems, and serverless applications. Amazon SNS provides topics for high-throughput, push-based, many-to-many messaging. Using Amazon SNS topics, your publisher systems can fan out messages to a large number of subscriber endpoints for parallel processing, including Amazon SQS queues, AWS Lambda functions, and HTTP/S webhooks. Additionally, SNS can be used to fan out notifications to end users using mobile push, SMS, and email.</p>
+<h3>Pros</h3>
+<ul>
+<li>Serverless</li>
+<li>Automatically scales to meed demand</li>
+<li>Direct integration into other AWS services</li>
+<li>Built in encryption mechanisms</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Specific message size limits</li>
+<li>More costly than self host options</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
 Snowflake,Data,Invest,lock,coming
 DynamoDB,Data,Invest,lock,"<p>Dynamo is a NOSQL database hosted and manged by AWS. It is built with scale in mind and we have had good experiences building solid scalable applications.</p>
 <h3>Pros</h3>
@@ -333,7 +432,23 @@ Postgres,Data,Invest,lock,coming
 PowerBI,Data,Invest,confident,coming
 Kinesis Data Analytics (Apache Flink),Data,Trial,budding,coming
 Postgres (Aurora Serverless),Data,Trial,budding,coming
-Databricks,Data,Trial,confident,coming
+Databricks,Data,Trial,confident,"<p><a href=""https://databricks.com"">Databricks</a> is a service built around data systems and its processes. The intent is to make the configuration of data systems simpler and more accessible to the masses.</p>
+<h3>Pros</h3>
+<ul>
+<li>Awesome notebook add ins</li>
+<li>Polished UI</li>
+<li>Managed configuration</li>
+<li>Quicker to get started for non engineers</li>
+<li>Cloud agnostic</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Expensive. Per node markup of $.40 per hour on top of EC2</li>
+<li>Lack of configuration controls</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
 Matillion,Data,Maintain,confident,"<p>Matillion is a purpose-built ETL designer and job engine. It’s a cloud-only product (cannot run locally in virtual machines or docker containers) and supports Redshift and Snowflake. The design canvas has a tree of job definitions and each job definition is represented as a graph of visual components. The user is able to drag and drop the components and alter their properties. Though the intent is largely to expose a point and click interface, it also supports custom SQL in various components and in practice Imagine Learning has used a fair amount of custom SQL.</p>
 <p>While the product falls under an ETL umbrella, it is more accurately an ELT engine because the work is mostly executed in the target Redshift or Snowflake engine. In other words, executing a job (scheduled or otherwise) results in the Matillion runtime executing queries against Redshift/Snowflake such that the inputs and outputs of the queries are different tables in Redshift/Snowflake. The Matillion software itself runs on an EC2 instance but the resource utilization is relatively light there. Cost is based on actual EC2 cost plus a licensing fee to Matillion.</p>
 <p>Matillion includes support for extraction from many source technologies. The pattern is such that queries can be executed against source systems and the results are placed in the target Redshift / Snowflake, and then transforms are executed in the form of SQL on the target system to move and transform the data to destination tables (such as fact and dimension tables).</p>
@@ -349,15 +464,106 @@ Matillion,Data,Maintain,confident,"<p>Matillion is a purpose-built ETL designer 
 <li>Compared to ETL where the majority of the T is done out-of-process from redshift / snowflake, a heaver load is placed on redshift / snowflake.</li>
 </ul>
 "
-MongoDB,Data,Maintain,none,coming
-AWS Glue,Data,Maintain,none,coming
-AWS EMR (Spark),Data,Maintain,none,coming
+MongoDB,Data,Maintain,none,"<p><a href=""hhttps://www.mongodb.com/"">MongoDB</a> is a general purpose, document-based, distributed database built for modern application developers and for the cloud era.</p>
+<h3>Pros</h3>
+<ul>
+<li>Very fast document storage</li>
+<li>Powerful index options</li>
+<li>Scales with sharding</li>
+<li>Works very will with high transaction counts</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Slow full text search</li>
+<li>Sharding is complicated to set up</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
+AWS Glue,Data,Maintain,none,"<p><a href=""https://aws.amazon.com/glue/?whats-new-cards.sort-by=item.additionalFields.postDateTime&amp;whats-new-cards.sort-order=desc"">AWS Glue</a> is a fully managed extract, transform, and load (ETL) service that makes it easy for customers to prepare and load their data for analytics. You can create and run an ETL job with a few clicks in the AWS Management Console. You simply point AWS Glue to your data stored on AWS, and AWS Glue discovers your data and stores the associated metadata (e.g. table definition and schema) in the AWS Glue Data Catalog. Once cataloged, your data is immediately searchable, queryable, and available for ETL.</p>
+<h3>Pros</h3>
+<ul>
+<li>Fully managed</li>
+<li>Serverless</li>
+<li>Direct integration into other AWS</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>More expensive for continual jobs</li>
+<li>Less performant than other offerings</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
+AWS EMR (Spark),Data,Maintain,none,"<p><a href=""https://aws.amazon.com/emr/?nc=sn&amp;loc=1&amp;whats-new-cards.sort-by=item.additionalFields.postDateTime&amp;whats-new-cards.sort-order=desc"">AWS EMR</a> is the industry-leading cloud big data platform for processing vast amounts of data using open source tools such as Apache Spark, Apache Hive, Apache HBase, Apache Flink, Apache Hudi, and Presto. With EMR you can run Petabyte-scale analysis at less than half of the cost of traditional on-premises solutions and over 3x faster than standard Apache Spark.</p>
+<h3>Pros</h3>
+<ul>
+<li>Fully managed</li>
+<li>Tight integration within AWS</li>
+<li>Easy to get started</li>
+<li>On-demand instances</li>
+<li>Handles scale with ease</li>
+<li>Can be tuned to get better performance</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Developer centric</li>
+<li>Requires some knowledge of how Spark works</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
 SQL Server,Data,Divest,none,coming
-AWS Redshift,Data,Divest,none,coming
-Active Warehouse (Ruby),Data,Divest,none,coming
+AWS Redshift,Data,Divest,none,"<p><a href=""https://aws.amazon.com/redshift/"">AWS Redshift</a> is the world’s fastest cloud data warehouse and gets faster every year. For performance intensive workloads you can use the new RA3 instances to get up to 3x the performance of any cloud data warehouse.</p>
+<p>Generally speaking Api Gateway is a cool technology but there is a strong preference to run appliations on our existing <a href="""">Kubernetes</a> clusters to take advantage of free resources that are already available.</p>
+<h3>Pros</h3>
+<ul>
+<li>Managed</li>
+<li>Fast auto scaling</li>
+<li>Fast query responses</li>
+<li>Simple ETL from other AWS processes to Redshift</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Very expensive</li>
+<li>Storage and compute historically not configurable separately (this is changing)</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
+Active Warehouse (Ruby),Data,Divest,none,"<p>The <a href=""https://github.com/activewarehouse/activewarehouse"">Active Warehouse (Ruby)</a> library provides classes and functions which help with building Data Warehouses using Rails.</p>
+<h3>Pros</h3>
+<ul>
+<li>Tight integration with Ruby on Rails</li>
+<li>Simple to setup and get started</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Difficult to maintain</li>
+<li>Not a modern approach to data warehousing</li>
+<li>Inactive for almost 6 years</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+<p>Data warehousing is migrating to <a href="""">Snowflake</a>.</p>
+"
 Periscope,Data,Divest,none,coming
 AWS QuickSight,Data,Divest,none,coming
-MySQL,Data,Divest,none,coming
+MySQL,Data,Divest,none,"<p><a href=""https://www.mysql.com/"">MySQL</a> enables you to deliver high-performance and scalable Online Transaction Processing (OLTP) applications. It provides the ease of use that has made MySQL famous along with industrial strength performance and reliability.</p>
+<h3>Pros</h3>
+<ul>
+<li>Most popular database worldwide</li>
+<li>Open source</li>
+<li>Performance on par with other database offerings</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Nascent support for documents</li>
+<li>Can be slower for write-heavy applications</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
 ELK (OpenDistro),Infrastructure,Invest,confident,"<p>ELK is the combination of Elasticsearch, Kibana and Logstash. See <a href="""">Elasticsearch</a> for more information on that but Logstash is a good ingester of data into Elasticsearch. This combination of services makes for a solid logging solution. Additionally, AWS has contributed back to the community with <a href=""https://opendistro.github.io/for-elasticsearch/"">OpenDistro</a> to fill the gaps in authentication and management of the system.</p>
 <h3>Pros</h3>
 <ul>
