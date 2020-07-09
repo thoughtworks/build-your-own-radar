@@ -14,6 +14,6 @@
 Terraform workspaces should be employed to separate different environments. 
 Replaces [Cloud Formation]()
 
-When decision made:
+When decision made: 5/1/2020
 
-When decision will be revisited:
+When decision will be revisited: 5/1/2021

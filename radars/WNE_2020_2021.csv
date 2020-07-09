@@ -183,7 +183,24 @@ Karma,Frontend,Hold,none,coming
 Jasmine,Frontend,Hold,none,Jest uses Jasmine but Jasmine alone no.
 Foundation,Frontend,Hold,none,coming
 NPM CLI,Frontend,Hold,none,"We'll still be using NPM as a registry for packages but we'll use the yarn command for building, packing, and running the server."
-Unity3D,Frontend,Hold,none,Unity3D is great for 3D applications on any platform.
+Unity3D,Frontend,Hold,none,"<p><a href=""https://unity.com/"">Unity3D</a> is a cross-platform game engine developed by Unity Technologies. Unity’s real-time 3D development platform lets artists, designers and developers work together to create amazing immersive and interactive experiences.</p>
+<h3>Pros</h3>
+<ul>
+<li>Code once and deploy to 25+ platforms</li>
+<li>Native application support</li>
+<li>Large community support</li>
+<li>Very active marketplace for reusable components and artwork</li>
+<li>Mature asset bundles for efficient media deployment</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Engine can be heavy for simple applications</li>
+<li>Licensing cost for corporations</li>
+<li>Lack of accessibility support</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
 AngularJS,Frontend,Divest,none,coming
 LESS,Frontend,Divest,none,Less is less than SASS
 ASP.NET Core,Backend,Invest,lock,"<p><a href=""https://dotnet.microsoft.com/learn/aspnet/what-is-aspnet-core"">ASP.NET Core</a> is built on the new <a href="""">.NET Core</a> framework but is designed for the web. As with .NET Core this is an open source framework. While <a href=""http://ASP.NET"">ASP.NET</a> can be used for server side rendering pages the WNE strong preference is that the frontend apps are single page applications (SPAs) using <a href="""">React</a>.</p>
@@ -365,8 +382,39 @@ Azure cloud services,Backend,Divest,none,"<p><a href=""https://azure.microsoft.c
 <p>When decision made: 1/1/2020</p>
 <p>When decision will be revisited: 1/1/2022</p>
 "
-VB.Net,Backend,Divest,none,coming
-.NET Full Framework,Backend,Divest,none,coming
+VB.Net,Backend,Divest,none,"<p><a href=""https://docs.microsoft.com/en-us/dotnet/visual-basic/"">VB.NET</a> is engineered to help you productively build type-safe and object-oriented apps. Visual Basic is a fast and easy way to create .NET apps.</p>
+<h3>Pros</h3>
+<ul>
+<li>Easy to learn as it mirrors natural language more closely</li>
+<li>Easy to read</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Larger community support for C#</li>
+<li>Microsoft doesn’t back <a href=""http://VB.NET"">VB.NET</a> heavily</li>
+<li>Lack of libraries</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
+.NET Full Framework,Backend,Divest,none,"<p><a href=""https://dotnet.microsoft.com/learn/dotnet/what-is-dotnet-framework"">.NET Full Framework</a> .NET Framework is a software development framework for building and running applications on Windows.</p>
+<h3>Pros</h3>
+<ul>
+<li>Multiple language support (C#, F#, Visual Basic)</li>
+<li>Large amount of available libraries</li>
+<li>Easy to use</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Original implementation of the .NET Framework</li>
+<li>Only works on Windows</li>
+<li>Significant bloat in the framework</li>
+<li>Does not use modern approaches to software development</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+<p>The .NET Full Framework has been replaced by either <a href="""">.NET Core App</a> or <a href="""">ASP.NET Core</a>.</p>
+"
 AWS Kinesis,Data,Invest,confident,"<p><a href=""https://aws.amazon.com/kinesis/"">AWS Kinesis</a> makes it easy to collect, process, and analyze real-time, streaming data so you can get timely insights and react quickly to new information. Amazon Kinesis offers key capabilities to cost-effectively process streaming data at any scale, along with the flexibility to choose the tools that best suit the requirements of your application. With Amazon Kinesis, you can ingest real-time data such as video, audio, application logs, website clickstreams, and IoT telemetry data for machine learning, analytics, and other applications. Amazon Kinesis enables you to process and analyze data as it arrives and respond instantly instead of having to wait until all your data is collected before the processing can begin.</p>
 <h3>Pros</h3>
 <ul>
@@ -498,7 +546,20 @@ PowerBI,Data,Invest,confident,"<p><a href=""https://powerbi.microsoft.com/en-us/
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-Kinesis Data Analytics (Apache Flink),Data,Trial,budding,coming
+AWS Kinesis Data Analytics (Apache Flink),Data,Trial,budding,"<p><a href=""https://aws.amazon.com/kinesis/data-analytics/"">AWS Kinesis Data Analytics</a> is the easiest way to analyze streaming data, gain actionable insights, and respond to your business and customer needs in real time. Amazon Kinesis Data Analytics reduces the complexity of building, managing, and integrating streaming applications with other AWS services. SQL users can easily query streaming data or build entire streaming applications using templates and an interactive SQL editor. Java developers can quickly build sophisticated streaming applications using open source Java libraries and AWS integrations to transform and analyze data in real-time.</p>
+<h3>Pros</h3>
+<ul>
+<li>Fully managed Apache Flink</li>
+<li>Simple to setup and get started</li>
+<li>Direct integration with <a href="""">Kinesis</a></li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>More expensive than running Flink on its own</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
 Postgres (Aurora Serverless),Data,Trial,budding,"<p><a href=""https://aws.amazon.com/rds/aurora/serverless/?nc=sn&amp;loc=2&amp;dn=6"">Aurora Serverless (Postgres compatible)</a> is an on-demand, auto-scaling configuration for Amazon Aurora (MySQL-compatible and PostgreSQL-compatible editions), where the database will automatically start up, shut down, and scale capacity up or down based on your application’s needs. It enables you to run your database in the cloud without managing any database instances. It’s a simple, cost-effective option for infrequent, intermittent, or unpredictable workloads.</p>
 <h3>Pros</h3>
 <ul>
@@ -645,7 +706,6 @@ Active Warehouse (Ruby),Data,Divest,none,"<p>The <a href=""https://github.com/ac
 <p>When decision will be revisited: 5/1/2021</p>
 <p>Data warehousing is migrating to <a href="""">Snowflake</a>.</p>
 "
-Periscope,Data,Divest,none,coming
 AWS QuickSight,Data,Divest,none,"<p><a href=""https://aws.amazon.com/quicksight/"">Amazon QuickSight</a> is a fast, cloud-powered business intelligence service that makes it easy to deliver insights to everyone in your organization.</p>
 <p>As a fully managed service, QuickSight lets you easily create and publish interactive dashboards that include ML Insights. Dashboards can then be accessed from any device, and embedded into your applications, portals, and websites.</p>
 <h3>Pros</h3>
@@ -1069,18 +1129,20 @@ Serverless.com,Infrastructure,Hold,none,"<p><a href=""https://serverless.com/"">
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-Chef (All),Infrastructure,Divest,none,"<p><a href=""https://www.chef.io/products/chef-infra/"">Chef Infra</a> automates infrastructure configuration, ensuring every system is configured correctly and consistently. Relatively new addition to the infrastructure as code arena but <a href="""">Terraform</a> or <a href="""">Cloud Formation</a> are strongly preferred.</p>
+Chef (All),Infrastructure,Divest,none,"<p><a href=""https://www.chef.io/"">Chef (All)</a> automates infrastructure configuration, ensuring every system is configured correctly and consistently.</p>
 <h3>Pros</h3>
 <ul>
 <li>Manage your infrastructure declaratively</li>
 <li>Drift detection</li>
-<li>Easty to get started</li>
+<li>Easy to replicate environments</li>
 </ul>
 <h3>Cons</h3>
 <ul>
 <li>Lack of community support</li>
 <li>Not open source</li>
+<li>Steep learning curve</li>
 </ul>
+<p>Relatively new addition to the infrastructure as code arena but <a href="""">Terraform</a> or <a href="""">Cloud Formation</a> are strongly preferred.</p>
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
@@ -1115,8 +1177,83 @@ Datadog,Infrastructure,Divest,none,"<p><a href=""https://www.datadoghq.com/"">Da
 <p>When decision made: 3/5/2020<br />
 When decision will be revisited: 01/01/2022</p>
 "
-TFS,Infrastructure,Divest,none,coming
-Subversion,Infrastructure,Divest,none,coming
-Stackify,Infrastructure,Divest,none,coming
-App Dynamics,Infrastructure,Divest,none,coming
-AMI (Custom built),Infrastructure,Divest,none,coming
+TFS (Azure DevOps Server),Infrastructure,Divest,none,"<p><a href=""https://azure.microsoft.com/en-us/services/devops/server/"">TFS (Azure DevOps Server)</a> is replaced by Azure DevOps server. TFS historically attempted to capture all venues of the software development process. Project management, source control, and everything in between.</p>
+<h3>Pros</h3>
+<ul>
+<li>Tight integration with Visual Studio</li>
+<li>Integrated project management and development experience</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Centralized source control</li>
+<li>Gated check-ins painful</li>
+<li>Slow interfaces</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
+Subversion,Infrastructure,Divest,none,"<p><a href=""https://subversion.apache.org/"">Subversion</a> is an open-source, centralized version control system characterized by its reliability as a safe haven for valuable data; the simplicity of its model and usage; and its ability to support the needs of a wide variety of users and projects, from individuals to large-scale enterprise operations.</p>
+<h3>Pros</h3>
+<ul>
+<li>Stable</li>
+<li>Well-known</li>
+<li>Simple rollbacks</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Lack of workflows (pull requests)</li>
+<li>Centralized source control</li>
+<li>Not as friendly to .NET developers</li>
+<li>Refactoring painful</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
+Stackify,Infrastructure,Divest,none,"<p><a href=""https://stackify.com/"">Stackify Retrace</a> combines APM, centralized logging, code profiling, integrated errors and logs, and more under one roof. That way, everyone is in the know.</p>
+<h3>Pros</h3>
+<ul>
+<li>Combined code profiler with application logging</li>
+<li>Easy to deploy</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Weak mobile support</li>
+<li>Documentation needs improvement</li>
+<li>Cost</li>
+<li>Not as highly rated as other APM providers</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
+AppDynamics,Infrastructure,Divest,none,"<p><a href=""https://www.appdynamics.com"">AppDynamics</a> is used to actively monitor, analyze and optimize complex application environments at scale.</p>
+<h3>Pros</h3>
+<ul>
+<li>Extensive displays and dashboards</li>
+<li>Efficient agents with minimal overhead</li>
+<li>Agentless deployment</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Higher learning curve than others</li>
+<li>More expensive than other vendors</li>
+<li>Complex interface</li>
+</ul>
+<p>Replaced by <a href="""">NewRelic</a>.</p>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
+AMI (Custom built),Infrastructure,Divest,none,"<p><a href=""https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instances-and-amis.html"">AMI (Custom Built)</a> is a template that contains a software configuration (for example, an operating system, an application server, and applications). From an AMI, you launch an instance, which is a copy of the AMI running as a virtual server in the cloud.</p>
+<h3>Pros</h3>
+<ul>
+<li>Repeatable configuration of a virual machine</li>
+<li>Easy to rollout multiple instances</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Wastes large amounts of resources inside of EC2 when utilization is low</li>
+<li>Can be rather costly, especially for low use applications</li>
+</ul>
+<p><a href="""">Docker</a> replaces the need for creating custom AMIs that contain software packages.</p>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
