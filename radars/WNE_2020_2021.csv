@@ -15,7 +15,21 @@ React,Frontend,Invest,lock,"<p><a href=""https://reactjs.org"">React</a> is a si
 When decision will be revisited: 01/01/2022</p>
 <p>Replaces <a href="""">Angular</a>.</p>
 "
-React hooks,Frontend,Invest,confident,coming
+React Hooks,Frontend,Invest,confident,"<p><a href=""https://reactjs.org/docs/hooks-overview.html"">React Hooks</a> are functions that let you “hook into” React state and lifecycle features from function components.<br />
+React provides <a href=""https://reactjs.org/docs/hooks-reference.html"">a few built-in Hooks</a>, like <code>useState</code> for managing state, <code>useEffect</code> for performing side-effects.</p>
+<h3>Pros</h3>
+<ul>
+<li>Add stateful behavior to function components.</li>
+<li>Use more of React’s features without classes.</li>
+<li>Allow creation of <a href=""https://reactjs.org/docs/hooks-custom.html"">custom Hooks</a>, facilitating reuse of stateful logic across components.</li>
+<li>Completely opt-in and 100% backwards compatible.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Requires a different mental model from traditional lifecycle methods in class components.</li>
+<li>Less separation of concerns, since business logic can be more easily added to function components.</li>
+</ul>
+"
 React scripts,Frontend,Invest,confident,"<p>Package that includes the scripts and configuration used by <a href=""https://github.com/facebook/create-react-app"">Create React App</a>.</p>
 <h3>Pros</h3>
 <ul>
@@ -176,13 +190,98 @@ Tailwind CSS,Frontend,Trial,budding,"<p><a href=""https://tailwindcss.com/"">Tai
 <li>Can result in massive CSS bundles if tooling is not configured to purge unused classes for production builds.</li>
 </ul>
 "
-Angular,Frontend,Hold,none,coming
-Angular CLI,Frontend,Hold,none,coming
-Protractor,Frontend,Hold,none,"There are better tools today, no, dang it."
-Karma,Frontend,Hold,none,coming
-Jasmine,Frontend,Hold,none,Jest uses Jasmine but Jasmine alone no.
-Foundation,Frontend,Hold,none,coming
-NPM CLI,Frontend,Hold,none,"We'll still be using NPM as a registry for packages but we'll use the yarn command for building, packing, and running the server."
+Angular,Frontend,Hold,none,"<p><a href=""https://angular.io"">Angular</a> is an application design framework and development platform for creating efficient and sophisticated single-page apps.</p>
+<h3>Pros</h3>
+<ul>
+<li>Opinionated framework with many services baked in, such as routing, HTTP client, etc.</li>
+<li>Angular team provides an official style guide and CLI tool, which help maintain consistent file and code structure across projects.</li>
+<li>Framework built around dependency injection for greater testability of isolated services and components.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Steep learning curve. Even for developers coming from <a href="""">AngularJS</a>, the framework is completely different. It follows some sophisticated design patterns that can be difficult to understand at first.</li>
+<li>Requires a lot more boilerplate code than its contemporaries.</li>
+</ul>
+"
+Angular CLI,Frontend,Hold,none,"<p>The <a href=""https://angular.io/cli"">Angular CLI</a> is a command-line interface tool that you use to initialize, develop, scaffold, and maintain Angular applications.</p>
+<h3>Pros</h3>
+<ul>
+<li>Create new Angular applications with no build configuration.</li>
+<li>Provides consistent project structure across projects.</li>
+<li>Support for <a href="""">TypeScript</a> and <a href="""">SASS</a> right out of the box.</li>
+<li>Provides scaffolding for generating modules, components, directives, services, pipes, etc. to reduce boilerplate.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Not easily customizable without ejecting.</li>
+<li>Lots of commands and options, making it a little unweildy.</li>
+</ul>
+"
+Protractor,Frontend,Hold,none,"<p><a href=""https://protractortest.org"">Protractor</a> is an end-to-end test framework for Angular and AngularJS applications. Protractor runs tests against your application running in a real browser, interacting with it as a user would.</p>
+<h3>Pros</h3>
+<ul>
+<li>Automatically configured and stubbed out by <a href="""">Angular CLI</a> when generating a new project.</li>
+<li>Supports Angular-specific locator strategies, making it easy to test Angular-specific elements.</li>
+<li>Built on <a href=""https://www.selenium.dev/"">Selenium WebDriver</a>, providing support for a broad range of browsers.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Specifically built for testing Angular and AngularJS applications.</li>
+<li>Difficult to debug tests.</li>
+</ul>
+"
+Karma,Frontend,Hold,none,"<p><a href=""http://karma-runner.github.io/5.0/"">Karma</a> is a test runner that allows you to execute JavaScript code in multiple real browsers.</p>
+<h3>Pros</h3>
+<ul>
+<li>Tests code in multiple, real browsers.</li>
+<li>Automatically configured by <a href="""">Angular CLI</a> when project is generated.</li>
+<li>Lots of plugins available.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Slower than other test runners that don’t run in an actual browser.</li>
+<li>Difficult to mock imports of ES6/TypeScript modules.</li>
+</ul>
+"
+Jasmine,Frontend,Hold,none,"<p><a href=""https://jasmine.github.io/"">Jasmine</a> is a behavior-driven development framework for testing JavaScript code.</p>
+<h3>Pros</h3>
+<ul>
+<li>Does not depend on other JavaScript frameworks and does not require a DOM.</li>
+<li>Widely used, with a large community around it.</li>
+<li>Includes a wide variety of built-in assertions/matchers.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Does not include a test runner, making it reliant on other tools like <a href="""">Karma</a>.</li>
+</ul>
+"
+Foundation,Frontend,Hold,none,"<p><a href=""https://get.foundation/index.html"">Foundation</a> is a responsive front-end framework that makes it easy to design responsive websites and apps.</p>
+<h3>Pros</h3>
+<ul>
+<li>Customizable, allowing the exclusion of certain elements, defining column size, colors, font size, etc.</li>
+<li>Built for mobile-first development.</li>
+<li>Based on semantic design, allowing cleaner markup without sacrificing utility and speed.</li>
+<li>Built with <a href="""">SASS</a>. Provides numerous mixins and custom functions for faster styling.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Smaller community. Not as well supported as frameworks like Bootstrap.</li>
+<li>Requires familiarity with the required markup and CSS classes to leverage component styles.</li>
+</ul>
+"
+NPM CLI,Frontend,Hold,none,"<p><a href=""https://docs.npmjs.com/cli-documentation/"">NPM CLI</a> is the command line interface for Node Package Manager (NPM).<br />
+It can be used for managing dependencies in an application or library, publishing packages to the registry, and running scripts within an application.</p>
+<h3>Pros</h3>
+<ul>
+<li>Already comes bundled with <a href="""">Node</a>.</li>
+<li>Well tested, stable, backed by a large community.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Security concerns with allowing packages to run code on installation automatically.</li>
+<li>Slower than <a href="""">Yarn</a>.</li>
+</ul>
+"
 Unity3D,Frontend,Hold,none,"<p><a href=""https://unity.com/"">Unity3D</a> is a cross-platform game engine developed by Unity Technologies. Unity’s real-time 3D development platform lets artists, designers and developers work together to create amazing immersive and interactive experiences.</p>
 <h3>Pros</h3>
 <ul>
@@ -201,8 +300,32 @@ Unity3D,Frontend,Hold,none,"<p><a href=""https://unity.com/"">Unity3D</a> is a c
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-AngularJS,Frontend,Divest,none,coming
-LESS,Frontend,Divest,none,Less is less than SASS
+AngularJS,Frontend,Divest,none,"<p><a href=""https://angularjs.org/"">AngularJS</a> refers to the versions of <a href="""">Angular</a> prior to v2.<br />
+It is a full-featured web application framework for building single-page applications.</p>
+<h3>Pros</h3>
+<ul>
+<li>Framework built around dependency injection for greater testability of isolated services and components.</li>
+<li>Huge community with lot’s of resources available.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Nearing end of life. Entered 3 year Long Term Support period on July 1, 2018.</li>
+<li>Not nearly as performant as more modern frameworks, like <a href="""">React</a> or <a href="""">Angular</a>.</li>
+</ul>
+"
+LESS,Frontend,Divest,none,"<p><a href=""http://lesscss.org/"">LESS</a> is a CSS extension language, similar to <a href="""">SASS</a>.</p>
+<h3>Pros</h3>
+<ul>
+<li>Makes sharing styles throughout your application more convenient through variables and mixins.</li>
+<li>Allows a more programmatic approach to writing styles, with less redundant code.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Slower than <a href="""">SASS</a>.</li>
+<li>Makes it really easy to write bad CSS, like deeply nested selectors.</li>
+<li>Another thing to configure in your build tooling.</li>
+</ul>
+"
 ASP.NET Core,Backend,Invest,lock,"<p><a href=""https://dotnet.microsoft.com/learn/aspnet/what-is-aspnet-core"">ASP.NET Core</a> is built on the new <a href="""">.NET Core</a> framework but is designed for the web. As with .NET Core this is an open source framework. While <a href=""http://ASP.NET"">ASP.NET</a> can be used for server side rendering pages the WNE strong preference is that the frontend apps are single page applications (SPAs) using <a href="""">React</a>.</p>
 <h3>Pros</h3>
 <ul>
