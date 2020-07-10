@@ -10,7 +10,7 @@
 * No UI
 * Large learning curve
 
-Replaces [Chef (All)]() for on-premise configuration and provisioning. Consider [Terraform]() or [AWS Cloud Formation]() for cloud infrastructure. 
+Replaces [Chef (All)]() for on-premise configuration and provisioning. Consider [Terraform]() or [AWS Cloud Formation]() for cloud infrastructure provisioning. 
 
 When decision made: 5/1/2020
 

@@ -1077,7 +1077,23 @@ S3,Infrastructure,Invest,confident,"<p>S3 is a distributed file system. It is hi
 <li>Without oversight it’s easy to accumulate data that does not have value</li>
 </ul>
 "
-Ansible (Configuration Management),Infrastructure,Invest,confident,coming
+Ansible (Configuration Management),Infrastructure,Invest,confident,"<p><a href=""https://www.ansible.com/"">Ansible</a> is a universal language, unraveling the mystery of how work gets done. Turn tough tasks into repeatable playbooks. Roll out enterprise-wide protocols with the push of a button.</p>
+<h3>Pros</h3>
+<ul>
+<li>Simple yaml playbooks</li>
+<li>No server agent required</li>
+<li>Repeatable configuration across a large set of servers</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Extensive logic can be difficult</li>
+<li>No UI</li>
+<li>Large learning curve</li>
+</ul>
+<p>Replaces <a href="""">Chef (All)</a> for on-premise configuration and provisioning. Consider <a href="""">Terraform</a> or <a href="""">AWS Cloud Formation</a> for cloud infrastructure provisioning.</p>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
 EKS,Infrastructure,Trial,budding,"<p><a href="""">Kubernetes</a> is the best container orchestration system around. AWS has decided to make it a first class citizen on AWS by offering a managed system. The idea here is to make it easier to maintain your k8s cluster for minimal cost.</p>
 <h3>Pros</h3>
 <ul>
@@ -1379,4 +1395,38 @@ AMI (Custom built),Infrastructure,Divest,none,"<p><a href=""https://docs.aws.ama
 <p><a href="""">Docker</a> replaces the need for creating custom AMIs that contain software packages.</p>
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
+"
+Gitlab,Infrastructure,Divest,none,"<p>With <a href=""https://about.gitlab.com/"">Gitlab</a>, you get a complete CI/CD toolchain in a single application. One interface. One conversation. One permission model. Thousands of features. You’ll be amazed at everything GitLab can do today. And we’re just getting started.</p>
+<h3>Pros</h3>
+<ul>
+<li>Has all of your tools in one place (project management, builds, source control)</li>
+<li>Constantly adding features</li>
+<li>User and group management easy</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>UI not as friendly in some areas</li>
+<li>Not well suited for web apis</li>
+<li>Small community compared with Github</li>
+</ul>
+<p>When decision made: 1/1/2020</p>
+<p>When decision will be revisited: 1/1/2022</p>
+"
+Octopus Deploy,Infrastructure,Divest,none,"<p><a href=""https://octopus.com/"">Octopus Deploy</a> You already have a source control system and a build server. Octopus doesn’t replace these, we turbocharge them. We allow the build server to focus on what it does best: compiling code and running tests, while Octopus takes care of deploying and promoting releases between environments, automating deployments, and automating the operations tasks that keep the software running.</p>
+<h3>Pros</h3>
+<ul>
+<li>Focused on release management</li>
+<li>Works with both cloud deployments and on premise deployments</li>
+<li>Inexpensive</li>
+<li>UI is easy for engineers and others to control releases</li>
+<li>High level dashboard view of releases</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Requires an agent for on premise servers</li>
+<li>Configuration can get complicated very quickly</li>
+<li>Small community and very few plugins</li>
+</ul>
+<p>When decision made: 1/1/2020</p>
+<p>When decision will be revisited: 1/1/2022</p>
 "
