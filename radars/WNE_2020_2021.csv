@@ -511,6 +511,23 @@ GraphQL,Backend,Trial,budding,"<p><a href=""https://graphql.org/"">GraphQL</a> i
 <p>When decision made: 1/1/2020</p>
 <p>When decision will be revisited: 1/1/2022</p>
 "
+Python,Backend,Hold,none,"<p><a href=""https://www.python.org/"">Python</a> is powerful… and fast; plays well with others; runs everywhere; is friendly &amp; easy to learn; is Open.</p>
+<h3>Pros</h3>
+<ul>
+<li>Easy to read</li>
+<li>Vast array of plugins and modules</li>
+<li>Great integration into Jupyter notebooks</li>
+<li>Good data science libraries (numpy, scipy, pandas, etc)</li>
+<li>Great for build process scripts</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Lack of braces and relying on spacing can be tricky for new programmers</li>
+<li>Not considered the best platform for web apis</li>
+</ul>
+<p>When decision made: 5/1/2020</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
 Node,Backend,Hold,none,"<p><a href=""https://nodejs.org"">Node</a> is similar in design to, and influenced by, systems like Ruby’s Event Machine and Python’s Twisted. Node.js takes the event model a bit further. It presents an event loop as a runtime construct instead of as a library. In other systems, there is always a blocking call to start the event-loop. Typically, behavior is defined through callbacks at the beginning of a script, and at the end a server is started through a blocking call like EventMachine::run(). In Node.js, there is no such start-the-event-loop call. Node.js simply enters the event loop after executing the input script. Node.js exits the event loop when there are no more callbacks to perform. This behavior is like browser JavaScript — the event loop is hidden from the user.</p>
 <p>HTTP is a first-class citizen in Node.js, designed with streaming and low latency in mind. This makes Node.js well suited for the foundation of a web library or framework.</p>
 <p>Node.js being designed without threads doesn’t mean you can’t take advantage of multiple cores in your environment. Child processes can be spawned by using our child_process.fork() API, and are designed to be easy to communicate with. Built upon that same interface is the cluster module, which allows you to share sockets between processes to enable load balancing over your cores.</p>
@@ -869,23 +886,6 @@ AWS EMR (Spark),Data,Hold,none,"<p><a href=""https://aws.amazon.com/emr/?nc=sn&a
 <ul>
 <li>Developer centric</li>
 <li>Requires some knowledge of how Spark works</li>
-</ul>
-<p>When decision made: 5/1/2020</p>
-<p>When decision will be revisited: 5/1/2021</p>
-"
-Python,Data,Hold,none,"<p><a href=""https://www.python.org/"">Python</a> is powerful… and fast; plays well with others; runs everywhere; is friendly &amp; easy to learn; is Open.</p>
-<h3>Pros</h3>
-<ul>
-<li>Easy to read</li>
-<li>Vast array of plugins and modules</li>
-<li>Great integration into Jupyter notebooks</li>
-<li>Good data science libraries (numpy, scipy, pandas, etc)</li>
-<li>Great for build process scripts</li>
-</ul>
-<h3>Cons</h3>
-<ul>
-<li>Lack of braces and relying on spacing can be tricky for new programmers</li>
-<li>Not considered the best platform for web apis</li>
 </ul>
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
