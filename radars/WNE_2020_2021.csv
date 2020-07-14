@@ -1323,7 +1323,6 @@ Harbor,Infrastructure,Trial,budding,"<p><a href=""https://goharbor.io"">Harbor</
 <h3>Cons</h3>
 <ul>
 <li>We would host ourselves</li>
-<li>Cost prohibitive to use for logs as well</li>
 </ul>
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>

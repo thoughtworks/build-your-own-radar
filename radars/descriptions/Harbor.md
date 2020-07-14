@@ -8,7 +8,6 @@
 
 ### Cons
 * We would host ourselves
-* Cost prohibitive to use for logs as well
 
 When decision made: 5/1/2020
 
