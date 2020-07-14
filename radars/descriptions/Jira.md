@@ -10,6 +10,6 @@
 * Can feel really clunky at times
 * Teams can be blocked when there are service interruptions
 
-When decision made:
+When decision made: 5/1/2021
 
-When decision will be revisited:
+When decision will be revisited: 5/1/2021

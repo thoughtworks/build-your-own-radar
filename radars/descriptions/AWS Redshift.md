@@ -1,7 +1,5 @@
 [AWS Redshift](https://aws.amazon.com/redshift/) is the world’s fastest cloud data warehouse and gets faster every year. For performance intensive workloads you can use the new RA3 instances to get up to 3x the performance of any cloud data warehouse.
 
-Generally speaking Api Gateway is a cool technology but there is a strong preference to run appliations on our existing [Kubernetes]() clusters to take advantage of free resources that are already available. 
-
 ### Pros
 * Managed
 * Fast auto scaling

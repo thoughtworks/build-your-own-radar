@@ -8,7 +8,6 @@
 * Wastes large amounts of resources inside of EC2 when utilization is low
 * Can be rather costly, especially for low use applications
 
-
 [Docker]() replaces the need for creating custom AMIs that contain software packages. 
 
 When decision made: 5/1/2020

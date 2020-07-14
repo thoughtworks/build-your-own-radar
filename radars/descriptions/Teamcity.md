@@ -10,6 +10,6 @@
 * Not as popular as Jenkins and so there are less plugins
 * Costs money
 
-When decision made:
+When decision made: 5/1/2020
 
-When decision will be revisited:
+When decision will be revisited: 5/1/2021

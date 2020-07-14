@@ -1,4 +1,4 @@
-Yarn is a fast, stable JavaScript package manager.
+[Yarn](https://yarnpkg.com/) is a fast, stable JavaScript package manager.
 
 ### Pros
 
@@ -12,3 +12,7 @@ Yarn is a fast, stable JavaScript package manager.
 - v2 has a completely different API.
 
 Replaces [NPM CLI]().
+
+When decision made: 5/1/2020
+
+When decision will be revisited: 5/1/2021

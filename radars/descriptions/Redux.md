@@ -1,4 +1,4 @@
-A predictable state container for JavaScript applications.
+[Redux](https://redux.js.org/) is a predictable state container for JavaScript applications.
 
 ### Pros
 - Centralized logic for managing global application state. Not tied to view.
@@ -13,3 +13,7 @@ A predictable state container for JavaScript applications.
 
 When decision made: 03/05/2020
 When decision will be revisited: 01/01/2022
+
+When decision made: 5/1/2020
+
+When decision will be revisited: 5/1/2021

@@ -13,3 +13,7 @@ Jest is a delightful JavaScript Testing Framework with a focus on simplicity.
 - Runs tests in a Node process by default, which can be harder to debug than tests run in a browser.
 
 Replaces [Karma]() and [Jasmine]().
+
+When decision made: 5/1/2021
+
+When decision will be revisited: 5/1/2021

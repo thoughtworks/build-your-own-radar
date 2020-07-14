@@ -11,3 +11,7 @@
 
 - Makes it really easy to write bad CSS, like deeply nested selectors.
 - Another thing to configure in your build tooling.
+
+When decision made: 5/1/2020
+
+When decision will be revisited: 5/1/2021

@@ -12,3 +12,7 @@
 - Does not allow scripts to execute across multiple domains, causing complications with things like 3rd-party OAuth flows.
 
 Replaces [Protractor]().
+
+When decision made: 5/1/2021
+
+When decision will be revisited: 5/1/2021

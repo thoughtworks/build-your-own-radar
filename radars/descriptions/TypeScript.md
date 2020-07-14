@@ -12,5 +12,6 @@ A typed superset of JavaScript that compiles to plain JavaScript.
 - Adding JavaScript libraries without type definitions requires jumping through additional hoops.
 - Lacks the flexibility that comes with dynamic types in JavaScript.
 
-When decision made: Mar. 2020
-When decision will be revisited: Jan. 2022
+When decision made: 5/1/2020
+
+When decision will be revisited: 5/1/2021

@@ -9,6 +9,7 @@
 * Lack of community support
 * Not open source
 * Steep learning curve
+* Requires scripting for very common tasks
 
 Relatively new addition to the infrastructure as code arena but [Terraform]() or [Cloud Formation]() are strongly preferred. 
 

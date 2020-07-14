@@ -10,7 +10,6 @@ Rails is opinionated software. It makes the assumption that there is a "best" wa
 * Very devoted and active community
 * Convention over configuration
 
-npm
 ### Cons
 * Scaling is possible but not as easy as some other languages
 * Not as performant as other more modern approaches

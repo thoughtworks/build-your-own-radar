@@ -10,6 +10,6 @@ Kubernetes is a container orchestration system. Kubernetes has become the de fac
 * Initial configuration can be very daunting
 * Required updates on the regular to not fall behind
 
-When decision made:
+When decision made: 5/1/2021
 
-When decision will be revisited:
+When decision will be revisited: 5/1/2022

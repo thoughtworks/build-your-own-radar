@@ -10,3 +10,7 @@ It is a full-featured web application framework for building single-page applica
 
 - Nearing end of life. Entered 3 year Long Term Support period on July 1, 2018.
 - Not nearly as performant as more modern frameworks, like [React]() or [Angular]().
+
+When decision made: 5/1/2020
+
+When decision will be revisited: 5/1/2021

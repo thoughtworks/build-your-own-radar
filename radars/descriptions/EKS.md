@@ -13,3 +13,7 @@
 
 ### Trial Goal
 The goal of trialing EKS is see if we can become more efficient and stay up to date without manually upgrading the cluster constantly with added security.
+
+When decision made: 5/1/2021
+
+When decision will be revisited: 5/1/2021

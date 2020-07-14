@@ -10,3 +10,7 @@
 
 - Steep learning curve. Even for developers coming from [AngularJS](), the framework is completely different. It follows some sophisticated design patterns that can be difficult to understand at first.
 - Requires a lot more boilerplate code than its contemporaries.
+
+When decision made: 5/1/2020
+
+When decision will be revisited: 5/1/2021

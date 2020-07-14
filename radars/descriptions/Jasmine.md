@@ -9,3 +9,7 @@
 ### Cons
 
 - Does not include a test runner, making it reliant on other tools like [Karma]().
+
+When decision made: 5/1/2021
+
+When decision will be revisited: 5/1/2021

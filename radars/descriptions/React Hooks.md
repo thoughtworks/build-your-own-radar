@@ -12,3 +12,7 @@ React provides [a few built-in Hooks](https://reactjs.org/docs/hooks-reference.h
 
 - Requires a different mental model from traditional lifecycle methods in class components.
 - Less separation of concerns, since business logic can be more easily added to function components.
+
+When decision made: 5/1/2020
+
+When decision will be revisited: 5/1/2021

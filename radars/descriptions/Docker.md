@@ -10,6 +10,6 @@ Docker is a means of packaging an application with all of its dependencies requi
 
 Combining these benefits with [Kubernetes]() leads to a great way to manage all applications efficiently. 
 
-When decision made:
+When decision made: 5/1/2021
 
-When decision will be revisited:
+When decision will be revisited: 5/1/2021

@@ -11,7 +11,7 @@ ELK is the combination of Elasticsearch, Kibana and Logstash. See [Elasticsearch
 
 [Structured logs](https://engineering.grab.com/structured-logging) should be used where possible to make the searches as efficient as possible. 
 
-When decision made:
+When decision made: 5/1/2021
 
-When decision will be revisited:
+When decision will be revisited: 5/1/2021
 

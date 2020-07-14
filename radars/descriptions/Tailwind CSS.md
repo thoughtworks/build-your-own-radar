@@ -11,3 +11,7 @@
 - It's recommended to use as a [PostCSS](https://postcss.org/) plugin, which requires extra configuration with build tools.
 - Larger learning curve due to the number of utility classes available.
 - Can result in massive CSS bundles if tooling is not configured to purge unused classes for production builds.
+
+When decision made: 5/1/2020
+
+When decision will be revisited: 5/1/2021

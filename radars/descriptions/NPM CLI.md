@@ -10,3 +10,7 @@ It can be used for managing dependencies in an application or library, publishin
 
 - Security concerns with allowing packages to run code on installation automatically.
 - Slower than [Yarn]().
+
+When decision made: 5/1/2020
+
+When decision will be revisited: 5/1/2021

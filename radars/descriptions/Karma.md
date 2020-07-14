@@ -10,3 +10,7 @@
 
 - Slower than other test runners that don't run in an actual browser.
 - Difficult to mock imports of ES6/TypeScript modules.
+
+When decision made: 5/1/2021
+
+When decision will be revisited: 5/1/2021

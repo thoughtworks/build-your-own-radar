@@ -9,8 +9,9 @@ The [Active Warehouse (Ruby)](https://github.com/activewarehouse/activewarehouse
 * Not a modern approach to data warehousing
 * Inactive for almost 6 years
 
+Data warehousing is migrating to [Snowflake]().
+
 When decision made: 5/1/2020
 
 When decision will be revisited: 5/1/2021
 
-Data warehousing is migrating to [Snowflake]().

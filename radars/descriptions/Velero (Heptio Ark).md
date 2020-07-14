@@ -8,3 +8,6 @@
 ### Cons
 * Requires maintenance
 
+When decision made: 5/1/2020
+
+When decision will be revisited: 5/1/2021

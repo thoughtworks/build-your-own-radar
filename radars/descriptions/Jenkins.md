@@ -7,6 +7,6 @@
 ### Cons
 * Sometimes low quality plugins due to open source community
 
-When decision made:
+When decision made: 5/1/2021
 
-When decision will be revisited:
+When decision will be revisited: 5/1/2021
