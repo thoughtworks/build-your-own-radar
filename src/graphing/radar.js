@@ -265,6 +265,9 @@ const Radar = function (size, radar) {
     if (blip.description()) {
       blipItemDescription.append('p').html(blip.description())
     }
+    if (blip.author()) {
+      blipItemDescription.append('p').html(blip.author())
+    }
 
     var mouseOver = function () {
       d3.selectAll('g.blip-link').attr('opacity', 0.3)
