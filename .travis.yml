@@ -7,7 +7,7 @@ jobs:
     - stage: test
       script: npm test
     - stage: deploy
-      script: API_KEY=$API_KEY CLIENT_ID=$CLIENT_ID npm run build
+      script: API_KEY=$API_KEY CLIENT_ID=$CLIENT_ID GTM_ID=$GTM_ID ENABLE_GOOGLE_AUTH=true npm run build
       deploy:
         provider: s3
         access_key_id: $AWS_ACCESS_KEY_ID

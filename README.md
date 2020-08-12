@@ -73,6 +73,20 @@ The app uses [Tabletop.js](https://github.com/jsoma/tabletop) to fetch the data 
 
 The application uses [webpack](https://webpack.github.io/) to package dependencies and minify all .js and .scss files.
 
+The application also supports private google sheets. Following flags need to be set for private sheets to work. API key and OAuth Client ID can be obtained from your Google developer console.
+
+
+```
+export ENABLE_GOOGLE_AUTH=true
+export API_KEY=[Google API Key]
+export CLIENT_ID=[Google Client ID]
+```
+
+To enable Google Tag Manager, add the following environment variable.
+```
+export GTM_ID=[GTM ID]
+```
+
 ## Docker Image
 We have released BYOR as a docker image for our users. The image is available in our [DockerHub Repo](https://hub.docker.com/r/wwwthoughtworks/build-your-own-radar/). To pull and run the image, run the following commands.
 
@@ -93,8 +107,6 @@ Make sure you have nodejs installed.
 - `npm install`
 - `npm test` - to run your tests
 - `npm run dev` - to run application in localhost:8080. This will watch the .js and .css files and rebuild on file changes
-
-***Note***: If you are facing google authentication error, need to set the `Google API_KEY` and `OAuth CLIENT_ID` before starting the app server. To bypass this add `SKIP_GOOGLE_AUTH=true` ENV variable along with `npm run dev`.
 
 To run End to End tests in headless mode
 - add a new environment variable 'TEST_URL' and set it to 'http://localhost:8080/'

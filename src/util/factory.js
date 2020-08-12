@@ -87,6 +87,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
         plotErrorMessage(error)
         return
       }
+
       self.authenticate(false)
     })
 
