@@ -16,7 +16,7 @@ In no particular order
 
 * [aschonfeld](https://github.com/aschonfeld)
 
-* [andyw8](https://github.com/aschonfeld)
+* [andyw8](https://github.com/andyw8)
 
 * [br00k](https://github.com/br00k)
 
