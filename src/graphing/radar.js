@@ -441,7 +441,7 @@ const Radar = function (size, radar) {
       .append('div')
       .attr('class', 'radar-title__text')
       .append('h1')
-      .text("Technology radar - we are you")
+      .text("Technology radar")
       .style('cursor', 'pointer')
       .on('click', redrawFullRadar)
 
@@ -504,8 +504,8 @@ const Radar = function (size, radar) {
       .append('div')
       .attr('class', 'footer-content')
       .append('p')
-      .html('Welcome at the We are you technology radar. '+
-      'The radar represents the technologies used within the We are you company.<br/>'+
+      .html('Welcome at the <i>We are you</i> technology radar. '+
+      'The radar represents the technologies used within the <i>We are you</i> company.<br/>'+
       '<br/>'+
       '<strong>Legend:</strong><br/>'+
       '<ul>'+

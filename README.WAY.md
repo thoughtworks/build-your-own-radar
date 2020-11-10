@@ -1,4 +1,4 @@
-# We Are You: Tech Radar
+# We are you: Tech Radar
 
 This is a fork of the [ThoughtWorks Tech Radar](https://www.thoughtworks.com/radar).  
 It is modified for use within the We Are You (WAY) company for sharing knowledge to collegues and the world in a more visual way.
