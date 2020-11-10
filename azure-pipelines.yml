@@ -12,10 +12,16 @@ pool:
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x'
+    versionSpec: '14.15.0'
   displayName: 'Install Node.js'
 
 - script: |
     npm install
     npm run build
   displayName: 'npm install and build'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(System.DefaultWorkingDirectory)/dist'
+    artifact: 'techradar'
+    publishLocation: 'pipeline'
