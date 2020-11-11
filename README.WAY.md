@@ -8,6 +8,26 @@ https://github.com/thoughtworks/build-your-own-radar
 https://www.thoughtworks.com/radar/how-to-byor
 
 ---
+### Locations
+External url: https://techradar.weareyou.com/<br>
+Internal url: https://techradar.weareyou.com/internal<br>
+Build pipeline: https://dev.azure.com/weareyou/WAY/_build?definitionId=193<br>
+Release pipeline: https://dev.azure.com/weareyou/WAY/_releaseDefinition?definitionId=1&_a=environments-editor-preview <br>
+Drop location: \\sharedweb01.boolhosting.tld\d$\Website\techradar
+
+### Maintaining the content
+In the /dist folder you find a csv file calles technonlogy radar - we are you.csv. Here the content of the radar is specified.
+Unfortunatelly the system is quite sensitive. Please remind to:
+1. There has to be at least 1 blip in 4 rings. if not, generation fails
+2. Rings and quadrants are case sensitive. There can be no more and no lees that 4 different rings and 4 different quadrants. If you make a typo (also casing), generation will fail.
+3. The order of appearance determines the order of the rings from inside to outside
+
+The added column "exposure" determines if a blip is shown in the internal or external tech radar.
+If value = all, the blip is show in both
+If value = no, the blip is not show in eithe
+If vale = internal of external, you get the drill...
+
+The added column "order" can be used to order the records of the csv. The record order in the csv determines the order in the tech radar, so use this column in combination with Excel sort function to get the record-order straight. 
 
 ### Added files
 
@@ -23,7 +43,7 @@ _NOTE: Momentarily NO (S)CSS and JS from the original code is modified. The new 
 /dist
 ```
 
-The CSV files with radar data need to be placed in the dist folder for the app to find them.
+The CSV file with radar data need to be placed in the dist folder for the app to find them.
 
 ```
 /dist/images, /dist/font
