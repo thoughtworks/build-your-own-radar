@@ -1094,6 +1094,24 @@ Jira,Infrastructure,Invest,lock,"<p><a href=""https://www.atlassian.com/software
 <p>When decision made: 5/1/2021</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
+SonarQube,Infrastructure,Invest,confident,"<p><a href=""https://www.sonarqube.org"">SonarQube</a> catches bugs and vulnerabilities in your app, with thousands of automated Static Code Analysis rules.</p>
+<h3>Pros</h3>
+<ul>
+<li>Easy way to integrate code quality metrics with CI/CD pipeline</li>
+<li>Good resource for improving code quality during the writing process from within the IDE</li>
+<li>Supports most common languges and IDEs</li>
+<li>Allows high level monitoring of code quality across many projects quickly</li>
+<li>Linting tool is free</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>The Free Qube version of the product only supports scanning master branch</li>
+<li>Cloud based version can be costly</li>
+<li>Limited</li>
+</ul>
+<p>When decision made: 9/29/2020</p>
+<p>When decision will be revisited: 9/22/2022</p>
+"
 New Relic,Infrastructure,Invest,confident,"<p><a href=""https://newrelic.com/"">New Relic</a> is an analytics package that can be used to gain insights about your application. NewRelic can be depoyed as an Application Performance Monitor (APM) or to your infrastructure for insights into how the system is performing as a whole. New Relic should be used instead of <a href="""">Datadog</a>.</p>
 <h3>Pros</h3>
 <ul>
