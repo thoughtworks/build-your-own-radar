@@ -10,11 +10,11 @@ class RadarPage {
   }
 
   clickTheBlipFromInteractiveSection () {
-    cy.get(this.blip).click()
+    cy.get(this.blip).first().click()
   }
 
   clickTheBlip () {
-    cy.get(this.blip_selected).click()
+    cy.get(this.blip_selected).first().click()
   }
 
   validateBlipDescription (text) {

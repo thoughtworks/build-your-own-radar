@@ -6,10 +6,11 @@
   "scripts": {
     "test": "standard --fix && istanbul cover jasmine",
     "test:lint": "npx standard",
-    "dev": "webpack-dev-server --mode development --inline",
+    "start": "webpack-dev-server --mode development --inline",
     "build": "webpack --mode production",
-    "end_to_end_test": "node_modules/.bin/cypress run --env host=$TEST_URL",
-    "start": "node_modules/.bin/cypress open --env host=$TEST_URL",
+    "end_to_end_test": "npm run e2e",
+    "e2e": "cypress run --env host=$TEST_URL",
+    "e2e:open": "cypress open --env host=$TEST_URL",
     "parse_markdown": "node scripts/parse_markdown.js",
     "watch_markdown": "nodemon -e md scripts/parse_markdown.js"
   },

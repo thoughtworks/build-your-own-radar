@@ -166,7 +166,7 @@ SASS,Frontend,Invest,leaning,"<p><a href=""https://sass-lang.com"">Sass</a> clai
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-Cypress,Frontend,Trial,budding,"<p><a href=""https://cypress.io"">Cypress</a> is a tool for fast, easy, reliable testing of anything that runs in a browser.</p>
+Cypress,Frontend,Invest,confident,"<p><a href=""https://cypress.io"">Cypress</a> is a tool for fast, easy, reliable testing of anything that runs in a browser.</p>
 <h3>Pros</h3>
 <ul>
 <li>Easy to debug using familiar tools like Chrome DevTools.</li>
@@ -179,8 +179,8 @@ Cypress,Frontend,Trial,budding,"<p><a href=""https://cypress.io"">Cypress</a> is
 <li>Does not allow scripts to execute across multiple domains, causing complications with things like 3rd-party OAuth flows.</li>
 </ul>
 <p>Replaces <a href="""">Protractor</a>.</p>
-<p>When decision made: 5/1/2021</p>
-<p>When decision will be revisited: 5/1/2021</p>
+<p>When decision made: 11/2020</p>
+<p>When decision will be revisited: 11/2022</p>
 "
 React Native,Frontend,Trial,budding,"<p><a href=""https://reactnative.dev"">React Native</a> is a framework for building native mobile applications using <a href="""">React</a>.</p>
 <h3>Pros</h3>
@@ -1094,13 +1094,14 @@ Jira,Infrastructure,Invest,lock,"<p><a href=""https://www.atlassian.com/software
 <p>When decision made: 5/1/2021</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-SonarQube,Infrastructure,Invest,confident,"<p><a href=""https://www.sonarqube.org"">SonarQube</a> catches bugs and vulnerabilities in your app, with thousands of automated Static Code Analysis rules.</p>
+SonarQube,Infrastructure,Invest,confident,"<p><a href=""https://www.sonarqube.org"">SonarQube</a> is a platform for continuous inspection of code quality to perform automatic reviews with static analysis of code to detect bugs, code smells, and security vulnerabilities.</p>
 <h3>Pros</h3>
 <ul>
 <li>Easy way to integrate code quality metrics with CI/CD pipeline</li>
 <li>Good resource for improving code quality during the writing process from within the IDE</li>
-<li>Supports most common languges and IDEs</li>
+<li>Supports most common languages and IDEs</li>
 <li>Allows high level monitoring of code quality across many projects quickly</li>
+<li>Detects code smells and evaluates technical debt</li>
 <li>Linting tool is free</li>
 </ul>
 <h3>Cons</h3>
@@ -1586,4 +1587,20 @@ Octopus Deploy,Infrastructure,Divest,none,"<p><a href=""https://octopus.com/"">O
 </ul>
 <p>When decision made: 1/1/2020</p>
 <p>When decision will be revisited: 1/1/2022</p>
+"
+k6,Backend,Trial,budding,"<p><a href=""https://k6.io/"">k6</a> is a developer-centric, free and open-source load testing tool built for making performance testing a productive and enjoyable experience. It is written in Go and runs test scripts that are written in JavaScript.</p>
+<h3>Pros</h3>
+<ul>
+<li>Test scripts are written in JavaScript.</li>
+<li>It is an easy to run command line tool.</li>
+<li>Supports goal-oriented, automation-friendly load testing.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>It does not render web pages.</li>
+<li>Including external Node.js modules requires extra effort to bundle, if needed.</li>
+</ul>
+<p>** Being considered as a replacement for <a href="""">jMeter</a>.</p>
+<p>When decision made: 11/2020</p>
+<p>When decision will be revisited: 11/2022</p>
 "
