@@ -203,7 +203,7 @@ TSDX,Frontend,Trial,budding,"<p><a href=""https://github.com/formium/tsdx"">TSDX
 <h3>Pros</h3>
 <ul>
 <li>Quickly bootstrap a new TypeScript project in seconds.</li>
-<li>Provides templates for basic TypeScript libraries, React component libraries, and React component libraries with <a href=""https://storybook.js.org/"">Storybook</a> configured.</li>
+<li>Provides templates for basic TypeScript libraries, React component libraries, and React component libraries with <a href="""">Storybook</a> configured.</li>
 <li>Provides ability to have different development and production builds, multiple bundle formats, proper lodash-optimizations, treeshaking, and minification.</li>
 </ul>
 <h3>Cons</h3>
