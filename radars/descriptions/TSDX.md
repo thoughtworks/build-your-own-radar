@@ -3,7 +3,7 @@
 ### Pros
 
 - Quickly bootstrap a new TypeScript project in seconds.
-- Provides templates for basic TypeScript libraries, React component libraries, and React component libraries with [Storybook](https://storybook.js.org/) configured.
+- Provides templates for basic TypeScript libraries, React component libraries, and React component libraries with [Storybook]() configured.
 - Provides ability to have different development and production builds, multiple bundle formats, proper lodash-optimizations, treeshaking, and minification.
 
 ### Cons

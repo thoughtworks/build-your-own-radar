@@ -182,6 +182,22 @@ Cypress,Frontend,Invest,confident,"<p><a href=""https://cypress.io"">Cypress</a>
 <p>When decision made: 11/2020</p>
 <p>When decision will be revisited: 11/2022</p>
 "
+Storybook,Frontend,Invest,leaning,"<p><a href=""https://storybook.js.org/"">Storybook</a> is a tool for developing UI components in isolation for <a href="""">React</a>, Vue, <a href="""">Angular</a>, and more.</p>
+<h3>Pros</h3>
+<ul>
+<li>Create components without needing to stand up screens, fuss with data, or build business logic.</li>
+<li>Mock hard to reach use cases by rendering components in key states that are tricky to reproduce in an app.</li>
+<li>Save use cases as stories in plain JavaScript or <a href="""">TypeScript</a> to revisit during development, testing, and QA.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Requires separate build config from that required by your application or library.</li>
+<li>Can be difficult to write stories for components that depend on certain global state (i.e. <a href="""">Redux</a>) or retrieving backend data.</li>
+<li>Integrations for other frameworks, such as Angular, are not as robust as those for React.</li>
+</ul>
+<p>When decision made: 6/1/2020</p>
+<p>When decision will be revisited: 6/1/2021</p>
+"
 single-spa,Frontend,Trial,leaning,"<p><a href=""https://github.com/single-spa/single-spa"">single-spa</a> is a JavaScript framework for building front-end micro-services or <a href=""https://www.thoughtworks.com/radar/techniques/micro-frontends"">micro frontends</a>, allowing you to build frontend applications that coexist and can be written in their own framework.</p>
 <h3>Pros</h3>
 <ul>
