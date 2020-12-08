@@ -66,7 +66,7 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
 
   var size = 620
 
-  new GraphingRadar(size, radar).init().plot()
+  new GraphingRadar(size, radar).init().then(function (radar) { return radar.plot() })
 }
 
 const GoogleSheet = function (sheetReference, sheetName) {

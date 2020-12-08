@@ -10,11 +10,8 @@ const AutoComplete = require('../util/autoComplete')
 const MIN_BLIP_WIDTH = 12
 const ANIMATION_DURATION = 1000
 
-const RING_DESCRIPTIONS = {
-  adopt: 'Dit zijn technologieën die zichzelf hebben bewezen en volwassen zijn. Dit betekent dat deze zich niet meer in de pilotfase bevinden. We vinden dat het Kadaster deze technologieën zou moeten toepassen wanneer deze relevant en van toegevoegde waarde zijn voor projecten. NB dit is afhankelijk van het probleem dat je wilt oplossen, dit betekent niet dat deze technologieën overal ingezet moeten worden.',
-  explore: 'Dit zijn technologieën die toegepast kunnen worden maar waar het Kadaster nog weinig tot geen ervaring mee heeft. We denken dat we deze technologieën verder moeten onderzoeken en kennis moeten opbouwen omtrent deze technologieën d.m.v. bijvoorbeeld PoCs en pilots.',
-  assess: 'Dit zijn technologieën die interessant zijn om je verder in te verdiepen om te kijken of deze relevant zouden kunnen zijn voor het Kadaster. In deze fase zal dat met name door middel van desk research gebeuren.',
-  monitor: 'Dit zijn technieken die voor nu niet relevant zijn voor het Kadaster. Dit kan bijvoorbeeld zijn omdat ze nog te nieuw zijn of omdat er (nog) geen use case voor deze technologieën is.'
+let RING_DESCRIPTIONS = {
+  key: 'value, loaded from data/ring_descriptions.json'
 }
 
 const Radar = function (size, radar) {
@@ -574,8 +571,12 @@ const Radar = function (size, radar) {
   }
 
   self.init = function () {
-    radarElement = d3.select('body').append('div').attr('id', 'radar')
-    return self
+    return d3.json('../data/ring_descriptions.json').then(function(data) {
+      RING_DESCRIPTIONS = data
+    }).then(function() {
+      radarElement = d3.select('body').append('div').attr('id', 'radar')
+      return self
+    })
   }
 
   function constructSheetUrl (sheetName) {

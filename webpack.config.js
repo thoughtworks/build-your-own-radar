@@ -9,6 +9,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const postcssPresetEnv = require('postcss-preset-env')
 const cssnano = require('cssnano')
+const CopyPlugin = require('copy-webpack-plugin')
 
 const isProd = args.prod
 const isDev = args.dev
@@ -45,6 +46,11 @@ const plugins = [
     'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
     'process.env.ENABLE_GOOGLE_AUTH': JSON.stringify(process.env.ENABLE_GOOGLE_AUTH),
     'process.env.GTM_ID': JSON.stringify(process.env.GTM_ID)
+  }),
+  new CopyPlugin({
+    patterns: [
+      { from: 'src/data/ring_descriptions.json', to: 'data' }
+    ]
   })
 ]
 
