@@ -182,6 +182,54 @@ Cypress,Frontend,Invest,confident,"<p><a href=""https://cypress.io"">Cypress</a>
 <p>When decision made: 11/2020</p>
 <p>When decision will be revisited: 11/2022</p>
 "
+Storybook,Frontend,Invest,leaning,"<p><a href=""https://storybook.js.org/"">Storybook</a> is a tool for developing UI components in isolation for <a href="""">React</a>, Vue, <a href="""">Angular</a>, and more.</p>
+<h3>Pros</h3>
+<ul>
+<li>Create components without needing to stand up screens, fuss with data, or build business logic.</li>
+<li>Mock hard to reach use cases by rendering components in key states that are tricky to reproduce in an app.</li>
+<li>Save use cases as stories in plain JavaScript or <a href="""">TypeScript</a> to revisit during development, testing, and QA.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Requires separate build config from that required by your application or library.</li>
+<li>Can be difficult to write stories for components that depend on certain global state (i.e. <a href="""">Redux</a>) or retrieving backend data.</li>
+<li>Integrations for other frameworks, such as Angular, are not as robust as those for React.</li>
+</ul>
+<p>When decision made: 6/1/2020</p>
+<p>When decision will be revisited: 6/1/2021</p>
+"
+single-spa,Frontend,Trial,leaning,"<p><a href=""https://github.com/single-spa/single-spa"">single-spa</a> is a JavaScript framework for building front-end micro-services or <a href=""https://www.thoughtworks.com/radar/techniques/micro-frontends"">micro frontends</a>, allowing you to build frontend applications that coexist and can be written in their own framework.</p>
+<h3>Pros</h3>
+<ul>
+<li>Use multiple frameworks (e.g. <a href="""">React</a>, <a href="""">Angular</a>, etc.) on the same page without refreshing the page.</li>
+<li>Lazy load frontend applications for improved initial load time.</li>
+<li>Teams can build and deploy parts of an application independently.</li>
+<li>Provides the <a href=""https://single-spa.js.org/docs/create-single-spa"">create-single-spa CLI tool</a> for bootstrapping new micro frontend applications.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Uses in-browser ES modules + import maps, which requires polyfills to support older browsers.</li>
+<li>Teams must be more mindful of what global state should be shared (or could be shared in the future), to avoid tight coupling of micro frontend applications.</li>
+<li>Can present unique versioning issues, particularly with shared libraries served as in-browser modules.</li>
+</ul>
+<p>When decision made: 10/1/2020</p>
+<p>When decision will be revisited: 10/1/2021</p>
+"
+TSDX,Frontend,Trial,budding,"<p><a href=""https://github.com/formium/tsdx"">TSDX</a> is a zero-config CLI that helps with development, testing, and publishing of modern <a href="""">TypeScript</a> packages. TypeScript, Rollup, <a href="""">Jest</a>, ESlint and all other plumbing comes setup with best practices out-of-the-box.</p>
+<h3>Pros</h3>
+<ul>
+<li>Quickly bootstrap a new TypeScript project in seconds.</li>
+<li>Provides templates for basic TypeScript libraries, React component libraries, and React component libraries with <a href="""">Storybook</a> configured.</li>
+<li>Provides ability to have different development and production builds, multiple bundle formats, proper lodash-optimizations, treeshaking, and minification.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Customization requires overriding the Rollup config, which can potentially invalidate internal guarantees and assumptions making it fragile against updates.</li>
+<li>Storybook integration uses webpack, requiring modifications to both the webpack config and Rollup config when customizing.</li>
+</ul>
+<p>When decision made: 8/1/2020</p>
+<p>When decision will be revisited: 8/1/2021</p>
+"
 React Native,Frontend,Trial,budding,"<p><a href=""https://reactnative.dev"">React Native</a> is a framework for building native mobile applications using <a href="""">React</a>.</p>
 <h3>Pros</h3>
 <ul>
