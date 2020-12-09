@@ -215,6 +215,26 @@ single-spa,Frontend,Trial,leaning,"<p><a href=""https://github.com/single-spa/si
 <p>When decision made: 10/1/2020</p>
 <p>When decision will be revisited: 10/1/2021</p>
 "
+Blazor,Frontend,Trial,budding,"<p><a href=""https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor"">Blazor</a> lets you build interactive web UIs using C# instead of JavaScript. Blazor apps are composed of reusable web UI components implemented using C#, HTML, and CSS. Both client and server code is written in C#, allowing you to share code and libraries.</p>
+<h3>Pros</h3>
+<ul>
+<li>Allows engineers with C# experience to easily create a web app</li>
+<li>Great for an internal tool</li>
+<li>Tool can potentially work offline with client-side Blazor</li>
+<li>Can use familiar .NET libraries in your web application</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Lack of community support</li>
+<li>Limited debugging tooling</li>
+<li>Relatively new and unproven in the market</li>
+<li>Requires webassembly enabled browser for client-side Blazor</li>
+</ul>
+<p>** At this time should only be used for internal tools. <a href="""">React</a> is the primary front end framework.</p>
+<p>** Consider carefully if the application should use server-side Blazor or client-side Blazor</p>
+<p>When decision made: 12/1/2020</p>
+<p>When decision will be revisited: 12/1/2021</p>
+"
 TSDX,Frontend,Trial,budding,"<p><a href=""https://github.com/formium/tsdx"">TSDX</a> is a zero-config CLI that helps with development, testing, and publishing of modern <a href="""">TypeScript</a> packages. TypeScript, Rollup, <a href="""">Jest</a>, ESlint and all other plumbing comes setup with best practices out-of-the-box.</p>
 <h3>Pros</h3>
 <ul>
