@@ -250,6 +250,22 @@ TSDX,Frontend,Trial,budding,"<p><a href=""https://github.com/formium/tsdx"">TSDX
 <p>When decision made: 8/1/2020</p>
 <p>When decision will be revisited: 8/1/2021</p>
 "
+Next.js,Frontend,Trial,budding,"<p><a href=""https://nextjs.org/"">Next.js</a> is a framework for building server-side rendered <a href="""">React</a> applications. It provides a full-featured developer experience out of the box, with a wide array of plugins.</p>
+<h3>Pros</h3>
+<ul>
+<li>Build server-side rendered (SSR) React apps with little to no configuration. Also supports static site generation.</li>
+<li>Comes with a page-based routing system, static optimization, server-side rendering with data-fetching, automatic code-splitting, client-side routing with page pre-fetching, built-in CSS and <a href="""">SASS</a> support, and API routes.</li>
+<li>Opinionated framework for more consistent project structure.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>File-based navigation does not allow for dynamic routes.</li>
+<li>Must run on a Node server (unless using static site generation).</li>
+<li>Opinionated framework locks you in to the Next.js way of routing, data fetching, etc.</li>
+</ul>
+<p>When decision made: 12/1/2020</p>
+<p>When decision will be revisited: 12/1/2020</p>
+"
 React Native,Frontend,Trial,budding,"<p><a href=""https://reactnative.dev"">React Native</a> is a framework for building native mobile applications using <a href="""">React</a>.</p>
 <h3>Pros</h3>
 <ul>
