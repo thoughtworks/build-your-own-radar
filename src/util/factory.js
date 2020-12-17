@@ -34,6 +34,9 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   var ringMap = {}
   var maxRings = 4
 
+  var internalDomain = window.location.href.match(/internal/)
+  internalDomain = internalDomain ? 'internal' : 'external';
+
   _.each(rings, function (ringName, i) {
     if (i === maxRings) {
       throw new MalformedDataError(ExceptionMessages.TOO_MANY_RINGS)
@@ -42,11 +45,15 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   })
 
   var quadrants = {}
+  blips = blips.filter(blip => blip.exposure == 'all' || blip.exposure == internalDomain);
+
   _.each(blips, function (blip) {
     if (!quadrants[blip.quadrant]) {
       quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant))
     }
+
     quadrants[blip.quadrant].add(new Blip(blip.name, blip.author, blip.date, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description))
+    
   })
 
   var radar = new Radar()
@@ -204,32 +211,36 @@ const GoogleSheetInput = function () {
     var domainName = DomainName(window.location.search.substring(1))
     var queryString = window.location.href.match(/sheetId(.*)/)
     var queryParams = queryString ? QueryParams(queryString[0]) : {}
+    // sheet = CSVDocument(queryParams.sheetId)
+    sheet = CSVDocument('/Technology%20radar%20-%20complete.csv')
+    sheet.init().build()
 
-    if (domainName && queryParams.sheetId.endsWith('csv')) {
-      sheet = CSVDocument(queryParams.sheetId)
-      sheet.init().build()
-    } else if (domainName && domainName.endsWith('google.com') && queryParams.sheetId) {
-      sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
-      console.log(queryParams.sheetName)
+    // if (domainName && queryParams.sheetId.endsWith('csv')) {
+    //   // sheet = CSVDocument(queryParams.sheetId)
+    //   sheet = CSVDocument('http://127.0.0.1:8080/Technology%20radar%20-%20we%20are%20you.csv')
+    //   sheet.init().build()
+    // } else if (domainName && domainName.endsWith('google.com') && queryParams.sheetId) {
+    //   sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
+    //   console.log(queryParams.sheetName)
 
-      sheet.init().build()
-    } else {
-      var content = d3.select('body')
-        .append('div')
-        .attr('class', 'input-sheet')
-      setDocumentTitle()
+    //   sheet.init().build()
+    // } else {
+    //   var content = d3.select('body')
+    //     .append('div')
+    //     .attr('class', 'input-sheet')
+    //   setDocumentTitle()
 
-      plotLogo(content)
+    //   plotLogo(content)
 
-      var bannerText = '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://www.thoughtworks.com/radar/byor">created your Radar</a>, you can use this service' +
-        ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a></p></div>'
+    //   var bannerText = '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://www.thoughtworks.com/radar/byor">created your Radar</a>, you can use this service' +
+    //     ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a></p></div>'
 
-      plotBanner(content, bannerText)
+    //   plotBanner(content, bannerText)
 
-      plotForm(content)
+    //   plotForm(content)
 
-      plotFooter(content)
-    }
+    //   plotFooter(content)
+    // }
   }
 
   return self
