@@ -20,6 +20,9 @@ if (env) {
 
 const main = ['./src/site.js']
 const common = ['./src/common.js']
+
+const ASSET_PATH = process.env.ASSET_PATH || '/';
+
 let devtool
 
 if (isDev) {
@@ -44,7 +47,8 @@ const plugins = [
     'process.env.CLIENT_ID': JSON.stringify(process.env.CLIENT_ID),
     'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
     'process.env.ENABLE_GOOGLE_AUTH': JSON.stringify(process.env.ENABLE_GOOGLE_AUTH),
-    'process.env.GTM_ID': JSON.stringify(process.env.GTM_ID)
+    'process.env.GTM_ID': JSON.stringify(process.env.GTM_ID),
+    'process.env.ASSET_PATH': JSON.stringify(ASSET_PATH),
   })
 ]
 
@@ -68,7 +72,7 @@ module.exports = {
 
   output: {
     path: buildPath,
-    publicPath: '/',
+    publicPath: ASSET_PATH,
     filename: '[name].[hash].js'
   },
 
