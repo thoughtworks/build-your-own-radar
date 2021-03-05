@@ -1,0 +1,49 @@
+name,ring,quadrant,isNew,description
+Redux,Adopt,languages-and-frameworks,FALSE,"<p>We've decided to move <strong><a href=""http://redux.js.org/"">Redux</a></strong> back into the Trial ring to show that we no longer consider it the default approach for state management in <a href=""/radar/languages-and-frameworks/react-js"">React</a> applications. Our experience shows that Redux is still a valuable framework in many cases but compared to other approaches, it also leads to more verbose and harder-to-follow code. Throwing <a href=""https://redux-saga.js.org/"">Redux Sagas</a> into the mix usually compounds this issue. As an alternative, you can often use the features in recent versions of React to manage state effectively without an additional framework. However, we want to highlight that when you reach the point at which your simple state management solution starts to become complex, it might be worth reaching for Redux after all or perhaps even Facebook’s recently published <a href=""/radar/languages-and-frameworks/recoil"">Recoil</a>.</p>"
+Graphql,Adopt,languages-and-frameworks,FALSE,
+Typescript,Adopt,languages-and-frameworks,FALSE,
+React,Adopt,languages-and-frameworks,FALSE,
+SCSS,Adopt,languages-and-frameworks,FALSE,
+react-testing-library,Adopt,languages-and-frameworks,FALSE,
+CSS Modules,Adopt,languages-and-frameworks,FALSE,
+Babel,Adopt,languages-and-frameworks,FALSE,
+Express,Adopt,languages-and-frameworks,FALSE,
+Jest,Adopt,languages-and-frameworks,FALSE,
+Next.js,Trial,languages-and-frameworks,FALSE,
+Styled Components,Trial,languages-and-frameworks,FALSE,
+Graphql Nexus,Trial,languages-and-frameworks,FALSE,
+XState,Trial,languages-and-frameworks,TRUE,
+Gatsby,Assess,languages-and-frameworks,FALSE,
+React Context,Assess,languages-and-frameworks,FALSE,
+CRA Boilerplate,Hold,languages-and-frameworks,FALSE,
+JS,Hold,languages-and-frameworks,FALSE,
+CSS,Hold,languages-and-frameworks,FALSE,
+Enyzme,Hold,languages-and-frameworks,FALSE,
+react-router,Hold,languages-and-frameworks,,
+Wonderland,Adopt,Platforms,FALSE,
+Fastly,Adopt,Platforms,FALSE,Fastly is out go-to CDN provider.
+AB Test Component,Adopt,Techniques,FALSE,
+Content security policy,Adopt,Techniques,FALSE,
+Browser-tailored polyfills,Assess,Techniques,TRUE,"<p>Polyfills are extremely useful to help the web evolve, providing substitute implementations of modern features for browsers that don't implement them (yet). Too often, though, web applications ship polyfills to browsers that don't need them, which causes unnecessary download and parsing overhead. The situation is becoming more pronounced now as only a few rendering engines remain and the bulk of the polyfills target only one of them: the Trident renderer in IE11. Further, market share of IE11 is dwindling with <a href=""https://techcommunity.microsoft.com/t5/microsoft-365-blog/microsoft-365-apps-say-farewell-to-internet-explorer-11-and/ba-p/1591666"">support ending</a> in less than a year. We therefore suggest that you make use of <strong>browser-tailored polyfills</strong>, shipping only necessary polyfills to a given browser. This technique can even be implemented as a service with <a href=""https://polyfill.io/v3/"">Polyfill.io</a>.</p>"
+BEM CSS,Assess ,Techniques,FALSE,
+Micro frontend anarchy,Hold,Techniques,TRUE,"<p>Since we originally introduced the term in 2016, <a href=""/radar/techniques/micro-frontends"">micro frontends</a> have grown in popularity and achieved mainstream acceptance. But like any new technique with an easy-to-remember name, it has occasionally been misused and abused. Particularly concerning is the tendency to use this architecture as an excuse to mix a range of competing technologies, tools or frameworks in a single page, leading to <strong>micro frontend anarchy</strong>. A particularly egregious form of this syndrome is using multiple frontend frameworks — for example, <a href=""/radar/languages-and-frameworks/react-js"">React.js</a> and <a href=""/radar/languages-and-frameworks/angular"">Angular</a> — in the same ""single-page"" application. Although this might be technically possible, it is far from advisable when not part of a deliberate transition strategy. Other properties that should be consistent from team to team include the styling technique (e.g., <a href=""/radar/languages-and-frameworks/css-in-js"">CSS-in-JS</a> or <a href=""/radar/languages-and-frameworks/css-modules"">CSS modules</a>) and the means by which the individual components are integrated (e.g., iFrames or <a href=""/radar/platforms/web-components-standard"">web components</a>). Furthermore, organizations should decide whether to standardize on consistent approaches or to leave it up to their teams to decide on state management, data fetching, build tooling, analytics and a host of other choices in a micro frontend application.</p>"
+Referrer policy,Trial,Techniques,FALSE,
+Feature policy,Trial,Techniques,FALSE,
+HTML validation,Trial,Techniques,TRUE,
+CSS validation,Trial,Techniques,TRUE,
+Accessibility testing,Trial,Techniques,TRUE,
+Bugsnag,Adopt,Tools,FALSE,<p>Collect js errors from clients</p>
+Loki,Adopt,Tools,FALSE,
+npm,Adopt,Tools,TRUE,
+Browserstack,Adopt,Tools,FALSE,<p>Used to manually test features on any browser/device</p>
+Launchdarkly,Adopt,Tools,FALSE,Feature flags and A/B tests
+Webpack,Adopt,Tools,FALSE,
+Prettier,Adopt,Tools,FALSE,
+ESLint,Adopt,Tools,FALSE,
+PhraseApp,Adopt,Tools,FALSE,Translations
+Cypress,Assess,Tools,TRUE,
+Test Cafe,Hold,Tools,FALSE,
+yarn,Hold,Tools,FALSE,
+Cucumber,Hold,Tools,FALSE,
+Stylelint,Trial,Tools,FALSE,
+Sentry,Trial,Tools,TRUE,Used by Mato (and advertised to Dash) to track CSP violations

@@ -1,0 +1,31 @@
+components:
+  - name: frontend
+    image: registry.jimdo-platform.net/tech-radar:latest
+  - name: oauth2-proxy
+    image: quay.io/jimdo/oauth2-proxy
+    env:
+      $ref_oauth2: vault+secret://vault.jimdo-platform.net/paymentteam/tech-radar
+      APP_PORT: "8080"
+      APP_HEALTHCHECK: /health
+      OAUTH2_PROXY_COOKIE_DOMAIN: tech-radar.jimdo-platform.net
+      OAUTH2_PROXY_COOKIE_EXPIRE: 168h0m0s
+      OAUTH2_PROXY_CLIENT_ID: 146392286422-6k326o9j4j9vavr2hgucgaamd0i4gi7r.apps.googleusercontent.com
+    links:
+      - component: frontend
+        alias: app
+    logging:
+      types:
+        - access_log
+
+endpoint:
+  component: oauth2-proxy
+  port: 80
+  domain: tech-radar.jimdo-platform.net
+  load-balancer:
+    healthcheck:
+      path: /health
+
+scale: 1
+
+notifications:
+  slack: "#frontend-tag"

@@ -8,6 +8,17 @@
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![AGPL License](https://badgen.net/github/license/thoughtworks/build-your-own-radar)](https://github.com/thoughtworks/build-your-own-radar)
 
+# Jimdo Fork
+
+To add your radar, add the csv to the `data` folder. Currently, the following radars are available:
+- [Jimdo Frontend Tech Radar](http://tech-radar.jimdo-platform.net/?sheetId=frontend.csv)
+- [Jimdo Kotlin Backend Tech Radar](http://tech-radar.jimdo-platform.net/?sheetId=kotlin.csv)
+
+To test it locally, run `make build run` and check e.g. [http://localhost:8080](http://localhost:8080).
+
+To deploy it, run `make build push deploy`.
+
+# Original description
 
 A library that generates an interactive radar, inspired by [thoughtworks.com/radar](http://thoughtworks.com/radar).
 

@@ -1,0 +1,37 @@
+name,ring,quadrant,isNew,description
+Kotlin,Adopt,languages-and-frameworks,FALSE,"Kotlin has experienced an accelerated rate of adoption and rapid growth of tooling support. Some of the reasons behind its popularity are its concise syntax, null safety, ease of transition from Java and interoperability with other JVM-based languages in general, and that it doubles as a great introductory language to functional programming. With JetBrains adding the ability to compile Kotlin to native binaries on multiple platforms, as well as transpile to JavaScript, we believe it has the potential of much wider use by the larger community of mobile and native application developers. Although at the time of writing, some of the tooling such as static and coverage code analysis have yet to mature, given our experience of using Kotlin in many production applications, we believe Kotlin is ready for general adoption."
+Flyway,Adopt,languages-and-frameworks,FALSE,"With techniques such as continuous delivery becoming more mainstream, automated database migrations are a baseline capability for many software teams. While there are many tools in this space, we continue to recommend Flyway for its low-friction approach. Flyway has a vibrant open-source community behind it, and support for both traditional and cloud-based databases such as Amazon Redshift and Google Cloud SQL."
+Mockk,Adopt,languages-and-frameworks,FALSE,"MockK is our go-to tool for mocks when writing tests for Kotlin applications. We like to use this library because of its first-class support for Kotlin language features such as coroutines or lambda blocks. As a native library, it helps our teams to write clean and concise code on testing Kotlin applications instead of using the inconvenient wrappers of Mockito or PowerMock."
+Arrow's Either,Trial,languages-and-frameworks,TRUE,"Arrow is promoted as the functional companion for Kotlin's standard library. Indeed, the package of ready-to-use higher-level abstractions delivered by Arrow has proven so useful that our teams now consider Arrow a sensible default when working with Kotlin. Recently, in preparation for the 1.0 release, the Arrow team introduced several changes, including the addition of new modules but also some deprecations and removals."
+Logback,Adopt,languages-and-frameworks,FALSE,
+Kotest,Adopt,languages-and-frameworks,FALSE,"KotlinTest is a stand-alone testing tool for the Kotlin ecosystem that our teams have come to like. It allows property-based testing, a technique we've highlighted in the Radar before. Key advantages are that it offers a variety of testing styles in order to structure the test suites and that it comes with a comprehensive set of matchers, which allow for expressive tests in an elegant internal DSL."
+Jasync,Trial,languages-and-frameworks,FALSE,
+Spring Boot,Adopt,languages-and-frameworks,TRUE,"A lot of work has gone into Spring Boot to reduce complexity and dependencies, which largely alleviates our previous reservations. If you live in a Spring ecosystem and are moving to microservices, Spring Boot is now the obvious choice."
+Spring Data JPA,Assess,languages-and-frameworks,FALSE,
+Spring Webflux,Assess,languages-and-frameworks,FALSE,"WebFlux is the Spring Framework implementation of Reactive Streams. We see a rise in reactive programming models across our teams in general and the use of WebFlux in teams who are working in the Spring ecosystem. It's best used in large microservices ecosystems where the high performance of the requests is a major concern. It allows overlapping request processing asynchronously without the complications of using multiple threads. WebFlux uses Reactor as its reactive library but it is interoperable with other reactive libraries via Reactive Streams. It uses Netty as its underlying high-performance communications engine. Although we encourage using Reactive Streams, adopting this programming model requires a significant shift in thinking."
+Jooq,Assess,languages-and-frameworks,TRUE,
+Mapstruct,Assess,languages-and-frameworks,TRUE,
+Jackson,Adopt,languages-and-frameworks,FALSE,
+AWS SDK,Adopt,languages-and-frameworks,FALSE,
+Armeria,Hold,languages-and-frameworks,FALSE,
+Ktor,Hold,languages-and-frameworks,FALSE,
+Koin,Hold,languages-and-frameworks,FALSE,
+Clikt,Hold,languages-and-frameworks,FALSE,
+Mockito,Hold,languages-and-frameworks,FALSE,
+Javafaker,Hold,languages-and-frameworks,FALSE,
+Wonderland,Adopt,Platforms,FALSE,
+Terraform,Adopt,Platforms,FALSE,
+Prometheus,Adopt,Platforms,FALSE,
+Grafana,Adopt,Platforms,FALSE,
+Postgresql,Adopt,Platforms,FALSE,
+SNS/SQS,Adopt,Platforms,FALSE,
+Kafka,Assess,Platforms,TRUE,
+Microservice architecture,Adopt,Techniques,FALSE,
+Gradle Configuration in Kotlin,Assess,Techniques,TRUE,
+Consumer-Driven-Contract Testing,Assess,Techniques,TRUE,
+Distributed Tracing,Adopt,Techniques,TRUE,
+Gradle,Adopt,Tools,FALSE,Language-based build tools like Gradle and Rake continue to offer finer-grained abstractions and more flexibility long term than XML and plug-in based tools like Ant and Maven. This allows them to grow gracefully as projects become more complex.
+Detekt,Trial,Tools,TRUE,"Detekt is a static code analysis tool for Kotlin. It provides code smell analysis and complexity reports based on highly configurable rule sets. It can be run from the command line and, using plugins, via Gradle, SonarQube and IntelliJ. Our teams have found great value in using Detekt to maintain high code quality. When analysis and report generation are integrated into a build pipeline, it's obviously important that the reports are checked on a regular basis and the team sets aside time to act on the findings."
+Ktlint,Adopt,Tools,FALSE,
+OpenAPI,Trial,Tools,TRUE,
+Thrift,Hold,Tools,FALSE,
