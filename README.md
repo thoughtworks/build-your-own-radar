@@ -13,6 +13,7 @@
 To add your radar, add the csv to the `data` folder. Currently, the following radars are available:
 - [Jimdo Frontend Tech Radar](http://tech-radar.jimdo-platform.net/?sheetId=frontend.csv)
 - [Jimdo Kotlin Backend Tech Radar](http://tech-radar.jimdo-platform.net/?sheetId=kotlin.csv)
+- [Jimdo Backend Tech Radar - WIP, should supersede the Kotlin one](http://tech-radar.jimdo-platform.net/?sheetId=backend.csv)
 
 To test it locally, run `make build run` and check e.g. [http://localhost:8080](http://localhost:8080).
 
