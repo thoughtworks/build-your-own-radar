@@ -11,9 +11,9 @@
 # Jimdo Fork
 
 To add your radar, add the csv to the `data` folder. Currently, the following radars are available:
-- [Jimdo Frontend Tech Radar](http://tech-radar.jimdo-platform.net/?sheetId=frontend.csv)
-- [Jimdo Kotlin Backend Tech Radar](http://tech-radar.jimdo-platform.net/?sheetId=kotlin.csv)
-- [Jimdo Backend Tech Radar - WIP, should supersede the Kotlin one](http://tech-radar.jimdo-platform.net/?sheetId=backend.csv)
+- [Jimdo Frontend Tech Radar](https://tech-radar.jimdo-platform.net/?sheetId=frontend.csv)
+- [Jimdo Kotlin Backend Tech Radar](https://tech-radar.jimdo-platform.net/?sheetId=kotlin.csv)
+- [Jimdo Backend Tech Radar - WIP, should supersede the Kotlin one](https://tech-radar.jimdo-platform.net/?sheetId=backend.csv)
 
 To test it locally, run `make build run` and check e.g. [http://localhost:8080](http://localhost:8080).
 
@@ -21,7 +21,7 @@ To deploy it, run `make build push deploy`.
 
 # Original description
 
-A library that generates an interactive radar, inspired by [thoughtworks.com/radar](http://thoughtworks.com/radar).
+A library that generates an interactive radar, inspired by [thoughtworks.com/radar](https://thoughtworks.com/radar).
 
 ## Demo
 
