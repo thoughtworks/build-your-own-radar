@@ -35,6 +35,12 @@ jobs:
       - test
     steps:
       - uses: actions/checkout@v2
+      - name: Build docker image
+        run: make build
+      - name: Push docker image
+        run: make push
+        env:
+          WONDERLAND_GITHUB_TOKEN: ${{ secrets.WONDERLAND_GITHUB_TOKEN }}
       - name: Deploy
         run: make deploy
         env:
