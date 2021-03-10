@@ -12,7 +12,7 @@ run:
 	docker run -t -p 8080:8080 registry.jimdo-platform.net/${PROJECT_NAME}
 
 push: $(WL)
-	wl docker push registry.jimdo-platform.net/${PROJECT_NAME}
+	$(WL) docker push registry.jimdo-platform.net/${PROJECT_NAME}
 
 deploy: $(WL)
-	wl deploy ${PROJECT_NAME}
+	$(WL) deploy ${PROJECT_NAME}
