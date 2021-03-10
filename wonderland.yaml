@@ -1,6 +1,6 @@
 components:
   - name: frontend
-    image: registry.jimdo-platform.net/tech-radar:latest
+    image: registry.jimdo-platform.net/tech-radar:{{ env `VERSION` }}
   - name: oauth2-proxy
     image: quay.io/jimdo/oauth2-proxy
     env:
