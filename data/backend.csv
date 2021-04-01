@@ -7,6 +7,7 @@ Logback,Adopt,languages-and-frameworks,FALSE,
 Kotest,Trial,languages-and-frameworks,FALSE,"KotlinTest is a stand-alone testing tool for the Kotlin ecosystem that our teams have come to like. It allows property-based testing, a technique we've highlighted in the Radar before. Key advantages are that it offers a variety of testing styles in order to structure the test suites and that it comes with a comprehensive set of matchers, which allow for expressive tests in an elegant internal DSL."
 JUnit,Trial,languages-and-frameworks,FALSE
 Jasync,Trial,languages-and-frameworks,FALSE,
+OpenTelemetry,Trial,languages-and-frameworks,TRUE,
 Spring Boot,Adopt,languages-and-frameworks,TRUE,"A lot of work has gone into Spring Boot to reduce complexity and dependencies, which largely alleviates our previous reservations. If you live in a Spring ecosystem and are moving to microservices, Spring Boot is now the obvious choice."
 Spring Data JPA,Assess,languages-and-frameworks,FALSE,
 Spring Webflux,Assess,languages-and-frameworks,FALSE,"WebFlux is the Spring Framework implementation of Reactive Streams. We see a rise in reactive programming models across our teams in general and the use of WebFlux in teams who are working in the Spring ecosystem. It's best used in large microservices ecosystems where the high performance of the requests is a major concern. It allows overlapping request processing asynchronously without the complications of using multiple threads. WebFlux uses Reactor as its reactive library but it is interoperable with other reactive libraries via Reactive Streams. It uses Netty as its underlying high-performance communications engine. Although we encourage using Reactive Streams, adopting this programming model requires a significant shift in thinking."
@@ -31,6 +32,7 @@ Prometheus,Adopt,Platforms,FALSE,
 Grafana,Adopt,Platforms,FALSE,
 Postgresql,Adopt,Platforms,FALSE,
 SNS/SQS,Adopt,Platforms,FALSE,
+Datadog,Trial,Platforms,TRUE, "Datadog is a cloud monitoring service to facilitate application and systems observability"
 Kafka,Assess,Platforms,TRUE,
 Microservice architecture,Adopt,Techniques,FALSE,
 Gradle Configuration in Kotlin,Assess,Techniques,TRUE,
