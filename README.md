@@ -96,6 +96,25 @@ $ docker run --rm -p 8080:80 -e SERVER_NAMES="localhost 127.0.0.1" wwwthoughtwor
 $ open http://localhost:8080
 ```
 
+You can check your setup by clicking on "Build my radar" and by loading the `csv` file on this location: http://localhost:8080/sheets/radar.csv
+
+## Advanced option - Docker image with a csv file from the host machine
+
+```
+$ docker pull wwwthoughtworks/build-your-own-radar
+$ docker run --rm -p 8080:80 -e SERVER_NAMES="localhost 127.0.0.1" -v /mnt/radar/sheets/:/opt/build-your-own-radar/sheets wwwthoughtworks/build-your-own-radar
+$ open http://localhost:8080
+```                                                                                                                    
+
+This will:
+
+1. spawn a server that will listen locally on port 8080
+1. mount the host volume on `/mnt/radar/sheets/` into the container on `/opt/build-your-own-radar/sheets/`.
+1. open http://localhost:8080 and for the URL piece '(Enter the URL of your Google Sheet of CSV file bellow...)' type: http://localhost:8080/sheets/${NAME_OF_YOUR_SHEET}.csv - it needs to be a csv file.
+
+You can now work locally on your machine, updating the csv file, rendering the result back on your browser.
+
+
 ## Contribute
 
 All tasks are defined in `package.json`.
