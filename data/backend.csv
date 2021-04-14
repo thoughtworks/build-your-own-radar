@@ -24,6 +24,7 @@ NodeJS + Typescript, Adopt, languages-and-frameworks,FALSE,
 TypeORM,Adopt,languages-and-frameworks,FALSE,
 Winston,Adopt,languages-and-frameworks,FALSE, "Winston is a structured logger for the NodeJS ecosystem"
 Express,Adopt,languages-and-frameworks,FALSE,
+NestJS,Trial,languages-and-frameworks,TRUE, "full javascript framework with good support for OpenAPI, feels a bit similar to spring"
 Python,Hold,languages-and-frameworks,FALSE,
 Wonderland,Adopt,Platforms,FALSE,
 Terraform,Adopt,Platforms,FALSE,
