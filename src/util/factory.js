@@ -46,7 +46,7 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
     if (!quadrants[blip.quadrant]) {
       quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant))
     }
-    quadrants[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description))
+    quadrants[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description, blip.publish))
   })
 
   var radar = new Radar()
@@ -206,6 +206,11 @@ const GoogleSheetInput = function () {
     var queryString = window.location.href.match(/sheetId(.*)/)
     var queryParams = queryString ? QueryParams(queryString[0]) : {}
 
+    if(queryParams && queryParams.sheetId) {
+      domainName = 'localhost:8080'
+      queryParams.sheetId = 'http://localhost:8080/radars/'.concat(queryParams.sheetId).concat('.csv')
+    }
+    
     if (domainName && queryParams.sheetId.endsWith('csv')) {
       sheet = CSVDocument(queryParams.sheetId)
       sheet.init().build()
@@ -222,8 +227,7 @@ const GoogleSheetInput = function () {
 
       plotLogo(content)
 
-      var bannerText = '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://www.thoughtworks.com/radar/byor">created your Radar</a>, you can use this service' +
-        ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a></p></div>'
+      var bannerText = '<div><h1>Cloud Team Tech Radar</h1><p><strong>Select the published edition to generate the interactive version of our Tech Radar.</strong></p></div>'
 
       plotBanner(content, bannerText)
 
@@ -237,7 +241,7 @@ const GoogleSheetInput = function () {
 }
 
 function setDocumentTitle () {
-  document.title = 'Build your own Radar'
+  document.title = 'Cloud Team Tech Radar'
 }
 
 function plotLoading (content) {
@@ -269,10 +273,8 @@ function plotFooter (content) {
     .append('div')
     .attr('class', 'footer-content')
     .append('p')
-    .html('Powered by <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. ' +
-      'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">ThoughtWorks\' terms of use</a>. ' +
-      'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
-      'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.')
+    .html('<br>' +
+      '<br> Last update: April, 2021.')
 }
 
 function plotBanner (content, text) {
@@ -285,24 +287,34 @@ function plotForm (content) {
   content.append('div')
     .attr('class', 'input-sheet__form')
     .append('p')
-    .html('<strong>Enter the URL of your <a href="https://www.thoughtworks.com/radar/how-to-byor" target="_blank">Google Sheet or CSV</a> file below…</strong>')
+    .html('<strong>Select one of the published versions below…</strong>')
 
   var form = content.select('.input-sheet__form').append('form')
     .attr('method', 'get')
 
   form.append('input')
-    .attr('type', 'text')
+    .attr('type', 'select')
+    .attr('list', 'radars')
     .attr('name', 'sheetId')
-    .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/<sheetid> or hosted CSV file')
+    .attr('placeholder', 'Select the desired radar version to visualize: ')
     .attr('required', '')
+    .attr('autocomplete', 'off')
+
+  // var radars = ['']
+  var datalist = form.append('datalist')
+    .attr('id', 'radars')
+
+  //datalist.append('option').attr('value', 'http://localhost:8080/radars/radar.csv').attr('label', 'PRIMEIRA EDIÇÃO')
+  //datalist.append('option').attr('value', 'http://localhost:8080/radars/radar2.csv').attr('label', 'SEGUNDA EDIÇÃO')
+  datalist.append('option').attr('value', 'april-2021')
 
   form.append('button')
     .attr('type', 'submit')
     .append('a')
     .attr('class', 'button')
-    .text('Build my radar')
+    .text('Build radar')
 
-  form.append('p').html("<a href='https://www.thoughtworks.com/radar/how-to-byor'>Need help?</a>")
+  form.append('p').html("<a href='https://sidigitcommercial.sidi.org.br/tech-radar/cloud/'>Cloud Team Technology Radar</a>")
 }
 
 function plotErrorMessage (exception) {

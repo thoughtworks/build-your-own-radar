@@ -44,7 +44,7 @@ body {
     }
 
     &.first .quadrant-table__name {
-      color: $green;
+      color: $yellow;
     }
 
     &.second .quadrant-table__name {
@@ -204,13 +204,18 @@ body {
         cursor: pointer;
       }
 
+      .blip-link-hidden {
+        display: none;
+        cursor: none;
+      }
+
       .quadrant-group {
         cursor: pointer;
       }
 
       circle, polygon, path {
         &.first {
-          fill: $green;
+          fill: $yellow;
           stroke: none;
         }
 

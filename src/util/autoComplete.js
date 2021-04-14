@@ -10,7 +10,7 @@ $.widget('custom.radarcomplete', $.ui.autocomplete, {
     let currentQuadrant = ''
 
     items.forEach((item) => {
-      const quadrantName = item.quadrant.quadrant.name()
+      const quadrantName = item.item.quadrant.quadrant.name()
       if (quadrantName !== currentQuadrant) {
         ul.append(`<li class='ui-autocomplete-quadrant'>${quadrantName}</li>`)
         currentQuadrant = quadrantName
@@ -34,7 +34,7 @@ const AutoComplete = (el, quadrants, cb) => {
         const searchable = `${blip.name()} ${blip.description()}`.toLowerCase()
         return request.term.split(' ').every((term) => searchable.includes(term.toLowerCase()))
       })
-      response(matches.map((item) => ({...item, value: item.blip.name()})))
+      response(matches.map((item) => ({item, value: item.blip.name()})))
     },
     select: cb.bind({})
   })

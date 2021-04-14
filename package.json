@@ -53,6 +53,7 @@
   },
   "dependencies": {
     "chance": "^1.0.18",
+    "copy-webpack-plugin": "^4.5.4",
     "d3": "^5.14.2",
     "d3-tip": "^0.7.1",
     "jquery": "^3.4.0",

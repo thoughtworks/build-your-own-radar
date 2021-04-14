@@ -235,8 +235,13 @@ const Radar = function (size, radar) {
     var x = coordinates[0]
     var y = coordinates[1]
 
-    var group = quadrantGroup.append('g').attr('class', 'blip-link').attr('id', 'blip-link-' + blip.number())
+    var blipLinkClass = 'blip-link-hidden'
+    if(blip.publish()) {
+      blipLinkClass = 'blip-link'
+    }
+    var group = quadrantGroup.append('g').attr('class', blipLinkClass).attr('id', 'blip-link-' + blip.number())
 
+    
     if (blip.isNew()) {
       triangle(blip, x, y, order, group)
     } else {
@@ -269,12 +274,20 @@ const Radar = function (size, radar) {
     var mouseOver = function () {
       d3.selectAll('g.blip-link').attr('opacity', 0.3)
       group.attr('opacity', 1.0)
+      if(!blip.publish()) {
+        group.classed('blip-link',true)
+        group.classed('blip-link-hidden',false)
+      }
       blipListItem.selectAll('.blip-list-item').classed('highlight', true)
       tip.show(blip.name(), group.node())
     }
 
     var mouseOut = function () {
       d3.selectAll('g.blip-link').attr('opacity', 1.0)
+      if(!blip.publish()) {
+        group.classed('blip-link',false)
+        group.classed('blip-link-hidden',true)
+      }
       blipListItem.selectAll('.blip-list-item').classed('highlight', false)
       tip.hide().style('left', 0).style('top', 0)
     }
@@ -403,7 +416,7 @@ const Radar = function (size, radar) {
   }
 
   function searchBlip (_e, ui) {
-    const { blip, quadrant } = ui.item
+    const { blip, quadrant } = ui.item.item
     const isQuadrantSelected = d3.select('div.button.' + quadrant.order).classed('selected')
     selectQuadrant.bind({}, quadrant.order, quadrant.startAngle)()
     const selectedDesc = d3.select('#blip-description-' + blip.number())
@@ -416,6 +429,8 @@ const Radar = function (size, radar) {
     group.attr('opacity', 1.0)
     d3.selectAll('.blip-list-item').classed('highlight', false)
     d3.select('#blip-list-item-' + blip.number()).classed('highlight', true)
+    group.classed('blip-link',true)
+    group.classed('blip-link-hidden',false)
     if (isQuadrantSelected) {
       tip.show(blip.name(), group.node())
     } else {
@@ -491,17 +506,16 @@ const Radar = function (size, radar) {
     AutoComplete('#auto-complete', quadrants, searchBlip)
   }
 
-  function plotRadarFooter () {
+   function plotRadarFooter () {
     d3.select('body')
       .insert('div', '#radar-plot + *')
       .attr('id', 'footer')
       .append('div')
       .attr('class', 'footer-content')
       .append('p')
-      .html('Powered by <a href="https://www.thoughtworks.com"> ThoughtWorks</a>. ' +
-      'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">ThoughtWorks\' terms of use</a>. ' +
-      'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
-      'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.')
+      .html(
+      '<a href="https://sidigitcommercial.sidi.org.br/tech-radar/cloud/">Cloud Team Technology Radar</a>. ' +
+      '<br><br>This is private to SiDi, do not be shared outside.')
   }
 
   function mouseoverQuadrant (order) {

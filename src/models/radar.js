@@ -45,7 +45,7 @@ const Radar = function () {
   }
 
   self.addQuadrant = function (quadrant) {
-    if (addingQuadrant >= 4) {
+    if (addingQuadrant >= 5) {
       throw new MalformedDataError(ExceptionMessages.TOO_MANY_QUADRANTS)
     }
     quadrants[addingQuadrant].quadrant = quadrant
