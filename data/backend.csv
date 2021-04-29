@@ -31,6 +31,7 @@ Wonderland,Adopt,Platforms,FALSE,
 Terraform,Adopt,Platforms,FALSE,
 Prometheus,Adopt,Platforms,FALSE,
 Grafana,Adopt,Platforms,FALSE,
+Honeycomb,Trial,Platforms,TRUE, "Honeycomb provides a full stack observability platform —designed for high cardinality data."
 Postgresql,Adopt,Platforms,FALSE,
 SNS/SQS,Adopt,Platforms,FALSE,
 Datadog,Trial,Platforms,TRUE, "Datadog is a cloud monitoring service to facilitate application and systems observability"
