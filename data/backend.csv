@@ -4,14 +4,14 @@ Flyway,Adopt,languages-and-frameworks,FALSE,"With techniques such as continuous 
 Mockk,Adopt,languages-and-frameworks,FALSE,"MockK is our go-to tool for mocks when writing tests for Kotlin applications. We like to use this library because of its first-class support for Kotlin language features such as coroutines or lambda blocks. As a native library, it helps our teams to write clean and concise code on testing Kotlin applications instead of using the inconvenient wrappers of Mockito or PowerMock."
 Arrow's Either,Trial,languages-and-frameworks,TRUE,"Arrow is promoted as the functional companion for Kotlin's standard library. Indeed, the package of ready-to-use higher-level abstractions delivered by Arrow has proven so useful that our teams now consider Arrow a sensible default when working with Kotlin. Recently, in preparation for the 1.0 release, the Arrow team introduced several changes, including the addition of new modules but also some deprecations and removals."
 Logback,Adopt,languages-and-frameworks,FALSE,
-Kotest,Trial,languages-and-frameworks,FALSE,"KotlinTest is a stand-alone testing tool for the Kotlin ecosystem that our teams have come to like. It allows property-based testing, a technique we've highlighted in the Radar before. Key advantages are that it offers a variety of testing styles in order to structure the test suites and that it comes with a comprehensive set of matchers, which allow for expressive tests in an elegant internal DSL."
+Kotest,Hold,languages-and-frameworks,FALSE,"KotlinTest is a stand-alone testing tool for the Kotlin ecosystem that our teams have come to like. It allows property-based testing, a technique we've highlighted in the Radar before. Key advantages are that it offers a variety of testing styles in order to structure the test suites and that it comes with a comprehensive set of matchers, which allow for expressive tests in an elegant internal DSL."
 JUnit,Trial,languages-and-frameworks,FALSE
-Jasync,Trial,languages-and-frameworks,FALSE,
+Jasync,Hold,languages-and-frameworks,FALSE,
 OpenTelemetry,Trial,languages-and-frameworks,TRUE,
 Spring Boot,Adopt,languages-and-frameworks,TRUE,"A lot of work has gone into Spring Boot to reduce complexity and dependencies, which largely alleviates our previous reservations. If you live in a Spring ecosystem and are moving to microservices, Spring Boot is now the obvious choice."
 Spring Data JPA,Assess,languages-and-frameworks,FALSE,
 Spring Webflux,Assess,languages-and-frameworks,FALSE,"WebFlux is the Spring Framework implementation of Reactive Streams. We see a rise in reactive programming models across our teams in general and the use of WebFlux in teams who are working in the Spring ecosystem. It's best used in large microservices ecosystems where the high performance of the requests is a major concern. It allows overlapping request processing asynchronously without the complications of using multiple threads. WebFlux uses Reactor as its reactive library but it is interoperable with other reactive libraries via Reactive Streams. It uses Netty as its underlying high-performance communications engine. Although we encourage using Reactive Streams, adopting this programming model requires a significant shift in thinking."
-Jooq,Assess,languages-and-frameworks,TRUE,
+Jooq,Hold,languages-and-frameworks,TRUE,
 Mapstruct,Assess,languages-and-frameworks,TRUE,
 Jackson,Adopt,languages-and-frameworks,FALSE,
 AWS SDK,Adopt,languages-and-frameworks,FALSE,
