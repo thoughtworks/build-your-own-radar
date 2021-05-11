@@ -20,7 +20,7 @@ Babel,Adopt,languages-and-frameworks,FALSE,
 Express,Adopt,languages-and-frameworks,FALSE,
 Graphql,Adopt,languages-and-frameworks,FALSE,When using a BFF
 Graphql Nexus,Adopt,languages-and-frameworks,FALSE,
-Next.js,Adopt,languages-and-frameworks,FALSE,
+Next.js,Adopt,languages-and-frameworks,FALSE, <a href="https://jimplan.atlassian.net/wiki/spaces/UA/pages/2110325261/Proposed+Solution">More info</a>
 React Query, Assess,languages-and-frameworks,TRUE,
 Apollo Client,Hold,languages-and-frameworks,FALSe,
 XState,Trial,languages-and-frameworks,TRUE,
