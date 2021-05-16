@@ -12,3 +12,5 @@ coverage/
 
 spec/end_to_end_tests/reports/
 cypress/
+
+.nyc_output
