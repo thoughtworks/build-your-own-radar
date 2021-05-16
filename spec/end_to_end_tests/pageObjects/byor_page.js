@@ -7,7 +7,7 @@ class ByorPage {
   }
 
   provideExcelName () {
-    cy.get(this.text_box).type(config.excel)
+    cy.get(this.text_box).type(config.excel,{force: true})
   }
 
   clickSubmitButton () {
