@@ -2,11 +2,11 @@ const $ = require('jquery')
 require('jquery-ui/ui/widgets/autocomplete')
 
 $.widget('custom.radarcomplete', $.ui.autocomplete, {
-  _create: function() {
+  _create: function () {
     this._super()
     this.widget().menu('option', 'items', '> :not(.ui-autocomplete-quadrant)')
   },
-  _renderMenu: function(ul, items) {
+  _renderMenu: function (ul, items) {
     let currentQuadrant = ''
 
     items.forEach((item) => {
@@ -15,7 +15,7 @@ $.widget('custom.radarcomplete', $.ui.autocomplete, {
         ul.append(`<li class='ui-autocomplete-quadrant'>${quadrantName}</li>`)
         currentQuadrant = quadrantName
       }
-      let li = this._renderItemData(ul, item)
+      const li = this._renderItemData(ul, item)
       if (quadrantName) {
         li.attr('aria-label', `${quadrantName}:${item.value}`)
       }
@@ -30,11 +30,11 @@ const AutoComplete = (el, quadrants, cb) => {
 
   $(el).radarcomplete({
     source: (request, response) => {
-      const matches = blips.filter(({blip}) => {
+      const matches = blips.filter(({ blip }) => {
         const searchable = `${blip.name()} ${blip.description()}`.toLowerCase()
         return request.term.split(' ').every((term) => searchable.includes(term.toLowerCase()))
       })
-      response(matches.map((item) => ({...item, value: item.blip.name()})))
+      response(matches.map((item) => ({ ...item, value: item.blip.name() })))
     },
     select: cb.bind({})
   })
