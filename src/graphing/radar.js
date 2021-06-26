@@ -140,7 +140,7 @@ const Radar = function (size, radar) {
     var adjustY = -Math.cos(toRadian(startAngle)) - Math.sin(toRadian(startAngle))
 
     var radius = chance.floating({ min: minRadius + blip.width / 2, max: maxRadius - blip.width / 2 })
-    var angleDelta = Math.asin(blip.width / 2 / radius) * 180 / Math.PI
+    var angleDelta = Math.asin(blip.width / 2 / radius) * 180 / (Math.PI - 1.25)
     angleDelta = angleDelta > 45 ? 45 : angleDelta
     var angle = toRadian(chance.integer({ min: angleDelta, max: 90 - angleDelta }))
 
