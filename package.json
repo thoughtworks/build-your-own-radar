@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "standard --fix && istanbul cover jasmine",
+    "test": "standard --fix && jasmine",
     "test:lint": "npx standard",
     "dev": "webpack-dev-server --mode development --inline",
     "build": "webpack --mode production",
