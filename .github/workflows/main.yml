@@ -17,7 +17,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build_and_test:
+  test:
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -31,3 +31,17 @@ jobs:
         run: npm install
       - name: test
         run: npm test
+  
+  build_and_deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: Install Dependencies
+        run: npm install
+      
+      - name: Build
+        run: API_KEY=${{ secrets.API_KEY }} CLIENT_ID=${{ secrets.CLIENT_ID }} GTM_ID=${{ secrets.GTM_ID }} ENABLE_GOOGLE_AUTH=true npm run build
