@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: '10.x'
       - name: Install Dependencies
-       run: npm install
+        run: npm install
   test:
     runs-on: ubuntu-latest
     steps:
