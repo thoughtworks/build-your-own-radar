@@ -1,0 +1,45 @@
+
+@import url(https://www.thoughtworks.com/css/k8s_production/screen.css);
+
+// Global variables
+$page-background: #0d1117;
+$link: #ee0b77;
+$text: #c9d1d9;
+$text-input-background: #161b22;
+$text-input-colour: #c9d1d9;
+
+// Input Page (landing) variables
+$input-banner-background: #161b22;
+$input-textbox-border: #d7d7d7;
+$input-banner-image: url('../default/images/tech-radar-landing-page-wide.png');
+$input-logo-image: url('../default/images/tw-logo.png');
+$input-banner-text: #c9d1d9;
+
+// Radar Page variables
+$radar-title-background: #161b22;
+$radar-title-logo-image: url('../default/images/logo.png');
+$radar-button-default: #161b22;
+$radar-button-first: #F3B16D;
+$radar-button-second: #4ACFAC;
+$radar-button-third: #7E8CE0;
+$radar-button-fourth: #36C7D0;
+$radar-button-first-text: #161b22;
+$radar-button-second-text: #161b22;
+$radar-button-third-text: #161b22;
+$radar-button-fourth-text: #161b22;
+$radar-arc-fourth: #52657f;
+$radar-arc-third: #3e4c60;
+$radar-arc-second: #2a3441;
+$radar-arc-first: #161b22;
+$radar-text: #c9d1d9;
+$radar-blip-background: #c9d1d9;
+$radar-blip-text: black;
+$radar-quadrant-line: $page-background;
+
+// Print page variables
+$print-radar-button-first: #86b782;
+$print-radar-button-second: #1ebccd;
+$print-radar-button-third: #f38a3e;
+$print-radar-button-fourth: #b32059;
+
+@import '../base/base';

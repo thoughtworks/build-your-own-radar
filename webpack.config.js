@@ -20,6 +20,7 @@ if (env) {
 
 const main = ['./src/site.js']
 const common = ['./src/common.js']
+const themePath = `src/themes/${process.env.APP_THEME}`
 let devtool
 
 if (isDev) {
@@ -106,6 +107,13 @@ module.exports = {
         test: require.resolve('jquery'),
         use: [{ loader: 'expose-loader', options: 'jQuery' }, { loader: 'expose-loader', options: '$' }]
       }
+    ]
+  },
+  resolve: {
+    modules: [
+      themePath,
+      'src/themes/default',
+      'node_modules'
     ]
   },
 

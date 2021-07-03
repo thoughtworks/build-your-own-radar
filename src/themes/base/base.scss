@@ -1,16 +1,21 @@
-@import 'colors';
 @import 'fonts';
 @import 'tip';
 @import 'form';
 @import 'error';
 @import 'header';
 @import 'footer';
-@import url(https://www.thoughtworks.com/css/k8s_production/screen.css);
 
 body {
   font: 18px 'Open Sans';
   -webkit-font-smoothing: antialiased;
   margin: 0;
+  background-color: $page-background;
+  color: $text;
+}
+
+input[type="text"] {
+  background-color: $text-input-background;
+  color: $text-input-colour;
 }
 
 @media print {
@@ -19,6 +24,8 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
+    background-color: white;
+    color: black;
   }
 
   @page {
@@ -44,19 +51,19 @@ body {
     }
 
     &.first .quadrant-table__name {
-      color: $green;
+      color: $print-radar-button-first;
     }
 
     &.second .quadrant-table__name {
-      color: $blue;
+      color: $print-radar-button-second;
     }
 
     &.third .quadrant-table__name {
-      color: $orange;
+      color: $print-radar-button-third;
     }
 
     &.fourth .quadrant-table__name {
-      color: $violet;
+      color: $print-radar-button-fourth;
     }
   }
 
@@ -100,28 +107,32 @@ body {
   header {
     text-align: left;
 
-    .radar-title .radar-title__text {
-      font-size: 40px;
-      width: 100%;
-      padding: 10px;
-      display: block;
-    }
+    .radar-title {
+      background-color: white;
 
-    .radar-title .radar-title__logo {
-      display: block;
-      width: auto;
-
-      a {
-        padding: 40px 10px 0;
+      .radar-title__text {
+        font-size: 40px;
+        width: 100%;
+        padding: 10px;
         display: block;
-
-        &::after {
-          display: none;
-        }
       }
 
-      img {
-        max-width: 150px;
+      .radar-title__logo {
+        display: block;
+        width: auto;
+
+        a {
+          padding: 40px 10px 0;
+          display: block;
+
+          &::after {
+            display: none;
+          }
+        }
+
+        img {
+          max-width: 150px;
+        }
       }
     }
 
@@ -174,28 +185,28 @@ body {
       .legend {
         visibility: hidden;
         transition: visibility 1s ease 1s;
-        color: $black;
+        color: $text;
       }
 
       path {
         &.ring-arc-3 {
           stroke: none;
-          fill: $grey-light;
+          fill: $radar-arc-fourth;
         }
 
         &.ring-arc-2 {
           stroke: none;
-          fill: $grey;
+          fill: $radar-arc-third;
         }
 
         &.ring-arc-1 {
           stroke: none;
-          fill: $grey-dark;
+          fill: $radar-arc-second;
         }
 
         &.ring-arc-0 {
           stroke: none;
-          fill: $grey-darkest;
+          fill: $radar-arc-first;
         }
       }
 
@@ -210,41 +221,41 @@ body {
 
       circle, polygon, path {
         &.first {
-          fill: $green;
+          fill: $radar-button-first;
           stroke: none;
         }
 
         &.second {
-          fill: $blue;
+          fill: $radar-button-second;
           stroke: none;
         }
 
         &.third {
-          fill: $orange;
+          fill: $radar-button-third;
           stroke: none;
         }
 
         &.fourth {
-          fill: $violet;
+          fill: $radar-button-fourth;
           stroke: none;
         }
       }
 
       line {
-        stroke: white;
+        stroke: $radar-quadrant-line;
       }
 
       text {
         &.blip-text {
           font-size: 9px;
           font-style: italic;
-          fill: $white;
+          fill: $radar-blip-text;
         }
 
         &.line-text {
           font-weight: bold;
           text-transform: uppercase;
-          fill: $black;
+          fill: $radar-blip-background;
           font-size: 7px;
         }
       }
@@ -331,7 +342,7 @@ body {
               border-top: 1px solid rgb(119, 119, 119);
               border-bottom: 1px solid rgb(119, 119, 119);
               padding: 20px;
-              color: $grey-text;
+              color: $radar-text;
               font-weight: 100;
               font-size: 14px;
             }

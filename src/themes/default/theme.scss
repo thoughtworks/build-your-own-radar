@@ -1,0 +1,38 @@
+@import url(https://www.thoughtworks.com/css/k8s_production/screen.css);
+
+// Global variables
+$page-background: white;
+$link: #ee0b77;
+$text: black;
+$text-input-background: #ebebeb;
+$text-input-colour: #666
+
+// Input Page (landing) variables
+$input-banner-background: #eee;
+$input-textbox-border: #d7d7d7;
+$input-banner-image: url('./images/tech-radar-landing-page-wide.png');
+$input-logo-image: url('./images/tw-logo.png');
+$input-banner-text: white;
+
+// Radar Page variables
+$radar-title-background: #eee;
+$radar-title-logo-image: url('./images/logo.png');
+$radar-button-default: #eee;
+$radar-button-first: #86b782;
+$radar-button-second: #1ebccd;
+$radar-button-third: #f38a3e;
+$radar-button-fourth: #b32059;
+$radar-button-first-text: white;
+$radar-button-second-text: white;
+$radar-button-third-text: white;
+$radar-button-fourth-text: white;
+$radar-arc-first: #bababa;
+$radar-arc-second: #cacaca;
+$radar-arc-third: #dadada;
+$radar-arc-fourth: #eee;
+$radar-text: rgb(51, 51, 51);
+$radar-blip-background: black;
+$radar-blip-text: white;
+$radar-quadrant-line: white;
+
+@import '../base/base';

@@ -10,7 +10,7 @@ header {
   }
 
   .radar-title {
-    background-color: $grey-light;
+    background-color: $radar-title-background;
     padding: 30px 0;
 
     display: table;
@@ -38,19 +38,16 @@ header {
     .radar-title__logo {
       flex: 0 0 30%;
       margin-left: auto;
+      font-size: 55px;
 
       width: 30%;
       display: table-cell;
       vertical-align: middle;
-
-      a {
-        border-bottom: none;
-      }
-
-      img {
-        vertical-align: middle;
-        width: 34%;
-      }
+      background-image: $radar-title-logo-image;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 1em;
     }
   }
 
@@ -70,7 +67,7 @@ header {
   }
 
   .home-link {
-    color: $pink;
+    color: $link;
     margin-bottom: 10px;
     line-height: normal;
     cursor: pointer;
@@ -89,8 +86,8 @@ header {
     cursor: pointer;
     transition: all .2s ease-out;
 
-    background-color: $grey-light;
-    color: $black;
+    background-color: $radar-button-default;
+    color: $text;
 
     &.no-capitalize {
       text-transform: none;
@@ -102,46 +99,46 @@ header {
       opacity: .85;
 
       &.first {
-        color: white;
-        background-color: $green;
+        color: $radar-button-first-text;
+        background-color: $radar-button-first;
       }
 
       &.second {
-        color: white;
-        background-color: $blue;
+        color: $radar-button-second-text;
+        background-color: $radar-button-second;
       }
 
       &.third {
-        color: white;
-        background-color: $orange;
+        color: $radar-button-third-text;
+        background-color: $radar-button-third;
       }
 
       &.fourth {
-        color: white;
-        background-color: $violet;
+        color: $radar-button-fourth-text;
+        background-color: $radar-button-fourth;
       }
     }
 
     &.full-view {
 
       &.first {
-        background-color: $green;
-        color: $white;
+        color: $radar-button-first-text;
+        background-color: $radar-button-first;
       }
 
       &.second {
-        background-color: $blue;
-        color: $white;
+        color: $radar-button-second-text;
+        background-color: $radar-button-second;
       }
 
       &.third {
-        background-color: $orange;
-        color: $white;
+        color: $radar-button-third-text;
+        background-color: $radar-button-third;
       }
 
       &.fourth {
-        background-color: $violet;
-        color: $white;
+        color: $radar-button-fourth-text;
+        background-color: $radar-button-fourth;
       }
     }
   }
@@ -168,7 +165,7 @@ header {
     .search-radar {
       border: 1px solid #aaa;
       background-color: inherit;
-      background-image: url("/images/search-logo-2x.svg");
+      //background-image: url('images/search-logo-2x.svg');
       background-repeat: no-repeat;
       background-position: 10px;
     }

@@ -259,7 +259,6 @@ function plotLoading (content) {
 function plotLogo (content) {
   content.append('div')
     .attr('class', 'input-sheet__logo')
-    .html('<a href="https://www.thoughtworks.com"><img src="/images/tw-logo.png" / ></a>')
 }
 
 function plotFooter (content) {
