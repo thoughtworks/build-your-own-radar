@@ -7,6 +7,8 @@ class RadarPage {
     this.autocomplete = '.search-radar'
     this.search_value = 'Babel'
     this.search_item = '.ui-menu-item:first'
+    this.title = '.radar-title .radar-title__text h1'
+    this.subtitle = '.radar-title .radar-sub-title__text h2'
   }
 
   clickTheBlipFromInteractiveSection () {
@@ -32,6 +34,18 @@ class RadarPage {
 
   validateBlipSearch () {
     expect(cy.get(this.blip_selected).contains(this.search_value))
+  }
+
+  verifyTitle (title) {
+    expect(cy.get(this.title).contains(title))
+  }
+
+  verifySubTitle (subtitle) {
+    expect(cy.get(this.subtitle).contains(subtitle))
+  }
+
+  verifyEmptySubTitle () {
+    expect(cy.get(this.subtitle).empty)
   }
 }
 
