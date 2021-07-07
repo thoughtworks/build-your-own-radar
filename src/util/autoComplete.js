@@ -1,5 +1,6 @@
 const $ = require('jquery')
 require('jquery-ui/ui/widgets/autocomplete')
+require('jquery-ui/ui/widgets/menu')
 
 $.widget('custom.radarcomplete', $.ui.autocomplete, {
   _create: function () {
