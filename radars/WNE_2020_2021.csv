@@ -166,21 +166,30 @@ SASS,Frontend,Invest,leaning,"<p><a href=""https://sass-lang.com"">Sass</a> clai
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-Cypress,Frontend,Invest,confident,"<p><a href=""https://cypress.io"">Cypress</a> is a tool for fast, easy, reliable testing of anything that runs in a browser.</p>
+Cypress,Frontend,Invest,lock,"<p><a href=""https://cypress.io"">Cypress</a> is a tool for fast, easy, reliable testing of anything that runs in a browser.</p>
 <h3>Pros</h3>
 <ul>
 <li>Easy to debug using familiar tools like Chrome DevTools.</li>
 <li>Takes snapshots as tests run, making it possible to click through step by step and see exactly what happened.</li>
 <li>No more async hell. Cypress automatically waits for commands and assertions before moving on.</li>
+<li>Fast execution</li>
+<li>Easy to use with Continous Integration</li>
+<li>Simple usage</li>
 </ul>
 <h3>Cons</h3>
 <ul>
-<li>Does not support as many browsers as tools built on <a href=""https://www.selenium.dev/"">Selenium</a>.</li>
+<li>Does not support as many browsers as tools built on <a href="""">Selenium WebDriver</a>.</li>
 <li>Does not allow scripts to execute across multiple domains, causing complications with things like 3rd-party OAuth flows.</li>
+<li>No multiple domain support (ie single origin URLs)</li>
+<li>No XPath support (workaround available)</li>
+<li>Switch Browser Tabs is not supported</li>
+<li>No iFrame support (workaround available)</li>
+<li>No File upload support</li>
 </ul>
-<p>Replaces <a href="""">Protractor</a>.</p>
-<p>When decision made: 11/2020</p>
-<p>When decision will be revisited: 11/2022</p>
+<p>Replaces <a href="""">Protractor</a> and <a href="""">Selenium WebDriver</a>.</p>
+<p>When paired with <a href="""">Applitools</a> it enables easy automated visual regression testing across multiple browsers.  Applitools is recommended when using Cypress for visual testing (not functional testing).</p>
+<p>When decision made: 08/2021</p>
+<p>When decision will be revisited: 08/2023</p>
 "
 Storybook,Frontend,Invest,leaning,"<p><a href=""https://storybook.js.org/"">Storybook</a> is a tool for developing UI components in isolation for <a href="""">React</a>, Vue, <a href="""">Angular</a>, and more.</p>
 <h3>Pros</h3>
@@ -345,7 +354,7 @@ Angular CLI,Frontend,Hold,none,"<p>The <a href=""https://angular.io/cli"">Angula
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-Protractor,Frontend,Hold,none,"<p><a href=""https://protractortest.org"">Protractor</a> is an end-to-end test framework for Angular and AngularJS applications. Protractor runs tests against your application running in a real browser, interacting with it as a user would.</p>
+Protractor,Frontend,Divest,none,"<p><a href=""https://protractortest.org"">Protractor</a> is an end-to-end test framework for Angular and AngularJS applications. Protractor runs tests against your application running in a real browser, interacting with it as a user would.</p>
 <h3>Pros</h3>
 <ul>
 <li>Automatically configured and stubbed out by <a href="""">Angular CLI</a> when generating a new project.</li>
@@ -357,8 +366,8 @@ Protractor,Frontend,Hold,none,"<p><a href=""https://protractortest.org"">Protrac
 <li>Specifically built for testing Angular and AngularJS applications.</li>
 <li>Difficult to debug tests.</li>
 </ul>
-<p>When decision made: 5/1/2020</p>
-<p>When decision will be revisited: 5/1/2021</p>
+<p>When decision made: 8/2021</p>
+<p>When decision will be revisited: 8/2023</p>
 "
 Karma,Frontend,Hold,none,"<p><a href=""http://karma-runner.github.io/5.0/"">Karma</a> is a test runner that allows you to execute JavaScript code in multiple real browsers.</p>
 <h3>Pros</h3>
@@ -501,6 +510,41 @@ KnockoutJS,Frontend,Divest,none,"<p><a href=""https://knockoutjs.com/"">Knockout
 <p>Replaced by <a href="""">React</a>.</p>
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
+"
+Selenium WebDriver,Frontend,Divest,none,"<p><a href=""https://www.selenium.dev/"">Selenium WebDriver</a> drives a browser natively, as a user would, either locally or on a remote machine using the Selenium server.</p>
+<h3>Pros</h3>
+<ul>
+<li>It supports C#, PHP, Java, Perl, Python</li>
+<li>It supports different OS like Windows, Linux and Mac OS</li>
+<li>It has got powerful methods to locate elements (Xpath, DOM , CSS)</li>
+<li>It has highly developer community supported by Google</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Selenium supports only web based applications</li>
+<li>It does not support the Bitmap comparison</li>
+<li>For any reporting related capabilities have to depend on third party tools</li>
+<li>Requires a browser to run</li>
+<li>Difficult to debug tests.</li>
+</ul>
+<p>When decision made: 8/2021</p>
+<p>When decision will be revisited: 8/2023</p>
+"
+Applitools,Frontend,Invest,lock,"<p><a href=""https://applitools.com/"">Applitools</a> enables visual regression test automation using visual AI.</p>
+<h3>Pros</h3>
+<ul>
+<li>Compatible with many test and automation frameworks including <a href="""">Cypress</a>, <a href="""">Protractor</a>, and <a href="""">Selenium WebDriver</a></li>
+<li>Decreases test automation code by up to 6x</li>
+<li>Ultrafast Grid enables quick test runs across multiple browsers</li>
+<li>Good UI that enable easy test maintance</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Cost, it requires a montly subscription fee that limits the number to screenshot comparisons</li>
+</ul>
+<p>Used in conjunction with <a href="""">Cypress</a> and <a href="""">Protractor</a>.</p>
+<p>When decision made: 08/2021</p>
+<p>When decision will be revisited: 08/2023</p>
 "
 ASP.NET Core,Backend,Invest,lock,"<p><a href=""https://dotnet.microsoft.com/learn/aspnet/what-is-aspnet-core"">ASP.NET Core</a> is built on the new <a href="""">.NET Core</a> framework but is designed for the web. As with .NET Core this is an open source framework. While <a href=""http://ASP.NET"">ASP.NET</a> can be used for server side rendering pages the WNE strong preference is that the frontend apps are single page applications (SPAs) using <a href="""">React</a>.</p>
 <h3>Pros</h3>

@@ -11,6 +11,6 @@
 - Specifically built for testing Angular and AngularJS applications.
 - Difficult to debug tests.
 
-When decision made: 5/1/2020
+When decision made: 8/2021
 
-When decision will be revisited: 5/1/2021
+When decision will be revisited: 8/2023
