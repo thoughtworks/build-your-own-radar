@@ -1,7 +1,6 @@
 /* eslint no-constant-condition: "off" */
 
 const d3 = require('d3')
-const Tabletop = require('tabletop')
 const _ = {
   map: require('lodash/map'),
   uniqBy: require('lodash/uniqBy'),
@@ -71,14 +70,16 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
 
 const GoogleSheet = function (sheetReference, sheetName) {
   var self = {}
-
   self.build = function () {
     var sheet = new Sheet(sheetReference)
-    sheet.validate(function (error) {
+    sheet.validate(function (error, title) {
       if (!error) {
-        Tabletop.init({
-          key: sheet.id,
-          callback: createBlips
+        const url = 'https://docs.google.com/spreadsheets/d/' + sheet.id + '/pub?output=csv'
+        d3.csv(url).then(function (data) {
+          return createBlips(data, title)
+        },
+        function (error) {
+          plotErrorMessage(error)
         })
         return
       }
@@ -91,21 +92,15 @@ const GoogleSheet = function (sheetReference, sheetName) {
       self.authenticate(false)
     })
 
-    function createBlips (__, tabletop) {
+    var createBlips = function (data, title) {
       try {
-        if (!sheetName) {
-          sheetName = tabletop.foundSheetNames[0]
-        }
-        var columnNames = tabletop.sheets(sheetName).columnNames
-
+        var columnNames = data.columns
+        delete data.columns
         var contentValidator = new ContentValidator(columnNames)
         contentValidator.verifyContent()
         contentValidator.verifyHeaders()
-
-        var all = tabletop.sheets(sheetName).all()
-        var blips = _.map(all, new InputSanitizer().sanitize)
-
-        plotRadar(tabletop.googleSheetName + ' - ' + sheetName, blips, sheetName, tabletop.foundSheetNames)
+        var blips = _.map(data, new InputSanitizer().sanitize)
+        plotRadar(title, blips, 'CSV File', [])
       } catch (exception) {
         plotErrorMessage(exception)
       }
@@ -205,8 +200,8 @@ const GoogleSheetInput = function () {
     var domainName = DomainName(window.location.search.substring(1))
     var queryString = window.location.href.match(/sheetId(.*)/)
     var queryParams = queryString ? QueryParams(queryString[0]) : {}
-
-    if (domainName && queryParams.sheetId.endsWith('csv')) {
+    
+    if (domainName && queryParams.sheetId.endsWith('.csv')) {
       sheet = CSVDocument(queryParams.sheetId)
       sheet.init().build()
     } else if (domainName && domainName.endsWith('google.com') && queryParams.sheetId) {

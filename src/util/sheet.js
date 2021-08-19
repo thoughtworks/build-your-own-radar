@@ -12,20 +12,20 @@ const Sheet = function (sheetReference) {
   })()
 
   self.validate = function (callback) {
-    var enableGoogleAuth = process.env.ENABLE_GOOGLE_AUTH || false
-    var feedURL = enableGoogleAuth ? 'https://sheets.googleapis.com/v4/spreadsheets/' + self.id + '?key=' + process.env.API_KEY : 'https://spreadsheets.google.com/feeds/worksheets/' + self.id + '/public/basic?alt=json'
-
+    var feedURL = 'https://sheets.googleapis.com/v4/spreadsheets/' + self.id + '?key=' + process.env.API_KEY
     // TODO: Move this out (as HTTPClient)
     var xhr = new XMLHttpRequest()
     xhr.open('GET', feedURL, true)
     xhr.onreadystatechange = function () {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
-          return callback()
+          const googleSheetResponse = JSON.parse(xhr.responseText)
+          const title = googleSheetResponse.properties.title
+          return callback(null, title)
         } else if (xhr.status === 404) {
-          return callback(new SheetNotFoundError(ExceptionMessages.SHEET_NOT_FOUND))
+          return callback(new SheetNotFoundError(ExceptionMessages.SHEET_NOT_FOUND), '')
         } else {
-          return callback(new UnauthorizedError(ExceptionMessages.UNAUTHORIZED))
+          return callback(new UnauthorizedError(ExceptionMessages.UNAUTHORIZED), '')
         }
       }
     }
