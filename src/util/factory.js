@@ -1,7 +1,6 @@
 /* eslint no-constant-condition: "off" */
 
 const d3 = require('d3')
-const Tabletop = require('tabletop')
 const _ = {
   map: require('lodash/map'),
   uniqBy: require('lodash/uniqBy'),
@@ -74,42 +73,15 @@ const GoogleSheet = function (sheetReference, sheetName) {
 
   self.build = function () {
     var sheet = new Sheet(sheetReference)
-    sheet.validate(function (error) {
-      if (!error) {
-        Tabletop.init({
-          key: sheet.id,
-          callback: createBlips
-        })
-        return
-      }
+    sheet.validate(function (error, apiKeyEnabled) {
 
       if (error instanceof SheetNotFoundError) {
         plotErrorMessage(error)
         return
       }
 
-      self.authenticate(false)
+      self.authenticate(false, apiKeyEnabled)
     })
-
-    function createBlips (__, tabletop) {
-      try {
-        if (!sheetName) {
-          sheetName = tabletop.foundSheetNames[0]
-        }
-        var columnNames = tabletop.sheets(sheetName).columnNames
-
-        var contentValidator = new ContentValidator(columnNames)
-        contentValidator.verifyContent()
-        contentValidator.verifyHeaders()
-
-        var all = tabletop.sheets(sheetName).all()
-        var blips = _.map(all, new InputSanitizer().sanitize)
-
-        plotRadar(tabletop.googleSheetName + ' - ' + sheetName, blips, sheetName, tabletop.foundSheetNames)
-      } catch (exception) {
-        plotErrorMessage(exception)
-      }
-    }
   }
 
   function createBlipsForProtectedSheet (documentTitle, values, sheetNames) {
@@ -128,9 +100,23 @@ const GoogleSheet = function (sheetReference, sheetName) {
     plotRadar(documentTitle + ' - ' + sheetName, blips, sheetName, sheetNames)
   }
 
-  self.authenticate = function (force = false, callback) {
-    GoogleAuth.loadGoogle(function (e) {
-      GoogleAuth.login(_ => {
+  self.authenticate = function (force = false, apiKeyEnabled, callback) {
+    if (!apiKeyEnabled) {
+      GoogleAuth.loadGoogle(function (e) {
+        GoogleAuth.login(_ => {
+          var sheet = new Sheet(sheetReference)
+          sheet.processSheetResponse(sheetName, createBlipsForProtectedSheet, error => {
+            if (error.status === 403) {
+              plotUnauthorizedErrorMessage()
+            } else {
+              plotErrorMessage(error)
+            }
+          })
+          if (callback) { callback() }
+        }, force)
+      })
+    } else {
+      GoogleAuth.loadGoogle(function (e) {
         var sheet = new Sheet(sheetReference)
         sheet.processSheetResponse(sheetName, createBlipsForProtectedSheet, error => {
           if (error.status === 403) {
@@ -140,8 +126,8 @@ const GoogleSheet = function (sheetReference, sheetName) {
           }
         })
         if (callback) { callback() }
-      }, force)
-    })
+      })
+    }
   }
 
   self.init = function () {
@@ -389,7 +375,7 @@ function plotUnauthorizedErrorMessage () {
     var queryString = window.location.href.match(/sheetId(.*)/)
     var queryParams = queryString ? QueryParams(queryString[0]) : {}
     const sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
-    sheet.authenticate(true, _ => {
+    sheet.authenticate(true, false, _ => {
       content.remove()
     })
   })
