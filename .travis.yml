@@ -22,9 +22,9 @@ jobs:
     - stage: invalidation
       install: pip install --user awscli && export PATH=$PATH:$HOME/.local/bin
       script: 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then aws configure set preview.cloudfront true && aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"; fi'
-    - stage: e2e
-      if: branch = master
-      script: npm run end_to_end_test
+    # - stage: e2e
+    #   if: branch = master
+    #   script: npm run end_to_end_test
 stages:
   - name: test
     if: type = pull_request OR type = push
@@ -32,8 +32,8 @@ stages:
     if: type = push AND branch = master
   - name: invalidation
     if: type = push AND branch = master
-  - name: e2e
-    if: type = push AND branch = master
+  # - name: e2e
+  #   if: type = push AND branch = master
 addons:
   apt:
     packages:
