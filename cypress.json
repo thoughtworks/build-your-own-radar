@@ -1,5 +1,6 @@
 {
   "excel": "https://docs.google.com/spreadsheets/d/1Yozpcv58-etk1UNvxS0HxMqw7V5Amf4dgWBnekJcHcc/edit?usp=sharing",
+  "csv": "https://raw.githubusercontent.com/thoughtworks/build-your-own-radar/master/spec/end_to_end_tests/resources/sheet.csv",
   "integrationFolder":"spec/end_to_end_tests/specs",
   "chromeWebSecurity": false,
   "screenshotsFolder": "spec/end_to_end_tests/reports/screenshots",
@@ -12,7 +13,7 @@
     "json":"false"
   },
   "watchForFileChanges": false,
-  "defaultCommandTimeout": 4000,
+  "defaultCommandTimeout": 10000,
   "pageLoadTimeout": 60000,
   "supportFile": "spec/end_to_end_tests/util/hooks.js"
 }

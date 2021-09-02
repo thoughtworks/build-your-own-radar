@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/thoughtworks/build-your-own-radar.svg?branch=master)](https://travis-ci.org/thoughtworks/build-your-own-radar)
+[![Build Status](https://travis-ci.com/thoughtworks/build-your-own-radar.svg?branch=master)](https://travis-ci.com/thoughtworks/build-your-own-radar)
 [![Stars](https://badgen.net/github/stars/thoughtworks/build-your-own-radar)](https://github.com/thoughtworks/build-your-own-radar)
 [![dependencies Status](https://david-dm.org/thoughtworks/build-your-own-radar/status.svg)](https://david-dm.org/thoughtworks/build-your-own-radar)
 [![devDependencies Status](https://david-dm.org/thoughtworks/build-your-own-radar/dev-status.svg)](https://david-dm.org/thoughtworks/build-your-own-radar?type=dev)
@@ -17,7 +17,7 @@ You can see this in action at https://radar.thoughtworks.com. If you plug in [th
 
 ## How To Use
 
-The easiest way to use the app out of the box is to provide a *public* Google Sheet ID from which all the data will be fetched. You can enter that ID into the input field on the first page of the application, and your radar will be generated. The data must conform to the format below for the radar to be generated correctly.
+The easiest way to use the app out of the box is to provide a *public* Google Sheet ID from which all the data will be fetched. You can enter that ID into the input field, sign in to Google using the prompt and your radar will be generated. The data must conform to the format below for the radar to be generated correctly.
 
 ### Setting up your data
 
@@ -69,17 +69,18 @@ Check [this page](https://www.thoughtworks.com/radar/how-to-byor) for step by st
 
 To create the data representation, you can use the Google Sheet [factory](/src/util/factory.js) or CSV, or you can also insert all your data straight into the code.
 
-The app uses [Tabletop.js](https://github.com/jsoma/tabletop) to fetch the data from a Google Sheet or [D3.js](https://d3js.org/) if supplied as CSV, so refer to their documentation for more advanced interaction.  The input data is sanitized by whitelisting HTML tags with [sanitize-html](https://github.com/punkave/sanitize-html).
+The app uses [Google Sheets APIs](https://developers.google.com/sheets/api/reference/rest) to fetch the data from a Google Sheet or [D3.js](https://d3js.org/) if supplied as CSV, so refer to their documentation for more advanced interaction.  The input data is sanitized by whitelisting HTML tags with [sanitize-html](https://github.com/punkave/sanitize-html).
 
 The application uses [webpack](https://webpack.github.io/) to package dependencies and minify all .js and .scss files.
 
-The application also supports private google sheets. Following flags need to be set for private sheets to work. API key and OAuth Client ID can be obtained from your Google developer console.
-
+By default, there is no distinction between both public and private Google Sheets as we now require authentication from Google (using OAuth Client ID and optionally, API Key), per Google's updated documentation. OAuth Client ID and API Key can be obtained from your Google developer console.
 
 ```
-export ENABLE_GOOGLE_AUTH=true
-export API_KEY=[Google API Key]
 export CLIENT_ID=[Google Client ID]
+```
+Optionally, API Key can be set to bypass Google Authentication for public sheets.
+```
+export API_KEY=[Google API Key]
 ```
 
 To enable Google Tag Manager, add the following environment variable.
@@ -92,9 +93,12 @@ We have released BYOR as a docker image for our users. The image is available in
 
 ```
 $ docker pull wwwthoughtworks/build-your-own-radar
-$ docker run --rm -p 8080:80 -e SERVER_NAMES="localhost 127.0.0.1" wwwthoughtworks/build-your-own-radar
+$ docker run --rm -p 8080:8080 -e CLIENT_ID="[Google Client ID]" wwwthoughtworks/build-your-own-radar
 $ open http://localhost:8080
 ```
+***Notes:***
+- Currently, the docker image will run the server as a dev server. Refer to the `dockerfile` in this repo for more details.
+- If API Key is also available, same can be provided to the `docker run` command as `-e API_KEY=[Google API Key]`.
 
 ## Contribute
 
@@ -108,6 +112,7 @@ Make sure you have nodejs installed.
 - `npm test` - to run your tests
 - `npm run dev` - to run application in localhost:8080. This will watch the .js and .css files and rebuild on file changes
 
+## End to End Tests
 To run End to End tests in headless mode
 - add a new environment variable 'TEST_URL' and set it to 'http://localhost:8080/'
 - `npm run end_to_end_test`
@@ -116,6 +121,8 @@ To run End to End tests in debug mode
 - add a new environment variable 'TEST_URL' and set it to 'http://localhost:8080/'
 - `npm run start`
 - Click on 'Run all specs' in cypress window
+
+***Note:*** Currently, end to end tests are not working, as the flow requires Google login via prompt, which Cypress does not support. We are working to find some alternative solution for this.
 
 ### Don't want to install node? Run with one line docker
 
