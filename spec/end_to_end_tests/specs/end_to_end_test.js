@@ -42,3 +42,14 @@ describe('Validate search', function () {
     radarPage.validateBlipSearch()
   })
 })
+
+describe('Build radar with csv', function () {
+  it('validate csv file', function () {
+    cy.visit(Cypress.env('host'))
+    byorPage.provideCsvName()
+    byorPage.clickSubmitButton()
+    radarPage.clickTheBlipFromInteractiveSection()
+    radarPage.clickTheBlip()
+    radarPage.validateBlipDescription('test')
+  })
+})

@@ -10,6 +10,10 @@ class ByorPage {
     cy.get(this.text_box).type(config.excel, { force: true })
   }
 
+  provideCsvName () {
+    cy.get(this.text_box).type(config.csv, { force: true })
+  }
+
   clickSubmitButton () {
     cy.get(this.submit).click()
   }
