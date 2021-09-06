@@ -3,4 +3,12 @@ WORKDIR /src/build-your-own-radar
 COPY package.json ./
 RUN npm install
 COPY . ./
-CMD ["npm","run","dev"]
+RUN npm run build
+
+FROM nginx:1.15.9
+WORKDIR /opt/build-your-own-radar
+COPY --from=source /src/build-your-own-radar/dist .
+COPY --from=source /src/build-your-own-radar/start_nginx.sh .
+COPY default.template /etc/nginx/conf.d/default.conf
+
+CMD ./start_nginx.sh
