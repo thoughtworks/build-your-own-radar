@@ -14,8 +14,8 @@ body {
 }
 
 @media print {
-
-  body, article {
+  body,
+  article {
     width: 100%;
     margin: 0;
     padding: 0;
@@ -26,7 +26,7 @@ body {
   }
 
   a:after {
-    content: " <" attr(href) "> ";
+    content: ' <' attr(href) '> ';
     font-size: 0.8em;
     font-weight: normal;
   }
@@ -73,15 +73,12 @@ body {
       page-break-inside: avoid;
     }
 
-
     h3 {
-
       page-break-before: always;
       padding: 0 10px;
       text-transform: uppercase;
       font-size: 18pt;
       font-weight: bold;
-
     }
 
     h2 + h3 {
@@ -153,12 +150,9 @@ body {
   .error-container {
     display: none;
   }
-
 }
 
-
 @media screen {
-
   #radar {
     width: 80%;
     margin: 0 auto;
@@ -208,7 +202,9 @@ body {
         cursor: pointer;
       }
 
-      circle, polygon, path {
+      circle,
+      polygon,
+      path {
         &.first {
           fill: $green;
           stroke: none;
@@ -251,7 +247,6 @@ body {
     }
 
     div.quadrant-table {
-
       .quadrant-table__name {
         display: none;
       }
