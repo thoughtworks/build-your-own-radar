@@ -1,16 +1,16 @@
 {
   "excel": "https://docs.google.com/spreadsheets/d/1Yozpcv58-etk1UNvxS0HxMqw7V5Amf4dgWBnekJcHcc/edit?usp=sharing",
   "csv": "https://raw.githubusercontent.com/thoughtworks/build-your-own-radar/master/spec/end_to_end_tests/resources/sheet.csv",
-  "integrationFolder":"spec/end_to_end_tests/specs",
+  "integrationFolder": "spec/end_to_end_tests/specs",
   "chromeWebSecurity": false,
   "screenshotsFolder": "spec/end_to_end_tests/reports/screenshots",
   "videosFolder": "spec/end_to_end_tests/reports/videos",
   "reporter": "mochawesome",
   "reporterOptions": {
-    "reportDir":"spec/end_to_end_tests/reports",
-    "reportFilename":"results",
-    "quiet":"true",
-    "json":"false"
+    "reportDir": "spec/end_to_end_tests/reports",
+    "reportFilename": "results",
+    "quiet": "true",
+    "json": "false"
   },
   "watchForFileChanges": false,
   "defaultCommandTimeout": 10000,

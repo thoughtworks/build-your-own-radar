@@ -21,7 +21,9 @@ xdescribe('tr.graphing.Radar', function () {
       radarGraph.init()
 
       expect(selection.append).toHaveBeenCalledWith('svg')
-    }).pend('This references very old code that no longer exists the tests for graphing will have to be rewritten')
+    }).pend(
+      'This references very old code that no longer exists the tests for graphing will have to be rewritten',
+    )
 
     it('selects body if no selector provided', function () {
       var radarGraph
@@ -32,7 +34,9 @@ xdescribe('tr.graphing.Radar', function () {
       radarGraph.init()
 
       expect(d3.select).toHaveBeenCalledWith('body')
-    }).pend('This references very old code that no longer exists the tests for graphing will have to be rewritten')
+    }).pend(
+      'This references very old code that no longer exists the tests for graphing will have to be rewritten',
+    )
 
     it('selects the selector if provided', function () {
       var radarGraph
@@ -43,7 +47,9 @@ xdescribe('tr.graphing.Radar', function () {
       radarGraph.init('#radar')
 
       expect(d3.select).toHaveBeenCalledWith('#radar')
-    }).pend('This references very old code that no longer exists the tests for graphing will have to be rewritten')
+    }).pend(
+      'This references very old code that no longer exists the tests for graphing will have to be rewritten',
+    )
   })
 
   it('sets the size', function () {
@@ -59,7 +65,9 @@ xdescribe('tr.graphing.Radar', function () {
 
     expect(svg.attr).toHaveBeenCalledWith('width', 500)
     expect(svg.attr).toHaveBeenCalledWith('height', 500)
-  }).pend('This references very old code that no longer exists the tests for graphing will have to be rewritten')
+  }).pend(
+    'This references very old code that no longer exists the tests for graphing will have to be rewritten',
+  )
 
   describe('lines', function () {
     it('plots a vertical line in the center', function () {
@@ -80,7 +88,9 @@ xdescribe('tr.graphing.Radar', function () {
       expect(svg.attr).toHaveBeenCalledWith('x2', 500 / 2)
       expect(svg.attr).toHaveBeenCalledWith('y2', 500)
       expect(svg.attr).toHaveBeenCalledWith('stroke-width', 14)
-    }).pend('This references very old code that no longer exists the tests for graphing will have to be rewritten')
+    }).pend(
+      'This references very old code that no longer exists the tests for graphing will have to be rewritten',
+    )
 
     it('plots a horizontal line in the center', function () {
       var svg, radarGraph
@@ -100,7 +110,9 @@ xdescribe('tr.graphing.Radar', function () {
       expect(svg.attr).toHaveBeenCalledWith('x2', 500)
       expect(svg.attr).toHaveBeenCalledWith('y2', 500 / 2)
       expect(svg.attr).toHaveBeenCalledWith('stroke-width', 14)
-    }).pend('This references very old code that no longer exists the tests for graphing will have to be rewritten')
+    }).pend(
+      'This references very old code that no longer exists the tests for graphing will have to be rewritten',
+    )
   })
 
   describe('circles', function () {
@@ -112,7 +124,7 @@ xdescribe('tr.graphing.Radar', function () {
       radar = new tr.models.Radar()
       spyOn(radar, 'rings').and.returnValue([
         new tr.models.Ring('Adopt'),
-        new tr.models.Ring('Hold')
+        new tr.models.Ring('Hold'),
       ])
       radarGraph = new tr.graphing.Radar(500, radar)
       radarGraph.init()
@@ -134,7 +146,9 @@ xdescribe('tr.graphing.Radar', function () {
       expect(svg.attr).toHaveBeenCalledWith('cx', 500 / 2)
       expect(svg.attr).toHaveBeenCalledWith('cy', 500 / 2)
       expect(svg.attr).toHaveBeenCalledWith('r', 250)
-    }).pend('This references very old code that no longer exists the tests for graphing will have to be rewritten')
+    }).pend(
+      'This references very old code that no longer exists the tests for graphing will have to be rewritten',
+    )
 
     it('adds the name of each ring for the right side', function () {
       var center = 500 / 2
@@ -148,9 +162,11 @@ xdescribe('tr.graphing.Radar', function () {
 
       expect(svg.append).toHaveBeenCalledWith('text')
       expect(svg.attr).toHaveBeenCalledWith('y', center + 4)
-      expect(svg.attr).toHaveBeenCalledWith('x', 0 + (center / 2) + 10)
+      expect(svg.attr).toHaveBeenCalledWith('x', 0 + center / 2 + 10)
       expect(svg.text).toHaveBeenCalledWith('Hold')
-    }).pend('This references very old code that no longer exists the tests for graphing will have to be rewritten')
+    }).pend(
+      'This references very old code that no longer exists the tests for graphing will have to be rewritten',
+    )
 
     it('adds the name of each ring for the right side', function () {
       var center = 500 / 2
@@ -165,9 +181,11 @@ xdescribe('tr.graphing.Radar', function () {
 
       expect(svg.append).toHaveBeenCalledWith('text')
       expect(svg.attr).toHaveBeenCalledWith('y', center + 4)
-      expect(svg.attr).toHaveBeenCalledWith('x', 500 - (center / 2) - 10)
+      expect(svg.attr).toHaveBeenCalledWith('x', 500 - center / 2 - 10)
       expect(svg.attr).toHaveBeenCalledWith('text-anchor', 'end')
       expect(svg.text).toHaveBeenCalledWith('Hold')
-    }).pend('This references very old code that no longer exists the tests for graphing will have to be rewritten')
+    }).pend(
+      'This references very old code that no longer exists the tests for graphing will have to be rewritten',
+    )
   })
-});
+})
