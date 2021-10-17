@@ -5,8 +5,7 @@ describe('InputSanitizer', function () {
 
   beforeAll(function () {
     sanitizer = new InputSanitizer()
-    var description =
-      "<b>Hello</b> <script>alert('dangerous');</script>there <h1>heading</h1>"
+    var description = "<b>Hello</b> <script>alert('dangerous');</script>there <h1>heading</h1>"
     rawBlip = {
       name: "Hello <script>alert('dangerous');</script>there <h1>blip</h1>",
       description: description,

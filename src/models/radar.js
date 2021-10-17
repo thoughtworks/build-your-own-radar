@@ -8,12 +8,7 @@ const _ = {
 }
 
 const Radar = function () {
-  var self,
-    quadrants,
-    blipNumber,
-    addingQuadrant,
-    alternatives,
-    currentSheetName
+  var self, quadrants, blipNumber, addingQuadrant, alternatives, currentSheetName
 
   blipNumber = 0
   addingQuadrant = 0
@@ -27,7 +22,7 @@ const Radar = function () {
   currentSheetName = ''
   self = {}
 
-  function setNumbers(blips) {
+  function setNumbers (blips) {
     blips.forEach(function (blip) {
       blip.setNumber(++blipNumber)
     })
@@ -58,7 +53,7 @@ const Radar = function () {
     addingQuadrant++
   }
 
-  function allQuadrants() {
+  function allQuadrants () {
     if (addingQuadrant < 4) {
       throw new MalformedDataError(ExceptionMessages.LESS_THAN_FOUR_QUADRANTS)
     }
@@ -66,7 +61,7 @@ const Radar = function () {
     return _.map(quadrants, 'quadrant')
   }
 
-  function allBlips() {
+  function allBlips () {
     return allQuadrants().reduce(function (blips, quadrant) {
       return blips.concat(quadrant.blips())
     }, [])

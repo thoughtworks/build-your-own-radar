@@ -39,13 +39,7 @@ describe('ContentValidator', function () {
     })
 
     it('does not care about white spaces in the headers', function () {
-      var columnNames = [
-        ' name',
-        'ring ',
-        '   quadrant',
-        'isNew   ',
-        '   description   ',
-      ]
+      var columnNames = [' name', 'ring ', '   quadrant', 'isNew   ', '   description   ']
       var contentValidator = new ContentValidator(columnNames)
 
       expect(contentValidator.verifyHeaders()).not.toBeDefined()

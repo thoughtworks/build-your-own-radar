@@ -6,9 +6,7 @@ var CLIENT_ID = process.env.CLIENT_ID
 var API_KEY = process.env.API_KEY
 
 // Array of API discovery doc URLs for APIs used by the quickstart
-var DISCOVERY_DOCS = [
-  'https://sheets.googleapis.com/$discovery/rest?version=v4',
-]
+var DISCOVERY_DOCS = ['https://sheets.googleapis.com/$discovery/rest?version=v4']
 
 // Authorization scopes required by the API multiple scopes can be
 // included, separated by spaces.
@@ -97,7 +95,7 @@ const GoogleAuth = function () {
     gapi.auth2.getAuthInstance().signOut()
   }
 
-  self.geEmail = (_) => {
+  self.geEmail = _ => {
     const isLoggedIn = gapi.auth2.getAuthInstance().isSignedIn.get()
     if (isLoggedIn) {
       return gapi.auth2
@@ -121,7 +119,10 @@ const GoogleAuth = function () {
     if (isLoggedIn) {
       callback()
     } else {
-      gapi.auth2.getAuthInstance().signIn().then(callback)
+      gapi.auth2
+        .getAuthInstance()
+        .signIn()
+        .then(callback)
     }
   }
 
