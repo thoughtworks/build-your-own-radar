@@ -4,12 +4,7 @@ const Blip = require('../../src/models/blip.js')
 const Radar = require('../../src/models/radar.js')
 
 describe('graphingRadar', function () {
-  var radar,
-    toolsQuadrant,
-    techniquesQuadrant,
-    platformsQuadrant,
-    languageFramework,
-    element
+  var radar, toolsQuadrant, techniquesQuadrant, platformsQuadrant, languageFramework, element
 
   beforeEach(function () {
     toolsQuadrant = new Quadrant('Tools')

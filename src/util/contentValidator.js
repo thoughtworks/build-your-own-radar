@@ -21,14 +21,11 @@ const ContentValidator = function (columnNames) {
   }
 
   self.verifyHeaders = function () {
-    _.each(
-      ['name', 'ring', 'quadrant', 'isNew', 'description'],
-      function (field) {
-        if (columnNames.indexOf(field) === -1) {
-          throw new MalformedDataError(ExceptionMessages.MISSING_HEADERS)
-        }
-      },
-    )
+    _.each(['name', 'ring', 'quadrant', 'isNew', 'description'], function (field) {
+      if (columnNames.indexOf(field) === -1) {
+        throw new MalformedDataError(ExceptionMessages.MISSING_HEADERS)
+      }
+    })
   }
 
   return self
