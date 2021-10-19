@@ -7,6 +7,8 @@ const RingCalculator = require('../util/ringCalculator')
 const QueryParams = require('../util/queryParamProcessor')
 const AutoComplete = require('../util/autoComplete')
 
+const logo = require('../images/logo.png')
+
 const MIN_BLIP_WIDTH = 12
 const ANIMATION_DURATION = 1000
 
@@ -442,7 +444,7 @@ const Radar = function (size, radar) {
     header.select('.radar-title')
       .append('div')
       .attr('class', 'radar-title__logo')
-      .html('<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /> </a>')
+      .html(`<a href="https://www.thoughtworks.com"> <img src="${logo}" /> </a>`)
 
     buttonsGroup = header.append('div')
       .classed('buttons-group', true)

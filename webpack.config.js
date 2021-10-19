@@ -68,7 +68,6 @@ module.exports = {
 
   output: {
     path: buildPath,
-    publicPath: '/',
     filename: '[name].[hash].js'
   },
 
@@ -95,12 +94,12 @@ module.exports = {
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
-        loader: 'file-loader?name=images/[name].[ext]'
+        loader: 'file-loader?name=images/[name].[hash].[ext]&esModule=false'
       },
       {
         test: /\.(png|jpg|ico)$/,
         exclude: /node_modules/,
-        use: [{ loader: 'file-loader?name=images/[name].[ext]&context=./src/images' }]
+        use: [{ loader: 'file-loader?name=images/[name].[hash].[ext]&context=./src/images&esModule=false' }]
       },
       {
         test: require.resolve('jquery'),
