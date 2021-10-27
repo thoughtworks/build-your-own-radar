@@ -172,6 +172,37 @@ const CSVDocument = function (url) {
   return self
 }
 
+const JSONFile = function (data) {
+  //TODO: Somehow get json from url rather than pass in directly
+  var self = {}
+
+  self.build = function () {
+
+    createBlips(data);
+  }
+
+  var createBlips = function (data) {
+    try {
+      var columnNames = Object.keys(data[0])
+      var contentValidator = new ContentValidator(columnNames)
+      contentValidator.verifyContent()
+      contentValidator.verifyHeaders()
+      var blips = _.map(data, new InputSanitizer().sanitize)
+      //TODO: Use name of json as title of tech radar
+      plotRadar("Tech Radar from a json", blips, 'JSON File', [])
+    } catch (exception) {
+      plotErrorMessage(exception)
+    }
+  }
+
+  self.init = function () {
+    plotLoading()
+    return self
+  }
+
+  return self 
+}
+
 const DomainName = function (url) {
   var search = /.+:\/\/([^\\/]+)/
   var match = search.exec(decodeURIComponent(url.replace(/\+/g, ' ')))
