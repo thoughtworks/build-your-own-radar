@@ -228,6 +228,9 @@ const GoogleSheetInput = function () {
     if (domainName && queryParams.sheetId.endsWith('.csv')) {
       sheet = CSVDocument(queryParams.sheetId)
       sheet.init().build()
+    } else if (domainName && queryParams.sheetId.endsWith('.json')) {
+      sheet = JSONFile(queryParams.sheetId)
+      sheet.init().build()
     } else if (domainName && domainName.endsWith('google.com') && queryParams.sheetId) {
       sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
       console.log(queryParams.sheetName)
