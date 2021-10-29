@@ -172,13 +172,11 @@ const CSVDocument = function (url) {
   return self
 }
 
-const JSONFile = function (data) {
-  //TODO: Somehow get json from url rather than pass in directly
+const JSONFile = function (url) {
   var self = {}
 
   self.build = function () {
-
-    createBlips(data);
+    d3.json(url).then(createBlips)
   }
 
   var createBlips = function (data) {
@@ -188,8 +186,7 @@ const JSONFile = function (data) {
       contentValidator.verifyContent()
       contentValidator.verifyHeaders()
       var blips = _.map(data, new InputSanitizer().sanitize)
-      //TODO: Use name of json as title of tech radar
-      plotRadar("Tech Radar from a json", blips, 'JSON File', [])
+      plotRadar(FileName(url), blips, 'JSON File', [])
     } catch (exception) {
       plotErrorMessage(exception)
     }
@@ -200,7 +197,7 @@ const JSONFile = function (data) {
     return self
   }
 
-  return self 
+  return self
 }
 
 const DomainName = function (url) {
