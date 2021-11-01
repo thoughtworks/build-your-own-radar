@@ -63,7 +63,7 @@ const Radar = function (size, radar) {
       .attr('x2', center())
       .attr('y1', startY - 2)
       .attr('y2', endY + 2)
-      .attr('stroke-width', 10)
+      .attr('stroke-width', 20)
 
     quadrantGroup
       .append('line')
@@ -71,7 +71,7 @@ const Radar = function (size, radar) {
       .attr('y1', center())
       .attr('x2', startX)
       .attr('y2', center())
-      .attr('stroke-width', 10)
+      .attr('stroke-width', 20)
   }
 
   function plotQuadrant (rings, quadrant) {
@@ -132,12 +132,12 @@ const Radar = function (size, radar) {
       .attr(
         'transform',
         'scale(' +
-          blip.width / 34 +
-          ') translate(' +
-          (-404 + x * (34 / blip.width) - 17) +
-          ', ' +
-          (-282 + y * (34 / blip.width) - 17) +
-          ')',
+        blip.width / 34 +
+        ') translate(' +
+        (-404 + x * (34 / blip.width) - 17) +
+        ', ' +
+        (-282 + y * (34 / blip.width) - 17) +
+        ')',
       )
       .attr('class', order)
   }
@@ -165,12 +165,12 @@ const Radar = function (size, radar) {
       .attr(
         'transform',
         'scale(' +
-          blip.width / 34 +
-          ') translate(' +
-          (-404 + x * (34 / blip.width) - 17) +
-          ', ' +
-          (-282 + y * (34 / blip.width) - 17) +
-          ')',
+        blip.width / 34 +
+        ') translate(' +
+        (-404 + x * (34 / blip.width) - 17) +
+        ', ' +
+        (-282 + y * (34 / blip.width) - 17) +
+        ')',
       )
       .attr('class', order)
   }
@@ -202,7 +202,7 @@ const Radar = function (size, radar) {
       min: minRadius + blip.width / 2,
       max: maxRadius - blip.width / 2,
     })
-    var angleDelta = (Math.asin(blip.width / 2 / radius) * 180) / Math.PI
+    var angleDelta = (Math.asin(blip.width / 2 / radius) * 360) / Math.PI
     angleDelta = angleDelta > 45 ? 45 : angleDelta
     var angle = toRadian(chance.integer({ min: angleDelta, max: 90 - angleDelta }))
 
@@ -310,7 +310,7 @@ const Radar = function (size, radar) {
     if (blip.isNew()) {
       triangle(blip, x, y, order, group)
     } else {
-      circle(blip, x, y, order, group)
+      circle(blip, x, y + 1, order, group)
     }
 
     group
@@ -379,7 +379,7 @@ const Radar = function (size, radar) {
     if (pageElement.select('.home-link').empty()) {
       pageElement
         .insert('div', 'div#alternative-buttons')
-        .html('&#171; Back to Radar home')
+        .html('&#171; Tilbake')
         .classed('home-link', true)
         .classed('selected', true)
         .on('click', redrawFullRadar)
@@ -400,8 +400,8 @@ const Radar = function (size, radar) {
   function drawLegend (order) {
     removeRadarLegend()
 
-    var triangleKey = 'New or moved'
-    var circleKey = 'No change'
+    var triangleKey = 'ny/flyttet'
+    var circleKey = 'uendret'
 
     var container = d3
       .select('svg')
@@ -517,7 +517,7 @@ const Radar = function (size, radar) {
       .append('div')
       .attr('class', 'radar-title__text')
       .append('h1')
-      .text(document.title)
+      .text("Origo teknologiradar")
       .style('cursor', 'pointer')
       .on('click', redrawFullRadar)
 
@@ -525,7 +525,7 @@ const Radar = function (size, radar) {
       .select('.radar-title')
       .append('div')
       .attr('class', 'radar-title__logo')
-      .html('<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /> </a>')
+      .html('<a href="https://www.thoughtworks.com"> <img src="images/logo.png" /> </a>')
 
     buttonsGroup = header.append('div').classed('buttons-group', true)
 
@@ -558,7 +558,7 @@ const Radar = function (size, radar) {
       .classed('print-radar-btn', true)
       .append('div')
       .classed('print-radar button no-capitalize', true)
-      .text('Print this radar')
+      .text('Last ned som PDF')
       .on('click', window.print.bind(window))
 
     alternativeDiv
@@ -566,7 +566,7 @@ const Radar = function (size, radar) {
       .classed('search-box', true)
       .append('input')
       .attr('id', 'auto-complete')
-      .attr('placeholder', 'Search')
+      .attr('placeholder', 'Søk')
       .classed('search-radar', true)
 
     AutoComplete('#auto-complete', quadrants, searchBlip)
@@ -580,10 +580,7 @@ const Radar = function (size, radar) {
       .attr('class', 'footer-content')
       .append('p')
       .html(
-        'Powered by <a href="https://www.thoughtworks.com"> Thoughtworks</a>. ' +
-          'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
-          'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
-          'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
+        'Origos teknologiradar bruker kildekode fra <a href="https://github.com/thoughtworks/build-your-own-radar"> Thoughtworks</a>. lisensiert under <a href="https://github.com/thoughtworks/build-your-own-radar/blob/master/LICENSE.md">GPL 3.0</a>'
       )
   }
 
