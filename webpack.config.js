@@ -66,7 +66,7 @@ module.exports = {
 
   output: {
     path: buildPath,
-    publicPath: '/',
+    publicPath: './',
     filename: '[name].[hash].js',
   },
 
@@ -82,10 +82,14 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           'style-loader',
-          MiniCssExtractPlugin.loader,
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
           {
             loader: 'css-loader',
-            options: { importLoaders: 1 },
+            options: {
+              importLoaders: 1
+            },
           },
           {
             loader: 'postcss-loader',
@@ -112,6 +116,9 @@ module.exports = {
         use: [
           {
             loader: 'file-loader?name=images/[name].[ext]&context=./src/images',
+            /*             options: {
+                          publicPath: '/',
+                        }, */
           },
         ],
       },
