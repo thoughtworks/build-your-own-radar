@@ -26,7 +26,7 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   if (title.endsWith('.csv')) {
     title = title.substring(0, title.length - 4)
   }
-  document.title = title
+  document.title = "Origo teknologiradar"
   d3.selectAll('.loading').remove()
 
   var rings = _.map(_.uniqBy(blips, 'ring'), 'ring')
@@ -165,7 +165,7 @@ const CSVDocument = function (url) {
   }
 
   self.init = function () {
-    plotLoading()
+    //plotLoading()
     return self
   }
 
@@ -205,7 +205,7 @@ const GoogleSheetInput = function () {
       console.log(queryParams.sheetName)
 
       sheet.init().build()
-    } else {
+    } /* else {
       var content = d3
         .select('body')
         .append('div')
@@ -223,7 +223,7 @@ const GoogleSheetInput = function () {
       plotForm(content)
 
       plotFooter(content)
-    }
+    } */
   }
 
   return self
@@ -266,9 +266,9 @@ function plotFooter (content) {
     .append('p')
     .html(
       'Powered by <a href="https://www.thoughtworks.com"> Thoughtworks</a>. ' +
-        'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
-        'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
-        'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
+      'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
+      'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
+      'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
     )
 }
 
