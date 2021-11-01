@@ -116,9 +116,6 @@ module.exports = {
         use: [
           {
             loader: 'file-loader?name=images/[name].[ext]&context=./src/images',
-            /*             options: {
-                          publicPath: '/',
-                        }, */
           },
         ],
       },
