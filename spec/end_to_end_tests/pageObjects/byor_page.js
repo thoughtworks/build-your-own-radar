@@ -14,6 +14,10 @@ class ByorPage {
     cy.get(this.text_box).type(config.csv, { force: true })
   }
 
+  provideJsonName () {
+    cy.get(this.text_box).type(config.json, { force: true })
+  }
+
   clickSubmitButton () {
     cy.get(this.submit).click()
   }
