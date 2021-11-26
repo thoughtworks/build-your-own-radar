@@ -9,6 +9,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const postcssPresetEnv = require('postcss-preset-env')
 const cssnano = require('cssnano')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const isProd = args.prod
 const isDev = args.dev
@@ -46,6 +47,7 @@ const plugins = [
     'process.env.ENABLE_GOOGLE_AUTH': JSON.stringify(process.env.ENABLE_GOOGLE_AUTH),
     'process.env.GTM_ID': JSON.stringify(process.env.GTM_ID),
   }),
+  new CleanWebpackPlugin(),
 ]
 
 if (isProd) {
