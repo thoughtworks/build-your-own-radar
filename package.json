@@ -10,7 +10,8 @@
     "format": "prettier-standard --write",
     "start": "node_modules/.bin/cypress open --env host=$TEST_URL",
     "test": "prettier-standard --write && istanbul cover jasmine",
-    "test:lint": "prettier-standard"
+    "test:lint": "prettier-standard",
+    "deploy": "webpack --mode production && aws s3 sync ./dist s3://ok-origo-dataplatform-public-dev/tech-radar/ --region eu-west-1 --delete"
   },
   "author": "Thoughtworks",
   "repository": {
