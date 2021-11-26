@@ -245,7 +245,7 @@ const Radar = function (size, radar) {
 
       var maxRadius, minRadius
 
-      minRadius = ringCalculator.getRadius(i)
+      minRadius = ringCalculator.getRadius(i) + 30
       maxRadius = ringCalculator.getRadius(i + 1)
 
       var sumRing = ring
