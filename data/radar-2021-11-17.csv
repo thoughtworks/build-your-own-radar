@@ -9,7 +9,7 @@ Vuex,Programmering,BRUK,FALSE,"<p>Åpenbart valg for state management i Vue</p>
 <li>- fux</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Skjema, Dataspeilet, Min side</p>"
 Vue,Programmering,BRUK,FALSE,"<p></p>
 
@@ -18,7 +18,7 @@ Vue,Programmering,BRUK,FALSE,"<p></p>
 <li>+ Oppleves som enklere enn React</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataspeleite, Skjema, Min side, Dataplattform</p>"
 Bash (eller zsh eller lignende),Programmering,BRUK,FALSE,"<p>Shell-scripting er et nyttig verktøy for å skape lim i forskjeller deler av livssyklusen til applikasjonen. Ikke så godt egnet for å lage selve applikasjonene.</p>
 
@@ -26,7 +26,7 @@ Bash (eller zsh eller lignende),Programmering,BRUK,FALSE,"<p>Shell-scripting er 
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform, Skjema</p>"
 Java,Programmering,VURDER,FALSE,"<p>Java er solid og økosystemet er kjemperikt, men språket begynner å bli stort samtidig som man får mange av de samme fordelene uten ulempene ved å velge Kotlin.</p>
 
@@ -34,7 +34,7 @@ Java,Programmering,VURDER,FALSE,"<p>Java er solid og økosystemet er kjemperikt,
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform</p>"
 Golang,Programmering,VURDER,FALSE,"<p></p>
 
@@ -42,7 +42,7 @@ Golang,Programmering,VURDER,FALSE,"<p></p>
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Kjøremiljø, Veiviser</p>"
 Webassembly,Programmering,VURDER,FALSE,"<p>Interessant teknikk for distribusjon av webapplikasjoner. Vi har ikke erfaring med det, men bør kanskje utforskes nærmere av en faggruppe?</p>
 
@@ -50,7 +50,7 @@ Webassembly,Programmering,VURDER,FALSE,"<p>Interessant teknikk for distribusjon 
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 </p>"
 Express.js,Programmering,BRUK,FALSE,"<p>Det åpenbart riktige valget for backend når man bruker nodejs.</p>
 
@@ -58,7 +58,7 @@ Express.js,Programmering,BRUK,FALSE,"<p>Det åpenbart riktige valget for backend
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Veiviser, Skjema, Dataspeilet</p>"
 OpenAPI for API dokumentasjon,Programmering,BRUK,FALSE,"<p></p>
 
@@ -67,7 +67,7 @@ OpenAPI for API dokumentasjon,Programmering,BRUK,FALSE,"<p></p>
 <li>- Ktor-støtte er i beta</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Booking, Barnehagepris, Dataplattform</p>"
 Knockout.js,Programmering,AVSTÅ,FALSE,"<p></p>
 
@@ -75,7 +75,7 @@ Knockout.js,Programmering,AVSTÅ,FALSE,"<p></p>
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Skjema</p>"
 Redux,Programmering,BRUK,FALSE,"<p>Når man har kompleks håndtering av state opplever vi ofte at Redux er riktig løsning. Før man griper til dette noe komplekse verktøyet kan det være verdt å vurdere om Hooks løser behovet man har. </p>
 
@@ -85,7 +85,7 @@ Redux,Programmering,BRUK,FALSE,"<p>Når man har kompleks håndtering av state op
 <li>- Redux er kompleks å forholde seg til i seg selv.</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Booking</p>"
 Ktorm,Programmering,VURDER,FALSE,"<p>Kotlin ORM med SQL DSL</p>
 
@@ -93,7 +93,7 @@ Ktorm,Programmering,VURDER,FALSE,"<p>Kotlin ORM med SQL DSL</p>
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Booking</p>"
 Scala,Programmering,AVSTÅ,FALSE,"<p></p>
 
@@ -102,7 +102,7 @@ Scala,Programmering,AVSTÅ,FALSE,"<p></p>
 <li>- Kompleks språk</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Min side, Skjema, Proaktive meldinger</p>"
 Nuxt,Programmering,VURDER,FALSE,"<p>Nuxt har vi ikke kjempegod erfaring med på kjørende applikasjoner. Det fungerer ofte godt i starttilfellene, men etterhvert som applikasjoner øker i kompleksitet klarer ikke Nuxt å holde følge. Derimot har vi god erfaring med Nuxt til generering av statiske sider.</p>
 
@@ -111,7 +111,7 @@ Nuxt,Programmering,VURDER,FALSE,"<p>Nuxt har vi ikke kjempegod erfaring med på 
 <li>- Skalerer dårlig med kompleksitet. Kan være vanskelig å integrere med tester.</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform, Min side</p>"
 Spring Framework,Programmering,VURDER,FALSE,"<p>Spring er en gammel traver og har mye god funksjonalitet bygget inn, men kan av og til være vanskelig å følge kodeflyten til og kan innføre litt rare bugs. Community rundt Spring er stort og det er mye hjelp å få.</p>
 
@@ -121,7 +121,7 @@ Spring Framework,Programmering,VURDER,FALSE,"<p>Spring er en gammel traver og ha
 <li>- Tungt (treg oppstart?). Mange avhengigheter. Kan være vanskelig å debugge noen type problemer. </li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Datplattform, Skjema, Min side, Barnehagepris</p>"
 Python,Programmering,BRUK,FALSE,"<p>Solid språk. Enkelt å sette seg inn i. Egner seg spesielt godt for deploy med FastAPI i Lambda.</p>
 
@@ -129,7 +129,7 @@ Python,Programmering,BRUK,FALSE,"<p>Solid språk. Enkelt å sette seg inn i. Egn
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataspeilet, Dataplattform</p>"
 Make,Programmering,BRUK,FALSE,"<p>Godt scripteverktøy for å kjøre forskjellige jobber i forskjellige deler av livssyklusen til applikasjoner (kandidat til å ta ut av listen?)</p>
 
@@ -137,7 +137,7 @@ Make,Programmering,BRUK,FALSE,"<p>Godt scripteverktøy for å kjøre forskjellig
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform, Min side, Veiviser, Kjøremiljø</p>"
 Nextjs,Programmering,VURDER,FALSE,"<p>Godt støttet og skalerer godt med kompleksiteten på applikasjonen.</p>
 
@@ -145,7 +145,7 @@ Nextjs,Programmering,VURDER,FALSE,"<p>Godt støttet og skalerer godt med komplek
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Veiviser</p>"
 Webcomponents,Programmering,VURDER,FALSE,"<p>Denne har vi ikke konkret erfaring med, men mange er nysgjerrig på den og den er en god kandidat til fagarbeid</p>
 
@@ -153,7 +153,7 @@ Webcomponents,Programmering,VURDER,FALSE,"<p>Denne har vi ikke konkret erfaring 
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Min side</p>"
 Storybook,Programmering,VURDER,FALSE,"<p>Ikke noe for alle kodebaser, det bør ha en tydelig usecase</p>
 
@@ -161,7 +161,7 @@ Storybook,Programmering,VURDER,FALSE,"<p>Ikke noe for alle kodebaser, det bør h
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform, Min side</p>"
 Jest,Programmering,BRUK,FALSE,"<p>Trenger du en testrunner for JS så har vi god erfaring med Jest</p>
 
@@ -169,7 +169,7 @@ Jest,Programmering,BRUK,FALSE,"<p>Trenger du en testrunner for JS så har vi god
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform, Veiviser, Skjema, Dataspeilet</p>"
 GraphQL,Programmering,VURDER,FALSE,"<p>GraphQL kan være et kraftig verktøy for å lage gode API på toppen av relasjonelle systemer, men vær varsom på at det kan komplisere klientkoden noe og kan ta litt tid å bli vant til</p>
 
@@ -177,7 +177,7 @@ GraphQL,Programmering,VURDER,FALSE,"<p>GraphQL kan være et kraftig verktøy for
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Veiviser, Min side </p>"
 FastAPI for REST API,Programmering,VURDER,FALSE,"<p>Dataplattform har veldig god erfaring med å bruke FastAPI for å bygge sine REST API som deployes i Lambda. Det gir et godt lokalt utviklingsmiljø i tillegg til at den passer godt inn i kjøremiljøet.</p>
 
@@ -185,7 +185,7 @@ FastAPI for REST API,Programmering,VURDER,FALSE,"<p>Dataplattform har veldig god
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform</p>"
 React,Programmering,BRUK,FALSE,"<p></p>
 
@@ -193,7 +193,7 @@ React,Programmering,BRUK,FALSE,"<p></p>
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Booking, Veiviser, Barnehagepris, Legevaktsmottak</p>"
 Svelte,Programmering,VURDER,FALSE,"<p>Bør kanskje vurdere webcomponents som alternativ? Ikke noe vi har direkte erfaring med, men noe vi ønsker fagarbeid på</p>
 
@@ -201,7 +201,7 @@ Svelte,Programmering,VURDER,FALSE,"<p>Bør kanskje vurdere webcomponents som alt
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 </p>"
 Typescript,Programmering,BRUK,FALSE,"<p>Har tidligere hatt noen utfordring med Vue og templating som har hindret enn i å få full uttelling, men dette utbedres stadig i nyere versjoner av Vue.</p>
 
@@ -209,7 +209,7 @@ Typescript,Programmering,BRUK,FALSE,"<p>Har tidligere hatt noen utfordring med V
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Booking, Veiviser, Skjema, Dataspeilet, Dataplattform</p>"
 Cypress,Programmering,BRUK,FALSE,"<p>Veldig godt egnet for smoketests. Høyt på testpyramiden, så egner seg ikke for omfattende testsuiter. </p>
 
@@ -217,7 +217,7 @@ Cypress,Programmering,BRUK,FALSE,"<p>Veldig godt egnet for smoketests. Høyt på
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform, Skjema, Veiviser, Dataspeilet</p>"
 Domain Driven Design,Programmering,BRUK,FALSE,"<p>Så fort kodebasen treffer in viss størrelse blir god modellering viktig. Domain driven design er en god teknikk for å skape samhandling med tjenestesiden og samtidig videreutvikle modellen i kode.</p>
 
@@ -226,7 +226,7 @@ Domain Driven Design,Programmering,BRUK,FALSE,"<p>Så fort kodebasen treffer in 
 <li>+ Enkelt å ta i bruk deler av teknikken uten å gå overbord</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Oslonøkkelen</p>"
 Ktor,Programmering,VURDER,FALSE,"<p>Se kommentarer under Kotlin</p>
 
@@ -234,7 +234,7 @@ Ktor,Programmering,VURDER,FALSE,"<p>Se kommentarer under Kotlin</p>
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Booking</p>"
 Kotlin,Programmering,BRUK,FALSE,"<p>Økosystemet av bibliotek rundt Kotlin er fortsatt umodent, og det lønner seg ofte å lene seg på Java-bibliotek heller enn å velge Kotlin ""native"" alternativene.</p>
 
@@ -243,7 +243,7 @@ Kotlin,Programmering,BRUK,FALSE,"<p>Økosystemet av bibliotek rundt Kotlin er fo
 <li>- Kan være klønete å steppe gjennom iom at det kompileres til Java</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Booking, Skjema, Dataplattform, Barnehagepris, Legevaktmottak</p>"
 okctl,Plattform,BRUK,FALSE,"<p></p>
 
@@ -251,25 +251,42 @@ okctl,Plattform,BRUK,FALSE,"<p></p>
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
+</p>"
+GCP,Plattform,AVSTÅ,FALSE,"<p></p>
+
+<p><b>Pros & Cons</b><br>
+<ul>
+</ul></p>
+
+<p><b>Brukes av</b><br>
+</p>"
+Firebase,Plattform,VURDER,FALSE,"<p></p>
+
+<p><b>Pros & Cons</b><br>
+<ul>
+</ul></p>
+
+<p><b>Brukes av</b><br>
 Booking, Dataspeilet, Veiviser, Barnehagepris, Skjema</p>"
-GCP,Plattform,AVSTÅ,FALSE,"<p>Gruppen diskuterte om dette kunne brukes til prototyping men ikke prod.</p>
+AWS S3 fillagring,Plattform,BRUK,FALSE,"<p>Gruppen diskuterte om dette kunne brukes til prototyping men ikke prod.</p>
 
 <p><b>Pros & Cons</b><br>
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataspeilet</p>"
-Firebase,Plattform,VURDER,FALSE,"<p>Gruppen diskuterte om dette kunne brukes til prototyping men ikke prod.</p>
+"AWS SQS kø
+AWS SNS topics",Plattform,BRUK,FALSE,"<p>Gruppen diskuterte om dette kunne brukes til prototyping men ikke prod.</p>
 
 <p><b>Pros & Cons</b><br>
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataspeilet</p>"
-AWS S3 fillagring,Plattform,BRUK,FALSE,"<p></p>
+AWS EKS k8s,Plattform,VURDER,FALSE,"<p></p>
 
 <p><b>Pros & Cons</b><br>
 <ul></li>
@@ -278,10 +295,9 @@ AWS S3 fillagring,Plattform,BRUK,FALSE,"<p></p>
 <li>- Ikke et ordentlig filsystem (mangler f.eks. move)</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform, Skjema, Veiviser, Proaktive meldinger</p>"
-"AWS SQS kø
-AWS SNS topics",Plattform,BRUK,FALSE,"<p></p>
+AWS Fargate (ECS) ,Plattform,VURDER,FALSE,"<p></p>
 
 <p><b>Pros & Cons</b><br>
 <ul></li>
@@ -289,34 +305,34 @@ AWS SNS topics",Plattform,BRUK,FALSE,"<p></p>
 <li>- Kapasitetslimits for FIFO</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform, Proaktive meldinger</p>"
-AWS EKS k8s,Plattform,VURDER,FALSE,"<p></p>
-
-<p><b>Pros & Cons</b><br>
-<ul>
-</ul></p>
-
-<p><b>Brukes av<b><br>
-Veiviser, skjema, kjøremiljø, Minside, Barnehagepris</p>"
-AWS Fargate (ECS) ,Plattform,VURDER,FALSE,"<p></p>
-
-<p><b>Pros & Cons</b><br>
-<ul>
-<li>- Kan fås ut av boksen vha okctl</li>
-</ul></p>
-
-<p><b>Brukes av<b><br>
-Dataplattform, Skjema, Dataspeilet</p>"
 AWS API Gateway,Plattform,BRUK,FALSE,"<p></p>
 
 <p><b>Pros & Cons</b><br>
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
-Dataplattform, Proaktive meldinger</p>"
+<p><b>Brukes av</b><br>
+Veiviser, skjema, kjøremiljø, Minside, Barnehagepris</p>"
 AWS Lambda,Plattform,BRUK,FALSE,"<p></p>
+
+<p><b>Pros & Cons</b><br>
+<ul>
+<li>- Kan fås ut av boksen vha okctl</li>
+</ul></p>
+
+<p><b>Brukes av</b><br>
+Dataplattform, Skjema, Dataspeilet</p>"
+Terraform,Plattform,BRUK,FALSE,"<p></p>
+
+<p><b>Pros & Cons</b><br>
+<ul>
+</ul></p>
+
+<p><b>Brukes av</b><br>
+Dataplattform, Proaktive meldinger</p>"
+CloudFormation,Plattform,VURDER,FALSE,"<p></p>
 
 <p><b>Pros & Cons</b><br>
 <ul></li>
@@ -326,9 +342,9 @@ AWS Lambda,Plattform,BRUK,FALSE,"<p></p>
 <li>- Timeout</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform, Dataspeilet, Skjema, Barnehagepris, Proaktive meldinger</p>"
-Terraform,Plattform,BRUK,FALSE,"<p></p>
+Kinesis eventstrømmer for sanntidsdata,Plattform,BRUK,FALSE,"<p></p>
 
 <p><b>Pros & Cons</b><br>
 <ul></li>
@@ -337,9 +353,9 @@ Terraform,Plattform,BRUK,FALSE,"<p></p>
 <li>- okctl bør være foretrukket som standard for teamene</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform, veiviser, Proaktive meldinger, Kjøremiljø, Skjema studio</p>"
-CloudFormation,Plattform,VURDER,FALSE,"<p></p>
+Elasticsearch,Plattform,BRUK,FALSE,"<p></p>
 
 <p><b>Pros & Cons</b><br>
 <ul></li>
@@ -348,9 +364,9 @@ CloudFormation,Plattform,VURDER,FALSE,"<p></p>
 <li>+ Tjenester som oppretter infrastruktur med e.eks. boto</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Barnehagepris, Dataplattform, Skjema, Kjøremiljø</p>"
-Kinesis eventstrømmer for sanntidsdata,Plattform,BRUK,FALSE,"<p></p>
+Atlas MongoDB,Plattform,VURDER,FALSE,"<p></p>
 
 <p><b>Pros & Cons</b><br>
 <ul></li>
@@ -360,33 +376,33 @@ Kinesis eventstrømmer for sanntidsdata,Plattform,BRUK,FALSE,"<p></p>
 <li>- Ikke like lav latency som Kafka (10-20 ms)</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform</p>"
-Elasticsearch,Plattform,BRUK,FALSE,"<p></p>
-
-<p><b>Pros & Cons</b><br>
-<ul>
-</ul></p>
-
-<p><b>Brukes av<b><br>
-Dataplattform, Dataspeilet</p>"
-Atlas MongoDB,Plattform,VURDER,FALSE,"<p></p>
-
-<p><b>Pros & Cons</b><br>
-<ul>
-</ul></p>
-
-<p><b>Brukes av<b><br>
-Skjema</p>"
 Postgres,Plattform,BRUK,FALSE,"<p></p>
 
 <p><b>Pros & Cons</b><br>
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
-Dataplattform, Veiviser, Booking, Barnehagepris</p>"
+<p><b>Brukes av</b><br>
+Dataplattform, Dataspeilet</p>"
 DynamoDB,Plattform,BRUK,FALSE,"<p></p>
+
+<p><b>Pros & Cons</b><br>
+<ul>
+</ul></p>
+
+<p><b>Brukes av</b><br>
+Skjema</p>"
+Bazel,DevOps,VURDER,FALSE,"<p></p>
+
+<p><b>Pros & Cons</b><br>
+<ul>
+</ul></p>
+
+<p><b>Brukes av</b><br>
+Dataplattform, Veiviser, Booking, Barnehagepris</p>"
+Rollbar,DevOps,VURDER,FALSE,"<p></p>
 
 <p><b>Pros & Cons</b><br>
 <ul>
@@ -394,9 +410,25 @@ DynamoDB,Plattform,BRUK,FALSE,"<p></p>
 <li>- Trygt hvis du skal aggregere mye og fritt</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform, Proaktive meldinger</p>"
-Bazel,DevOps,VURDER,FALSE,"<p>Byggesystem. Alternativ til Gradle, Make osv.</p>
+Grafana,DevOps,BRUK,FALSE,"<p></p>
+
+<p><b>Pros & Cons</b><br>
+<ul>
+</ul></p>
+
+<p><b>Brukes av</b><br>
+</p>"
+Loki,DevOps,BRUK,FALSE,"<p></p>
+
+<p><b>Pros & Cons</b><br>
+<ul>
+</ul></p>
+
+<p><b>Brukes av</b><br>
+</p>"
+Kibana (ELK),DevOps,VURDER,FALSE,"<p>Byggesystem. Alternativ til Gradle, Make osv.</p>
 
 <p><b>Pros & Cons</b><br>
 <ul></li>
@@ -404,9 +436,9 @@ Bazel,DevOps,VURDER,FALSE,"<p>Byggesystem. Alternativ til Gradle, Make osv.</p>
 <li>- Monorepo</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Veiviser</p>"
-Rollbar,DevOps,VURDER,FALSE,"<p>Alternativ til Sentry for håndtering av kræsjlogger. Til forskjell fra Sentry fungerer det både på frontend og backend. To stemmer på Bruk. Har man gjort en vurdering i forhold til GDPR (hva slags data, hvor lagres, osv)?</p>
+Serverless Framework,DevOps,BRUK,FALSE,"<p>Alternativ til Sentry for håndtering av kræsjlogger. Til forskjell fra Sentry fungerer det både på frontend og backend. To stemmer på Bruk. Har man gjort en vurdering i forhold til GDPR (hva slags data, hvor lagres, osv)?</p>
 
 <p><b>Pros & Cons</b><br>
 <ul></li>
@@ -414,9 +446,9 @@ Rollbar,DevOps,VURDER,FALSE,"<p>Alternativ til Sentry for håndtering av kræsjl
 <li>- GDPR? Persondata i crash logs?</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Veiviser</p>"
-Grafana,DevOps,BRUK,FALSE,"<p>Ikke testet managed AWS løsning</p>
+Statisk kodeanalyse,DevOps,BRUK,FALSE,"<p>Ikke testet managed AWS løsning</p>
 
 <p><b>Pros & Cons</b><br>
 <ul></li>
@@ -424,9 +456,9 @@ Grafana,DevOps,BRUK,FALSE,"<p>Ikke testet managed AWS løsning</p>
 <li>+ Dashboardløsning (metrikker)</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform, Veiviser, Booking, Min side</p>"
-Loki,DevOps,BRUK,FALSE,"<p>Er dette et reelt valg teamene tar? Siden alle(?) får det med okctl...</p>
+Github Actions,DevOps,BRUK,FALSE,"<p>Er dette et reelt valg teamene tar? Siden alle(?) får det med okctl...</p>
 
 <p><b>Pros & Cons</b><br>
 <ul></li>
@@ -436,9 +468,9 @@ Loki,DevOps,BRUK,FALSE,"<p>Er dette et reelt valg teamene tar? Siden alle(?) få
 <li>- Må definere labels (indekser) på forhånd for effektivt søk.</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Booking, Barnehagepris, Veiviser, Kjøremiljø</p>"
-Kibana (ELK),DevOps,VURDER,FALSE,"<p>Kan vises eksternt med f.eks. en dashboard-bruker, i motsetning til CloudWatch dashboards (krever innlogget AWS-bruker).</p>
+JitPack,DevOps,VURDER,FALSE,"<p>Kan vises eksternt med f.eks. en dashboard-bruker, i motsetning til CloudWatch dashboards (krever innlogget AWS-bruker).</p>
 
 <p><b>Pros & Cons</b><br>
 <ul></li>
@@ -450,9 +482,9 @@ Kibana (ELK),DevOps,VURDER,FALSE,"<p>Kan vises eksternt med f.eks. en dashboard-
 <li>- Elastic og AWS er ""uvenner""</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform, Min side, Dataspeilet, Skjema</p>"
-Serverless Framework,DevOps,BRUK,FALSE,"<p>Forenklet oppsett og deploy av Lambda funksjoner og applikasjoner. Vurdere opp mot AWS Serverless Application Model (SAM) som bygger på CloudFormation.</p>
+Strukturerte logger,DevOps,VURDER,FALSE,"<p>Forenklet oppsett og deploy av Lambda funksjoner og applikasjoner. Vurdere opp mot AWS Serverless Application Model (SAM) som bygger på CloudFormation.</p>
 
 <p><b>Pros & Cons</b><br>
 <ul></li>
@@ -463,9 +495,9 @@ Serverless Framework,DevOps,BRUK,FALSE,"<p>Forenklet oppsett og deploy av Lambda
 <li>- Må vurdere sikkerhet til plugins (ekstern kode).</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform, Proaktive meldinger, Min side, Dataspeilet</p>"
-Statisk kodeanalyse,DevOps,BRUK,FALSE,"<p>SonarQube (JVM?)
+CI/CD,DevOps,BRUK,FALSE,"<p>SonarQube (JVM?)
 Mypy, flake8 (Python)
 Andre verktøy?</p>
 
@@ -476,9 +508,9 @@ Andre verktøy?</p>
 <li>- CodeQL støtter ikke Kotlin per nå.</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform, Dataspeilet</p>"
-Github Actions,DevOps,BRUK,FALSE,"<p></p>
+Docker,DevOps,BRUK,FALSE,"<p></p>
 
 <p><b>Pros & Cons</b><br>
 <ul></li>
@@ -490,18 +522,18 @@ Github Actions,DevOps,BRUK,FALSE,"<p></p>
 <li>- Vanskelig å debugge en action.</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Alle</p>"
-JitPack,DevOps,VURDER,FALSE,"<p>On-demand bygging og publisering av JVM-biblioteker fra Github. Alternativ til Nexus.</p>
+Prometheus,DevOps,BRUK,FALSE,"<p>On-demand bygging og publisering av JVM-biblioteker fra Github. Alternativ til Nexus.</p>
 
 <p><b>Pros & Cons</b><br>
 <ul></li>
 <li>+ Lett å sette opp. Gratis for åpen kildekode.</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform</p>"
-Strukturerte logger,DevOps,VURDER,FALSE,"<p>Logg ett strukturert (JSON) event per tjenestekall med all informasjon om kallet og behandlingen av det (input parametere, domene-id'er, metrikker for kall på baksystemer, osv.). Se https://charity.wtf/2019/02/05/logs-vs-structured-events/</p>
+Container Security,Sikkerhet,BRUK,FALSE,"<p>Logg ett strukturert (JSON) event per tjenestekall med all informasjon om kallet og behandlingen av det (input parametere, domene-id'er, metrikker for kall på baksystemer, osv.). Se https://charity.wtf/2019/02/05/logs-vs-structured-events/</p>
 
 <p><b>Pros & Cons</b><br>
 <ul></li>
@@ -513,9 +545,10 @@ Strukturerte logger,DevOps,VURDER,FALSE,"<p>Logg ett strukturert (JSON) event pe
 <li>- Krever logg-verktøy som håndterer søk i strukturerte eventer, f.eks. Elasticsearch + Kibana. </li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform</p>"
-CI/CD,DevOps,BRUK,FALSE,"<p>Alle bruker det - ingen vits å ha med i radaren ? (ala Github, AWS)
+"AWS Parameter Store,
+AWS Secrets manager",Sikkerhet,BRUK,FALSE,"<p>Alle bruker det - ingen vits å ha med i radaren ? (ala Github, AWS)
 
 Spørsmål: Hva kreves for kontinuerlig leveranse?
 != pushe alle merge master til prod
@@ -526,18 +559,18 @@ Overvåking (+ observability?), tester, rollback/-forward, feilhåndtering</p>
 <li>+ Mindre risiko per deployment / leveranse</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Alle</p>"
-Docker,DevOps,BRUK,FALSE,"<p>Alle bruker det - ingen vits å ha med i radaren ? (ala Github, AWS)
+Github Advanced Security,Sikkerhet,BRUK,FALSE,"<p>Alle bruker det - ingen vits å ha med i radaren ? (ala Github, AWS)
 Omformulere som teknikk - f.eks. Docker-compose for lokal integrasjonstesting?</p>
 
 <p><b>Pros & Cons</b><br>
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Alle</p>"
-Prometheus,DevOps,BRUK,FALSE,"<p>Kvantifiserte funksjonelle metrikker hjelper oss å vite hva som skjer.
+Spring Security,Sikkerhet,AVSTÅ,FALSE,"<p>Kvantifiserte funksjonelle metrikker hjelper oss å vite hva som skjer.
 
 Er dette et reelt valg teamene tar? Siden alle(?) får det med okctl...</p>
 
@@ -547,9 +580,9 @@ Er dette et reelt valg teamene tar? Siden alle(?) får det med okctl...</p>
 <li>+ Ut av boksen med okctl.</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Booking, Dataplattform, Min side, Barnehagepris, Veiviser, Kjøremiljø</p>"
-Container Security,Sikkerhet,BRUK,FALSE,"<p>Bør vi bruke kun internt godkjente base images?
+Zero Trust,Sikkerhet,BRUK,FALSE,"<p>Bør vi bruke kun internt godkjente base images?
 Bør vi bruke kun verifiserte base images?
 Burde vi standardisere på en felles pakkebrønn? ECR vs Github
 Burde vi legge på automatisert sjekk av hvilke images som er i bruk og varsle ved bruk av base image uten patch, uten support?
@@ -563,23 +596,22 @@ Sjekk av image ved deploy? </p>
 <li>- Usikkert hvordan man skal implementere</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform,
 Barnehagepris</p>"
-"AWS Parameter Store,
-AWS Secrets manager",Sikkerhet,BRUK,FALSE,"<p>Passer til ulike behov, er det lurt med en guide for når team burde benytte den ene over den andre?</p>
+FIDO2 / MFA,Sikkerhet,BRUK,FALSE,"<p>Passer til ulike behov, er det lurt med en guide for når team burde benytte den ene over den andre?</p>
 
 <p><b>Pros & Cons</b><br>
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform,
 Proaktive Meldinger,
 Barnehagepris, 
 Helsedata,
 Kjøremiljø</p>"
-Github Advanced Security,Sikkerhet,BRUK,FALSE,"<p>Er dette skrudd på for hele organisasjonen?
+OWASP ZAP,Sikkerhet,BRUK,FALSE,"<p>Er dette skrudd på for hele organisasjonen?
 Har team et aktivt forhold til noe annet enn Dependabot, har de verdi av kode scanning med CodeQL eller secrets scanning?
 </p>
 
@@ -587,14 +619,14 @@ Har team et aktivt forhold til noe annet enn Dependabot, har de verdi av kode sc
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataspeilet,
 Veiviser,
 Proaktive Meldinger,
 Dataplattform,
 Skjema,
 Barnehagepris</p>"
-Spring Security,Sikkerhet,AVSTÅ,FALSE,"<p>Ikke mange team har dette i bruk. Hadde en stemme på BRUK også. Team som bruker opplever at det har en læringskurve og er omfattende men også er et godt rammeverk</p>
+Passord manager,Sikkerhet,BRUK,FALSE,"<p>Ikke mange team har dette i bruk. Hadde en stemme på BRUK også. Team som bruker opplever at det har en læringskurve og er omfattende men også er et godt rammeverk</p>
 
 <p><b>Pros & Cons</b><br>
 <ul></li>
@@ -602,37 +634,37 @@ Spring Security,Sikkerhet,AVSTÅ,FALSE,"<p>Ikke mange team har dette i bruk. Had
 <li>+ Barnehagepris</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Skjema,
 Barnehagepris</p>"
-Zero Trust,Sikkerhet,BRUK,FALSE,"<p>Oppfatningen er at vi bør strekke oss mot prinsipper for Zero Trust men usikkerhet rundt hvor langt denne jobben er kommet i Oslofelles nettverk.</p>
+AWS Security Hub,Sikkerhet,BRUK,FALSE,"<p>Oppfatningen er at vi bør strekke oss mot prinsipper for Zero Trust men usikkerhet rundt hvor langt denne jobben er kommet i Oslofelles nettverk.</p>
 
 <p><b>Pros & Cons</b><br>
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 </p>"
-FIDO2 / MFA,Sikkerhet,BRUK,FALSE,"<p>Diskusjon gikk mest på bruk av MFA, enighet i gruppen på verdi av å ha krav til MFA. Noen opplever dette ekstra steget som kompliserende og litt strevsomt å forholde seg til. Positive til å utforske mulighetene for bruk av fysisk device slik som Yubikey. </p>
+Gatekeeper,Sikkerhet,BRUK,FALSE,"<p>Diskusjon gikk mest på bruk av MFA, enighet i gruppen på verdi av å ha krav til MFA. Noen opplever dette ekstra steget som kompliserende og litt strevsomt å forholde seg til. Positive til å utforske mulighetene for bruk av fysisk device slik som Yubikey. </p>
 
 <p><b>Pros & Cons</b><br>
 <ul>
 <li>- Litt mer tungvint, vurder om det passer for tjenester man kun bruker i test</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Proaktive Meldinger,
 Min Side,
 Alle Crayon AWS kontoer</p>"
-OWASP ZAP,Sikkerhet,BRUK,FALSE,"<p>Bruk av OWASP ZAP via GH Actions</p>
+Microsoft AD,Sikkerhet,BRUK,FALSE,"<p>Bruk av OWASP ZAP via GH Actions</p>
 
 <p><b>Pros & Cons</b><br>
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 </p>"
-Passord manager,Sikkerhet,BRUK,FALSE,"<p>Ulik praksis på mange team og flere som rapporterer at de bruker egen privat passord manager. Spørsmål om hvorfor det har tatt så lang tid å bli enige om å velge en felles for Origo.</p>
+Keycloak (UKE),Sikkerhet,VURDER,FALSE,"<p>Ulik praksis på mange team og flere som rapporterer at de bruker egen privat passord manager. Spørsmål om hvorfor det har tatt så lang tid å bli enige om å velge en felles for Origo.</p>
 
 <p><b>Pros & Cons</b><br>
 <ul></li>
@@ -640,38 +672,38 @@ Passord manager,Sikkerhet,BRUK,FALSE,"<p>Ulik praksis på mange team og flere so
 <li>+ Sikker deling av hemmeligheter</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Helsedata,
 Kjøremiljø</p>"
-AWS Security Hub,Sikkerhet,BRUK,FALSE,"<p>Flere som ønsker å ta i bruk, men ikke prioritert. 
+OAuth2 / OIDC,Sikkerhet,BRUK,FALSE,"<p>Flere som ønsker å ta i bruk, men ikke prioritert. 
 Hvordan kan bruk av Sec Hub bindes opp mot f.eks arbeid med ROS</p>
 
 <p><b>Pros & Cons</b><br>
 <ul>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Helsedata, 
 Barnehagepris</p>"
-Gatekeeper,Sikkerhet,BRUK,FALSE,"<p>Open Source prosjekt for å abstrahere bort noen av detaljene ved å støtte OAuth autentisering i en web applikasjon. Gode erfaringer hos de som bruker den, men spørsmål rundt om vi kan bruke bibliotek med høyere aktivitet </p>
+AWS Cloudwatch,Sikkerhet,BRUK,FALSE,"<p>Open Source prosjekt for å abstrahere bort noen av detaljene ved å støtte OAuth autentisering i en web applikasjon. Gode erfaringer hos de som bruker den, men spørsmål rundt om vi kan bruke bibliotek med høyere aktivitet </p>
 
 <p><b>Pros & Cons</b><br>
 <ul>
 <li>- Egenprodusert kode for sikkerhet, finnes det andre alternativ?</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataplattform</p>"
-Microsoft AD,Sikkerhet,BRUK,FALSE,"<p></p>
+Snyk,Sikkerhet,VURDER,FALSE,"<p></p>
 
 <p><b>Pros & Cons</b><br>
 <ul></li>
 <li>+ Slipper å bruke Keycloak</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataspeilet</p>"
-Keycloak (UKE),Sikkerhet,VURDER,FALSE,"<p></p>
+AWS Cognito,Sikkerhet,BRUK,FALSE,"<p></p>
 
 <p><b>Pros & Cons</b><br>
 <ul></li>
@@ -680,7 +712,7 @@ Keycloak (UKE),Sikkerhet,VURDER,FALSE,"<p></p>
 <li>- Team har ikke tilgang til konfigurasjon</li>
 </ul></p>
 
-<p><b>Brukes av<b><br>
+<p><b>Brukes av</b><br>
 Dataspeilet,
 Booking,
 Min Side,
@@ -688,46 +720,3 @@ Dataplattform,
 Veiviser,
 Barnehagepris,
 Skjema</p>"
-OAuth2 / OIDC,Sikkerhet,BRUK,FALSE,"<p></p>
-
-<p><b>Pros & Cons</b><br>
-<ul>
-</ul></p>
-
-<p><b>Brukes av<b><br>
-Veiviser,
-Barnehagepris,
-Helsedata</p>"
-AWS Cloudwatch,Sikkerhet,BRUK,FALSE,"<p></p>
-
-<p><b>Pros & Cons</b><br>
-<ul></li>
-<li>+ Alarmer på AWS infrastruktur</li>
-<li>- Dårlig UI</li>
-</ul></p>
-
-<p><b>Brukes av<b><br>
-Proaktive Meldinger,
-Dataplattform</p>"
-Snyk,Sikkerhet,VURDER,FALSE,"<p></p>
-
-<p><b>Pros & Cons</b><br>
-<ul></li>
-<li>+ Kategoriserer risiko godt i høy, medium og lav alvorlighetsgrad</li>
-</ul></p>
-
-<p><b>Brukes av<b><br>
-</p>"
-AWS Cognito,Sikkerhet,BRUK,FALSE,"<p>Ikke så alt for mange med erfaring på bruk av Cognito ennå
-Diskuterte om det burde finnes en felles IAM broker for Origo team som ikke er Keycloak, ingen tydelig konklusjon.</p>
-
-<p><b>Pros & Cons</b><br>
-<ul>
-<li>- Ingen synk med Oslo Kommune AD</li>
-</ul></p>
-
-<p><b>Brukes av<b><br>
-Barnehagepris,
-Proaktive meldinger,
-Skjema,
-Veiviser</p>"
