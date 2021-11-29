@@ -55,6 +55,49 @@ JSF,hold,languages & frameworks,FALSE,"We continue to see teams run into trouble
 
 **_Note:_** The CSV file parsing is using D3 library, so consult the D3 documentation for the data format details.
 
+### Using JSON data
+
+Another other way to provide your data is using a JSON array.
+You can enter any URL that responds JSON data into the input field on the first page.
+The format of the JSON is an array of objects with the the fields: `name`, `ring`, `quadrant`, `isNew`, and `description`.
+
+An example:
+
+```json
+[
+  {
+    "name": "Composer",
+    "ring": "adopt",
+    "quadrant": "tools",
+    "isNew": "TRUE",
+    "description": "Although the idea of dependency management ..."
+  },
+  {
+    "name": "Canary builds",
+    "ring": "trial",
+    "quadrant": "techniques",
+    "isNew": "FALSE",
+    "description": "Many projects have external code dependencies ..."
+  },
+  {
+    "name": "Apache Kylin",
+    "ring": "assess",
+    "quadrant": "platforms",
+    "isNew": "TRUE",
+    "description": "Apache Kylin is an open source analytics solution ..."
+  },
+  {
+    "name": "JSF",
+    "ring": "hold",
+    "quadrant": "languages & frameworks",
+    "isNew": "FALSE",
+    "description": "We continue to see teams run into trouble using JSF ..."
+  }
+]
+```
+
+**_Note:_** The JSON file parsing is using D3 library, so consult the D3 documentation for the data format details.
+
 ### Building the radar
 
 Paste the URL in the input field on the home page.
