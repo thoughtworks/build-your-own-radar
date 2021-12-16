@@ -319,7 +319,7 @@ function plotForm (content) {
     .attr('class', 'input-sheet__form')
     .append('p')
     .html(
-      '<strong>Enter the URL of your <a href="https://www.thoughtworks.com/radar/how-to-byor" target="_blank">Google Sheet or CSV</a> file below…</strong>',
+      '<strong>Enter the URL of your <a href="https://www.thoughtworks.com/radar/how-to-byor" target="_blank">Google Sheet, CSV or JSON</a> file below…</strong>',
     )
 
   var form = content
@@ -331,7 +331,7 @@ function plotForm (content) {
     .append('input')
     .attr('type', 'text')
     .attr('name', 'sheetId')
-    .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/<sheetid> or hosted CSV file')
+    .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/<sheetid> or hosted CSV/JSON file')
     .attr('required', '')
 
   form
