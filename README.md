@@ -53,7 +53,7 @@ Apache Kylin,assess,platforms,TRUE,"Apache Kylin is an open source analytics sol
 JSF,hold,languages & frameworks,FALSE,"We continue to see teams run into trouble using JSF ..."
 ```
 
-**_Note:_** The CSV file parsing is using D3 library, so consult the D3 documentation for the data format details.
+**_Note:_** The CSV file parsing is using D3 library, so consult the [D3 documentation](https://github.com/d3/d3-request/blob/master/README.md#csv) for the data format details.
 
 ### Using JSON data
 
@@ -96,7 +96,7 @@ An example:
 ]
 ```
 
-**_Note:_** The JSON file parsing is using D3 library, so consult the D3 documentation for the data format details.
+**_Note:_** The JSON file parsing is using D3 library, so consult the [D3 documentation](https://github.com/d3/d3-request/blob/master/README.md#json) for the data format details.
 
 ### Building the radar
 
