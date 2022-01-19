@@ -158,7 +158,7 @@ Make sure you have nodejs installed.
 
 - `git clone git@github.com:thoughtworks/build-your-own-radar.git`
 - `npm install`
-- `npm test` - to run your tests
+- `npm quality:nonstrict` - to run your tests
 - `npm run dev` - to run application in localhost:8080. This will watch the .js and .css files and rebuild on file changes
 
 ## End to End Tests
@@ -166,7 +166,7 @@ Make sure you have nodejs installed.
 To run End to End tests in headless mode
 
 - add a new environment variable 'TEST_URL' and set it to 'http://localhost:8080/'
-- `npm run end_to_end_test`
+- `npm run test:e2e`
 
 To run End to End tests in debug mode
 
