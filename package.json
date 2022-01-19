@@ -6,11 +6,16 @@
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack-dev-server --mode development --inline",
-    "end_to_end_test": "node_modules/.bin/cypress run --env host=$TEST_URL",
-    "format": "prettier-standard --write",
-    "start": "node_modules/.bin/cypress open --env host=$TEST_URL",
-    "test": "prettier-standard --write && istanbul cover jasmine",
-    "test:lint": "prettier-standard"
+    "test": "jasmine",
+    "test:e2e": "cypress run --env host=$TEST_URL",
+    "prettier": "prettier-standard",
+    "prettier:lint": "prettier-standard --lint",
+    "prettier:check": "prettier-standard --check",
+    "prettier:format": "prettier-standard --format",
+    "start": "cypress open --env host=$TEST_URL",
+    "coverage": "nyc npm run test",
+    "quality": "npm run prettier:lint && npm run coverage",
+    "quality:nonstrict": "npm run prettier && npm run coverage"
   },
   "author": "Thoughtworks",
   "repository": {
@@ -32,7 +37,6 @@
     "expose-loader": "^0.7.5",
     "file-loader": "^5.0.2",
     "html-webpack-plugin": "^3.2.0",
-    "istanbul": "^0.4.5",
     "jasmine": "^3.3.1",
     "jsdom": "^15.2.1",
     "json-loader": "^0.5.7",
@@ -40,6 +44,7 @@
     "mocha": "^5.2.0",
     "mochawesome": "^4.1.0",
     "node-sass": "^4.13.0",
+    "nyc": "^15.1.0",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.5.0",
     "prettier-standard": "^16.4.1",

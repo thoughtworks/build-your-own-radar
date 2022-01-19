@@ -5,7 +5,7 @@ node_js:
 jobs:
   include:
     - stage: test
-      script: npm test
+      script: npm run quality:nonstrict
     - stage: e2e
       if: branch = master
       script: bash ./run_e2e_tests.sh $API_KEY $TEST_CLIENT_ID $TEST_URL_LOCAL
