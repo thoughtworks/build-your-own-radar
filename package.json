@@ -8,7 +8,7 @@
     "dev": "webpack-dev-server --mode development --inline",
     "test": "jasmine",
     "test:e2e": "cypress run --env host=$TEST_URL",
-    "prettier": "prettier-standard",
+    "prettier": "prettier-standard --since master",
     "prettier:lint": "prettier-standard --lint",
     "prettier:check": "prettier-standard --check",
     "prettier:format": "prettier-standard --format",
@@ -27,30 +27,28 @@
   ],
   "license": "AGPL-3.0",
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "babel-loader": "^8.0.4",
+    "@babel/core": "^7.16.10",
+    "babel-loader": "^8.2.3",
     "css-loader": "^6.5.1",
     "cssnano": "^5.0.15",
     "cypress": "^9.3.1",
-    "dotenv": "^8.2.0",
-    "expose-loader": "^0.7.5",
-    "file-loader": "^5.0.2",
-    "html-webpack-plugin": "^3.2.0",
-    "jasmine": "^3.3.1",
-    "jsdom": "^15.2.1",
-    "mini-css-extract-plugin": "^0.5.0",
-    "mocha": "^9.1.4",
+    "dotenv": "^14.2.0",
+    "expose-loader": "^3.1.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "jasmine": "^4.0.2",
+    "jsdom": "^19.0.0",
+    "mini-css-extract-plugin": "^2.5.2",
     "mochawesome": "^7.0.1",
-    "node-sass": "^7.0.1",
     "nyc": "^15.1.0",
     "postcss-loader": "^6.2.1",
     "postcss-preset-env": "^7.2.3",
     "prettier-standard": "^13.0.6",
-    "sass-loader": "^8.0.0",
-    "style-loader": "^1.0.1",
-    "webpack": "^4.41.2",
+    "sass-loader": "^12.4.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.66.0",
     "webpack-dev-server": "^4.7.3",
-    "yargs": "^15.0.2"
+    "yargs": "^17.3.1"
   },
   "dependencies": {
     "chance": "^1.0.18",
@@ -61,9 +59,6 @@
     "lodash": "^4.17.15",
     "sanitize-html": "^2.3.2"
   },
-  "peerDependencies": {
-    "mocha": "*"
-  },
   "standard": {
     "globals": [
       "Cypress",
@@ -71,8 +66,7 @@
       "XMLHttpRequest"
     ],
     "env": [
-      "jasmine",
-      "mocha"
+      "jasmine"
     ],
     "ignore": [
       "radar-spec.js",
