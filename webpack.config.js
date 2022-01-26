@@ -62,7 +62,7 @@ module.exports = {
     path: buildPath,
     publicPath: '/',
     filename: '[name].[contenthash].js',
-    assetModuleFilename: 'images/[name].[ext]',
+    assetModuleFilename: 'images/[name][ext]',
   },
   resolve: {
     fallback: {
@@ -92,7 +92,7 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
-            options: { importLoaders: 1, modules: true, url: false },
+            options: { importLoaders: 1, modules: 'global', url: false },
           },
           {
             loader: 'postcss-loader',
