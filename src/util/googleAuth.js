@@ -18,7 +18,10 @@ const GoogleAuth = function () {
   self.isLoggedIn = undefined
 
   self._updateProfile = function () {
-    const profile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile()
+    const profile = gapi.auth2
+      .getAuthInstance()
+      .currentUser.get()
+      .getBasicProfile()
     if (!profile) {
       return
     }
@@ -28,7 +31,7 @@ const GoogleAuth = function () {
       givenName: profile.getGivenName(),
       familyName: profile.getFamilyName(),
       imageUrl: profile.getImageUrl(),
-      email: profile.getEmail()
+      email: profile.getEmail(),
     }
   }
 
@@ -38,17 +41,23 @@ const GoogleAuth = function () {
     content
       .append('script')
       .attr('src', 'https://apis.google.com/js/api.js')
-      .on('load', function () { self.handleClientLoad() })
+      .on('load', function () {
+        self.handleClientLoad()
+      })
   }
 
   self.isLoggedInCallback = function (isLoggedIn) {
     self.isLoggedIn = isLoggedIn
     self._updateProfile()
-    self.isAuthorizedCallbacks.forEach(function (callback) { callback(isLoggedIn) })
+    self.isAuthorizedCallbacks.forEach(function (callback) {
+      callback(isLoggedIn)
+    })
   }
 
   self.handleClientLoad = function () {
-    gapi.load('client:auth2', function () { self.initClient() })
+    gapi.load('client:auth2', function () {
+      self.initClient()
+    })
   }
 
   self.updateSigninStatus = function (isSignedIn) {
@@ -63,19 +72,23 @@ const GoogleAuth = function () {
   }
 
   self.initClient = function () {
-    gapi.client.init({
-      apiKey: API_KEY,
-      clientId: CLIENT_ID,
-      discoveryDocs: DISCOVERY_DOCS,
-      scope: SCOPES
-    }).then(function () {
-      self.loadedCallback()
-      // Listen for sign-in state changes.
-      gapi.auth2.getAuthInstance().isSignedIn.listen(function (data) { self.updateSigninStatus(data) })
+    gapi.client
+      .init({
+        apiKey: API_KEY,
+        clientId: CLIENT_ID,
+        discoveryDocs: DISCOVERY_DOCS,
+        scope: SCOPES,
+      })
+      .then(function () {
+        self.loadedCallback()
+        // Listen for sign-in state changes.
+        gapi.auth2.getAuthInstance().isSignedIn.listen(function (data) {
+          self.updateSigninStatus(data)
+        })
 
-      // Handle the initial sign-in state.
-      self.updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get())
-    })
+        // Handle the initial sign-in state.
+        self.updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get())
+      })
   }
 
   self.logout = function () {
@@ -85,13 +98,20 @@ const GoogleAuth = function () {
   self.geEmail = _ => {
     const isLoggedIn = gapi.auth2.getAuthInstance().isSignedIn.get()
     if (isLoggedIn) {
-      return gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail()
+      return gapi.auth2
+        .getAuthInstance()
+        .currentUser.get()
+        .getBasicProfile()
+        .getEmail()
     }
   }
 
   self.login = function (callback, force = false) {
     if (force) {
-      gapi.auth2.getAuthInstance().signIn({ prompt: 'select_account' }).then(callback)
+      gapi.auth2
+        .getAuthInstance()
+        .signIn({ prompt: 'select_account' })
+        .then(callback)
       return
     }
 
@@ -99,7 +119,10 @@ const GoogleAuth = function () {
     if (isLoggedIn) {
       callback()
     } else {
-      gapi.auth2.getAuthInstance().signIn().then(callback)
+      gapi.auth2
+        .getAuthInstance()
+        .signIn()
+        .then(callback)
     }
   }
 

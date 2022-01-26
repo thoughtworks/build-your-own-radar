@@ -110,10 +110,7 @@ xdescribe('tr.graphing.Radar', function () {
       var radar
 
       radar = new tr.models.Radar()
-      spyOn(radar, 'rings').and.returnValue([
-        new tr.models.Ring('Adopt'),
-        new tr.models.Ring('Hold')
-      ])
+      spyOn(radar, 'rings').and.returnValue([new tr.models.Ring('Adopt'), new tr.models.Ring('Hold')])
       radarGraph = new tr.graphing.Radar(500, radar)
       radarGraph.init()
 
@@ -148,7 +145,7 @@ xdescribe('tr.graphing.Radar', function () {
 
       expect(svg.append).toHaveBeenCalledWith('text')
       expect(svg.attr).toHaveBeenCalledWith('y', center + 4)
-      expect(svg.attr).toHaveBeenCalledWith('x', 0 + (center / 2) + 10)
+      expect(svg.attr).toHaveBeenCalledWith('x', 0 + center / 2 + 10)
       expect(svg.text).toHaveBeenCalledWith('Hold')
     }).pend('This references very old code that no longer exists the tests for graphing will have to be rewritten')
 
@@ -165,9 +162,9 @@ xdescribe('tr.graphing.Radar', function () {
 
       expect(svg.append).toHaveBeenCalledWith('text')
       expect(svg.attr).toHaveBeenCalledWith('y', center + 4)
-      expect(svg.attr).toHaveBeenCalledWith('x', 500 - (center / 2) - 10)
+      expect(svg.attr).toHaveBeenCalledWith('x', 500 - center / 2 - 10)
       expect(svg.attr).toHaveBeenCalledWith('text-anchor', 'end')
       expect(svg.text).toHaveBeenCalledWith('Hold')
     }).pend('This references very old code that no longer exists the tests for graphing will have to be rewritten')
   })
-});
+})
