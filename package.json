@@ -74,5 +74,10 @@
       "radar-spec.js",
       "ref-table-spec.js"
     ]
-  }
+  },
+  "engines": {
+    "node": ">=12 <18",
+    "npm": "~8.3.1"
+  },
+  "private": true
 }
