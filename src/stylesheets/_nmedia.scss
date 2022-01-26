@@ -1,0 +1,278 @@
+/*FONT ROBOTO 400,700 - MONTSERRAT 400,700*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
+body {
+  background: #423E3F;
+}
+
+header {
+  background: #423E3F;
+
+  .radar-title {
+    background-color: #373435;
+
+    .radar-title__text {
+
+      h1 {
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 400;
+        font-size: 48px;
+        line-height: 59px;
+        color: #ffffff;
+        display: flex;
+
+        &:before {
+          content: "";
+          display: inline-block;
+          width: 59px;
+          height: 59px;
+          background-image: url(/images/nmedia.svg);
+          background-repeat: no-repeat;
+          margin-right: 20px;
+        }
+      }
+    }
+
+    .radar-title__logo img {
+      filter: brightness(0) invert(1);
+    }
+  }
+
+  .home-link {
+    color: #F6BE00;
+
+    &:hover {
+      color: #d8ad2b;
+    }
+  }
+
+  #alternative-buttons .search-radar {
+    border-color: #91948f;
+    color: #ffffff;
+  }
+
+  .buttons-group {
+    padding: 45px 0 25px;
+  }
+
+  .button {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 14.5px 16px;
+    line-height: 19px;
+    margin-right: 15px;
+    /*Backend*/
+    &.first {
+      background: #E1931E;
+      opacity: 0.3;
+      color: #ffffff;
+
+      &:hover {
+        opacity: 1;
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), #E1931E;
+      }
+
+      &.full-view, &.selected {
+        opacity: 1.0;
+        background: #E1931E;
+        color: #ffffff;
+
+        &:hover {
+          opacity: 1;
+          background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), #E1931E;
+        }
+      }
+    }
+    /*Bases de données et infrastructure*/
+    &.second {
+      background: #34BC29;
+      opacity: 0.3;
+      color: #ffffff;
+
+      &:hover {
+        opacity: 1;
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), #34BC29;
+      }
+
+      &.full-view, &.selected {
+        opacity: 1.0;
+        background: #34BC29;
+        color: #ffffff;
+
+        &:hover {
+          opacity: 1;
+          background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), #34BC29;
+        }
+      }
+    }
+    /*Frontend*/
+    &.third {
+      background: #53A1EA;
+      opacity: 0.3;
+      color: #ffffff;
+
+      &:hover {
+        opacity: 1;
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), #53A1EA;
+      }
+
+      &.full-view, &.selected {
+        opacity: 1.0;
+        background: #53A1EA;
+        color: #ffffff;
+
+        &:hover {
+          opacity: 1;
+          background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), #53A1EA;
+        }
+      }
+    }
+    /*Saas et microsoft 365*/
+    &.fourth {
+      background: #DE4356;
+      opacity: 0.3;
+      color: #ffffff;
+
+      &:hover {
+        opacity: 1;
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), #DE4356;
+      }
+
+      &.full-view, &.selected {
+        opacity: 1.0;
+        background: #DE4356;
+        color: #ffffff;
+
+        &:hover {
+          opacity: 1;
+          background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), #DE4356;
+        }
+      }
+    }
+
+    &.print-radar {
+      background: #91948F;
+      color: #ffffff;
+
+      &:hover {
+        opacity: 1;
+        background: #F6BE00;
+        color: #373435;
+      }
+    }
+  }
+}
+
+/*Bases de données et infrastructure*/
+#radar svg#radar-plot circle.second,
+#radar svg#radar-plot path.second,
+#radar svg#radar-plot polygon.second {
+  fill: #34BC29!important;
+}
+/*Backend*/
+#radar svg#radar-plot circle.first,
+#radar svg#radar-plot path.first,
+#radar svg#radar-plot polygon.first {
+  fill: #E1931E!important;
+}
+/*Frontend*/
+#radar svg#radar-plot circle.third,
+#radar svg#radar-plot path.third,
+#radar svg#radar-plot polygon.third {
+  fill: #53A1EA!important;
+}
+/*Saas et microsoft 365*/
+#radar svg#radar-plot circle.fourth,
+#radar svg#radar-plot path.fourth,
+#radar svg#radar-plot polygon.fourth {
+  fill: #DE4356!important;
+}
+
+/*Cercle niveau 1*/
+#radar svg#radar-plot path.ring-arc-0 {
+  fill: #9E9E9E !important;
+}
+/*Cercle niveau 2*/
+#radar svg#radar-plot path.ring-arc-1 {
+  fill: #828282 !important;
+}
+/*Cercle niveau 3*/
+#radar svg#radar-plot path.ring-arc-2 {
+  fill: #696969 !important;
+}
+/*Cercle niveau 4*/
+#radar svg#radar-plot path.ring-arc-3 {
+  fill: #515151 !important;
+}
+
+/*Ligne séparatrice quart*/
+#radar svg#radar-plot line {
+  stroke: #423e3f!important;
+}
+#radar svg#radar-plot text.line-text {
+  fill: #ffffff!important;
+}
+
+#radar svg#radar-plot .legend {
+  color: #ffffff !important;
+
+  path {
+    fill: #ffffff;
+  }
+
+  text {
+    fill: #ffffff;
+  }
+}
+
+  #radar div.quadrant-table {
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+
+    h3 {
+      font-size: 18px;
+      line-height: 21px;
+    }
+
+    ul li .blip-list-item {
+      font-size: 18px !important;
+      line-height: 21px;
+
+      &.highlight {
+        color: #f6be00 !important;
+      }
+    }
+
+    ul li .blip-item-description p {
+      border-top: 1px solid #ffffff !important;
+      border-bottom: 1px solid #ffffff !important;
+      color: #ffffff !important;
+      margin: 10px 0 !important;
+    }
+  }
+  /*Footer*/
+  #footer .footer-content {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 19px;
+    color: #ffffff;
+    width: 70%;
+
+    p {
+      text-align: center;
+      font-weight: 400;
+      padding-top: 80px;
+      margin-bottom: 150px;
+    }
+
+    a {
+      color: #ffffff;
+      border-color: #ffffff;
+
+      &:hover {
+        border-bottom: 0;
+      }
+    }
+  }

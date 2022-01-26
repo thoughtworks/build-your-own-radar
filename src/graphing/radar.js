@@ -379,7 +379,7 @@ const Radar = function (size, radar) {
     if (pageElement.select('.home-link').empty()) {
       pageElement
         .insert('div', 'div#alternative-buttons')
-        .html('&#171; Back to Radar home')
+        .html('&#171; Retour à l\'accueil')
         .classed('home-link', true)
         .classed('selected', true)
         .on('click', redrawFullRadar)
@@ -517,7 +517,7 @@ const Radar = function (size, radar) {
       .append('div')
       .attr('class', 'radar-title__text')
       .append('h1')
-      .text(document.title)
+      .html('<strong>NMS</strong>&nbsp;Tech&nbsp;Radar')
       .style('cursor', 'pointer')
       .on('click', redrawFullRadar)
 
@@ -558,7 +558,7 @@ const Radar = function (size, radar) {
       .classed('print-radar-btn', true)
       .append('div')
       .classed('print-radar button no-capitalize', true)
-      .text('Print this radar')
+      .text('Imprimer ce radar')
       .on('click', window.print.bind(window))
 
     alternativeDiv
@@ -566,7 +566,7 @@ const Radar = function (size, radar) {
       .classed('search-box', true)
       .append('input')
       .attr('id', 'auto-complete')
-      .attr('placeholder', 'Search')
+      .attr('placeholder', 'Recherche')
       .classed('search-radar', true)
 
     AutoComplete('#auto-complete', quadrants, searchBlip)

@@ -15,7 +15,7 @@
                             <mask id="mask-2" fill="white">
                                 <use xlink:href="#path-1"></use>
                             </mask>
-                            <use id="search" fill="#F1328B" transform="translate(8.745000, 8.745500) scale(1, -1) translate(-8.745000, -8.745500) " xlink:href="#path-1"></use>
+                            <use id="search" fill="#F6BE00" transform="translate(8.745000, 8.745500) scale(1, -1) translate(-8.745000, -8.745500) " xlink:href="#path-1"></use>
                         </g>
                     </g>
                 </g>
