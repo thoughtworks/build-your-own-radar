@@ -101,7 +101,6 @@ Har tidligere hatt noen utfordring med Vue og templating som har hindret enn i �
 Cypress,Programmering,BRUK,FALSE,"Alt-i-ett ende-til-ende testverktøy i Javascript. Godt egnet for smoketests. Utviklernært og god tooling. Høyt på testpyramiden, så egner seg ikke for omfattende testsuiter. Mer brukervennlig enn Selenium. ",,,"Dataplattform, Skjema, Veiviser, Dataspeilet"
 Domain Driven Design,Programmering,BRUK,FALSE,Tilnærming til design av programvare med mål om å modellere programvaren likt foretningsdomenet basert på tett samarbeid med domeneeksperter. Så fort kodebasen treffer in viss størrelse blir god modellering viktig. Domain driven design er en god teknikk for å skape samhandling med tjenestesiden og samtidig videreutvikle modellen i kode.,- Enkelt å ta i bruk deler av teknikken uten å gå overbord,,Oslonøkkelen
 okctl,Plattform,BRUK,FALSE,Okctl er et kommandolinjeverktøy utviklet av Kjøremiljø-teamet for ,,,"Booking, Dataspeilet, Veiviser, Barnehagepris, Skjema"
-,,,FALSE,,,,
 Firebase,Plattform,VURDER,FALSE,"Firebase er en plattform utviklet av Google for å lage mobil- og webapplikasjoner. Har blitt omtalt som backend-as-a-service (BaaS) da de tilbyr flere grensesnitt over HTTP for å gjøre standard backendoppgaver som brukerhåndtering, CRUD-operasjoner på ressurser, messaging og cloud functions",,,Dataspeilet
 Amazon S3 fillagring,Plattform,BRUK,FALSE,"S3 er AWS sin serverless tjeneste for fillagring i sky. Tilbyr høy grad av skalerbarhet, tilgjengelighet og holdbarhet (durability). Den fremstår ofte som et filsystem, men er egentlig et objektlager (key-value store) og støtter derfor ikke operasjoner som å endre navn på ""kataloger"" eller filer eller å flytte disse. Betaler for mengden data lagret i S3 og antall API-kall pluss datatrafikk ut til Internett.","- Skalerbart
 - Billig",- Ikke et ordentlig filsystem (mangler f.eks. move),"Dataplattform, Skjema, Veiviser, Proaktive meldinger"
@@ -183,7 +182,6 @@ Github Actions,DevOps,BRUK,FALSE,"GitHub Actions er en CI/CD plattform på GitHu
 - Stort økosystem (tilgjengelige actions)","- Må vurdere hvilke eksterne actions som er trygge å bruke (og pinne versjoner).
 - Vanskelig å debugge en action.",Alle
 JitPack,DevOps,VURDER,FALSE,On-demand bygging og publisering av JVM-biblioteker fra Github. Alternativ til Nexus.,Lett å sette opp. Gratis for åpen kildekode.,,Dataplattform
-,,,FALSE,,,,
 Passord manager,Sikkerhet,BRUK,FALSE,Ulik praksis på mange team og flere som rapporterer at de bruker egen privat passord manager. Spørsmål om hvorfor det har tatt så lang tid å bli enige om å velge en felles for Origo.,"Kortlevde tilgangsnøkler, 
 Sikker deling av hemmeligheter",,"Helsedata,
 Kjøremiljø, Dataplattform"
