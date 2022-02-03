@@ -64,12 +64,13 @@ body {
     page-break-after: always;
 
     ul {
-      list-style: none;
+      list-style: circle;
       padding: 0;
       margin: 0;
     }
 
     li {
+      list-style: circle;
       page-break-inside: avoid;
     }
 
@@ -174,22 +175,22 @@ body {
       path {
         &.ring-arc-3 {
           stroke: none;
-          fill: $grey-light;
+          fill: $blue-dark-10;
         }
 
         &.ring-arc-2 {
           stroke: none;
-          fill: $grey;
+          fill: $light-blue;
         }
 
         &.ring-arc-1 {
           stroke: none;
-          fill: $grey-dark;
+          fill: $blue;
         }
 
         &.ring-arc-0 {
           stroke: none;
-          fill: $grey-darkest;
+          fill: $dark-blue;
         }
       }
 
@@ -206,22 +207,22 @@ body {
       polygon,
       path {
         &.first {
-          fill: $green;
+          fill: $red;
           stroke: none;
         }
 
         &.second {
-          fill: $blue;
+          fill: $green;
           stroke: none;
         }
 
         &.third {
-          fill: $orange;
+          fill: $yellow;
           stroke: none;
         }
 
         &.fourth {
-          fill: $violet;
+          fill: $red-10;
           stroke: none;
         }
       }
@@ -234,7 +235,7 @@ body {
         &.blip-text {
           font-size: 9px;
           font-weight: bold;
-          fill: $white;
+          fill: $black;
         }
 
         &.line-text {
@@ -290,6 +291,7 @@ body {
       }
 
       &.selected {
+        z-index: 2;
         position: relative;
         max-height: 10000px;
         max-width: 40%;

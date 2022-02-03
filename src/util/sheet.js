@@ -46,16 +46,16 @@ const Sheet = function (sheetReference) {
   self.processSheetResponse = function (sheetName, createBlips, handleError) {
     self
       .getSheet()
-      .then(response => processSheetData(sheetName, response, createBlips, handleError))
+      .then((response) => processSheetData(sheetName, response, createBlips, handleError))
       .catch(handleError)
   }
 
-  function processSheetData (sheetName, sheetResponse, createBlips, handleError) {
-    const sheetNames = sheetResponse.result.sheets.map(s => s.properties.title)
+  function processSheetData(sheetName, sheetResponse, createBlips, handleError) {
+    const sheetNames = sheetResponse.result.sheets.map((s) => s.properties.title)
     sheetName = !sheetName ? sheetNames[0] : sheetName
     self
       .getData(sheetName + '!A1:E')
-      .then(r => createBlips(sheetResponse.result.properties.title, r.result.values, sheetNames))
+      .then((r) => createBlips(sheetResponse.result.properties.title, r.result.values, sheetNames))
       .catch(handleError)
   }
 

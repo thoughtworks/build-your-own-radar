@@ -26,7 +26,7 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   if (title.endsWith('.csv')) {
     title = title.substring(0, title.length - 4)
   }
-  document.title = "Origo teknologiradar"
+  document.title = 'Origo teknologiradar'
   d3.selectAll('.loading').remove()
 
   var rings = _.map(_.uniqBy(blips, 'ring'), 'ring')
@@ -46,7 +46,14 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
       quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant))
     }
     quadrants[blip.quadrant].add(
-      new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description),
+      new Blip(
+        blip.name,
+        ringMap[blip.ring],
+        blip.isNew.toLowerCase() === 'true',
+        blip.topic,
+        blip.description,
+        blip.pros,
+      ),
     )
   })
 
@@ -85,7 +92,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
     })
   }
 
-  function createBlipsForProtectedSheet (documentTitle, values, sheetNames) {
+  function createBlipsForProtectedSheet(documentTitle, values, sheetNames) {
     if (!sheetName) {
       sheetName = sheetNames[0]
     }
@@ -97,16 +104,16 @@ const GoogleSheet = function (sheetReference, sheetName) {
 
     const all = values
     const header = all.shift()
-    var blips = _.map(all, blip => new InputSanitizer().sanitizeForProtectedSheet(blip, header))
+    var blips = _.map(all, (blip) => new InputSanitizer().sanitizeForProtectedSheet(blip, header))
     plotRadar(documentTitle + ' - ' + sheetName, blips, sheetName, sheetNames)
   }
 
   self.authenticate = function (force = false, apiKeyEnabled, callback) {
     if (!apiKeyEnabled) {
       GoogleAuth.loadGoogle(function (e) {
-        GoogleAuth.login(_ => {
+        GoogleAuth.login((_) => {
           var sheet = new Sheet(sheetReference)
-          sheet.processSheetResponse(sheetName, createBlipsForProtectedSheet, error => {
+          sheet.processSheetResponse(sheetName, createBlipsForProtectedSheet, (error) => {
             if (error.status === 403) {
               plotUnauthorizedErrorMessage()
             } else {
@@ -121,7 +128,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
     } else {
       GoogleAuth.loadGoogle(function (e) {
         var sheet = new Sheet(sheetReference)
-        sheet.processSheetResponse(sheetName, createBlipsForProtectedSheet, error => {
+        sheet.processSheetResponse(sheetName, createBlipsForProtectedSheet, (error) => {
           if (error.status === 403) {
             plotUnauthorizedErrorMessage()
           } else {
@@ -229,17 +236,12 @@ const GoogleSheetInput = function () {
   return self
 }
 
-function setDocumentTitle () {
+function setDocumentTitle() {
   document.title = 'Build your own Radar'
 }
 
-function plotLoading (content) {
-  content = d3
-    .select('body')
-    .append('div')
-    .attr('class', 'loading')
-    .append('div')
-    .attr('class', 'input-sheet')
+function plotLoading(content) {
+  content = d3.select('body').append('div').attr('class', 'loading').append('div').attr('class', 'input-sheet')
 
   setDocumentTitle()
 
@@ -250,14 +252,14 @@ function plotLoading (content) {
   plotFooter(content)
 }
 
-function plotLogo (content) {
+function plotLogo(content) {
   content
     .append('div')
     .attr('class', 'input-sheet__logo')
     .html('<a href="https://www.thoughtworks.com"><img src="/images/tw-logo.png" / ></a>')
 }
 
-function plotFooter (content) {
+function plotFooter(content) {
   content
     .append('div')
     .attr('id', 'footer')
@@ -266,20 +268,17 @@ function plotFooter (content) {
     .append('p')
     .html(
       'Powered by <a href="https://www.thoughtworks.com"> Thoughtworks</a>. ' +
-      'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
-      'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
-      'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
+        'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
+        'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
+        'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
     )
 }
 
-function plotBanner (content, text) {
-  content
-    .append('div')
-    .attr('class', 'input-sheet__banner')
-    .html(text)
+function plotBanner(content, text) {
+  content.append('div').attr('class', 'input-sheet__banner').html(text)
 }
 
-function plotForm (content) {
+function plotForm(content) {
   content
     .append('div')
     .attr('class', 'input-sheet__form')
@@ -288,10 +287,7 @@ function plotForm (content) {
       '<strong>Enter the URL of your <a href="https://www.thoughtworks.com/radar/how-to-byor" target="_blank">Google Sheet or CSV</a> file below…</strong>',
     )
 
-  var form = content
-    .select('.input-sheet__form')
-    .append('form')
-    .attr('method', 'get')
+  var form = content.select('.input-sheet__form').append('form').attr('method', 'get')
 
   form
     .append('input')
@@ -300,23 +296,15 @@ function plotForm (content) {
     .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/<sheetid> or hosted CSV file')
     .attr('required', '')
 
-  form
-    .append('button')
-    .attr('type', 'submit')
-    .append('a')
-    .attr('class', 'button')
-    .text('Build my radar')
+  form.append('button').attr('type', 'submit').append('a').attr('class', 'button').text('Build my radar')
 
   form.append('p').html("<a href='https://www.thoughtworks.com/radar/how-to-byor'>Need help?</a>")
 }
 
-function plotErrorMessage (exception) {
+function plotErrorMessage(exception) {
   var message = 'Oops! It seems like there are some problems with loading your data. '
 
-  var content = d3
-    .select('body')
-    .append('div')
-    .attr('class', 'input-sheet')
+  var content = d3.select('body').append('div').attr('class', 'input-sheet')
   setDocumentTitle()
 
   plotLogo(content)
@@ -341,32 +329,20 @@ function plotErrorMessage (exception) {
 
   const container = content.append('div').attr('class', 'error-container')
   var errorContainer = container.append('div').attr('class', 'error-container__message')
-  errorContainer
-    .append('div')
-    .append('p')
-    .html(message)
-  errorContainer
-    .append('div')
-    .append('p')
-    .html(faqMessage)
+  errorContainer.append('div').append('p').html(message)
+  errorContainer.append('div').append('p').html(faqMessage)
 
   var homePageURL = window.location.protocol + '//' + window.location.hostname
   homePageURL += window.location.port === '' ? '' : ':' + window.location.port
   var homePage = '<a href=' + homePageURL + '>GO BACK</a>'
 
-  errorContainer
-    .append('div')
-    .append('p')
-    .html(homePage)
+  errorContainer.append('div').append('p').html(homePage)
 
   plotFooter(content)
 }
 
-function plotUnauthorizedErrorMessage () {
-  var content = d3
-    .select('body')
-    .append('div')
-    .attr('class', 'input-sheet')
+function plotUnauthorizedErrorMessage() {
+  var content = d3.select('body').append('div').attr('class', 'input-sheet')
   setDocumentTitle()
 
   plotLogo(content)
@@ -386,16 +362,9 @@ function plotUnauthorizedErrorMessage () {
 
   const errorContainer = container.append('div').attr('class', 'error-container__message')
 
-  errorContainer
-    .append('div')
-    .append('p')
-    .attr('class', 'error-title')
-    .html(message)
+  errorContainer.append('div').append('p').attr('class', 'error-title').html(message)
 
-  const button = errorContainer
-    .append('button')
-    .attr('class', 'button switch-account-button')
-    .text('SWITCH ACCOUNT')
+  const button = errorContainer.append('button').attr('class', 'button switch-account-button').text('SWITCH ACCOUNT')
 
   errorContainer
     .append('div')
@@ -403,11 +372,11 @@ function plotUnauthorizedErrorMessage () {
     .attr('class', 'error-subtitle')
     .html(`or ${goBack} to try a different sheet.`)
 
-  button.on('click', _ => {
+  button.on('click', (_) => {
     var queryString = window.location.href.match(/sheetId(.*)/)
     var queryParams = queryString ? QueryParams(queryString[0]) : {}
     const sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
-    sheet.authenticate(true, false, _ => {
+    sheet.authenticate(true, false, (_) => {
       content.remove()
     })
   })
