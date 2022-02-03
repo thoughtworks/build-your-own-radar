@@ -1,0 +1,252 @@
+name,quadrant,ring,isNew,description,pros,cons,usedBy
+Vuex,Programmering,VURDER,FALSE,"Vuex er en lettvekts sentralisert state management bibliotek som har en bestemt fremgangsmåte (pattern) for å håndtere data. Frem til Vue 3 kom har Vuex vært det klare valget for denne oppgaven, men fremover vil det nok komme flere alternativer. Evan You selv anbefaler selv å bruke Pinia fremover.","- Enkel og grei håndtering av state
+- Gode debuggingsmuligheter i Devtools","- Verbost
+- I Vue 3 er det ikke Vuex som anbefales lenger, men Pinia.","Skjema, Dataspeilet, Min side"
+Vue,Programmering,BRUK,FALSE,"Vue er et open source JavaScript rammeverk laget for å utvikle websites eller web apps. Vue kan brukes til alt fra kjapp prototyping til store applikasjoner. 
+
+Rammeverket er enkelt å ta i bruk, bruker et HTML templating system, og har god dokumentasjon. Vues kjerneteam står bak tooling og støtterammeverk, og gjør med det at utviklere har en mer ensartet måte å utvikle løsninger på. Men også litt mindre frihet. Dette gjør at det er lett å hoppe fra en vue app til en annen.
+
+Vue blir stadig mer populært, men ligger godt bak React. Selv om disse to ligner på hverandre er det også en del forskjeller.
+
+Vue 3 er en vesentlig oppgradering som er standard fra februar 2022. Mange forbedringer, og også mulighet til å velge ""gamle"" måten å kode Vue-apps på eller den nye, mer fleksible måten å gjøre ting på.","- Oppleves som enklere enn React
+- Separasjon av markup, styling og funksjon med Single File Components
+- Options API (som var eneste valget i v2 tidligere) krevde en svært ensartet måte å lage komponenter på, noe som gjorde at apper ble veldig laget på noenlunde samme måte. Gjorde det enkelt å gå mellom apper som utvikler.
+- Vue 3 gir bl.a større muligheter til deling av kode mellom komponenter og større frihet som utvikler","- Kan ikke bruke Typescript i templates i Vue 2, dette er nå enklere i versjon 3","Dataspeilet, Skjema, Min side, Dataplattform"
+Java,Programmering,VURDER,FALSE,"Java er et statisk typet objektorientert programmeringsspråk. Kompileres til bytekode som kjører på en virtuell maskin (JVM). Språket og JVMen er solid og økosystemet er kjemperikt, men språket begynner å bli stort. Moderne Java har tatt til seg mye bra fra JVM-økosystemet (f.eks. features fra Kotlin og Scala) og har en hyppigere oppdateringsfrekvens.","- Solid plattform
+- Rikt økosystem
+- Mange nye features i nyere versjoner
+- Lett tilgang på mye kompetanse","- Tregere adopsjon av nye konsepter enn f.eks. Kotlin
+- Tradisjonelt mye boilerplate
+- Anses som litt ""kjedelig""
+- Treg oppstartstid, ikke like egnet til f.eks. serverless eller kommandolinje",Dataplattform
+Golang,Programmering,VURDER,FALSE,"Go er et moderne statisk typet og kompilert lavnivåspråk. Innebygget støtte for lettvekts ""tråder"" og synkronisering mellom de (goroutines og channels). Bra alternativ for å lage f.eks. kommandolinjeverktøy. Pakker applikasjon som én binærfil som enkelt kan distribueres. Støtter krysskompilering mot andre plattformer.","- Kjapt (kompilering og kjøretid)
+- ""Batteries included"" (bygg, testing, formattering, osv.)","- Lavnivå (C-ish)
+- Har ikke klasser og arv","Kjøremiljø, Veiviser"
+Express.js,Programmering,BRUK,FALSE,Express.js er en asynkron webserver bygget på node.js. Veldig bra å bruke hvis du vil skrive backend i javascript. ,,,"Veiviser, Skjema, Dataspeilet"
+OpenAPI for API dokumentasjon,Programmering,BRUK,FALSE,"Stardard for dokumentasjon av APIer med moden verktøystøtte i flere språk. Mulighet til å genere API med eller uten klienter fra spesifikasjon. Noen webrammeverk lar deg gå andre veien og generere spesifikasjonen fra kode. 
+
+Standarden krever kun at man dokumenterer struktur på APIer og dataformater (syntaks), dette bør berikes med eksempler og beskrivelser på f.eks. gyldige verdier (semantikk).","- Etablert standard
+- God verktøystøtte for automatisk genering av kode både med og uten klienter
+","- Ktor-støtte er i beta
+- Ofte dårlig dokumentasjon av bruk av APIet og gyldige verdier (semantikk)","Booking, Barnehagepris, Dataplattform"
+Knockout.js,Programmering,AVSTÅ,FALSE,Knockout er en javascript implementasjon av Model-View-ViewModel patternet med bruk av templates. ,,,Skjema
+Redux,Programmering,BRUK,FALSE,"Redux er global statehåndtering i større Single Page applikasjoner. Redux består av tre deler en global state, actions som kan utløse endringer i state og selectors som henter ut data og lytter på state. 
+Det kan være vanskelig å forstå om du skal bruke redux eller du skal bruke use context(hooks). Hvis du ser forenklet på det bruker du hooks for å ungå prop drilling, Redux bruker du for global state håndtering. 
+Redux kan være komplekst, men det løsere en enda med kompleks problemstiling på en enkel måte. Det anbefales å bruke redux toolkit når du tar i bruk redux. ",Gjør det lettere å debugge endringer i state i kompleks apper. Samler logikk en plass og gjør den testbar. ,Redux er kompleks å forholde seg til i seg selv.,Booking
+Kotlin,Programmering,BRUK,FALSE,"Kotlin er et statisk typet objektorientert programmeringsspråk utviklet av JetBrains (som lager IntelliJ IDEA). Støtter flere plattformer, blant annet Java VMen, Android og Javascript. Fokus på å være konsist, trygt og uttrykkskraftig. Har for eksempel bedre håndtering av ""null""-verdier enn Java og god støtte for asynkrone programmer (coroutines) og funksjonell programmering.","- Kompatibelt med Java og JVMen (biblioteker osv.)
+- Mindre boilerplate
+- Tryggere kode (null-håndtering, osv.)
+- God støtte for funksjonell programmering","- Økosystem og biblioteker fortsatt noe umodent, kan være bedre å lene seg på Java-bibliotek heller enn ""Kotlin native"" alternativer
+- Bundet til IntelliJ ?
+- Treg oppstartstid, ikke like egnet til f.eks. serverless eller kommandolinje","Booking, Skjema, Dataplattform, Barnehagepris, Legevaktmottak"
+Ktor,Programmering,VURDER,FALSE,Ktor er et rammeverk for å lage asynkrone HTTP klienter og servere i Kotlin. Fint til for eksempel REST APIer.,,- Asynkron programmeringsmodell kan være uvant for mange?,Booking
+Ktorm,Programmering,VURDER,FALSE,Ktorm er et ORM rammeverk for Kotlin. Tilbyr en sterkt typet SQL DSL.,"- Lettvekts
+- Sterkt typet SQL",,Booking
+Scala,Programmering,AVSTÅ,FALSE,"Scala er et hybrid objektorientert og funksjonelt programmeringsspråk. Kjører på JVMen eller Javascript. Scala 3.0 rydder opp i en del av kompleksitetene, og tilbyr også renere syntaks.","- Veldig rikt collections API
+- God på funksjonell programmering og immutability","- Komplekst språk
+- Treg kompilering","Min side, Skjema, Proaktive meldinger"
+Nuxt,Programmering,VURDER,FALSE,"Nuxt er et rammeverk bygget på toppen av Vue. som gjør at man kan lage Universal Apps med støtte for ulike rendering modes, automatisk generering av routes, SEO muligheter, osv. Kan si at Nuxt er Next.js for Vue.
+
+Nuxt har vi ikke kjempegod erfaring med på kjørende applikasjoner. Det fungerer ofte godt i starttilfellene, men etterhvert som applikasjoner øker i kompleksitet klarer ikke Nuxt å holde følge. Derimot har vi god erfaring med Nuxt til generering av statiske sider.
+
+Nuxt 3 er en storomskriving som har Vue 3 i bunn, hvor de har tatt store grep for å imøtekomme kritikken rundt versjon 2. Mye lettere, raskere, bedre tooling, Webpack 5 eller Vite, TypeScript og ESM ut av boksen. Incremental Static Generation er også interessant.","- Kjapt å komme igang
+- Pre-rendering av sider
+- God struktur av kode
+- Aktiv community
+- Store forbedringer i Nuxt 3","- Skalerer dårlig med kompleksitet.
+- Kan være vanskelig å integrere med tester.
+- En del black box funksjonalitet som kan være frustrerende
+- Server vs klientside kode er ikke åpenbart, og krever en del erfaring","Dataplattform, Min side"
+Spring Framework,Programmering,VURDER,FALSE,"Spring er en samling av flere moduler med et stort spenn av funksjonalitet f.eks. IoC-rammeverk, datatilgang, webserver, integrasjoner og sikkerhet. IoC-rammeverket er en gammel traver og har mye god funksjonalitet bygget inn, men kan av og til være vanskelig å følge kodeflyten til og kan innføre litt rare bugs. Community rundt Spring er stort og det er mye hjelp å få. ","- Effektiv IoC
+- Godt dokumentert
+- Raskt oppsett av applikasjon (convention over configuration)
+- Ok defaults.
+- Stort spenn i omfang på moduler","- Tungt (treg oppstart?)
+- Mange avhengigheter
+- Kan være vanskelig å debugge noen type problemer. 
+- Stort spenn i omfang på moduler","Datplattform, Skjema, Min side, Barnehagepris"
+Python,Programmering,BRUK,FALSE,Python er et høynivå objektorientert programmeringsspråk. Dynamisk typet og intepretert (ikke kompilert). Skalerer fra enkle scripts til større applikasjoner. ,"- Lett å sette seg inn i
+- Rask oppstart, egner seg bra til f.eks. Serverless
+- Rikt standardbibliotek og økosystem","- Fragmentert tooling
+- Ikke så god på funksjonell programmering (klønete syntaks m.m.)","Dataspeilet, Dataplattform"
+FastAPI for REST API,Programmering,VURDER,FALSE,"FastAPI er et moderne og raskt web rammeverk for Python. Egner seg godt til å bygge f.eks. REST APIer. Gode løsninger for å dokumentere APIet i koden og generere API-spesifikasjon basert på dette. Kan deployes i AWS Lambda ved å bruke Mangum adapter.
+
+Dataplattform har veldig god erfaring med å bruke FastAPI for å bygge sine REST API som deployes i Lambda. Det gir et godt lokalt utviklingsmiljø i tillegg til at den passer godt inn i kjøremiljøet.","- God støtte for dokumentasjon av API (OpenAPI)
+- Integrert visning og utforsking av API-dokumentasjon (SwaggerUI)",- Noen utfordringer med asynkron Python-kode i AWS Lambda?,Dataplattform
+Nextjs,Programmering,VURDER,FALSE,Nextjs er serverrendret react. Det er godt støttet og skalerer godt med kompleksiteten på applikasjonen.,"- Rask oppstart
+- Godt dokumentert
+- Stort community","- Tar noen grunnleggende valg for deg (f.eks. routing og SSR/SSG), som senere kan komme i veien dersom du trenger fullstendig kontroll. F.eks. vanskelig å sette opp page transition mellom sider som er statisk generert og sider som er dynamisk generert.",Veiviser
+Storybook,Programmering,VURDER,FALSE,"Verktøy for å bygge, dele og teste ut UI-komponenter. Ikke noe for alle kodebaser, det bør ha en tydelig usecase","- Aktiv community
+- Mange plugins","- Mange døde plugins
+- Skalerer dårlig","Dataplattform, Min side"
+Jest,Programmering,BRUK,FALSE,Trenger du en testrunner for JS så har vi god erfaring med Jest,,,"Dataplattform, Veiviser, Skjema, Dataspeilet"
+GraphQL,Programmering,VURDER,FALSE,"GraphQL kan være et kraftig verktøy for å lage gode API på toppen av relasjonelle systemer, men vær varsom på at det kan komplisere klientkoden noe og kan ta litt tid å bli vant til","- Klient bestemmer hvilke felter som skal hentes
+- Endringer i klient krever sjeldnere endringer på server / i endpoints
+- Veldig fleksibel måte å jobbe på
+- Visuell måte å finne data på med GraphiQL","- Mer komplisert klientkode
+- Mer jobb å optimalisere tunge spørringer på server","Veiviser, Min side "
+React,Programmering,BRUK,FALSE,"Et javascriptbibliotek som brukes til å lage Single Page applikasjoner. React fungerer bra til større applikasjoner, og er det mest populære single page applikation rammeverket. 
+For og komme i gang med react kan det være lurt å starte med create react app. ","Ekstremt populært. 
+Enkelt å sette seg inn i. 
+Veldig fleksibelt. 
+Det finnes mye 3 parts biblioteker som støtter react.","Er bare et UI bibliotek, ikke et rammeverk. Mye må konfigureres selv, for eksempel routing og stathåndtering.
+Ikke alle er like fornøyd med JSX.
+","Booking, Veiviser, Barnehagepris, Legevaktsmottak"
+Typescript,Programmering,BRUK,FALSE,Typescript er javascript med sterke typer. Det hjelper prosjekter og skalere å kjører en statisk sjekk av koden din i sanntid. ,"Gjør javascript om til et statisk typet språk.
+Hindrer bugs.
+Gjør det lettere og vedlikeholde og utvide applikasjoner. 
+","Er mer komplekst å sette seg inn i enn bare javascript.
+Du må transpilere kildekoden din om til javascript.
+Har tidligere hatt noen utfordring med Vue og templating som har hindret enn i å få full uttelling, men dette utbedres stadig i nyere versjoner av Vue.","Booking, Veiviser, Skjema, Dataspeilet, Dataplattform"
+Cypress,Programmering,BRUK,FALSE,"Alt-i-ett ende-til-ende testverktøy i Javascript. Godt egnet for smoketests. Utviklernært og god tooling. Høyt på testpyramiden, så egner seg ikke for omfattende testsuiter. Mer brukervennlig enn Selenium. ",,,"Dataplattform, Skjema, Veiviser, Dataspeilet"
+Domain Driven Design,Programmering,BRUK,FALSE,Tilnærming til design av programvare med mål om å modellere programvaren likt foretningsdomenet basert på tett samarbeid med domeneeksperter. Så fort kodebasen treffer in viss størrelse blir god modellering viktig. Domain driven design er en god teknikk for å skape samhandling med tjenestesiden og samtidig videreutvikle modellen i kode.,- Enkelt å ta i bruk deler av teknikken uten å gå overbord,,Oslonøkkelen
+okctl,Plattform,BRUK,FALSE,Okctl er et kommandolinjeverktøy utviklet av Kjøremiljø-teamet for ,,,"Booking, Dataspeilet, Veiviser, Barnehagepris, Skjema"
+,,,FALSE,,,,
+Firebase,Plattform,VURDER,FALSE,"Firebase er en plattform utviklet av Google for å lage mobil- og webapplikasjoner. Har blitt omtalt som backend-as-a-service (BaaS) da de tilbyr flere grensesnitt over HTTP for å gjøre standard backendoppgaver som brukerhåndtering, CRUD-operasjoner på ressurser, messaging og cloud functions",,,Dataspeilet
+Amazon S3 fillagring,Plattform,BRUK,FALSE,"S3 er AWS sin serverless tjeneste for fillagring i sky. Tilbyr høy grad av skalerbarhet, tilgjengelighet og holdbarhet (durability). Den fremstår ofte som et filsystem, men er egentlig et objektlager (key-value store) og støtter derfor ikke operasjoner som å endre navn på ""kataloger"" eller filer eller å flytte disse. Betaler for mengden data lagret i S3 og antall API-kall pluss datatrafikk ut til Internett.","- Skalerbart
+- Billig",- Ikke et ordentlig filsystem (mangler f.eks. move),"Dataplattform, Skjema, Veiviser, Proaktive meldinger"
+Amazon SQS kø,Plattform,BRUK,FALSE,"SQS er Amazon sin serverless tjeneste for meldingskøer for asynkron kommunikasjon mellom tjenester. Brukes ofte for å håndtere hendelser fra AWS-tjenester, f.eks. S3. Betaler for API-kall og datatrafikk ut til Internett.","- Skalerbart
+- Billig
+- Tilbyr FIFO-køer",- Kapasitetsbegrensning for FIFO?,"Dataplattform, Proaktive meldinger"
+Amazon SNS topics,Plattform,BRUK,FALSE,"SNS er Amazon sin serverless tjeneste for mange-til-mange publisering av og abonnering på hendelser (pub/sub). Brukes ofte sammen med SQS for meldinger som skal håndteres av flere konsumenter uavhengig av hverandre. Betaler for API-kall og bl.a. levering av meldinger til e-post, SMS og HTTPS-endepunkter.","- Skalerbart
+- Billig
+- Tilbyr FIFO-topics",- Kapasitetsbegrensning for FIFO?,"Dataplattform, Proaktive meldinger"
+AWS EKS k8s,Plattform,VURDER,FALSE,AWS sin managed tjeneste for Kubernetes (k8s) clustere. Basis for kjørmiljø satt opp med okctl.,,,"Veiviser, skjema, kjøremiljø, Minside, Barnehagepris"
+AWS Fargate (ECS) ,Plattform,VURDER,FALSE,"Tjeneste for ""serverless"" kjøring av Docker-containere. Tilsvarende AWS Lambda for kjøring av containere istedenfor enkeltfunksjoner.",- 100% managed plattform,- Kan fås ut av boksen vha okctl (bakom Kubernetes),"Dataplattform, Skjema, Dataspeilet"
+Amazon API Gateway,Plattform,BRUK,FALSE,"API Gateway er en tjeneste for å eksponere forskjellige AWS-tjenester som APIer, f.eks. lage et REST API mot en Lambda-funksjon.",- Skalerbart,,"Dataplattform, Proaktive meldinger"
+AWS Lambda,Plattform,BRUK,FALSE,"Lambda er en plattform for å kjøre funksjoner, eller Function-as-a-Service (FaaS). Lambda er serverless og skalerer tjenestene etter behov. Ved å pakke f.eks. et REST API som en funksjon så kan man deploye den som én Lambda (se FastAPI). Man betaler per kall på funksjonene og CPU-tid og minne brukt.","- Skalerbart
+- Billig
+- Støtter mange språk (Python, JS, Go, Java/JVM, m.fl.)","- Cold start (delay på oppstart)
+- Kort timeout for HTTP kall
+- Begrenset størrelse på Lambda pakker (250MB)","Dataplattform, Dataspeilet, Skjema, Barnehagepris, Proaktive meldinger"
+Terraform,Plattform,BRUK,FALSE,"Konfigurasjonsspråk og -verktøy for å beskrive og provisjonere infrastruktur og tjenester i forskjellige skyløsninger (Infrastructure as Code), inkludert AWS. Konfigurasjonen skrives i HCL.","- Lett å lære
+- Oversiktlig
+- Mer uttrykkskraft i HCL enn i CloudFormation (YAML/JSON)",okctl bør være foretrukket som standard for teamene,"Dataplattform, veiviser, Proaktive meldinger, Kjøremiljø, Skjema studio"
+CloudFormation,Plattform,VURDER,FALSE,AWS sitt konfigurasjonsspråk og -verktøy for å beskrive og provisjonere infrastruktur og tjenester i AWS (Infrastructure as Code). Konfigurasjonen kan skrives i JSON eller YAML.,"Kjøres med AWS CLI
+Templates for å gi tilgang mellom kontoer
+Tjenester som oppretter infrastruktur med f.eks. boto",- JSON eller YAML ;-),"Barnehagepris, Dataplattform, Skjema, Kjøremiljø"
+Kinesis eventstrømmer for sanntidsdata,Plattform,BRUK,FALSE,"Kinesis er AWS sin plattform for distribuert prosessering av datastrømmer, som f.eks. sanntidsdata og hendelser (eventer), tilsvarende Apache Kafka.",Koblinger mot andre AWS datakilder + sinks (?) ,"- Begrenset lagringtid (1/7 dager)
+- Kan ikke replaye events, slik som Kafka kan.
+- Høyere latency enn Kafka (10-20 ms)",Dataplattform
+Amazon OpenSearch Service,Plattform,BRUK,FALSE,"OpenSearch er AWS sin fork av Elasticsearch, et verktøy for lagring av og søk i store datamengder. Brukes bl.a. til logg-analyse, fulltekst-søk, tidsseriedata, osv. Dette er en ""managed"" versjon av Elasticsearch, dvs. at AWS tar seg av servere, oppsett, patching, backup, osv.
+
+AWS-tjenesten inkluderer Kibana for visualisering og utforsking av logg-data, samt integrasjon med Logstash for innhøsting av logg-data.",- Kraftig søkeverktøy for logger og andre data,"- Ingen direkte integrasjon med CloudWatch for overføring av logger
+- Blir fort dyrt (flere servere i cluster)","Dataplattform, Dataspeilet"
+MongoDB Atlas,Plattform,VURDER,FALSE,"MongoDB Atlas er en NoSQL dokumentdatabase som tilbys på flere skyplattformer (AWS, Google, Azure, m.fl.).",,,Skjema
+AWS Aurora for Postgres,Plattform,BRUK,FALSE,"RDS er AWS sin løsning for managed relasjonsdatabaser, dvs. at Amazon tar seg av servere, oppsett, patching, backup, osv. 
+
+Aurora er AWS sin egen databasemotor som er kompatibel med Postgres og MySQL og tilbyr mange avanserte løsninger for ytelse, skalering, tilgjengelighet, osv.","- Høyere ytelse enn ren Postgres
+- Tilbyr autoskalering
+- Kontinuerlig inkrementell backup","- Tilbyr ikke alle features fra nyeste Postgres?
+- Hvis man har lave ytelseskrav så tilbyr vanlig RDS Postgres billigere maskinvare","Dataplattform, Veiviser, Booking, Barnehagepris"
+DynamoDB,Plattform,BRUK,FALSE,"DynamoDB er et NoSQL key-value store og objektdatabase. Den er fullt administrert av AWS (serverless) og man betaler for reservert kapasitet (skrive/lese-operasjoner per sekund).
+
+Støtter in-memory cache med DynamoDB Accelerator (DAX) og prosessering av endringer i databasen via DynamoDB Streams.",,"Egner seg ikke for relasjonelle data
+Trygt hvis du skal aggregere mye og fritt","Dataplattform, Proaktive meldinger"
+Bazel,DevOps,VURDER,FALSE,"Bazel er et byggeverktøy utviklet av Google. Det håndterer mange programmeringsspråk bl.a. Go, Java og JavaScript (ikke så godt), etc.  Mest hensiktsmessig for store Monorepo-er som inneholder mange applikasjoner gjerne i ulike programmeringsspråk. ",- Støtter bygging av monorepo med hetrogene teknologier,"- Monorepo
+- Komplisert og mangelfull Javascript-støtte",Veiviser
+Make,DevOps,BRUK,FALSE,Byggeverktøy for å kjøre forskjellige jobber i forskjellige deler av livssyklusen til applikasjoner.,,,"Dataplattform, Min side, Veiviser, Kjøremiljø"
+Shell-scripting,DevOps,BRUK,FALSE,Shell-scripting med Bash (eller zsh eller lignende) er et nyttig verktøy for å skape lim i forskjeller deler av livssyklusen til applikasjonen.,,,"Dataplattform, Skjema"
+Rollbar,DevOps,VURDER,FALSE,"Rollbar er et verktøy som tracker feil i front-end (og back-end) applikasjoner og rapporterer disse til en skyløsning for analyse, varsling og oppfølging. Mulighet for å sette opp varsler f.eks til Slack. ","- Enkelt å ta i bruk
+- Mange integrasjoner","- Data sendes til skyløsning, så medfører ekstra ansvar rundt håndtering av persondata ",Veiviser
+Grafana,DevOps,BRUK,FALSE,"Grafana er et web-basert verktøy for analyse og interaktiv visualisering av metrikker, traces og logger. Støtter en rekke datakilder, og har et levende økosystem for deling av dashboards. Er sammen med Loki og Tempo en del av grunnoppsettet i OKCTL.","- Ut av boksen med okctl
+- God integrasjon med Prometheus og Loki
+- Levende økosystem for deling av dashboards
+- God støtte for integrasjoner",,"Dataplattform, Veiviser, Booking, Min side"
+Loki,DevOps,BRUK,FALSE,"Loki er et logg-aggregeringssystem inspirert av Prometheus. Loki indekserer ikke innholdet i loggene, men instedet et predefinert sett med labels for hver loggstrøm. Utvikles under Grafana-paraplyen og passer godt med Grafana. Er satt opp i OKCTL med innsending av loggstrømmer fra poddene gjennom Promtail. ","- Ut av boksen med okctl.
+- Smidig indeksering av loggestrømmen.
+- Fin og enkel loggehåndtering
+","- Må definere labels (indekser) på forhånd for effektivt søk.
+","Booking, Barnehagepris, Veiviser, Kjøremiljø"
+Kibana (ELK),DevOps,VURDER,FALSE,"Kan vises eksternt med f.eks. en dashboard-bruker, i motsetning til CloudWatch dashboards (krever innlogget AWS-bruker).","Effektivt og kraftig søk i logger.
+Dashboards for visualisering av data og metrikker hentet ut fra logger (lett å sette opp).
+Kan indeksere strukturerte logger (JSON).
+AWS tilbyr managed løsning.","Ikke en del av okctl
+Elastic og AWS er ""uvenner""
+","Dataplattform, Min side, Dataspeilet, Skjema"
+Strukturerte logger,DevOps,VURDER,FALSE,"Logg ett strukturert (JSON) event per tjenestekall med all informasjon om kallet og behandlingen av det (input parametere, domene-id'er, metrikker for kall på baksystemer, osv.). Se https://charity.wtf/2019/02/05/logs-vs-structured-events/","Samler all informasjon om et tjenestekall i ett event.
+Trenger ikke å sammenstille separate logglinjer for å gjenskape hva som har skjedd.
+Lar deg gjøre rike spørringer på hvordan systemet oppfører seg.
+Kan brukes som basis for å utlede metrikker og traces.","Krever egne biblioteker/løsninger for å bygge opp strukturerte logger.
+Krever logg-verktøy som håndterer søk i strukturerte eventer, f.eks. Elasticsearch + Kibana. ",Dataplattform
+Serverless Framework,DevOps,BRUK,FALSE,"Verktøy for å forenkle bygg og deploy av serverless applikasjoner på forskjellige plattformer, f.eks. AWS Lambda.","Godt økosystem, mange plugins og støtte for mange språk (Python, Java/Kotlin, Javascript, Go).
+Støtter mange skyplattformer, inkludert Kubernetes.
+Enkelt å teste lokalt(?)
+Lettvekt.",Må vurdere sikkerhet til plugins (ekstern kode).,"Dataplattform, Proaktive meldinger, Min side, Dataspeilet"
+Statisk kodeanalyse,DevOps,BRUK,FALSE,"En gruppe verktøy som analyserer kildekode for å finne f.eks. sårbarheter, bugs og code smells utfra predefinerte regelsett. Vil ofte også vise dekningsgrad av enhetstester, kode-kompleksitet og duplisert kode. Kan kjøres enkeltvis eller som en del av byggelinje. Kan også settes opp med feil- og sukesskriterier basert på metrikker fra analysen. Eksempler er:  SonarQube, Mypy, flake8 (Python)","- Lett å sette opp som del av byggepipeline, f.eks. CodeQL (Github action).
+- Fint utgangspunkt for diskusjoner rundt test-dekning, kompleksitet, etterlevelse av predefinerte regelsett","- Kan ta lang tid i byggepipeline.
+- CodeQL støtter ikke Kotlin per nå
+- Bør brukes som et verktøy, og ikke for absolutte grenser eller total indikator av kvalitet","Dataplattform, Dataspeilet"
+Github Actions,DevOps,BRUK,FALSE,"GitHub Actions er en CI/CD plattform på GitHub og følgelig tett integrert der. Muliggjør runs av workflows på en runner basert på events. Disse workflowene kan settes sammen av en rekke actions (ofte utviklet av tredjepart), men kan også være egentuviklede actions eller shell-kommandoer. ","- Ett sted mindre å være
+- Enkel læringskurve
+- Lokal testing (med ngrok)
+- Stort økosystem (tilgjengelige actions)","- Må vurdere hvilke eksterne actions som er trygge å bruke (og pinne versjoner).
+- Vanskelig å debugge en action.",Alle
+JitPack,DevOps,VURDER,FALSE,On-demand bygging og publisering av JVM-biblioteker fra Github. Alternativ til Nexus.,Lett å sette opp. Gratis for åpen kildekode.,,Dataplattform
+,,,FALSE,,,,
+Passord manager,Sikkerhet,BRUK,FALSE,Ulik praksis på mange team og flere som rapporterer at de bruker egen privat passord manager. Spørsmål om hvorfor det har tatt så lang tid å bli enige om å velge en felles for Origo.,"Kortlevde tilgangsnøkler, 
+Sikker deling av hemmeligheter",,"Helsedata,
+Kjøremiljø, Dataplattform"
+"AWS Parameter Store,
+AWS Secrets manager",Sikkerhet,BRUK,FALSE,"Passer til ulike behov, er det lurt med en guide for når team burde benytte den ene over den andre?","- Integrert med okctl og k8s-clusteret gjennom External Secrets
+- Secrets Manager tilbyr automatisk rotering",,"Dataplattform,
+Proaktive Meldinger,
+Barnehagepris, 
+Helsedata,
+Kjøremiljø"
+AWS Key Management Service (KMS),Sikkerhet,BRUK,FALSE,"Tjeneste for administrasjon og bruk av krypteringsnøkler, f.eks. for kryptering av data som lagres i Amazon S3.",,,Dataplattform
+Github Advanced Security,Sikkerhet,BRUK,FALSE,"Med GitHub Advance Security aktiveres ekstra funksjonalitet med: 
+- Code scanning: søker for potensielle sikkerhetssårbarheter og kodefeil i kildekoden. 
+- Secret scanning: Detekterer nøkler og tokens so har feilaktig blitt sjekket inn i repositoriet. 
+- Dependency review: Gjennomgang av avhengigheter, og detaljer på sårbare versjoner.",,,"Dataspeilet,
+Veiviser,
+Proaktive Meldinger,
+Dataplattform,
+Skjema,
+Barnehagepris"
+Spring Security,Sikkerhet,VURDER,FALSE,Omfattende sikkerhetsrammeverk som er naturlig å bruke i Spring-applikasjoner som har sikkerhetsbehov. Team som bruker opplever at det har en læringskurve og er omfattende men også er et godt rammeverk,"- Sikkerhet-by-default
+- Integrasjoner mot mange teknologier og mekanismer",- Omfattende og mye å sette seg inn i,"Skjema,
+Barnehagepris"
+Zero Trust,Sikkerhet,BRUK,FALSE,"Sikre alle enkeltkomponenter f.eks. ved å ikke stole på noe bare fordi det kommer fra en bestemt lokasjon, permitersikring.
+
+Oppfatningen er at vi bør strekke oss mot prinsipper for Zero Trust, men usikkerhet rundt hvor langt denne jobben er kommet i Oslofelles nettverk.","- begrenser konsekvenser ved kompromittering
+- gjeldende best-practice","- Kan fort bli dyrt eller omstendelig å bruke
+- Krever endringer hos de som skal ta tjenestene våre i bruk",
+FIDO2 / MFA,Sikkerhet,BRUK,FALSE,"Multi-faktor autentisering (noe du vet, noe du har, noe du er) er et enkelt og effektivt tiltak for å sikre kontoer. De fleste innloggingsflater støtter MFA. Positive til å utforske mulighetene for bruk av fysisk device slik som Yubikey. ",- Enkelt og effektivt tiltak for å sikre kontoer,"- Litt mer tungving innlogging, vurder om det passer for tjenester man kun bruker i test
+- Noe teknologi støtter ikke MFA
+- Krevende der man deler kontoer f.eks. ved systemkonto","Proaktive Meldinger,
+Min Side,
+Alle Crayon AWS kontoer"
+OWASP ZAP,Sikkerhet,BRUK,FALSE,"Sanntid scanneverktøy i hovedsak for webapplikasjoner. Gratis og open source. Knyttet til Open Web Application Security Project, som er en autoritativ kilde på websikkerhet. Ingen team har ført opp at de bruker dette. ",- Gratis og fra kjent organisasjon,,
+AWS Security Hub,Sikkerhet,BRUK,FALSE,"Sikkerhetsprodukt fra AWS. Gir en oversikt over sikkerhetsstatus i miljøet opp mot best-practice og industristandarder
+
+","- Godt integrert med AWS og forskjellige produkter på plattformen
+- Gir en score for benchmark
+- Rapporteren gir en prioritert liste over utfordringer, samt lenke til side med guide for fiks",- Dekker ikke alt rundt sikkerhet. Brukere bør sette seg inn i security hub sitt ansvarsområde,"Helsedata, 
+Barnehagepris"
+Gatekeeper,Sikkerhet,BRUK,FALSE,"Open Source prosjekt for å abstrahere bort noen av detaljene ved å støtte OAuth autentisering i en web applikasjon. Gode erfaringer hos de som bruker den, men spørsmål rundt om vi kan bruke bibliotek med høyere aktivitet ",,"Egenprodusert kode for sikkerhet, finnes det andre alternativ?",Dataplattform
+Microsoft AD,Sikkerhet,BRUK,FALSE,,Slipper å bruke Keycloak,,Dataspeilet
+Keycloak (UKE),Sikkerhet,VURDER,FALSE,Keycloak er et system for identitets- og tilgangsstyring (IAM). I Oslo Kommune har UKE koblet Keycloak mot ID-Porten for innbyggerpålogging og PRK/AD for ansattpålogging.,"- Synk med Oslo Kommune AD (PRK?)
+- Synk med ID-Porten
+-  Self-service for opprettelse av klienter","- Ustabil drift
+- Team har ikke tilgang til konfigurasjon
+- Begrenset self-service","Dataspeilet,
+Booking,
+Min Side,
+Dataplattform,
+Veiviser,
+Barnehagepris,
+Skjema"
+OAuth2 / OIDC,Sikkerhet,BRUK,FALSE,"OAuth2 og OIDC er standarder for autorisering og autentisering. Muliggjør innlogging gjennom autorisasjonsserver uten at tjenesten mottar brukernavn og passord fra bruker. Har flere flyter for forskjellige bruksscenario (f.eks. tjenestebruker, single page applications)","- Begrense spredning av passord og brukernavn
+- Best-practice og etablert standard",,"Veiviser,
+Barnehagepris,
+Helsedata"
+AWS Cognito,Sikkerhet,BRUK,FALSE,Amazon Cognito tilbyr brukerhåndtering og tilgangskontroll for applikasjonsbrukere. Kan ha egen user pool eller integrere med tredjepartsløsninger. Tilbyr standard OAuth2/OIDC endepunkt for å brukes som autorisasjonsserver. Kan også brukes til å gi tilgang til AWS-tjenester (utenfor IAM-brukere). ,"- AWS sin tjeneste for user pool
+- Mulighet for teamene å eie egne bruker pool","- Ingen synk med Oslo Kommune AD ut av boksen
+- Ingen synk på tvers av pools i forskjellige AWS-kontoer","Barnehagepris,
+Proaktive meldinger,
+Skjema,
+Veiviser"
+AWS Cloudwatch,Sikkerhet,BRUK,FALSE,"AWS sin tjeneste for overvåkning av tjenester og applikasjoner i AWS gjennom innsamling, analyse og visualisering av logger, metrikker og hendelser.",Alarmer på AWS infrastruktur,Dårlig UI,"Proaktive Meldinger,
+Dataplattform"
+Snyk,Sikkerhet,VURDER,FALSE,"Samling av verktøy og ressurser for statisk sikkerhetstesting av kode og containere. Integrasjoner mot byggeverktøy, kode- og container repository og IDE. Snyk har også verktøy sjekk av dependencies, IAC og etterlevelse av lisenser. ","Kategoriserer risiko godt i høy, medium og lav alvorlighetsgrad",,
