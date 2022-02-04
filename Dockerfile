@@ -1,12 +1,20 @@
-FROM node:10.15.3 as source
+FROM node:17.4.0
+
+RUN apt-get update && apt-get upgrade -y
+
+RUN                                                                       \
+  apt-get install -y                                                      \
+  libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3    \
+  libxss1 libasound2 libxtst6 xauth xvfb
+
+WORKDIR /temp-dir-for-python2-setup
+RUN                                                                       \
+  apt-get install -y python                                               \
+  && curl -sSL https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py \
+  && python get-pip.py
+
 WORKDIR /src/build-your-own-radar
 COPY package.json ./
 RUN npm install
 COPY . ./
-RUN npm run build
-
-FROM nginx:1.15.9
-WORKDIR /opt/build-your-own-radar
-COPY --from=source /src/build-your-own-radar/dist .
-COPY default.template /etc/nginx/conf.d/default.conf
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["npm","run","dev"]

@@ -42,3 +42,25 @@ describe('Validate search', function () {
     radarPage.validateBlipSearch()
   })
 })
+
+describe('Build radar with csv', function () {
+  it('validate csv file', function () {
+    cy.visit(Cypress.env('host'))
+    byorPage.provideCsvName()
+    byorPage.clickSubmitButton()
+    radarPage.clickTheBlipFromInteractiveSection()
+    radarPage.clickTheBlip()
+    radarPage.validateBlipDescription('test')
+  })
+})
+
+describe('Build radar with json', function () {
+  it('validate json file', function () {
+    cy.visit(Cypress.env('host'))
+    byorPage.provideJsonName()
+    byorPage.clickSubmitButton()
+    radarPage.clickTheBlipFromInteractiveSection()
+    radarPage.clickTheBlip()
+    radarPage.validateBlipDescription('test')
+  })
+})

@@ -1,7 +1,9 @@
 header {
   text-align: center;
 
-  .radar-title, .buttons-group, #alternative-buttons {
+  .radar-title,
+  .buttons-group,
+  #alternative-buttons {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -18,7 +20,6 @@ header {
     width: 100%;
 
     .radar-title__text {
-
       display: table-cell;
       width: 70%;
 
@@ -28,7 +29,7 @@ header {
       h1 {
         font-size: 55px;
         font-weight: 900;
-        letter-spacing: -.04em;
+        letter-spacing: -0.04em;
         line-height: 0.8em;
         margin: 0;
         text-transform: uppercase;
@@ -54,13 +55,14 @@ header {
     }
   }
 
-
-  .quadrant-btn--group, .multiple-sheet-button-group {
+  .quadrant-btn--group,
+  .multiple-sheet-button-group {
     text-align: left;
     padding-left: 10%;
   }
 
-  .print-radar-btn, .search-box {
+  .print-radar-btn,
+  .search-box {
     margin-left: auto;
     margin-right: 10%;
   }
@@ -87,7 +89,7 @@ header {
     border-radius: 2px;
     padding: 10px 20px;
     cursor: pointer;
-    transition: all .2s ease-out;
+    transition: all 0.2s ease-out;
 
     background-color: $grey-light;
     color: $black;
@@ -96,10 +98,10 @@ header {
       text-transform: none;
     }
 
-    &:hover, &.selected {
-
+    &:hover,
+    &.selected {
       transform: translate(0, -2px);
-      opacity: .85;
+      opacity: 0.85;
 
       &.first {
         color: white;
@@ -123,7 +125,6 @@ header {
     }
 
     &.full-view {
-
       &.first {
         background-color: $green;
         color: $white;
@@ -168,7 +169,7 @@ header {
     .search-radar {
       border: 1px solid #aaa;
       background-color: inherit;
-      background-image: url("/images/search-logo-2x.svg");
+      background-image: url('/images/search-logo-2x.svg');
       background-repeat: no-repeat;
       background-position: 10px;
     }

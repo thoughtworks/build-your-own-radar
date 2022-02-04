@@ -30,7 +30,7 @@ describe('graphingRadar', function () {
       toolsQuadrant.add([
         new Blip('foo', adopt, true, 'this is foo'),
         new Blip('bar', assess, true, 'this is bar'),
-        new Blip('baz', adopt, true, 'this is baz')
+        new Blip('baz', adopt, true, 'this is baz'),
       ])
 
       var table = new tr.graphing.RefTable(radar)
@@ -38,12 +38,13 @@ describe('graphingRadar', function () {
 
       expect(element.innerHTML).toEqual(
         '<table class="radar-ref-table">' +
-                    '<tr class="radar-ref-status-group"><td colspan="3">Adopt</td></tr>' +
-                    '<tr><td>-1</td><td>foo</td><td>this is foo</td></tr>' +
-                    '<tr><td>-1</td><td>baz</td><td>this is baz</td></tr>' +
-                    '<tr class="radar-ref-status-group"><td colspan="3">Assess</td></tr>' +
-                    '<tr><td>-1</td><td>bar</td><td>this is bar</td></tr>' +
-                '</table>')
+          '<tr class="radar-ref-status-group"><td colspan="3">Adopt</td></tr>' +
+          '<tr><td>-1</td><td>foo</td><td>this is foo</td></tr>' +
+          '<tr><td>-1</td><td>baz</td><td>this is baz</td></tr>' +
+          '<tr class="radar-ref-status-group"><td colspan="3">Assess</td></tr>' +
+          '<tr><td>-1</td><td>bar</td><td>this is bar</td></tr>' +
+          '</table>',
+      )
     })
 
     it('respects the assigned order of rings', function () {
@@ -54,7 +55,7 @@ describe('graphingRadar', function () {
       toolsQuadrant.add([
         new Blip('foo', adopt, true, 'this is foo'),
         new Blip('bar', assess, true, 'this is bar'),
-        new Blip('baz', hold, true, 'this is baz')
+        new Blip('baz', hold, true, 'this is baz'),
       ])
 
       var table = new tr.graphing.RefTable(radar)
@@ -62,13 +63,14 @@ describe('graphingRadar', function () {
 
       expect(element.innerHTML).toEqual(
         '<table class="radar-ref-table">' +
-                    '<tr class="radar-ref-status-group"><td colspan="3">Adopt</td></tr>' +
-                    '<tr><td>-1</td><td>foo</td><td>this is foo</td></tr>' +
-                    '<tr class="radar-ref-status-group"><td colspan="3">Hold</td></tr>' +
-                    '<tr><td>-1</td><td>baz</td><td>this is baz</td></tr>' +
-                    '<tr class="radar-ref-status-group"><td colspan="3">Assess</td></tr>' +
-                    '<tr><td>-1</td><td>bar</td><td>this is bar</td></tr>' +
-                '</table>')
+          '<tr class="radar-ref-status-group"><td colspan="3">Adopt</td></tr>' +
+          '<tr><td>-1</td><td>foo</td><td>this is foo</td></tr>' +
+          '<tr class="radar-ref-status-group"><td colspan="3">Hold</td></tr>' +
+          '<tr><td>-1</td><td>baz</td><td>this is baz</td></tr>' +
+          '<tr class="radar-ref-status-group"><td colspan="3">Assess</td></tr>' +
+          '<tr><td>-1</td><td>bar</td><td>this is bar</td></tr>' +
+          '</table>',
+      )
     })
   })
 })

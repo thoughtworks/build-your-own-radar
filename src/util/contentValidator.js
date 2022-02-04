@@ -2,7 +2,7 @@ const _ = {
   map: require('lodash/map'),
   uniqBy: require('lodash/uniqBy'),
   capitalize: require('lodash/capitalize'),
-  each: require('lodash/each')
+  each: require('lodash/each'),
 }
 
 const MalformedDataError = require('../../src/exceptions/malformedDataError')

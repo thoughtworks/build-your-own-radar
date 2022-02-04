@@ -5,10 +5,7 @@ describe('Blip', function () {
   var blip
 
   beforeEach(function () {
-    blip = new Blip(
-      'My Blip',
-      new Ring('My Ring')
-    )
+    blip = new Blip('My Blip', new Ring('My Ring'))
   })
 
   it('has a name', function () {
@@ -29,21 +26,13 @@ describe('Blip', function () {
   })
 
   it('is new', function () {
-    blip = new Blip(
-      'My Blip',
-      new Ring('My Ring'),
-      true
-    )
+    blip = new Blip('My Blip', new Ring('My Ring'), true)
 
     expect(blip.isNew()).toBe(true)
   })
 
   it('is not new', function () {
-    blip = new Blip(
-      'My Blip',
-      new Ring('My Ring'),
-      false
-    )
+    blip = new Blip('My Blip', new Ring('My Ring'), false)
 
     expect(blip.isNew()).toBe(false)
   })

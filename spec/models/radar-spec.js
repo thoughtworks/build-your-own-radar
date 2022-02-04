@@ -26,7 +26,12 @@ describe('Radar', function () {
     radar.addQuadrant(quadrant)
 
     expect(radar.quadrants()[0].quadrant).toEqual(quadrant)
-    expect(radar.quadrants()[0].quadrant.blips()[0].number()).toEqual(1)
+    expect(
+      radar
+        .quadrants()[0]
+        .quadrant.blips()[0]
+        .number(),
+    ).toEqual(1)
   })
 
   it('sets the second quadrant', function () {
@@ -40,7 +45,12 @@ describe('Radar', function () {
     radar.addQuadrant(quadrant)
 
     expect(radar.quadrants()[0].quadrant).toEqual(quadrant)
-    expect(radar.quadrants()[0].quadrant.blips()[0].number()).toEqual(1)
+    expect(
+      radar
+        .quadrants()[0]
+        .quadrant.blips()[0]
+        .number(),
+    ).toEqual(1)
   })
 
   it('sets the third quadrant', function () {
@@ -54,7 +64,12 @@ describe('Radar', function () {
     radar.addQuadrant(quadrant)
 
     expect(radar.quadrants()[0].quadrant).toEqual(quadrant)
-    expect(radar.quadrants()[0].quadrant.blips()[0].number()).toEqual(1)
+    expect(
+      radar
+        .quadrants()[0]
+        .quadrant.blips()[0]
+        .number(),
+    ).toEqual(1)
   })
 
   it('sets the fourth quadrant', function () {
@@ -68,7 +83,12 @@ describe('Radar', function () {
     radar.addQuadrant(quadrant)
 
     expect(radar.quadrants()[0].quadrant).toEqual(quadrant)
-    expect(radar.quadrants()[0].quadrant.blips()[0].number()).toEqual(1)
+    expect(
+      radar
+        .quadrants()[0]
+        .quadrant.blips()[0]
+        .number(),
+    ).toEqual(1)
   })
 
   it('throws an error if too many quadrants are added', function () {
@@ -84,7 +104,9 @@ describe('Radar', function () {
     radar.addQuadrant(new Quadrant('Third'))
     radar.addQuadrant(new Quadrant('Fourth'))
 
-    expect(function () { radar.addQuadrant(new Quadrant('Fifth')) }).toThrow(new MalformedDataError(ExceptionMessages.TOO_MANY_QUADRANTS))
+    expect(function () {
+      radar.addQuadrant(new Quadrant('Fifth'))
+    }).toThrow(new MalformedDataError(ExceptionMessages.TOO_MANY_QUADRANTS))
   })
 
   it('throws an error if less than 4 quadrants are added', function () {
@@ -99,7 +121,9 @@ describe('Radar', function () {
     radar.addQuadrant(new Quadrant('Second'))
     radar.addQuadrant(new Quadrant('Third'))
 
-    expect(function () { radar.rings() }).toThrow(new MalformedDataError(ExceptionMessages.LESS_THAN_FOUR_QUADRANTS))
+    expect(function () {
+      radar.rings()
+    }).toThrow(new MalformedDataError(ExceptionMessages.LESS_THAN_FOUR_QUADRANTS))
   })
 
   describe('blip numbers', function () {
@@ -109,30 +133,44 @@ describe('Radar', function () {
       firstRing = new Ring('Adopt', 0)
       firstQuadrant = new Quadrant('First')
       secondQuadrant = new Quadrant('Second')
-      firstQuadrant.add([
-        new Blip('A', firstRing),
-        new Blip('B', firstRing)
-      ])
-      secondQuadrant.add([
-        new Blip('C', firstRing),
-        new Blip('D', firstRing)
-      ])
+      firstQuadrant.add([new Blip('A', firstRing), new Blip('B', firstRing)])
+      secondQuadrant.add([new Blip('C', firstRing), new Blip('D', firstRing)])
       radar = new Radar()
     })
 
     it('sets blip numbers starting on the first quadrant', function () {
       radar.addQuadrant(firstQuadrant)
 
-      expect(radar.quadrants()[0].quadrant.blips()[0].number()).toEqual(1)
-      expect(radar.quadrants()[0].quadrant.blips()[1].number()).toEqual(2)
+      expect(
+        radar
+          .quadrants()[0]
+          .quadrant.blips()[0]
+          .number(),
+      ).toEqual(1)
+      expect(
+        radar
+          .quadrants()[0]
+          .quadrant.blips()[1]
+          .number(),
+      ).toEqual(2)
     })
 
     it('continues the number from the previous quadrant set', function () {
       radar.addQuadrant(firstQuadrant)
       radar.addQuadrant(secondQuadrant)
 
-      expect(radar.quadrants()[1].quadrant.blips()[0].number()).toEqual(3)
-      expect(radar.quadrants()[1].quadrant.blips()[1].number()).toEqual(4)
+      expect(
+        radar
+          .quadrants()[1]
+          .quadrant.blips()[0]
+          .number(),
+      ).toEqual(3)
+      expect(
+        radar
+          .quadrants()[1]
+          .quadrant.blips()[1]
+          .number(),
+      ).toEqual(4)
     })
   })
 
@@ -162,10 +200,7 @@ describe('Radar', function () {
     })
 
     it('returns an array for a given set of blips', function () {
-      quadrant.add([
-        new Blip('A', firstRing),
-        new Blip('B', secondRing)
-      ])
+      quadrant.add([new Blip('A', firstRing), new Blip('B', secondRing)])
 
       radar.addQuadrant(quadrant)
       radar.addQuadrant(otherQuadrant)
@@ -176,11 +211,7 @@ describe('Radar', function () {
     })
 
     it('has unique rings', function () {
-      quadrant.add([
-        new Blip('A', firstRing),
-        new Blip('B', firstRing),
-        new Blip('C', secondRing)
-      ])
+      quadrant.add([new Blip('A', firstRing), new Blip('B', firstRing), new Blip('C', secondRing)])
 
       radar.addQuadrant(quadrant)
       radar.addQuadrant(otherQuadrant)
@@ -191,11 +222,7 @@ describe('Radar', function () {
     })
 
     it('has sorts by the ring order', function () {
-      quadrant.add([
-        new Blip('C', secondRing),
-        new Blip('A', firstRing),
-        new Blip('B', firstRing)
-      ])
+      quadrant.add([new Blip('C', secondRing), new Blip('A', firstRing), new Blip('B', firstRing)])
 
       radar.addQuadrant(quadrant)
       radar.addQuadrant(otherQuadrant)

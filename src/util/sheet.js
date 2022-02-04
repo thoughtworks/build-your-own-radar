@@ -4,16 +4,16 @@ const UnauthorizedError = require('../../src/exceptions/unauthorizedError')
 const ExceptionMessages = require('./exceptionMessages')
 
 const Sheet = function (sheetReference) {
-  var self = {};
+  var self = {}
 
-  (function () {
+  ;(function () {
     var matches = sheetReference.match('https:\\/\\/docs.google.com\\/spreadsheets\\/d\\/(.*?)($|\\/$|\\/.*|\\?.*)')
     self.id = matches !== null ? matches[1] : sheetReference
   })()
 
   self.validate = function (callback) {
-    var enableGoogleAuth = process.env.ENABLE_GOOGLE_AUTH || false
-    var feedURL = enableGoogleAuth ? 'https://sheets.googleapis.com/v4/spreadsheets/' + self.id + '?key=' + process.env.API_KEY : 'https://spreadsheets.google.com/feeds/worksheets/' + self.id + '/public/basic?alt=json'
+    var apiKeyEnabled = process.env.API_KEY || false
+    var feedURL = 'https://docs.google.com/spreadsheets/d/' + self.id
 
     // TODO: Move this out (as HTTPClient)
     var xhr = new XMLHttpRequest()
@@ -21,11 +21,11 @@ const Sheet = function (sheetReference) {
     xhr.onreadystatechange = function () {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
-          return callback()
+          return callback(null, apiKeyEnabled)
         } else if (xhr.status === 404) {
-          return callback(new SheetNotFoundError(ExceptionMessages.SHEET_NOT_FOUND))
+          return callback(new SheetNotFoundError(ExceptionMessages.SHEET_NOT_FOUND, apiKeyEnabled))
         } else {
-          return callback(new UnauthorizedError(ExceptionMessages.UNAUTHORIZED))
+          return callback(new UnauthorizedError(ExceptionMessages.UNAUTHORIZED, apiKeyEnabled))
         }
       }
     }
@@ -39,18 +39,22 @@ const Sheet = function (sheetReference) {
   self.getData = function (range) {
     return gapi.client.sheets.spreadsheets.values.get({
       spreadsheetId: self.id,
-      range: range
+      range: range,
     })
   }
 
   self.processSheetResponse = function (sheetName, createBlips, handleError) {
-    self.getSheet().then(response => processSheetData(sheetName, response, createBlips, handleError)).catch(handleError)
+    self
+      .getSheet()
+      .then(response => processSheetData(sheetName, response, createBlips, handleError))
+      .catch(handleError)
   }
 
   function processSheetData (sheetName, sheetResponse, createBlips, handleError) {
     const sheetNames = sheetResponse.result.sheets.map(s => s.properties.title)
     sheetName = !sheetName ? sheetNames[0] : sheetName
-    self.getData(sheetName + '!A1:E')
+    self
+      .getData(sheetName + '!A1:E')
       .then(r => createBlips(sheetResponse.result.properties.title, r.result.values, sheetNames))
       .catch(handleError)
   }

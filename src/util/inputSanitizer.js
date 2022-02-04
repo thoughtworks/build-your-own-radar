@@ -1,15 +1,14 @@
 const sanitizeHtml = require('sanitize-html')
 const _ = {
-  forOwn: require('lodash/forOwn')
+  forOwn: require('lodash/forOwn'),
 }
 
 const InputSanitizer = function () {
   var relaxedOptions = {
-    allowedTags: ['b', 'i', 'em', 'strong', 'a', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'ul',
-      'br', 'p', 'u'],
+    allowedTags: ['b', 'i', 'em', 'strong', 'a', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'ul', 'br', 'p', 'u'],
     allowedAttributes: {
-      a: ['href']
-    }
+      a: ['href'],
+    },
   }
 
   var restrictedOptions = {
@@ -17,7 +16,7 @@ const InputSanitizer = function () {
     allowedAttributes: {},
     textFilter: function (text) {
       return text.replace(/&amp;/, '&')
-    }
+    },
   }
 
   function trimWhiteSpaces (blip) {
