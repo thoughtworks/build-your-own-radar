@@ -112,7 +112,7 @@ Amazon SNS topics,Plattform,BRUK,FALSE,"SNS er Amazon sin serverless tjeneste fo
 - Tilbyr FIFO-topics",- Kapasitetsbegrensning for FIFO?,"Dataplattform, Proaktive meldinger"
 AWS EKS k8s,Plattform,VURDER,FALSE,AWS sin managed tjeneste for Kubernetes (k8s) clustere. Basis for kjørmiljø satt opp med okctl.,,,"Veiviser, skjema, kjøremiljø, Minside, Barnehagepris"
 AWS Fargate (ECS) ,Plattform,VURDER,FALSE,"Tjeneste for ""serverless"" kjøring av Docker-containere. Tilsvarende AWS Lambda for kjøring av containere istedenfor enkeltfunksjoner.",- 100% managed plattform,- Kan fås ut av boksen vha okctl (bakom Kubernetes),"Dataplattform, Skjema, Dataspeilet"
-Amazon API Gateway,Plattform,BRUK,FALSE,"API Gateway er en tjeneste for å eksponere forskjellige AWS-tjenester som APIer, f.eks. lage et REST API mot en Lambda-funksjon.",- Skalerbart,,"Dataplattform, Proaktive meldinger"
+Amazon API Gateway,Plattform,BRUK,FALSE,"API Gateway er en tjeneste for å eksponere forskjellige AWS-tjenester som APIer, f.eks. lage et REST API mot en Lambda-funksjon.",- Skalerbart,"Dataplattform, Proaktive meldinger"
 AWS Lambda,Plattform,BRUK,FALSE,"Lambda er en plattform for å kjøre funksjoner, eller Function-as-a-Service (FaaS). Lambda er serverless og skalerer tjenestene etter behov. Ved å pakke f.eks. et REST API som en funksjon så kan man deploye den som én Lambda (se FastAPI). Man betaler per kall på funksjonene og CPU-tid og minne brukt.","- Skalerbart
 - Billig
 - Støtter mange språk (Python, JS, Go, Java/JVM, m.fl.)","- Cold start (delay på oppstart)
