@@ -53,6 +53,8 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
         blip.topic,
         blip.description,
         blip.pros,
+        blip.cons,
+        blip.usedBy,
       ),
     )
   })
@@ -156,6 +158,29 @@ const CSVDocument = function (url) {
   self.build = function () {
     d3.csv(url).then(createBlips)
   }
+  var createDescription = function (blip) {
+    if (blip.cons === '' && blip.pros === '') {
+      blip.description = '<p>' + blip.description + '<p><b>Brukt av:</b></p><p>' + blip.usedBy + '</p>'
+    } else {
+      blip.description =
+        '<p>' +
+        blip.description +
+        '</p>' +
+        '<p><b>Pros</b></p>' +
+        '<p>' +
+        blip.pros +
+        '</p>' +
+        '<p><b>Cons</b></p>' +
+        '<p>' +
+        blip.cons +
+        '</p>' +
+        '<p><b>Brukt av:</b></p><p>' +
+        blip.usedBy +
+        '</p>'
+    }
+
+    return blip
+  }
 
   var createBlips = function (data) {
     try {
@@ -164,7 +189,8 @@ const CSVDocument = function (url) {
       var contentValidator = new ContentValidator(columnNames)
       contentValidator.verifyContent()
       contentValidator.verifyHeaders()
-      var blips = _.map(data, new InputSanitizer().sanitize)
+      var sanitized = _.map(data, new InputSanitizer().sanitize)
+      var blips = _.map(sanitized, createDescription)
       plotRadar(FileName(url), blips, 'CSV File', [])
     } catch (exception) {
       plotErrorMessage(exception)

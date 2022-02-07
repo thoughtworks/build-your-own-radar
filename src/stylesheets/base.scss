@@ -6,9 +6,29 @@
 @import 'header';
 @import 'footer';
 @import url(https://www.thoughtworks.com/css/k8s_production/screen.css);
+@font-face {
+  font-family: 'Oslo sans';
+  src: url('./fonts/OsloSans-Regular.woff2') format('woff2');
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'Oslo sans';
+  src: url('./fonts/OsloSans-Medium.woff2') format('woff2');
+  font-weight: medium;
+}
+@font-face {
+  font-family: 'Oslo sans';
+  src: url('./fonts/OsloSans-Light.woff2') format('woff2');
+  font-weight: light;
+}
+@font-face {
+  font-family: 'Oslo sans';
+  src: url('./fonts/OsloSans-Bold.woff2') format('woff2');
+  font-weight: bold;
+}
 
 body {
-  font: 18px 'Open Sans';
+  font-family: Oslo sans, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   margin: 0;
 }
@@ -44,19 +64,19 @@ body {
     }
 
     &.first .quadrant-table__name {
-      color: $green;
+      color: $red;
     }
 
     &.second .quadrant-table__name {
-      color: $blue;
+      color: $green;
     }
 
     &.third .quadrant-table__name {
-      color: $orange;
+      color: $yellow;
     }
 
     &.fourth .quadrant-table__name {
-      color: $violet;
+      color: $red-10;
     }
   }
 
@@ -246,7 +266,9 @@ body {
         }
       }
     }
-
+    .quadrant-table {
+      background-color: $grey-light;
+    }
     div.quadrant-table {
       .quadrant-table__name {
         display: none;
@@ -261,9 +283,11 @@ body {
 
       h3 {
         text-transform: uppercase;
-        font-size: $baseFont;
+        font-size: 1.5rem;
         margin: 0;
         font-weight: bold;
+        margin: 10px;
+        color: $dark-blue;
       }
 
       &.first {
@@ -299,7 +323,8 @@ body {
 
       ul {
         padding: 0;
-        margin-left: 0;
+        margin-left: 10px;
+        margin-right: 10px;
 
         li {
           list-style-type: none;
@@ -311,26 +336,43 @@ body {
             cursor: pointer;
             font-size: $baseFont;
             font-weight: 400;
+            margin-bottom: 20px;
+          }
 
-            &.highlight {
-              color: white;
-              background-color: rgba(0, 0, 0, 0.8);
-            }
+          .blip-list-item:hover,
+          .blip-list-item:active,
+          .blip-list-item:focus {
+            color: $dark-blue;
+            border-bottom: $dark-blue 1px solid;
+            padding-bottom: 1px;
+            font-weight: bold;
+          }
+
+          ::-webkit-scrollbar {
+            width: 10px;
+          }
+
+          ::-webkit-scrollbar-track {
+            background: $grey-alpha-03;
+          }
+
+          ::-webkit-scrollbar-thumb {
+            background: $grey-dark;
           }
 
           .blip-item-description {
             max-height: 0;
-            overflow: hidden;
+            overflow-y: scroll;
             width: 300px;
+            margin-bottom: 10px;
+            //background-color: #fef9f0;
 
             p {
               margin: 0;
-              border-top: 1px solid rgb(119, 119, 119);
-              border-bottom: 1px solid rgb(119, 119, 119);
-              padding: 20px;
+              padding: 10px;
               color: $grey-text;
               font-weight: 100;
-              font-size: 14px;
+              font-size: 16px;
             }
 
             transition: max-height 0.2s ease;

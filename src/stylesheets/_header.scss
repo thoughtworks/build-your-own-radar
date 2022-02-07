@@ -72,7 +72,7 @@ header {
   }
 
   .home-link {
-    color: $pink;
+    color: $dark-blue;
     margin-bottom: 10px;
     line-height: normal;
     cursor: pointer;
@@ -93,6 +93,7 @@ header {
     transition: all 0.2s ease-out;
     background-color: $dark-blue;
     color: white;
+    font-family: Oslo Sans !important;
 
     &.no-capitalize {
       text-transform: none;
