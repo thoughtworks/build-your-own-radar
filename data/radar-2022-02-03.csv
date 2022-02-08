@@ -123,7 +123,7 @@ Terraform,Plattform,BRUK,FALSE,"Konfigurasjonsspråk og -verktøy for å beskriv
 - Mer uttrykkskraft i HCL enn i CloudFormation (YAML/JSON)",okctl bør være foretrukket som standard for teamene,"Dataplattform, veiviser, Proaktive meldinger, Kjøremiljø, Skjema studio",
 CloudFormation,Plattform,VURDER,FALSE,AWS sitt konfigurasjonsspråk og -verktøy for å beskrive og provisjonere infrastruktur og tjenester i AWS (Infrastructure as Code). Konfigurasjonen kan skrives i JSON eller YAML.,"Kjøres med AWS CLI
 Templates for å gi tilgang mellom kontoer
-Tjenester som oppretter infrastruktur med f.eks. boto",- JSON eller YAML ,-),"Barnehagepris, Dataplattform, Skjema, Kjøremiljø"
+Tjenester som oppretter infrastruktur med f.eks. boto",- JSON eller YAML ,"Barnehagepris, Dataplattform, Skjema, Kjøremiljø"
 Kinesis eventstrømmer for sanntidsdata,Plattform,BRUK,FALSE,"Kinesis er AWS sin plattform for distribuert prosessering av datastrømmer, som f.eks. sanntidsdata og hendelser (eventer), tilsvarende Apache Kafka.",Koblinger mot andre AWS datakilder + sinks (?) ,"- Begrenset lagringtid (1/7 dager)
 - Kan ikke replaye events, slik som Kafka kan.
 - Høyere latency enn Kafka (10-20 ms)",Dataplattform,
