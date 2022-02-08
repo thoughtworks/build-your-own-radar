@@ -29,7 +29,7 @@ Standarden krever kun at man dokumenterer struktur på APIer og dataformater (sy
 - God verktøystøtte for automatisk genering av kode både med og uten klienter
 ","- Ktor-støtte er i beta
 - Ofte dårlig dokumentasjon av bruk av APIet og gyldige verdier (semantikk)","Booking, Barnehagepris, Dataplattform"
-Knockout.js,Programmering,AVSTÅ,FALSE,Knockout er en javascript implementasjon av Model-View-ViewModel patternet med bruk av templates. ,,,Skjema
+Knockout.js,Programmering,AVSTÅ,FALSE,"Knockout er en javascript implementasjon av Model-View-ViewModel patternet med bruk av templates.",,,Skjema
 Redux,Programmering,BRUK,FALSE,"Redux er global statehåndtering i større Single Page applikasjoner. Redux består av tre deler en global state, actions som kan utløse endringer i state og selectors som henter ut data og lytter på state. 
 Det kan være vanskelig å forstå om du skal bruke redux eller du skal bruke use context(hooks). Hvis du ser forenklet på det bruker du hooks for å ungå prop drilling, Redux bruker du for global state håndtering. 
 Redux kan være komplekst, men det løsere en enda med kompleks problemstiling på en enkel måte. Det anbefales å bruke redux toolkit når du tar i bruk redux. ",Gjør det lettere å debugge endringer i state i kompleks apper. Samler logikk en plass og gjør den testbar. ,Redux er kompleks å forholde seg til i seg selv.,Booking
