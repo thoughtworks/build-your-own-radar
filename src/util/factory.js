@@ -166,14 +166,8 @@ const CSVDocument = function (url) {
         '<p>' +
         blip.description +
         '</p>' +
-        '<p><b>Pros</b></p>' +
-        '<p>' +
-        blip.pros +
-        '</p>' +
-        '<p><b>Cons</b></p>' +
-        '<p>' +
-        blip.cons +
-        '</p>' +
+        generateProsConsList('Pros', blip.pros) +
+        generateProsConsList('Cons', blip.cons) +
         '<p><b>Brukt av:</b></p><p>' +
         blip.usedBy +
         '</p>'
@@ -260,6 +254,19 @@ const GoogleSheetInput = function () {
   }
 
   return self
+}
+
+function generateProsConsList(title, elems) {
+  if (elems) {
+    return '<p><b>' + title + '</b></p>' +
+      '<p>' +
+      '<ul>' +
+      elems.split("\n").map(e => '<li>' + e.replace(/^- /, '') + '</li>').join("") +
+      '</ul>' +
+      '</p>'
+  } else {
+    return ""
+  }
 }
 
 function setDocumentTitle() {
