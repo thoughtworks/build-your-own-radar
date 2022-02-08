@@ -31,7 +31,7 @@
     "@babel/preset-env": "^7.16.11",
     "babel-loader": "^8.2.3",
     "css-loader": "^6.6.0",
-    "cssnano": "^5.0.16",
+    "cssnano": "^5.0.17",
     "cypress": "^9.4.1",
     "dotenv": "^16.0.0",
     "expose-loader": "^3.1.0",
@@ -59,7 +59,7 @@
     "jquery": "^3.6.0",
     "jquery-ui": "^1.13.1",
     "lodash": "^4.17.21",
-    "sanitize-html": "^2.6.1"
+    "sanitize-html": "^2.7.0"
   },
   "standard": {
     "globals": [
