@@ -1,6 +1,8 @@
 name,quadrant,ring,isNew,description,pros,cons,usedBy
-Vuex,Programmering,VURDER,FALSE,"Vuex er en lettvekts sentralisert state management bibliotek som har en bestemt fremgangsmåte (pattern) for å håndtere data. Frem til Vue 3 kom har Vuex vært det klare valget for denne oppgaven, men fremover vil det nok komme flere alternativer. Evan You selv anbefaler selv å bruke Pinia fremover.","- Enkel og grei håndtering av state
-- Gode debuggingsmuligheter i Devtools","- Verbost - I Vue 3 er det ikke Vuex som anbefales lenger, men Pinia.","Skjema, Dataspeilet, Min side"
+Vuex,Programmering,VURDER,FALSE,"Vuex er en lettvekts sentralisert state management bibliotek som har en bestemt fremgangsmåte (pattern) for å håndtere data. Frem til Vue 3 kom har Vuex vært det klare valget for denne oppgaven, men fremover vil det nok komme flere alternativer. Evan You selv anbefaler selv å bruke Pinia fremover.",
+"- Enkel og grei håndtering av state
+- Gode debuggingsmuligheter i Devtools",
+"- Verbost - I Vue 3 er det ikke Vuex som anbefales lenger, men Pinia.","Skjema, Dataspeilet, Min side"
 Vue,Programmering,BRUK,FALSE,"Vue er et open source JavaScript rammeverk laget for å utvikle websites eller web apps. Vue kan brukes til alt fra kjapp prototyping til store applikasjoner. 
 Rammeverket er enkelt å ta i bruk, bruker et HTML templating system, og har god dokumentasjon. Vues kjerneteam står bak tooling og støtterammeverk, og gjør med det at utviklere har en mer ensartet måte å utvikle løsninger på. Men også litt mindre frihet. Dette gjør at det er lett å hoppe fra en vue app til en annen. Vue blir stadig mer populært, men ligger godt bak React. Selv om disse to ligner på hverandre er det også en del forskjeller. Vue 3 er en vesentlig oppgradering som er standard fra februar 2022. Mange forbedringer, og også mulighet til å velge gamle måten å kode Vue-apps på eller den nye, mer fleksible måten å gjøre ting på.",
 "- Oppleves som enklere enn React
