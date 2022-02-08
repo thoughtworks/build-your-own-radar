@@ -25,7 +25,11 @@ Golang,Programmering,VURDER,FALSE,"Go er et moderne statisk typet og kompilert l
 Express.js,Programmering,BRUK,FALSE,Express.js er en asynkron webserver bygget på node.js. Veldig bra å bruke hvis du vil skrive backend i javascript. ,,,"Veiviser, Skjema, Dataspeilet"
 OpenAPI for API dokumentasjon,Programmering,BRUK,FALSE,"Stardard for dokumentasjon av APIer med moden verktøystøtte i flere språk. Mulighet til å genere API med eller uten klienter fra spesifikasjon. Noen webrammeverk lar deg gå andre veien og generere spesifikasjonen fra kode. 
 
+<<<<<<< HEAD
 Standarden krever kun at man dokumenterer struktur på APIer og dataformater (syntaks), dette bør berikes med eksempler og beskrivelser på f.eks. gyldige verdier (semantikk).","- Etablert standard
+=======
+Standarden krever kun at man dokumenterer struktur på APIer og dataformater (syntaks), dette bør berikes med eksempler og beskrivelser på f.eks. gyldige verdier (semantikk).","- Etablert standard
+>>>>>>> b4588d6 (WIP oslo design)
 - God verktøystøtte for automatisk genering av kode både med og uten klienter
 ","- Ktor-støtte er i beta
 - Ofte dårlig dokumentasjon av bruk av APIet og gyldige verdier (semantikk)","Booking, Barnehagepris, Dataplattform"
@@ -33,7 +37,11 @@ Knockout.js,Programmering,AVSTÅ,FALSE,Knockout er en javascript implementasjon 
 Redux,Programmering,BRUK,FALSE,"Redux er global statehåndtering i større Single Page applikasjoner. Redux består av tre deler en global state, actions som kan utløse endringer i state og selectors som henter ut data og lytter på state. 
 Det kan være vanskelig å forstå om du skal bruke redux eller du skal bruke use context(hooks). Hvis du ser forenklet på det bruker du hooks for å ungå prop drilling, Redux bruker du for global state håndtering. 
 Redux kan være komplekst, men det løsere en enda med kompleks problemstiling på en enkel måte. Det anbefales å bruke redux toolkit når du tar i bruk redux. ",Gjør det lettere å debugge endringer i state i kompleks apper. Samler logikk en plass og gjør den testbar. ,Redux er kompleks å forholde seg til i seg selv.,Booking
+<<<<<<< HEAD
 Kotlin,Programmering,BRUK,FALSE,"Kotlin er et statisk typet objektorientert programmeringsspråk utviklet av JetBrains (som lager IntelliJ IDEA). Støtter flere plattformer, blant annet Java VMen, Android og Javascript. Fokus på å være konsist, trygt og uttrykkskraftig. Har for eksempel bedre håndtering av ""null""-verdier enn Java og god støtte for asynkrone programmer (coroutines) og funksjonell programmering.","- Kompatibelt med Java og JVMen (biblioteker osv.)
+=======
+Kotlin,Programmering,BRUK,FALSE,"Kotlin er et statisk typet objektorientert programmeringsspråk utviklet av JetBrains (som lager IntelliJ IDEA). Støtter flere plattformer, blant annet Java VMen, Android og Javascript. Fokus på å være konsist, trygt og uttrykkskraftig. Har for eksempel bedre håndtering av ""null""-verdier enn Java og god støtte for asynkrone programmer (coroutines) og funksjonell programmering.","- Kompatibelt med Java og JVMen (biblioteker osv.)
+>>>>>>> b4588d6 (WIP oslo design)
 - Mindre boilerplate
 - Tryggere kode (null-håndtering, osv.)
 - God støtte for funksjonell programmering","- Økosystem og biblioteker fortsatt noe umodent, kan være bedre å lene seg på Java-bibliotek heller enn ""Kotlin native"" alternativer
@@ -42,7 +50,11 @@ Kotlin,Programmering,BRUK,FALSE,"Kotlin er et statisk typet objektorientert prog
 Ktor,Programmering,VURDER,FALSE,Ktor er et rammeverk for å lage asynkrone HTTP klienter og servere i Kotlin. Fint til for eksempel REST APIer.,,- Asynkron programmeringsmodell kan være uvant for mange?,Booking
 Ktorm,Programmering,VURDER,FALSE,Ktorm er et ORM rammeverk for Kotlin. Tilbyr en sterkt typet SQL DSL.,"- Lettvekts
 - Sterkt typet SQL",,Booking
+<<<<<<< HEAD
 Scala,Programmering,AVSTÅ,FALSE,"Scala er et hybrid objektorientert og funksjonelt programmeringsspråk. Kjører på JVMen eller Javascript. Scala 3.0 rydder opp i en del av kompleksitetene, og tilbyr også renere syntaks.","- Veldig rikt collections API
+=======
+Scala,Programmering,AVSTÅ,FALSE,"Scala er et hybrid objektorientert og funksjonelt programmeringsspråk. Kjører på JVMen eller Javascript. Scala 3.0 rydder opp i en del av kompleksitetene, og tilbyr også renere syntaks.","- Veldig rikt collections API
+>>>>>>> b4588d6 (WIP oslo design)
 - God på funksjonell programmering og immutability","- Komplekst språk
 - Treg kompilering","Min side, Skjema, Proaktive meldinger"
 Nuxt,Programmering,VURDER,FALSE,"Nuxt er et rammeverk bygget på toppen av Vue. som gjør at man kan lage Universal Apps med støtte for ulike rendering modes, automatisk generering av routes, SEO muligheter, osv. Kan si at Nuxt er Next.js for Vue.
@@ -69,7 +81,11 @@ Python,Programmering,BRUK,FALSE,Python er et høynivå objektorientert programme
 - Rask oppstart, egner seg bra til f.eks. Serverless
 - Rikt standardbibliotek og økosystem","- Fragmentert tooling
 - Ikke så god på funksjonell programmering (klønete syntaks m.m.)","Dataspeilet, Dataplattform"
+<<<<<<< HEAD
 FastAPI for REST API,Programmering,VURDER,FALSE,"FastAPI er et moderne og raskt web rammeverk for Python. Egner seg godt til å bygge f.eks. REST APIer. Gode løsninger for å dokumentere APIet i koden og generere API-spesifikasjon basert på dette. Kan deployes i AWS Lambda ved å bruke Mangum adapter.
+=======
+FastAPI for REST API,Programmering,VURDER,FALSE,"FastAPI er et moderne og raskt web rammeverk for Python. Egner seg godt til å bygge f.eks. REST APIer. Gode løsninger for å dokumentere APIet i koden og generere API-spesifikasjon basert på dette. Kan deployes i AWS Lambda ved å bruke Mangum adapter.
+>>>>>>> b4588d6 (WIP oslo design)
 
 Dataplattform har veldig god erfaring med å bruke FastAPI for å bygge sine REST API som deployes i Lambda. Det gir et godt lokalt utviklingsmiljø i tillegg til at den passer godt inn i kjøremiljøet.","- God støtte for dokumentasjon av API (OpenAPI)
 - Integrert visning og utforsking av API-dokumentasjon (SwaggerUI)",- Noen utfordringer med asynkron Python-kode i AWS Lambda?,Dataplattform

@@ -12,7 +12,8 @@ header {
   }
 
   .radar-title {
-    background-color: $grey-light;
+    background-color: $dark-blue;
+
     padding: 30px 0;
 
     display: table;
@@ -22,9 +23,9 @@ header {
     .radar-title__text {
       display: table-cell;
       width: 70%;
-
       text-align: left;
       padding-left: 10%;
+      color: white;
 
       h1 {
         font-size: 55px;
@@ -39,7 +40,6 @@ header {
     .radar-title__logo {
       flex: 0 0 30%;
       margin-left: auto;
-
       width: 30%;
       display: table-cell;
       vertical-align: middle;
@@ -72,7 +72,7 @@ header {
   }
 
   .home-link {
-    color: $pink;
+    color: $dark-blue;
     margin-bottom: 10px;
     line-height: normal;
     cursor: pointer;
@@ -83,16 +83,17 @@ header {
   }
 
   .button {
-    font-size: $baseFont;
+    font-size: 1.125rem;
+    font-weight: 300;
     text-transform: capitalize;
     margin-right: 20px;
     border-radius: 2px;
-    padding: 10px 20px;
+    padding: 0.625rem 0.9375rem;
     cursor: pointer;
     transition: all 0.2s ease-out;
-
-    background-color: $grey-light;
-    color: $black;
+    background-color: $dark-blue;
+    color: white;
+    font-family: Oslo Sans !important;
 
     &.no-capitalize {
       text-transform: none;
@@ -102,7 +103,9 @@ header {
     &.selected {
       transform: translate(0, -2px);
       opacity: 0.85;
-
+      color: white;
+      background-color: $blue-active;
+      /*
       &.first {
         color: white;
         background-color: $green;
@@ -121,9 +124,9 @@ header {
       &.fourth {
         color: white;
         background-color: $violet;
-      }
+      }*/
     }
-
+    /*
     &.full-view {
       &.first {
         background-color: $green;
@@ -144,7 +147,7 @@ header {
         background-color: $violet;
         color: $white;
       }
-    }
+    }*/
   }
 
   #alternative-buttons {
