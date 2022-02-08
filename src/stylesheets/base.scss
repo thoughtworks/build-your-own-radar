@@ -178,6 +178,7 @@ body {
     width: 80%;
     margin: 0 auto;
     position: relative;
+    color: $dark-blue;
 
     svg#radar-plot {
       margin: 0 auto;
@@ -261,7 +262,7 @@ body {
         &.line-text {
           font-weight: bold;
           text-transform: uppercase;
-          fill: $black;
+          fill: $dark-blue;
           font-size: 14px;
         }
       }
@@ -335,8 +336,7 @@ body {
             border-radius: 2px;
             cursor: pointer;
             font-size: $baseFont;
-            font-weight: 400;
-            margin-bottom: 20px;
+            font-weight: 500;
           }
 
           .blip-list-item:hover,
@@ -363,7 +363,7 @@ body {
           .blip-item-description {
             max-height: 0;
             overflow-y: scroll;
-            width: 300px;
+            width: 400px;
             margin-bottom: 10px;
             //background-color: #fef9f0;
 
@@ -373,6 +373,10 @@ body {
               color: $grey-text;
               font-weight: 100;
               font-size: 16px;
+            }
+            li {
+              list-style-type: disc;
+              list-style-position: inside;
             }
 
             transition: max-height 0.2s ease;
