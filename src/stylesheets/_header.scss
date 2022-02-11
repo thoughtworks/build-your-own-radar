@@ -105,49 +105,49 @@ header {
       opacity: 0.85;
       color: white;
       background-color: $blue-active;
-      /*
+
       &.first {
-        color: white;
-        background-color: $green;
+        color: $black;
+        background-color: $red;
       }
 
       &.second {
-        color: white;
-        background-color: $blue;
+        color: $black;
+        background-color: $green;
       }
 
       &.third {
-        color: white;
-        background-color: $orange;
+        color: $black;
+        background-color: $yellow;
       }
 
       &.fourth {
-        color: white;
-        background-color: $violet;
-      }*/
+        color: $black;
+        background-color: $red-10;
+      }
     }
-    /*
+
     &.full-view {
       &.first {
-        background-color: $green;
-        color: $white;
+        background-color: $red;
+        color: $black;
       }
 
       &.second {
-        background-color: $blue;
-        color: $white;
+        background-color: $green;
+        color: $black;
       }
 
       &.third {
-        background-color: $orange;
-        color: $white;
+        background-color: $yellow;
+        color: $black;
       }
 
       &.fourth {
-        background-color: $violet;
-        color: $white;
+        background-color: $red-10;
+        color: $black;
       }
-    }*/
+    }
   }
 
   #alternative-buttons {
