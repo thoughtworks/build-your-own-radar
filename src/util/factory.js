@@ -68,9 +68,17 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
     radar.setCurrentSheet(currentRadarName)
   }
 
-  var size = window.innerHeight - 133 < 620 ? 620 : window.innerHeight - 133
+  const MINIMUM_RADAR_SIZE = 620
+  const SCROLLBAR_WIDTH = 20
+  const PAGE_WIDTH_RATIO = 0.8
+  const RADAR_PLOT_WIDTH_RATIO = 0.6
+  const sizeByHeight = Math.max(window.innerHeight - 133, MINIMUM_RADAR_SIZE)
+  const sizeByWidth = Math.max(
+    (window.innerWidth - SCROLLBAR_WIDTH) * PAGE_WIDTH_RATIO * RADAR_PLOT_WIDTH_RATIO,
+    MINIMUM_RADAR_SIZE,
+  )
 
-  new GraphingRadar(size, radar).init().plot()
+  new GraphingRadar(Math.min(sizeByHeight, sizeByWidth), radar).init().plot()
 }
 
 const GoogleSheet = function (sheetReference, sheetName) {
