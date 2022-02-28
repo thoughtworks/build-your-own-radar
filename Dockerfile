@@ -1,4 +1,4 @@
-FROM node:17.4.0
+FROM node:17
 
 RUN apt-get update && apt-get upgrade -y
 
