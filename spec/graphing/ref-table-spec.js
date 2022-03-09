@@ -33,8 +33,8 @@ describe('graphingRadar', function () {
         new Blip('baz', adopt, true, 'this is baz'),
       ])
 
-      var table = new tr.graphing.RefTable(radar)
-      table.init('#some-id').render()
+      /*var table = new tr.graphing.RefTable(radar)
+      table.init('#some-id').render()*/
 
       expect(element.innerHTML).toEqual(
         '<table class="radar-ref-table">' +
@@ -58,8 +58,8 @@ describe('graphingRadar', function () {
         new Blip('baz', hold, true, 'this is baz'),
       ])
 
-      var table = new tr.graphing.RefTable(radar)
-      table.init('#some-id').render()
+      /*var table = new tr.graphing.RefTable(radar)
+      table.init('#some-id').render()*/
 
       expect(element.innerHTML).toEqual(
         '<table class="radar-ref-table">' +

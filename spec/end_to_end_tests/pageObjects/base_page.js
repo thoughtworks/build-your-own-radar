@@ -1,7 +1,7 @@
 /* eslint no-useless-constructor: "off" */
 
 class BasePage {
-  constructor () {}
+  constructor() {}
 }
 
 module.exports = new BasePage()

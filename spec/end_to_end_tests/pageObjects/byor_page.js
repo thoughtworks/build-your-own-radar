@@ -1,24 +1,24 @@
 var config = require('../../../cypress.json')
 
 class ByorPage {
-  constructor () {
+  constructor() {
     this.text_box = "[name='sheetId']"
     this.submit = '.button'
   }
 
-  provideExcelName () {
+  provideExcelName() {
     cy.get(this.text_box).type(config.excel, { force: true })
   }
 
-  provideCsvName () {
+  provideCsvName() {
     cy.get(this.text_box).type(config.csv, { force: true })
   }
 
-  provideJsonName () {
+  provideJsonName() {
     cy.get(this.text_box).type(config.json, { force: true })
   }
 
-  clickSubmitButton () {
+  clickSubmitButton() {
     cy.get(this.submit).click()
   }
 }
