@@ -1,5 +1,5 @@
 class RadarPage {
-  constructor () {
+  constructor() {
     this.blip = '.quadrant-group-second .blip-link'
     this.blip_selected = '.quadrant-table.selected .blip-list-item'
     this.blip_description = '.blip-item-description.expanded p'
@@ -9,28 +9,28 @@ class RadarPage {
     this.search_item = '.ui-menu-item:first'
   }
 
-  clickTheBlipFromInteractiveSection () {
+  clickTheBlipFromInteractiveSection() {
     cy.get(this.blip).click()
   }
 
-  clickTheBlip () {
+  clickTheBlip() {
     cy.get(this.blip_selected).click()
   }
 
-  validateBlipDescription (text) {
+  validateBlipDescription(text) {
     expect(cy.get(this.blip_description).contains(text))
   }
 
-  clickSheet2 () {
+  clickSheet2() {
     cy.get(this.sheet2).click()
   }
 
-  searchTheBlip () {
+  searchTheBlip() {
     cy.get(this.autocomplete).type(this.search_value)
     cy.get(this.search_item).click()
   }
 
-  validateBlipSearch () {
+  validateBlipSearch() {
     expect(cy.get(this.blip_selected).contains(this.search_value))
   }
 }
