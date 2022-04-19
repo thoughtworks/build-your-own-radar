@@ -77,8 +77,8 @@
     ]
   },
   "engines": {
-    "node": ">=12 <18",
-    "npm": "~8.3.1"
+    "node": ">=12",
+    "npm": "8"
   },
   "private": true
 }
