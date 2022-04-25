@@ -106,7 +106,7 @@ workflows:
       - e2e-tests:
           filters:
             branches:
-              only: circle-ci-setup
+              only: master
       - approve-dev-deployment:
           type: approval
           requires:
