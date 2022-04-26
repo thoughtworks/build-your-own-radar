@@ -90,6 +90,8 @@ jobs:
     executor: base
     steps:
       - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
       - install-node-packages
       - build-and-push:
           client_id: $PROD_CLIENT_ID
