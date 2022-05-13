@@ -236,14 +236,21 @@ body {
       .blip-link {
         text-decoration: none;
         cursor: pointer;
-        & .Software {
+
+        .context_0  {
           fill: $green;
         }
-        & .DevOps {
+
+        .context_1 {
           fill: $blue;
         }
-        & .Data {
+
+        .context_2 {
           fill: $orange;
+        }
+
+        .context_3 {
+          fill: $violet;
         }
       }
 

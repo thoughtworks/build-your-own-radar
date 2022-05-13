@@ -60,6 +60,12 @@ header {
   }
 }
 
+.context-btn--group {
+  .button {
+    border-radius: 50%;
+  }
+}
+
 .quadrant-btn--group,
 .multiple-sheet-button-group {
   text-align: left;
@@ -108,44 +114,44 @@ header {
     transform: translate(0, -2px);
     opacity: 0.85;
 
-    &.first {
+    &.first, &.context_0 {
       color: white;
       background-color: $green;
     }
 
-    &.second {
+    &.second, &.context_1 {
       color: white;
       background-color: $blue;
     }
 
-    &.third {
+    &.third, &.context_2 {
       color: white;
       background-color: $orange;
     }
 
-    &.fourth {
+    &.fourth, &.context_3 {
       color: white;
       background-color: $violet;
     }
   }
 
   &.full-view {
-    &.first {
+    &.first, &.context_0 {
       background-color: $green;
       color: $white;
     }
 
-    &.second {
+    &.second, &.context_1 {
       background-color: $blue;
       color: $white;
     }
 
-    &.third {
+    &.third, &.context_2 {
       background-color: $orange;
       color: $white;
     }
 
-    &.fourth {
+    &.fourth, &.context_3 {
       background-color: $violet;
       color: $white;
     }
