@@ -28,12 +28,12 @@ describe('Blip', function () {
   it('is new', function () {
     blip = new Blip('My Blip', new Ring('My Ring'), true)
 
-    expect(blip.isNew()).toBe(true)
+    expect(blip.context()).toBe(true)
   })
 
   it('is not new', function () {
     blip = new Blip('My Blip', new Ring('My Ring'), false)
 
-    expect(blip.isNew()).toBe(false)
+    expect(blip.context()).toBe(false)
   })
 })

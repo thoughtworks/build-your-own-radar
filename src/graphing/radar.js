@@ -123,26 +123,6 @@ const Radar = function (size, radar) {
     })
   }
 
-  function triangle(blip, x, y, order, group) {
-    return group
-      .append('path')
-      .attr(
-        'd',
-        'M412.201,311.406c0.021,0,0.042,0,0.063,0c0.067,0,0.135,0,0.201,0c4.052,0,6.106-0.051,8.168-0.102c2.053-0.051,4.115-0.102,8.176-0.102h0.103c6.976-0.183,10.227-5.306,6.306-11.53c-3.988-6.121-4.97-5.407-8.598-11.224c-1.631-3.008-3.872-4.577-6.179-4.577c-2.276,0-4.613,1.528-6.48,4.699c-3.578,6.077-3.26,6.014-7.306,11.723C402.598,306.067,405.426,311.406,412.201,311.406',
-      )
-      .attr(
-        'transform',
-        'scale(' +
-          blip.width / 34 +
-          ') translate(' +
-          (-404 + x * (34 / blip.width) - 17) +
-          ', ' +
-          (-282 + y * (34 / blip.width) - 17) +
-          ')',
-      )
-      .attr('class', order)
-  }
-
   function triangleLegend(x, y, group) {
     return group
       .append('path')
@@ -166,12 +146,12 @@ const Radar = function (size, radar) {
       .attr(
         'transform',
         'scale(' +
-          blip.width / 34 +
-          ') translate(' +
-          (-404 + x * (34 / blip.width) - 17) +
-          ', ' +
-          (-282 + y * (34 / blip.width) - 17) +
-          ')',
+        blip.width / 34 +
+        ') translate(' +
+        (-404 + x * (34 / blip.width) - 17) +
+        ', ' +
+        (-282 + y * (34 / blip.width) - 17) +
+        ')',
       )
       .attr('class', order)
   }
@@ -308,11 +288,8 @@ const Radar = function (size, radar) {
       .attr('class', 'blip-link')
       .attr('id', 'blip-link-' + blip.number())
 
-    if (blip.isNew()) {
-      triangle(blip, x, y, order, group)
-    } else {
-      circle(blip, x, y, order, group)
-    }
+    console.log("Blib context:", blip.context())
+    circle(blip, x, y, blip.context(), group)
 
     group
       .append('text')
@@ -585,9 +562,9 @@ const Radar = function (size, radar) {
       .append('p')
       .html(
         'Powered by <a href="https://www.thoughtworks.com"> Thoughtworks</a>. ' +
-          'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
-          'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
-          'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
+        'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
+        'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
+        'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
       )
   }
 

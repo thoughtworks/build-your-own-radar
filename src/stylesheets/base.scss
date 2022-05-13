@@ -236,6 +236,15 @@ body {
       .blip-link {
         text-decoration: none;
         cursor: pointer;
+        & .Software {
+          fill: $green;
+        }
+        & .DevOps {
+          fill: $blue;
+        }
+        & .Data {
+          fill: $orange;
+        }
       }
 
       .quadrant-group {
