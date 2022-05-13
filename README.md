@@ -10,6 +10,10 @@
 
 A library that generates an interactive radar, inspired by [thoughtworks.com/radar](http://thoughtworks.com/radar).
 
+## Difference to original radar
+
+The original radar has an isNew column. This radar has a context column, that will create a second line of buttons, allowing you to filter for specific context items. While the filter is active, the other elements are greyed out.
+
 ## Demo
 
 You can see this in action at https://radar.thoughtworks.com. If you plug in [this data](https://docs.google.com/spreadsheets/d/18A7oDuavlh89rAmqcaXpqle8QLqIvlAkoEUxcObzuUM/edit#gid=1985253373) you'll see [this visualization](https://radar.thoughtworks.com/?sheetId=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F18A7oDuavlh89rAmqcaXpqle8QLqIvlAkoEUxcObzuUM%2Fedit%23gid%3D1985253373).
@@ -24,12 +28,12 @@ You need to make your data public in a form we can digest.
 
 Create a Google Sheet. Give it at least the below column headers, and put in the content that you want:
 
-| name          | ring   | quadrant               | isNew | description                                             |
-| ------------- | ------ | ---------------------- | ----- | ------------------------------------------------------- |
-| Composer      | adopt  | tools                  | TRUE  | Although the idea of dependency management ...          |
-| Canary builds | trial  | techniques             | FALSE | Many projects have external code dependencies ...       |
-| Apache Kylin  | assess | platforms              | TRUE  | Apache Kylin is an open source analytics solution ...   |
-| JSF           | hold   | languages & frameworks | FALSE | We continue to see teams run into trouble using JSF ... |
+| name          | ring   | quadrant               | context  | description                                             |
+| ------------- | ------ | ---------------------- | -------- | ------------------------------------------------------- |
+| Composer      | adopt  | tools                  | Software | Although the idea of dependency management ...          |
+| Canary builds | trial  | techniques             | DevOps   | Many projects have external code dependencies ...       |
+| Apache Kylin  | assess | platforms              | Data     | Apache Kylin is an open source analytics solution ...   |
+| JSF           | hold   | languages & frameworks | Software | We continue to see teams run into trouble using JSF ... |
 
 ### Sharing the sheet
 
@@ -47,11 +51,11 @@ For example, a [raw URL](https://raw.githubusercontent.com/thoughtworks/build-yo
 The format is just the same as that of the Google Sheet, the example is as follows:
 
 ```
-name,ring,quadrant,isNew,description
-Composer,adopt,tools,TRUE,"Although the idea of dependency management ..."
-Canary builds,trial,techniques,FALSE,"Many projects have external code dependencies ..."
-Apache Kylin,assess,platforms,TRUE,"Apache Kylin is an open source analytics solution ..."
-JSF,hold,languages & frameworks,FALSE,"We continue to see teams run into trouble using JSF ..."
+name,ring,quadrant,context,description
+Composer,adopt,tools,Software,"Although the idea of dependency management ..."
+Canary builds,trial,techniques,DevOps,"Many projects have external code dependencies ..."
+Apache Kylin,assess,platforms,Data,"Apache Kylin is an open source analytics solution ..."
+JSF,hold,languages & frameworks,Software,"We continue to see teams run into trouble using JSF ..."
 ```
 
 If you do not want to host the CSV file publicly, you can follow [these steps](#advanced-option---docker-image-with-a-csvjson-file-from-the-host-machine) to host the file locally on your BYOR docker instance itself.
@@ -73,28 +77,28 @@ An example:
     "name": "Composer",
     "ring": "adopt",
     "quadrant": "tools",
-    "isNew": "TRUE",
+    "context": "Software",
     "description": "Although the idea of dependency management ..."
   },
   {
     "name": "Canary builds",
     "ring": "trial",
     "quadrant": "techniques",
-    "isNew": "FALSE",
+    "context": "DevOps",
     "description": "Many projects have external code dependencies ..."
   },
   {
     "name": "Apache Kylin",
     "ring": "assess",
     "quadrant": "platforms",
-    "isNew": "TRUE",
+    "context": "Data",
     "description": "Apache Kylin is an open source analytics solution ..."
   },
   {
     "name": "JSF",
     "ring": "hold",
     "quadrant": "languages & frameworks",
-    "isNew": "FALSE",
+    "context": "Software",
     "description": "We continue to see teams run into trouble using JSF ..."
   }
 ]
