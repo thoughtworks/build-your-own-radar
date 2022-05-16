@@ -11,7 +11,6 @@ spec:
       port: 80
   selector:
     app: tech-radar
-
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -30,15 +29,6 @@ spec:
                 port:
                   name: http
             pathType: ImplementationSpecific
-
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: tech-radar-env
-
-data:
-  AWS_REGION: us-west-2
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -65,37 +55,6 @@ spec:
       labels:
         app: tech-radar
     spec:
-      initContainers:
-        - name: init-secrets
-
-          image: 965331111166.dkr.ecr.us-west-2.amazonaws.com/deployable/init-secrets:latest
-          imagePullPolicy: Always
-
-          args:
-            - /config
-            - /secrets
-
-          env:
-            - name: AWS_REGION
-              value: us-west-2
-
-          resources:
-            limits:
-              cpu: "1"
-              memory: 1Gi
-            requests:
-              cpu: 200m
-              memory: 512Mi
-
-          terminationMessagePath: /dev/termination-log
-          terminationMessagePolicy: File
-
-          volumeMounts:
-            - mountPath: /config
-              name: tech-radar-env
-              readOnly: true
-            - mountPath: /secrets
-              name: wna-secrets
 
       containers:
         - name: tech-radar
@@ -110,25 +69,8 @@ spec:
             - containerPort: 80
               name: http
 
-          envFrom:
-            - configMapRef:
-                name: tech-radar-env
-
           env:
             - name: PORT
               value: '80'
 
-          volumeMounts:
-            - mountPath: /wna/secrets
-              name: wna-secrets
-              readOnly: true
-
       restartPolicy: Always
-      volumes:
-        - name: tech-radar-env
-          configMap:
-            name: tech-radar-env
-            defaultMode: 420
-        - name: wna-secrets
-          emptyDir:
-            medium: Memory
