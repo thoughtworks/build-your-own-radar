@@ -1,0 +1,5 @@
+---
+global:
+  name: tech-radar
+  team: ops
+  type: ops_service
