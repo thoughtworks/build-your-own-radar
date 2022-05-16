@@ -50,8 +50,6 @@ spec:
     type: RollingUpdate
   template:
     metadata:
-      annotations:
-        iam.amazonaws.com/role: ops-Kubernetes-10QULTXLI13OQ-KubeWnaSystemPodRole-F2TTKNTLR275
       labels:
         app: tech-radar
     spec:
@@ -59,11 +57,6 @@ spec:
       containers:
         - name: tech-radar
           image: ops/tech-radar
-
-          command:
-            - /src/build-your-own-radar/entrypoint.sh
-
-          args: ["nginx", "-g", "daemon off;"]
 
           ports:
             - containerPort: 80
