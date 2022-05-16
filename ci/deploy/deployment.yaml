@@ -57,13 +57,3 @@ spec:
       containers:
         - name: tech-radar
           image: ops/tech-radar
-
-          ports:
-            - containerPort: 80
-              name: http
-
-          env:
-            - name: PORT
-              value: '80'
-
-      restartPolicy: Always
