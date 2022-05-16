@@ -16,5 +16,3 @@ cypress/
 .nyc_output
 
 .private.notes
-
-.talismanrc

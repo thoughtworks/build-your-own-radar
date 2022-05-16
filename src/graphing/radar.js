@@ -204,7 +204,7 @@ const Radar = function (size, radar) {
       min: minRadius + blip.width / 2,
       max: maxRadius - blip.width / 2,
     })
-    var angleDelta = (Math.asin(blip.width / 2 / radius) * 360) / Math.PI
+    var angleDelta = (Math.asin(blip.width / 2 / radius) * 180) / Math.PI
     angleDelta = angleDelta > 45 ? 45 : angleDelta
     var angle = toRadian(chance.integer({ min: angleDelta, max: 90 - angleDelta }))
 
@@ -378,7 +378,7 @@ const Radar = function (size, radar) {
     if (pageElement.select('.home-link').empty()) {
       pageElement
         .insert('div', 'div#alternative-buttons')
-        .html('&#171; Tilbake')
+        .html('&#171; Back to Radar home')
         .classed('home-link', true)
         .classed('selected', true)
         .on('click', redrawFullRadar)
@@ -523,7 +523,7 @@ const Radar = function (size, radar) {
     return header
   }
 
-  function plotQuadrantButtons(quadrants, header) {
+  function plotQuadrantButtons(quadrants) {
     function addButton(quadrant) {
       radarElement.append('div').attr('class', 'quadrant-table ' + quadrant.order)
 
@@ -677,13 +677,13 @@ const Radar = function (size, radar) {
     quadrants = radar.quadrants()
     alternatives = radar.getAlternatives()
     currentSheet = radar.getCurrentSheet()
-    var header = plotRadarHeader()
+    plotRadarHeader()
 
     if (alternatives.length) {
       plotAlternativeRadars(alternatives, currentSheet)
     }
 
-    plotQuadrantButtons(quadrants, header)
+    plotQuadrantButtons(quadrants)
 
     radarElement.style('height', size + 14 + 'px')
     svg = radarElement.append('svg').call(tip)

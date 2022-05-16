@@ -26,6 +26,9 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   if (title.endsWith('.csv')) {
     title = title.substring(0, title.length - 4)
   }
+  if (title.endsWith('.json')) {
+    title = title.substring(0, title.length - 5)
+  }
   document.title = 'Origo teknologiradar'
   d3.selectAll('.loading').remove()
 
@@ -98,7 +101,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
     if (!sheetName) {
       sheetName = sheetNames[0]
     }
-    values.forEach(function (value) {
+    values.forEach(function () {
       var contentValidator = new ContentValidator(values[0])
       contentValidator.verifyContent()
       contentValidator.verifyHeaders()
@@ -113,7 +116,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
   self.authenticate = function (force = false, apiKeyEnabled, callback) {
     if (!apiKeyEnabled) {
       GoogleAuth.loadGoogle(function (e) {
-        GoogleAuth.login((_) => {
+        GoogleAuth.login(_ => {
           var sheet = new Sheet(sheetReference)
           sheet.processSheetResponse(sheetName, createBlipsForProtectedSheet, (error) => {
             if (error.status === 403) {
@@ -128,7 +131,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
         }, force)
       })
     } else {
-      GoogleAuth.loadGoogle(function (e) {
+      GoogleAuth.loadGoogle(function () {
         var sheet = new Sheet(sheetReference)
         sheet.processSheetResponse(sheetName, createBlipsForProtectedSheet, (error) => {
           if (error.status === 403) {
@@ -192,6 +195,34 @@ const CSVDocument = function (url) {
   }
 
   self.init = function () {
+    plotLoading()
+    return self
+  }
+
+  return self
+}
+
+const JSONFile = function (url) {
+  var self = {}
+
+  self.build = function () {
+    d3.json(url).then(createBlips)
+  }
+
+  var createBlips = function (data) {
+    try {
+      var columnNames = Object.keys(data[0])
+      var contentValidator = new ContentValidator(columnNames)
+      contentValidator.verifyContent()
+      contentValidator.verifyHeaders()
+      var blips = _.map(data, new InputSanitizer().sanitize)
+      plotRadar(FileName(url), blips, 'JSON File', [])
+    } catch (exception) {
+      plotErrorMessage(exception)
+    }
+  }
+
+  self.init = function () {
     //plotLoading()
     return self
   }
@@ -227,16 +258,16 @@ const GoogleSheetInput = function () {
     if (domainName && queryParams.sheetId.endsWith('.csv')) {
       sheet = CSVDocument(queryParams.sheetId)
       sheet.init().build()
+    } else if (domainName && queryParams.sheetId.endsWith('.json')) {
+      sheet = JSONFile(queryParams.sheetId)
+      sheet.init().build()
     } else if (domainName && domainName.endsWith('google.com') && queryParams.sheetId) {
       sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
       console.log(queryParams.sheetName)
 
       sheet.init().build()
     } /* else {
-      var content = d3
-        .select('body')
-        .append('div')
-        .attr('class', 'input-sheet')
+      var content = d3.select('body').append('div').attr('class', 'input-sheet')
       setDocumentTitle()
 
       plotLogo(content)
@@ -317,7 +348,7 @@ function plotForm(content) {
     .attr('class', 'input-sheet__form')
     .append('p')
     .html(
-      '<strong>Enter the URL of your <a href="https://www.thoughtworks.com/radar/how-to-byor" target="_blank">Google Sheet or CSV</a> file below…</strong>',
+      '<strong>Enter the URL of your <a href="https://www.thoughtworks.com/radar/how-to-byor" target="_blank">Google Sheet, CSV or JSON</a> file below…</strong>',
     )
 
   var form = content.select('.input-sheet__form').append('form').attr('method', 'get')
@@ -326,7 +357,7 @@ function plotForm(content) {
     .append('input')
     .attr('type', 'text')
     .attr('name', 'sheetId')
-    .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/<sheetid> or hosted CSV file')
+    .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/<sheetid> or hosted CSV/JSON file')
     .attr('required', '')
 
   form.append('button').attr('type', 'submit').append('a').attr('class', 'button').text('Build my radar')
@@ -405,11 +436,11 @@ function plotUnauthorizedErrorMessage() {
     .attr('class', 'error-subtitle')
     .html(`or ${goBack} to try a different sheet.`)
 
-  button.on('click', (_) => {
+  button.on('click', () => {
     var queryString = window.location.href.match(/sheetId(.*)/)
     var queryParams = queryString ? QueryParams(queryString[0]) : {}
     const sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
-    sheet.authenticate(true, false, (_) => {
+    sheet.authenticate(true, false, () => {
       content.remove()
     })
   })
