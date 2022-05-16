@@ -1,6 +1,6 @@
 build:
   ci_team: ops
-  image: npm-node12
+  image: pre-built
   sonar_scan: false
 
   analysis:
