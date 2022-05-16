@@ -33,8 +33,6 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    strategy.spinnaker.io/max-version-history: '2'
   labels:
     app: tech-radar
   name: tech-radar
@@ -43,10 +41,6 @@ spec:
   selector:
     matchLabels:
       app: tech-radar
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
   template:
     metadata:
       labels:
