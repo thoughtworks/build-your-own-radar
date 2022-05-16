@@ -1,0 +1,6 @@
+build:
+  image: npm-node12
+   sonar_scan: false
+
+  analysis:
+    enabled: false
