@@ -1,4 +1,9 @@
 require('./stylesheets/base.scss')
+/* Need to require font assets manually, since Webpack config has disabled `url` parameter parsing (see commit message) */
+require('./stylesheets/fonts/OsloSans-Regular.woff2')
+require('./stylesheets/fonts/OsloSans-Medium.woff2')
+require('./stylesheets/fonts/OsloSans-Light.woff2')
+require('./stylesheets/fonts/OsloSans-Bold.woff2')
 require('./images/tech-radar-landing-page-wide.png')
 require('./images/tw-logo.png')
 require('./images/favicon.ico')

@@ -51,16 +51,20 @@ describe('sheet', function () {
   })
 
   xit('calls back with nothing if the sheet exists', function () {
+    pending('need to be fix: XMLHttpRequest is not defined')
+
     sheet = new Sheet('http://example.com/a/b/c/d/?x=y')
     sheet.exists(caller.callback)
 
     expect(caller.callback).toHaveBeenCalledWith(undefined)
-  }).pend('need to be fix: XMLHttpRequest is not defined')
+  })
 
   xit('calls back with error if sheet the sheet does not exist', function () {
+    pending('need to be fix: XMLHttpRequest is not defined')
+
     sheet = new Sheet('http://example.com/a/b/c/d/?x=y')
     sheet.exists(caller.callback)
 
     expect(caller.callback).toHaveBeenCalledWith('Some error')
-  }).pend('need to be fix: XMLHttpRequest is not defined')
+  })
 })

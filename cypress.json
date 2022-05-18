@@ -1,6 +1,7 @@
 {
   "excel": "https://docs.google.com/spreadsheets/d/1Yozpcv58-etk1UNvxS0HxMqw7V5Amf4dgWBnekJcHcc/edit?usp=sharing",
   "csv": "https://raw.githubusercontent.com/thoughtworks/build-your-own-radar/master/spec/end_to_end_tests/resources/sheet.csv",
+  "json": "https://raw.githubusercontent.com/thoughtworks/build-your-own-radar/master/spec/end_to_end_tests/resources/data.json",
   "integrationFolder": "spec/end_to_end_tests/specs",
   "chromeWebSecurity": false,
   "screenshotsFolder": "spec/end_to_end_tests/reports/screenshots",
