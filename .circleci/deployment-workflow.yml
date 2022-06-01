@@ -7,7 +7,6 @@ executors:
   base:
     docker:
       - image: cimg/node:14.19
-        user: root
 
 commands:
   install-node-packages:
