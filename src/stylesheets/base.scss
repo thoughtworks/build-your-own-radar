@@ -5,10 +5,17 @@
 @import 'error';
 @import 'header';
 @import 'footer';
+@import 'featuretoggles';
 @import url(https://www.thoughtworks.com/css/k8s_production/screen.css);
 
 body {
   font: 18px 'Open Sans';
+  @if $UIRefresh2022 {
+    font-family: 'Inter', sans-serif;
+    h1 {
+      font-family: 'Bitter', serif;
+    }
+  }
   -webkit-font-smoothing: antialiased;
   margin: 0;
 }

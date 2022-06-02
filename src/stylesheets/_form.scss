@@ -57,6 +57,7 @@
     padding-top: 30px;
 
     button {
+      font-family: inherit;
       border: none;
       background-color: transparent;
       margin: 0;
@@ -78,5 +79,11 @@
       border-bottom: 2px solid $grey-even-darker;
       box-shadow: none;
     }
+  }
+
+  form,
+  input,
+  a {
+    font-family: inherit;
   }
 }
