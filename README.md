@@ -5,7 +5,16 @@ https://github.com/thoughtworks/build-your-own-radar
 
 ### URL for radaren
 
-https://teknologiradar.oslo.systems/
+Routing til radaren er konfigurert i AWS-kontoen "dataplatform-prod", hvor en API Gateway bruker en reverse-proxy mot
+url-en til S3-siten.
+
+Direkte-url til S3-site:
+
+http://teknologiradar.oslo.systems.s3-website-eu-west-1.amazonaws.com/
+
+Url via API Gateway:
+
+https://developer.oslo.kommune.no/teknologiradar
 
 ### Oppdatering av innhold
 
