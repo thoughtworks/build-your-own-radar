@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode production",
-    "dev": "webpack-dev-server --mode development",
+    "build": "webpack --mode production --config webpack.prod.js",
+    "dev": "webpack-dev-server --mode development --config webpack.dev.js",
     "test": "jasmine",
     "test:e2e": "cypress run --env host=$TEST_URL",
     "lint-prettier:check": "eslint . && prettier --check .",

@@ -11,21 +11,13 @@ const postcssPresetEnv = require('postcss-preset-env')
 const cssnano = require('cssnano')
 
 const isProd = args.prod
-const isDev = args.dev
 const env = args.envFile
 if (env) {
   // Load env file
   require('dotenv').config({ path: env })
 }
 
-const main = ['./src/site.js']
 const common = ['./src/common.js']
-let devtool
-
-if (isDev) {
-  main.push('webpack-dev-server/client?http://0.0.0.0:8080')
-  devtool = 'source-map'
-}
 
 const plugins = [
   new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
@@ -51,20 +43,19 @@ const plugins = [
 if (isProd) {
   plugins.push(new webpack.NoEmitOnErrorsPlugin())
 }
-
 module.exports = {
+  context: __dirname,
   entry: {
-    main: main,
     common: common,
   },
 
   output: {
     path: buildPath,
-    publicPath: '/',
     filename: '[name].[contenthash].js',
     assetModuleFilename: 'images/[name][ext]',
   },
   resolve: {
+    extensions: ['.js', '.ts'],
     fallback: {
       fs: false,
     },
@@ -128,12 +119,4 @@ module.exports = {
   },
 
   plugins: plugins,
-
-  devtool: devtool,
-
-  devServer: {
-    static: { directory: buildPath },
-    host: '0.0.0.0',
-    port: 8080,
-  },
 }
