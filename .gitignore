@@ -11,6 +11,7 @@ coverage/
 .DS_Store
 
 spec/end_to_end_tests/reports/
+src/stylesheets/_featuretoggles.scss
 cypress/
 
 .nyc_output
