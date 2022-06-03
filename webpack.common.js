@@ -10,7 +10,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const postcssPresetEnv = require('postcss-preset-env')
 const cssnano = require('cssnano')
 
-const isProd = args.prod
 const env = args.envFile
 if (env) {
   // Load env file
@@ -40,9 +39,6 @@ const plugins = [
   }),
 ]
 
-if (isProd) {
-  plugins.push(new webpack.NoEmitOnErrorsPlugin())
-}
 module.exports = {
   context: __dirname,
   entry: {
