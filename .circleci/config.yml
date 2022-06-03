@@ -8,7 +8,7 @@ orbs:
 executors:
   base:
     docker:
-      - image: cimg/node:16.15.1
+      - image: cimg/node:16.15.0
         user: root
 
 commands:
