@@ -17,7 +17,7 @@ module.exports = merge(common, {
   mode: 'development',
   entry: { main: main },
   performance: {
-    hints: 'warning',
+    hints: false,
   },
   plugins: [
     new webpack.DefinePlugin({
