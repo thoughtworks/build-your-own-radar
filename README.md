@@ -158,7 +158,7 @@ Make sure you have nodejs installed.
 
 - `git clone git@github.com:thoughtworks/build-your-own-radar.git`
 - `npm install`
-- `npm quality:nonstrict` - to run your tests
+- `npm run quality` - to run your tests
 - `npm run dev` - to run application in localhost:8080. This will watch the .js and .css files and rebuild on file changes
 
 ## End to End Tests
