@@ -1,0 +1,19 @@
+@import "colors";
+@import "featuretoggles";
+
+.back-navigation-wrapper {
+  @if $UIRefresh2022 {
+    height: 60px;
+    border-bottom: 1px solid $mist-s30;
+    display: none;
+    align-items: center;
+
+    .back-navigation {
+      @include default-layout-margin;
+    }
+  }
+
+  @else {
+    display: none;
+  }
+}

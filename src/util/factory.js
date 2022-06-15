@@ -21,6 +21,7 @@ const ContentValidator = require('./contentValidator')
 const Sheet = require('./sheet')
 const ExceptionMessages = require('./exceptionMessages')
 const GoogleAuth = require('./googleAuth')
+const config = require('../config')
 
 const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   if (title.endsWith('.csv')) {
@@ -240,20 +241,27 @@ const GoogleSheetInput = function () {
 
       sheet.init().build()
     } else {
+      if (!config.featureToggles.UIRefresh2022) {
+        document.body.innerHTML = '';
+      }
       var content = d3.select('body').append('div').attr('class', 'input-sheet')
+
+      if (!config.featureToggles.UIRefresh2022) {
+        plotLogo(content)
+        const bannerText =
+          '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://www.thoughtworks.com/radar/byor">created your Radar</a>, you can use this service' +
+          ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a></p></div>'
+
+        plotBanner(content, bannerText)
+
+        plotForm(content)
+
+        plotFooter(content)
+      }
+
+      handleBackNavigation()
+
       setDocumentTitle()
-
-      plotLogo(content)
-
-      var bannerText =
-        '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://www.thoughtworks.com/radar/byor">created your Radar</a>, you can use this service' +
-        ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a></p></div>'
-
-      plotBanner(content, bannerText)
-
-      plotForm(content)
-
-      plotFooter(content)
     }
   }
 
@@ -264,16 +272,33 @@ function setDocumentTitle() {
   document.title = 'Build your own Radar'
 }
 
+const handleBackNavigation = function () {
+
+  const backNavigation = document.querySelector('.back-navigation')
+  const previousPageUrl = document.referrer
+  const radarPagePattern = /\b.thoughtworks.com\/\b/gm
+  if (radarPagePattern.test(previousPageUrl)) {
+    backNavigation.style.display = 'block'
+  }
+}
+
 function plotLoading(content) {
-  content = d3.select('body').append('div').attr('class', 'loading').append('div').attr('class', 'input-sheet')
+  if (!config.featureToggles.UIRefresh2022) {
+    document.body.innerHTML = '';
+    content = d3.select('body').append('div').attr('class', 'loading').append('div').attr('class', 'input-sheet')
 
-  setDocumentTitle()
+    setDocumentTitle()
 
-  plotLogo(content)
+    plotLogo(content)
 
-  var bannerText = '<h1>Building your radar...</h1><p>Your Technology Radar will be available in just a few seconds</p>'
-  plotBanner(content, bannerText)
-  plotFooter(content)
+    var bannerText = '<h1>Building your radar...</h1><p>Your Technology Radar will be available in just a few seconds</p>'
+    plotBanner(content, bannerText)
+    plotFooter(content)
+  } else {
+    document.querySelector('.helper-description > p').style.display = 'none';
+    document.querySelector('.input-sheet-form').style.display = 'none';
+    document.querySelector('.helper-description .loader-text').style.display = 'block';
+  }
 }
 
 function plotLogo(content) {
@@ -292,9 +317,9 @@ function plotFooter(content) {
     .append('p')
     .html(
       'Powered by <a href="https://www.thoughtworks.com"> Thoughtworks</a>. ' +
-        'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
-        'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
-        'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
+      'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
+      'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
+      'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
     )
 }
 
@@ -326,23 +351,33 @@ function plotForm(content) {
 }
 
 function plotErrorMessage(exception) {
-  var message = 'Oops! It seems like there are some problems with loading your data. '
+  if (config.featureToggles.UIRefresh2022) {
+    showErrorMessage(exception);
+  } else {
+    var message = 'Oops! It seems like there are some problems with loading your data. '
 
-  var content = d3.select('body').append('div').attr('class', 'input-sheet')
-  setDocumentTitle()
+    var content = d3.select('body').append('div').attr('class', 'input-sheet')
+    setDocumentTitle()
 
-  plotLogo(content)
+    plotLogo(content)
 
-  var bannerText =
-    '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://www.thoughtworks.com/radar/byor">created your Radar</a>, you can use this service' +
-    ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a></p></div>'
+    var bannerText =
+      '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://www.thoughtworks.com/radar/byor">created your Radar</a>, you can use this service' +
+      ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a></p></div>'
 
-  plotBanner(content, bannerText)
+    plotBanner(content, bannerText)
 
-  d3.selectAll('.loading').remove()
-  message = "Oops! We can't find the Google Sheet you've entered"
-  var faqMessage =
-    'Please check <a href="https://www.thoughtworks.com/radar/how-to-byor">FAQs</a> for possible solutions.'
+    d3.selectAll('.loading').remove()
+    plotError(exception, content)
+
+    plotFooter(content)
+  }
+}
+
+function plotError(exception, container) {
+  let message = "Oops! We can't find the Google Sheet you've entered"
+  let faqMessage =
+    'Please check <a href="https://www.thoughtworks.com/radar/how-to-byor">FAQs</a> for possible solutions.';
   if (exception instanceof MalformedDataError) {
     message = message.concat(exception.message)
   } else if (exception instanceof SheetNotFoundError) {
@@ -350,20 +385,24 @@ function plotErrorMessage(exception) {
   } else {
     console.error(exception)
   }
-
-  const container = content.append('div').attr('class', 'error-container')
-  var errorContainer = container.append('div').attr('class', 'error-container__message')
+  container = container.append('div').attr('class', 'error-container')
+  const errorContainer = container.append('div').attr('class', 'error-container__message')
   errorContainer.append('div').append('p').html(message)
   errorContainer.append('div').append('p').html(faqMessage)
 
-  var homePageURL = window.location.protocol + '//' + window.location.hostname
+  let homePageURL = window.location.protocol + '//' + window.location.hostname
   homePageURL += window.location.port === '' ? '' : ':' + window.location.port
-  var homePage = '<a href=' + homePageURL + '>GO BACK</a>'
+  const homePage = '<a href=' + homePageURL + '>GO BACK</a>'
 
   errorContainer.append('div').append('p').html(homePage)
-
-  plotFooter(content)
 }
+
+function showErrorMessage(exception) {
+  document.querySelector('.helper-description .loader-text').style.display = 'none';
+  const container = d3.select('main').append('div').attr('class', 'error-container');
+  plotError(exception, container);
+}
+
 
 function plotUnauthorizedErrorMessage() {
   var content = d3.select('body').append('div').attr('class', 'input-sheet')

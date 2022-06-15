@@ -16,3 +16,26 @@ $black: #000;
 $grey-text: rgb(51, 51, 51);
 
 $grey-alpha-03: rgba(255, 255, 255, 0.3);
+
+
+//## Brand colors for use across theme.
+$black: #000000; //onyx
+$white: #ffffff; //white
+$wave: #163c4d; //wave
+$wave-light: #6b8591; //wave-light
+$flamingo: #e16a7c; //flamingo
+$mist: #edf1f3; //mist (ededed)
+$sapphire: #47a1ad; //$sapphire
+$jade: #6b9e78; //jade
+$turmeric: #cc850a; //turmeric
+$amethyst: #634f7d; //amethyst
+
+//Other colors
+$mist-s30: #71777d;
+
+$button-normal: $wave; //button color
+$button-disabled: #909090; //disabled state for links and buttons
+
+$link-normal: $black; //links color
+$link-hover: #9b293c; //links hover state color
+

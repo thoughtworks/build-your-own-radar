@@ -6,16 +6,48 @@
 @import 'header';
 @import 'footer';
 @import 'featuretoggles';
+@import 'herobanner';
+@import 'mediaqueries';
+@import 'backnav';
+@import 'layout';
+@import 'landingpage';
+@import 'loader';
 @import url(https://www.thoughtworks.com/css/k8s_production/screen.css);
 
 body {
   font: 18px 'Open Sans';
   @if $UIRefresh2022 {
-    font-family: 'Inter', sans-serif;
+  font-family: $baseFontFamily;
+
     h1 {
+      font-size: 2rem;
       font-family: 'Bitter', serif;
+      text-transform: none;
+      letter-spacing: normal;
+
+      @include media-query-large {
+        font-size: 3.5rem;
+      }
+    }
+
+    p {
+      font-size: 18px;
+      font-family: $baseFontFamily;
+      line-height: 27px;
+      font-weight: 360;
+    }
+
+    a {
+      color: $link-normal;
+      border-color: $link-normal;
+
+      &:hover {
+        color: $link-hover;
+        border-color: $link-hover;
+      }
     }
   }
+
   -webkit-font-smoothing: antialiased;
   margin: 0;
 }

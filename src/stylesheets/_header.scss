@@ -1,185 +1,190 @@
+@import 'colors';
+@import 'featuretoggles';
+@import 'mediaqueries';
+
 header {
   text-align: center;
+}
 
-  .radar-title,
-  .buttons-group,
-  #alternative-buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    align-content: space-between;
-  }
+.radar-title,
+.buttons-group,
+#alternative-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: space-between;
+}
 
-  .radar-title {
-    background-color: $grey-light;
-    padding: 30px 0;
+.radar-title {
+  background-color: $grey-light;
+  padding: 30px 0;
 
-    display: table;
-    margin: auto;
-    width: 100%;
+  display: table;
+  margin: auto;
+  width: 100%;
 
-    .radar-title__text {
-      display: table-cell;
-      width: 70%;
+  .radar-title__text {
+    display: table-cell;
+    width: 70%;
 
-      text-align: left;
-      padding-left: 10%;
-
-      h1 {
-        font-size: 55px;
-        font-weight: 900;
-        letter-spacing: -0.04em;
-        line-height: 0.8em;
-        margin: 0;
-        text-transform: uppercase;
-      }
-    }
-
-    .radar-title__logo {
-      flex: 0 0 30%;
-      margin-left: auto;
-
-      width: 30%;
-      display: table-cell;
-      vertical-align: middle;
-
-      a {
-        border-bottom: none;
-      }
-
-      img {
-        vertical-align: middle;
-        width: 34%;
-      }
-    }
-  }
-
-  .quadrant-btn--group,
-  .multiple-sheet-button-group {
     text-align: left;
     padding-left: 10%;
+
+    h1 {
+      font-size: 55px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 0.8em;
+      margin: 0;
+      text-transform: uppercase;
+    }
   }
 
-  .print-radar-btn,
-  .search-box {
+  .radar-title__logo {
+    flex: 0 0 30%;
     margin-left: auto;
-    margin-right: 10%;
-  }
 
-  .buttons-group {
-    padding: 15px 0 25px;
-  }
+    width: 30%;
+    display: table-cell;
+    vertical-align: middle;
 
-  .home-link {
-    color: $pink;
-    margin-bottom: 10px;
-    line-height: normal;
-    cursor: pointer;
-    display: inline-block;
-    font-size: $baseFont;
-    text-align: left;
-    width: 80%;
-  }
-
-  .button {
-    font-size: $baseFont;
-    text-transform: capitalize;
-    margin-right: 20px;
-    border-radius: 2px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: all 0.2s ease-out;
-
-    background-color: $grey-light;
-    color: $black;
-
-    &.no-capitalize {
-      text-transform: none;
-    }
-
-    &:hover,
-    &.selected {
-      transform: translate(0, -2px);
-      opacity: 0.85;
-
-      &.first {
-        color: white;
-        background-color: $green;
-      }
-
-      &.second {
-        color: white;
-        background-color: $blue;
-      }
-
-      &.third {
-        color: white;
-        background-color: $orange;
-      }
-
-      &.fourth {
-        color: white;
-        background-color: $violet;
-      }
-    }
-
-    &.full-view {
-      &.first {
-        background-color: $green;
-        color: $white;
-      }
-
-      &.second {
-        background-color: $blue;
-        color: $white;
-      }
-
-      &.third {
-        background-color: $orange;
-        color: $white;
-      }
-
-      &.fourth {
-        background-color: $violet;
-        color: $white;
-      }
-    }
-  }
-
-  #alternative-buttons {
-    margin-bottom: 50px;
-
-    .highlight {
+    a {
       border-bottom: none;
-      font-weight: bold;
     }
 
-    p {
-      font-size: 16px;
-      font-weight: 700;
-      margin-top: 0;
-      margin-bottom: 10px;
-    }
-
-    .multiple-sheet-button {
-      margin-right: 10px;
-    }
-
-    .search-radar {
-      border: 1px solid #aaa;
-      background-color: inherit;
-      background-image: url('/images/search-logo-2x.svg');
-      background-repeat: no-repeat;
-      background-position: 10px;
-    }
-
-    input {
-      padding-left: 35px;
-      width: 275px;
+    img {
+      vertical-align: middle;
+      width: 34%;
     }
   }
 }
+
+.quadrant-btn--group,
+.multiple-sheet-button-group {
+  text-align: left;
+  padding-left: 10%;
+}
+
+.print-radar-btn,
+.search-box {
+  margin-left: auto;
+  margin-right: 10%;
+}
+
+.buttons-group {
+  padding: 15px 0 25px;
+}
+
+.home-link {
+  color: $pink;
+  margin-bottom: 10px;
+  line-height: normal;
+  cursor: pointer;
+  display: inline-block;
+  font-size: $baseFont;
+  text-align: left;
+  width: 80%;
+}
+
+.button {
+  font-size: $baseFont;
+  text-transform: capitalize;
+  margin-right: 20px;
+  border-radius: 2px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+
+  background-color: $grey-light;
+  color: $black;
+
+  &.no-capitalize {
+    text-transform: none;
+  }
+
+  &:hover,
+  &.selected {
+    transform: translate(0, -2px);
+    opacity: 0.85;
+
+    &.first {
+      color: white;
+      background-color: $green;
+    }
+
+    &.second {
+      color: white;
+      background-color: $blue;
+    }
+
+    &.third {
+      color: white;
+      background-color: $orange;
+    }
+
+    &.fourth {
+      color: white;
+      background-color: $violet;
+    }
+  }
+
+  &.full-view {
+    &.first {
+      background-color: $green;
+      color: $white;
+    }
+
+    &.second {
+      background-color: $blue;
+      color: $white;
+    }
+
+    &.third {
+      background-color: $orange;
+      color: $white;
+    }
+
+    &.fourth {
+      background-color: $violet;
+      color: $white;
+    }
+  }
+}
+
+#alternative-buttons {
+  margin-bottom: 50px;
+
+  .highlight {
+    border-bottom: none;
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  .multiple-sheet-button {
+    margin-right: 10px;
+  }
+
+  .search-radar {
+    border: 1px solid #aaa;
+    background-color: inherit;
+    background-image: url('/images/search-logo-2x.svg');
+    background-repeat: no-repeat;
+    background-position: 10px;
+  }
+
+  input {
+    padding-left: 35px;
+    width: 275px;
+  }
+}
+
 
 .ui-autocomplete {
   width: 275px !important;
@@ -197,6 +202,25 @@ header {
 
     .ui-menu-item-wrapper {
       padding: 0 10px;
+    }
+  }
+}
+
+@if $UIRefresh2022 {
+  header {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    a {
+      display: block;
+      border-bottom: none;
+
+      img {
+        height: 20px;
+        width: auto;
+      }
     }
   }
 }

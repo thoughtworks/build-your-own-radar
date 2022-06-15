@@ -1,3 +1,6 @@
+@import 'layout';
+@import 'fonts';
+
 #footer {
   text-align: center;
   clear: both;
@@ -13,4 +16,17 @@
       text-align: left;
     }
   }
+}
+
+@if $UIRefresh2022{
+  footer{
+    p{
+
+    @include eight-column-layout-margin;
+    font-size: 18px;
+    font-family: $baseFontFamily;
+    font-weight: normal;
+    margin-top: 60px;
+    }
+}
 }

@@ -1,9 +1,10 @@
-var config = require('../../../cypress.json')
+const config = require('../../../cypress.json')
+const {development} = require('/src/config')
 
 class ByorPage {
   constructor() {
     this.text_box = "[name='sheetId']"
-    this.submit = '.button'
+    this.submit = development.featureToggles.UIRefresh2022 ? "input[type=submit]" : ".button"
   }
 
   provideExcelName() {

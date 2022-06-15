@@ -6,6 +6,7 @@ const _ = require('lodash/core')
 const RingCalculator = require('../util/ringCalculator')
 const QueryParams = require('../util/queryParamProcessor')
 const AutoComplete = require('../util/autoComplete')
+const config = require('../config')
 
 const MIN_BLIP_WIDTH = 12
 const ANIMATION_DURATION = 1000
@@ -525,6 +526,20 @@ const Radar = function (size, radar) {
     return header
   }
 
+  function plotHeader (){
+    document.querySelector('.hero-banner__title-text').innerHTML = document.title
+    const radarWrapper = d3.select('main .graph-placeholder');
+    document.querySelector('.hero-banner__title-text').addEventListener('click', redrawFullRadar);
+
+    buttonsGroup = radarWrapper.append('div').classed('buttons-group', true)
+
+    quadrantButtons = buttonsGroup.append('div').classed('quadrant-btn--group', true)
+
+    alternativeDiv = radarWrapper.append('div').attr('id', 'alternative-buttons')
+
+    return radarWrapper
+  }
+
   function plotQuadrantButtons(quadrants) {
     function addButton(quadrant) {
       radarElement.append('div').attr('class', 'quadrant-table ' + quadrant.order)
@@ -640,7 +655,8 @@ const Radar = function (size, radar) {
   }
 
   self.init = function () {
-    radarElement = d3.select('body').append('div').attr('id', 'radar')
+    const selector = config.featureToggles.UIRefresh2022 ? 'main' : 'body'
+    radarElement = d3.select(selector).append('div').attr('id', 'radar')
     return self
   }
 
@@ -679,7 +695,17 @@ const Radar = function (size, radar) {
     quadrants = radar.quadrants()
     alternatives = radar.getAlternatives()
     currentSheet = radar.getCurrentSheet()
-    plotRadarHeader()
+
+    if(config.featureToggles.UIRefresh2022){
+      const landingPageElements = document.querySelectorAll('main .landing-page');
+      landingPageElements.forEach(elem => {
+        elem.style.display = 'none';
+      })
+      plotHeader()
+    }else{
+      plotRadarHeader()
+      plotRadarFooter()
+    }
 
     if (alternatives.length) {
       plotAlternativeRadars(alternatives, currentSheet)
@@ -700,8 +726,6 @@ const Radar = function (size, radar) {
       plotTexts(quadrantGroup, rings, quadrant)
       plotBlips(quadrantGroup, rings, quadrant)
     })
-
-    plotRadarFooter()
   }
 
   return self

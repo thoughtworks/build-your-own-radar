@@ -1,15 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link href="/images/favicon.ico" rel="icon" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bitter:wght@700&family=Inter:wght@300;600&display=swap"
-      rel="stylesheet"
-    />
-  </head>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/images/favicon.ico" rel="icon"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bitter:wght@700&family=Inter:wght@300;600&display=swap"
+    rel="stylesheet"
+  />
+</head>
 
-  <body></body>
+<body>
+<header class="input-sheet__logo">
+  <a href="https://www.thoughtworks.com"><img src="/images/tw-logo.png" alt="Thoughtworks logo"></a>
+</header>
+<div class="hero-banner">
+  <div class="hero-banner__wrapper">
+
+    <h1 class="hero-banner__title-text">Build Your Own Radar</h1>
+  </div>
+</div>
+<main>
+  <div class="back-navigation-wrapper landing-page">
+    <span class="back-navigation">Back</span>
+  </div>
+  <div class="helper-description landing-page">
+    <p>Once you've <a href="https://www.thoughtworks.com/radar/byor">created your Radar</a> you can use this service
+      to generate an interactive version of your Technology Radar. Not sure how? <a
+        href="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a>
+    </p>
+    <span class="loader-text">
+      <span class="loader-text__title">Building your radar...</span>
+      <p>Your Technology Radar will be available in just a few seconds</p>
+      <div class="loader-wrapper">
+        <div style='animation-delay:0s'></div>
+        <div style='animation-delay:0.25s'></div>
+        <div style='animation-delay:0.75s'> </div>
+        <div style='animation-delay:0.5s'></div>
+      </div>
+    </span>
+  </div>
+  <div class="input-sheet-form landing-page">
+    <p>
+      Enter the URL of your <a href="https://www.thoughtworks.com/radar/how-to-byor" target="_blank">Google Sheet, CSV
+      or JSON</a> file below…
+    </p>
+    <form method='get'>
+      <input type="text" name="sheetId"
+             placeholder="e.g. https://docs.google.com/spreadsheets/d/<sheetid> or hosted CSV/JSON file" required=""/>
+      <input type="submit" value="Build my radar"/>
+      <a href='https://www.thoughtworks.com/radar/how-to-byor'>Need help?</a>
+    </form>
+  </div>
+  <div class="graph-placeholder" id="radar"></div>
+</main>
+<footer class="landing-page">
+  <p>Powered by <a href="https://www.thoughtworks.com"> Thoughtworks</a>. By using this service you agree to <a
+    href="https://www.thoughtworks.com/radar/tos">Thoughtworks' terms of use</a>. You also agree to our <a
+    href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and
+    protect any personal data contained in your public Google Sheet. This software is <a
+      href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and
+    self-hosting.</p>
+</footer>
+
+</body>
 </html>
