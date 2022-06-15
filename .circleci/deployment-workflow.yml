@@ -59,10 +59,13 @@ commands:
       distribution_id:
         type: string
         default: ''
+      mode:
+        type: string
+        default: ''
     steps:
       - run:
           name: Build code
-          command: API_KEY="" CLIENT_ID=<< parameters.client_id >> GTM_ID=<< parameters.gtm_id >> npm run build
+          command: API_KEY="" CLIENT_ID=<< parameters.client_id >> GTM_ID=<< parameters.gtm_id >> npm run build:<<parameters.mode>>
       - aws-cli/setup
       - run:
           name: Sync build artifacts to S3
@@ -90,6 +93,7 @@ jobs:
           gtm_id: $DEV_GTM_ID
           bucket_name: $DEV_BUCKET_NAME
           distribution_id: $DEV_DISTRIBUTION_ID
+          mode: dev
   prod-deployment:
     executor: base
     steps:
@@ -103,6 +107,7 @@ jobs:
           gtm_id: $PROD_GTM_ID
           bucket_name: $PROD_BUCKET_NAME
           distribution_id: $PROD_DISTRIBUTION_ID
+          mode: prod
       - run:
           name: Build and push Docker image to DockerHub
           command: ./docker_push.sh

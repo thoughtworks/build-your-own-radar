@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode production --config webpack.prod.js",
+    "build:dev": "webpack --mode development --config webpack.dev.js",
+    "build:prod": "webpack --mode production --config webpack.prod.js",
     "dev": "webpack-dev-server --mode development --config webpack.dev.js",
     "test": "jasmine",
     "test:e2e": "cypress run --env host=$TEST_URL",
