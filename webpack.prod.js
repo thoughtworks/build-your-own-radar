@@ -20,7 +20,7 @@ module.exports = merge(common, {
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
-      'process.env.ENVIRONMENT': 'production',
+      'process.env.ENVIRONMENT': JSON.stringify('production'),
     }),
   ],
   devtool: 'source-map',
