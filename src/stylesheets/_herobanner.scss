@@ -1,11 +1,11 @@
-@import "colors";
-@import "layout";
+@import 'colors';
+@import 'layout';
 
 @if $UIRefresh2022 {
   .hero-banner {
     height: 300px;
     background-color: $amethyst;
-    background-image: url("/images/banner-image-mobile.jpg");
+    background-image: url('/images/banner-image-mobile.jpg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: right;
@@ -15,7 +15,7 @@
     margin: 0;
 
     @include media-query-medium {
-      background-image: url("/images/banner-image-desktop.jpg");
+      background-image: url('/images/banner-image-desktop.jpg');
       height: 200px;
       background-size: cover;
     }

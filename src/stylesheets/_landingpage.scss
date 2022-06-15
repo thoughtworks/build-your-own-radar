@@ -41,10 +41,10 @@
     flex-wrap: nowrap;
     align-items: center;
 
-    input[type=text] {
+    input[type='text'] {
       font-family: $baseFontFamily;
       background-color: $mist;
-      border: 1px solid #D5D9DB;
+      border: 1px solid #d5d9db;
       letter-spacing: 0.06px;
       height: 48px;
       margin-bottom: 20px;
@@ -52,11 +52,11 @@
       font-size: 18px;
 
       &::placeholder {
-        color: #3C606F;
+        color: #3c606f;
       }
     }
 
-    input[type=submit] {
+    input[type='submit'] {
       background-color: $button-normal;
       color: $white;
       font-size: 20px;

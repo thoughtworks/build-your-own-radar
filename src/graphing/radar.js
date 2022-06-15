@@ -526,10 +526,10 @@ const Radar = function (size, radar) {
     return header
   }
 
-  function plotHeader (){
+  function plotHeader() {
     document.querySelector('.hero-banner__title-text').innerHTML = document.title
-    const radarWrapper = d3.select('main .graph-placeholder');
-    document.querySelector('.hero-banner__title-text').addEventListener('click', redrawFullRadar);
+    const radarWrapper = d3.select('main .graph-placeholder')
+    document.querySelector('.hero-banner__title-text').addEventListener('click', redrawFullRadar)
 
     buttonsGroup = radarWrapper.append('div').classed('buttons-group', true)
 
@@ -696,13 +696,13 @@ const Radar = function (size, radar) {
     alternatives = radar.getAlternatives()
     currentSheet = radar.getCurrentSheet()
 
-    if(config.featureToggles.UIRefresh2022){
-      const landingPageElements = document.querySelectorAll('main .landing-page');
-      landingPageElements.forEach(elem => {
-        elem.style.display = 'none';
+    if (config.featureToggles.UIRefresh2022) {
+      const landingPageElements = document.querySelectorAll('main .landing-page')
+      landingPageElements.forEach((elem) => {
+        elem.style.display = 'none'
       })
       plotHeader()
-    }else{
+    } else {
       plotRadarHeader()
       plotRadarFooter()
     }

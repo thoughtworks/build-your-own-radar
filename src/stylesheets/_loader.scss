@@ -1,4 +1,4 @@
-@import "colors";
+@import 'colors';
 .loading-spinner {
   &-blocks {
     width: 100%;
@@ -36,7 +36,13 @@
 }
 
 @keyframes loader {
-  0% { background: $wave }
-  50% { background: $mist }
-  100% { background: $mist }
+  0% {
+    background: $wave;
+  }
+  50% {
+    background: $mist;
+  }
+  100% {
+    background: $mist;
+  }
 }

@@ -1,5 +1,5 @@
-@import "colors";
-@import "featuretoggles";
+@import 'colors';
+@import 'featuretoggles';
 
 .back-navigation-wrapper {
   @if $UIRefresh2022 {
@@ -11,9 +11,7 @@
     .back-navigation {
       @include default-layout-margin;
     }
-  }
-
-  @else {
+  } @else {
     display: none;
   }
 }

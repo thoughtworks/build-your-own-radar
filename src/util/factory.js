@@ -242,7 +242,7 @@ const GoogleSheetInput = function () {
       sheet.init().build()
     } else {
       if (!config.featureToggles.UIRefresh2022) {
-        document.body.innerHTML = '';
+        document.body.innerHTML = ''
       }
       var content = d3.select('body').append('div').attr('class', 'input-sheet')
 
@@ -273,7 +273,6 @@ function setDocumentTitle() {
 }
 
 const handleBackNavigation = function () {
-
   const backNavigation = document.querySelector('.back-navigation')
   const previousPageUrl = document.referrer
   const radarPagePattern = /\b.thoughtworks.com\/\b/gm
@@ -284,20 +283,21 @@ const handleBackNavigation = function () {
 
 function plotLoading(content) {
   if (!config.featureToggles.UIRefresh2022) {
-    document.body.innerHTML = '';
+    document.body.innerHTML = ''
     content = d3.select('body').append('div').attr('class', 'loading').append('div').attr('class', 'input-sheet')
 
     setDocumentTitle()
 
     plotLogo(content)
 
-    var bannerText = '<h1>Building your radar...</h1><p>Your Technology Radar will be available in just a few seconds</p>'
+    var bannerText =
+      '<h1>Building your radar...</h1><p>Your Technology Radar will be available in just a few seconds</p>'
     plotBanner(content, bannerText)
     plotFooter(content)
   } else {
-    document.querySelector('.helper-description > p').style.display = 'none';
-    document.querySelector('.input-sheet-form').style.display = 'none';
-    document.querySelector('.helper-description .loader-text').style.display = 'block';
+    document.querySelector('.helper-description > p').style.display = 'none'
+    document.querySelector('.input-sheet-form').style.display = 'none'
+    document.querySelector('.helper-description .loader-text').style.display = 'block'
   }
 }
 
@@ -317,9 +317,9 @@ function plotFooter(content) {
     .append('p')
     .html(
       'Powered by <a href="https://www.thoughtworks.com"> Thoughtworks</a>. ' +
-      'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
-      'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
-      'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
+        'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
+        'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
+        'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
     )
 }
 
@@ -352,16 +352,14 @@ function plotForm(content) {
 
 function plotErrorMessage(exception) {
   if (config.featureToggles.UIRefresh2022) {
-    showErrorMessage(exception);
+    showErrorMessage(exception)
   } else {
-    var message = 'Oops! It seems like there are some problems with loading your data. '
-
-    var content = d3.select('body').append('div').attr('class', 'input-sheet')
+    const content = d3.select('body').append('div').attr('class', 'input-sheet')
     setDocumentTitle()
 
     plotLogo(content)
 
-    var bannerText =
+    const bannerText =
       '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://www.thoughtworks.com/radar/byor">created your Radar</a>, you can use this service' +
       ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a></p></div>'
 
@@ -377,7 +375,7 @@ function plotErrorMessage(exception) {
 function plotError(exception, container) {
   let message = "Oops! We can't find the Google Sheet you've entered"
   let faqMessage =
-    'Please check <a href="https://www.thoughtworks.com/radar/how-to-byor">FAQs</a> for possible solutions.';
+    'Please check <a href="https://www.thoughtworks.com/radar/how-to-byor">FAQs</a> for possible solutions.'
   if (exception instanceof MalformedDataError) {
     message = message.concat(exception.message)
   } else if (exception instanceof SheetNotFoundError) {
@@ -398,11 +396,10 @@ function plotError(exception, container) {
 }
 
 function showErrorMessage(exception) {
-  document.querySelector('.helper-description .loader-text').style.display = 'none';
-  const container = d3.select('main').append('div').attr('class', 'error-container');
-  plotError(exception, container);
+  document.querySelector('.helper-description .loader-text').style.display = 'none'
+  const container = d3.select('main').append('div').attr('class', 'error-container')
+  plotError(exception, container)
 }
-
 
 function plotUnauthorizedErrorMessage() {
   var content = d3.select('body').append('div').attr('class', 'input-sheet')
