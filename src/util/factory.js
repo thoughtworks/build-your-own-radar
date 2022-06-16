@@ -270,11 +270,12 @@ function setDocumentTitle() {
 }
 
 const handleBackNavigation = function () {
+  const backNavWrapper = document.querySelector('.back-navigation-wrapper')
   const backNavigation = document.querySelector('.back-navigation button')
   const isNavigatingFromTwWebsite = document.referrer.indexOf('.thoughtworks.com/') !== -1
 
   if (isNavigatingFromTwWebsite) {
-    backNavigation.style.display = 'block'
+    backNavWrapper.style.display = 'block'
     backNavigation.addEventListener('click', () => {
       window.history.back()
     })
