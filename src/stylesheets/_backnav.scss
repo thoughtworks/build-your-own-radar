@@ -10,6 +10,18 @@
 
     .back-navigation {
       @include default-layout-margin;
+      height: 100%;
+      &__button {
+        height: 100%;
+        border: none;
+        background: transparent;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 18px;
+        font-weight: bold;
+      }
     }
   } @else {
     display: none;

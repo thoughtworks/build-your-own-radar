@@ -241,12 +241,11 @@ const GoogleSheetInput = function () {
 
       sheet.init().build()
     } else {
-      if (!config.featureToggles.UIRefresh2022) {
+      if (config.featureToggles.UIRefresh2022) {
+        handleBackNavigation()
+      } else {
         document.body.innerHTML = ''
-      }
-      var content = d3.select('body').append('div').attr('class', 'input-sheet')
-
-      if (!config.featureToggles.UIRefresh2022) {
+        const content = d3.select('body').append('div').attr('class', 'input-sheet')
         plotLogo(content)
         const bannerText =
           '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://www.thoughtworks.com/radar/byor">created your Radar</a>, you can use this service' +
@@ -258,8 +257,6 @@ const GoogleSheetInput = function () {
 
         plotFooter(content)
       }
-
-      handleBackNavigation()
 
       setDocumentTitle()
     }
@@ -273,11 +270,14 @@ function setDocumentTitle() {
 }
 
 const handleBackNavigation = function () {
-  const backNavigation = document.querySelector('.back-navigation')
-  const previousPageUrl = document.referrer
-  const radarPagePattern = /\b.thoughtworks.com\/\b/gm
-  if (radarPagePattern.test(previousPageUrl)) {
+  const backNavigation = document.querySelector('.back-navigation button')
+  const isNavigatingFromTwWebsite = document.referrer.indexOf('.thoughtworks.com/') !== -1
+
+  if (isNavigatingFromTwWebsite) {
     backNavigation.style.display = 'block'
+    backNavigation.addEventListener('click', () => {
+      window.history.back()
+    })
   }
 }
 

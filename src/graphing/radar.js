@@ -697,7 +697,7 @@ const Radar = function (size, radar) {
     currentSheet = radar.getCurrentSheet()
 
     if (config.featureToggles.UIRefresh2022) {
-      const landingPageElements = document.querySelectorAll('main .landing-page')
+      const landingPageElements = document.querySelectorAll('main .home-page')
       landingPageElements.forEach((elem) => {
         elem.style.display = 'none'
       })

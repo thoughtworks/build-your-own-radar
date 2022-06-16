@@ -6,5 +6,8 @@
 
 @mixin eight-column-layout-margin {
   margin: auto;
-  max-width: 54%;
+  max-width: 80%;
+  @include media-query-large {
+    max-width: 54%;
+  }
 }
