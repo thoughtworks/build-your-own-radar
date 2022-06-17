@@ -253,7 +253,11 @@ const GoogleSheetInput = function () {
 
         plotBanner(content, bannerText)
 
-        plotForm(content)
+        if (config.featureToggles.DefaultRadars) {
+          plotDefaultRadars(content)
+        } else {
+          plotForm(content)
+        }
 
         plotFooter(content)
       }
@@ -349,6 +353,32 @@ function plotForm(content) {
   form.append('button').attr('type', 'submit').append('a').attr('class', 'button').text('Build my radar')
 
   form.append('p').html("<a href='https://www.thoughtworks.com/radar/how-to-byor'>Need help?</a>")
+}
+
+function plotDefaultRadars(content) {
+  content.append('div')
+    .attr('class', 'input-sheet__form')
+    .append('p')
+    .html('<strong>Select the Technology Radar of the year you wish to see.</strong>')
+
+  config.radars.forEach(radar => plotDefaultRadar(content, radar))
+}
+
+function plotDefaultRadar(content, radar) {
+  var form = content.select('.input-sheet__form').append('form')
+    .attr('method', 'get')
+
+  form.append('input')
+    .attr('type', 'hidden')
+    .attr('name', 'sheetId')
+    .attr('required', '')
+    .attr('value', `${window.location}/radars/${radar.file}.csv`)
+
+  form.append('button')
+    .attr('type', 'submit')
+    .append('a')
+    .attr('class', 'button')
+    .text(`Build radar ${radar.name}`)
 }
 
 function plotErrorMessage(exception) {

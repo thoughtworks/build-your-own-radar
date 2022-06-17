@@ -107,6 +107,11 @@ module.exports = {
         type: 'asset/resource',
       },
       {
+        test: /\.(csv)$/,
+        exclude: /node_modules/,
+        use: [{ loader: 'file-loader?name=radars/[name].[ext]&context=./src/radars' }]
+      },
+      {
         test: require.resolve('jquery'),
         loader: 'expose-loader',
         options: { exposes: ['$', 'jQuery'] },
