@@ -356,29 +356,26 @@ function plotForm(content) {
 }
 
 function plotDefaultRadars(content) {
-  content.append('div')
+  content
+    .append('div')
     .attr('class', 'input-sheet__form')
     .append('p')
     .html('<strong>Select the Technology Radar of the year you wish to see.</strong>')
 
-  config.radars.forEach(radar => plotDefaultRadar(content, radar))
+  config.radars.forEach((radar) => plotDefaultRadar(content, radar))
 }
 
 function plotDefaultRadar(content, radar) {
-  var form = content.select('.input-sheet__form').append('form')
-    .attr('method', 'get')
+  var form = content.select('.input-sheet__form').append('form').attr('method', 'get')
 
-  form.append('input')
+  form
+    .append('input')
     .attr('type', 'hidden')
     .attr('name', 'sheetId')
     .attr('required', '')
     .attr('value', `${window.location}radars/${radar.file}`)
 
-  form.append('button')
-    .attr('type', 'submit')
-    .append('a')
-    .attr('class', 'button')
-    .text(`Build radar ${radar.name}`)
+  form.append('button').attr('type', 'submit').append('a').attr('class', 'button').text(`Build radar ${radar.name}`)
 }
 
 function plotErrorMessage(exception) {

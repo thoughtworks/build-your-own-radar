@@ -114,10 +114,10 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: 'radars/[name].[ext]',
-              context: './src/radars'
-            }
-          }
-        ]
+              context: './src/radars',
+            },
+          },
+        ],
       },
       {
         test: require.resolve('jquery'),

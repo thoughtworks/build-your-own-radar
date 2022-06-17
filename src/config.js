@@ -10,11 +10,11 @@ const config = {
       UIRefresh2022: true,
       DefaultRadars: false,
     },
-    radars : [
+    radars: [
       {
-        'file': '2021.csv',
-        'name': 'of 2021'
-      }
+        file: '2021.csv',
+        name: 'of 2021',
+      },
     ],
   },
 }
