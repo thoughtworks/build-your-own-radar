@@ -241,9 +241,7 @@ const GoogleSheetInput = function () {
 
       sheet.init().build()
     } else {
-      if (config.featureToggles.UIRefresh2022) {
-        handleBackNavigation()
-      } else {
+      if (!config.featureToggles.UIRefresh2022) {
         document.body.innerHTML = ''
         const content = d3.select('body').append('div').attr('class', 'input-sheet')
         plotLogo(content)
@@ -267,19 +265,6 @@ const GoogleSheetInput = function () {
 
 function setDocumentTitle() {
   document.title = 'Build your own Radar'
-}
-
-const handleBackNavigation = function () {
-  const backNavWrapper = document.querySelector('.back-navigation-wrapper')
-  const backNavigation = document.querySelector('.back-navigation button')
-  const isNavigatingFromTwWebsite = document.referrer.indexOf('.thoughtworks.com/') !== -1
-
-  if (isNavigatingFromTwWebsite) {
-    backNavWrapper.style.display = 'block'
-    backNavigation.addEventListener('click', () => {
-      window.history.back()
-    })
-  }
 }
 
 function plotLoading(content) {
