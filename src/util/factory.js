@@ -372,7 +372,7 @@ function plotDefaultRadar(content, radar) {
     .attr('type', 'hidden')
     .attr('name', 'sheetId')
     .attr('required', '')
-    .attr('value', `${window.location}/radars/${radar.file}.csv`)
+    .attr('value', `${window.location}radars/${radar.file}`)
 
   form.append('button')
     .attr('type', 'submit')

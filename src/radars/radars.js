@@ -1,1 +1,1 @@
-require('2021.csv')
+require('./2021.csv')
