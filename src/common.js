@@ -5,5 +5,5 @@ require('./images/search-logo-2x.svg')
 require('./images/banner-image-mobile.jpg')
 require('./images/banner-image-desktop.jpg')
 
-const config = require('config')
+const config = require('./config')
 require('.' + config.tenant.logo.image)
