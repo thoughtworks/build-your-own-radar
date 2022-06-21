@@ -3,21 +3,15 @@
 
 @if $UIRefresh2022 {
   .hero-banner {
-    height: 300px;
-    background-color: $amethyst;
-    background-image: url('/images/banner-image-mobile.jpg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: right;
-    color: $white;
+    height: 200px;
+    background-color: $yellow;
+    color: $black;
     display: flex;
     align-items: center;
     margin: 0;
 
     @include media-query-medium {
-      background-image: url('/images/banner-image-desktop.jpg');
-      height: 200px;
-      background-size: cover;
+      height: 150px;
     }
 
     &__wrapper {
@@ -25,7 +19,6 @@
     }
 
     &__title-text {
-      width: 57%;
       text-align: left;
       text-transform: none;
       letter-spacing: 0;

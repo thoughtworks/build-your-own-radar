@@ -3,7 +3,7 @@
 @import 'mediaqueries';
 
 header {
-  text-align: center;
+  text-align: left;
 }
 
 .radar-title,
@@ -207,17 +207,15 @@ header {
 
 @if $UIRefresh2022 {
   header {
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    height: 50px;
+    padding: 15px;
 
     a {
       display: block;
       border-bottom: none;
 
       img {
-        height: 20px;
+        height: 47px;
         width: auto;
       }
     }
