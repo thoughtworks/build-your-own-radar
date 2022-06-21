@@ -1,7 +1,7 @@
 const config = {
   production: {
     featureToggles: {
-      UIRefresh2022: false,
+      UIRefresh2022: true,
     },
   },
   development: {
