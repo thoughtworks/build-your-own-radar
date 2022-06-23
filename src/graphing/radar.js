@@ -6,7 +6,6 @@ const _ = require('lodash/core')
 const RingCalculator = require('../util/ringCalculator')
 const QueryParams = require('../util/queryParamProcessor')
 const AutoComplete = require('../util/autoComplete')
-const config = require('../config')
 
 const MIN_BLIP_WIDTH = 12
 const ANIMATION_DURATION = 1000
@@ -499,33 +498,6 @@ const Radar = function (size, radar) {
     }
   }
 
-  function plotRadarHeader() {
-    header = d3.select('body').insert('header', '#radar')
-    header
-      .append('div')
-      .attr('class', 'radar-title')
-      .append('div')
-      .attr('class', 'radar-title__text')
-      .append('h1')
-      .text(document.title)
-      .style('cursor', 'pointer')
-      .on('click', redrawFullRadar)
-
-    header
-      .select('.radar-title')
-      .append('div')
-      .attr('class', 'radar-title__logo')
-      .html('<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /> </a>')
-
-    buttonsGroup = header.append('div').classed('buttons-group', true)
-
-    quadrantButtons = buttonsGroup.append('div').classed('quadrant-btn--group', true)
-
-    alternativeDiv = header.append('div').attr('id', 'alternative-buttons')
-
-    return header
-  }
-
   function plotHeader() {
     document.querySelector('.hero-banner__title-text').innerHTML = document.title
     const radarWrapper = d3.select('main .graph-placeholder')
@@ -574,18 +546,6 @@ const Radar = function (size, radar) {
       .classed('search-radar', true)
 
     AutoComplete('#auto-complete', quadrants, searchBlip)
-  }
-
-  function plotRadarFooter() {
-    d3.select('body')
-      .insert('div', '#radar-plot + *')
-      .attr('id', 'footer')
-      .append('div')
-      .attr('class', 'footer-content')
-      .append('p')
-      .html(
-        'Powered by <a href="https://www.thoughtworks.com"> Thoughtworks</a> technology radar.',
-      )
   }
 
   function mouseoverQuadrant(order) {
@@ -652,7 +612,7 @@ const Radar = function (size, radar) {
   }
 
   self.init = function () {
-    const selector = config.featureToggles.UIRefresh2022 ? 'main' : 'body'
+    const selector = 'main'
     radarElement = d3.select(selector).append('div').attr('id', 'radar')
     return self
   }
@@ -693,16 +653,11 @@ const Radar = function (size, radar) {
     alternatives = radar.getAlternatives()
     currentSheet = radar.getCurrentSheet()
 
-    if (config.featureToggles.UIRefresh2022) {
-      const landingPageElements = document.querySelectorAll('main .home-page')
-      landingPageElements.forEach((elem) => {
-        elem.style.display = 'none'
-      })
-      plotHeader()
-    } else {
-      plotRadarHeader()
-      plotRadarFooter()
-    }
+    const landingPageElements = document.querySelectorAll('main .home-page')
+    landingPageElements.forEach((elem) => {
+      elem.style.display = 'none'
+    })
+    plotHeader()
 
     if (alternatives.length) {
       plotAlternativeRadars(alternatives, currentSheet)
