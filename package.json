@@ -11,7 +11,7 @@
     "test:e2e": "cypress run --env host=$TEST_URL",
     "lint-prettier:check": "eslint . && prettier --check .",
     "lint-prettier:fix": "eslint . --fix && prettier --write .",
-    "start": "cypress open --env host=$TEST_URL",
+    "start": "cypress open --env host=$TEST_URL,TEST_ENV=$TEST_ENV",
     "coverage": "nyc npm run test",
     "quality": "npm run lint-prettier:check && npm run coverage"
   },

@@ -166,11 +166,13 @@ Make sure you have nodejs installed.
 To run End to End tests in headless mode
 
 - add a new environment variable 'TEST_URL' and set it to 'http://localhost:8080/'
+- add a new environment variable 'TEST_ENV' and set it to 'development' or 'production'
 - `npm run test:e2e`
 
 To run End to End tests in debug mode
 
 - add a new environment variable 'TEST_URL' and set it to 'http://localhost:8080/'
+- add a new environment variable 'TEST_ENV' and set it to 'development' or 'production'
 - `npm run start`
 - Click on 'Run all specs' in cypress window
 
