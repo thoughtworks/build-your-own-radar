@@ -6,7 +6,7 @@
   "scripts": {
     "build:dev": "webpack --mode development --config webpack.dev.js",
     "build:prod": "webpack --mode production --config webpack.prod.js",
-    "dev": "webpack-dev-server --host 0.0.0.0 --public --mode development --config webpack.dev.js",
+    "dev": "webpack-dev-server --host 0.0.0.0 --mode development --config webpack.dev.js",
     "test": "jasmine",
     "test:e2e": "cypress run --env host=$TEST_URL",
     "lint-prettier:check": "eslint . && prettier --check .",
