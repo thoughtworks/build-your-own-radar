@@ -7,6 +7,7 @@
     "build:dev": "webpack --mode development --config webpack.dev.js",
     "build:prod": "webpack --mode production --config webpack.prod.js",
     "dev": "webpack-dev-server --host 0.0.0.0 --allowed-hosts all --mode development --config webpack.dev.js",
+    "help": "webpack-dev-server --help",
     "test": "jasmine",
     "test:e2e": "cypress run --env host=$TEST_URL",
     "lint-prettier:check": "eslint . && prettier --check .",
@@ -79,7 +80,7 @@
   },
   "engines": {
     "node": ">=12 <18",
-    "npm": "~6.14.16"
+    "npm": ">=6.14.16"
   },
   "private": true
 }
