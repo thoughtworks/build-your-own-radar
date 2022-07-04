@@ -1,0 +1,3 @@
+# Example 3: Block all crawlers except AdsBot (AdsBot crawlers must be named explicitly)
+User-agent: *
+Disallow: /

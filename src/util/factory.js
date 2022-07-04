@@ -246,8 +246,8 @@ const GoogleSheetInput = function () {
         const content = d3.select('body').append('div').attr('class', 'input-sheet')
         plotLogo(content)
         const bannerText =
-          '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://www.thoughtworks.com/radar/byor">created your Radar</a>, you can use this service' +
-          ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a></p></div>'
+          '<div><h1>Build your own radar</h1><p>Once you\'ve created your Radar, you can use this service' +
+          ' to generate an <br />interactive version of your Technology Radar.</p></div>'
 
         plotBanner(content, bannerText)
 
@@ -316,7 +316,7 @@ function plotForm(content) {
     .attr('class', 'input-sheet__form')
     .append('p')
     .html(
-      '<strong>Enter the URL of your <a href="https://www.thoughtworks.com/radar/how-to-byor" target="_blank">Google Sheet, CSV or JSON</a> file below…</strong>',
+      '<strong>Enter the URL of your CSV or JSON file below…</strong>',
     )
 
   var form = content.select('.input-sheet__form').append('form').attr('method', 'get')
@@ -325,12 +325,10 @@ function plotForm(content) {
     .append('input')
     .attr('type', 'text')
     .attr('name', 'sheetId')
-    .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/<sheetid> or hosted CSV/JSON file')
+    .attr('placeholder', 'e.g. https://<URL>>hosted CSV/JSON file')
     .attr('required', '')
 
   form.append('button').attr('type', 'submit').append('a').attr('class', 'button').text('Build my radar')
-
-  form.append('p').html("<a href='https://www.thoughtworks.com/radar/how-to-byor'>Need help?</a>")
 }
 
 function plotErrorMessage(exception) {
@@ -343,8 +341,8 @@ function plotErrorMessage(exception) {
     plotLogo(content)
 
     const bannerText =
-      '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://www.thoughtworks.com/radar/byor">created your Radar</a>, you can use this service' +
-      ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a></p></div>'
+      '<div><h1>Build your own radar</h1><p>Once you\'ve created your Radar, you can use this service' +
+      ' to generate an <br />interactive version of your Technology Radar.</p></div>'
 
     plotBanner(content, bannerText)
 
@@ -356,9 +354,9 @@ function plotErrorMessage(exception) {
 }
 
 function plotError(exception, container) {
-  let message = "Oops! We can't find the Google Sheet you've entered"
+  let message = "Oops! We can't find the data"
   let faqMessage =
-    'Please check <a href="https://www.thoughtworks.com/radar/how-to-byor">FAQs</a> for possible solutions.'
+    'Please check FAQs for possible solutions.'
   if (exception instanceof MalformedDataError) {
     message = message.concat(exception.message)
   } else if (exception instanceof SheetNotFoundError) {
