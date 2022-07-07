@@ -7,7 +7,9 @@ const QueryParams = function (queryString) {
 
   var queryParams = {}
   var match
-  while ((match = search.exec(queryString))) { queryParams[decode(match[1])] = decode(match[2]) }
+  while ((match = search.exec(queryString))) {
+    queryParams[decode(match[1])] = decode(match[2])
+  }
 
   return queryParams
 }

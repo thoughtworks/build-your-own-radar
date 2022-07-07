@@ -1,0 +1,76 @@
+@import 'layout';
+@import 'colors';
+@import 'fonts';
+
+.helper-description {
+  @include eight-column-layout-margin;
+  padding-top: 32px;
+  margin-top: 24px;
+
+  p {
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .loader-text {
+    display: none;
+    text-align: center;
+    &__title {
+      display: inline-block;
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.input-sheet-form {
+  @include eight-column-layout-margin;
+  display: flex;
+  flex-direction: column;
+
+  p {
+    margin-top: 88px;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: nowrap;
+    align-items: center;
+
+    input[type='text'] {
+      font-family: $baseFontFamily;
+      background-color: $mist;
+      border: 1px solid #d5d9db;
+      letter-spacing: 0.06px;
+      height: 48px;
+      margin-bottom: 20px;
+      color: $black;
+      font-size: 18px;
+
+      &::placeholder {
+        color: #3c606f;
+      }
+    }
+
+    input[type='submit'] {
+      background-color: $button-normal;
+      color: $white;
+      font-size: 20px;
+      font-family: $baseFontFamily;
+      line-height: 24px;
+      font-weight: bold;
+      padding-left: 30px;
+      padding-right: 30px;
+      margin-bottom: 18px;
+      border: none;
+      cursor: pointer;
+      &:focus {
+        outline: auto;
+      }
+    }
+  }
+}

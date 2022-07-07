@@ -1,12 +1,10 @@
 .input-sheet {
-
   margin: 60px auto;
 
   p {
     font-weight: 100;
     color: $black;
     font-size: 18px;
-
   }
 
   .input-sheet__logo {
@@ -41,7 +39,8 @@
       display: table-cell;
       vertical-align: middle;
     }
-    p, h1 {
+    p,
+    h1 {
       color: $white;
     }
 
@@ -58,6 +57,7 @@
     padding-top: 30px;
 
     button {
+      font-family: inherit;
       border: none;
       background-color: transparent;
       margin: 0;
@@ -65,7 +65,7 @@
     }
   }
 
-  input[type="text"] {
+  input[type='text'] {
     border-bottom: 2px solid $grey-even-darker;
     display: block;
     font-size: 18px;
@@ -73,10 +73,17 @@
     padding: 10px;
     transition: box-shadow 0.3s, border 0.3s;
 
-    &:focus, &.focus {
+    &:focus,
+    &.focus {
       outline: none;
       border-bottom: 2px solid $grey-even-darker;
       box-shadow: none;
     }
+  }
+
+  form,
+  input,
+  a {
+    font-family: inherit;
   }
 }

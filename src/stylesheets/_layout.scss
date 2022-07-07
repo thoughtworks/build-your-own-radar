@@ -1,0 +1,13 @@
+@import 'mediaqueries';
+@mixin default-layout-margin {
+  margin: auto;
+  width: 80%;
+}
+
+@mixin eight-column-layout-margin {
+  margin: auto;
+  max-width: 80%;
+  @include media-query-large {
+    max-width: 54%;
+  }
+}

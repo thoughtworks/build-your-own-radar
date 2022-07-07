@@ -11,7 +11,7 @@ describe('InputSanitizer', function () {
       description: description,
       ring: '<a href="/asd">Adopt</a>',
       quadrant: '<strong>techniques and tools</strong>',
-      isNew: 'true<br>'
+      isNew: 'true<br>',
     }
 
     blip = sanitizer.sanitize(rawBlip)
@@ -40,7 +40,7 @@ describe('InputSanitizer', function () {
   it('trims white spaces in keys and values', function () {
     rawBlip = {
       ' name': '   Some name ',
-      '   ring ': '    Some ring name '
+      '   ring ': '    Some ring name ',
     }
     blip = sanitizer.sanitize(rawBlip)
 
@@ -53,20 +53,14 @@ describe('Input Santizer for Protected sheet', function () {
   var sanitizer, rawBlip, blip, header
   beforeAll(function () {
     sanitizer = new InputSanitizer()
-    header = [
-      'name',
-      'quadrant',
-      'ring',
-      'isNew',
-      'description'
-    ]
+    header = ['name', 'quadrant', 'ring', 'isNew', 'description']
 
     rawBlip = [
       "Hello <script>alert('dangerous');</script>there <h1>blip</h1>",
       '<strong>techniques & tools</strong>',
       "<a href='/asd'>Adopt</a>",
       'true<br>',
-      "<b>Hello</b> <script>alert('dangerous');</script>there <h1>heading</h1>"
+      "<b>Hello</b> <script>alert('dangerous');</script>there <h1>heading</h1>",
     ]
 
     blip = sanitizer.sanitizeForProtectedSheet(rawBlip, header)
@@ -95,7 +89,7 @@ describe('Input Santizer for Protected sheet', function () {
   it('trims white spaces in keys and values', function () {
     rawBlip = {
       ' name': '   Some name ',
-      '   ring ': '    Some ring name '
+      '   ring ': '    Some ring name ',
     }
     blip = sanitizer.sanitize(rawBlip)
 

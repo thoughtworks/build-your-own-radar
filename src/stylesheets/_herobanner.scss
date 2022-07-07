@@ -1,0 +1,44 @@
+@import 'colors';
+@import 'layout';
+
+@if $UIRefresh2022 {
+  .hero-banner {
+    height: 300px;
+    background-color: $amethyst;
+    background-image: url('/images/banner-image-mobile.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    color: $white;
+    display: flex;
+    align-items: center;
+    margin: 0;
+
+    @include media-query-medium {
+      background-image: url('/images/banner-image-desktop.jpg');
+      height: 200px;
+      background-size: cover;
+    }
+
+    &__wrapper {
+      @include default-layout-margin;
+    }
+
+    &__title-text {
+      width: 57%;
+      text-align: left;
+      text-transform: none;
+      letter-spacing: 0;
+
+      @include media-query-large {
+        font-size: 3rem;
+        width: 50%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+      }
+    }
+  }
+}

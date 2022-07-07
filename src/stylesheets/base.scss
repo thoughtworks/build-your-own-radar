@@ -5,17 +5,55 @@
 @import 'error';
 @import 'header';
 @import 'footer';
+@import 'featuretoggles';
+@import 'herobanner';
+@import 'mediaqueries';
+@import 'layout';
+@import 'landingpage';
+@import 'loader';
 @import url(https://www.thoughtworks.com/css/k8s_production/screen.css);
 
 body {
   font: 18px 'Open Sans';
+  @if $UIRefresh2022 {
+    font-family: $baseFontFamily;
+
+    h1 {
+      font-size: 2rem;
+      font-family: 'Bitter', serif;
+      text-transform: none;
+      letter-spacing: normal;
+
+      @include media-query-large {
+        font-size: 3.5rem;
+      }
+    }
+
+    p {
+      font-size: 18px;
+      font-family: $baseFontFamily;
+      line-height: 27px;
+      font-weight: 360;
+    }
+
+    a {
+      color: $link-normal;
+      border-color: $link-normal;
+
+      &:hover {
+        color: $link-hover;
+        border-color: $link-hover;
+      }
+    }
+  }
+
   -webkit-font-smoothing: antialiased;
   margin: 0;
 }
 
 @media print {
-
-  body, article {
+  body,
+  article {
     width: 100%;
     margin: 0;
     padding: 0;
@@ -26,7 +64,7 @@ body {
   }
 
   a:after {
-    content: " <" attr(href) "> ";
+    content: ' <' attr(href) '> ';
     font-size: 0.8em;
     font-weight: normal;
   }
@@ -73,15 +111,12 @@ body {
       page-break-inside: avoid;
     }
 
-
     h3 {
-
       page-break-before: always;
       padding: 0 10px;
       text-transform: uppercase;
       font-size: 18pt;
       font-weight: bold;
-
     }
 
     h2 + h3 {
@@ -153,12 +188,9 @@ body {
   .error-container {
     display: none;
   }
-
 }
 
-
 @media screen {
-
   #radar {
     width: 80%;
     margin: 0 auto;
@@ -208,7 +240,9 @@ body {
         cursor: pointer;
       }
 
-      circle, polygon, path {
+      circle,
+      polygon,
+      path {
         &.first {
           fill: $green;
           stroke: none;
@@ -251,7 +285,6 @@ body {
     }
 
     div.quadrant-table {
-
       .quadrant-table__name {
         display: none;
       }
