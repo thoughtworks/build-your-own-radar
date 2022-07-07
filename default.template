@@ -17,4 +17,11 @@ server {
   location = /50x.html {
     root /usr/share/nginx/html;
   }
+
+  location ~ /sheets/{
+    root /opt/build-your-own-radar;
+    autoindex on;
+    default_type text/plain;
+    add_header 'Access-Control-Allow-Origin' '*';
+  }
 }
