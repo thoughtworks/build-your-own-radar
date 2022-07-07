@@ -157,10 +157,11 @@ $ open http://localhost:8080
 This will:
 
 1. spawn a server that will listen locally on port 8080
-1. mount the host volume on `/mnt/radar/sheets/` into the container on `/opt/build-your-own-radar/sheets/`.
-1. open http://localhost:8080 and for the URL piece '(Enter the URL of your Google Sheet of CSV file bellow...)' type: http://localhost:8080/sheets/${NAME_OF_YOUR_SHEET}.csv - it needs to be a csv file.
+2. mount the host volume on `/mnt/radar/sheets/` into the container on `/opt/build-your-own-radar/sheets/`.
+3. open http://localhost:8080 and for the URL piece '(Enter the URL of your Google Sheet of CSV file bellow...)' type: http://localhost:8080/sheets/${NAME_OF_YOUR_SHEET}.csv - it needs to be a csv file.
 
 You can now work locally on your machine, updating the csv file, rendering the result back on your browser.
+There is a sample csv file in `spec/end_to_end_tests/resources/localfiles/radar.csv` for reference
 
 **_Notes:_**
 
