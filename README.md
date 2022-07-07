@@ -144,10 +144,10 @@ $ docker run --rm -p 8080:8080 -e CLIENT_ID="[Google Client ID]" wwwthoughtworks
 $ open http://localhost:8080
 ```
 
-
-
 ### Advanced option - Docker image with a csv file from the host machine
+
 You can check your setup by clicking on "Build my radar" and by loading the `csv` file on this location: http://localhost:8080/sheets/radar.csv
+
 ```
 $ docker pull wwwthoughtworks/build-your-own-radar
 $ docker run --rm -p 8080:80 -e SERVER_NAMES="localhost 127.0.0.1" -v /mnt/radar/sheets/:/opt/build-your-own-radar/sheets wwwthoughtworks/build-your-own-radar
@@ -163,8 +163,8 @@ This will:
 You can now work locally on your machine, updating the csv file, rendering the result back on your browser.
 
 **_Notes:_**
-- If API Key is also available, same can be provided to the `docker run` command as `-e API_KEY=[Google API Key]`.
 
+- If API Key is also available, same can be provided to the `docker run` command as `-e API_KEY=[Google API Key]`.
 
 ## Contribute
 
