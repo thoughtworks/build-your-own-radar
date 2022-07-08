@@ -16,7 +16,9 @@ if (env) {
   require('dotenv').config({ path: env })
 }
 
-const common = ['./src/common.js']
+const common = ['./src/common.js'];
+
+const ASSET_PATH = process.env.ASSET_PATH || '/';
 
 const plugins = [
   new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
@@ -47,6 +49,7 @@ module.exports = {
 
   output: {
     path: buildPath,
+    publicPath: ASSET_PATH,
     filename: '[name].[contenthash].js',
     assetModuleFilename: 'images/[name][ext]',
   },
