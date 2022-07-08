@@ -144,28 +144,32 @@ $ docker run --rm -p 8080:8080 -e CLIENT_ID="[Google Client ID]" wwwthoughtworks
 $ open http://localhost:8080
 ```
 
-### Advanced option - Docker image with a csv file from the host machine
+### Advanced option - Docker image with a csv/json file from the host machine
 
-You can check your setup by clicking on "Build my radar" and by loading the `csv` file on this location: http://localhost:8080/sheets/radar.csv
+You can check your setup by clicking on "Build my radar" and by loading the `csv`/`json` file from these locations:
+
+- http://localhost:8080/files/radar.csv
+- http://localhost:8080/files/radar.json
 
 ```
 $ docker pull wwwthoughtworks/build-your-own-radar
-$ docker run --rm -p 8080:80 -e SERVER_NAMES="localhost 127.0.0.1" -v /mnt/radar/sheets/:/opt/build-your-own-radar/sheets wwwthoughtworks/build-your-own-radar
+$ docker run --rm -p 8080:80 -e SERVER_NAMES="localhost 127.0.0.1" -v /mnt/radar/files/:/opt/build-your-own-radar/files wwwthoughtworks/build-your-own-radar
 $ open http://localhost:8080
 ```
 
 This will:
 
-1. spawn a server that will listen locally on port 8080
-2. mount the host volume on `/mnt/radar/sheets/` into the container on `/opt/build-your-own-radar/sheets/`.
-3. open http://localhost:8080 and for the URL piece '(Enter the URL of your Google Sheet of CSV file bellow...)' type: http://localhost:8080/sheets/${NAME_OF_YOUR_SHEET}.csv - it needs to be a csv file.
+- Spawn a server that will listen locally on port 8080.
+- Mount the host volume on `/mnt/radar/files/` into the container on `/opt/build-your-own-radar/files/`.
+- Open http://localhost:8080 and for the URL enter: http://localhost:8080/files/${NAME_OF_YOUR_FILE}.${EXTENSION_OF_YOUR_FILE[csv/json]}. It needs to be a csv/json file.
 
-You can now work locally on your machine, updating the csv file, rendering the result back on your browser.
-There is a sample csv file in `spec/end_to_end_tests/resources/localfiles/radar.csv` for reference
+You can now work locally on your machine, updating the csv/json file and render the result back on your browser.
+There is a sample csv and json file placed in `spec/end_to_end_tests/resources/localfiles/` for reference.
 
-**_Notes:_**
+**_Note:_**
 
 - If API Key is also available, same can be provided to the `docker run` command as `-e API_KEY=[Google API Key]`.
+- For setting the `publicPath` in the webpack config while using this image, the path can be passed as an environment variable called `ASSET_PATH`.
 
 ## Contribute
 
@@ -200,7 +204,7 @@ To run End to End tests in debug mode
 
      $ docker run -p 8080:8080 -v $PWD:/app -w /app -it node:10.15.3 /bin/sh -c 'npm install && npm run dev'
 
-**_Note_**: If you are facing Node-sass compile error while running, please prefix the command `npm rebuild node-sass` before `npm run dev`. like this
+**_Note:_** If you are facing Node-sass compile error while running, please prefix the command `npm rebuild node-sass` before `npm run dev`. like this
 
 ```
 npm install && npm rebuild node-sass && npm run dev

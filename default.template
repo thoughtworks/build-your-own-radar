@@ -18,7 +18,7 @@ server {
     root /usr/share/nginx/html;
   }
 
-  location ~ /sheets/ {
+  location ~ /files/ {
     root /opt/build-your-own-radar;
     autoindex on;
     default_type text/plain;
