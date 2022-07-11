@@ -19,6 +19,10 @@ const plotRadar = function (blips) {
     const ringMap = {};
     const maxRings = 4;
 
+    if (hasRadarBeenRendered()) {
+        return;
+    }
+
     each(rings, function (ringName, i) {
         if (i === maxRings) {
             throw new MalformedDataError(ExceptionMessages.TOO_MANY_RINGS);
@@ -128,4 +132,8 @@ function showErrorMessage(exception) {
         .append('div')
         .attr('class', 'error-container');
     plotError(exception, container);
+}
+
+function hasRadarBeenRendered(): boolean {
+    return !d3.selectAll('#radar').empty();
 }

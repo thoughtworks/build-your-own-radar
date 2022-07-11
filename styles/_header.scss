@@ -4,13 +4,16 @@
 .header {
     &__logo {
         flex-grow: 1;
-        height: 50px;
         padding: 15px;
     }
 
     .logo {
         width: 112px;
         height: 47px;
+    }
+
+    &__home-link {
+        display: inline-block;
     }
 
     &__top {

@@ -1,5 +1,13 @@
 import { NextPage } from 'next';
 
-const Stacks: NextPage = () => <h1>Stacks page</h1>;
+import { Layout } from '../components';
+
+const Stacks: NextPage = () => {
+    return (
+        <Layout>
+            <h1>Stacks page</h1>
+        </Layout>
+    );
+};
 
 export default Stacks;

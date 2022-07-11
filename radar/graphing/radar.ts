@@ -1,6 +1,5 @@
 import * as Chance from 'chance';
 import * as d3 from 'd3';
-// import 'd3-tip';
 import _ from 'lodash';
 
 import { RingCalculator } from '../util/ringCalculator';
@@ -9,32 +8,9 @@ const MIN_BLIP_WIDTH = 12;
 const ANIMATION_DURATION = 1000;
 
 export function GraphingRadar(size, radar) {
-    let svg, radarElement, quadrantButtons, buttonsGroup;
-
-    // const tip = d3
-    //     .tip()
-    //     .attr('class', 'd3-tip')
-    //     .html(function (text) {
-    //         return text;
-    //     });
-    //
-    // tip.direction(function () {
-    //     if (d3.select('.quadrant-table.selected').node()) {
-    //         var selectedQuadrant = d3.select('.quadrant-table.selected');
-    //         if (
-    //             selectedQuadrant.classed('first') ||
-    //             selectedQuadrant.classed('fourth')
-    //         ) {
-    //             return 'ne';
-    //         } else {
-    //             return 'nw';
-    //         }
-    //     }
-    //     return 'n';
-    // });
+    let svg, radarElement, quadrantButtons, buttonsGroup, chance;
 
     const ringCalculator = RingCalculator(radar.rings().length, center());
-    let chance;
 
     function center() {
         return Math.round(size / 2);
@@ -446,7 +422,6 @@ export function GraphingRadar(size, radar) {
             blipListItem
                 .selectAll('.blip-list-item')
                 .classed('highlight', true);
-            // tip.show(blip.name(), group.node());
         };
 
         var mouseOut = function () {
@@ -454,7 +429,6 @@ export function GraphingRadar(size, radar) {
             blipListItem
                 .selectAll('.blip-list-item')
                 .classed('highlight', false);
-            // tip.hide().style('left', 0).style('top', 0);
         };
 
         blipListItem.on('mouseover', mouseOver).on('mouseout', mouseOut);
@@ -559,7 +533,6 @@ export function GraphingRadar(size, radar) {
     function redrawFullRadar() {
         removeHomeLink();
         removeRadarLegend();
-        // tip.hide();
 
         d3.selectAll('g.blip-link').attr('opacity', 1.0);
 
@@ -751,11 +724,10 @@ export function GraphingRadar(size, radar) {
             d3.select('#loadingWrapper').style('display', 'none');
 
             plotHeader();
-
             plotQuadrantButtons(quadrants);
 
             radarElement.style('height', size + 14 + 'px');
-            // svg = radarElement.append('svg').call(tip);
+
             svg = radarElement.append('svg');
             svg.attr('id', 'radar-plot')
                 .attr('width', size)
