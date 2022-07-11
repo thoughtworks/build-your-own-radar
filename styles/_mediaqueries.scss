@@ -1,0 +1,24 @@
+$screen-medium: 768px;
+$screen-large: 1200px;
+$screen-xlarge: 1440px;
+
+@mixin media-query-medium {
+  @media screen and (min-width: $screen-medium) {
+    //iPad - 768px and above
+    @content;
+  }
+}
+
+@mixin media-query-large {
+  @media screen and (min-width: $screen-large) {
+    //Desktop - 1200px and above
+    @content;
+  }
+}
+
+@mixin media-query-xlarge {
+  @media screen and (min-width: $screen-xlarge) {
+    //Desktop - 1440px and above
+    @content;
+  }
+}

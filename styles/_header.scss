@@ -1,0 +1,20 @@
+@import 'colors';
+@import 'mediaqueries';
+
+.header {
+    &__logo {
+        flex-grow: 1;
+        height: 50px;
+        padding: 15px;
+    }
+
+    .logo {
+        width: 112px;
+        height: 47px;
+    }
+
+    &__top {
+        display: flex;
+        align-items: center;
+    }
+}

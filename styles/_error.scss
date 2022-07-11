@@ -1,0 +1,53 @@
+.error-container {
+  text-align: center;
+  padding-top: 50px;
+
+  .error-container__message {
+    width: 60%;
+    display: inline-block;
+  }
+
+  .error-title {
+    font-weight: 400;
+  }
+
+  .error-subtitle {
+    margin-top: -10px;
+  }
+
+  .switch-account-button {
+    margin: 0px 0px 35px 0px;
+  }
+}
+
+.input-sheet {
+  .page-not-found {
+    font-size: 40px;
+    font-weight: 900;
+    margin-bottom: 20px;
+  }
+
+  .message p {
+    font-size: 25px;
+  }
+}
+
+.support {
+  margin-top: 20px;
+
+  p {
+    font-weight: 500;
+    font-size: 30px;
+    margin-bottom: 1px;
+  }
+}
+
+.support-link {
+  font-size: 26px;
+  padding: 20px;
+
+  span {
+    padding: 0 40px;
+    display: table-cell;
+  }
+}

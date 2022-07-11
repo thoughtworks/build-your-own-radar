@@ -5,7 +5,7 @@
     "jasmine": true,
     "cypress/globals": true
   },
-  "extends": ["eslint:recommended", "prettier"],
+  "extends": ["eslint:recommended", "prettier", "next/core-web-vitals"],
   "parserOptions": {
     "ecmaVersion": "latest"
   },

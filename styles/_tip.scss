@@ -1,0 +1,67 @@
+.d3-tip {
+  white-space: nowrap;
+  line-height: 1;
+  font-size: 12px;
+  display: none;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 4px;
+  border-color: #000;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@media screen and (min-width: 800px) {
+  .d3-tip {
+    display: block;
+  }
+}
+
+.d3-tip:after {
+  box-sizing: border-box;
+  display: none;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  pointer-events: none;
+}
+
+@media screen and (min-width: 800px) {
+  .d3-tip:after {
+    display: inline;
+  }
+}
+
+.d3-tip.n {
+  margin: -10px 0 0;
+}
+.d3-tip.n:after {
+  content: '\25BC';
+  margin: -3px 0 0;
+  top: 100%;
+  left: 0;
+  text-align: center;
+}
+
+.d3-tip.ne {
+  margin: -10px 0 0 -45px;
+}
+.d3-tip.ne:after {
+  content: '\25BC';
+  bottom: -8px;
+  left: 18px;
+  text-align: left;
+}
+
+.d3-tip.nw {
+  margin: -10px 0 0 45px;
+}
+.d3-tip.nw:after {
+  content: '\25BC';
+  bottom: -8px;
+  right: 18px;
+  text-align: right;
+}
