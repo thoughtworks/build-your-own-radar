@@ -140,7 +140,7 @@ We have released BYOR as a docker image for our users. The image is available in
 
 ```
 $ docker pull wwwthoughtworks/build-your-own-radar
-$ docker run --rm -p 8080:8080 -e CLIENT_ID="[Google Client ID]" wwwthoughtworks/build-your-own-radar
+$ docker run --rm -p 8080:80 -e CLIENT_ID="[Google Client ID]" wwwthoughtworks/build-your-own-radar
 $ open http://localhost:8080
 ```
 
