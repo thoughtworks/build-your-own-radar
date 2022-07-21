@@ -1,6 +1,3 @@
 {
-  "include": [
-    "spec/**/*spec.js",
-    "src/**"
-  ]
+  "include": ["spec/**/*spec.js", "src/**"]
 }
