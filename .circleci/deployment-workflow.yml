@@ -69,7 +69,7 @@ commands:
       - aws-cli/setup
       - run:
           name: Sync build artifacts to S3
-          command: aws s3 cp --recursive --acl public-read dist "s3://<< parameters.bucket_name >>/"
+          command: aws s3 cp --recursive dist "s3://<< parameters.bucket_name >>/"
       - run:
           name: Create invalidation in CloudFront
           command: aws cloudfront create-invalidation --distribution-id << parameters.distribution_id >> --paths '/*'
