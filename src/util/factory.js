@@ -242,6 +242,7 @@ const GoogleSheetInput = function () {
       sheet.init().build()
     } else {
       if (!config.featureToggles.UIRefresh2022) {
+        document.body.style.opacity = '1'
         document.body.innerHTML = ''
         const content = d3.select('body').append('div').attr('class', 'input-sheet')
         plotLogo(content)
@@ -269,6 +270,7 @@ function setDocumentTitle() {
 
 function plotLoading(content) {
   if (!config.featureToggles.UIRefresh2022) {
+    document.body.style.opacity = '1'
     document.body.innerHTML = ''
     content = d3.select('body').append('div').attr('class', 'loading').append('div').attr('class', 'input-sheet')
 
