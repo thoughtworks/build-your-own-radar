@@ -81,7 +81,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
     var sheet = new Sheet(sheetReference)
     sheet.validate(function (error, apiKeyEnabled) {
       if (error instanceof SheetNotFoundError) {
-        plotErrorMessage(error,'sheet')
+        plotErrorMessage(error, 'sheet')
         return
       }
 
@@ -114,7 +114,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
             if (error.status === 403) {
               plotUnauthorizedErrorMessage()
             } else {
-              plotErrorMessage(error,'sheet')
+              plotErrorMessage(error, 'sheet')
             }
           })
           if (callback) {
@@ -129,7 +129,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
           if (error.status === 403) {
             plotUnauthorizedErrorMessage()
           } else {
-            plotErrorMessage(error,'sheet')
+            plotErrorMessage(error, 'sheet')
           }
         })
         if (callback) {
@@ -151,9 +151,11 @@ const CSVDocument = function (url) {
   var self = {}
 
   self.build = function () {
-    d3.csv(url).then(createBlips).catch((exception)=>{
-      plotErrorMessage(exception,'csv')
-    })
+    d3.csv(url)
+      .then(createBlips)
+      .catch((exception) => {
+        plotErrorMessage(exception, 'csv')
+      })
   }
 
   var createBlips = function (data) {
@@ -166,7 +168,7 @@ const CSVDocument = function (url) {
       var blips = _.map(data, new InputSanitizer().sanitize)
       plotRadar(FileName(url), blips, 'CSV File', [])
     } catch (exception) {
-      plotErrorMessage(exception,'csv')
+      plotErrorMessage(exception, 'csv')
     }
   }
 
@@ -182,9 +184,11 @@ const JSONFile = function (url) {
   var self = {}
 
   self.build = function () {
-    d3.json(url).then(createBlips).catch((exception)=>{
-      plotErrorMessage(exception,'json')
-    })
+    d3.json(url)
+      .then(createBlips)
+      .catch((exception) => {
+        plotErrorMessage(exception, 'json')
+      })
   }
 
   var createBlips = function (data) {
@@ -196,7 +200,7 @@ const JSONFile = function (url) {
       var blips = _.map(data, new InputSanitizer().sanitize)
       plotRadar(FileName(url), blips, 'JSON File', [])
     } catch (exception) {
-      plotErrorMessage(exception,'json')
+      plotErrorMessage(exception, 'json')
     }
   }
 
@@ -342,9 +346,9 @@ function plotForm(content) {
   form.append('p').html("<a href='https://www.thoughtworks.com/radar/how-to-byor'>Need help?</a>")
 }
 
-function plotErrorMessage(exception,fileType) {
+function plotErrorMessage(exception, fileType) {
   if (config.featureToggles.UIRefresh2022) {
-    showErrorMessage(exception,fileType)
+    showErrorMessage(exception, fileType)
   } else {
     const content = d3.select('body').append('div').attr('class', 'input-sheet')
     setDocumentTitle()
@@ -358,19 +362,18 @@ function plotErrorMessage(exception,fileType) {
     plotBanner(content, bannerText)
 
     d3.selectAll('.loading').remove()
-    plotError(exception, content,fileType)
+    plotError(exception, content, fileType)
 
     plotFooter(content)
   }
 }
 
-function plotError(exception, container,fileType) {
-  let file = 'Google Sheet';
-  if(fileType==='json'){
-    file='Json file';
-  }
-  else if(fileType==='csv'){
-    file="CSV file"
+function plotError(exception, container, fileType) {
+  let file = 'Google Sheet'
+  if (fileType === 'json') {
+    file = 'Json file'
+  } else if (fileType === 'csv') {
+    file = 'CSV file'
   }
   let message = `Oops! We can't find the ${file} you've entered`
   let faqMessage =
@@ -394,10 +397,10 @@ function plotError(exception, container,fileType) {
   errorContainer.append('div').append('p').html(homePage)
 }
 
-function showErrorMessage(exception,fileType) {
+function showErrorMessage(exception, fileType) {
   document.querySelector('.helper-description .loader-text').style.display = 'none'
   const container = d3.select('main').append('div').attr('class', 'error-container')
-  plotError(exception, container,fileType)
+  plotError(exception, container, fileType)
 }
 
 function plotUnauthorizedErrorMessage() {
