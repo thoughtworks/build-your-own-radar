@@ -10,7 +10,7 @@ url-en til S3-siten.
 
 Direkte-url til S3-site:
 
-http://teknologiradar.oslo.systems.s3-website-eu-west-1.amazonaws.com/
+http://teknologiradar-origo.s3-website-eu-west-1.amazonaws.com/
 
 Url via API Gateway:
 
@@ -34,11 +34,11 @@ Kildedata for radaren finnes i Google Sheet med navn "teknologiradar".
 
 ### Deployment av ny versjon
 
-1. `aws sso login` og logg inn på AWS-konto _origo-dev_
+1. `aws sso login` og logg inn på AWS-konto `teknologi-prod`
 2. Husk `export AWS_PROFILE=` med din lokale SSO-konto
 3. `npm run deploy`
 
-Prosjektet bygger i `./dist` og kopierer denne til s3-bøtte `teknologiradar.oslo.systems`.
+Prosjektet bygger i `./dist` og kopierer denne til s3-bøtte `teknologiradar-origo`.
 
 OBS 1: Krever [aws-cli](https://aws.amazon.com/cli/) \
 OBS 2: Opplasting skjer med sync-operasjon og sletter derfor filer som finnes i s3-bøtta fra før, men ikke i ny dist-mappe.

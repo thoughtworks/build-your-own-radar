@@ -13,7 +13,7 @@
     "start": "cypress open --env host=$TEST_URL",
     "coverage": "nyc npm run test",
     "quality": "npm run lint-prettier:check && npm run coverage",
-    "deploy": "webpack --mode production && aws s3 sync ./dist s3://teknologiradar.oslo.systems/ --region eu-west-1 --delete"  },
+    "deploy": "webpack --mode production && aws s3 sync ./dist s3://teknologiradar-origo/ --region eu-west-1 --delete"  },
   "author": "Thoughtworks",
   "repository": {
     "type": "git",
