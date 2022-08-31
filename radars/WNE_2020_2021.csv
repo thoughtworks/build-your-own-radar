@@ -1177,6 +1177,32 @@ Fluentd,Infrastructure,Invest,confident,"<p><a href=""https://www.fluentd.org/""
 <p>When decision made: 5/1/2021</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
+Micronaut,Backend,Invest,confident,"<p><a href="https://micronaut.io/">Micronaut</a> is a modern, JVM-based, full-stack framework for building modular, easily testable microservice and serverless applications.</p>
+<h3>Pros</h3>
+<ul>
+<li>Lightweight</li>
+<li>JVM-Based</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+</ul>
+<p>When decision made: 8/1/2022</p>
+<p>When decision will be revisited: 8/1/2024</p>
+"
+Kotlin,Backend,Invest,confident,"<p><a href="https://kotlinlang.org/">Kotlin</a> is a cross-platform, statically typed, general-purpose programming language with type inference.</p>
+<h3>Pros</h3>
+<ul>
+<li>Syntax is simpler than Java</li>
+<li>JVM-Based</li>
+<li>Lots of use cases</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>A lot newer than other languages</li>
+</ul>
+<p>When decision made: 8/1/2022</p>
+<p>When decision will be revisited: 8/1/2024</p>
+"
 Github (source),Infrastructure,Invest,lock,"<p><a href=""https://github.com/"">Github</a> is a platform to host all of your git based repositories. By extension <a href=""https://git-scm.com"">git</a> should be used as your distributed version control system.</p>
 <h3>Pros</h3>
 <ul>
