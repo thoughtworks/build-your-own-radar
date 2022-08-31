@@ -656,7 +656,7 @@ Python,Backend,Hold,none,"<p><a href=""https://www.python.org/"">Python</a> is p
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-Node,Backend,Hold,none,"<p><a href=""https://nodejs.org"">Node</a> is similar in design to, and influenced by, systems like Ruby’s Event Machine and Python’s Twisted. Node.js takes the event model a bit further. It presents an event loop as a runtime construct instead of as a library. In other systems, there is always a blocking call to start the event-loop. Typically, behavior is defined through callbacks at the beginning of a script, and at the end a server is started through a blocking call like EventMachine::run(). In Node.js, there is no such start-the-event-loop call. Node.js simply enters the event loop after executing the input script. Node.js exits the event loop when there are no more callbacks to perform. This behavior is like browser JavaScript — the event loop is hidden from the user.</p>
+Node,Backend,Trial,none,"<p><a href=""https://nodejs.org"">Node</a> is similar in design to, and influenced by, systems like Ruby’s Event Machine and Python’s Twisted. Node.js takes the event model a bit further. It presents an event loop as a runtime construct instead of as a library. In other systems, there is always a blocking call to start the event-loop. Typically, behavior is defined through callbacks at the beginning of a script, and at the end a server is started through a blocking call like EventMachine::run(). In Node.js, there is no such start-the-event-loop call. Node.js simply enters the event loop after executing the input script. Node.js exits the event loop when there are no more callbacks to perform. This behavior is like browser JavaScript — the event loop is hidden from the user.</p>
 <p>HTTP is a first-class citizen in Node.js, designed with streaming and low latency in mind. This makes Node.js well suited for the foundation of a web library or framework.</p>
 <p>Node.js being designed without threads doesn’t mean you can’t take advantage of multiple cores in your environment. Child processes can be spawned by using our child_process.fork() API, and are designed to be easy to communicate with. Built upon that same interface is the cluster module, which allows you to share sockets between processes to enable load balancing over your cores.</p>
 <h3>Pros</h3>
@@ -675,7 +675,7 @@ Node,Backend,Hold,none,"<p><a href=""https://nodejs.org"">Node</a> is similar in
 <p>When decision made: 1/1/2020</p>
 <p>When decision will be revisited: 1/1/2022</p>
 "
-Go,Backend,Hold,budding,"<p><a href=""https://golang.org/"">Go</a> is a C style language with influence from JAVA. Go is expressive, concise, clean, and efficient. Its concurrency mechanisms make it easy to write programs that get the most out of multicore and networked machines, while its novel type system enables flexible and modular program construction. Go compiles quickly to machine code yet has the convenience of garbage collection and the power of run-time reflection. It’s a fast, statically typed, compiled language that feels like a dynamically typed, interpreted language.</p>
+Go,Backend,Trial,budding,"<p><a href=""https://golang.org/"">Go</a> is a C style language with influence from JAVA. Go is expressive, concise, clean, and efficient. Its concurrency mechanisms make it easy to write programs that get the most out of multicore and networked machines, while its novel type system enables flexible and modular program construction. Go compiles quickly to machine code yet has the convenience of garbage collection and the power of run-time reflection. It’s a fast, statically typed, compiled language that feels like a dynamically typed, interpreted language.</p>
 <h3>Pros</h3>
 <ul>
 <li>Extremely fast</li>
@@ -969,7 +969,7 @@ Matillion,Data,Hold,confident,"<p><a href=""https://www.matillion.com/"">Matilli
 <p>When decision made: 5/1/2021</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-MongoDB,Data,Hold,none,"<p><a href=""hhttps://www.mongodb.com/"">MongoDB</a> is a general purpose, document-based, distributed database built for modern application developers and for the cloud era.</p>
+MongoDB,Data,Divest,none,"<p><a href=""hhttps://www.mongodb.com/"">MongoDB</a> is a general purpose, document-based, distributed database built for modern application developers and for the cloud era.</p>
 <h3>Pros</h3>
 <ul>
 <li>Very fast document storage</li>
@@ -1177,6 +1177,39 @@ Fluentd,Infrastructure,Invest,confident,"<p><a href=""https://www.fluentd.org/""
 <p>When decision made: 5/1/2021</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
+Micronaut,Backend,Invest,confident,"<p><a href="https://micronaut.io/">Micronaut</a> is a modern, JVM-based, full-stack framework for building modular, easily testable microservice and serverless applications.</p>
+<h3>Pros</h3>
+<ul>
+<li>Lightweight</li>
+<li>JVM-Based</li>
+<li>
+<li><p>Your application startup time and memory consumption aren't bound to the size of your codebase, resulting in a monumental leap in startup time, blazing fast throughput, and a minimal memory footprint.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Not as mature as Spring in some areas</li>
+<li>Paradigms to reactive programming take time to learn.</li>
+<li>Yet Another Framework</li>
+</ul>
+<p>When decision made: 8/1/2021</p>
+<p>When decision will be revisited: 8/1/2024</p>
+"
+Kotlin,Backend,Invest,confident,"<p><a href="https://kotlinlang.org/">Kotlin</a> is a cross-platform, statically typed, general-purpose programming language with type inference.</p>
+<h3>Pros</h3>
+<ul>
+<li>Syntax will be familiar to Java and .NET Core</li>
+<li>JVM-Based</li>
+<li>Able to recruit engineers into the space.</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Language Maturity</li>
+<li>Absence of primative types</li>
+<li>Syntax Surgar can distract new engineers</li>
+</ul>
+<p>When decision made: 8/1/2022</p>
+<p>When decision will be revisited: 8/1/2024</p>
+"
 Github (source),Infrastructure,Invest,lock,"<p><a href=""https://github.com/"">Github</a> is a platform to host all of your git based repositories. By extension <a href=""https://git-scm.com"">git</a> should be used as your distributed version control system.</p>
 <h3>Pros</h3>
 <ul>
@@ -1205,23 +1238,6 @@ Clair,Infrastructure,Invest,leaning,"<p><a href=""https://coreos.com/clair/docs/
 </ul>
 <p>When decision made: 5/1/2021</p>
 <p>When decision will be revisited: 5/1/2021</p>
-"
-Jira,Infrastructure,Invest,lock,"<p><a href=""https://www.atlassian.com/software/jira"">Jira</a> is project management software.</p>
-<h3>Pros</h3>
-<ul>
-<li>Can use multiple workflows to accommodate different agile practices</li>
-<li>Not the easiest interface to work with’</li>
-<li>Cloud hosted</li>
-<li>Good plugin support</li>
-</ul>
-<h3>Cons</h3>
-<ul>
-<li>Can feel really clunky at times</li>
-<li>Teams can be blocked when there are service interruptions</li>
-</ul>
-<p>When decision made: 5/1/2021</p>
-<p>When decision will be revisited: 5/1/2021</p>
-"
 SonarQube,Infrastructure,Invest,confident,"<p><a href=""https://www.sonarqube.org"">SonarQube</a> is a platform for continuous inspection of code quality to perform automatic reviews with static analysis of code to detect bugs, code smells, and security vulnerabilities.</p>
 <h3>Pros</h3>
 <ul>
@@ -1329,7 +1345,7 @@ S3,Infrastructure,Invest,confident,"<p>S3 is a distributed file system. It is hi
 <p>When decision made: 1/1/2020</p>
 <p>When decision will be revisited: 1/1/2022</p>
 "
-Ansible (Configuration Management),Infrastructure,Invest,confident,"<p><a href=""https://www.ansible.com/"">Ansible</a> is a universal language, unraveling the mystery of how work gets done. Turn tough tasks into repeatable playbooks. Roll out enterprise-wide protocols with the push of a button.</p>
+Ansible (Configuration Management),Infrastructure,Divest,confident,"<p><a href=""https://www.ansible.com/"">Ansible</a> is a universal language, unraveling the mystery of how work gets done. Turn tough tasks into repeatable playbooks. Roll out enterprise-wide protocols with the push of a button.</p>
 <h3>Pros</h3>
 <ul>
 <li>Simple yaml playbooks</li>
@@ -1365,7 +1381,7 @@ EKS,Infrastructure,Trial,budding,"<p><a href="""">Kubernetes</a> is the best con
 <p>When decision made: 5/1/2021</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-Jenkins,Infrastructure,Trial,leaning,"<p><a href=""https://jenkins.io/"">Jenkins</a> is a build system. Built by the open source community it provides all the functionality needed for continuous integration.</p>
+Jenkins,Infrastructure,Hold,leaning,"<p><a href=""https://jenkins.io/"">Jenkins</a> is a build system. Built by the open source community it provides all the functionality needed for continuous integration.</p>
 <h3>Pros</h3>
 <ul>
 <li>Innumerable plugins</li>
@@ -1378,7 +1394,7 @@ Jenkins,Infrastructure,Trial,leaning,"<p><a href=""https://jenkins.io/"">Jenkins
 <p>When decision made: 5/1/2021</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-Teamcity,Infrastructure,Trial,leaning,"<p><a href=""https://www.jetbrains.com/teamcity/"">Teamcity</a> is a build system. Built by the folks at Jetbrains it provides all the functionality needed for continuous integration.</p>
+Teamcity,Infrastructure,Hold,leaning,"<p><a href=""https://www.jetbrains.com/teamcity/"">Teamcity</a> is a build system. Built by the folks at Jetbrains it provides all the functionality needed for continuous integration.</p>
 <h3>Pros</h3>
 <ul>
 <li>Solid interface</li>
@@ -1394,7 +1410,7 @@ Teamcity,Infrastructure,Trial,leaning,"<p><a href=""https://www.jetbrains.com/te
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-Spinnaker,Infrastructure,Trial,leaning,"<p><a href=""https://www.spinnaker.io/"">Spinnaker</a> is a continuous delivery tool that can work with many different types of infrastructure. While Spinnaker can work with anything we have chosen to use it primarily to manage the deployment pipelines for the applications that reside on our Kubernetes cluster.</p>
+Spinnaker,Infrastructure,Invest,leaning,"<p><a href=""https://www.spinnaker.io/"">Spinnaker</a> is a continuous delivery tool that can work with many different types of infrastructure. While Spinnaker can work with anything we have chosen to use it primarily to manage the deployment pipelines for the applications that reside on our Kubernetes cluster.</p>
 <h3>Pros</h3>
 <ul>
 <li>Visual workflow for releases</li>
@@ -1474,7 +1490,7 @@ Harbor,Infrastructure,Trial,budding,"<p><a href=""https://goharbor.io"">Harbor</
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-Istio,Infrastructure,Trial,budding,"<p><a href=""https://istio.io/"">Istio</a> helps reduce the complexity deployments, and eases the strain on your development teams. It is a completely open source service mesh that layers transparently onto existing distributed applications.</p>
+Istio,Infrastructure,Invest,budding,"<p><a href=""https://istio.io/"">Istio</a> helps reduce the complexity deployments, and eases the strain on your development teams. It is a completely open source service mesh that layers transparently onto existing distributed applications.</p>
 <h3>Pros</h3>
 <ul>
 <li>Automatic load balancing</li>
@@ -1491,7 +1507,7 @@ Istio,Infrastructure,Trial,budding,"<p><a href=""https://istio.io/"">Istio</a> h
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-Traefik,Infrastructure,Trial,budding,"<p><a href=""https://www.ansible.com/"">Traefik</a> is a leading modern reverse proxy and load balancer that makes deploying microservices easy. Traefik integrates with your existing infrastructure components and configures itself automatically and dynamically.</p>
+Traefik,Infrastructure,Hold,budding,"<p><a href=""https://www.ansible.com/"">Traefik</a> is a leading modern reverse proxy and load balancer that makes deploying microservices easy. Traefik integrates with your existing infrastructure components and configures itself automatically and dynamically.</p>
 <h3>Pros</h3>
 <ul>
 <li>Simple to configure</li>
@@ -1506,7 +1522,7 @@ Traefik,Infrastructure,Trial,budding,"<p><a href=""https://www.ansible.com/"">Tr
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-ECR,Infrastructure,Trial,budding,"<p><a href=""https://aws.amazon.com/ecr/"">ECR</a> is a fully-managed Docker container registry that makes it easy for developers to store, manage, and deploy Docker container images. Amazon ECR is integrated with Amazon Elastic Container Service (ECS), simplifying your development to production workflow. Amazon ECR eliminates the need to operate your own container repositories or worry about scaling the underlying infrastructure. Amazon ECR hosts your images in a highly available and scalable architecture, allowing you to reliably deploy containers for your applications.</p>
+ECR,Infrastructure,Invest,budding,"<p><a href=""https://aws.amazon.com/ecr/"">ECR</a> is a fully-managed Docker container registry that makes it easy for developers to store, manage, and deploy Docker container images. Amazon ECR is integrated with Amazon Elastic Container Service (ECS), simplifying your development to production workflow. Amazon ECR eliminates the need to operate your own container repositories or worry about scaling the underlying infrastructure. Amazon ECR hosts your images in a highly available and scalable architecture, allowing you to reliably deploy containers for your applications.</p>
 <h3>Pros</h3>
 <ul>
 <li>Integration with IAM</li>
@@ -1587,7 +1603,7 @@ ECS,Infrastructure,Divest,none,"<p><a href=""https://aws.amazon.com/ecs/"">Elast
 <p>When decision made: 5/1/2020</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-Datadog,Infrastructure,Divest,none,"<p><a href=""https://www.datadoghq.com/"">Datadog</a> is a hosted platform for monitoring and analytics. Datadog enables easy instrumentation of many types of applications and infrastructure.</p>
+Datadog,Infrastructure,Hold,none,"<p><a href=""https://www.datadoghq.com/"">Datadog</a> is a hosted platform for monitoring and analytics. Datadog enables easy instrumentation of many types of applications and infrastructure.</p>
 <h3>Pros</h3>
 <ul>
 <li>Very quick to implement</li>
