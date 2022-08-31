@@ -1182,23 +1182,30 @@ Micronaut,Backend,Invest,confident,"<p><a href="https://micronaut.io/">Micronaut
 <ul>
 <li>Lightweight</li>
 <li>JVM-Based</li>
+<li>
+<li><p>Your application startup time and memory consumption aren't bound to the size of your codebase, resulting in a monumental leap in startup time, blazing fast throughput, and a minimal memory footprint.</li>
 </ul>
 <h3>Cons</h3>
 <ul>
+<li>Not as mature as Spring in some areas</li>
+<li>Paradigms to reactive programming take time to learn.</li>
+<li>Yet Another Framework</li>
 </ul>
-<p>When decision made: 8/1/2022</p>
+<p>When decision made: 8/1/2021</p>
 <p>When decision will be revisited: 8/1/2024</p>
 "
 Kotlin,Backend,Invest,confident,"<p><a href="https://kotlinlang.org/">Kotlin</a> is a cross-platform, statically typed, general-purpose programming language with type inference.</p>
 <h3>Pros</h3>
 <ul>
-<li>Syntax is simpler than Java</li>
+<li>Syntax will be familiar to Java and .NET Core</li>
 <li>JVM-Based</li>
-<li>Lots of use cases</li>
+<li>Able to recruit engineers into the space.</li>
 </ul>
 <h3>Cons</h3>
 <ul>
-<li>A lot newer than other languages</li>
+<li>Language Maturity</li>
+<li>Absence of primative types</li>
+<li>Syntax Surgar can distract new engineers</li>
 </ul>
 <p>When decision made: 8/1/2022</p>
 <p>When decision will be revisited: 8/1/2024</p>
