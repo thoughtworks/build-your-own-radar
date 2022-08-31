@@ -1239,6 +1239,22 @@ Clair,Infrastructure,Invest,leaning,"<p><a href=""https://coreos.com/clair/docs/
 <p>When decision made: 5/1/2021</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
+Jira,Infrastructure,Invest,lock,"<p><a href=""https://www.atlassian.com/software/jira"">Jira</a> is project management software.</p>
+<h3>Pros</h3>
+<ul>
+<li>Can use multiple workflows to accommodate different agile practices</li>
+<li>Not the easiest interface to work with’</li>
+<li>Cloud hosted</li>
+<li>Good plugin support</li>
+</ul>
+<h3>Cons</h3>
+<ul>
+<li>Can feel really clunky at times</li>
+<li>Teams can be blocked when there are service interruptions</li>
+</ul>
+<p>When decision made: 5/1/2021</p>
+<p>When decision will be revisited: 5/1/2021</p>
+"
 SonarQube,Infrastructure,Invest,confident,"<p><a href=""https://www.sonarqube.org"">SonarQube</a> is a platform for continuous inspection of code quality to perform automatic reviews with static analysis of code to detect bugs, code smells, and security vulnerabilities.</p>
 <h3>Pros</h3>
 <ul>
