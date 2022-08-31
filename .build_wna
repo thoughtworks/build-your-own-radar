@@ -1,6 +1,6 @@
 build:
   ci_team: ops
-  image: pre-built
+  type: pre-built
   sonar_scan: false
 
   analysis:
