@@ -1177,7 +1177,7 @@ Fluentd,Infrastructure,Invest,confident,"<p><a href=""https://www.fluentd.org/""
 <p>When decision made: 5/1/2021</p>
 <p>When decision will be revisited: 5/1/2021</p>
 "
-Micronaut,Backend,Invest,confident,"<p><a href="https://micronaut.io/">Micronaut</a> is a modern, JVM-based, full-stack framework for building modular, easily testable microservice and serverless applications.</p>
+Micronaut,Backend,Invest,confident,"<p><a href=""https://micronaut.io/"">Micronaut</a> is a modern, JVM-based, full-stack framework for building modular, easily testable microservice and serverless applications.</p>
 <h3>Pros</h3>
 <ul>
 <li>Lightweight</li>
@@ -1194,7 +1194,7 @@ Micronaut,Backend,Invest,confident,"<p><a href="https://micronaut.io/">Micronaut
 <p>When decision made: 8/1/2021</p>
 <p>When decision will be revisited: 8/1/2024</p>
 "
-Kotlin,Backend,Invest,confident,"<p><a href="https://kotlinlang.org/">Kotlin</a> is a cross-platform, statically typed, general-purpose programming language with type inference.</p>
+Kotlin,Backend,Invest,confident,"<p><a href=""https://kotlinlang.org/"">Kotlin</a> is a cross-platform, statically typed, general-purpose programming language with type inference.</p>
 <h3>Pros</h3>
 <ul>
 <li>Syntax will be familiar to Java and .NET Core</li>
