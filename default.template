@@ -2,7 +2,8 @@
 server {
   listen 80;
   location / {
-      rewrite ^ https://deltares-techradar-p55r6bsmyq-ez.a.run.app$uri?sheetId=https://storage.googleapis.com/tech-radar-deltares/radar.json permanent;
+    root /opt/build-your-own-radar;
+    index index.html;
   }
 
   # custom error page for 404 errors
