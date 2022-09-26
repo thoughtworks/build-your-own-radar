@@ -42,7 +42,8 @@ The URL will be similar to [https://docs.google.com/spreadsheets/d/1waDG0_W3-yNi
 ### Using CSV data
 
 The other way to provide your data is using CSV document format.
-You can enter any URL that responds CSV data into the input field on the first page.
+You can enter a publicly accessible URL (not behind any authentication) of a CSV file into the input field on the first page.
+For example, a [raw URL](https://raw.githubusercontent.com/thoughtworks/build-your-own-radar/master/spec/end_to_end_tests/resources/sheet.csv) for a CSV file hosted publicly on GitHub can be used.
 The format is just the same as that of the Google Sheet, the example is as follows:
 
 ```
@@ -53,12 +54,15 @@ Apache Kylin,assess,platforms,TRUE,"Apache Kylin is an open source analytics sol
 JSF,hold,languages & frameworks,FALSE,"We continue to see teams run into trouble using JSF ..."
 ```
 
+If you do not want to host the CSV file publicly, you can follow [these steps](#advanced-option---docker-image-with-a-csvjson-file-from-the-host-machine) to host the file locally on your BYOR docker instance itself.
+
 **_Note:_** The CSV file parsing is using D3 library, so consult the [D3 documentation](https://github.com/d3/d3-request/blob/master/README.md#csv) for the data format details.
 
 ### Using JSON data
 
 Another other way to provide your data is using a JSON array.
-You can enter any URL that responds JSON data into the input field on the first page.
+You can enter a publicly accessible URL (not behind any authentication) of a JSON file into the input field on the first page.
+For example, a [raw URL](https://raw.githubusercontent.com/thoughtworks/build-your-own-radar/master/spec/end_to_end_tests/resources/data.json) for a JSON file hosted publicly on GitHub can be used.
 The format of the JSON is an array of objects with the the fields: `name`, `ring`, `quadrant`, `isNew`, and `description`.
 
 An example:
@@ -95,6 +99,8 @@ An example:
   }
 ]
 ```
+
+If you do not want to host the JSON file publicly, you can follow [these steps](#advanced-option---docker-image-with-a-csvjson-file-from-the-host-machine) to host the file locally on your BYOR docker instance itself.
 
 **_Note:_** The JSON file parsing is using D3 library, so consult the [D3 documentation](https://github.com/d3/d3-request/blob/master/README.md#json) for the data format details.
 
@@ -144,7 +150,7 @@ $ docker run --rm -p 8080:80 -e CLIENT_ID="[Google Client ID]" wwwthoughtworks/b
 $ open http://localhost:8080
 ```
 
-### Advanced option - Docker image with a csv/json file from the host machine
+### Advanced option - Docker image with a CSV/JSON file from the host machine
 
 You can check your setup by clicking on "Build my radar" and by loading the `csv`/`json` file from these locations:
 
