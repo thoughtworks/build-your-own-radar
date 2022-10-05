@@ -114,44 +114,52 @@ header {
     transform: translate(0, -2px);
     opacity: 0.85;
 
-    &.first, &.context_0 {
+    &.first,
+    &.context_0 {
       color: white;
       background-color: $green;
     }
 
-    &.second, &.context_1 {
+    &.second,
+    &.context_1 {
       color: white;
       background-color: $blue;
     }
 
-    &.third, &.context_2 {
+    &.third,
+    &.context_2 {
       color: white;
       background-color: $orange;
     }
 
-    &.fourth, &.context_3 {
+    &.fourth,
+    &.context_3 {
       color: white;
       background-color: $violet;
     }
   }
 
   &.full-view {
-    &.first, &.context_0 {
+    &.first,
+    &.context_0 {
       background-color: $green;
       color: $white;
     }
 
-    &.second, &.context_1 {
+    &.second,
+    &.context_1 {
       background-color: $blue;
       color: $white;
     }
 
-    &.third, &.context_2 {
+    &.third,
+    &.context_2 {
       background-color: $orange;
       color: $white;
     }
 
-    &.fourth, &.context_3 {
+    &.fourth,
+    &.context_3 {
       background-color: $violet;
       color: $white;
     }
