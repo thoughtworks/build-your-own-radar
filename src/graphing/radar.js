@@ -517,7 +517,7 @@ const Radar = function (size, radar) {
     d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')').style('opacity', 1)
   }
 
-  function unselectContext(order) {
+  function unselectContext() {
     d3.selectAll(`.quadrant-group .blip-link`).style('opacity', 1)
     d3.selectAll(`.quadrant-table .blip-list-item`).style('opacity', 1)
   }
@@ -615,7 +615,7 @@ const Radar = function (size, radar) {
   }
 
   self.plot = function () {
-    var rings, quadrants, alternatives, currentSheet
+    var rings, quadrants, alternatives, currentSheet, contexts
 
     rings = radar.rings()
     quadrants = radar.quadrants()

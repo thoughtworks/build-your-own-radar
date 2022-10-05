@@ -8,7 +8,7 @@ const _ = {
 }
 
 const Radar = function () {
-  var self, quadrants, contexts, blipNumber, addingQuadrant, alternatives, currentSheetName
+  var self, quadrants, blipNumber, addingQuadrant, alternatives, currentSheetName
 
   blipNumber = 0
   addingQuadrant = 0
