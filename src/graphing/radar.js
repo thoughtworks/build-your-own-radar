@@ -483,7 +483,6 @@ const Radar = function (size, radar) {
     }
 
     contextBtnGroup.append('div').attr('class', 'button full-view').text('All').on('click', unselectContext.bind({}))
-
     ;[...contexts].forEach((context, index) => addButton(context, index))
   }
 
