@@ -1,5 +1,5 @@
 const d3 = require('d3')
-const d3tip = require('d3-tip')
+const { default: d3tip } = require('d3-tip')
 const Chance = require('chance')
 const _ = require('lodash/core')
 
