@@ -208,7 +208,7 @@ To run End to End tests in debug mode
 
 ### Don't want to install node? Run with one line docker
 
-     $ docker run -p 8080:8080 -v $PWD:/app -w /app -it node:10.15.3 /bin/sh -c 'npm install && npm run dev'
+$ docker run -p 8080:8080 -v $PWD:/app -w /app -it node:16-alpine /bin/sh -c 'npm install && npm run dev'
 
 **_Note:_** If you are facing Node-sass compile error while running, please prefix the command `npm rebuild node-sass` before `npm run dev`. like this
 
