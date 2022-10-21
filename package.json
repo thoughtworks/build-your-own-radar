@@ -78,7 +78,7 @@
     ]
   },
   "engines": {
-    "node": ">=14",
+    "node": ">=16",
     "npm": "8"
   },
   "private": true
