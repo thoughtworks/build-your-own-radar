@@ -23,5 +23,5 @@ jobs:
       run: npm run quality
     - name: Run e2e
       run: npm test:e2e
-    - name: Prod Build
+    - name: Build (Prod)
       run: npm run build:prod
