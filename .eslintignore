@@ -16,3 +16,6 @@ cypress/
 .nyc_output
 
 .private.notes
+
+dist/
+src/stylesheets/_featuretoggles.scss #auto-generated
