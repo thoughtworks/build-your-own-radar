@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 cd /src/build-your-own-radar
 
