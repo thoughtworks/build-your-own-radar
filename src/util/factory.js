@@ -107,7 +107,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
 
   self.authenticate = function (force = false, apiKeyEnabled, callback) {
     GoogleAuth.loadGoogle(force, function () {
-      const sheet = new Sheet(sheetReference);
+      const sheet = new Sheet(sheetReference)
       sheet.processSheetResponse(sheetName, createBlipsForProtectedSheet, (error) => {
         if (error.status === 403) {
           plotUnauthorizedErrorMessage()
@@ -294,9 +294,9 @@ function plotFooter(content) {
     .append('p')
     .html(
       'Powered by <a href="https://www.thoughtworks.com"> Thoughtworks</a>. ' +
-      'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
-      'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
-      'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
+        'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
+        'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
+        'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
     )
 }
 
@@ -385,22 +385,22 @@ function showErrorMessage(exception, fileType) {
 }
 
 function plotUnauthorizedErrorMessage() {
-  let content;
-  const helperDescription = d3.select(".helper-description")
+  let content
+  const helperDescription = d3.select('.helper-description')
   if (!config.featureToggles.UIRefresh2022) {
     content = d3.select('body').append('div').attr('class', 'input-sheet')
     setDocumentTitle()
 
     plotLogo(content)
 
-    const bannerText = '<div><h1>Build your own radar</h1></div>';
+    const bannerText = '<div><h1>Build your own radar</h1></div>'
 
     plotBanner(content, bannerText)
 
     d3.selectAll('.loading').remove()
   } else {
-    content = d3.select("main")
-    helperDescription.style("display", "none")
+    content = d3.select('main')
+    helperDescription.style('display', 'none')
   }
   const currentUser = GoogleAuth.getEmail()
   let homePageURL = window.location.protocol + '//' + window.location.hostname
@@ -428,7 +428,7 @@ function plotUnauthorizedErrorMessage() {
     const sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
     sheet.authenticate(true, false, () => {
       if (config.featureToggles.UIRefresh2022) {
-        helperDescription.style("display", "block")
+        helperDescription.style('display', 'block')
         errorContainer.remove()
       } else {
         content.remove()

@@ -82,7 +82,7 @@ jobs:
       - install-node-and-cypress-packages
       - run:
           name: Run e2e test cases
-          command: ./run_e2e_tests.sh $DEV_API_KEY $TESTING_CLIENT_ID $DEV_TEST_URL
+          command: ./run_e2e_tests.sh $DEV_TEST_URL
   dev-deployment:
     executor: base
     steps:
