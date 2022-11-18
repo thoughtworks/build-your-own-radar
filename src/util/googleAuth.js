@@ -135,7 +135,7 @@ const GoogleAuth = function () {
   }
 
   self.getEmail = () => {
-    return self.profile.email
+    return self.userEmail
   }
 
   return self
