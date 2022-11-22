@@ -6,7 +6,7 @@ orbs:
 executors:
   base:
     docker:
-      - image: cimg/node:16.15.0
+      - image: cimg/node:18.12.1
         user: root
 
 commands:
@@ -82,17 +82,17 @@ jobs:
       - install-node-and-cypress-packages
       - run:
           name: Run e2e test cases
-          command: ./run_e2e_tests.sh $DEV_API_KEY $TESTING_CLIENT_ID $DEV_TEST_URL
-  dev-deployment:
+          command: ./run_e2e_tests.sh $QA_TEST_URL
+  qa-deployment:
     executor: base
     steps:
       - checkout
       - install-node-packages
       - build-and-push:
-          client_id: $DEV_CLIENT_ID
-          gtm_id: $DEV_GTM_ID
-          bucket_name: $DEV_BUCKET_NAME
-          distribution_id: $DEV_DISTRIBUTION_ID
+          client_id: $QA_CLIENT_ID
+          gtm_id: $QA_GTM_ID
+          bucket_name: $QA_BUCKET_NAME
+          distribution_id: $QA_DISTRIBUTION_ID
           mode: dev
   prod-deployment:
     executor: base
@@ -119,17 +119,17 @@ workflows:
           filters:
             branches:
               only: master
-      - approve-dev-deployment:
+      - approve-qa-deployment:
           type: approval
           requires:
             - e2e-tests
-      - dev-deployment:
+      - qa-deployment:
           requires:
-            - approve-dev-deployment
+            - approve-qa-deployment
       - approve-prod-deployment:
           type: approval
           requires:
-            - dev-deployment
+            - qa-deployment
       - prod-deployment:
           requires:
             - approve-prod-deployment

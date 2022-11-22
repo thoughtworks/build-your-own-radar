@@ -106,37 +106,19 @@ const GoogleSheet = function (sheetReference, sheetName) {
   }
 
   self.authenticate = function (force = false, apiKeyEnabled, callback) {
-    if (!apiKeyEnabled) {
-      GoogleAuth.loadGoogle(function () {
-        GoogleAuth.login(() => {
-          var sheet = new Sheet(sheetReference)
-          sheet.processSheetResponse(sheetName, createBlipsForProtectedSheet, (error) => {
-            if (error.status === 403) {
-              plotUnauthorizedErrorMessage()
-            } else {
-              plotErrorMessage(error, 'sheet')
-            }
-          })
-          if (callback) {
-            callback()
-          }
-        }, force)
-      })
-    } else {
-      GoogleAuth.loadGoogle(function () {
-        var sheet = new Sheet(sheetReference)
-        sheet.processSheetResponse(sheetName, createBlipsForProtectedSheet, (error) => {
-          if (error.status === 403) {
-            plotUnauthorizedErrorMessage()
-          } else {
-            plotErrorMessage(error, 'sheet')
-          }
-        })
-        if (callback) {
-          callback()
+    GoogleAuth.loadGoogle(force, function () {
+      const sheet = new Sheet(sheetReference)
+      sheet.processSheetResponse(sheetName, createBlipsForProtectedSheet, (error) => {
+        if (error.status === 403) {
+          plotUnauthorizedErrorMessage()
+        } else {
+          plotErrorMessage(error, 'sheet')
         }
       })
-    }
+      if (callback) {
+        callback()
+      }
+    })
   }
 
   self.init = function () {
@@ -245,7 +227,6 @@ const GoogleSheetInput = function () {
       sheet.init().build()
     } else if (domainName && domainName.endsWith('google.com') && queryParams.sheetId) {
       sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
-      console.log(queryParams.sheetName)
 
       sheet.init().build()
     } else {
@@ -404,17 +385,24 @@ function showErrorMessage(exception, fileType) {
 }
 
 function plotUnauthorizedErrorMessage() {
-  var content = d3.select('body').append('div').attr('class', 'input-sheet')
-  setDocumentTitle()
+  let content
+  const helperDescription = d3.select('.helper-description')
+  if (!config.featureToggles.UIRefresh2022) {
+    content = d3.select('body').append('div').attr('class', 'input-sheet')
+    setDocumentTitle()
 
-  plotLogo(content)
+    plotLogo(content)
 
-  var bannerText = '<div><h1>Build your own radar</h1></div>'
+    const bannerText = '<div><h1>Build your own radar</h1></div>'
 
-  plotBanner(content, bannerText)
+    plotBanner(content, bannerText)
 
-  d3.selectAll('.loading').remove()
-  const currentUser = GoogleAuth.geEmail()
+    d3.selectAll('.loading').remove()
+  } else {
+    content = d3.select('main')
+    helperDescription.style('display', 'none')
+  }
+  const currentUser = GoogleAuth.getEmail()
   let homePageURL = window.location.protocol + '//' + window.location.hostname
   homePageURL += window.location.port === '' ? '' : ':' + window.location.port
   const goBack = '<a href=' + homePageURL + '>GO BACK</a>'
@@ -439,7 +427,12 @@ function plotUnauthorizedErrorMessage() {
     var queryParams = queryString ? QueryParams(queryString[0]) : {}
     const sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
     sheet.authenticate(true, false, () => {
-      content.remove()
+      if (config.featureToggles.UIRefresh2022) {
+        helperDescription.style('display', 'block')
+        errorContainer.remove()
+      } else {
+        content.remove()
+      }
     })
   })
 }

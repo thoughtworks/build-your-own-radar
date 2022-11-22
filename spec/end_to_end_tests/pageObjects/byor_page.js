@@ -11,15 +11,15 @@ class ByorPage {
   }
 
   provideExcelName() {
-    cy.get(this.text_box).type(config.excel, { force: true })
+    cy.get(this.text_box).type(config.excel)
   }
 
   provideCsvName() {
-    cy.get(this.text_box).type(config.csv, { force: true })
+    cy.get(this.text_box).type(config.csv)
   }
 
   provideJsonName() {
-    cy.get(this.text_box).type(config.json, { force: true })
+    cy.get(this.text_box).type(config.json)
   }
 
   clickSubmitButton() {

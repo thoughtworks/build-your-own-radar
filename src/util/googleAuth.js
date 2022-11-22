@@ -14,51 +14,85 @@ var SCOPES = 'https://www.googleapis.com/auth/spreadsheets.readonly'
 
 const GoogleAuth = function () {
   const self = {}
+  self.forceLogin = false
   self.isAuthorizedCallbacks = []
   self.isLoggedIn = undefined
+  self.userEmail = ''
+  let tokenClient
+  let gapiInited = false
+  let gsiInited = false
 
-  self._updateProfile = function () {
-    const profile = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile()
-    if (!profile) {
-      return
-    }
-    self.profile = {
-      id: profile.getId(),
-      fullName: profile.getName(),
-      givenName: profile.getGivenName(),
-      familyName: profile.getFamilyName(),
-      imageUrl: profile.getImageUrl(),
-      email: profile.getEmail(),
-    }
-  }
-
-  self.loadGoogle = function (callback) {
+  self.loadGoogle = function (forceLogin = false, callback) {
     self.loadedCallback = callback
-    var content = d3.select('body')
-    content
-      .append('script')
-      .attr('src', 'https://apis.google.com/js/api.js')
-      .on('load', function () {
-        self.handleClientLoad()
-      })
+    self.forceLogin = forceLogin
+    const content = d3.select('body')
+
+    if (!self.forceLogin) {
+      content.append('script').attr('src', 'https://apis.google.com/js/api.js').on('load', self.handleClientLoad)
+
+      content
+        .append('script')
+        .attr('src', 'https://accounts.google.com/gsi/client')
+        .on('load', function () {
+          self.gsiLogin()
+        })
+    } else {
+      self.handleClientLoad()
+      self.gsiLogin(forceLogin)
+    }
   }
 
-  self.isLoggedInCallback = function (isLoggedIn) {
-    self.isLoggedIn = isLoggedIn
-    self._updateProfile()
-    self.isAuthorizedCallbacks.forEach(function (callback) {
-      callback(isLoggedIn)
+  function parseJwt(token) {
+    var base64Url = token.split('.')[1]
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+    var jsonPayload = decodeURIComponent(
+      window
+        .atob(base64)
+        .split('')
+        .map(function (c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+        })
+        .join(''),
+    )
+
+    return JSON.parse(jsonPayload)
+  }
+
+  self.gsiCallback = async function (credentialResponse) {
+    let jwToken
+    if (credentialResponse) {
+      jwToken = parseJwt(credentialResponse.credential)
+    }
+
+    tokenClient = await window.google.accounts.oauth2.initTokenClient({
+      client_id: CLIENT_ID,
+      scope: SCOPES,
+      callback: '',
+      prompt: self.forceLogin ? 'select_account' : '',
+      hint: self.forceLogin ? '' : jwToken?.email,
     })
+
+    gsiInited = true
+    self.prompt()
+  }
+
+  self.gsiLogin = async function (forceLogin = false) {
+    self.forceLogin = forceLogin
+    window.google.accounts.id.initialize({
+      client_id: CLIENT_ID,
+      callback: self.gsiCallback,
+      auto_select: self.forceLogin ? false : true,
+      cancel_on_tap_outside: false,
+    })
+    if (!self.forceLogin) {
+      window.google.accounts.id.prompt()
+    } else {
+      self.gsiCallback()
+    }
   }
 
   self.handleClientLoad = function () {
-    gapi.load('client:auth2', function () {
-      self.initClient()
-    })
-  }
-
-  self.updateSigninStatus = function (isSignedIn) {
-    self.isLoggedInCallback(isSignedIn)
+    gapi.load('client', self.initClient)
   }
 
   self.isAuthorized = function (callback) {
@@ -68,49 +102,40 @@ const GoogleAuth = function () {
     }
   }
 
-  self.initClient = function () {
+  self.prompt = async function () {
+    if (gsiInited && gapiInited) {
+      const token = gapi.client.getToken()
+      if (token && token.access_token && !self.forceLogin) {
+        const options = { method: 'GET', headers: { authorization: `Bearer ${token.access_token}` } }
+        const response = await fetch('https://www.googleapis.com/oauth2/v1/userinfo', options)
+        const profile = await response.json()
+        self.userEmail = profile.email
+        self.loadedCallback()
+      } else {
+        tokenClient.callback = () => {
+          self.forceLogin = false
+          self.prompt()
+        }
+        tokenClient.requestAccessToken()
+      }
+    }
+  }
+
+  self.initClient = async function () {
     gapi.client
       .init({
         apiKey: API_KEY,
-        clientId: CLIENT_ID,
         discoveryDocs: DISCOVERY_DOCS,
         scope: SCOPES,
       })
-      .then(function () {
-        self.loadedCallback()
-        // Listen for sign-in state changes.
-        gapi.auth2.getAuthInstance().isSignedIn.listen(function (data) {
-          self.updateSigninStatus(data)
-        })
-
-        // Handle the initial sign-in state.
-        self.updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get())
+      .then(() => {
+        gapiInited = true
+        self.prompt()
       })
   }
 
-  self.logout = function () {
-    gapi.auth2.getAuthInstance().signOut()
-  }
-
-  self.geEmail = () => {
-    const isLoggedIn = gapi.auth2.getAuthInstance().isSignedIn.get()
-    if (isLoggedIn) {
-      return gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getEmail()
-    }
-  }
-
-  self.login = function (callback, force = false) {
-    if (force) {
-      gapi.auth2.getAuthInstance().signIn({ prompt: 'select_account' }).then(callback)
-      return
-    }
-
-    const isLoggedIn = gapi.auth2.getAuthInstance().isSignedIn.get()
-    if (isLoggedIn) {
-      callback()
-    } else {
-      gapi.auth2.getAuthInstance().signIn().then(callback)
-    }
+  self.getEmail = () => {
+    return self.userEmail
   }
 
   return self
