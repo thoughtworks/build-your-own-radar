@@ -10,12 +10,6 @@
 
 A library that generates an interactive radar, inspired by [thoughtworks.com/radar](http://thoughtworks.com/radar).
 
-## Google Sign-In Platform Library Deprecation Note
-
-Google is deprecating their Sign-In Platform Library, which is used in this project for authentication to use Google Sheets as a data source for creating a Radar, in favour of their new Google Identity Service (GIS) Library. As part of this deprecation, newly created Client IDs and API Keys do not work for authentication. Due to this, new users would not be able to use BYOR to build using Google Sheets on their local/docker setups.
-
-We are working on the migration to using the GIS library. Until it is complete, new local/docker setups would only be able to use BYOR with [CSV](#using-csv-data) or [JSON](#using-json-data) files. Existing users should be able to continue using their keys to create Radars using Google Sheets. Additionally, we have hosted the app on https://radar.thoughtworks.com, where Google Sheets as a data source will still work.
-
 ## Demo
 
 You can see this in action at https://radar.thoughtworks.com. If you plug in [this data](https://docs.google.com/spreadsheets/d/1GBX3-jzlGkiKpYHF9RvVtu6GxSrco5OYTBv9YsOTXVg/edit#gid=0) you'll see [this visualization](https://radar.thoughtworks.com/?sheetId=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1GBX3-jzlGkiKpYHF9RvVtu6GxSrco5OYTBv9YsOTXVg%2Fedit%23gid%3D0).
