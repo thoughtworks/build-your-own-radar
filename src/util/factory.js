@@ -162,7 +162,7 @@ const CSVDocument = function (url) {
   return self
 }
 
-const JSONFile = function (url) {
+const JSONFile = function (url, title) {
   var self = {}
 
   self.build = function () {
@@ -180,7 +180,7 @@ const JSONFile = function (url) {
       contentValidator.verifyContent()
       contentValidator.verifyHeaders()
       var blips = _.map(data, new InputSanitizer().sanitize)
-      plotRadar(FileName(url), blips, 'JSON File', [])
+      plotRadar(title || FileName(url), blips, 'JSON File', [])
     } catch (exception) {
       plotErrorMessage(exception, 'json')
     }
@@ -194,12 +194,6 @@ const JSONFile = function (url) {
   return self
 }
 
-const DomainName = function (url) {
-  var search = /.+:\/\/([^\\/]+)/
-  var match = search.exec(decodeURIComponent(url.replace(/\+/g, ' ')))
-  return match == null ? null : match[1]
-}
-
 const FileName = function (url) {
   var search = /([^\\/]+)$/
   var match = search.exec(decodeURIComponent(url.replace(/\+/g, ' ')))
@@ -210,23 +204,19 @@ const FileName = function (url) {
   return url
 }
 
-const GoogleSheetInput = function () {
+const RadarInput = function () {
   var self = {}
   var sheet
 
-  self.build = function () {
-    var domainName = DomainName(window.location.search.substring(1))
-    var queryString = window.location.href.match(/sheetId(.*)/)
-    var queryParams = queryString ? QueryParams(queryString[0]) : {}
-
-    if (queryParams.sheetId && queryParams.sheetId.endsWith('.csv')) {
-      sheet = CSVDocument(queryParams.sheetId)
+  self.build = function (sheetId, sheetName) {
+    if (sheetId && sheetId.endsWith('.csv')) {
+      sheet = CSVDocument(sheetId)
       sheet.init().build()
-    } else if (queryParams.sheetId && queryParams.sheetId.endsWith('.json')) {
-      sheet = JSONFile(queryParams.sheetId)
+    } else if (sheetId && sheetId.endsWith('.json')) {
+      sheet = JSONFile(sheetId, sheetName)
       sheet.init().build()
-    } else if (domainName && domainName.endsWith('google.com') && queryParams.sheetId) {
-      sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
+    } else if (sheetId && sheetName) {
+      sheet = GoogleSheet(sheetId, sheetName)
 
       sheet.init().build()
     } else {
@@ -437,4 +427,4 @@ function plotUnauthorizedErrorMessage() {
   })
 }
 
-module.exports = GoogleSheetInput
+module.exports = RadarInput
