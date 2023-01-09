@@ -248,7 +248,7 @@ const CSVDocument = function (url) {
   return self
 }
 
-const JSONFile = function (url) {
+const JSONFile = function (url, title) {
   var self = {}
 
   self.build = function () {
@@ -282,12 +282,6 @@ const JSONFile = function (url) {
   }
 
   return self
-}
-
-const DomainName = function (url) {
-  var search = /.+:\/\/([^\\/]+)/
-  var match = search.exec(decodeURIComponent(url.replace(/\+/g, ' ')))
-  return match == null ? null : match[1]
 }
 
 const FileName = function (url) {
