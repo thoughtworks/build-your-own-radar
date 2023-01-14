@@ -50,3 +50,11 @@ spec:
       containers:
         - name: tech-radar
           image: ops/tech-radar
+
+      nodeSelector:
+        kubernetes.io/arch: arm64
+
+      tolerations:
+      - key: arch
+        operator: Equal
+        value: arm64

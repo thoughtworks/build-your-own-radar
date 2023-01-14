@@ -3,3 +3,11 @@ global:
   name: tech-radar
   team: ops
   type: ops_service
+
+deployment:
+  image:
+    build:
+      pipelineVersion: v2
+      targetPlatforms:
+        - linux/amd64
+        - linux/arm64
