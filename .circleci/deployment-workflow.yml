@@ -43,6 +43,9 @@ commands:
   build-and-push:
     description: Build and push code to S3 bucket
     parameters:
+      api_key:
+        type: string
+        default: ''
       client_id:
         type: string
         default: ''
