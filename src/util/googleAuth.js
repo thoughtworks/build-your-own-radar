@@ -19,23 +19,29 @@ const GoogleAuth = function () {
   self.isLoggedIn = undefined
   self.userEmail = ''
   let tokenClient
-  let gapiInited = false
-  let gsiInited = false
+  self.gapiInitiated = false
+  self.gsiInitiated = false
+
+  self.loadAuthAPI = function () {
+    !self.gapiInitiated && self.content.append('script').attr('src', 'https://apis.google.com/js/api.js').on('load', self.handleClientLoad);
+  }
+
+  self.loadGSI = function () {
+    !self.gsiInitiated && self.content
+    .append('script')
+    .attr('src', 'https://accounts.google.com/gsi/client')
+    .on('load', function () {
+      self.gsiLogin()
+    })
+  }
 
   self.loadGoogle = function (forceLogin = false, callback) {
     self.loadedCallback = callback
     self.forceLogin = forceLogin
-    const content = d3.select('body')
+    self.content = d3.select('body')
 
     if (!self.forceLogin) {
-      content.append('script').attr('src', 'https://apis.google.com/js/api.js').on('load', self.handleClientLoad)
-
-      content
-        .append('script')
-        .attr('src', 'https://accounts.google.com/gsi/client')
-        .on('load', function () {
-          self.gsiLogin()
-        })
+      self.loadAuthAPI();
     } else {
       self.handleClientLoad()
       self.gsiLogin(forceLogin)
@@ -72,7 +78,7 @@ const GoogleAuth = function () {
       hint: self.forceLogin ? '' : jwToken?.email,
     })
 
-    gsiInited = true
+    self.gsiInitiated = true
     self.prompt()
   }
 
@@ -103,7 +109,7 @@ const GoogleAuth = function () {
   }
 
   self.prompt = async function () {
-    if (gsiInited && gapiInited) {
+    if (self.gsiInitiated && self.gapiInitiated) {
       const token = gapi.client.getToken()
       if (token && token.access_token && !self.forceLogin) {
         const options = { method: 'GET', headers: { authorization: `Bearer ${token.access_token}` } }
@@ -129,8 +135,8 @@ const GoogleAuth = function () {
         scope: SCOPES,
       })
       .then(() => {
-        gapiInited = true
-        self.prompt()
+        self.gapiInitiated = true
+        self.loadedCallback()
       })
   }
 

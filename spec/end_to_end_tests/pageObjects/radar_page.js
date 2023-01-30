@@ -1,6 +1,7 @@
 class RadarPage {
   constructor() {
     this.blip = '.quadrant-group-second .blip-link'
+    this.allBlips = '.blip-link'
     this.blip_selected = '.quadrant-table.selected .blip-list-item'
     this.blip_description = '.blip-item-description.expanded p'
     this.sheet2 = '.alternative'
@@ -32,6 +33,11 @@ class RadarPage {
 
   validateBlipSearch() {
     expect(cy.get(this.blip_selected).contains(this.search_value))
+  }
+
+  validateBlipCountForPublicGoogleSheet() {
+    cy.get(this.allBlips).should('have.length', 103)
+
   }
 }
 

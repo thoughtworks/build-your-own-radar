@@ -25,6 +25,10 @@ class ByorPage {
   clickSubmitButton() {
     cy.get(this.submit).click()
   }
+
+  providePublicSheetUrl() {
+    cy.get(this.text_box).type(config.publicGoogleSheet)
+  }
 }
 
 module.exports = new ByorPage()

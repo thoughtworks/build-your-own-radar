@@ -61,7 +61,7 @@ commands:
     steps:
       - run:
           name: Build code
-          command: API_KEY="" CLIENT_ID=<< parameters.client_id >> GTM_ID=<< parameters.gtm_id >> npm run build:<<parameters.mode>>
+          command: API_KEY=<< parameters.api_key >> CLIENT_ID=<< parameters.client_id >> GTM_ID=<< parameters.gtm_id >> npm run build:<<parameters.mode>>
       - aws-cli/setup
       - run:
           name: Sync build artifacts to S3
@@ -78,13 +78,14 @@ jobs:
       - install-node-and-cypress-packages
       - run:
           name: Run e2e test cases
-          command: ./run_e2e_tests.sh $QA_TEST_URL
+          command: API_KEY=$LOCAL_API_KEY ./run_e2e_tests.sh $LOCAL_TEST_URL
   qa-deployment:
     executor: base
     steps:
       - checkout
       - install-node-packages
       - build-and-push:
+          api_key: $QA_API_KEY
           client_id: $QA_CLIENT_ID
           gtm_id: $QA_GTM_ID
           bucket_name: $QA_BUCKET_NAME
@@ -99,6 +100,7 @@ jobs:
           docker_layer_caching: true
       - install-node-packages
       - build-and-push:
+          api_key: $PROD_API_KEY
           client_id: $PROD_CLIENT_ID
           gtm_id: $PROD_GTM_ID
           bucket_name: $PROD_BUCKET_NAME

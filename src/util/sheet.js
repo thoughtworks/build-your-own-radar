@@ -32,8 +32,18 @@ const Sheet = function (sheetReference) {
     xhr.send(null)
   }
 
-  self.getSheet = function () {
+  self.getSheet = async function () {
     return gapi.client.sheets.spreadsheets.get({ spreadsheetId: self.id })
+  }
+
+  self.isPublicSheet = async function() {
+    let isPublic = false;
+    try {
+      isPublic = await self.getSheet()? true : false;
+    } catch(error) {
+      isPublic = false;
+    }
+    return isPublic;
   }
 
   self.getData = function (range) {
@@ -46,7 +56,9 @@ const Sheet = function (sheetReference) {
   self.processSheetResponse = function (sheetName, createBlips, handleError) {
     self
       .getSheet()
-      .then((response) => processSheetData(sheetName, response, createBlips, handleError))
+      .then((response) => {
+        processSheetData(sheetName, response, createBlips, handleError);
+      })
       .catch(handleError)
   }
 

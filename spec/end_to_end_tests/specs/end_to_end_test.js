@@ -30,3 +30,12 @@ describe('Build radar with JSON', () => {
     radarPage.validateBlipDescription('test')
   })
 })
+
+describe('Build radar with public google sheet', () => {
+  it('Validate public google sheet file', () => {
+    cy.visit(Cypress.env('host'))
+    byorPage.providePublicSheetUrl()
+    byorPage.clickSubmitButton()
+    radarPage.validateBlipCountForPublicGoogleSheet()
+  })
+})
