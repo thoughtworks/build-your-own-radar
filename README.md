@@ -122,8 +122,7 @@ The app uses [Google Sheets APIs](https://developers.google.com/sheets/api/refer
 
 The application uses [webpack](https://webpack.github.io/) to package dependencies and minify all .js and .scss files.
 
-OAuth Client ID and API Key can be obtained from your Google developer console.
-OAuth Client ID is mandatory for private sheets, as it is needed for Google Authentication.
+By default, there is no distinction between both public and private Google Sheets as we now require authentication from Google (using OAuth Client ID and optionally, API Key), per Google's updated documentation. OAuth Client ID and API Key can be obtained from your Google developer console.
 
 ```
 export CLIENT_ID=[Google Client ID]
