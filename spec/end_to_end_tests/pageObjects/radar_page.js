@@ -37,7 +37,6 @@ class RadarPage {
 
   validateBlipCountForPublicGoogleSheet() {
     cy.get(this.allBlips).should('have.length', 103)
-
   }
 }
 

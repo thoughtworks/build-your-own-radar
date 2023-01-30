@@ -110,8 +110,8 @@ const GoogleSheet = function (sheetReference, sheetName) {
     GoogleAuth.loadGoogle(force, function () {
       const sheet = new Sheet(sheetReference)
       sheet.isPublicSheet().then((isPublic) => {
-        if(!isPublic && !googleAuth.gsiInitiated) {
-          GoogleAuth.loadGSI();
+        if (!isPublic && !googleAuth.gsiInitiated) {
+          GoogleAuth.loadGSI()
         } else {
           sheet.processSheetResponse(sheetName, createBlipsForProtectedSheet, (error) => {
             if (error.status === 403) {

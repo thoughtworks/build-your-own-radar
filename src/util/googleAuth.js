@@ -23,16 +23,18 @@ const GoogleAuth = function () {
   self.gsiInitiated = false
 
   self.loadAuthAPI = function () {
-    !self.gapiInitiated && self.content.append('script').attr('src', 'https://apis.google.com/js/api.js').on('load', self.handleClientLoad);
+    !self.gapiInitiated &&
+      self.content.append('script').attr('src', 'https://apis.google.com/js/api.js').on('load', self.handleClientLoad)
   }
 
   self.loadGSI = function () {
-    !self.gsiInitiated && self.content
-    .append('script')
-    .attr('src', 'https://accounts.google.com/gsi/client')
-    .on('load', function () {
-      self.gsiLogin()
-    })
+    !self.gsiInitiated &&
+      self.content
+        .append('script')
+        .attr('src', 'https://accounts.google.com/gsi/client')
+        .on('load', function () {
+          self.gsiLogin()
+        })
   }
 
   self.loadGoogle = function (forceLogin = false, callback) {
@@ -41,7 +43,7 @@ const GoogleAuth = function () {
     self.content = d3.select('body')
 
     if (!self.forceLogin) {
-      self.loadAuthAPI();
+      self.loadAuthAPI()
     } else {
       self.handleClientLoad()
       self.gsiLogin(forceLogin)
