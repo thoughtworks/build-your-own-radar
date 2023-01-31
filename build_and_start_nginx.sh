@@ -15,4 +15,4 @@ cp /src/build-your-own-radar/spec/end_to_end_tests/resources/localfiles/* ./file
 cp /src/build-your-own-radar/default.template /etc/nginx/conf.d/default.conf
 
 echo "Starting nginx server..."
-nginx -g 'daemon off;'
+exec nginx -g 'daemon off;'
