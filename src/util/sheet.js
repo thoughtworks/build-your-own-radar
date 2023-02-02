@@ -33,17 +33,11 @@ const Sheet = function (sheetReference) {
   }
 
   self.getSheet = async function () {
-    return gapi.client.sheets.spreadsheets.get({ spreadsheetId: self.id })
-  }
-
-  self.isPublicSheet = async function () {
-    let isPublic = false
     try {
-      isPublic = (await self.getSheet()) ? true : false
+      self.sheetResponse = await gapi.client.sheets.spreadsheets.get({ spreadsheetId: self.id })
     } catch (error) {
-      isPublic = false
+      self.sheetResponse = error
     }
-    return isPublic
   }
 
   self.getData = function (range) {
@@ -53,21 +47,18 @@ const Sheet = function (sheetReference) {
     })
   }
 
-  self.processSheetResponse = function (sheetName, createBlips, handleError) {
-    self
-      .getSheet()
-      .then((response) => {
-        processSheetData(sheetName, response, createBlips, handleError)
-      })
-      .catch(handleError)
+  self.processSheetResponse = async function (sheetName, createBlips, handleError) {
+    return self.sheetResponse.status != 200
+      ? handleError(self.sheetResponse)
+      : processSheetData(sheetName, createBlips, handleError)
   }
 
-  function processSheetData(sheetName, sheetResponse, createBlips, handleError) {
-    const sheetNames = sheetResponse.result.sheets.map((s) => s.properties.title)
+  function processSheetData(sheetName, createBlips, handleError) {
+    const sheetNames = self.sheetResponse.result.sheets.map((s) => s.properties.title)
     sheetName = !sheetName ? sheetNames[0] : sheetName
     self
       .getData(sheetName + '!A1:E')
-      .then((r) => createBlips(sheetResponse.result.properties.title, r.result.values, sheetNames))
+      .then((r) => createBlips(self.sheetResponse.result.properties.title, r.result.values, sheetNames))
       .catch(handleError)
   }
 

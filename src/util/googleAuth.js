@@ -45,7 +45,6 @@ const GoogleAuth = function () {
     if (!self.forceLogin) {
       self.loadAuthAPI()
     } else {
-      self.handleClientLoad()
       self.gsiLogin(forceLogin)
     }
   }
@@ -95,7 +94,7 @@ const GoogleAuth = function () {
     if (!self.forceLogin) {
       window.google.accounts.id.prompt()
     } else {
-      self.gsiCallback()
+      await self.gsiCallback()
     }
   }
 
