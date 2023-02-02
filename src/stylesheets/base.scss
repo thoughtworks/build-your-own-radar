@@ -204,7 +204,9 @@ body {
       position: absolute;
       left: 0;
       right: 0;
-
+      @if $UIRefresh2022 {
+        z-index: 10;
+      }
       .legend {
         visibility: hidden;
         transition: visibility 1s ease 1s;
@@ -230,6 +232,30 @@ body {
         &.ring-arc-0 {
           stroke: none;
           fill: $grey-darkest;
+        }
+      }
+
+      @if $UIRefresh2022 {
+        path {
+          &.ring-arc-3 {
+            stroke: $mist-s30;
+            fill: transparent;
+          }
+
+          &.ring-arc-2 {
+            stroke: $mist-s30;
+            fill: transparent;
+          }
+
+          &.ring-arc-1 {
+            stroke: $mist-s30;
+            fill: transparent;
+          }
+
+          &.ring-arc-0 {
+            stroke: $mist-s30;
+            fill: transparent;
+          }
         }
       }
 
@@ -284,6 +310,91 @@ body {
           font-size: 7px;
         }
       }
+      @if $UIRefresh2022 {
+        circle,
+        polygon,
+        path {
+          &.first {
+            fill: $jade;
+            stroke: none;
+          }
+
+          &.second {
+            fill: $flamingo;
+            stroke: none;
+          }
+
+          &.third {
+            fill: $turmeric;
+            stroke: none;
+          }
+
+          &.fourth {
+            fill: $sapphire;
+            stroke: none;
+          }
+        }
+
+        line {
+          stroke: white;
+        }
+
+        text {
+          &.blip-text {
+            font-size: 9px;
+            font-style: italic;
+            fill: $black;
+          }
+
+          &.line-text {
+            font-weight: bold;
+            text-transform: uppercase;
+            fill: $black;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
+    .quadrants-container {
+      z-index: 1;
+      position: relative;
+      width: 1056px;
+      display: flex;
+      margin: auto;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 32px;
+
+      &.quadrant-page-view {
+        display: none;
+        position: absolute;
+        width: auto;
+        left: 15%;
+        top: 100px;
+      }
+
+      #first-quadrant-bg-image {
+        transform: rotate(270deg);
+      }
+      #second-quadrant-bg-image {
+        transform: rotate(0deg);
+      }
+      #third-quadrant-bg-image {
+        transform: rotate(180deg);
+      }
+      #fourth-quadrant-bg-image {
+        transform: rotate(90deg);
+      }
+
+      .quadrant-bg-images {
+        display: block;
+        position: relative;
+
+        &.hidden {
+          display: none;
+        }
+      }
     }
 
     div.quadrant-table {
@@ -295,6 +406,7 @@ body {
       max-width: 0;
       position: absolute;
       overflow: hidden;
+      z-index: 11;
 
       transition: max-height 0.5s ease 1s;
 

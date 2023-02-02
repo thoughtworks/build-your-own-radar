@@ -4,7 +4,7 @@ const environment = require('/src/config')
 class ByorPage {
   constructor() {
     this.text_box = "[name='sheetId']"
-    this.submit = environment[Cypress.env('TEST_ENV') ? Cypress.env('TEST_ENV') : 'development'].featureToggles
+    this.submit = environment()[Cypress.env('TEST_ENV') ? Cypress.env('TEST_ENV') : 'development'].featureToggles
       .UIRefresh2022
       ? 'input[type=submit]'
       : '.button'
