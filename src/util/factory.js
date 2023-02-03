@@ -107,6 +107,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
 
   self.authenticate = function (force = false, apiKeyEnabled, callback) {
     GoogleAuth.loadGoogle(force, async function () {
+      self.error = false
       const sheet = new Sheet(sheetReference)
       await sheet.getSheet()
       if (sheet.sheetResponse.status == 403 && !GoogleAuth.gsiInitiated && !force) {
@@ -115,6 +116,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
       } else {
         await sheet.processSheetResponse(sheetName, createBlipsForProtectedSheet, (error) => {
           if (error.status === 403) {
+            self.error = true
             plotUnauthorizedErrorMessage()
           } else {
             plotErrorMessage(error, 'sheet')
@@ -407,6 +409,8 @@ function plotUnauthorizedErrorMessage() {
   } else {
     content = d3.select('main')
     helperDescription.style('display', 'none')
+    d3.selectAll('.loader-text').remove()
+    d3.selectAll('.error-container').remove()
   }
   const currentUser = GoogleAuth.getEmail()
   let homePageURL = window.location.protocol + '//' + window.location.hostname
@@ -433,9 +437,11 @@ function plotUnauthorizedErrorMessage() {
     var queryParams = queryString ? QueryParams(queryString[0]) : {}
     const sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
     sheet.authenticate(true, false, () => {
-      if (config.featureToggles.UIRefresh2022) {
+      if (config.featureToggles.UIRefresh2022 && !sheet.error) {
         helperDescription.style('display', 'block')
         errorContainer.remove()
+      } else if (config.featureToggles.UIRefresh2022 && sheet.error) {
+        helperDescription.style('display', 'none')
       } else {
         content.remove()
       }
