@@ -4,9 +4,9 @@ const path = require('path')
 const webpack = require('webpack')
 const main = ['./src/site.js']
 const fs = require('fs')
-const config = require('./src/config')
-const featureTogglesList = Object.keys(config().development.featureToggles)
-const scssVariables = featureTogglesList.map((x) => `$${x}:${config().development.featureToggles[x]};`).join('\n')
+const config = require('./src/config')['development']
+const featureTogglesList = Object.keys(config.featureToggles)
+const scssVariables = featureTogglesList.map((x) => `$${x}:${config.featureToggles[x]};`).join('\n')
 
 fs.writeFileSync(path.join(__dirname, './src/stylesheets/_featuretoggles.scss'), scssVariables)
 

@@ -7,11 +7,9 @@ const RingCalculator = require('../util/ringCalculator')
 const QueryParams = require('../util/queryParamProcessor')
 const AutoComplete = require('../util/autoComplete')
 const config = require('../config')
-const featureToggles = config().featureToggles
 
 const MIN_BLIP_WIDTH = 12
 const ANIMATION_DURATION = 1000
-const QUADRANT_GAP = featureToggles.UIRefresh2022 ? 32 : 0
 
 const Radar = function (size, radar) {
   var svg, radarElement, quadrantButtons, buttonsGroup, header, alternativeDiv
@@ -40,7 +38,7 @@ const Radar = function (size, radar) {
   var chance
 
   function center() {
-    return Math.round((size - QUADRANT_GAP) / 2)
+    return Math.round(size / 2)
   }
 
   function toRadian(angleInDegrees) {
@@ -75,24 +73,6 @@ const Radar = function (size, radar) {
       .attr('x2', startX)
       .attr('y2', center())
       .attr('stroke-width', 10)
-  }
-
-  function plotRadarQuadrants(rings, quadrant, container) {
-    const quadrantGroup = svg
-      .append('g')
-      .attr('class', 'quadrant-group quadrant-group-' + quadrant.order)
-      .on('mouseover', mouseoverQuadrant.bind({}, quadrant.order))
-      .on('mouseout', mouseoutQuadrant.bind({}, quadrant.order))
-      .on('click', selectQuadrant.bind({}, quadrant.order, quadrant.startAngle))
-    const image = document.createElement('img')
-    image.src = '/images/quadrant-arc.svg'
-    image.width = center()
-    image.height = center()
-    image.id = quadrant.order + '-quadrant-bg-image'
-    image.className = 'quadrant-bg-images'
-    container.append(image)
-
-    return quadrantGroup
   }
 
   function plotQuadrant(rings, quadrant) {
@@ -142,27 +122,6 @@ const Radar = function (size, radar) {
       }
     })
   }
-  function plotRadarTexts(quadrantGroup, rings, quadrant) {
-    rings.forEach(function (ring, i) {
-      if (quadrant.order === 'first' || quadrant.order === 'fourth') {
-        quadrantGroup
-          .append('text')
-          .attr('class', 'line-text')
-          .attr('y', center() + 22)
-          .attr('x', center() + (ringCalculator.getRingRadius(i) + ringCalculator.getRingRadius(i + 1)) / 2)
-          .attr('text-anchor', 'middle')
-          .text(ring.name())
-      } else {
-        quadrantGroup
-          .append('text')
-          .attr('class', 'line-text')
-          .attr('y', center() + 22)
-          .attr('x', center() - (ringCalculator.getRingRadius(i) + ringCalculator.getRingRadius(i + 1)) / 2)
-          .attr('text-anchor', 'middle')
-          .text(ring.name())
-      }
-    })
-  }
 
   function triangle(blip, x, y, order, group) {
     return group
@@ -182,35 +141,6 @@ const Radar = function (size, radar) {
           ')',
       )
       .attr('class', order)
-  }
-  function blipAssistiveText(blip) {
-    return `${blip.ring().name()} ring, ${blip.name()}, ${blip.isNew() ? 'New' : 'No change'} blip.`
-  }
-  function addOuterCircle(parentSvg, order) {
-    parentSvg
-      .append('path')
-      .attr('opacity', '1')
-      .attr('class', order)
-      .attr(
-        'd',
-        'M18 36C8.07 36 0 27.93 0 18S8.07 0 18 0c9.92 0 18 8.07 18 18S27.93 36 18 36zM18 3.14C9.81 3.14 3.14 9.81 3.14 18S9.81 32.86 18 32.86S32.86 26.19 32.86 18S26.19 3.14 18 3.14z',
-      )
-  }
-
-  function drawBlipCircle(group, blip, xValue, yValue, order) {
-    group
-      .attr('transform', `scale(1) translate(${xValue - 16}, ${yValue - 8})`)
-      .attr('aria-label', blipAssistiveText(blip))
-    group.append('circle').attr('r', '12').attr('cx', '18').attr('cy', '18').attr('class', order)
-  }
-
-  function newBlip(blip, xValue, yValue, order, group) {
-    drawBlipCircle(group, blip, xValue, yValue, order)
-    addOuterCircle(group, order)
-  }
-
-  function noChangeBlip(blip, xValue, yValue, order, group) {
-    drawBlipCircle(group, blip, xValue, yValue, order)
   }
 
   function triangleLegend(x, y, group) {
@@ -283,54 +213,11 @@ const Radar = function (size, radar) {
     return [x, y]
   }
 
-  function avoidBoundaryCollision(x, y, adjustX, adjustY, blip) {
-    if ((adjustY > 0 && y + blip.width > size) || (adjustY < 0 && y + blip.width > center())) {
-      y = y - blip.width
-    }
-    if (adjustX < 0 && x - blip.width > center()) {
-      x += blip.width
-    }
-    if (adjustX > 0 && x + blip.width < center() + QUADRANT_GAP) {
-      x -= blip.width
-    }
-    return [x, y]
-  }
-
-  function getBorderWidthOffset(quadrantOrder, adjustY, adjustX) {
-    let borderWidthYOffset = 0,
-      borderWidthXOffset = 0
-
-    if (quadrantOrder !== 'first') {
-      borderWidthYOffset = adjustY < 0 ? -QUADRANT_GAP : QUADRANT_GAP
-      borderWidthXOffset = adjustX > 0 ? QUADRANT_GAP + 10 : 0
-    }
-    return { borderWidthYOffset, borderWidthXOffset }
-  }
-
-  function calculateRadarBlipCoordinates(blip, chance, minRadius, maxRadius, startAngle, quadrantOrder) {
-    const adjustX = Math.sin(toRadian(startAngle)) - Math.cos(toRadian(startAngle))
-    const adjustY = -Math.cos(toRadian(startAngle)) - Math.sin(toRadian(startAngle))
-    const { borderWidthYOffset, borderWidthXOffset } = getBorderWidthOffset(quadrantOrder, adjustY, adjustX)
-    const radius = chance.floating({
-      min: minRadius + blip.width / 2,
-      max: maxRadius - blip.width,
-    })
-
-    let angleDelta = (Math.asin(blip.width / 2 / radius) * 180) / (Math.PI - 1.25)
-    angleDelta = angleDelta > 45 ? 45 : angleDelta
-    const angle = toRadian(chance.integer({ min: angleDelta, max: 90 - angleDelta }))
-
-    let x = center() + radius * Math.cos(angle) * adjustX + borderWidthXOffset
-    let y = center() + radius * Math.sin(angle) * adjustY + borderWidthYOffset
-
-    return avoidBoundaryCollision(x, y, adjustX, adjustY, blip)
-  }
-
   function thereIsCollision(blip, coordinates, allCoordinates) {
     return allCoordinates.some(function (currentCoordinates) {
       return (
-        Math.abs(currentCoordinates[0] - coordinates[0]) < blip.width + 10 &&
-        Math.abs(currentCoordinates[1] - coordinates[1]) < blip.width + 10
+        Math.abs(currentCoordinates[0] - coordinates[0]) < blip.width &&
+        Math.abs(currentCoordinates[1] - coordinates[1]) < blip.width
       )
     })
   }
@@ -359,14 +246,8 @@ const Radar = function (size, radar) {
 
       var maxRadius, minRadius
 
-      if (featureToggles.UIRefresh2022) {
-        const offset = 10
-        minRadius = ringCalculator.getRingRadius(i) + offset
-        maxRadius = ringCalculator.getRingRadius(i + 1) - offset
-      } else {
-        minRadius = ringCalculator.getRadius(i)
-        maxRadius = ringCalculator.getRadius(i + 1)
-      }
+      minRadius = ringCalculator.getRadius(i)
+      maxRadius = ringCalculator.getRadius(i + 1)
 
       var sumRing = ring
         .name()
@@ -386,7 +267,7 @@ const Radar = function (size, radar) {
       var allBlipCoordinatesInRing = []
 
       ringBlips.forEach(function (blip) {
-        const coordinates = findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing, order)
+        const coordinates = findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing)
 
         allBlipCoordinatesInRing.push(coordinates)
         drawBlipInCoordinates(blip, coordinates, order, quadrantGroup, ringList)
@@ -394,18 +275,15 @@ const Radar = function (size, radar) {
     })
   }
 
-  function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing, quadrantOrder) {
-    const calculateBlipCoordinatesFn = featureToggles.UIRefresh2022
-      ? calculateRadarBlipCoordinates
-      : calculateBlipCoordinates
+  function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing) {
     const maxIterations = 200
-    var coordinates = calculateBlipCoordinatesFn(blip, chance, minRadius, maxRadius, startAngle, quadrantOrder)
+    var coordinates = calculateBlipCoordinates(blip, chance, minRadius, maxRadius, startAngle)
     var iterationCounter = 0
     var foundAPlace = false
 
     while (iterationCounter < maxIterations) {
       if (thereIsCollision(blip, coordinates, allBlipCoordinatesInRing)) {
-        coordinates = calculateBlipCoordinatesFn(blip, chance, minRadius, maxRadius, startAngle, quadrantOrder)
+        coordinates = calculateBlipCoordinates(blip, chance, minRadius, maxRadius, startAngle)
       } else {
         foundAPlace = true
         break
@@ -415,7 +293,7 @@ const Radar = function (size, radar) {
 
     if (!foundAPlace && blip.width > MIN_BLIP_WIDTH) {
       blip.width = blip.width - 1
-      return findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing, quadrantOrder)
+      return findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing)
     } else {
       return coordinates
     }
@@ -430,38 +308,21 @@ const Radar = function (size, radar) {
       .attr('class', 'blip-link')
       .attr('id', 'blip-link-' + blip.number())
 
-    if (featureToggles.UIRefresh2022) {
-      if (blip.isNew()) {
-        newBlip(blip, x, y, order, group)
-      } else {
-        noChangeBlip(blip, x, y, order, group)
-      }
-      group
-        .append('text')
-        .attr('x', 18)
-        .attr('y', 24)
-        .attr('font-size', '14px')
-        .attr('font-style', 'normal')
-        .attr('font-weight', 'bold')
-        .attr('fill', 'white')
-        .text(blip.number())
-        .style('text-anchor', 'middle')
+    if (blip.isNew()) {
+      triangle(blip, x, y, order, group)
     } else {
-      if (blip.isNew()) {
-        triangle(blip, x, y, order, group)
-      } else {
-        circle(blip, x, y, order, group)
-      }
-      group
-        .append('text')
-        .attr('x', x)
-        .attr('y', y + 4)
-        .attr('class', 'blip-text')
-        // derive font-size from current blip width
-        .style('font-size', (blip.width * 10) / 22 + 'px')
-        .attr('text-anchor', 'middle')
-        .text(blip.number())
+      circle(blip, x, y, order, group)
     }
+
+    group
+      .append('text')
+      .attr('x', x)
+      .attr('y', y + 4)
+      .attr('class', 'blip-text')
+      // derive font-size from current blip width
+      .style('font-size', (blip.width * 10) / 22 + 'px')
+      .attr('text-anchor', 'middle')
+      .text(blip.number())
 
     var blipListItem = ringList.append('li')
     var blipText = blip.number() + '. ' + blip.name() + (blip.topic() ? '. - ' + blip.topic() : '')
@@ -607,15 +468,8 @@ const Radar = function (size, radar) {
 
     d3.selectAll('.quadrant-group').transition().duration(ANIMATION_DURATION).attr('transform', 'scale(1)')
 
-    if (featureToggles.UIRefresh2022) {
-      d3.select('#radar-plot').attr('width', size).attr('height', size)
-      d3.selectAll(`.quadrant-bg-images`).each(function () {
-        this.classList.remove('hidden')
-      })
-      d3.select(`.quadrants-container`).node().classList.remove('quadrant-page-view')
-    } else {
-      d3.selectAll('.quadrant-group .blip-link').transition().duration(ANIMATION_DURATION).attr('transform', 'scale(1)')
-    }
+    d3.selectAll('.quadrant-group .blip-link').transition().duration(ANIMATION_DURATION).attr('transform', 'scale(1)')
+
     d3.selectAll('.quadrant-group').style('pointer-events', 'auto')
   }
 
@@ -763,9 +617,6 @@ const Radar = function (size, radar) {
 
     var translateX = ((-1 * (1 + adjustX) * size) / 2) * (scale - 1) + -adjustX * (1 - scale / 2) * size
     var translateY = -1 * (1 - adjustY) * (size / 2 - 7) * (scale - 1) - ((1 - adjustY) / 2) * (1 - scale / 2) * size
-    if (featureToggles.UIRefresh2022) {
-      translateY = 0
-    }
 
     var translateXAll = (((1 - adjustX) / 2) * size * scale) / 2 + ((1 - adjustX) / 2) * (1 - scale / 2) * size
     var translateYAll = (((1 + adjustY) / 2) * size * scale) / 2
@@ -777,35 +628,18 @@ const Radar = function (size, radar) {
     var blipTranslate = (1 - blipScale) / blipScale
 
     svg.style('left', moveLeft + 'px').style('right', moveRight + 'px')
-
-    if (featureToggles.UIRefresh2022) {
-      d3.select('#radar-plot').attr('width', center()).attr('height', center())
-      d3.select('.quadrant-group-' + order)
+    d3.select('.quadrant-group-' + order)
+      .transition()
+      .duration(ANIMATION_DURATION)
+      .attr('transform', 'translate(' + translateX + ',' + translateY + ')scale(' + scale + ')')
+    d3.selectAll('.quadrant-group-' + order + ' .blip-link text').each(function () {
+      var x = d3.select(this).attr('x')
+      var y = d3.select(this).attr('y')
+      d3.select(this.parentNode)
         .transition()
         .duration(ANIMATION_DURATION)
-        .attr('transform', 'translate(' + 0 + ',' + 0 + ')scale(' + 1 + ')')
-      d3.selectAll('.quadrant-group-' + order + ' .blip-link text').each(function () {
-        d3.select(this.parentNode).transition().duration(ANIMATION_DURATION)
-      })
-
-      d3.selectAll(`.quadrant-bg-images:not(#${order}-quadrant-bg-image)`).each(function () {
-        this.classList.add('hidden')
-      })
-      d3.select(`.quadrants-container`).node().classList.add('quadrant-page-view')
-    } else {
-      d3.select('.quadrant-group-' + order)
-        .transition()
-        .duration(ANIMATION_DURATION)
-        .attr('transform', 'translate(' + translateX + ',' + translateY + ')scale(' + scale + ')')
-      d3.selectAll('.quadrant-group-' + order + ' .blip-link text').each(function () {
-        var x = d3.select(this).attr('x')
-        var y = d3.select(this).attr('y')
-        d3.select(this.parentNode)
-          .transition()
-          .duration(ANIMATION_DURATION)
-          .attr('transform', 'scale(' + blipScale + ')translate(' + blipTranslate * x + ',' + blipTranslate * y + ')')
-      })
-    }
+        .attr('transform', 'scale(' + blipScale + ')translate(' + blipTranslate * x + ',' + blipTranslate * y + ')')
+    })
 
     d3.selectAll('.quadrant-group').style('pointer-events', 'auto')
 
@@ -821,7 +655,7 @@ const Radar = function (size, radar) {
   }
 
   self.init = function () {
-    const selector = featureToggles.UIRefresh2022 ? 'main' : 'body'
+    const selector = config.featureToggles.UIRefresh2022 ? 'main' : 'body'
     radarElement = d3.select(selector).append('div').attr('id', 'radar')
     return self
   }
@@ -862,7 +696,7 @@ const Radar = function (size, radar) {
     alternatives = radar.getAlternatives()
     currentSheet = radar.getCurrentSheet()
 
-    if (featureToggles.UIRefresh2022) {
+    if (config.featureToggles.UIRefresh2022) {
       const landingPageElements = document.querySelectorAll('main .home-page')
       landingPageElements.forEach((elem) => {
         elem.style.display = 'none'
@@ -883,23 +717,13 @@ const Radar = function (size, radar) {
     svg = radarElement.append('svg').call(tip)
     svg
       .attr('id', 'radar-plot')
-      .attr('width', size + QUADRANT_GAP)
+      .attr('width', size)
       .attr('height', size + 14)
-    const quadrantsContainer = document.createElement('div')
-    quadrantsContainer.className = 'quadrants-container'
-    document.getElementById('radar-plot').parentElement.append(quadrantsContainer)
 
     _.each(quadrants, function (quadrant) {
-      let quadrantGroup
-      if (featureToggles.UIRefresh2022) {
-        quadrantGroup = plotRadarQuadrants(rings, quadrant, quadrantsContainer)
-        const ringTextGroup = quadrantGroup.append('g').attr('transform', `translate(16,0)`)
-        plotRadarTexts(ringTextGroup, rings, quadrant)
-      } else {
-        quadrantGroup = plotQuadrant(rings, quadrant)
-        plotLines(quadrantGroup, quadrant)
-        plotTexts(quadrantGroup, rings, quadrant)
-      }
+      var quadrantGroup = plotQuadrant(rings, quadrant)
+      plotLines(quadrantGroup, quadrant)
+      plotTexts(quadrantGroup, rings, quadrant)
       plotBlips(quadrantGroup, rings, quadrant)
     })
   }

@@ -6,9 +6,6 @@ const MalformedDataError = require('../../src/exceptions/malformedDataError')
 const ExceptionMessages = require('../../src/util/exceptionMessages')
 
 describe('Radar', function () {
-  beforeEach(() => {
-    process.env.ENVIRONMENT = 'development'
-  })
   it('has no quadrants by default', function () {
     var radar = new Radar()
 

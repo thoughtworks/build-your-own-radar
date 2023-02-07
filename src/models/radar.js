@@ -1,6 +1,5 @@
 const MalformedDataError = require('../exceptions/malformedDataError')
 const ExceptionMessages = require('../util/exceptionMessages')
-const config = require('../config')
 
 const _ = {
   map: require('lodash/map'),
@@ -13,19 +12,12 @@ const Radar = function () {
 
   blipNumber = 0
   addingQuadrant = 0
-  quadrants = config().featureToggles.UIRefresh2022
-    ? [
-        { order: 'first', startAngle: 0 },
-        { order: 'second', startAngle: -90 },
-        { order: 'third', startAngle: 90 },
-        { order: 'fourth', startAngle: -180 },
-      ]
-    : [
-        { order: 'first', startAngle: 90 },
-        { order: 'second', startAngle: 0 },
-        { order: 'third', startAngle: -90 },
-        { order: 'fourth', startAngle: -180 },
-      ]
+  quadrants = [
+    { order: 'first', startAngle: 90 },
+    { order: 'second', startAngle: 0 },
+    { order: 'third', startAngle: -90 },
+    { order: 'fourth', startAngle: -180 },
+  ]
   alternatives = []
   currentSheetName = ''
   self = {}
