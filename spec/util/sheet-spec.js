@@ -5,7 +5,7 @@ describe('sheet', function () {
   var caller = { callback: function () {} }
 
   beforeAll(function () {
-    spyOn(caller, 'callback')
+    jest.spyOn(caller, 'callback').mockImplementation(() => {})
   })
 
   it('knows to find the sheet id from published URL', function () {

@@ -17,6 +17,6 @@
     "cypress/no-async-tests": "error",
     "cypress/no-pause": "error"
   },
-  "globals": {},
+  "globals": { "jest": true },
   "plugins": ["jasmine", "cypress"]
 }

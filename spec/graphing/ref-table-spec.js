@@ -19,7 +19,7 @@ describe('graphingRadar', function () {
     radar.addQuadrant(languageFramework)
 
     element = { innerHTML: '' }
-    spyOn(document, 'querySelector').and.returnValue(element)
+    jest.spyOn(document, 'querySelector').mockReturnValue(element)
   })
 
   xdescribe('render', function () {
