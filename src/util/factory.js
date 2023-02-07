@@ -22,7 +22,7 @@ const Sheet = require('./sheet')
 const ExceptionMessages = require('./exceptionMessages')
 const GoogleAuth = require('./googleAuth')
 const config = require('../config')
-
+const featureToggles = config().featureToggles
 const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   if (title.endsWith('.csv')) {
     title = title.substring(0, title.length - 4)
@@ -69,8 +69,7 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
     radar.setCurrentSheet(currentRadarName)
   }
 
-  var size = window.innerHeight - 133 < 620 ? 620 : window.innerHeight - 133
-
+  const size = featureToggles.UIRefresh2022 ? 1056 : window.innerHeight - 133 < 620 ? 620 : window.innerHeight - 133
   new GraphingRadar(size, radar).init().plot()
 }
 
@@ -238,7 +237,7 @@ const GoogleSheetInput = function () {
 
       sheet.init().build()
     } else {
-      if (!config.featureToggles.UIRefresh2022) {
+      if (!featureToggles.UIRefresh2022) {
         document.body.style.opacity = '1'
         document.body.innerHTML = ''
         const content = d3.select('body').append('div').attr('class', 'input-sheet')
@@ -266,7 +265,7 @@ function setDocumentTitle() {
 }
 
 function plotLoading(content) {
-  if (!config.featureToggles.UIRefresh2022) {
+  if (!featureToggles.UIRefresh2022) {
     document.body.style.opacity = '1'
     document.body.innerHTML = ''
     content = d3.select('body').append('div').attr('class', 'loading').append('div').attr('class', 'input-sheet')
@@ -336,7 +335,7 @@ function plotForm(content) {
 }
 
 function plotErrorMessage(exception, fileType) {
-  if (config.featureToggles.UIRefresh2022) {
+  if (featureToggles.UIRefresh2022) {
     showErrorMessage(exception, fileType)
   } else {
     const content = d3.select('body').append('div').attr('class', 'input-sheet')
@@ -395,7 +394,7 @@ function showErrorMessage(exception, fileType) {
 function plotUnauthorizedErrorMessage() {
   let content
   const helperDescription = d3.select('.helper-description')
-  if (!config.featureToggles.UIRefresh2022) {
+  if (!featureToggles.UIRefresh2022) {
     content = d3.select('body').append('div').attr('class', 'input-sheet')
     setDocumentTitle()
 
@@ -437,10 +436,10 @@ function plotUnauthorizedErrorMessage() {
     var queryParams = queryString ? QueryParams(queryString[0]) : {}
     const sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
     sheet.authenticate(true, false, () => {
-      if (config.featureToggles.UIRefresh2022 && !sheet.error) {
+      if (featureToggles.UIRefresh2022 && !sheet.error) {
         helperDescription.style('display', 'block')
         errorContainer.remove()
-      } else if (config.featureToggles.UIRefresh2022 && sheet.error) {
+      } else if (featureToggles.UIRefresh2022 && sheet.error) {
         helperDescription.style('display', 'none')
       } else {
         content.remove()
