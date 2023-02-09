@@ -7,6 +7,7 @@ const RingCalculator = require('../util/ringCalculator')
 const QueryParams = require('../util/queryParamProcessor')
 const AutoComplete = require('../util/autoComplete')
 const config = require('../config')
+const { plotRadarBlips } = require('./blips')
 const featureToggles = config().featureToggles
 
 const MIN_BLIP_WIDTH = 12
@@ -89,6 +90,9 @@ const Radar = function (size, radar) {
     image.width = center()
     image.height = center()
     image.id = quadrant.order + '-quadrant-bg-image'
+    image.onclick = selectQuadrant.bind({}, quadrant.order, quadrant.startAngle)
+    image.onmouseover = mouseoverQuadrant.bind({}, quadrant.order)
+    image.onmouseout = mouseoutQuadrant.bind({}, quadrant.order)
     image.className = 'quadrant-bg-images'
     container.append(image)
 
@@ -142,6 +146,7 @@ const Radar = function (size, radar) {
       }
     })
   }
+
   function plotRadarTexts(quadrantGroup, rings, quadrant) {
     rings.forEach(function (ring, i) {
       if (quadrant.order === 'first' || quadrant.order === 'fourth') {
@@ -182,35 +187,6 @@ const Radar = function (size, radar) {
           ')',
       )
       .attr('class', order)
-  }
-  function blipAssistiveText(blip) {
-    return `${blip.ring().name()} ring, ${blip.name()}, ${blip.isNew() ? 'New' : 'No change'} blip.`
-  }
-  function addOuterCircle(parentSvg, order) {
-    parentSvg
-      .append('path')
-      .attr('opacity', '1')
-      .attr('class', order)
-      .attr(
-        'd',
-        'M18 36C8.07 36 0 27.93 0 18S8.07 0 18 0c9.92 0 18 8.07 18 18S27.93 36 18 36zM18 3.14C9.81 3.14 3.14 9.81 3.14 18S9.81 32.86 18 32.86S32.86 26.19 32.86 18S26.19 3.14 18 3.14z',
-      )
-  }
-
-  function drawBlipCircle(group, blip, xValue, yValue, order) {
-    group
-      .attr('transform', `scale(1) translate(${xValue - 16}, ${yValue - 8})`)
-      .attr('aria-label', blipAssistiveText(blip))
-    group.append('circle').attr('r', '12').attr('cx', '18').attr('cy', '18').attr('class', order)
-  }
-
-  function newBlip(blip, xValue, yValue, order, group) {
-    drawBlipCircle(group, blip, xValue, yValue, order)
-    addOuterCircle(group, order)
-  }
-
-  function noChangeBlip(blip, xValue, yValue, order, group) {
-    drawBlipCircle(group, blip, xValue, yValue, order)
   }
 
   function triangleLegend(x, y, group) {
@@ -283,49 +259,6 @@ const Radar = function (size, radar) {
     return [x, y]
   }
 
-  function avoidBoundaryCollision(x, y, adjustX, adjustY, blip) {
-    if ((adjustY > 0 && y + blip.width > size) || (adjustY < 0 && y + blip.width > center())) {
-      y = y - blip.width
-    }
-    if (adjustX < 0 && x - blip.width > center()) {
-      x += blip.width
-    }
-    if (adjustX > 0 && x + blip.width < center() + QUADRANT_GAP) {
-      x -= blip.width
-    }
-    return [x, y]
-  }
-
-  function getBorderWidthOffset(quadrantOrder, adjustY, adjustX) {
-    let borderWidthYOffset = 0,
-      borderWidthXOffset = 0
-
-    if (quadrantOrder !== 'first') {
-      borderWidthYOffset = adjustY < 0 ? -QUADRANT_GAP : QUADRANT_GAP
-      borderWidthXOffset = adjustX > 0 ? QUADRANT_GAP + 10 : 0
-    }
-    return { borderWidthYOffset, borderWidthXOffset }
-  }
-
-  function calculateRadarBlipCoordinates(blip, chance, minRadius, maxRadius, startAngle, quadrantOrder) {
-    const adjustX = Math.sin(toRadian(startAngle)) - Math.cos(toRadian(startAngle))
-    const adjustY = -Math.cos(toRadian(startAngle)) - Math.sin(toRadian(startAngle))
-    const { borderWidthYOffset, borderWidthXOffset } = getBorderWidthOffset(quadrantOrder, adjustY, adjustX)
-    const radius = chance.floating({
-      min: minRadius + blip.width / 2,
-      max: maxRadius - blip.width,
-    })
-
-    let angleDelta = (Math.asin(blip.width / 2 / radius) * 180) / (Math.PI - 1.25)
-    angleDelta = angleDelta > 45 ? 45 : angleDelta
-    const angle = toRadian(chance.integer({ min: angleDelta, max: 90 - angleDelta }))
-
-    let x = center() + radius * Math.cos(angle) * adjustX + borderWidthXOffset
-    let y = center() + radius * Math.sin(angle) * adjustY + borderWidthYOffset
-
-    return avoidBoundaryCollision(x, y, adjustX, adjustY, blip)
-  }
-
   function thereIsCollision(blip, coordinates, allCoordinates) {
     return allCoordinates.some(function (currentCoordinates) {
       return (
@@ -359,14 +292,8 @@ const Radar = function (size, radar) {
 
       var maxRadius, minRadius
 
-      if (featureToggles.UIRefresh2022) {
-        const offset = 10
-        minRadius = ringCalculator.getRingRadius(i) + offset
-        maxRadius = ringCalculator.getRingRadius(i + 1) - offset
-      } else {
-        minRadius = ringCalculator.getRadius(i)
-        maxRadius = ringCalculator.getRadius(i + 1)
-      }
+      minRadius = ringCalculator.getRadius(i)
+      maxRadius = ringCalculator.getRadius(i + 1)
 
       var sumRing = ring
         .name()
@@ -395,17 +322,14 @@ const Radar = function (size, radar) {
   }
 
   function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing, quadrantOrder) {
-    const calculateBlipCoordinatesFn = featureToggles.UIRefresh2022
-      ? calculateRadarBlipCoordinates
-      : calculateBlipCoordinates
     const maxIterations = 200
-    var coordinates = calculateBlipCoordinatesFn(blip, chance, minRadius, maxRadius, startAngle, quadrantOrder)
+    var coordinates = calculateBlipCoordinates(blip, chance, minRadius, maxRadius, startAngle, quadrantOrder)
     var iterationCounter = 0
     var foundAPlace = false
 
     while (iterationCounter < maxIterations) {
       if (thereIsCollision(blip, coordinates, allBlipCoordinatesInRing)) {
-        coordinates = calculateBlipCoordinatesFn(blip, chance, minRadius, maxRadius, startAngle, quadrantOrder)
+        coordinates = calculateBlipCoordinates(blip, chance, minRadius, maxRadius, startAngle, quadrantOrder)
       } else {
         foundAPlace = true
         break
@@ -430,38 +354,20 @@ const Radar = function (size, radar) {
       .attr('class', 'blip-link')
       .attr('id', 'blip-link-' + blip.number())
 
-    if (featureToggles.UIRefresh2022) {
-      if (blip.isNew()) {
-        newBlip(blip, x, y, order, group)
-      } else {
-        noChangeBlip(blip, x, y, order, group)
-      }
-      group
-        .append('text')
-        .attr('x', 18)
-        .attr('y', 24)
-        .attr('font-size', '14px')
-        .attr('font-style', 'normal')
-        .attr('font-weight', 'bold')
-        .attr('fill', 'white')
-        .text(blip.number())
-        .style('text-anchor', 'middle')
+    if (blip.isNew()) {
+      triangle(blip, x, y, order, group)
     } else {
-      if (blip.isNew()) {
-        triangle(blip, x, y, order, group)
-      } else {
-        circle(blip, x, y, order, group)
-      }
-      group
-        .append('text')
-        .attr('x', x)
-        .attr('y', y + 4)
-        .attr('class', 'blip-text')
-        // derive font-size from current blip width
-        .style('font-size', (blip.width * 10) / 22 + 'px')
-        .attr('text-anchor', 'middle')
-        .text(blip.number())
+      circle(blip, x, y, order, group)
     }
+    group
+      .append('text')
+      .attr('x', x)
+      .attr('y', y + 4)
+      .attr('class', 'blip-text')
+      // derive font-size from current blip width
+      .style('font-size', (blip.width * 10) / 22 + 'px')
+      .attr('text-anchor', 'middle')
+      .text(blip.number())
 
     var blipListItem = ringList.append('li')
     var blipText = blip.number() + '. ' + blip.name() + (blip.topic() ? '. - ' + blip.topic() : '')
@@ -895,12 +801,13 @@ const Radar = function (size, radar) {
         quadrantGroup = plotRadarQuadrants(rings, quadrant, quadrantsContainer)
         const ringTextGroup = quadrantGroup.append('g').attr('transform', `translate(16,0)`)
         plotRadarTexts(ringTextGroup, rings, quadrant)
+        plotRadarBlips(quadrantGroup, rings, quadrant, tip)
       } else {
         quadrantGroup = plotQuadrant(rings, quadrant)
         plotLines(quadrantGroup, quadrant)
         plotTexts(quadrantGroup, rings, quadrant)
+        plotBlips(quadrantGroup, rings, quadrant)
       }
-      plotBlips(quadrantGroup, rings, quadrant)
     })
   }
 

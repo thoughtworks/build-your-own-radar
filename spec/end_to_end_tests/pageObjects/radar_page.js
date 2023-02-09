@@ -19,7 +19,7 @@ class RadarPage {
   }
 
   validateBlipDescription(text) {
-    expect(cy.get(this.blip_description).contains(text))
+    jest.expect(cy.get(this.blip_description).contains(text))
   }
 
   clickSheet2() {
@@ -32,7 +32,7 @@ class RadarPage {
   }
 
   validateBlipSearch() {
-    expect(cy.get(this.blip_selected).contains(this.search_value))
+    jest.expect(cy.get(this.blip_selected).contains(this.search_value))
   }
 
   validateBlipCountForPublicGoogleSheet() {
