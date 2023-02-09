@@ -79,12 +79,8 @@ const Radar = function (size, radar) {
   }
 
   function plotRadarQuadrants(rings, quadrant, container) {
-    const quadrantGroup = svg
-      .append('g')
-      .attr('class', 'quadrant-group quadrant-group-' + quadrant.order)
-      .on('mouseover', mouseoverQuadrant.bind({}, quadrant.order))
-      .on('mouseout', mouseoutQuadrant.bind({}, quadrant.order))
-      .on('click', selectQuadrant.bind({}, quadrant.order, quadrant.startAngle))
+    const quadrantGroup = svg.append('g').attr('class', 'quadrant-group quadrant-group-' + quadrant.order)
+
     const image = document.createElement('img')
     image.src = '/images/quadrant-arc.svg'
     image.width = center()
@@ -94,7 +90,13 @@ const Radar = function (size, radar) {
     image.onmouseover = mouseoverQuadrant.bind({}, quadrant.order)
     image.onmouseout = mouseoutQuadrant.bind({}, quadrant.order)
     image.className = 'quadrant-bg-images'
-    container.append(image)
+    image.tabIndex = 0
+
+    if (quadrant.order === 'first' || quadrant.order === 'second') {
+      container.querySelector('.left-quadrant').append(image)
+    } else {
+      container.querySelector('.right-quadrant').append(image)
+    }
 
     return quadrantGroup
   }
@@ -794,6 +796,12 @@ const Radar = function (size, radar) {
     const quadrantsContainer = document.createElement('div')
     quadrantsContainer.className = 'quadrants-container'
     document.getElementById('radar-plot').parentElement.append(quadrantsContainer)
+    const leftQuadrant = document.createElement('div')
+    const rightQuadrant = document.createElement('div')
+    leftQuadrant.className = 'left-quadrant'
+    rightQuadrant.className = 'right-quadrant'
+    quadrantsContainer.append(leftQuadrant)
+    quadrantsContainer.append(rightQuadrant)
 
     _.each(quadrants, function (quadrant) {
       let quadrantGroup

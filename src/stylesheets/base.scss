@@ -380,10 +380,10 @@ body {
         transform: rotate(270deg);
       }
       #second-quadrant-bg-image {
-        transform: rotate(0deg);
+        transform: rotate(180deg);
       }
       #third-quadrant-bg-image {
-        transform: rotate(180deg);
+        transform: rotate(360deg);
       }
       #fourth-quadrant-bg-image {
         transform: rotate(90deg);
@@ -396,6 +396,13 @@ body {
         &.hidden {
           display: none;
         }
+      }
+
+      .left-quadrant,
+      .right-quadrant {
+        flex-direction: column;
+        display: flex;
+        gap: 32px;
       }
     }
 

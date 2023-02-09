@@ -131,6 +131,8 @@ function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup, ringList
 
   const group = quadrantGroup
     .append('g')
+    .append('a')
+    .attr('href', 'javascript:void(0)')
     .attr('class', 'blip-link')
     .attr('id', 'blip-link-' + blip.number())
   if (blip.isNew()) {
