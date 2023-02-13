@@ -193,6 +193,7 @@ function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup, ringList
     })
   }
 
+  group.on('click', clickBlip)
   blipListItem.on('click', clickBlip)
 }
 

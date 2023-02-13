@@ -8,6 +8,7 @@ const QueryParams = require('../util/queryParamProcessor')
 const AutoComplete = require('../util/autoComplete')
 const config = require('../config')
 const { plotRadarBlips } = require('./blips')
+const { graphConfig } = require('./config')
 const featureToggles = config().featureToggles
 
 const MIN_BLIP_WIDTH = 12
@@ -78,6 +79,47 @@ const Radar = function (size, radar) {
       .attr('stroke-width', 10)
   }
 
+  function plotRadarQuadrantName(quadrant, parentGroup) {
+    const adjustX = Math.sin(toRadian(quadrant.startAngle)) - Math.cos(toRadian(quadrant.startAngle))
+    const adjustY = -Math.cos(toRadian(quadrant.startAngle)) - Math.sin(toRadian(quadrant.startAngle))
+    const quadrantNameGroup = parentGroup.append('g')
+    const quadrantName = quadrantNameGroup.append('text')
+    const ctaArrow = quadrantNameGroup
+      .append('polygon')
+      .attr('class', 'quadrant-name-cta')
+      .attr('points', '5.2105e-4 11.753 1.2874 13 8 6.505 1.2879 0 0 1.2461 5.4253 6.504')
+      .attr('fill', '#e16a7c')
+    let quadrantNameToDisplay = quadrant.quadrant.name()
+    let translateX,
+      translateY,
+      anchor,
+      ctaArrowXOffset,
+      ctaArrowYOffset = -12
+
+    quadrantNameToDisplay = quadrantNameToDisplay.split(/[^a-zA-Z0-9\s]/g)[0].slice(0, 12)
+    quadrantNameToDisplay =
+      quadrantNameToDisplay.length < quadrant.quadrant.name().length
+        ? quadrantNameToDisplay + ' ...'
+        : quadrantNameToDisplay
+    if (adjustX < 0) {
+      anchor = 'start'
+      translateX = 60
+      ctaArrowXOffset = quadrantNameToDisplay.length * 11
+    } else {
+      anchor = 'end'
+      translateX = graphConfig.graphWidth * 2 + graphConfig.quadrantsGap - 50
+      ctaArrowXOffset = 10
+    }
+    if (adjustY < 0) {
+      translateY = 60
+    } else {
+      translateY = graphConfig.graphWidth * 2 + graphConfig.quadrantsGap - 60
+    }
+    quadrantNameGroup.attr('transform', 'translate(' + translateX + ', ' + translateY + ')')
+    quadrantName.text(quadrantNameToDisplay).attr('font-weight', 'bold').attr('text-anchor', anchor)
+    ctaArrow.attr('transform', `translate(${ctaArrowXOffset}, ${ctaArrowYOffset})`)
+  }
+
   function plotRadarQuadrants(rings, quadrant, container) {
     const quadrantGroup = svg.append('g').attr('class', 'quadrant-group quadrant-group-' + quadrant.order)
 
@@ -98,6 +140,7 @@ const Radar = function (size, radar) {
       container.querySelector('.right-quadrant').append(image)
     }
 
+    plotRadarQuadrantName(quadrant, quadrantGroup)
     return quadrantGroup
   }
 

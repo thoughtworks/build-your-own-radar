@@ -456,6 +456,13 @@ body {
         max-width: 40%;
       }
 
+      @if $UIRefresh2022 {
+        display: none;
+        &.selected {
+          display: block;
+        }
+      }
+
       ul {
         padding: 0;
         margin-left: 0;
