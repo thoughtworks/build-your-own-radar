@@ -9,16 +9,29 @@
     align-items: center;
 
     &__list {
-      width: 64%;
+      width: 90%;
       display: flex;
       list-style: none;
       padding: 0;
       padding-bottom: 8px;
       justify-content: center;
-      font-size: 24px;
+      font-size: 1.125rem;
+      font-family: $baseFontFamily;
       font-weight: 600;
       margin-bottom: 0;
       margin-left: 0;
+
+      @include media-query-medium {
+        font-size: 1.25rem;
+      }
+
+      @include media-query-xlarge {
+        font-size: 1.5rem;
+      }
+
+      @include media-query-large {
+        width: 64%;
+      }
 
       &__row-0 {
         margin-top: 80px;

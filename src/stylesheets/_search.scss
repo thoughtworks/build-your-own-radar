@@ -13,9 +13,13 @@
 
     &__input {
       height: 100%;
-      width: 40%;
+      width: 60%;
       margin-bottom: 0;
       color: $wave;
+
+      @include media-query-large {
+        width: 40%;
+      }
     }
 
     &__btn {

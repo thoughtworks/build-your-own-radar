@@ -6,9 +6,10 @@ const featureToggles = config().featureToggles
 function renderBanner(redrawFullRadar) {
   if (featureToggles.UIRefresh2022) {
     document.title = document.title[0].toUpperCase() + document.title.slice(1)
-    document.querySelector('.hero-banner__subtitle-text').innerHTML = document.title
 
-    document.querySelector('.hero-banner__title-text').addEventListener('click', redrawFullRadar)
+    d3.select('.hero-banner__wrapper').append('h4').classed('hero-banner__subtitle-text', true).text(document.title)
+
+    d3.select('.hero-banner__title-text').on('click', redrawFullRadar)
   } else {
     const header = d3.select('body').insert('header', '#radar')
     header

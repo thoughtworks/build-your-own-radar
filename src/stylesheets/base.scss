@@ -46,17 +46,17 @@ body {
       }
     }
 
-    h2 {
-      font-size: 1.5rem;
+    h4 {
+      font-size: 1.125rem;
       font-family: $baseFontFamily;
       font-weight: 600;
 
-      @include media-query-large {
-        font-size: 2rem;
+      @include media-query-medium {
+        font-size: 1.25rem;
       }
 
       @include media-query-xlarge {
-        font-size: 2.5rem;
+        font-size: 1.5rem;
       }
     }
 

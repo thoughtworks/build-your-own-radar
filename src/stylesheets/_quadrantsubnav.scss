@@ -4,24 +4,98 @@
 @if $UIRefresh2022 {
   .quadrant-subnav {
     width: 100%;
-    height: 60px;
     background-color: $mist;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    min-height: 60px;
+
+    @include media-query-large {
+      flex-direction: row;
+      justify-content: center;
+      height: 60px;
+    }
+
+    &__selector {
+      flex-direction: column;
+      height: fit-content;
+      min-height: 60px;
+      font-weight: 600;
+      display: inline-flex;
+      border-bottom: 1px solid $mist-s20;
+      align-items: center;
+      flex-direction: row;
+      justify-content: space-between;
+      padding-left: 40px;
+
+      &::after {
+        color: $flamingo;
+        content: url(/images/arrow-icon.svg);
+        display: inline-flex;
+        float: right;
+        margin-right: 1rem;
+        padding-left: 0.25rem;
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg);
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+      }
+
+      &.rotate::after {
+        transform: rotate(-90deg);
+      }
+
+      @include media-query-large {
+        display: none;
+      }
+    }
 
     &__list {
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
+      display: none;
+
+      &.show {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
 
       &-item {
-        padding: 0 40px;
-        font-weight: 600;
+        width: 100%;
+        min-height: 60px;
+
+        display: inline-flex;
+        align-items: center;
+        border-bottom: 1px solid $mist-s20;
+        padding-left: 40px;
 
         a {
           text-decoration: none;
+          border: none;
+        }
+      }
+
+      @include media-query-large {
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+
+        &.show {
+          flex-direction: row;
+        }
+
+        &-item {
+          padding: 0 40px;
+          font-weight: 600;
+
+          width: unset;
+          min-height: unset;
           border: none;
         }
       }
