@@ -216,8 +216,12 @@ const Radar = function (size, radar) {
           .append('text')
           .attr('class', 'line-text')
           .attr('y', center() + 22)
-          .attr('x', center() + graphConfig.quadrantsGap +
-              (ringCalculator.getRingRadius(i) + ringCalculator.getRingRadius(i + 1)) / 2)
+          .attr(
+            'x',
+            center() +
+              graphConfig.quadrantsGap +
+              (ringCalculator.getRingRadius(i) + ringCalculator.getRingRadius(i + 1)) / 2,
+          )
           .attr('text-anchor', 'middle')
           .text(ring.name())
       } else {
@@ -787,6 +791,15 @@ const Radar = function (size, radar) {
     })
   }
 
+  function plotMobileView(quadrant) {
+    d3.select('.all-quadrants-mobile.show-all-quadrants-mobile')
+      .append('button')
+      .attr('onclick', () => selectQuadrant(quadrant.order, quadrant.startAngle))
+      .attr('class', 'all-quadrants-mobile--btn')
+      .attr('id', quadrant.order + '-quadrant-mobile')
+      .text(quadrant.quadrant.name())
+  }
+
   self.plot = function () {
     var rings, quadrants, alternatives, currentSheet
 
@@ -842,6 +855,7 @@ const Radar = function (size, radar) {
         const ringTextGroup = quadrantGroup.append('g').attr('transform', `translate(16,0)`)
         plotRadarTexts(ringTextGroup, rings, quadrant)
         plotRadarBlips(quadrantGroup, rings, quadrant, tip)
+        plotMobileView(quadrant)
       } else {
         quadrantGroup = plotQuadrant(rings, quadrant)
         plotLines(quadrantGroup, quadrant)

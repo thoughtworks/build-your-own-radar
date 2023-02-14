@@ -33,7 +33,7 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   document.title = title
   d3.selectAll('.loading').remove()
   if (featureToggles.UIRefresh2022) {
-    d3.select('.radar-legends').style('display', 'flex')
+    d3.select('.radar-legends').node().classList.add('show')
   }
 
   var rings = _.map(_.uniqBy(blips, 'ring'), 'ring')

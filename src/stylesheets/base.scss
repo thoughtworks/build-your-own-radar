@@ -226,6 +226,12 @@ body {
     width: 80%;
     margin: 0 auto;
     position: relative;
+    @if $UIRefresh2022 {
+      display: none;
+      @include media-query-large {
+        display: block;
+      }
+    }
 
     svg#radar-plot {
       margin: 0 auto;
@@ -391,11 +397,15 @@ body {
       z-index: 1;
       position: relative;
       width: 1056px;
-      display: flex;
+      display: none;
       margin: auto;
       justify-content: center;
       flex-wrap: wrap;
       gap: 32px;
+
+      @include media-query-large {
+        display: flex;
+      }
 
       &.quadrant-page-view {
         display: none;
@@ -539,14 +549,71 @@ body {
       }
     }
   }
-  .radar-legends {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 32px 0;
 
-    img {
-      margin-left: 48px;
+  .show-all-quadrants-mobile {
+    display: none;
+  }
+
+  @if ($UIRefresh2022) {
+    .radar-legends {
+      display: none;
+
+      &.show {
+        @include media-query-large {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 32px 0;
+        }
+      }
+
+      img {
+        margin-left: 48px;
+      }
+    }
+    .show-all-quadrants-mobile {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-content: space-between;
+      margin: auto;
+      margin-bottom: 42px;
+      width: 312px;
+      height: 152px;
+
+      @include media-query-large {
+        display: none;
+      }
+      .all-quadrants-mobile--btn {
+        display: flex;
+        border-bottom: none;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin: 3px;
+        width: 150px;
+        height: 70px;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+        border: none;
+      }
+
+      #first-quadrant-mobile {
+        background-color: $sapphire;
+      }
+      #second-quadrant-mobile {
+        background-color: $turmeric;
+      }
+      #third-quadrant-mobile {
+        background-color: $jade;
+      }
+      #fourth-quadrant-mobile {
+        background-color: $flamingo;
+      }
     }
   }
 }
