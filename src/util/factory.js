@@ -39,7 +39,7 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
 
   _.each(rings, function (ringName, i) {
     if (i === maxRings) {
-      throw new MalformedDataError(ExceptionMessages.TOO_MANY_RINGS)
+      throw new MalformedDataError(ExceptionMessages.TOO_MANY_RINGS + JSON.stringify(rings))
     }
     ringMap[ringName] = new Ring(ringName, i)
   })
@@ -49,9 +49,7 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
     if (!quadrants[blip.quadrant]) {
       quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant))
     }
-    quadrants[blip.quadrant].add(
-      new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description),
-    )
+    quadrants[blip.quadrant].add(new Blip(blip.name, ringMap[blip.ring], blip.context, blip.topic, blip.description))
   })
 
   var radar = new Radar()

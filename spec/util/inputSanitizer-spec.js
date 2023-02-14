@@ -11,7 +11,7 @@ describe('InputSanitizer', function () {
       description: description,
       ring: '<a href="/asd">Adopt</a>',
       quadrant: '<strong>techniques and tools</strong>',
-      isNew: 'true<br>',
+      context: 'Software<br>',
     }
 
     blip = sanitizer.sanitize(rawBlip)
@@ -26,7 +26,7 @@ describe('InputSanitizer', function () {
   })
 
   it('strips out all tags from blip status', function () {
-    expect(blip.isNew).toEqual('true')
+    expect(blip.context).toEqual('Software')
   })
 
   it('strips out all tags from blip ring', function () {
@@ -53,13 +53,13 @@ describe('Input Santizer for Protected sheet', function () {
   var sanitizer, rawBlip, blip, header
   beforeAll(function () {
     sanitizer = new InputSanitizer()
-    header = ['name', 'quadrant', 'ring', 'isNew', 'description']
+    header = ['name', 'quadrant', 'ring', 'context', 'description']
 
     rawBlip = [
       "Hello <script>alert('dangerous');</script>there <h1>blip</h1>",
       '<strong>techniques & tools</strong>',
       "<a href='/asd'>Adopt</a>",
-      'true<br>',
+      'Software<br>',
       "<b>Hello</b> <script>alert('dangerous');</script>there <h1>heading</h1>",
     ]
 
@@ -75,7 +75,7 @@ describe('Input Santizer for Protected sheet', function () {
   })
 
   it('strips out all tags from blip status', function () {
-    expect(blip.isNew).toEqual('true')
+    expect(blip.context).toEqual('Software')
   })
 
   it('strips out all tags from blip ring', function () {

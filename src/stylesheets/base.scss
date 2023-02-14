@@ -236,6 +236,22 @@ body {
       .blip-link {
         text-decoration: none;
         cursor: pointer;
+
+        .context_0 {
+          fill: $green;
+        }
+
+        .context_1 {
+          fill: $blue;
+        }
+
+        .context_2 {
+          fill: $orange;
+        }
+
+        .context_3 {
+          fill: $violet;
+        }
       }
 
       .quadrant-group {

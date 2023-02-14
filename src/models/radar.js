@@ -67,6 +67,13 @@ const Radar = function () {
     }, [])
   }
 
+  function allContexts() {
+    return allBlips().reduce((contexts, blib) => {
+      contexts.add(blib.context())
+      return contexts
+    }, new Set())
+  }
+
   self.rings = function () {
     return _.sortBy(
       _.map(
@@ -85,6 +92,9 @@ const Radar = function () {
 
   self.quadrants = function () {
     return quadrants
+  }
+  self.contexts = function () {
+    return allContexts()
   }
 
   return self
