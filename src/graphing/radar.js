@@ -211,12 +211,13 @@ const Radar = function (size, radar) {
 
   function plotRadarTexts(quadrantGroup, rings, quadrant) {
     rings.forEach(function (ring, i) {
-      if (quadrant.order === 'first' || quadrant.order === 'fourth') {
+      if (quadrant.order === 'third' || quadrant.order === 'fourth') {
         quadrantGroup
           .append('text')
           .attr('class', 'line-text')
           .attr('y', center() + 22)
-          .attr('x', center() + (ringCalculator.getRingRadius(i) + ringCalculator.getRingRadius(i + 1)) / 2)
+          .attr('x', center() + graphConfig.quadrantsGap +
+              (ringCalculator.getRingRadius(i) + ringCalculator.getRingRadius(i + 1)) / 2)
           .attr('text-anchor', 'middle')
           .text(ring.name())
       } else {
