@@ -4,12 +4,19 @@ const Chance = require('chance')
 const _ = require('lodash/core')
 
 const RingCalculator = require('../util/ringCalculator')
-const QueryParams = require('../util/queryParamProcessor')
 const AutoComplete = require('../util/autoComplete')
 const config = require('../config')
 const { plotRadarBlips } = require('./blips')
 const { graphConfig } = require('./config')
 const featureToggles = config().featureToggles
+
+const banner = require('./components/banner')
+const quadrantSubnav = require('./components/quadrantSubnav')
+const search = require('./components/search')
+const alternativeRadars = require('./components/alternativeRadars')
+const buttons = require('./components/buttons')
+
+const { constructSheetUrl } = require('../util/urlUtils')
 
 const MIN_BLIP_WIDTH = 12
 const ANIMATION_DURATION = 1000
@@ -234,12 +241,12 @@ const Radar = function (size, radar) {
       .attr(
         'transform',
         'scale(' +
-          blip.width / 34 +
-          ') translate(' +
-          (-404 + x * (34 / blip.width) - 17) +
-          ', ' +
-          (-282 + y * (34 / blip.width) - 17) +
-          ')',
+        blip.width / 34 +
+        ') translate(' +
+        (-404 + x * (34 / blip.width) - 17) +
+        ', ' +
+        (-282 + y * (34 / blip.width) - 17) +
+        ')',
       )
       .attr('class', order)
   }
@@ -267,12 +274,12 @@ const Radar = function (size, radar) {
       .attr(
         'transform',
         'scale(' +
-          blip.width / 34 +
-          ') translate(' +
-          (-404 + x * (34 / blip.width) - 17) +
-          ', ' +
-          (-282 + y * (34 / blip.width) - 17) +
-          ')',
+        blip.width / 34 +
+        ') translate(' +
+        (-404 + x * (34 / blip.width) - 17) +
+        ', ' +
+        (-282 + y * (34 / blip.width) - 17) +
+        ')',
       )
       .attr('class', order)
   }
@@ -607,44 +614,12 @@ const Radar = function (size, radar) {
   }
 
   function plotRadarHeader() {
-    header = d3.select('body').insert('header', '#radar')
-    header
-      .append('div')
-      .attr('class', 'radar-title')
-      .append('div')
-      .attr('class', 'radar-title__text')
-      .append('h1')
-      .text(document.title)
-      .style('cursor', 'pointer')
-      .on('click', redrawFullRadar)
-
-    header
-      .select('.radar-title')
-      .append('div')
-      .attr('class', 'radar-title__logo')
-      .html('<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /> </a>')
+    header = d3.select('header')
 
     buttonsGroup = header.append('div').classed('buttons-group', true)
-
-    quadrantButtons = buttonsGroup.append('div').classed('quadrant-btn--group', true)
-
     alternativeDiv = header.append('div').attr('id', 'alternative-buttons')
 
-    return header
-  }
-
-  function plotHeader() {
-    document.querySelector('.hero-banner__title-text').innerHTML = document.title
-    const radarWrapper = d3.select('main .graph-placeholder')
-    document.querySelector('.hero-banner__title-text').addEventListener('click', redrawFullRadar)
-
-    buttonsGroup = radarWrapper.append('div').classed('buttons-group', true)
-
     quadrantButtons = buttonsGroup.append('div').classed('quadrant-btn--group', true)
-
-    alternativeDiv = radarWrapper.append('div').attr('id', 'alternative-buttons')
-
-    return radarWrapper
   }
 
   function plotQuadrantButtons(quadrants) {
@@ -692,9 +667,9 @@ const Radar = function (size, radar) {
       .append('p')
       .html(
         'Powered by <a href="https://www.thoughtworks.com"> Thoughtworks</a>. ' +
-          'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
-          'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
-          'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
+        'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
+        'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
+        'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
       )
   }
 
@@ -782,16 +757,12 @@ const Radar = function (size, radar) {
   }
 
   self.init = function () {
-    const selector = featureToggles.UIRefresh2022 ? 'main' : 'body'
-    radarElement = d3.select(selector).append('div').attr('id', 'radar')
+    radarElement = d3.select('#radar')
+    if (!featureToggles.UIRefresh2022) {
+      const selector = 'body'
+      radarElement = d3.select(selector).append('div').attr('id', 'radar')
+    }
     return self
-  }
-
-  function constructSheetUrl(sheetName) {
-    var noParamUrl = window.location.href.substring(0, window.location.href.indexOf(window.location.search))
-    var queryParams = QueryParams(window.location.search.substring(1))
-    var sheetUrl = noParamUrl + '?sheetId=' + queryParams.sheetId + '&sheetName=' + encodeURIComponent(sheetName)
-    return sheetUrl
   }
 
   function plotAlternativeRadars(alternatives, currentSheet) {
@@ -823,22 +794,29 @@ const Radar = function (size, radar) {
     alternatives = radar.getAlternatives()
     currentSheet = radar.getCurrentSheet()
 
+    const radarHeader = d3.select('main .graph-header')
+    const radarFooter = d3.select('main .graph-footer')
+
+    banner.renderBanner(redrawFullRadar)
+
     if (featureToggles.UIRefresh2022) {
+      quadrantSubnav.renderQuadrantSubnav(radarHeader, quadrants)
+      search.renderSearch(radarHeader, quadrants)
+      alternativeRadars.renderAlternativeRadars(radarFooter, alternatives, currentSheet)
+      buttons.renderButtons(radarFooter)
+
       const landingPageElements = document.querySelectorAll('main .home-page')
       landingPageElements.forEach((elem) => {
         elem.style.display = 'none'
       })
-      plotHeader()
     } else {
       plotRadarHeader()
       plotRadarFooter()
+      if (alternatives.length) {
+        plotAlternativeRadars(alternatives, currentSheet)
+      }
+      plotQuadrantButtons(quadrants)
     }
-
-    if (alternatives.length) {
-      plotAlternativeRadars(alternatives, currentSheet)
-    }
-
-    plotQuadrantButtons(quadrants)
 
     radarElement.style('height', size + 14 + 'px')
     svg = radarElement.append('svg').call(tip)

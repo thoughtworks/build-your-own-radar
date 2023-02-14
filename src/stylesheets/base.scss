@@ -5,8 +5,11 @@
 @import 'error';
 @import 'header';
 @import 'footer';
-@import 'featuretoggles';
 @import 'herobanner';
+@import 'quadrantsubnav';
+@import 'search';
+@import 'alternativeradars';
+@import 'buttons';
 @import 'mediaqueries';
 @import 'layout';
 @import 'landingpage';
@@ -21,13 +24,39 @@ body {
     opacity: 1;
 
     h1 {
-      font-size: 2rem;
+      font-size: 1.5rem;
       font-family: 'Bitter', serif;
       text-transform: none;
       letter-spacing: normal;
 
+      @include media-query-medium {
+        font-size: 2rem;
+      }
+
       @include media-query-large {
+        font-size: 2.5rem;
+      }
+
+      @include media-query-xlarge {
+        font-size: 3rem;
+      }
+
+      @include media-query-xxlarge {
         font-size: 3.5rem;
+      }
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-family: $baseFontFamily;
+      font-weight: 600;
+
+      @include media-query-large {
+        font-size: 2rem;
+      }
+
+      @include media-query-xlarge {
+        font-size: 2.5rem;
       }
     }
 

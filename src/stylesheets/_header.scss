@@ -1,5 +1,4 @@
 @import 'colors';
-@import 'featuretoggles';
 @import 'mediaqueries';
 
 header {
@@ -208,17 +207,31 @@ header {
 @if $UIRefresh2022 {
   header {
     height: 80px;
+    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
 
-    a {
-      display: block;
-      border-bottom: none;
+    div {
+      display: flex;
+      flex-direction: row;
+      width: 90%;
+      margin: auto;
 
-      img {
-        height: 20px;
-        width: auto;
+      span {
+        margin-right: 5px;
+        font-family: $baseFontFamily;
+        font-weight: 600;
+      }
+
+      a {
+        display: block;
+        border-bottom: none;
+
+        img {
+          height: 20px;
+          width: auto;
+          margin-top: 1.5px;
+        }
       }
     }
   }

@@ -101,7 +101,8 @@ const GoogleSheet = function (sheetReference, sheetName) {
     const all = values
     const header = all.shift()
     var blips = _.map(all, (blip) => new InputSanitizer().sanitizeForProtectedSheet(blip, header))
-    plotRadar(documentTitle + ' - ' + sheetName, blips, sheetName, sheetNames)
+    const title = featureToggles.UIRefresh2022 ? documentTitle : documentTitle + ' - ' + sheetName
+    plotRadar(title, blips, sheetName, sheetNames)
   }
 
   self.authenticate = function (force = false, apiKeyEnabled, callback) {
@@ -301,9 +302,9 @@ function plotFooter(content) {
     .append('p')
     .html(
       'Powered by <a href="https://www.thoughtworks.com"> Thoughtworks</a>. ' +
-        'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
-        'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
-        'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
+      'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
+      'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
+      'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
     )
 }
 
