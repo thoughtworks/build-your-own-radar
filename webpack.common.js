@@ -7,8 +7,6 @@ const args = require('yargs').argv
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const postcssPresetEnv = require('postcss-preset-env')
-const cssnano = require('cssnano')
 
 const env = args.envFile
 if (env) {

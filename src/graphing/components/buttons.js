@@ -1,15 +1,13 @@
 function renderButtons(radarFooter) {
-  const buttonsRow = radarFooter
-    .append('div')
-    .classed('buttons', true)
+  const buttonsRow = radarFooter.append('div').classed('buttons', true)
 
-  const printRadarBtn = buttonsRow
+  buttonsRow
     .append('button')
     .classed('buttons__wave-btn', true)
     .text('Print this Radar')
     .on('click', window.print.bind(window))
 
-  const generateRadarBtn = buttonsRow
+  buttonsRow
     .append('button')
     .classed('buttons__flamingo-btn', true)
     .append('a')
@@ -18,5 +16,5 @@ function renderButtons(radarFooter) {
 }
 
 module.exports = {
-  renderButtons
+  renderButtons,
 }

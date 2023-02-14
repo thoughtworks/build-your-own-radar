@@ -539,4 +539,14 @@ body {
       }
     }
   }
+  .radar-legends {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 32px 0;
+
+    img {
+      margin-left: 48px;
+    }
+  }
 }

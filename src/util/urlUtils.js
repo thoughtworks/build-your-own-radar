@@ -8,5 +8,5 @@ function constructSheetUrl(sheetName) {
 }
 
 module.exports = {
-  constructSheetUrl
+  constructSheetUrl,
 }

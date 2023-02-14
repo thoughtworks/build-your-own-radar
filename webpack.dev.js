@@ -43,12 +43,12 @@ module.exports = merge(common, {
           {
             loader: 'sass-loader',
             options: {
-              additionalData: scssVariables
-            }
-          }
+              additionalData: scssVariables,
+            },
+          },
         ],
       },
-    ]
+    ],
   },
   plugins: [
     new webpack.DefinePlugin({

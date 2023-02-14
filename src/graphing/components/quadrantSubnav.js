@@ -1,10 +1,5 @@
 function addListItem(quadrantList, name) {
-  quadrantList
-    .append('li')
-    .classed('quadrant-subnav__list-item', true)
-    .append('a')
-    .attr('href', '#')
-    .text(name)
+  quadrantList.append('li').classed('quadrant-subnav__list-item', true).append('a').attr('href', '#').text(name)
 }
 
 function renderQuadrantSubnav(radarHeader, quadrants) {
@@ -18,5 +13,5 @@ function renderQuadrantSubnav(radarHeader, quadrants) {
 }
 
 module.exports = {
-  renderQuadrantSubnav
+  renderQuadrantSubnav,
 }

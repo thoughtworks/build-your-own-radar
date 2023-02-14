@@ -10,7 +10,7 @@ function renderBanner(redrawFullRadar) {
 
     document.querySelector('.hero-banner__title-text').addEventListener('click', redrawFullRadar)
   } else {
-    header = d3.select('body').insert('header', '#radar')
+    const header = d3.select('body').insert('header', '#radar')
     header
       .append('div')
       .attr('class', 'radar-title')
@@ -30,5 +30,5 @@ function renderBanner(redrawFullRadar) {
 }
 
 module.exports = {
-  renderBanner
+  renderBanner,
 }

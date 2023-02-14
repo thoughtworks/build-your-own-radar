@@ -1,10 +1,7 @@
-const d3 = require('d3')
 const { constructSheetUrl } = require('../../util/urlUtils')
 
 function renderAlternativeRadars(radarFooter, alternatives, currentSheet) {
-  const alternativesContainer = radarFooter
-    .append('div')
-    .classed('alternative-radars', true)
+  const alternativesContainer = radarFooter.append('div').classed('alternative-radars', true)
 
   for (let i = 0; alternatives.length > 0; i++) {
     const list = alternatives.splice(0, 5)
@@ -31,5 +28,5 @@ function renderAlternativeRadars(radarFooter, alternatives, currentSheet) {
 }
 
 module.exports = {
-  renderAlternativeRadars
+  renderAlternativeRadars,
 }
