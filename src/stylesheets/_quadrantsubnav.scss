@@ -3,6 +3,7 @@
 
 @if $UIRefresh2022 {
   .quadrant-subnav {
+    font-size: 1.125rem;
     width: 100%;
     background-color: $mist;
     display: flex;
@@ -14,6 +15,7 @@
       flex-direction: row;
       justify-content: center;
       height: 60px;
+      font-size: 1.25rem;
     }
 
     &__selector {
@@ -26,7 +28,11 @@
       align-items: center;
       flex-direction: row;
       justify-content: space-between;
-      padding-left: 40px;
+      padding: 0 24px;
+
+      @include media-query-medium {
+        padding: 0 32px;
+      }
 
       &::after {
         color: $flamingo;
@@ -65,7 +71,6 @@
       &-item {
         width: 100%;
         min-height: 60px;
-
         display: inline-flex;
         align-items: center;
         border-bottom: 1px solid $mist-s20;

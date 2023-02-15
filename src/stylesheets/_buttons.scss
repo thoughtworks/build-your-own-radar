@@ -4,8 +4,14 @@
 @if $UIRefresh2022 {
   .buttons {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     margin: 64px 0 56px;
+
+    @include media-query-medium {
+      flex-direction: row;
+    }
 
     button {
       border: none;
@@ -13,8 +19,12 @@
       color: $white;
       width: 220px;
       height: 48px;
-      margin: 0 15px;
+      margin: 0 15px 32px;
       cursor: pointer;
+
+      @include media-query-medium {
+        margin: 0 15px;
+      }
 
       a {
         border: none;

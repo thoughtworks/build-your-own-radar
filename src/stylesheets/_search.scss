@@ -2,23 +2,54 @@
 @import 'layout';
 
 @if $UIRefresh2022 {
-  .search-container {
-    width: 100%;
-    height: 48px;
-    margin-top: 64px;
-    margin-bottom: 48px;
+  .graph-header {
     display: flex;
+    flex-direction: column;
+    height: auto;
+
+    @include media-query-large {
+      align-items: center;
+    }
+  }
+
+  .search-container {
+    height: auto;
+    margin: 48px 24px 40px;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    &__input {
-      height: 100%;
-      width: 60%;
-      margin-bottom: 0;
-      color: $wave;
+    @include media-query-medium {
+      height: 48px;
+      margin: 64px 32px 48px;
+      flex-direction: row;
+    }
 
-      @include media-query-large {
-        width: 40%;
+    @include media-query-large {
+      max-width: 900px;
+      width: 80%;
+      margin: 72px 0 48px;
+    }
+
+    @include media-query-xlarge {
+      margin: 64px 0 48px;
+    }
+
+    @include media-query-xxlarge {
+      width: 66%;
+      margin: 80px 0 64px;
+    }
+
+    &__input {
+      color: $wave;
+      height: 48px;
+      margin-bottom: 30px;
+
+      @include media-query-medium {
+        height: 100%;
+        margin-bottom: 0;
+        flex-grow: 1;
       }
     }
 

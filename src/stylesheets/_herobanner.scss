@@ -33,19 +33,34 @@
     }
 
     &__subtitle-text {
-      width: 25%;
+      font-weight: 600;
+      width: 50%;
       text-align: left;
       text-transform: none;
       letter-spacing: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      line-height: 1.75rem;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+
+      @include media-query-medium {
+        width: 37.5%;
+        line-height: 1.75rem;
+        -webkit-line-clamp: 2;
+      }
 
       @include media-query-large {
+        width: 25%;
+        line-height: 1.75rem;
+        -webkit-line-clamp: 2;
+      }
+
+      @include media-query-xlarge {
         width: 33%;
         line-height: 1.75rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
         -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
       }
     }
   }

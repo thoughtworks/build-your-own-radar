@@ -46,10 +46,9 @@ body {
       }
     }
 
-    h4 {
+    p {
       font-size: 1.125rem;
       font-family: $baseFontFamily;
-      font-weight: 600;
 
       @include media-query-medium {
         font-size: 1.25rem;
@@ -58,13 +57,6 @@ body {
       @include media-query-xxlarge {
         font-size: 1.5rem;
       }
-    }
-
-    p {
-      font-size: 18px;
-      font-family: $baseFontFamily;
-      line-height: 27px;
-      font-weight: 360;
     }
 
     a {

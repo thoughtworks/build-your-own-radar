@@ -7,7 +7,7 @@ function renderBanner(redrawFullRadar) {
   if (featureToggles.UIRefresh2022) {
     document.title = document.title[0].toUpperCase() + document.title.slice(1)
 
-    d3.select('.hero-banner__wrapper').append('h4').classed('hero-banner__subtitle-text', true).text(document.title)
+    d3.select('.hero-banner__wrapper').append('p').classed('hero-banner__subtitle-text', true).text(document.title)
 
     d3.select('.hero-banner__title-text').on('click', redrawFullRadar)
   } else {

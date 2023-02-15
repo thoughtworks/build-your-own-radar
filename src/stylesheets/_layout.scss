@@ -1,10 +1,15 @@
 @import 'mediaqueries';
+
 @mixin default-layout-margin {
-  margin: auto;
-  width: 90%;
+  margin: auto 24px;
+
+  @include media-query-medium {
+    margin: auto 32px;
+  }
 
   @include media-query-large {
     width: 80%;
+    margin: auto;
   }
 }
 

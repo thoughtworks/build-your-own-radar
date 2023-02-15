@@ -2,15 +2,29 @@
 @import 'layout';
 
 @if $UIRefresh2022 {
+  .graph-footer {
+    display: flex;
+    flex-direction: column;
+
+    @include media-query-medium {
+      align-items: center;
+    }
+  }
+
   .alternative-radars {
-    width: 100%;
+    margin-left: 32px;
+    margin-right: 32px;
+    max-width: 1200px;
     display: flex;
     flex-direction: column;
     align-items: center;
 
+    @include default-layout-margin;
+
     &__list {
-      width: 90%;
+      width: 100%;
       display: flex;
+      flex-direction: column;
       list-style: none;
       padding: 0;
       padding-bottom: 8px;
@@ -23,18 +37,17 @@
 
       @include media-query-medium {
         font-size: 1.25rem;
+        flex-direction: row;
       }
 
       @include media-query-xxlarge {
         font-size: 1.5rem;
       }
 
-      @include media-query-large {
-        width: 64%;
-      }
-
       &__row-0 {
-        margin-top: 80px;
+        @include media-query-medium {
+          margin-top: 48px;
+        }
       }
 
       &-item {
@@ -50,12 +63,21 @@
           border-bottom: 1px solid $mist;
           padding-bottom: 4px;
 
-          -webkit-line-clamp: 1;
-          -webkit-box-orient: vertical;
           display: -webkit-box;
-          overflow: hidden;
-          text-overflow: ellipsis;
           line-height: 1.75rem;
+          -webkit-box-orient: vertical;
+
+          @include media-query-medium {
+            -webkit-line-clamp: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          margin-top: 32px;
+
+          @include media-query-medium {
+            margin-top: 0;
+          }
 
           &.active {
             border-bottom: 3px solid $flamingo-s40;

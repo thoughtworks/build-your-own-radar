@@ -1,5 +1,5 @@
 @import 'colors';
-@import 'mediaqueries';
+@import 'layout';
 
 header {
   text-align: center;
@@ -214,8 +214,8 @@ header {
     div {
       display: flex;
       flex-direction: row;
-      width: 90%;
-      margin: auto;
+
+      @include default-layout-margin;
 
       span {
         margin-right: 5px;
