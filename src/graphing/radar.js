@@ -794,10 +794,13 @@ const Radar = function (size, radar) {
   function plotMobileView(quadrant) {
     d3.select('.all-quadrants-mobile.show-all-quadrants-mobile')
       .append('button')
-      .attr('onclick', () => selectQuadrant(quadrant.order, quadrant.startAngle))
+      .attr('onclick', () => selectQuadrant.bind({}, quadrant.order, quadrant.startAngle))
       .attr('class', 'all-quadrants-mobile--btn')
+      .style('background-image', `url('/images/${quadrant.order}-quadrant-btn-bg.svg')`)
       .attr('id', quadrant.order + '-quadrant-mobile')
-      .text(quadrant.quadrant.name())
+      .append('div')
+      .attr('class', 'btn-text-wrapper')
+      .text(quadrant.quadrant.name().replace(/[^a-zA-Z0-9\s]/g, ' '))
   }
 
   self.plot = function () {

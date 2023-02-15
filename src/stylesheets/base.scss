@@ -37,11 +37,11 @@ body {
         font-size: 2.5rem;
       }
 
-      @include media-query-xlarge {
+      @include media-query-xxlarge {
         font-size: 3rem;
       }
 
-      @include media-query-xxlarge {
+      @include media-query-xxxlarge {
         font-size: 3.5rem;
       }
     }
@@ -55,7 +55,7 @@ body {
         font-size: 1.25rem;
       }
 
-      @include media-query-xlarge {
+      @include media-query-xxlarge {
         font-size: 1.5rem;
       }
     }
@@ -228,7 +228,7 @@ body {
     position: relative;
     @if $UIRefresh2022 {
       display: none;
-      @include media-query-large {
+      @include media-query-xlarge {
         display: block;
       }
     }
@@ -403,7 +403,7 @@ body {
       flex-wrap: wrap;
       gap: 32px;
 
-      @include media-query-large {
+      @include media-query-xlarge {
         display: flex;
       }
 
@@ -559,7 +559,7 @@ body {
       display: none;
 
       &.show {
-        @include media-query-large {
+        @include media-query-xlarge {
           display: flex;
           align-items: center;
           justify-content: center;
@@ -582,12 +582,11 @@ body {
       width: 312px;
       height: 152px;
 
-      @include media-query-large {
+      @include media-query-xlarge {
         display: none;
       }
       .all-quadrants-mobile--btn {
         display: flex;
-        border-bottom: none;
         justify-content: center;
         align-items: center;
         text-align: center;
@@ -600,6 +599,15 @@ body {
         font-weight: bold;
         color: white;
         border: none;
+
+        &::after {
+          content: url('/images/arrow-white-icon.svg');
+          margin: 4px 4px 0;
+        }
+
+        .btn-text-wrapper {
+          text-align: left;
+        }
       }
 
       #first-quadrant-mobile {

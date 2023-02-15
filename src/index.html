@@ -1,80 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/images/favicon.ico" rel="icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bitter:wght@700&family=Inter:wght@300;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="/images/favicon.ico" rel="icon" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@700&family=Inter:wght@300;600&display=swap"
-    rel="stylesheet" />
-</head>
-
-<body>
-  <header class="input-sheet__logo">
-    <div>
-      <span>Powered by</span>
-      <a href="https://www.thoughtworks.com"><img src="/images/tw-logo.png" alt="Thoughtworks logo" /></a>
+  <body>
+    <header class="input-sheet__logo">
+      <div>
+        <span>Powered by</span>
+        <a href="https://www.thoughtworks.com"><img src="/images/tw-logo.png" alt="Thoughtworks logo" /></a>
+      </div>
+    </header>
+    <div class="hero-banner">
+      <div class="hero-banner__wrapper">
+        <h1 class="hero-banner__title-text">BYOR</h1>
+      </div>
     </div>
-  </header>
-  <div class="hero-banner">
-    <div class="hero-banner__wrapper">
-      <h1 class="hero-banner__title-text">BYOR</h1>
-    </div>
-  </div>
-  <main>
-    <div class="helper-description home-page">
+    <main>
+      <div class="helper-description home-page">
+        <p>
+          Once you've <a href="https://www.thoughtworks.com/radar/byor">created your Radar</a> you can use this service
+          to generate an interactive version of your Technology Radar. Not sure how?
+          <a href="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a>
+        </p>
+        <span class="loader-text">
+          <span class="loader-text__title">Building your radar...</span>
+          <p>Your Technology Radar will be available in just a few seconds</p>
+          <div class="loader-wrapper">
+            <div style="animation-delay: 0s"></div>
+            <div style="animation-delay: 0.25s"></div>
+            <div style="animation-delay: 0.75s"></div>
+            <div style="animation-delay: 0.5s"></div>
+          </div>
+        </span>
+      </div>
+      <div class="input-sheet-form home-page">
+        <p>
+          Enter the URL of your
+          <a href="https://www.thoughtworks.com/radar/how-to-byor" target="_blank">Google Sheet, CSV or JSON</a> file
+          below…
+        </p>
+        <form method="get">
+          <input
+            type="text"
+            name="sheetId"
+            placeholder="e.g. https://docs.google.com/spreadsheets/d/<sheetid> or hosted CSV/JSON file"
+            required=""
+          />
+          <input type="submit" value="Build my radar" />
+          <a href="https://www.thoughtworks.com/radar/how-to-byor">Need help?</a>
+        </form>
+      </div>
+      <div class="graph-header"></div>
+      <div id="radar"></div>
+      <div class="radar-legends">
+        <img src="/images/new.svg" width="37px" height="37px" alt="new blip legend icon" />
+        New
+        <img src="/images/no-change.svg" width="37px" height="37px" alt="no change blip legend icon" />
+        No change
+      </div>
+      <div class="all-quadrants-mobile show-all-quadrants-mobile"></div>
+      <div class="graph-footer"></div>
+    </main>
+    <footer class="home-page">
       <p>
-        Once you've <a href="https://www.thoughtworks.com/radar/byor">created your Radar</a> you can use this service
-        to generate an interactive version of your Technology Radar. Not sure how?
-        <a href="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a>
+        Powered by <a href="https://www.thoughtworks.com"> Thoughtworks</a>. By using this service you agree to
+        <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks' terms of use</a>. You also agree to our
+        <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather,
+        use and protect any personal data contained in your public Google Sheet. This software is
+        <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and
+        self-hosting.
       </p>
-      <span class="loader-text">
-        <span class="loader-text__title">Building your radar...</span>
-        <p>Your Technology Radar will be available in just a few seconds</p>
-        <div class="loader-wrapper">
-          <div style="animation-delay: 0s"></div>
-          <div style="animation-delay: 0.25s"></div>
-          <div style="animation-delay: 0.75s"></div>
-          <div style="animation-delay: 0.5s"></div>
-        </div>
-      </span>
-    </div>
-    <div class="input-sheet-form home-page">
-      <p>
-        Enter the URL of your
-        <a href="https://www.thoughtworks.com/radar/how-to-byor" target="_blank">Google Sheet, CSV or JSON</a> file
-        below…
-      </p>
-      <form method="get">
-        <input type="text" name="sheetId"
-          placeholder="e.g. https://docs.google.com/spreadsheets/d/<sheetid> or hosted CSV/JSON file" required="" />
-        <input type="submit" value="Build my radar" />
-        <a href="https://www.thoughtworks.com/radar/how-to-byor">Need help?</a>
-      </form>
-    </div>
-    <div class="graph-header"></div>
-    <div id="radar"></div>
-    <div class="radar-legends">
-      <img src="/images/new.svg" width="37px" height="37px" alt="new blip legend icon" />
-      New
-      <img src="/images/no-change.svg" width="37px" height="37px" alt="no change blip legend icon" />
-      No change
-    </div>
-    <div class="all-quadrants-mobile show-all-quadrants-mobile"></div>
-    <div class="graph-footer"></div>
-  </main>
-  <footer class="home-page">
-    <p>
-      Powered by <a href="https://www.thoughtworks.com"> Thoughtworks</a>. By using this service you agree to
-      <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks' terms of use</a>. You also agree to our
-      <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather,
-      use and protect any personal data contained in your public Google Sheet. This software is
-      <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and
-      self-hosting.
-    </p>
-  </footer>
-</body>
-
+    </footer>
+  </body>
 </html>
