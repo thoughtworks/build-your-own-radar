@@ -15,12 +15,13 @@ const quadrantSubnav = require('./components/quadrantSubnav')
 const search = require('./components/search')
 const alternativeRadars = require('./components/alternativeRadars')
 const buttons = require('./components/buttons')
+const quadrantsTables = require('./components/quadrants')
 
 const { constructSheetUrl } = require('../util/urlUtils')
 
 const MIN_BLIP_WIDTH = 12
 const ANIMATION_DURATION = 1000
-const QUADRANT_GAP = featureToggles.UIRefresh2022 ? 32 : 0
+const QUADRANT_GAP = featureToggles.UIRefresh2022 ? graphConfig.quadrantsGap : 0
 
 const Radar = function (size, radar) {
   var svg, radarElement, quadrantButtons, buttonsGroup, header, alternativeDiv
@@ -117,13 +118,13 @@ const Radar = function (size, radar) {
       ctaArrowXOffset = quadrantNameToDisplay.length * 11
     } else {
       anchor = 'end'
-      translateX = graphConfig.graphWidth * 2 + graphConfig.quadrantsGap - 50
+      translateX = graphConfig.quadrantWidth * 2 + graphConfig.quadrantsGap - 50
       ctaArrowXOffset = 10
     }
     if (adjustY < 0) {
       translateY = 60
     } else {
-      translateY = graphConfig.graphWidth * 2 + graphConfig.quadrantsGap - 60
+      translateY = graphConfig.quadrantWidth * 2 + graphConfig.quadrantsGap - 60
     }
 
     const quadrantName = quadrantNameGroup.append('text')
@@ -219,8 +220,8 @@ const Radar = function (size, radar) {
           .attr(
             'x',
             center() +
-            graphConfig.quadrantsGap +
-            (ringCalculator.getRingRadius(i) + ringCalculator.getRingRadius(i + 1)) / 2,
+              graphConfig.quadrantsGap +
+              (ringCalculator.getRingRadius(i) + ringCalculator.getRingRadius(i + 1)) / 2,
           )
           .attr('text-anchor', 'middle')
           .text(ring.name())
@@ -246,12 +247,12 @@ const Radar = function (size, radar) {
       .attr(
         'transform',
         'scale(' +
-        blip.width / 34 +
-        ') translate(' +
-        (-404 + x * (34 / blip.width) - 17) +
-        ', ' +
-        (-282 + y * (34 / blip.width) - 17) +
-        ')',
+          blip.width / 34 +
+          ') translate(' +
+          (-404 + x * (34 / blip.width) - 17) +
+          ', ' +
+          (-282 + y * (34 / blip.width) - 17) +
+          ')',
       )
       .attr('class', order)
   }
@@ -279,12 +280,12 @@ const Radar = function (size, radar) {
       .attr(
         'transform',
         'scale(' +
-        blip.width / 34 +
-        ') translate(' +
-        (-404 + x * (34 / blip.width) - 17) +
-        ', ' +
-        (-282 + y * (34 / blip.width) - 17) +
-        ')',
+          blip.width / 34 +
+          ') translate(' +
+          (-404 + x * (34 / blip.width) - 17) +
+          ', ' +
+          (-282 + y * (34 / blip.width) - 17) +
+          ')',
       )
       .attr('class', order)
   }
@@ -672,9 +673,9 @@ const Radar = function (size, radar) {
       .append('p')
       .html(
         'Powered by <a href="https://www.thoughtworks.com"> Thoughtworks</a>. ' +
-        'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
-        'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
-        'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
+          'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
+          'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
+          'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
       )
   }
 
@@ -792,15 +793,17 @@ const Radar = function (size, radar) {
   }
 
   function plotMobileView(quadrant) {
-    d3.select('.all-quadrants-mobile.show-all-quadrants-mobile')
-      .append('button')
-      .on('click', selectQuadrant.bind({}, quadrant.order, quadrant.startAngle))
+    const quadrantBtn = d3.select('.all-quadrants-mobile.show-all-quadrants-mobile').append('button')
+    quadrantBtn
       .attr('class', 'all-quadrants-mobile--btn')
       .style('background-image', `url('/images/${quadrant.order}-quadrant-btn-bg.svg')`)
       .attr('id', quadrant.order + '-quadrant-mobile')
       .append('div')
       .attr('class', 'btn-text-wrapper')
       .text(quadrant.quadrant.name().replace(/[^a-zA-Z0-9\s]/g, ' '))
+    quadrantBtn.node().onclick = () => {
+      quadrantsTables.selectQuadrant(quadrant.order, quadrant.startAngle)
+    }
   }
 
   self.plot = function () {
@@ -820,6 +823,7 @@ const Radar = function (size, radar) {
       quadrantSubnav.renderQuadrantSubnav(radarHeader, quadrants)
       search.renderSearch(radarHeader, quadrants)
       alternativeRadars.renderAlternativeRadars(radarFooter, alternatives, currentSheet)
+      quadrantsTables.renderQuadrantTables(quadrants)
       buttons.renderButtons(radarFooter)
 
       const landingPageElements = document.querySelectorAll('main .home-page')

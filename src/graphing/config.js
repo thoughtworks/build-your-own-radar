@@ -1,11 +1,14 @@
 const graphConfig = {
-  graphHeight: 512,
-  graphWidth: 512,
-  quadrantRadius: 512,
+  quadrantHeight: 512,
+  quadrantWidth: 512,
+  quadrantsGap: 32,
   minBlipWidth: 12,
   blipWidth: 22,
   blipFontSize: '14px',
-  maxRadius: 512,
-  quadrantsGap: 32,
 }
-module.exports = { graphConfig }
+
+function getGraphSize() {
+  return graphConfig.quadrantHeight + graphConfig.quadrantWidth + graphConfig.quadrantsGap
+}
+
+module.exports = { graphConfig, getGraphSize }

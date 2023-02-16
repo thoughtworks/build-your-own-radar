@@ -22,6 +22,7 @@ const Sheet = require('./sheet')
 const ExceptionMessages = require('./exceptionMessages')
 const GoogleAuth = require('./googleAuth')
 const config = require('../config')
+const { getGraphSize } = require('../graphing/config')
 const featureToggles = config().featureToggles
 const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   if (title.endsWith('.csv')) {
@@ -72,7 +73,11 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
     radar.setCurrentSheet(currentRadarName)
   }
 
-  const size = featureToggles.UIRefresh2022 ? 1056 : window.innerHeight - 133 < 620 ? 620 : window.innerHeight - 133
+  const size = featureToggles.UIRefresh2022
+    ? getGraphSize()
+    : window.innerHeight - 133 < 620
+    ? 620
+    : window.innerHeight - 133
   new GraphingRadar(size, radar).init().plot()
 }
 
