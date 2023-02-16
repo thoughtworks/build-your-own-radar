@@ -1,15 +1,14 @@
 @import 'mediaqueries';
 
-@mixin default-layout-margin {
-  margin: auto 24px;
-
-  @include media-query-medium {
-    margin: auto 32px;
-  }
-
-  @include media-query-large {
-    width: 80%;
-    margin: auto;
+@mixin layout-margin($factor, $screen-size) {
+  @if $screen-size <= $screen-medium {
+    @media screen and (min-width: $screen-size) {
+      width: calc(0.9 * $factor * 100%);
+    }
+  } @else {
+    @media screen and (min-width: $screen-size) {
+      width: calc(0.8 * $factor * $screen-size);
+    }
   }
 }
 

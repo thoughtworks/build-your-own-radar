@@ -14,37 +14,39 @@
 
   .search-container {
     height: auto;
-    margin: 48px 24px 40px;
+    margin: 48px auto 40px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 
+    @include layout-margin(1, $screen-small);
+    @include layout-margin(calc(10 / 12), $screen-large);
+    @include layout-margin(calc(10 / 12), $screen-xlarge);
+    @include layout-margin(calc(10 / 12), $screen-xxlarge);
+    @include layout-margin(calc(8 / 12), $screen-xxxlarge);
+
     @include media-query-medium {
       height: 48px;
-      margin: 64px 32px 48px;
-      flex-direction: row;
+      margin: 64px auto 48px;
     }
 
     @include media-query-large {
-      max-width: 900px;
-      width: 80%;
-      margin: 72px 0 48px;
+      margin: 72px auto 48px;
     }
 
     @include media-query-xlarge {
-      margin: 64px 0 48px;
+      margin: 64px auto 48px;
     }
 
     @include media-query-xxlarge {
-      width: 66%;
-      margin: 80px 0 64px;
+      margin: 80px auto 64px;
     }
 
     &__input {
       color: $wave;
       height: 48px;
       margin-bottom: 30px;
+      background: #ebebeb url(images/search-active-wave.svg) no-repeat 98% center;
 
       @include media-query-medium {
         height: 100%;
@@ -52,16 +54,31 @@
         flex-grow: 1;
       }
     }
+  }
 
-    &__btn {
-      background-color: $wave;
-      border: none;
-      color: #fff;
-      font-family: $baseFontFamily;
-      font-size: 20px;
-      font-weight: 600;
+  ul.ui-autocomplete {
+    max-height: unset !important;
+    height: 196px;
+    z-index: 999;
+
+    li div {
       height: 48px;
-      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      padding-left: 16px;
+      border-bottom: 1px solid #edf1f3;
+      font-family: $baseFontFamily;
+      font-size: 16px;
+      color: $black;
+
+      &.ui-state-active {
+        background-color: $mist !important;
+        color: $black !important;
+
+        &:active {
+          background-color: $mist-light !important;
+        }
+      }
     }
   }
 }

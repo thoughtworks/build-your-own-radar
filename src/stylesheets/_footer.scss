@@ -24,10 +24,14 @@
 
     p {
       @include eight-column-layout-margin;
-      font-size: 18px;
       font-family: $baseFontFamily;
       font-weight: normal;
       margin-top: 30px;
+      font-size: 16px !important;
+
+      @include media-query-large {
+        font-size: 18px !important;
+      }
     }
   }
 }

@@ -21,7 +21,15 @@
     }
 
     &__wrapper {
-      @include default-layout-margin;
+      margin: auto;
+      width: 90%;
+
+      @include layout-margin(1, $screen-small);
+      @include layout-margin(1, $screen-medium);
+      @include layout-margin(1, $screen-large);
+      @include layout-margin(1, $screen-xlarge);
+      @include layout-margin(1, $screen-xxlarge);
+      @include layout-margin(1, $screen-xxxlarge);
     }
 
     &__title-text {
@@ -47,20 +55,15 @@
 
       @include media-query-medium {
         width: 37.5%;
-        line-height: 1.75rem;
         -webkit-line-clamp: 2;
       }
 
       @include media-query-large {
         width: 25%;
-        line-height: 1.75rem;
-        -webkit-line-clamp: 2;
       }
 
       @include media-query-xlarge {
         width: 33%;
-        line-height: 1.75rem;
-        -webkit-line-clamp: 2;
       }
     }
   }

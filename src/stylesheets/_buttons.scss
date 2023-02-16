@@ -7,7 +7,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 64px 0 56px;
+    margin: 64px auto 56px;
+
+    @include layout-margin(calc(3 / 4), $screen-small);
+    @include layout-margin(calc(6 / 8), $screen-medium);
+    @include layout-margin(calc(8 / 12), $screen-large);
+    @include layout-margin(calc(6 / 12), $screen-xlarge);
+    @include layout-margin(calc(6 / 12), $screen-xxlarge);
+    @include layout-margin(calc(4 / 12), $screen-xxxlarge);
 
     @include media-query-medium {
       flex-direction: row;
