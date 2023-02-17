@@ -144,8 +144,8 @@ function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup, ringList
   group
     .append('text')
     .attr('x', 18)
-    .attr('y', 24)
-    .attr('font-size', graphConfig.blipFontSize)
+    .attr('y', 23)
+    .style('font-size', (blip.width * 10) / 17 + 'px')
     .attr('font-style', 'normal')
     .attr('font-weight', 'bold')
     .attr('fill', 'white')
@@ -170,7 +170,6 @@ function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup, ringList
 
   const mouseOver = function () {
     d3.selectAll('g > a.blip-link').attr('opacity', 0.3)
-    // blipListItem.attr('opacity', 1)
     group.attr('opacity', 1.0)
     blipListItem.selectAll('.blip-list-item').classed('highlight', true)
     tip.show(blip.name(), group.node())

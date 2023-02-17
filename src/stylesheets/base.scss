@@ -351,22 +351,22 @@ body {
         polygon,
         path {
           &.first {
-            fill: $jade;
+            fill: $sapphire;
             stroke: none;
           }
 
           &.second {
-            fill: $flamingo;
-            stroke: none;
-          }
-
-          &.third {
             fill: $turmeric;
             stroke: none;
           }
 
+          &.third {
+            fill: $jade;
+            stroke: none;
+          }
+
           &.fourth {
-            fill: $sapphire;
+            fill: $flamingo;
             stroke: none;
           }
         }
@@ -567,6 +567,9 @@ body {
       }
     }
     .all-quadrants-mobile {
+      --quadrant-gap: 12px;
+      --quadrant-btn-width-mobile: 150px;
+      --quadrant-btn-height-mobile: 70px;
       display: none;
       flex-direction: column;
       flex-wrap: wrap;
@@ -574,11 +577,13 @@ body {
       align-content: space-between;
       margin: auto;
       margin-bottom: 42px;
-      width: 312px;
-      height: 152px;
 
       &.show-all-quadrants-mobile {
         display: flex;
+      }
+      @include media-query-medium {
+        --quadrant-btn-width-mobile: 345px;
+        --quadrant-btn-height-mobile: 160px;
       }
       @include media-query-xlarge {
         display: none;
@@ -586,20 +591,28 @@ body {
           display: none;
         }
       }
+
+      width: calc(var(--quadrant-btn-width-mobile) * 2 + var(--quadrant-gap));
+      height: calc(var(--quadrant-btn-height-mobile) * 2 + var(--quadrant-gap));
+
       .all-quadrants-mobile--btn {
         display: flex;
         justify-content: center;
         align-items: center;
         text-align: center;
         margin: 3px;
-        width: 150px;
-        height: 70px;
+        width: var(--quadrant-btn-width-mobile);
+        height: var(--quadrant-btn-height-mobile);
         background-size: 100%;
         background-repeat: no-repeat;
         font-size: 16px;
         font-weight: bold;
         color: white;
         border: none;
+
+        @include media-query-medium {
+          font-size: 24px;
+        }
 
         &::after {
           content: url('/images/arrow-white-icon.svg');
@@ -608,6 +621,11 @@ body {
 
         .btn-text-wrapper {
           text-align: left;
+
+          @include media-query-medium {
+            max-width: 60%;
+            max-height: 60px;
+          }
         }
       }
 

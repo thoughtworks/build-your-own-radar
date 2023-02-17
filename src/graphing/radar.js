@@ -800,7 +800,7 @@ const Radar = function (size, radar) {
       .attr('id', quadrant.order + '-quadrant-mobile')
       .append('div')
       .attr('class', 'btn-text-wrapper')
-      .text(quadrant.quadrant.name().replace(/[^a-zA-Z0-9\s]/g, ' '))
+      .text(quadrant.quadrant.name().replace(/[^a-zA-Z0-9\s!&]/g, ' '))
     quadrantBtn.node().onclick = () => {
       quadrantsTables.selectQuadrant(quadrant.order, quadrant.startAngle)
     }
