@@ -1,22 +1,16 @@
-FROM nginx:1.23.0
+FROM node:18 as builder
 
-RUN apt-get update && apt-get upgrade -y
+WORKDIR /workspace
 
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-RUN apt-get install -y nodejs
+COPY package*.json .
+RUN npm ci
 
-RUN                                                                       \
-  apt-get install -y                                                      \
-  libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3    \
-  libxss1 libasound2 libxtst6 xauth xvfb g++ make
+COPY . .
 
-WORKDIR /src/build-your-own-radar
-COPY package.json ./
-RUN npm install
+RUN npm run build:prod -- --output-path=/webapp
 
-COPY . ./
+FROM nginx:1.23
 
-# Override parent node image's entrypoint script (/usr/local/bin/docker-entrypoint.sh),
-# which tries to run CMD as a node command
-ENTRYPOINT []
-CMD ["./build_and_start_nginx.sh"]
+COPY --from=builder /webapp /app
+
+CMD ["nginx", "-g", "daemon off;"]
