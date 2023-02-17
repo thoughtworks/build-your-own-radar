@@ -219,9 +219,16 @@ body {
     margin: 0 auto;
     position: relative;
     @if $UIRefresh2022 {
-      display: none;
-      @include media-query-xlarge {
+      .mobile {
         display: block;
+      }
+      &:not(.mobile) {
+        display: none;
+      }
+      @include media-query-xlarge {
+        &:not(.mobile) {
+          display: block;
+        }
       }
     }
 
@@ -231,8 +238,8 @@ body {
       position: absolute;
       left: 0;
       right: 0;
-      pointer-events: none;
       @if $UIRefresh2022 {
+        pointer-events: none;
         z-index: 10;
       }
       .legend {
@@ -542,10 +549,6 @@ body {
     }
   }
 
-  .show-all-quadrants-mobile {
-    display: none;
-  }
-
   @if ($UIRefresh2022) {
     .radar-legends {
       display: none;
@@ -563,8 +566,8 @@ body {
         margin-left: 48px;
       }
     }
-    .show-all-quadrants-mobile {
-      display: flex;
+    .all-quadrants-mobile {
+      display: none;
       flex-direction: column;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -574,8 +577,14 @@ body {
       width: 312px;
       height: 152px;
 
+      &.show-all-quadrants-mobile {
+        display: flex;
+      }
       @include media-query-xlarge {
         display: none;
+        &.show-all-quadrants-mobile {
+          display: none;
+        }
       }
       .all-quadrants-mobile--btn {
         display: flex;

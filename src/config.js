@@ -7,7 +7,7 @@ const config = () => {
     },
     development: {
       featureToggles: {
-        UIRefresh2022: true,
+        UIRefresh2022: false,
       },
     },
   }

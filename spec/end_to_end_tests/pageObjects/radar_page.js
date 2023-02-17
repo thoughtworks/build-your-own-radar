@@ -8,6 +8,7 @@ class RadarPage {
     this.autocomplete = '.search-radar'
     this.search_value = 'Babel'
     this.search_item = '.ui-menu-item:first'
+    this.quadrant = '#second-quadrant-mobile'
   }
 
   clickTheBlipFromInteractiveSection() {
@@ -19,7 +20,7 @@ class RadarPage {
   }
 
   validateBlipDescription(text) {
-    jest.expect(cy.get(this.blip_description).contains(text))
+    cy.get(this.blip_description).contains(text)
   }
 
   clickSheet2() {
@@ -32,11 +33,15 @@ class RadarPage {
   }
 
   validateBlipSearch() {
-    jest.expect(cy.get(this.blip_selected).contains(this.search_value))
+    cy.get(this.blip_selected).contains(this.search_value)
   }
 
   validateBlipCountForPublicGoogleSheet() {
     cy.get(this.allBlips).should('have.length', 103)
+  }
+
+  clickQuadrant() {
+    cy.get(this.quadrant).click()
   }
 }
 

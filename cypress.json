@@ -17,5 +17,7 @@
   "watchForFileChanges": false,
   "defaultCommandTimeout": 10000,
   "pageLoadTimeout": 60000,
-  "supportFile": "spec/end_to_end_tests/util/hooks.js"
+  "supportFile": false,
+  "viewportHeight": 900,
+  "viewportWidth": 1440
 }

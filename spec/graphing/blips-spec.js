@@ -6,6 +6,7 @@ jest.mock('d3', () => {
     select: jest.fn(),
   }
 })
+
 const chance = Chance()
 const chanceFloatingSpy = jest.spyOn(chance, 'floating')
 const chanceIntegerSpy = jest

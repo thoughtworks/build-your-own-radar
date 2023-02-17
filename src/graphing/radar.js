@@ -793,7 +793,7 @@ const Radar = function (size, radar) {
   }
 
   function plotMobileView(quadrant) {
-    const quadrantBtn = d3.select('.all-quadrants-mobile.show-all-quadrants-mobile').append('button')
+    const quadrantBtn = d3.select('.all-quadrants-mobile').append('button')
     quadrantBtn
       .attr('class', 'all-quadrants-mobile--btn')
       .style('background-image', `url('/images/${quadrant.order}-quadrant-btn-bg.svg')`)

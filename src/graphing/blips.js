@@ -133,9 +133,6 @@ function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup, ringList
   const group = quadrantGroup
     .append('g')
     .append('a')
-    .attr('onclick', () => {
-      selectQuadrant.bind({}, order, startAngle)
-    })
     .attr('href', 'javascript:void(0)')
     .attr('class', 'blip-link')
     .attr('id', 'blip-link-' + blip.number())
@@ -172,20 +169,21 @@ function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup, ringList
   }
 
   const mouseOver = function () {
-    d3.selectAll('g.blip-link').attr('opacity', 0.3)
+    d3.selectAll('g > a.blip-link').attr('opacity', 0.3)
+    // blipListItem.attr('opacity', 1)
     group.attr('opacity', 1.0)
     blipListItem.selectAll('.blip-list-item').classed('highlight', true)
     tip.show(blip.name(), group.node())
   }
 
   const mouseOut = function () {
-    d3.selectAll('g.blip-link').attr('opacity', 1.0)
+    d3.selectAll('g > a.blip-link').attr('opacity', 1.0)
     blipListItem.selectAll('.blip-list-item').classed('highlight', false)
     tip.hide().style('left', 0).style('top', 0)
   }
 
-  blipListItem.on('mouseover', mouseOver).on('mouseout', mouseOut)
-  group.on('mouseover', mouseOver).on('mouseout', mouseOut)
+  blipListItem.on('mouseover', mouseOver).on('mouseout', mouseOut).on('focusin', mouseOver).on('focusout', mouseOut)
+  group.on('mouseover', mouseOver).on('mouseout', mouseOut).on('focusin', mouseOver).on('focusout', mouseOut)
 
   const clickBlip = function () {
     d3.select('.blip-item-description.expanded').node() !== blipItemDescription.node() &&
@@ -197,7 +195,10 @@ function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup, ringList
     })
   }
 
-  group.on('click', clickBlip)
+  group.on('click', () => {
+    clickBlip()
+    selectQuadrant(order, startAngle)
+  })
   blipListItem.on('click', clickBlip)
 }
 

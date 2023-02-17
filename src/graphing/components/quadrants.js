@@ -1,5 +1,6 @@
 const _ = require('lodash/core')
 const d3 = require('d3')
+const { default: d3tip } = require('d3-tip')
 const { toRadian, center } = require('../../util/mathUtils')
 const { graphConfig, getGraphSize } = require('../config')
 
@@ -70,8 +71,8 @@ function selectQuadrant(order, startAngle) {
   //   drawLegend(order)
   // }
 
-  d3.select('#radar').style('display', 'block') // shows the table
-  d3.select('.all-quadrants-mobile.show-all-quadrants-mobile').style('display', 'none') // hides the quadrants
+  d3.select('#radar').classed('mobile', true) // shows the table
+  d3.select('.all-quadrants-mobile').classed('show-all-quadrants-mobile', false) // hides the quadrants
 }
 
 function createHomeLink(pageElement) {
@@ -93,9 +94,36 @@ function createHomeLink(pageElement) {
 }
 
 function redrawFullRadar() {
-  d3.select('#radar').style('display', 'none')
-  d3.select('.all-quadrants-mobile.show-all-quadrants-mobile').style('display', 'flex')
+  const size = getGraphSize()
   d3.select('.home-link').remove()
+  d3.select('.legend').remove()
+  d3.select('#radar').classed('mobile', false)
+  d3.select('.all-quadrants-mobile').classed('show-all-quadrants-mobile', true)
+
+  d3tip()
+    .attr('class', 'd3-tip')
+    .html(function (text) {
+      return text
+    })
+    .hide()
+
+  d3.selectAll('g.blip-link').attr('opacity', 1.0)
+
+  svg.style('left', 0).style('right', 0)
+
+  d3.selectAll('.button').classed('selected', false).classed('full-view', true)
+
+  d3.selectAll('.quadrant-table').classed('selected', false)
+  d3.selectAll('.home-link').classed('selected', false)
+
+  d3.selectAll('.quadrant-group').transition().duration(ANIMATION_DURATION).attr('transform', 'scale(1)')
+
+  d3.select('#radar-plot').attr('width', size).attr('height', size)
+  d3.selectAll(`.quadrant-bg-images`).each(function () {
+    this.classList.remove('hidden')
+  })
+  d3.select(`.quadrants-container`).node().classList.remove('quadrant-page-view')
+  d3.selectAll('.quadrant-group').style('pointer-events', 'auto')
 }
 
 module.exports = {
