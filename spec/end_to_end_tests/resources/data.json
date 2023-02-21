@@ -18,13 +18,13 @@
     "ring": "assess",
     "quadrant": "platforms",
     "isNew": "TRUE",
-    "description": "test"
+    "description": "description"
   },
   {
     "name": "GrapCloud lift and shifthQL",
     "ring": "hold",
     "quadrant": "techniques",
     "isNew": "FALSE",
-    "description": "test"
+    "description": "description"
   }
 ]
