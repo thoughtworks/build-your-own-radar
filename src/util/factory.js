@@ -4,7 +4,6 @@ const d3 = require('d3')
 const _ = {
   map: require('lodash/map'),
   uniqBy: require('lodash/uniqBy'),
-  capitalize: require('lodash/capitalize'),
   each: require('lodash/each'),
 }
 
@@ -51,7 +50,7 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   var quadrants = {}
   _.each(blips, function (blip) {
     if (!quadrants[blip.quadrant]) {
-      quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant))
+      quadrants[blip.quadrant] = new Quadrant(blip.quadrant[0].toUpperCase() + blip.quadrant.slice(1))
     }
     quadrants[blip.quadrant].add(
       new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description),

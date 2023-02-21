@@ -57,8 +57,7 @@
   }
 
   ul.ui-autocomplete {
-    max-height: unset !important;
-    height: 196px;
+    max-height: 196px !important;
     z-index: 999;
 
     li div {

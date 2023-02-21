@@ -1,19 +1,37 @@
 const d3 = require('d3')
 
 function addListItem(quadrantList, name) {
-  quadrantList.append('li').classed('quadrant-subnav__list-item', true).append('a').attr('href', '#').text(name)
+  quadrantList
+    .append('li')
+    .classed('quadrant-subnav__list-item', true)
+    .append('a')
+    .attr('href', '#')
+    .text(name)
+    .on('click', function (e) {
+      d3.select('li.quadrant-subnav__list-item.active-item').classed('active-item', false)
+
+      const listItem = e.target.parentElement
+      d3.select(listItem).classed('active-item', true)
+
+      d3.select('span.quadrant-subnav__dropdown-selector').text(e.target.innerText)
+    })
 }
 
 function renderQuadrantSubnav(radarHeader, quadrants) {
   const subnavContainer = radarHeader.append('div').classed('quadrant-subnav', true)
 
-  const subnavSelector = subnavContainer.append('span').classed('quadrant-subnav__selector', true).text('All quadrants')
+  const subnavDropdown = subnavContainer.append('div').classed('quadrant-subnav__dropdown', true)
+  const subnavSelector = subnavDropdown
+    .append('span')
+    .classed('quadrant-subnav__dropdown-selector', true)
+    .text('All quadrants')
 
   const quadrantList = subnavContainer.append('ul').classed('quadrant-subnav__list', true)
   addListItem(quadrantList, 'All quadrants')
+  d3.select('li.quadrant-subnav__list-item').classed('active-item', true)
 
-  subnavSelector.on('click', function () {
-    subnavSelector.classed('rotate', !d3.select('span.quadrant-subnav__selector').classed('rotate'))
+  subnavDropdown.on('click', function () {
+    subnavSelector.classed('rotate', !d3.select('span.quadrant-subnav__dropdown-selector').classed('rotate'))
     quadrantList.classed('show', !d3.select('ul.quadrant-subnav__list').classed('show'))
   })
 
