@@ -12,16 +12,18 @@ function renderAlternativeRadars(radarFooter, alternatives, currentSheet) {
       .classed(`alternative-radars__list__row-${i}`, true)
 
     list.forEach(function (alternative) {
-      const alternativeLink = alternativesList
+      const alternativeListItem = alternativesList
         .append('li')
         .classed('alternative-radars__list-item', true)
+
+      alternativeListItem
         .append('a')
         .classed('alternative-radars__list-item-link', true)
         .attr('href', constructSheetUrl(alternative))
         .text(alternative)
 
       if (currentSheet === alternative) {
-        alternativeLink.classed('active', true)
+        alternativeListItem.classed('active', true)
       }
     })
   }
