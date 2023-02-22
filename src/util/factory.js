@@ -4,7 +4,6 @@ const d3 = require('d3')
 const _ = {
   map: require('lodash/map'),
   uniqBy: require('lodash/uniqBy'),
-  capitalize: require('lodash/capitalize'),
   each: require('lodash/each'),
 }
 
@@ -22,7 +21,8 @@ const Sheet = require('./sheet')
 const ExceptionMessages = require('./exceptionMessages')
 const GoogleAuth = require('./googleAuth')
 const config = require('../config')
-
+const { getGraphSize } = require('../graphing/config')
+const featureToggles = config().featureToggles
 const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   if (title.endsWith('.csv')) {
     title = title.substring(0, title.length - 4)
@@ -32,6 +32,9 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   }
   document.title = title
   d3.selectAll('.loading').remove()
+  if (featureToggles.UIRefresh2022) {
+    d3.select('.radar-legends').node().classList.add('show')
+  }
 
   var rings = _.map(_.uniqBy(blips, 'ring'), 'ring')
   var ringMap = {}
@@ -47,7 +50,7 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   var quadrants = {}
   _.each(blips, function (blip) {
     if (!quadrants[blip.quadrant]) {
-      quadrants[blip.quadrant] = new Quadrant(_.capitalize(blip.quadrant))
+      quadrants[blip.quadrant] = new Quadrant(blip.quadrant[0].toUpperCase() + blip.quadrant.slice(1))
     }
     quadrants[blip.quadrant].add(
       new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description),
@@ -69,8 +72,11 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
     radar.setCurrentSheet(currentRadarName)
   }
 
-  var size = window.innerHeight - 133 < 620 ? 620 : window.innerHeight - 133
-
+  const size = featureToggles.UIRefresh2022
+    ? getGraphSize()
+    : window.innerHeight - 133 < 620
+    ? 620
+    : window.innerHeight - 133
   new GraphingRadar(size, radar).init().plot()
 }
 
@@ -102,7 +108,8 @@ const GoogleSheet = function (sheetReference, sheetName) {
     const all = values
     const header = all.shift()
     var blips = _.map(all, (blip) => new InputSanitizer().sanitizeForProtectedSheet(blip, header))
-    plotRadar(documentTitle + ' - ' + sheetName, blips, sheetName, sheetNames)
+    const title = featureToggles.UIRefresh2022 ? documentTitle : documentTitle + ' - ' + sheetName
+    plotRadar(title, blips, sheetName, sheetNames)
   }
 
   self.authenticate = function (force = false, apiKeyEnabled, callback) {
@@ -238,7 +245,7 @@ const GoogleSheetInput = function () {
 
       sheet.init().build()
     } else {
-      if (!config.featureToggles.UIRefresh2022) {
+      if (!featureToggles.UIRefresh2022) {
         document.body.style.opacity = '1'
         document.body.innerHTML = ''
         const content = d3.select('body').append('div').attr('class', 'input-sheet')
@@ -266,7 +273,7 @@ function setDocumentTitle() {
 }
 
 function plotLoading(content) {
-  if (!config.featureToggles.UIRefresh2022) {
+  if (!featureToggles.UIRefresh2022) {
     document.body.style.opacity = '1'
     document.body.innerHTML = ''
     content = d3.select('body').append('div').attr('class', 'loading').append('div').attr('class', 'input-sheet')
@@ -336,7 +343,7 @@ function plotForm(content) {
 }
 
 function plotErrorMessage(exception, fileType) {
-  if (config.featureToggles.UIRefresh2022) {
+  if (featureToggles.UIRefresh2022) {
     showErrorMessage(exception, fileType)
   } else {
     const content = d3.select('body').append('div').attr('class', 'input-sheet')
@@ -395,7 +402,7 @@ function showErrorMessage(exception, fileType) {
 function plotUnauthorizedErrorMessage() {
   let content
   const helperDescription = d3.select('.helper-description')
-  if (!config.featureToggles.UIRefresh2022) {
+  if (!featureToggles.UIRefresh2022) {
     content = d3.select('body').append('div').attr('class', 'input-sheet')
     setDocumentTitle()
 
@@ -437,10 +444,10 @@ function plotUnauthorizedErrorMessage() {
     var queryParams = queryString ? QueryParams(queryString[0]) : {}
     const sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
     sheet.authenticate(true, false, () => {
-      if (config.featureToggles.UIRefresh2022 && !sheet.error) {
+      if (featureToggles.UIRefresh2022 && !sheet.error) {
         helperDescription.style('display', 'block')
         errorContainer.remove()
-      } else if (config.featureToggles.UIRefresh2022 && sheet.error) {
+      } else if (featureToggles.UIRefresh2022 && sheet.error) {
         helperDescription.style('display', 'none')
       } else {
         content.remove()

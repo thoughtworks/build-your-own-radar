@@ -17,7 +17,7 @@ $grey-text: rgb(51, 51, 51);
 
 $grey-alpha-03: rgba(255, 255, 255, 0.3);
 
-//## Brand colors for use across theme.
+// Brand colors for use across theme.
 $black: #000000; //onyx
 $white: #ffffff; //white
 $wave: #163c4d; //wave
@@ -29,8 +29,12 @@ $jade: #6b9e78; //jade
 $turmeric: #cc850a; //turmeric
 $amethyst: #634f7d; //amethyst
 
-//Other colors
+// Other colors
 $mist-s30: #71777d;
+$mist-s20: #d5d9db;
+$mist-s10: #e1e5e7;
+$mist-light: #f7fafc;
+$flamingo-s40: #bd4257;
 
 $button-normal: $wave; //button color
 $button-disabled: #909090; //disabled state for links and buttons

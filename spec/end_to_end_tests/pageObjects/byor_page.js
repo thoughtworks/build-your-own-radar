@@ -1,25 +1,21 @@
-const config = require('../../../cypress.json')
+const config = require('../config.json')
 const environment = require('/src/config')
 
 class ByorPage {
   constructor() {
     this.text_box = "[name='sheetId']"
-    this.submit = environment[Cypress.env('TEST_ENV') ? Cypress.env('TEST_ENV') : 'development'].featureToggles
+    this.submit = environment()[Cypress.env('TEST_ENV') ? Cypress.env('TEST_ENV') : 'development'].featureToggles
       .UIRefresh2022
       ? 'input[type=submit]'
       : '.button'
   }
 
-  provideExcelName() {
-    cy.get(this.text_box).type(config.excel)
-  }
-
   provideCsvName() {
-    cy.get(this.text_box).type(config.csv)
+    cy.get(this.text_box).type(config.CSV_FILE_URL)
   }
 
   provideJsonName() {
-    cy.get(this.text_box).type(config.json)
+    cy.get(this.text_box).type(config.JSON_FILE_URL)
   }
 
   clickSubmitButton() {
@@ -27,7 +23,7 @@ class ByorPage {
   }
 
   providePublicSheetUrl() {
-    cy.get(this.text_box).type(config.publicGoogleSheet)
+    cy.get(this.text_box).type(config.PUBLIC_GOOGLE_SHEET_URL)
   }
 }
 

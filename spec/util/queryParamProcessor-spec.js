@@ -13,7 +13,7 @@ describe('QueryParams', function () {
     expect(params).toEqual({})
   })
 
-  it('retrieves one parameter', function () {
+  it('retrieves two parameters', function () {
     var params = QueryParams('param1=value1&param2=value2')
 
     expect(params.param1).toEqual('value1')

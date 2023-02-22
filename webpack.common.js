@@ -7,8 +7,6 @@ const args = require('yargs').argv
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const postcssPresetEnv = require('postcss-preset-env')
-const cssnano = require('cssnano')
 
 const env = args.envFile
 if (env) {
@@ -46,7 +44,6 @@ module.exports = {
   entry: {
     common: common,
   },
-
   output: {
     path: buildPath,
     publicPath: ASSET_PATH,
@@ -72,32 +69,6 @@ module.exports = {
               presets: ['@babel/preset-env'],
             },
           },
-        ],
-      },
-      {
-        test: /\.scss$/,
-        exclude: /node_modules/,
-        use: [
-          'style-loader',
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: { importLoaders: 1, modules: 'global', url: false },
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins: [
-                  postcssPresetEnv({ browsers: 'last 2 versions' }),
-                  cssnano({
-                    preset: ['default', { discardComments: { removeAll: true } }],
-                  }),
-                ],
-              },
-            },
-          },
-          'sass-loader',
         ],
       },
       {

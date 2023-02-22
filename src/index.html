@@ -14,11 +14,14 @@
 
   <body>
     <header class="input-sheet__logo">
-      <a href="https://www.thoughtworks.com"><img src="/images/tw-logo.png" alt="Thoughtworks logo" /></a>
+      <div>
+        <span>Powered by</span>
+        <a href="https://www.thoughtworks.com"><img src="/images/tw-logo.png" alt="Thoughtworks logo" /></a>
+      </div>
     </header>
     <div class="hero-banner">
       <div class="hero-banner__wrapper">
-        <h1 class="hero-banner__title-text">Build Your Own Radar</h1>
+        <h1 class="hero-banner__title-text">BYOR</h1>
       </div>
     </div>
     <main>
@@ -56,7 +59,16 @@
           <a href="https://www.thoughtworks.com/radar/how-to-byor">Need help?</a>
         </form>
       </div>
-      <div class="graph-placeholder" id="radar"></div>
+      <div class="graph-header"></div>
+      <div id="radar"></div>
+      <div class="radar-legends">
+        <img src="/images/new.svg" width="37px" height="37px" alt="new blip legend icon" />
+        New
+        <img src="/images/no-change.svg" width="37px" height="37px" alt="no change blip legend icon" />
+        No change
+      </div>
+      <div class="all-quadrants-mobile show-all-quadrants-mobile"></div>
+      <div class="graph-footer"></div>
     </main>
     <footer class="home-page">
       <p>

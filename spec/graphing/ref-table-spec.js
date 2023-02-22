@@ -19,10 +19,10 @@ describe('graphingRadar', function () {
     radar.addQuadrant(languageFramework)
 
     element = { innerHTML: '' }
-    spyOn(document, 'querySelector').and.returnValue(element)
+    jest.spyOn(document, 'querySelector').mockReturnValue(element)
   })
 
-  xdescribe('render', function () {
+  describe.skip('render', function () {
     it('groups blips by ring', function () {
       var adopt = new Ring('Adopt')
       var assess = new Ring('Assess')

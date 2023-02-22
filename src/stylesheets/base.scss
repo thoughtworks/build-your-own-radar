@@ -5,8 +5,11 @@
 @import 'error';
 @import 'header';
 @import 'footer';
-@import 'featuretoggles';
 @import 'herobanner';
+@import 'quadrantsubnav';
+@import 'search';
+@import 'alternativeradars';
+@import 'buttons';
 @import 'mediaqueries';
 @import 'layout';
 @import 'landingpage';
@@ -21,21 +24,39 @@ body {
     opacity: 1;
 
     h1 {
-      font-size: 2rem;
+      font-size: 1.5rem;
       font-family: 'Bitter', serif;
       text-transform: none;
       letter-spacing: normal;
 
+      @include media-query-medium {
+        font-size: 2rem;
+      }
+
       @include media-query-large {
+        font-size: 2.5rem;
+      }
+
+      @include media-query-xxlarge {
+        font-size: 3rem;
+      }
+
+      @include media-query-xxxlarge {
         font-size: 3.5rem;
       }
     }
 
     p {
-      font-size: 18px;
+      font-size: 1.125rem;
       font-family: $baseFontFamily;
-      line-height: 27px;
-      font-weight: 360;
+
+      @include media-query-medium {
+        font-size: 1.25rem;
+      }
+
+      @include media-query-xxlarge {
+        font-size: 1.5rem;
+      }
     }
 
     a {
@@ -197,6 +218,19 @@ body {
     width: 80%;
     margin: 0 auto;
     position: relative;
+    @if $UIRefresh2022 {
+      .mobile {
+        display: block;
+      }
+      &:not(.mobile) {
+        display: none;
+      }
+      @include media-query-xlarge {
+        &:not(.mobile) {
+          display: block;
+        }
+      }
+    }
 
     svg#radar-plot {
       margin: 0 auto;
@@ -204,7 +238,10 @@ body {
       position: absolute;
       left: 0;
       right: 0;
-
+      @if $UIRefresh2022 {
+        pointer-events: none;
+        z-index: 10;
+      }
       .legend {
         visibility: hidden;
         transition: visibility 1s ease 1s;
@@ -233,9 +270,34 @@ body {
         }
       }
 
+      @if $UIRefresh2022 {
+        path {
+          &.ring-arc-3 {
+            stroke: $mist-s30;
+            fill: transparent;
+          }
+
+          &.ring-arc-2 {
+            stroke: $mist-s30;
+            fill: transparent;
+          }
+
+          &.ring-arc-1 {
+            stroke: $mist-s30;
+            fill: transparent;
+          }
+
+          &.ring-arc-0 {
+            stroke: $mist-s30;
+            fill: transparent;
+          }
+        }
+      }
+
       .blip-link {
         text-decoration: none;
         cursor: pointer;
+        pointer-events: initial;
       }
 
       .quadrant-group {
@@ -284,6 +346,102 @@ body {
           font-size: 7px;
         }
       }
+      @if $UIRefresh2022 {
+        circle,
+        polygon,
+        path {
+          &.first {
+            fill: $sapphire;
+            stroke: none;
+          }
+
+          &.second {
+            fill: $turmeric;
+            stroke: none;
+          }
+
+          &.third {
+            fill: $jade;
+            stroke: none;
+          }
+
+          &.fourth {
+            fill: $flamingo;
+            stroke: none;
+          }
+        }
+
+        line {
+          stroke: white;
+        }
+
+        text {
+          &.blip-text {
+            font-size: 9px;
+            font-style: italic;
+            fill: $black;
+          }
+
+          &.line-text {
+            font-weight: bold;
+            text-transform: uppercase;
+            fill: $black;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
+    .quadrants-container {
+      z-index: 1;
+      position: relative;
+      width: 1056px;
+      display: none;
+      margin: auto;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 32px;
+
+      @include media-query-xlarge {
+        display: flex;
+      }
+
+      &.quadrant-page-view {
+        display: none;
+        position: absolute;
+        width: auto;
+        left: 15%;
+        top: 100px;
+      }
+
+      #first-quadrant-bg-image {
+        transform: rotate(270deg);
+      }
+      #second-quadrant-bg-image {
+        transform: rotate(180deg);
+      }
+      #third-quadrant-bg-image {
+        transform: rotate(360deg);
+      }
+      #fourth-quadrant-bg-image {
+        transform: rotate(90deg);
+      }
+
+      .quadrant-bg-images {
+        display: block;
+        position: relative;
+
+        &.hidden {
+          display: none;
+        }
+      }
+
+      .left-quadrant,
+      .right-quadrant {
+        flex-direction: column;
+        display: flex;
+        gap: 32px;
+      }
     }
 
     div.quadrant-table {
@@ -295,6 +453,7 @@ body {
       max-width: 0;
       position: absolute;
       overflow: hidden;
+      z-index: 11;
 
       transition: max-height 0.5s ease 1s;
 
@@ -333,6 +492,13 @@ body {
         position: relative;
         max-height: 10000px;
         max-width: 40%;
+      }
+
+      @if $UIRefresh2022 {
+        display: none;
+        &.selected {
+          display: block;
+        }
       }
 
       ul {
@@ -379,6 +545,101 @@ body {
             }
           }
         }
+      }
+    }
+  }
+
+  @if ($UIRefresh2022) {
+    .radar-legends {
+      display: none;
+
+      &.show {
+        @include media-query-xlarge {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 32px 0;
+        }
+      }
+
+      img {
+        margin-left: 48px;
+      }
+    }
+    .all-quadrants-mobile {
+      --quadrant-gap: 12px;
+      --quadrant-btn-width-mobile: 150px;
+      --quadrant-btn-height-mobile: 70px;
+      display: none;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-content: space-between;
+      margin: auto;
+      margin-bottom: 42px;
+
+      &.show-all-quadrants-mobile {
+        display: flex;
+      }
+      @include media-query-medium {
+        --quadrant-btn-width-mobile: 345px;
+        --quadrant-btn-height-mobile: 160px;
+      }
+      @include media-query-xlarge {
+        display: none;
+        &.show-all-quadrants-mobile {
+          display: none;
+        }
+      }
+
+      width: calc(var(--quadrant-btn-width-mobile) * 2 + var(--quadrant-gap));
+      height: calc(var(--quadrant-btn-height-mobile) * 2 + var(--quadrant-gap));
+
+      .all-quadrants-mobile--btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin: 3px;
+        width: var(--quadrant-btn-width-mobile);
+        height: var(--quadrant-btn-height-mobile);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+        border: none;
+
+        @include media-query-medium {
+          font-size: 24px;
+        }
+
+        &::after {
+          content: url('/images/arrow-white-icon.svg');
+          margin: 4px 4px 0;
+        }
+
+        .btn-text-wrapper {
+          text-align: left;
+
+          @include media-query-medium {
+            max-width: 60%;
+            max-height: 60px;
+          }
+        }
+      }
+
+      #first-quadrant-mobile {
+        background-color: $sapphire;
+      }
+      #second-quadrant-mobile {
+        background-color: $turmeric;
+      }
+      #third-quadrant-mobile {
+        background-color: $jade;
+      }
+      #fourth-quadrant-mobile {
+        background-color: $flamingo;
       }
     }
   }

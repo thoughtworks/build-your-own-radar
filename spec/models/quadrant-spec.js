@@ -19,7 +19,7 @@ describe('Quadrant', function () {
 
     quadrant.add(new Blip())
 
-    expect(quadrant.blips().length).toEqual(1)
+    expect(quadrant.blips()).toHaveLength(1)
   })
 
   it('can add multiple blips', function () {
@@ -27,6 +27,6 @@ describe('Quadrant', function () {
 
     quadrant.add([new Blip(), new Blip()])
 
-    expect(quadrant.blips().length).toEqual(2)
+    expect(quadrant.blips()).toHaveLength(2)
   })
 })

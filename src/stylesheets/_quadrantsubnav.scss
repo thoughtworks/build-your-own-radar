@@ -1,0 +1,135 @@
+@import 'colors';
+@import 'layout';
+
+@if $UIRefresh2022 {
+  .quadrant-subnav {
+    font-size: 1.125rem;
+    width: 100%;
+    background-color: $mist;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    min-height: 60px;
+
+    @include media-query-xlarge {
+      flex-direction: row;
+      justify-content: center;
+      height: 60px;
+      font-size: 1.25rem;
+    }
+
+    &__dropdown {
+      height: fit-content;
+      min-height: 60px;
+      font-weight: 600;
+      display: inline-flex;
+      border-bottom: 1px solid $mist-s20;
+      align-items: center;
+      flex-direction: row;
+      justify-content: center;
+
+      &-selector {
+        display: flex;
+        gap: 8px;
+
+        &::after {
+          color: $flamingo;
+          content: url(/images/arrow-icon.svg);
+          display: inline-flex;
+          float: right;
+          -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+          -webkit-transition: all 0.2s ease;
+          transition: all 0.2s ease;
+        }
+
+        &.rotate::after {
+          transform: rotate(-90deg);
+        }
+      }
+
+      @include media-query-xlarge {
+        display: none;
+      }
+    }
+
+    &__list {
+      display: none;
+
+      &.show {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      &-item {
+        width: 100%;
+        min-height: 60px;
+        display: inline-flex;
+        align-items: center;
+        border-bottom: 1px solid $mist-s20;
+        justify-content: center;
+        padding: 0;
+        height: 100%;
+        box-sizing: border-box;
+
+        @include media-query-xlarge {
+          &.active-item {
+            padding-top: 8px;
+
+            &:nth-child(1) {
+              border-bottom: 8px solid $mist-s30;
+            }
+
+            &:nth-child(2) {
+              border-bottom: 8px solid $sapphire;
+            }
+
+            &:nth-child(3) {
+              border-bottom: 8px solid $turmeric;
+            }
+
+            &:nth-child(4) {
+              border-bottom: 8px solid $jade;
+            }
+
+            &:nth-child(5) {
+              border-bottom: 8px solid $flamingo;
+            }
+          }
+        }
+
+        a {
+          text-decoration: none;
+          border: none;
+        }
+      }
+
+      @include media-query-xlarge {
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+
+        &.show {
+          flex-direction: row;
+        }
+
+        &-item {
+          padding: 0 40px;
+          font-weight: 600;
+
+          width: unset;
+          min-height: unset;
+          border: none;
+        }
+      }
+    }
+  }
+}

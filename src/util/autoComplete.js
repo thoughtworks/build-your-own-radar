@@ -1,6 +1,9 @@
 const $ = require('jquery')
 require('jquery-ui/ui/widgets/autocomplete')
 
+const config = require('../config')
+const featureToggles = config().featureToggles
+
 $.widget('custom.radarcomplete', $.ui.autocomplete, {
   _create: function () {
     this._super()
@@ -28,16 +31,30 @@ const AutoComplete = (el, quadrants, cb) => {
     return [...acc, ...quadrant.quadrant.blips().map((blip) => ({ blip, quadrant }))]
   }, [])
 
-  $(el).radarcomplete({
-    source: (request, response) => {
-      const matches = blips.filter(({ blip }) => {
-        const searchable = `${blip.name()} ${blip.description()}`.toLowerCase()
-        return request.term.split(' ').every((term) => searchable.includes(term.toLowerCase()))
-      })
-      response(matches.map((item) => ({ ...item, value: item.blip.name() })))
-    },
-    select: cb.bind({}),
-  })
+  if (featureToggles.UIRefresh2022) {
+    $(el).autocomplete({
+      appendTo: '.search-container',
+      source: (request, response) => {
+        const matches = blips.filter(({ blip }) => {
+          const searchable = `${blip.name()} ${blip.description()}`.toLowerCase()
+          return request.term.split(' ').every((term) => searchable.includes(term.toLowerCase()))
+        })
+        response(matches.map((item) => ({ ...item, value: item.blip.name() })))
+      },
+      select: cb.bind({}),
+    })
+  } else {
+    $(el).radarcomplete({
+      source: (request, response) => {
+        const matches = blips.filter(({ blip }) => {
+          const searchable = `${blip.name()} ${blip.description()}`.toLowerCase()
+          return request.term.split(' ').every((term) => searchable.includes(term.toLowerCase()))
+        })
+        response(matches.map((item) => ({ ...item, value: item.blip.name() })))
+      },
+      select: cb.bind({}),
+    })
+  }
 }
 
 module.exports = AutoComplete

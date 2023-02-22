@@ -12,32 +12,58 @@
     color: $white;
     display: flex;
     align-items: center;
-    margin: 0;
+    margin: 0 !important;
 
-    @include media-query-medium {
+    @include media-query-large {
       background-image: url('/images/banner-image-desktop.jpg');
       height: 200px;
       background-size: cover;
     }
 
     &__wrapper {
-      @include default-layout-margin;
+      margin: auto;
+      width: 90%;
+
+      @include layout-margin(1, $screen-small);
+      @include layout-margin(1, $screen-medium);
+      @include layout-margin(1, $screen-large);
+      @include layout-margin(1, $screen-xlarge);
+      @include layout-margin(1, $screen-xxlarge);
+      @include layout-margin(1, $screen-xxxlarge);
     }
 
     &__title-text {
-      width: 57%;
+      width: fit-content;
       text-align: left;
       text-transform: none;
       letter-spacing: 0;
+      cursor: pointer;
+    }
+
+    &__subtitle-text {
+      font-weight: 600;
+      width: 50%;
+      text-align: left;
+      text-transform: none;
+      letter-spacing: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      line-height: 1.75rem;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+
+      @include media-query-medium {
+        width: 37.5%;
+        -webkit-line-clamp: 2;
+      }
 
       @include media-query-large {
-        font-size: 3rem;
-        width: 50%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
+        width: 25%;
+      }
+
+      @include media-query-xlarge {
+        width: 33%;
       }
     }
   }
