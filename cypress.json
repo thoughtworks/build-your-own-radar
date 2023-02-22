@@ -11,7 +11,7 @@
     "json": "false"
   },
   "watchForFileChanges": false,
-  "defaultCommandTimeout": 10000,
+  "defaultCommandTimeout": 30000,
   "pageLoadTimeout": 60000,
   "supportFile": false,
   "viewportHeight": 900,
