@@ -19,5 +19,5 @@ module.exports = defineConfig({
     specPattern: 'spec/end_to_end_tests/specs/**/*.cy.{js,jsx,ts,tsx}',
     supportFile: false,
   },
-  video: false
+  video: false,
 })
