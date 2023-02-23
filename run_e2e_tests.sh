@@ -1,7 +1,13 @@
 #!/bin/bash
 
 TEST_URL=$1
+TEST_ENV=$2
 
-npm run dev &
+if [[ $TEST_ENV == "production" ]]; then
+  npm run dev:old-ui &
+else
+  npm run dev &
+fi
+
 sleep 30
-TEST_URL=$TEST_URL npm run test:e2e
+TEST_URL=$TEST_URL TEST_ENV=$TEST_ENV npm run test:e2e

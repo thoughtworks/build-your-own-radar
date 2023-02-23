@@ -1,13 +1,15 @@
 const config = require('../config.json')
-const environment = require('/src/config')
+const environment = require('../../../src/config')
 
 class ByorPage {
   constructor() {
-    this.text_box = "[name='sheetId']"
-    this.submit = environment()[Cypress.env('TEST_ENV') ? Cypress.env('TEST_ENV') : 'development'].featureToggles
-      .UIRefresh2022
-      ? 'input[type=submit]'
-      : '.button'
+    if (environment()[Cypress.env('TEST_ENV') ? Cypress.env('TEST_ENV') : 'development'].featureToggles.UIRefresh2022) {
+      this.text_box = "[name='documentId']"
+      this.submit = 'input[type=submit]'
+    } else {
+      this.text_box = "[name='sheetId']"
+      this.submit = 'button'
+    }
   }
 
   provideCsvName() {

@@ -21,8 +21,8 @@ const Sheet = require('./sheet')
 const ExceptionMessages = require('./exceptionMessages')
 const GoogleAuth = require('./googleAuth')
 const config = require('../config')
-const { getGraphSize } = require('../graphing/config')
 const featureToggles = config().featureToggles
+const { getGraphSize } = require('../graphing/config')
 const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   if (title.endsWith('.csv')) {
     title = title.substring(0, title.length - 4)
@@ -230,18 +230,21 @@ const GoogleSheetInput = function () {
   var sheet
 
   self.build = function () {
-    var domainName = DomainName(window.location.search.substring(1))
-    var queryString = window.location.href.match(/sheetId(.*)/)
-    var queryParams = queryString ? QueryParams(queryString[0]) : {}
+    const domainName = DomainName(window.location.search.substring(1))
+    const queryString = featureToggles.UIRefresh2022
+      ? window.location.href.match(/documentId(.*)/)
+      : window.location.href.match(/sheetId(.*)/)
+    const queryParams = queryString ? QueryParams(queryString[0]) : {}
 
-    if (queryParams.sheetId && queryParams.sheetId.endsWith('.csv')) {
-      sheet = CSVDocument(queryParams.sheetId)
+    const paramId = featureToggles.UIRefresh2022 ? queryParams.documentId : queryParams.sheetId
+    if (paramId && paramId.endsWith('.csv')) {
+      sheet = CSVDocument(paramId)
       sheet.init().build()
-    } else if (queryParams.sheetId && queryParams.sheetId.endsWith('.json')) {
-      sheet = JSONFile(queryParams.sheetId)
+    } else if (paramId && paramId.endsWith('.json')) {
+      sheet = JSONFile(paramId)
       sheet.init().build()
-    } else if (domainName && domainName.endsWith('google.com') && queryParams.sheetId) {
-      sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
+    } else if (domainName && domainName.endsWith('google.com') && paramId) {
+      sheet = GoogleSheet(paramId, queryParams.sheetName)
 
       sheet.init().build()
     } else {
@@ -440,9 +443,16 @@ function plotUnauthorizedErrorMessage() {
     .html(`or ${goBack} to try a different sheet.`)
 
   button.on('click', () => {
-    var queryString = window.location.href.match(/sheetId(.*)/)
-    var queryParams = queryString ? QueryParams(queryString[0]) : {}
-    const sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
+    let sheet
+    if (featureToggles.UIRefresh2022) {
+      const queryString = window.location.href.match(/documentId(.*)/)
+      const queryParams = queryString ? QueryParams(queryString[0]) : {}
+      sheet = GoogleSheet(queryParams.documentId, queryParams.sheetName)
+    } else {
+      const queryString = window.location.href.match(/sheetId(.*)/)
+      const queryParams = queryString ? QueryParams(queryString[0]) : {}
+      sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
+    }
     sheet.authenticate(true, false, () => {
       if (featureToggles.UIRefresh2022 && !sheet.error) {
         helperDescription.style('display', 'block')

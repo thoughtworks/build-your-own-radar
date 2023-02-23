@@ -1,7 +1,7 @@
 const byorPage = require('../pageObjects/byor_page')
 const radarPage = require('../pageObjects/radar_page')
 const config = require('../../../src/config')
-const featureToggles = config().development.featureToggles
+const featureToggles = config()[Cypress.env('TEST_ENV') ? Cypress.env('TEST_ENV') : 'development'].featureToggles
 const testConfig = require('../config.json')
 
 describe('Build radar with CSV', () => {

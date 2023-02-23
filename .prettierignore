@@ -5,3 +5,4 @@ node_modules/
 .vscode/
 .idea/
 src/stylesheets/_screen.css
+spec/end_to_end_tests/reports

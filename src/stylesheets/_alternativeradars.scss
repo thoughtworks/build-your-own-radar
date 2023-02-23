@@ -36,7 +36,7 @@
       font-family: $baseFontFamily;
       font-weight: 600;
       margin-block: 0;
-      margin-bottom: 0;
+      margin-bottom: 16px;
       margin-left: 0;
 
       @include media-query-medium {
@@ -80,7 +80,7 @@
           display: inline-block;
           width: 100%;
           margin-top: 32px;
-          padding: 0 8px;
+          padding: 0 8px 4px;
           box-sizing: border-box;
           border: 1px solid transparent;
           border-width: 0px 1px;
