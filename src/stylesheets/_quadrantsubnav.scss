@@ -78,26 +78,27 @@
 
         @include media-query-xlarge {
           &.active-item {
-            padding-top: 8px;
+            padding-top: 4px;
+            border-bottom: 4px solid transparent;
 
             &:nth-child(1) {
-              border-bottom: 8px solid $mist-s30;
+              border-color: $mist-s30;
             }
 
             &:nth-child(2) {
-              border-bottom: 8px solid $sapphire;
+              border-color: $sapphire;
             }
 
             &:nth-child(3) {
-              border-bottom: 8px solid $turmeric;
+              border-color: $turmeric;
             }
 
             &:nth-child(4) {
-              border-bottom: 8px solid $jade;
+              border-color: $jade;
             }
 
             &:nth-child(5) {
-              border-bottom: 8px solid $flamingo;
+              border-color: $flamingo;
             }
           }
         }
@@ -105,6 +106,10 @@
         a {
           text-decoration: none;
           border: none;
+
+          @include media-query-xlarge {
+            padding: 0 40px;
+          }
         }
       }
 
@@ -122,12 +127,14 @@
         }
 
         &-item {
-          padding: 0 40px;
-          font-weight: 600;
-
           width: unset;
           min-height: unset;
           border: none;
+
+          &:not(.active-item):hover {
+            color: $flamingo-s40;
+            border-bottom: 1px solid $flamingo-s40;
+          }
         }
       }
     }

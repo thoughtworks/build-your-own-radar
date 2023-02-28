@@ -5,6 +5,7 @@ function toRadian(angleInDegrees) {
 function center(pointA, pointB) {
   return Math.round((pointA - pointB) / 2)
 }
+
 module.exports = {
   toRadian,
   center,
