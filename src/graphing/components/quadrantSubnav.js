@@ -15,6 +15,10 @@ function addListItem(quadrantList, name, callback) {
 
       d3.select('span.quadrant-subnav__dropdown-selector').text(e.target.innerText)
 
+      const subnavArrow = d3.select('.quadrant-subnav__dropdown-arrow')
+      subnavArrow.classed('rotate', !d3.select('span.quadrant-subnav__dropdown-arrow').classed('rotate'))
+      quadrantList.classed('show', !d3.select('ul.quadrant-subnav__list').classed('show'))
+
       if (callback) {
         callback()
       }
@@ -39,6 +43,21 @@ function renderQuadrantSubnav(radarHeader, quadrants, renderFullRadar) {
 
   quadrants.forEach(function (quadrant) {
     addListItem(quadrantList, quadrant.quadrant.name())
+  })
+
+  let subnavOffset
+  window.addEventListener('load', function () {
+    subnavOffset = d3.select('.quadrant-subnav').node().offsetTop
+  })
+
+  window.addEventListener('scroll', function () {
+    if (subnavOffset <= window.pageYOffset) {
+      d3.select('.quadrant-subnav').classed('sticky', true)
+      d3.select('.search-container').classed('sticky-offset', true)
+    } else {
+      d3.select('.quadrant-subnav').classed('sticky', false)
+      d3.select('.search-container').classed('sticky-offset', false)
+    }
   })
 }
 

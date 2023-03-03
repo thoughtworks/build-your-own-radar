@@ -19,6 +19,10 @@
     justify-content: center;
     align-items: center;
 
+    &.sticky-offset {
+      margin-top: 108px;
+    }
+
     @include layout-margin(1, $screen-small);
     @include layout-margin(calc(10 / 12), $screen-large);
     @include layout-margin(calc(10 / 12), $screen-xlarge);
@@ -28,18 +32,34 @@
     @include media-query-medium {
       height: 48px;
       margin: 64px auto 48px;
+
+      &.sticky-offset {
+        margin-top: 124px;
+      }
     }
 
     @include media-query-large {
       margin: 72px auto 48px;
+
+      &.sticky-offset {
+        margin-top: 132px;
+      }
     }
 
     @include media-query-xlarge {
       margin: 64px auto 48px;
+
+      &.sticky-offset {
+        margin-top: 124px;
+      }
     }
 
     @include media-query-xxlarge {
       margin: 80px auto 64px;
+
+      &.sticky-offset {
+        margin-top: 140px;
+      }
     }
 
     &__input {

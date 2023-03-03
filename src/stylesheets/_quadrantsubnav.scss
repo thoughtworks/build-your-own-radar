@@ -18,6 +18,13 @@
       font-size: 1.25rem;
     }
 
+    &.sticky {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 999;
+    }
+
     &__dropdown {
       height: fit-content;
       min-height: 60px;
@@ -28,6 +35,7 @@
       flex-direction: row;
       justify-content: center;
       gap: 8px;
+      cursor: pointer;
 
       &-arrow {
         width: 8px;
