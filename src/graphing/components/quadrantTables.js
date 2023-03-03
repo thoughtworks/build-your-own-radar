@@ -34,20 +34,37 @@ function renderBlipDescription(blip, ring, quadrant, tip) {
 
   const mouseOver = function (e) {
     const blipId = d3.select(e.target.parentElement).attr('data-blip-id')
+
     d3.selectAll('g > a.blip-link').attr('opacity', 0.3)
     d3.select(`g > a.blip-link[data-blip-id="${blipId}"`).attr('opacity', 1.0)
+
     blipItem.classed('highlight', true)
+
     tip.show(blip.name(), blipGroupItem.node())
   }
 
   const mouseOut = function () {
     d3.selectAll('g > a.blip-link').attr('opacity', 1.0)
+
     blipItem.classed('highlight', false)
+
     tip.hide().style('left', 0).style('top', 0)
   }
 
+  const blipClick = function (e) {
+    const blipId = d3.select(e.target.parentElement).attr('data-blip-id')
+
+    d3.selectAll('.blip-list__item-container.expand').classed('expand', false)
+    d3.select(`.blip-list__item-container[data-blip-id="${blipId}"`).classed('expand', true)
+  }
+
   blipItem.on('mouseover', mouseOver).on('mouseout', mouseOut).on('focusin', mouseOver).on('focusout', mouseOut)
-  blipGroupItem.on('mouseover', mouseOver).on('mouseout', mouseOut).on('focusin', mouseOver).on('focusout', mouseOut)
+  blipGroupItem
+    .on('mouseover', mouseOver)
+    .on('mouseout', mouseOut)
+    .on('focusin', mouseOver)
+    .on('focusout', mouseOut)
+    .on('click', blipClick)
 }
 
 function renderQuadrantTables(quadrants, rings) {
