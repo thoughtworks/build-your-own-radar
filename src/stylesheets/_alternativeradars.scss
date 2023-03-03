@@ -5,6 +5,7 @@
   .graph-footer {
     display: flex;
     flex-direction: column;
+    width: 100%;
 
     @include media-query-medium {
       align-items: center;
@@ -34,7 +35,7 @@
       justify-content: center;
       font-size: 1.125rem;
       font-family: $baseFontFamily;
-      font-weight: 600;
+      font-weight: 630;
       margin-block: 0;
       margin-bottom: 16px;
       margin-left: 0;

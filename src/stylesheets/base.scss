@@ -11,11 +11,21 @@
 @import 'alternativeradars';
 @import 'buttons';
 @import 'quadrants';
+@import 'quadrantTables';
 @import 'mediaqueries';
 @import 'layout';
 @import 'landingpage';
 @import 'loader';
 @import 'screen';
+
+:root {
+  font-family: 'Inter', sans-serif;
+}
+@supports (font-variation-settings: normal) {
+  :root {
+    font-family: 'Inter var', sans-serif;
+  }
+}
 
 body {
   font: 18px 'Open Sans';
@@ -44,6 +54,34 @@ body {
 
       @include media-query-xxxlarge {
         font-size: 3.5rem;
+      }
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 630;
+      font-family: 'Inter', serif;
+      text-transform: none;
+      letter-spacing: normal;
+
+      @include media-query-medium {
+        font-size: 1.25rem;
+      }
+
+      @include media-query-large {
+        font-size: 1.5rem;
+      }
+
+      @include media-query-xlarge {
+        font-size: 1.5rem;
+      }
+
+      @include media-query-xxlarge {
+        font-size: 2rem;
+      }
+
+      @include media-query-xxxlarge {
+        font-size: 2rem;
       }
     }
 

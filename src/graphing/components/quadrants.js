@@ -1,6 +1,5 @@
 const _ = require('lodash/core')
 const d3 = require('d3')
-const { default: d3tip } = require('d3-tip')
 const { toRadian, center } = require('../../util/mathUtils')
 const { graphConfig, getGraphSize } = require('../config')
 const config = require('../../config')
@@ -42,8 +41,8 @@ function selectQuadrant(order, startAngle, svg) {
   const translateXAll = (((1 - adjustX) / 2) * size * scale) / 2 + ((1 - adjustX) / 2) * (1 - scale / 2) * size
   const translateYAll = (((1 + adjustY) / 2) * size * scale) / 2
 
-  const moveRight = ((1 + adjustX) * (0.8 * window.innerWidth - size)) / 2
-  const moveLeft = ((1 - adjustX) * (0.8 * window.innerWidth - size)) / 2
+  // const moveRight = ((1 + adjustX) * (0.8 * window.innerWidth - size)) / 2
+  // const moveLeft = ((1 - adjustX) * (0.8 * window.innerWidth - size)) / 2
 
   // svg.style('left', moveLeft + 'px').style('right', moveRight + 'px')
   svg.classed(`quadrant-view-${order}`, true).classed('quadrant-view', true)
@@ -103,8 +102,6 @@ function selectQuadrant(order, startAngle, svg) {
 //   }
 // }
 
-
-
 function renderRadarQuadrantName(quadrant, parentGroup) {
   const adjustX = Math.sin(toRadian(quadrant.startAngle)) - Math.cos(toRadian(quadrant.startAngle))
   const adjustY = -Math.cos(toRadian(quadrant.startAngle)) - Math.sin(toRadian(quadrant.startAngle))
@@ -157,7 +154,6 @@ function renderRadarQuadrantName(quadrant, parentGroup) {
 }
 
 function renderRadarQuadrants(size, svg, quadrant, container, mouseoverQuadrant, mouseoutQuadrant) {
-  console.log("🚀 ~ file: quadrants.js:186 ~ renderRadarQuadrants ~ quadrant:", quadrant)
   const quadrantGroup = svg.append('g').attr('class', 'quadrant-group quadrant-group-' + quadrant.order)
 
   // const image = document.createElement('img')
@@ -196,6 +192,27 @@ function renderRadarQuadrants(size, svg, quadrant, container, mouseoverQuadrant,
   return quadrantGroup
 }
 
+function renderRadarLegends(radarElement) {
+  const legendsContainer = radarElement.append('div').classed('radar-legends', true)
+
+  const newImage = legendsContainer
+    .append('img')
+    .attr('src', '/images/new.svg')
+    .attr('width', '37px')
+    .attr('height', '37px')
+    .attr('alt', 'new blip legend icon')
+    .node().outerHTML
+  const noChangeImage = legendsContainer
+    .append('img')
+    .attr('src', '/images/no-change.svg')
+    .attr('width', '37px')
+    .attr('height', '37px')
+    .attr('alt', 'no change blip legend icon')
+    .node().outerHTML
+
+  legendsContainer.html(`${newImage} New ${noChangeImage} No change`)
+}
+
 function renderMobileView(quadrant) {
   const quadrantBtn = d3.select('.all-quadrants-mobile').append('button')
   quadrantBtn
@@ -213,6 +230,7 @@ function renderMobileView(quadrant) {
 module.exports = {
   renderQuadrantTables,
   renderRadarQuadrants,
+  renderRadarLegends,
   renderMobileView,
   selectQuadrant,
 }

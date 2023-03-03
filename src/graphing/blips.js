@@ -1,18 +1,12 @@
-const d3 = require('d3')
 const Chance = require('chance')
 const { graphConfig } = require('./config')
 const { toRadian } = require('../util/mathUtils')
-const { selectQuadrant } = require('./components/quadrants')
+const { renderBlipDescription } = require('./components/quadrantTables')
 
 const getRingRadius = function (ringIndex) {
   const ratios = [0, 0.316, 0.652, 0.832, 0.992]
   const radius = ratios[ringIndex] * graphConfig.quadrantWidth
   return radius || 0
-}
-function addRing(ring, order) {
-  const table = d3.select('.quadrant-table.' + order)
-  table.append('h3').text(ring)
-  return table.append('ul')
 }
 
 function getBorderWidthOffset(quadrantOrder, adjustY, adjustX) {
@@ -126,7 +120,7 @@ function noChangeBlip(blip, xValue, yValue, order, group) {
   drawBlipCircle(group, blip, xValue, yValue, order)
 }
 
-function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup, ringList, tip, startAngle) {
+function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup) {
   let x = coordinates[0]
   let y = coordinates[1]
 
@@ -136,11 +130,14 @@ function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup, ringList
     .attr('href', 'javascript:void(0)')
     .attr('class', 'blip-link')
     .attr('id', 'blip-link-' + blip.number())
+    .attr('data-blip-id', blip.number())
+
   if (blip.isNew()) {
     newBlip(blip, x, y, order, group)
   } else {
     noChangeBlip(blip, x, y, order, group)
   }
+
   group
     .append('text')
     .attr('x', 18)
@@ -151,54 +148,6 @@ function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup, ringList
     .attr('fill', 'white')
     .text(blip.number())
     .style('text-anchor', 'middle')
-
-  const blipListItem = ringList.append('li')
-  const blipText = blip.number() + '. ' + blip.name() + (blip.topic() ? '. - ' + blip.topic() : '')
-  blipListItem
-    .append('div')
-    .attr('class', 'blip-list-item')
-    .attr('id', 'blip-list-item-' + blip.number())
-    .text(blipText)
-
-  const blipItemDescription = blipListItem
-    .append('div')
-    .attr('id', 'blip-description-' + blip.number())
-    .attr('class', 'blip-item-description')
-  if (blip.description()) {
-    blipItemDescription.append('p').html(blip.description())
-  }
-
-  const mouseOver = function () {
-    d3.selectAll('g > a.blip-link').attr('opacity', 0.3)
-    group.attr('opacity', 1.0)
-    blipListItem.selectAll('.blip-list-item').classed('highlight', true)
-    tip.show(blip.name(), group.node())
-  }
-
-  const mouseOut = function () {
-    d3.selectAll('g > a.blip-link').attr('opacity', 1.0)
-    blipListItem.selectAll('.blip-list-item').classed('highlight', false)
-    tip.hide().style('left', 0).style('top', 0)
-  }
-
-  blipListItem.on('mouseover', mouseOver).on('mouseout', mouseOut).on('focusin', mouseOver).on('focusout', mouseOut)
-  group.on('mouseover', mouseOver).on('mouseout', mouseOut).on('focusin', mouseOver).on('focusout', mouseOut)
-
-  const clickBlip = function () {
-    d3.select('.blip-item-description.expanded').node() !== blipItemDescription.node() &&
-      d3.select('.blip-item-description.expanded').classed('expanded', false)
-    blipItemDescription.classed('expanded', !blipItemDescription.classed('expanded'))
-
-    blipItemDescription.on('click', function () {
-      d3.event.stopPropagation()
-    })
-  }
-
-  group.on('click', () => {
-    clickBlip()
-    selectQuadrant(order, startAngle)
-  })
-  blipListItem.on('click', clickBlip)
 }
 
 const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip) {
@@ -207,11 +156,6 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
   quadrant = quadrantWrapper.quadrant
   startAngle = quadrantWrapper.startAngle
   order = quadrantWrapper.order
-
-  d3.select('.quadrant-table.' + order)
-    .append('h2')
-    .attr('class', 'quadrant-table__name')
-    .text(quadrant.name())
 
   blips = quadrant.blips()
   rings.forEach(function (ring, i) {
@@ -226,13 +170,13 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
     const offset = 10
     const minRadius = getRingRadius(i) + offset
     const maxRadius = getRingRadius(i + 1) - offset
-    const ringList = addRing(ring.name(), order)
     const allBlipCoordinatesInRing = []
 
     ringBlips.forEach(function (blip) {
       const coordinates = findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing, order)
       allBlipCoordinatesInRing.push(coordinates)
-      drawBlipInCoordinates(blip, coordinates, order, parentElement, ringList, tooltip, startAngle)
+      drawBlipInCoordinates(blip, coordinates, order, parentElement)
+      renderBlipDescription(blip, ring, quadrantWrapper, tooltip)
     })
   })
 }

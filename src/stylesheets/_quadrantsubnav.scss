@@ -21,30 +21,30 @@
     &__dropdown {
       height: fit-content;
       min-height: 60px;
-      font-weight: 600;
+      font-weight: 630;
       display: inline-flex;
       border-bottom: 1px solid $mist-s20;
       align-items: center;
       flex-direction: row;
       justify-content: center;
+      gap: 8px;
 
-      &-selector {
-        display: flex;
-        gap: 8px;
+      &-arrow {
+        width: 8px;
+        height: 8px;
+        display: inline-flex;
+        rotate: 45deg;
+        border: 1px solid $flamingo;
+        border-width: 0 2px 2px 0;
+        margin-top: 0;
+        margin-bottom: 4px;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.2s ease;
 
-        &::after {
-          color: $flamingo;
-          content: url(/images/arrow-icon.svg);
-          display: inline-flex;
-          float: right;
-          -webkit-transform: rotate(90deg);
-          transform: rotate(90deg);
-          -webkit-transition: all 0.2s ease;
-          transition: all 0.2s ease;
-        }
-
-        &.rotate::after {
-          transform: rotate(-90deg);
+        &.rotate {
+          rotate: -135deg;
+          margin-bottom: 0;
+          margin-top: 4px;
         }
       }
 

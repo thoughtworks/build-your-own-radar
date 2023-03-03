@@ -428,15 +428,11 @@
 
 @if ($UIRefresh2022) {
   .radar-legends {
-    display: none;
-
-    &.show {
-      @include media-query-xlarge {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 32px 0;
-      }
+    @include media-query-xlarge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 32px 0;
     }
 
     img {

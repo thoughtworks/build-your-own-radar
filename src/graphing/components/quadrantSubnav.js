@@ -25,17 +25,15 @@ function renderQuadrantSubnav(radarHeader, quadrants, renderFullRadar) {
   const subnavContainer = radarHeader.append('div').classed('quadrant-subnav', true)
 
   const subnavDropdown = subnavContainer.append('div').classed('quadrant-subnav__dropdown', true)
-  const subnavSelector = subnavDropdown
-    .append('span')
-    .classed('quadrant-subnav__dropdown-selector', true)
-    .text('All quadrants')
+  subnavDropdown.append('span').classed('quadrant-subnav__dropdown-selector', true).text('All quadrants')
+  const subnavArrow = subnavDropdown.append('span').classed('quadrant-subnav__dropdown-arrow', true)
 
   const quadrantList = subnavContainer.append('ul').classed('quadrant-subnav__list', true)
   addListItem(quadrantList, 'All quadrants', renderFullRadar)
   d3.select('li.quadrant-subnav__list-item').classed('active-item', true)
 
   subnavDropdown.on('click', function () {
-    subnavSelector.classed('rotate', !d3.select('span.quadrant-subnav__dropdown-selector').classed('rotate'))
+    subnavArrow.classed('rotate', !d3.select('span.quadrant-subnav__dropdown-arrow').classed('rotate'))
     quadrantList.classed('show', !d3.select('ul.quadrant-subnav__list').classed('show'))
   })
 
