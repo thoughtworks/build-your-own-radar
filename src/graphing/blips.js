@@ -5,7 +5,7 @@ const { renderBlipDescription } = require('./components/quadrantTables')
 
 const getRingRadius = function (ringIndex) {
   const ratios = [0, 0.316, 0.652, 0.832, 0.992]
-  const radius = ratios[ringIndex] * graphConfig.quadrantWidth
+  const radius = ratios[ringIndex] * graphConfig.effectiveQuadrantWidth
   return radius || 0
 }
 
@@ -14,8 +14,8 @@ function getBorderWidthOffset(quadrantOrder, adjustY, adjustX) {
     borderWidthXOffset = 0
 
   if (quadrantOrder !== 'first') {
-    borderWidthYOffset = adjustY < 0 ? -graphConfig.quadrantsGap : graphConfig.quadrantsGap
-    borderWidthXOffset = adjustX > 0 ? graphConfig.quadrantsGap + 10 : 0
+    borderWidthYOffset = adjustY < 0 ? 0 : graphConfig.quadrantsGap
+    borderWidthXOffset = adjustX > 0 ? graphConfig.quadrantsGap : 0
   }
   return { borderWidthYOffset, borderWidthXOffset }
 }
@@ -33,8 +33,8 @@ function calculateRadarBlipCoordinates(minRadius, maxRadius, startAngle, quadran
   angleDelta = angleDelta > 45 ? 45 : angleDelta
   const angle = toRadian(chance.integer({ min: angleDelta, max: 90 - angleDelta }))
 
-  let x = graphConfig.quadrantWidth + radius * Math.cos(angle) * adjustX + borderWidthXOffset
-  let y = graphConfig.quadrantHeight + radius * Math.sin(angle) * adjustY + borderWidthYOffset
+  let x = graphConfig.effectiveQuadrantWidth + radius * Math.cos(angle) * adjustX + borderWidthXOffset
+  let y = graphConfig.effectiveQuadrantHeight + radius * Math.sin(angle) * adjustY + borderWidthYOffset
 
   return avoidBoundaryCollision(x, y, adjustX, adjustY)
 }
@@ -49,17 +49,17 @@ function thereIsCollision(coordinates, allCoordinates) {
 }
 
 function avoidBoundaryCollision(x, y, adjustX, adjustY) {
-  const size = graphConfig.quadrantWidth * 2 + graphConfig.quadrantsGap
+  const size = graphConfig.effectiveQuadrantWidth * 2 + graphConfig.quadrantsGap
   if (
     (adjustY > 0 && y + graphConfig.blipWidth > size) ||
-    (adjustY < 0 && y + graphConfig.blipWidth > graphConfig.quadrantHeight)
+    (adjustY < 0 && y + graphConfig.blipWidth > graphConfig.effectiveQuadrantHeight)
   ) {
     y = y - graphConfig.blipWidth
   }
-  if (adjustX < 0 && x - graphConfig.blipWidth > graphConfig.quadrantWidth) {
+  if (adjustX < 0 && x - graphConfig.blipWidth > graphConfig.effectiveQuadrantWidth) {
     x += graphConfig.blipWidth
   }
-  if (adjustX > 0 && x + graphConfig.blipWidth < graphConfig.quadrantWidth + graphConfig.quadrantsGap) {
+  if (adjustX > 0 && x + graphConfig.blipWidth < graphConfig.effectiveQuadrantWidth + graphConfig.quadrantsGap) {
     x -= graphConfig.blipWidth
   }
   return [x, y]
@@ -67,7 +67,9 @@ function avoidBoundaryCollision(x, y, adjustX, adjustY) {
 
 function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing, quadrantOrder) {
   const maxIterations = 200
-  const chance = new Chance(Math.PI * graphConfig.quadrantWidth * graphConfig.blipWidth * graphConfig.blipFontSize)
+  const chance = new Chance(
+    Math.PI * graphConfig.effectiveQuadrantWidth * graphConfig.blipWidth * graphConfig.blipFontSize,
+  )
   let coordinates = calculateRadarBlipCoordinates(minRadius, maxRadius, startAngle, quadrantOrder, chance)
   let iterationCounter = 0
   let foundAPlace = false

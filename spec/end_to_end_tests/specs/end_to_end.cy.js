@@ -13,7 +13,6 @@ describe('Build radar with CSV', () => {
     radarPage.clickTheBlip()
     radarPage.validateBlipDescription('test')
     if (featureToggles.UIRefresh2022) {
-      cy.get('.quadrants-container').should('exist')
       cy.get('#radar-plot').should('exist')
       radarPage.validateGraphTitle('Sheet')
       radarPage.validateQuadrantNames()
@@ -27,7 +26,6 @@ describe('Build radar with CSV', () => {
       cy.visit(Cypress.env('host'))
       byorPage.provideCsvName()
       byorPage.clickSubmitButton()
-      cy.get('.quadrants-container').should('not.exist')
       cy.get('#radar-plot').should('not.exist')
       radarPage.clickQuadrant()
       radarPage.clickTheBlip()
@@ -54,7 +52,6 @@ describe('Build radar with JSON', () => {
     radarPage.clickTheBlip()
     radarPage.validateBlipDescription('test')
     if (featureToggles.UIRefresh2022) {
-      cy.get('.quadrants-container').should('exist')
       cy.get('#radar-plot').should('exist')
       radarPage.validateGraphTitle('Data')
       radarPage.validateQuadrantNames()
@@ -83,7 +80,6 @@ describe('Build radar with public Google Sheet', () => {
     byorPage.clickSubmitButton()
     radarPage.validateBlipCountForPublicGoogleSheet()
     if (featureToggles.UIRefresh2022) {
-      cy.get('.quadrants-container').should('exist')
       cy.get('#radar-plot').should('exist')
       radarPage.validateGraphTitle(testConfig.PUBLIC_GOOGLE_SHEET_TITLE)
       radarPage.validateQuadrantNamesForPublicGoogleSheet()

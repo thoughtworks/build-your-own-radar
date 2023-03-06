@@ -103,29 +103,14 @@
 
     @if $UIRefresh2022 {
       path {
-        &.ring-arc-3 {
-          stroke: $mist-s30;
-          fill: transparent;
-        }
-
-        &.ring-arc-2 {
-          stroke: $mist-s30;
-          fill: transparent;
-        }
-
-        &.ring-arc-1 {
-          stroke: $mist-s30;
-          fill: transparent;
-        }
-
+        &.ring-arc-3,
+        &.ring-arc-2,
+        &.ring-arc-1,
         &.ring-arc-0 {
           stroke: $mist-s30;
-          fill: transparent;
+          stroke-width: 1;
+          fill: white;
         }
-      }
-
-      .quadrant-group {
-        translate: -16px 0;
       }
     }
 
@@ -220,86 +205,11 @@
 
         &.line-text {
           font-weight: bold;
-          text-transform: uppercase;
+          text-transform: none;
           fill: $black;
-          font-size: 14px;
+          font-size: 16px;
         }
       }
-    }
-  }
-
-  .quadrants-container {
-    z-index: 1;
-    position: relative;
-    width: 1056px;
-    display: none;
-    margin: auto;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 32px;
-
-    &.quadrant-bg-first,
-    &.quadrant-bg-second,
-    &.quadrant-bg-third,
-    &.quadrant-bg-fourth {
-      left: unset;
-      right: 0;
-      top: 0;
-      margin: 0;
-      width: min-content;
-      position: absolute;
-    }
-
-    &.quadrant-bg-second {
-      translate: 0px 32px;
-    }
-
-    &.quadrant-bg-third {
-      left: 0;
-      right: unset;
-      translate: 0px -32px;
-    }
-
-    &.quadrant-bg-fourth {
-      left: 0;
-      right: unset;
-    }
-
-    @include media-query-xlarge {
-      display: flex;
-    }
-
-    #first-quadrant-bg-image {
-      transform: rotate(270deg);
-    }
-
-    #second-quadrant-bg-image {
-      transform: rotate(180deg);
-    }
-
-    #third-quadrant-bg-image {
-      transform: rotate(360deg);
-    }
-
-    #fourth-quadrant-bg-image {
-      transform: rotate(90deg);
-    }
-
-    .quadrant-bg-images {
-      display: block;
-      position: relative;
-      cursor: pointer;
-
-      &.hidden {
-        display: none;
-      }
-    }
-
-    .left-quadrant,
-    .right-quadrant {
-      flex-direction: column;
-      display: flex;
-      gap: 32px;
     }
   }
 
@@ -432,7 +342,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 32px 0;
+      margin: 32px auto;
+      width: 100%;
+      position: absolute;
+      top: 1056px;
     }
 
     img {

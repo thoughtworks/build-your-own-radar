@@ -8,7 +8,7 @@ const AutoComplete = require('../util/autoComplete')
 const config = require('../config')
 const featureToggles = config().featureToggles
 const { plotRadarBlips } = require('./blips')
-const { graphConfig, getGraphSize } = require('./config')
+const { getGraphSize } = require('./config')
 
 const { renderBanner } = require('./components/banner')
 const { renderQuadrantSubnav } = require('./components/quadrantSubnav')
@@ -19,13 +19,13 @@ const { renderRadarQuadrants, renderMobileView, renderRadarLegends } = require('
 const { renderQuadrantTables } = require('./components/quadrantTables')
 
 const { constructSheetUrl } = require('../util/urlUtils')
-const { toRadian, center } = require('../util/mathUtils')
+const { toRadian } = require('../util/mathUtils')
 
 const MIN_BLIP_WIDTH = 12
 const ANIMATION_DURATION = 1000
-const QUADRANT_GAP = featureToggles.UIRefresh2022 ? graphConfig.quadrantsGap : 0
 
 const Radar = function (size, radar) {
+  const CENTER = size / 2
   var svg, radarElement, quadrantButtons, buttonsGroup, header, alternativeDiv
 
   var tip = d3tip()
@@ -46,39 +46,40 @@ const Radar = function (size, radar) {
     return 'n'
   })
 
-  var ringCalculator = new RingCalculator(radar.rings().length, center(size, QUADRANT_GAP))
+  var ringCalculator = new RingCalculator(radar.rings().length, CENTER)
 
   var self = {}
   var chance
 
   function plotLines(quadrantGroup, quadrant) {
-    var startX = size * (1 - (-Math.sin(toRadian(quadrant.startAngle)) + 1) / 2)
-    var endX = size * (1 - (-Math.sin(toRadian(quadrant.startAngle - 90)) + 1) / 2)
+    const startX = size * (1 - (-Math.sin(toRadian(quadrant.startAngle)) + 1) / 2)
+    const endX = size * (1 - (-Math.sin(toRadian(quadrant.startAngle - 90)) + 1) / 2)
 
-    var startY = size * (1 - (Math.cos(toRadian(quadrant.startAngle)) + 1) / 2)
-    var endY = size * (1 - (Math.cos(toRadian(quadrant.startAngle - 90)) + 1) / 2)
+    let startY = size * (1 - (Math.cos(toRadian(quadrant.startAngle)) + 1) / 2)
+    let endY = size * (1 - (Math.cos(toRadian(quadrant.startAngle - 90)) + 1) / 2)
 
     if (startY > endY) {
-      var aux = endY
+      const aux = endY
       endY = startY
       startY = aux
     }
+    const strokeWidth = featureToggles.UIRefresh2022 ? 32 : 10
 
     quadrantGroup
       .append('line')
-      .attr('x1', center(size, QUADRANT_GAP))
-      .attr('x2', center(size, QUADRANT_GAP))
+      .attr('x1', CENTER)
+      .attr('x2', CENTER)
       .attr('y1', startY - 2)
       .attr('y2', endY + 2)
-      .attr('stroke-width', 10)
+      .attr('stroke-width', strokeWidth)
 
     quadrantGroup
       .append('line')
       .attr('x1', endX)
-      .attr('y1', center(size, QUADRANT_GAP))
+      .attr('y1', CENTER)
       .attr('x2', startX)
-      .attr('y2', center(size, QUADRANT_GAP))
-      .attr('stroke-width', 10)
+      .attr('y2', CENTER)
+      .attr('stroke-width', strokeWidth)
   }
 
   function plotQuadrant(rings, quadrant) {
@@ -101,7 +102,7 @@ const Radar = function (size, radar) {
         .append('path')
         .attr('d', arc)
         .attr('class', 'ring-arc-' + ring.order())
-        .attr('transform', 'translate(' + center(size, QUADRANT_GAP) + ', ' + center(size, QUADRANT_GAP) + ')')
+        .attr('transform', 'translate(' + CENTER + ', ' + CENTER + ')')
     })
 
     return quadrantGroup
@@ -113,16 +114,16 @@ const Radar = function (size, radar) {
         quadrantGroup
           .append('text')
           .attr('class', 'line-text')
-          .attr('y', center(size, QUADRANT_GAP) + 4)
-          .attr('x', center(size, QUADRANT_GAP) + (ringCalculator.getRadius(i) + ringCalculator.getRadius(i + 1)) / 2)
+          .attr('y', CENTER + 4)
+          .attr('x', CENTER + (ringCalculator.getRadius(i) + ringCalculator.getRadius(i + 1)) / 2)
           .attr('text-anchor', 'middle')
           .text(ring.name())
       } else {
         quadrantGroup
           .append('text')
           .attr('class', 'line-text')
-          .attr('y', center(size, QUADRANT_GAP) + 4)
-          .attr('x', center(size, QUADRANT_GAP) - (ringCalculator.getRadius(i) + ringCalculator.getRadius(i + 1)) / 2)
+          .attr('y', CENTER + 4)
+          .attr('x', CENTER - (ringCalculator.getRadius(i) + ringCalculator.getRadius(i + 1)) / 2)
           .attr('text-anchor', 'middle')
           .text(ring.name())
       }
@@ -135,24 +136,16 @@ const Radar = function (size, radar) {
         quadrantGroup
           .append('text')
           .attr('class', 'line-text')
-          .attr('y', center(size, QUADRANT_GAP) + 22)
-          .attr(
-            'x',
-            center(size, QUADRANT_GAP) +
-              graphConfig.quadrantsGap +
-              (ringCalculator.getRingRadius(i) + ringCalculator.getRingRadius(i + 1)) / 2,
-          )
+          .attr('y', CENTER + 5)
+          .attr('x', CENTER + (ringCalculator.getRingRadius(i) + ringCalculator.getRingRadius(i + 1)) / 2)
           .attr('text-anchor', 'middle')
           .text(ring.name())
       } else {
         quadrantGroup
           .append('text')
           .attr('class', 'line-text')
-          .attr('y', center(size, QUADRANT_GAP) + 22)
-          .attr(
-            'x',
-            center(size, QUADRANT_GAP) - (ringCalculator.getRingRadius(i) + ringCalculator.getRingRadius(i + 1)) / 2,
-          )
+          .attr('y', CENTER + 5)
+          .attr('x', CENTER - (ringCalculator.getRingRadius(i) + ringCalculator.getRingRadius(i + 1)) / 2)
           .attr('text-anchor', 'middle')
           .text(ring.name())
       }
@@ -243,8 +236,8 @@ const Radar = function (size, radar) {
     angleDelta = angleDelta > 45 ? 45 : angleDelta
     var angle = toRadian(chance.integer({ min: angleDelta, max: 90 - angleDelta }))
 
-    var x = center(size, QUADRANT_GAP) + radius * Math.cos(angle) * adjustX
-    var y = center(size, QUADRANT_GAP) + radius * Math.sin(angle) * adjustY
+    var x = CENTER + radius * Math.cos(angle) * adjustX
+    var y = CENTER + radius * Math.sin(angle) * adjustY
 
     return [x, y]
   }
@@ -508,7 +501,7 @@ const Radar = function (size, radar) {
       d3.selectAll(`.quadrant-bg-images`).each(function () {
         this.classList.remove('hidden')
       })
-      d3.select(`.quadrants-container`).node().classList.remove('quadrant-page-view')
+      // d3.select(`.quadrants-container`).node().classList.remove('quadrant-page-view')
     } else {
       d3.selectAll('.quadrant-group .blip-link').transition().duration(ANIMATION_DURATION).attr('transform', 'scale(1)')
     }
@@ -545,7 +538,7 @@ const Radar = function (size, radar) {
       this.classList.remove('hidden')
     })
     // d3.select(`.quadrants-container`).node().classList.remove('quadrant-page-view')
-    d3.select(`.quadrants-container`).attr('class', 'quadrants-container')
+    // d3.select(`.quadrants-container`).attr('class', 'quadrants-container')
     d3.select(`svg#radar-plot`).attr('class', '')
     d3.selectAll('.quadrant-group').style('pointer-events', 'auto')
   }
@@ -678,7 +671,7 @@ const Radar = function (size, radar) {
     svg.style('left', moveLeft + 'px').style('right', moveRight + 'px')
 
     if (featureToggles.UIRefresh2022) {
-      d3.select('#radar-plot').attr('width', center(size, QUADRANT_GAP)).attr('height', center(size, QUADRANT_GAP))
+      d3.select('#radar-plot').attr('width', CENTER).attr('height', CENTER)
       d3.select('.quadrant-group-' + order)
         .transition()
         .duration(ANIMATION_DURATION)
@@ -690,7 +683,7 @@ const Radar = function (size, radar) {
       d3.selectAll(`.quadrant-bg-images:not(#${order}-quadrant-bg-image)`).each(function () {
         this.classList.add('hidden')
       })
-      d3.select(`.quadrants-container`).node().classList.add('quadrant-page-view')
+      // d3.select(`.quadrants-container`).node().classList.add('quadrant-page-view')
     } else {
       d3.select('.quadrant-group-' + order)
         .transition()
@@ -786,25 +779,16 @@ const Radar = function (size, radar) {
     svg = radarElement.append('svg').call(tip)
 
     if (featureToggles.UIRefresh2022) {
-      radarElement.style('height', size + 32 + 'px')
+      const legendHeight = 40
+      radarElement.style('height', size + legendHeight + 'px')
       svg.attr('id', 'radar-plot').attr('width', size).attr('height', size)
     } else {
       radarElement.style('height', size + 14 + 'px')
       svg
         .attr('id', 'radar-plot')
-        .attr('width', size + QUADRANT_GAP)
+        .attr('width', size)
         .attr('height', size + 14)
     }
-
-    const quadrantsContainer = document.createElement('div')
-    quadrantsContainer.className = 'quadrants-container'
-    document.getElementById('radar-plot').parentElement.append(quadrantsContainer)
-    const leftQuadrant = document.createElement('div')
-    const rightQuadrant = document.createElement('div')
-    leftQuadrant.className = 'left-quadrant'
-    rightQuadrant.className = 'right-quadrant'
-    quadrantsContainer.append(leftQuadrant)
-    quadrantsContainer.append(rightQuadrant)
 
     _.each(quadrants, function (quadrant) {
       let quadrantGroup
@@ -813,11 +797,13 @@ const Radar = function (size, radar) {
           size,
           svg,
           quadrant,
-          quadrantsContainer,
           mouseoverQuadrant,
           mouseoutQuadrant,
+          rings,
+          ringCalculator,
         )
-        const ringTextGroup = quadrantGroup.append('g').attr('transform', `translate(16,0)`)
+        plotLines(quadrantGroup, quadrant)
+        const ringTextGroup = quadrantGroup.append('g')
         plotRadarTexts(ringTextGroup, rings, quadrant)
         plotRadarBlips(quadrantGroup, rings, quadrant, tip)
         renderMobileView(quadrant)
