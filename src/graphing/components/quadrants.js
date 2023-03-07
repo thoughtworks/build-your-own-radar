@@ -4,7 +4,7 @@ const { graphConfig, getGraphSize } = require('../config')
 
 const ANIMATION_DURATION = 1000
 
-function selectRadarQuadrant(order, startAngle) {
+function selectRadarQuadrant(order, startAngle, name) {
   const svg = d3.select('svg#radar-plot')
   const size = getGraphSize()
 
@@ -36,7 +36,7 @@ function selectRadarQuadrant(order, startAngle) {
     .style('transform-origin', `0 0`)
     .attr('width', graphConfig.quadrantWidth)
     .attr('height', graphConfig.quadrantHeight + graphConfig.quadrantsGap)
-  svg.classed(`quadrant-view-${order}`, true).classed('quadrant-view', true)
+  svg.classed('quadrant-view', true)
 
   const quadrantGroupTranslate = {
     first: { x: 0, y: 0 },
@@ -56,7 +56,7 @@ function selectRadarQuadrant(order, startAngle) {
     d3.select(this.parentNode).transition().duration(ANIMATION_DURATION)
   })
 
-  d3.selectAll('.quadrant-group').style('pointer-events', 'auto')
+  d3.selectAll('.quadrant-group').style('opacity', 1)
 
   d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')')
     .transition()
@@ -66,8 +66,11 @@ function selectRadarQuadrant(order, startAngle) {
     .attr('transform', 'translate(' + translateXAll + ',' + translateYAll + ')scale(0)')
     .style('transform', null)
 
+  d3.select('li.quadrant-subnav__list-item.active-item').classed('active-item', false)
+  d3.select(`li#subnav-item-${name.replaceAll('/\\s+/g', '')}`).classed('active-item', true)
   d3.select('#radar').classed('mobile', true) // shows the table
   d3.select('.all-quadrants-mobile').classed('show-all-quadrants-mobile', false) // hides the quadrants
+  // stickQuadrantOnScroll()
 }
 
 function renderRadarQuadrantName(quadrant, parentGroup) {
@@ -121,14 +124,13 @@ function renderRadarQuadrantName(quadrant, parentGroup) {
   ctaArrow.attr('transform', `translate(${ctaArrowXOffset}, ${ctaArrowYOffset})`)
 }
 
-function renderRadarQuadrants(size, svg, quadrant, mouseoverQuadrant, mouseoutQuadrant, rings, ringCalculator) {
+function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator) {
   const quadrantGroup = svg
     .append('g')
     .attr('class', 'quadrant-group quadrant-group-' + quadrant.order)
     .on('mouseover', mouseoverQuadrant.bind({}, quadrant.order))
     .on('mouseout', mouseoutQuadrant.bind({}, quadrant.order))
-    .on('click', selectRadarQuadrant.bind({}, quadrant.order, quadrant.startAngle))
-    .style('pointer-events', 'all')
+    .on('click', selectRadarQuadrant.bind({}, quadrant.order, quadrant.startAngle, quadrant.quadrant.name()))
 
   const rectCoordMap = {
     first: { x: 0, y: 0, strokeDashArray: '0,512,1024,512' },
@@ -207,12 +209,45 @@ function renderMobileView(quadrant) {
     .attr('class', 'btn-text-wrapper')
     .text(quadrant.quadrant.name().replace(/[^a-zA-Z0-9\s!&]/g, ' '))
   quadrantBtn.node().onclick = () => {
-    selectRadarQuadrant(quadrant.order, quadrant.startAngle)
+    selectRadarQuadrant(quadrant.order, quadrant.startAngle, quadrant.quadrant.name())
   }
 }
 
+function mouseoverQuadrant(order) {
+  d3.select('.quadrant-group-' + order).style('opacity', 1)
+  d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')').style('opacity', 0.3)
+}
+
+function mouseoutQuadrant(order) {
+  d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')').style('opacity', 1)
+}
+
+// function stickQuadrantOnScroll (){
+//   let element,quadrantTable, offset;
+//     element = d3.select('#radar').node();
+//     quadrantTable = d3.select('.quadrant-table.selected').node();
+//     offset = element.offsetTop;
+//
+//   window.addEventListener('scroll', function() {
+//     if (window.pageYOffset >= offset) {
+//       d3.select('#radar-plot.quadrant-view').classed('sticky', true)
+//       const stopOffset = quadrantTable.offsetTop;
+//       const elementHeight = element.offsetHeight;
+//       if (window.pageYOffset + elementHeight >= stopOffset) {
+//         console.
+//         d3.select('#radar-plot.quadrant-view').classed('sticky', false)
+//       }
+//     } else {
+//       d3.select('#radar-plot.quadrant-view').classed('sticky', false)
+//     }
+//   });
+// }
+
 module.exports = {
+  selectRadarQuadrant,
   renderRadarQuadrants,
   renderRadarLegends,
   renderMobileView,
+  mouseoverQuadrant,
+  mouseoutQuadrant,
 }

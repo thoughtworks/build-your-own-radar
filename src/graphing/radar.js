@@ -514,6 +514,8 @@ const Radar = function (size, radar) {
     d3.select('.legend').remove()
     d3.select('#radar').classed('mobile', false)
     d3.select('.all-quadrants-mobile').classed('show-all-quadrants-mobile', true)
+    d3.select('li.quadrant-subnav__list-item.active-item').classed('active-item', false)
+    d3.select('li.quadrant-subnav__list-item').classed('active-item', true)
 
     d3tip()
       .attr('class', 'd3-tip')
@@ -540,7 +542,6 @@ const Radar = function (size, radar) {
 
     d3.select('#radar-plot').attr('width', size).attr('height', size)
     d3.select(`svg#radar-plot`).attr('class', '')
-    d3.selectAll('.quadrant-group').style('pointer-events', 'auto')
   }
 
   function searchBlip(_e, ui) {
@@ -777,15 +778,7 @@ const Radar = function (size, radar) {
     _.each(quadrants, function (quadrant) {
       let quadrantGroup
       if (featureToggles.UIRefresh2022) {
-        quadrantGroup = renderRadarQuadrants(
-          size,
-          svg,
-          quadrant,
-          mouseoverQuadrant,
-          mouseoutQuadrant,
-          rings,
-          ringCalculator,
-        )
+        quadrantGroup = renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator)
         plotLines(quadrantGroup, quadrant)
         const ringTextGroup = quadrantGroup.append('g')
         plotRadarTexts(ringTextGroup, rings, quadrant)

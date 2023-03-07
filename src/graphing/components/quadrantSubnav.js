@@ -1,18 +1,15 @@
 const d3 = require('d3')
+const { selectRadarQuadrant, mouseoverQuadrant, mouseoutQuadrant } = require('./quadrants')
 
-function addListItem(quadrantList, name, callback) {
+function addListItem(quadrantList, name, callback, order) {
   quadrantList
     .append('li')
+    .attr('id', `subnav-item-${name.replaceAll('/\\s+/g', '')}`)
     .classed('quadrant-subnav__list-item', true)
     .append('a')
     .attr('href', 'javascript:void(0)')
     .text(name)
     .on('click', function (e) {
-      d3.select('li.quadrant-subnav__list-item.active-item').classed('active-item', false)
-
-      const listItem = e.target.parentElement
-      d3.select(listItem).classed('active-item', true)
-
       d3.select('span.quadrant-subnav__dropdown-selector').text(e.target.innerText)
 
       const subnavArrow = d3.select('.quadrant-subnav__dropdown-arrow')
@@ -23,6 +20,8 @@ function addListItem(quadrantList, name, callback) {
         callback()
       }
     })
+    .on('mouseover', () => mouseoverQuadrant(order))
+    .on('mouseout', () => mouseoutQuadrant(order))
 }
 
 function renderQuadrantSubnav(radarHeader, quadrants, renderFullRadar) {
@@ -42,7 +41,12 @@ function renderQuadrantSubnav(radarHeader, quadrants, renderFullRadar) {
   })
 
   quadrants.forEach(function (quadrant) {
-    addListItem(quadrantList, quadrant.quadrant.name())
+    addListItem(
+      quadrantList,
+      quadrant.quadrant.name(),
+      () => selectRadarQuadrant(quadrant.order, quadrant.startAngle, quadrant.quadrant.name()),
+      quadrant.order,
+    )
   })
 
   let subnavOffset

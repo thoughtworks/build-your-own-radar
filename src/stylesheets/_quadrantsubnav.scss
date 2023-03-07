@@ -88,6 +88,9 @@
           &.active-item {
             padding-top: 4px;
             border-bottom: 4px solid transparent;
+            pointer-events: none;
+            font-weight: bold;
+            transition: font-weight 0.3s ease-in-out;
 
             &:nth-child(1) {
               border-color: $mist-s30;
@@ -141,7 +144,11 @@
 
           &:not(.active-item):hover {
             color: $flamingo-s40;
-            border-bottom: 1px solid $flamingo-s40;
+            text-decoration: underline;
+            text-underline-offset: 6px;
+            & > a {
+              color: $flamingo-s40;
+            }
           }
         }
       }

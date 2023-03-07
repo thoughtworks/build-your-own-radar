@@ -33,8 +33,16 @@
     }
 
     &.quadrant-view {
+      .quadrant-group {
+        pointer-events: none;
+      }
       .quadrant-name-group {
         display: none;
+      }
+      @include media-query-xxlarge {
+        &.sticky {
+          position: fixed;
+        }
       }
     }
 
@@ -85,6 +93,7 @@
 
       .quadrant-group {
         transition: opacity 0.5s ease-out;
+        pointer-events: all;
       }
     }
 
