@@ -13,7 +13,7 @@ function renderBlipDescription(blip, ring, quadrant, tip) {
   const blipItemContainer = blipItemDiv
     .append('button')
     .classed('blip-list__item-container__name', true)
-    .on('click', function (e) {
+    .on('click search-result-click', function (e) {
       e.stopPropagation()
 
       const expandFlag = d3.select(e.target.parentElement).classed('expand')

@@ -50,9 +50,12 @@ function renderQuadrantSubnav(radarHeader, quadrants, renderFullRadar) {
   })
 
   let subnavOffset
-  window.addEventListener('load', function () {
-    subnavOffset = d3.select('.quadrant-subnav').node().offsetTop
-  })
+  document.onreadystatechange = function () {
+    console.log(document.readyState)
+    if (document.readyState === 'complete') {
+      subnavOffset = d3.select('.quadrant-subnav').node().offsetTop
+    }
+  }
 
   window.addEventListener('scroll', function () {
     if (subnavOffset <= window.pageYOffset) {

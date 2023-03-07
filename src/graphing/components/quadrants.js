@@ -70,6 +70,13 @@ function selectRadarQuadrant(order, startAngle, name) {
   d3.select(`li#subnav-item-${name.replaceAll('/\\s+/g', '')}`).classed('active-item', true)
   d3.select('#radar').classed('mobile', true) // shows the table
   d3.select('.all-quadrants-mobile').classed('show-all-quadrants-mobile', false) // hides the quadrants
+
+  if (order === 'first' || order === 'second') {
+    d3.select('.radar-legends').classed('right-view', true)
+  } else {
+    d3.select('.radar-legends').classed('left-view', true)
+  }
+
   // stickQuadrantOnScroll()
 }
 
