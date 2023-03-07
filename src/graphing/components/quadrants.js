@@ -1,35 +1,19 @@
-const _ = require('lodash/core')
 const d3 = require('d3')
 const { toRadian } = require('../../util/mathUtils')
 const { graphConfig, getGraphSize } = require('../config')
 
 const ANIMATION_DURATION = 1000
 
-function renderQuadrantTables(quadrants) {
-  const radarElement = d3.select('#radar')
-  _.each([0, 1, 2, 3], function (i) {
-    addButton(radarElement, quadrants[i])
-  })
-}
-
-function addButton(radarElement, quadrant) {
-  radarElement.append('div').attr('class', 'quadrant-table ' + quadrant.order)
-}
-
-function selectQuadrant(order, startAngle) {
+function selectRadarQuadrant(order, startAngle) {
+  const svg = d3.select('svg#radar-plot')
   const size = getGraphSize()
-  // d3.selectAll('.home-link').classed('selected', false)
-  // createHomeLink(d3.select('header'))
 
-  // d3.selectAll('.button').classed('selected', false).classed('full-view', false)
-  // d3.selectAll('.button.' + order).classed('selected', true)
   d3.selectAll('.quadrant-table').classed('selected', false)
   d3.selectAll('.quadrant-table.' + order).classed('selected', true)
 
-  // TODO: Add logic to expand specific blip on blip click
   d3.selectAll('.blip-item-description').classed('expanded', false)
 
-  const scale = 2
+  const scale = 1.5
 
   const adjustX = Math.sin(toRadian(startAngle)) - Math.cos(toRadian(startAngle))
   const adjustY = Math.cos(toRadian(startAngle)) + Math.sin(toRadian(startAngle))
@@ -37,44 +21,50 @@ function selectQuadrant(order, startAngle) {
   const translateXAll = (((1 - adjustX) / 2) * size * scale) / 2 + ((1 - adjustX) / 2) * (1 - scale / 2) * size
   const translateYAll = (((1 + adjustY) / 2) * size * scale) / 2
 
-  // const moveRight = ((1 + adjustX) * (0.8 * window.innerWidth - size)) / 2
-  // const moveLeft = ((1 - adjustX) * (0.8 * window.innerWidth - size)) / 2
+  const translateLeftRightValues = {
+    first: { left: 376, top: 0 },
+    second: { left: 376, top: 0 },
+    third: { left: -854, top: 0 },
+    fourth: { left: -854, top: 0 },
+  }
 
-  // svg.style('left', moveLeft + 'px').style('right', moveRight + 'px')
-  // svg.classed(`quadrant-view-${order}`, true).classed('quadrant-view', true)
-
-  d3.select('#radar-plot')
+  svg
+    .style('left', translateLeftRightValues[order].left + 'px')
+    .style('top', translateLeftRightValues[order].top + 'px')
+  svg
+    .attr('transform', 'scale(1.5)')
+    .style('transform-origin', `0 0`)
     .attr('width', graphConfig.quadrantWidth)
     .attr('height', graphConfig.quadrantHeight + graphConfig.quadrantsGap)
+  svg.classed(`quadrant-view-${order}`, true).classed('quadrant-view', true)
 
-  // d3.select('.quadrant-group-' + order)
-  //   .transition()
-  //   .duration(ANIMATION_DURATION)
-  // .style('transform', `translate(100px, 0)`)
-  // .style('left', 'unset')
-  // .style('right', 0)
+  const quadrantGroupTranslate = {
+    first: { x: 0, y: 0 },
+    second: { x: 0, y: -512 },
+    third: { x: -544, y: 0 },
+    fourth: { x: -544, y: -512 },
+  }
+
+  d3.select('.quadrant-group-' + order)
+    .transition()
+    .duration(ANIMATION_DURATION)
+    .style('transform', `translate(${quadrantGroupTranslate[order].x}px, ${quadrantGroupTranslate[order].y}px)`)
+    .style('left', 'unset')
+    .style('right', 0)
 
   d3.selectAll('.quadrant-group-' + order + ' .blip-link text').each(function () {
     d3.select(this.parentNode).transition().duration(ANIMATION_DURATION)
   })
-
-  d3.selectAll(`.quadrant-bg-images:not(#${order}-quadrant-bg-image)`).each(function () {
-    this.classList.add('hidden')
-  })
-
-  // d3.select(`.quadrants-container`).classed('quadrant-page-view', true).classed(`quadrant-bg-${order}`, true)
 
   d3.selectAll('.quadrant-group').style('pointer-events', 'auto')
 
   d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')')
     .transition()
     .duration(ANIMATION_DURATION)
+    .style('opacity', '0')
     .style('pointer-events', 'none')
     .attr('transform', 'translate(' + translateXAll + ',' + translateYAll + ')scale(0)')
-
-  // if (d3.select('.legend.legend-' + order).empty()) {
-  //   drawLegend(order)
-  // }
+    .style('transform', null)
 
   d3.select('#radar').classed('mobile', true) // shows the table
   d3.select('.all-quadrants-mobile').classed('show-all-quadrants-mobile', false) // hides the quadrants
@@ -137,7 +127,7 @@ function renderRadarQuadrants(size, svg, quadrant, mouseoverQuadrant, mouseoutQu
     .attr('class', 'quadrant-group quadrant-group-' + quadrant.order)
     .on('mouseover', mouseoverQuadrant.bind({}, quadrant.order))
     .on('mouseout', mouseoutQuadrant.bind({}, quadrant.order))
-    .on('click', selectQuadrant.bind({}, quadrant.order, quadrant.startAngle))
+    .on('click', selectRadarQuadrant.bind({}, quadrant.order, quadrant.startAngle))
     .style('pointer-events', 'all')
 
   const rectCoordMap = {
@@ -217,14 +207,12 @@ function renderMobileView(quadrant) {
     .attr('class', 'btn-text-wrapper')
     .text(quadrant.quadrant.name().replace(/[^a-zA-Z0-9\s!&]/g, ' '))
   quadrantBtn.node().onclick = () => {
-    selectQuadrant(quadrant.order, quadrant.startAngle)
+    selectRadarQuadrant(quadrant.order, quadrant.startAngle)
   }
 }
 
 module.exports = {
-  renderQuadrantTables,
   renderRadarQuadrants,
   renderRadarLegends,
   renderMobileView,
-  selectQuadrant,
 }

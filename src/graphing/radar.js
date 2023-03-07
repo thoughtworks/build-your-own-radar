@@ -68,9 +68,9 @@ const Radar = function (size, radar) {
     quadrantGroup
       .append('line')
       .attr('x1', CENTER)
+      .attr('y1', startY)
       .attr('x2', CENTER)
-      .attr('y1', startY - 2)
-      .attr('y2', endY + 2)
+      .attr('y2', endY)
       .attr('stroke-width', strokeWidth)
 
     quadrantGroup
@@ -501,7 +501,7 @@ const Radar = function (size, radar) {
       d3.selectAll(`.quadrant-bg-images`).each(function () {
         this.classList.remove('hidden')
       })
-      // d3.select(`.quadrants-container`).node().classList.remove('quadrant-page-view')
+      d3.selectAll('.quadrant-group').style('display', 'block')
     } else {
       d3.selectAll('.quadrant-group .blip-link').transition().duration(ANIMATION_DURATION).attr('transform', 'scale(1)')
     }
@@ -524,21 +524,21 @@ const Radar = function (size, radar) {
 
     d3.selectAll('g.blip-link').attr('opacity', 1.0)
 
-    // svg.style('left', 0).style('right', 0)
+    svg.style('left', 0).style('right', 0).style('top', 0).attr('transform', 'scale(1)')
 
     d3.selectAll('.button').classed('selected', false).classed('full-view', true)
 
     d3.selectAll('.quadrant-table').classed('selected', false)
     d3.selectAll('.home-link').classed('selected', false)
 
-    d3.selectAll('.quadrant-group').transition().duration(ANIMATION_DURATION).attr('transform', 'scale(1)')
+    d3.selectAll('.quadrant-group')
+      .transition()
+      .duration(ANIMATION_DURATION)
+      .style('transform', 'scale(1)')
+      .style('opacity', '1')
+      .attr('transform', 'translate(0,0)')
 
     d3.select('#radar-plot').attr('width', size).attr('height', size)
-    d3.selectAll(`.quadrant-bg-images`).each(function () {
-      this.classList.remove('hidden')
-    })
-    // d3.select(`.quadrants-container`).node().classList.remove('quadrant-page-view')
-    // d3.select(`.quadrants-container`).attr('class', 'quadrants-container')
     d3.select(`svg#radar-plot`).attr('class', '')
     d3.selectAll('.quadrant-group').style('pointer-events', 'auto')
   }
@@ -670,34 +670,18 @@ const Radar = function (size, radar) {
 
     svg.style('left', moveLeft + 'px').style('right', moveRight + 'px')
 
-    if (featureToggles.UIRefresh2022) {
-      d3.select('#radar-plot').attr('width', CENTER).attr('height', CENTER)
-      d3.select('.quadrant-group-' + order)
+    d3.select('.quadrant-group-' + order)
+      .transition()
+      .duration(ANIMATION_DURATION)
+      .attr('transform', 'translate(' + translateX + ',' + translateY + ')scale(' + scale + ')')
+    d3.selectAll('.quadrant-group-' + order + ' .blip-link text').each(function () {
+      var x = d3.select(this).attr('x')
+      var y = d3.select(this).attr('y')
+      d3.select(this.parentNode)
         .transition()
         .duration(ANIMATION_DURATION)
-        .attr('transform', 'translate(' + 0 + ',' + 0 + ')scale(' + 1 + ')')
-      d3.selectAll('.quadrant-group-' + order + ' .blip-link text').each(function () {
-        d3.select(this.parentNode).transition().duration(ANIMATION_DURATION)
-      })
-
-      d3.selectAll(`.quadrant-bg-images:not(#${order}-quadrant-bg-image)`).each(function () {
-        this.classList.add('hidden')
-      })
-      // d3.select(`.quadrants-container`).node().classList.add('quadrant-page-view')
-    } else {
-      d3.select('.quadrant-group-' + order)
-        .transition()
-        .duration(ANIMATION_DURATION)
-        .attr('transform', 'translate(' + translateX + ',' + translateY + ')scale(' + scale + ')')
-      d3.selectAll('.quadrant-group-' + order + ' .blip-link text').each(function () {
-        var x = d3.select(this).attr('x')
-        var y = d3.select(this).attr('y')
-        d3.select(this.parentNode)
-          .transition()
-          .duration(ANIMATION_DURATION)
-          .attr('transform', 'scale(' + blipScale + ')translate(' + blipTranslate * x + ',' + blipTranslate * y + ')')
-      })
-    }
+        .attr('transform', 'scale(' + blipScale + ')translate(' + blipTranslate * x + ',' + blipTranslate * y + ')')
+    })
 
     d3.selectAll('.quadrant-group').style('pointer-events', 'auto')
 

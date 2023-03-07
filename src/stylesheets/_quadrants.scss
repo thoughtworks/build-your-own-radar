@@ -38,36 +38,6 @@
       }
     }
 
-    &.quadrant-view-first,
-    &.quadrant-view-second {
-      left: unset;
-      right: 0;
-    }
-
-    &.quadrant-view-second {
-      .quadrant-group {
-        &.quadrant-group-second {
-          translate: -16px -512px;
-        }
-      }
-    }
-
-    &.quadrant-view-third,
-    &.quadrant-view-fourth {
-      right: unset;
-      left: 0;
-
-      .quadrant-group {
-        &.quadrant-group-third {
-          translate: -560px 0px;
-        }
-
-        &.quadrant-group-fourth {
-          translate: -554px -512px;
-        }
-      }
-    }
-
     @if $UIRefresh2022 {
       pointer-events: none;
       z-index: 10;
@@ -111,6 +81,10 @@
           stroke-width: 1;
           fill: white;
         }
+      }
+
+      .quadrant-group {
+        transition: opacity 0.5s ease-out;
       }
     }
 
@@ -223,7 +197,6 @@
     position: absolute;
     overflow: hidden;
     z-index: 11;
-
     transition: max-height 0.5s ease 1s;
 
     h3 {
@@ -282,9 +255,12 @@
     }
 
     @if $UIRefresh2022 {
-      display: none;
+      max-height: 0;
+      opacity: 0;
+      transition: opacity 0.3s ease-out;
       &.selected {
-        display: block;
+        opacity: 1;
+        transition: opacity 1s ease 1s;
       }
     }
 
