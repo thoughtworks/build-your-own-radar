@@ -288,15 +288,15 @@ function plotForm (content) {
   var form = content.select('.input-sheet__form').append('form')
     .attr('method', 'get')
 
-  var years = ["/radars/WNE_2020_2021.csv"]
+  var years = ['/radars/WNE_2020_2021.csv', '/radars/SRE.csv']
   form.append('select')
     .attr('name', 'sheetId')
     .selectAll('years')
       .data(years)
     .enter()
       .append('option')
-    .text(function (d) { return d.substring(8, 21); })
-    .attr("value", function (d) { return d; })
+    .text(function (d) { return d.slice(8, -4) })
+    .attr('value', function (d) { return d })
 
   form.append('button')
     .attr('type', 'submit')
