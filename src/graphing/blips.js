@@ -20,16 +20,16 @@ function getBorderWidthOffset(quadrantOrder, adjustY, adjustX) {
   return { borderWidthYOffset, borderWidthXOffset }
 }
 
-function calculateRadarBlipCoordinates(minRadius, maxRadius, startAngle, quadrantOrder, chance) {
+function calculateRadarBlipCoordinates(minRadius, maxRadius, startAngle, quadrantOrder, chance, blip) {
   const adjustX = Math.sin(toRadian(startAngle)) - Math.cos(toRadian(startAngle))
   const adjustY = -Math.cos(toRadian(startAngle)) - Math.sin(toRadian(startAngle))
   const { borderWidthYOffset, borderWidthXOffset } = getBorderWidthOffset(quadrantOrder, adjustY, adjustX)
   const radius = chance.floating({
-    min: minRadius + graphConfig.blipWidth / 2,
-    max: maxRadius - graphConfig.blipWidth,
+    min: minRadius + blip.width / 2,
+    max: maxRadius - blip.width,
   })
 
-  let angleDelta = (Math.asin(graphConfig.blipWidth / 2 / radius) * 180) / (Math.PI - 1.25)
+  let angleDelta = (Math.asin(blip.width / 2 / radius) * 180) / (Math.PI - 1.25)
   angleDelta = angleDelta > 45 ? 45 : angleDelta
   const angle = toRadian(chance.integer({ min: angleDelta, max: 90 - angleDelta }))
 
@@ -39,11 +39,11 @@ function calculateRadarBlipCoordinates(minRadius, maxRadius, startAngle, quadran
   return avoidBoundaryCollision(x, y, adjustX, adjustY)
 }
 
-function thereIsCollision(coordinates, allCoordinates) {
+function thereIsCollision(coordinates, allCoordinates, blipWidth) {
   return allCoordinates.some(function (currentCoordinates) {
     return (
-      Math.abs(currentCoordinates[0] - coordinates[0]) < graphConfig.blipWidth + 10 &&
-      Math.abs(currentCoordinates[1] - coordinates[1]) < graphConfig.blipWidth + 10
+      Math.abs(currentCoordinates.coordinates[0] - coordinates[0]) < currentCoordinates.width/2 + blipWidth/2 + 10 &&
+      Math.abs(currentCoordinates.coordinates[1] - coordinates[1]) < currentCoordinates.width/2 + blipWidth/2 + 10
     )
   })
 }
@@ -68,15 +68,15 @@ function avoidBoundaryCollision(x, y, adjustX, adjustY) {
 function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing, quadrantOrder) {
   const maxIterations = 200
   const chance = new Chance(
-    Math.PI * graphConfig.effectiveQuadrantWidth * graphConfig.blipWidth * graphConfig.blipFontSize,
+    Math.PI * graphConfig.effectiveQuadrantWidth * blip.width * graphConfig.blipFontSize,
   )
-  let coordinates = calculateRadarBlipCoordinates(minRadius, maxRadius, startAngle, quadrantOrder, chance)
+  let coordinates = calculateRadarBlipCoordinates(minRadius, maxRadius, startAngle, quadrantOrder, chance, blip)
   let iterationCounter = 0
   let foundAPlace = false
 
   while (iterationCounter < maxIterations) {
-    if (thereIsCollision(coordinates, allBlipCoordinatesInRing)) {
-      coordinates = calculateRadarBlipCoordinates(minRadius, maxRadius, startAngle, quadrantOrder, chance)
+    if (thereIsCollision(coordinates, allBlipCoordinatesInRing, blip.width)) {
+      coordinates = calculateRadarBlipCoordinates(minRadius, maxRadius, startAngle, quadrantOrder, chance, blip)
     } else {
       foundAPlace = true
       break
@@ -86,6 +86,7 @@ function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoor
 
   if (!foundAPlace && blip.width > graphConfig.minBlipWidth) {
     blip.width = blip.width - 1
+    blip.scale = Math.max((blip.scale || 1) - 0.1, 0.7)
     return findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing, quadrantOrder)
   } else {
     return coordinates
@@ -95,7 +96,7 @@ function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoor
 function blipAssistiveText(blip) {
   return `${blip.ring().name()} ring, ${blip.name()}, ${blip.isNew() ? 'New' : 'No change'} blip.`
 }
-function addOuterCircle(parentSvg, order) {
+function addOuterCircle(parentSvg, order, scale = 1) {
   parentSvg
     .append('path')
     .attr('opacity', '1')
@@ -104,18 +105,24 @@ function addOuterCircle(parentSvg, order) {
       'd',
       'M18 36C8.07 36 0 27.93 0 18S8.07 0 18 0c9.92 0 18 8.07 18 18S27.93 36 18 36zM18 3.14C9.81 3.14 3.14 9.81 3.14 18S9.81 32.86 18 32.86S32.86 26.19 32.86 18S26.19 3.14 18 3.14z',
     )
+    .style("transform", `scale(${scale})`)
 }
 
 function drawBlipCircle(group, blip, xValue, yValue, order) {
   group
-    .attr('transform', `scale(1) translate(${xValue - 16}, ${yValue - 8})`)
+    .attr('transform', `scale(1) translate(${xValue - 16}, ${yValue - 16})`)
     .attr('aria-label', blipAssistiveText(blip))
-  group.append('circle').attr('r', '12').attr('cx', '18').attr('cy', '18').attr('class', order)
+  group.append('circle')
+    .attr('r', '12')
+    .attr('cx', '18')
+    .attr('cy', '18')
+    .attr('class', order)
+    .style('transform',`scale(${blip.scale || 1})`)
 }
 
 function newBlip(blip, xValue, yValue, order, group) {
   drawBlipCircle(group, blip, xValue, yValue, order)
-  addOuterCircle(group, order)
+  addOuterCircle(group, order, blip.scale)
 }
 
 function noChangeBlip(blip, xValue, yValue, order, group) {
@@ -144,12 +151,13 @@ function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup) {
     .append('text')
     .attr('x', 18)
     .attr('y', 23)
-    .style('font-size', (blip.width * 10) / 17 + 'px')
+    .style('font-size', '12px')
     .attr('font-style', 'normal')
     .attr('font-weight', 'bold')
     .attr('fill', 'white')
     .text(blip.number())
     .style('text-anchor', 'middle')
+    .style('transform', `scale(${blip.scale || 1})`)
 }
 
 const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip) {
@@ -176,7 +184,7 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
 
     ringBlips.forEach(function (blip) {
       const coordinates = findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing, order)
-      allBlipCoordinatesInRing.push(coordinates)
+      allBlipCoordinatesInRing.push({coordinates, width:blip.width})
       drawBlipInCoordinates(blip, coordinates, order, parentElement)
       renderBlipDescription(blip, ring, quadrantWrapper, tooltip)
     })
