@@ -42,8 +42,9 @@ function calculateRadarBlipCoordinates(minRadius, maxRadius, startAngle, quadran
 function thereIsCollision(coordinates, allCoordinates, blipWidth) {
   return allCoordinates.some(function (currentCoordinates) {
     return (
-      Math.abs(currentCoordinates.coordinates[0] - coordinates[0]) < currentCoordinates.width/2 + blipWidth/2 + 10 &&
-      Math.abs(currentCoordinates.coordinates[1] - coordinates[1]) < currentCoordinates.width/2 + blipWidth/2 + 10
+      Math.abs(currentCoordinates.coordinates[0] - coordinates[0]) <
+        currentCoordinates.width / 2 + blipWidth / 2 + 10 &&
+      Math.abs(currentCoordinates.coordinates[1] - coordinates[1]) < currentCoordinates.width / 2 + blipWidth / 2 + 10
     )
   })
 }
@@ -67,9 +68,7 @@ function avoidBoundaryCollision(x, y, adjustX, adjustY) {
 
 function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing, quadrantOrder) {
   const maxIterations = 200
-  const chance = new Chance(
-    Math.PI * graphConfig.effectiveQuadrantWidth * blip.width * graphConfig.blipFontSize,
-  )
+  const chance = new Chance(Math.PI * graphConfig.effectiveQuadrantWidth * blip.width * graphConfig.blipFontSize)
   let coordinates = calculateRadarBlipCoordinates(minRadius, maxRadius, startAngle, quadrantOrder, chance, blip)
   let iterationCounter = 0
   let foundAPlace = false
@@ -105,19 +104,20 @@ function addOuterCircle(parentSvg, order, scale = 1) {
       'd',
       'M18 36C8.07 36 0 27.93 0 18S8.07 0 18 0c9.92 0 18 8.07 18 18S27.93 36 18 36zM18 3.14C9.81 3.14 3.14 9.81 3.14 18S9.81 32.86 18 32.86S32.86 26.19 32.86 18S26.19 3.14 18 3.14z',
     )
-    .style("transform", `scale(${scale})`)
+    .style('transform', `scale(${scale})`)
 }
 
 function drawBlipCircle(group, blip, xValue, yValue, order) {
   group
     .attr('transform', `scale(1) translate(${xValue - 16}, ${yValue - 16})`)
     .attr('aria-label', blipAssistiveText(blip))
-  group.append('circle')
+  group
+    .append('circle')
     .attr('r', '12')
     .attr('cx', '18')
     .attr('cy', '18')
     .attr('class', order)
-    .style('transform',`scale(${blip.scale || 1})`)
+    .style('transform', `scale(${blip.scale || 1})`)
 }
 
 function newBlip(blip, xValue, yValue, order, group) {
@@ -184,7 +184,7 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
 
     ringBlips.forEach(function (blip) {
       const coordinates = findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing, order)
-      allBlipCoordinatesInRing.push({coordinates, width:blip.width})
+      allBlipCoordinatesInRing.push({ coordinates, width: blip.width })
       drawBlipInCoordinates(blip, coordinates, order, parentElement)
       renderBlipDescription(blip, ring, quadrantWrapper, tooltip)
     })

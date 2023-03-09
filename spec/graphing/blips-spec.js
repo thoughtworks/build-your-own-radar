@@ -22,7 +22,7 @@ describe('Blips', function () {
     const startAngle = 0
     let minRadius = 160
     const maxRadius = 300
-    const coordinates = calculateRadarBlipCoordinates(minRadius, maxRadius, startAngle, 'first', chance, {width: 22})
+    const coordinates = calculateRadarBlipCoordinates(minRadius, maxRadius, startAngle, 'first', chance, { width: 22 })
 
     const minRadiusAfterThreshold = minRadius + graphConfig.blipWidth / 2
     const maxRadiusAfterThreshold = maxRadius - graphConfig.blipWidth
@@ -49,19 +49,31 @@ describe('Blips', function () {
     const startAngle = -90
     let minRadius = 160
     const maxRadius = 300
-    const blipWidth = 22;
-    const coordinates = calculateRadarBlipCoordinates(minRadius, maxRadius, startAngle, 'second', chance, {width: blipWidth})
+    const blipWidth = 22
+    const coordinates = calculateRadarBlipCoordinates(minRadius, maxRadius, startAngle, 'second', chance, {
+      width: blipWidth,
+    })
 
     const minRadiusAfterThreshold = minRadius + blipWidth / 2
     const maxRadiusAfterThreshold = maxRadius - blipWidth
     const xCoordMaxValue =
-      graphConfig.effectiveQuadrantWidth + maxRadiusAfterThreshold * -1 * 0.0707372016677029 + graphConfig.quadrantsGap + 10
+      graphConfig.effectiveQuadrantWidth +
+      maxRadiusAfterThreshold * -1 * 0.0707372016677029 +
+      graphConfig.quadrantsGap +
+      10
     const yCoordMaxValue =
-      graphConfig.effectiveQuadrantHeight + maxRadiusAfterThreshold * 0.9999 * 0.27563735581699916 + graphConfig.quadrantsGap
+      graphConfig.effectiveQuadrantHeight +
+      maxRadiusAfterThreshold * 0.9999 * 0.27563735581699916 +
+      graphConfig.quadrantsGap
     const xCoordMinValue =
-      graphConfig.effectiveQuadrantWidth + minRadiusAfterThreshold * -1 * 0.9942914830326867 + graphConfig.quadrantsGap + 10
+      graphConfig.effectiveQuadrantWidth +
+      minRadiusAfterThreshold * -1 * 0.9942914830326867 +
+      graphConfig.quadrantsGap +
+      10
     const yCoordMinValue =
-      graphConfig.effectiveQuadrantHeight + minRadiusAfterThreshold * 0.9999 * 0.10670657355889696 + graphConfig.quadrantsGap
+      graphConfig.effectiveQuadrantHeight +
+      minRadiusAfterThreshold * 0.9999 * 0.10670657355889696 +
+      graphConfig.quadrantsGap
 
     expect(chanceFloatingSpy).toHaveBeenCalledWith({
       min: minRadiusAfterThreshold,
