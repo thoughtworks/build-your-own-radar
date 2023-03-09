@@ -21,19 +21,33 @@ function selectRadarQuadrant(order, startAngle, name) {
   const translateXAll = (((1 - adjustX) / 2) * size * scale) / 2 + ((1 - adjustX) / 2) * (1 - scale / 2) * size
   const translateYAll = (((1 + adjustY) / 2) * size * scale) / 2
 
+  const radarContainer = d3.select('#radar')
+  const parentWidth = radarContainer.node().getBoundingClientRect().width
   const translateLeftRightValues = {
     first: {
-      left: (graphConfig.effectiveQuadrantWidth * scale) / 2 + graphConfig.quadrantsGap * scale,
+      left: parentWidth - graphConfig.effectiveQuadrantWidth * scale,
       top: 0,
-      right: 0,
+      right: 'unset',
+      padding: `0 ${graphConfig.quadrantsGap / 2}px 0 0`,
     },
     second: {
-      left: (graphConfig.effectiveQuadrantWidth * scale) / 2 + graphConfig.quadrantsGap * scale,
+      left: parentWidth - graphConfig.effectiveQuadrantWidth * scale,
       top: 0,
-      right: 0,
+      right: 'unset',
+      padding: `0 ${graphConfig.quadrantsGap / 2}px 0 0`,
     },
-    third: { left: 0, top: 0, right: 'unset' },
-    fourth: { left: 0, top: 0, right: 'unset' },
+    third: {
+      left: (-graphConfig.quadrantsGap / 2) * scale,
+      top: 0,
+      right: 'unset',
+      padding: window.innerWidth >= 1280 ? `0 0 0 ${graphConfig.quadrantsGap / 2}px` : '0px',
+    },
+    fourth: {
+      left: (-graphConfig.quadrantsGap / 2) * scale,
+      top: 0,
+      right: 'unset',
+      padding: window.innerWidth >= 1280 ? `0 0 0 ${graphConfig.quadrantsGap / 2}px` : '0px',
+    },
   }
 
   svg
@@ -45,6 +59,8 @@ function selectRadarQuadrant(order, startAngle, name) {
     )
     .style('top', translateLeftRightValues[order].top + 'px')
     .style('right', translateLeftRightValues[order].right)
+    .style('padding', translateLeftRightValues[order].padding)
+    .style('box-sizing', 'border-box')
 
   if (window.innerWidth < 1280) {
     svg.style('margin', 'unset')
