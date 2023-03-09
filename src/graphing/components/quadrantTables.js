@@ -1,4 +1,5 @@
 const d3 = require('d3')
+const { graphConfig } = require('../config')
 
 function renderBlipDescription(blip, ring, quadrant, tip) {
   const blipItem = d3
@@ -70,8 +71,28 @@ function renderBlipDescription(blip, ring, quadrant, tip) {
 function renderQuadrantTables(quadrants, rings) {
   const radarContainer = d3.select('#radar')
 
+  const quadrantTablesContainer = radarContainer.append('div').classed('quadrant-table__container', true)
   quadrants.forEach(function (quadrant) {
-    const quadrantContainer = radarContainer.append('div').classed('quadrant-table', true).classed(quadrant.order, true)
+    const scale = window.innerWidth < 1800 ? 1.25 : 1.5
+    let quadrantContainer
+    if (window.innerWidth < 1280 && window.innerWidth >= 768) {
+      // Additional margin for radar-legends height (42px) and it's padding
+      quadrantContainer = quadrantTablesContainer
+        .append('div')
+        .classed('quadrant-table', true)
+        .classed(quadrant.order, true)
+        .style(
+          'margin',
+          `${graphConfig.effectiveQuadrantHeight * scale + graphConfig.quadrantsGap * scale + 64 + 42}px auto 0px`,
+        )
+        .style('left', '0')
+        .style('right', 0)
+    } else {
+      quadrantContainer = quadrantTablesContainer
+        .append('div')
+        .classed('quadrant-table', true)
+        .classed(quadrant.order, true)
+    }
 
     rings.forEach(function (ring) {
       quadrantContainer.append('h2').classed('quadrant-table__ring-name', true).text(ring.name())

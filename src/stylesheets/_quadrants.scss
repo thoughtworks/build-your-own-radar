@@ -4,6 +4,17 @@
   position: relative;
 
   @if $UIRefresh2022 {
+    width: 100%;
+
+    @include media-query-xlarge {
+      width: 80%;
+      min-width: 1056px;
+    }
+
+    @include layout-margin(calc(12 / 12), $screen-xlarge);
+    @include layout-margin(calc(12 / 12), $screen-xxlarge);
+    @include layout-margin(calc(12 / 12), $screen-xxxlarge);
+
     .mobile {
       display: block;
     }
@@ -25,6 +36,14 @@
     position: absolute;
     left: 0;
     right: 0;
+
+    @if $UIRefresh2022 {
+      display: none;
+
+      @include media-query-medium {
+        display: block;
+      }
+    }
 
     .quadrant-name-group {
       text {
@@ -202,7 +221,9 @@
     }
 
     max-height: 0;
-    max-width: 0;
+    @if not $UIRefresh2022 {
+      max-width: 0;
+    }
     position: absolute;
     overflow: hidden;
     z-index: 11;
@@ -260,7 +281,10 @@
     &.selected {
       position: relative;
       max-height: 10000px;
-      max-width: 40%;
+
+      @if not $UIRefresh2022 {
+        max-width: 40%;
+      }
     }
 
     @if $UIRefresh2022 {

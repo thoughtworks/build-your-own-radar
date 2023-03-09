@@ -4,7 +4,7 @@ const { selectRadarQuadrant, mouseoverQuadrant, mouseoutQuadrant } = require('./
 function addListItem(quadrantList, name, callback, order) {
   quadrantList
     .append('li')
-    .attr('id', `subnav-item-${name.replaceAll('/\\s+/g', '')}`)
+    .attr('id', `subnav-item-${name.replaceAll(/\s+/g, '')}`)
     .classed('quadrant-subnav__list-item', true)
     .append('a')
     .attr('href', 'javascript:void(0)')
@@ -49,16 +49,10 @@ function renderQuadrantSubnav(radarHeader, quadrants, renderFullRadar) {
     )
   })
 
-  let subnavOffset
-  document.onreadystatechange = function () {
-    console.log(document.readyState)
-    if (document.readyState === 'complete') {
-      subnavOffset = d3.select('.quadrant-subnav').node().offsetTop
-    }
-  }
+  const subnavOffset = window.innerWidth < 1024 ? 380 : 280
 
   window.addEventListener('scroll', function () {
-    if (subnavOffset <= window.pageYOffset) {
+    if (subnavOffset <= window.scrollY) {
       d3.select('.quadrant-subnav').classed('sticky', true)
       d3.select('.search-container').classed('sticky-offset', true)
     } else {

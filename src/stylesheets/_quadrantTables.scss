@@ -3,6 +3,9 @@
 
 @if $UIRefresh2022 {
   .quadrant-table {
+    @include layout-margin(calc(12 / 12), $screen-small);
+    @include layout-margin(calc(12 / 12), $screen-medium);
+    @include layout-margin(calc(12 / 12), $screen-large);
     @include layout-margin(calc(4 / 12), $screen-xlarge);
     @include layout-margin(calc(5 / 12), $screen-xxlarge);
     @include layout-margin(calc(5 / 12), $screen-xxxlarge);
@@ -10,6 +13,21 @@
     &__ring-name {
       text-transform: none;
       margin: 0;
+    }
+
+    @include media-query-xlarge {
+      max-width: 40%;
+      margin-top: 0 !important;
+    }
+
+    &__container {
+      display: flex;
+      justify-content: center;
+
+      @include media-query-xlarge {
+        display: block;
+        justify-content: unset;
+      }
     }
   }
 
@@ -52,6 +70,7 @@
           justify-content: space-between;
           align-items: center;
           cursor: pointer;
+          scroll-margin-top: 60px;
 
           & > * {
             pointer-events: none;

@@ -13,7 +13,7 @@ function selectRadarQuadrant(order, startAngle, name) {
 
   d3.selectAll('.blip-item-description').classed('expanded', false)
 
-  const scale = 1.5
+  const scale = window.innerWidth < 1800 ? 1.25 : 1.5
 
   const adjustX = Math.sin(toRadian(startAngle)) - Math.cos(toRadian(startAngle))
   const adjustY = Math.cos(toRadian(startAngle)) + Math.sin(toRadian(startAngle))
@@ -22,17 +22,35 @@ function selectRadarQuadrant(order, startAngle, name) {
   const translateYAll = (((1 + adjustY) / 2) * size * scale) / 2
 
   const translateLeftRightValues = {
-    first: { left: 376, top: 0 },
-    second: { left: 376, top: 0 },
-    third: { left: -854, top: 0 },
-    fourth: { left: -854, top: 0 },
+    first: {
+      left: (graphConfig.effectiveQuadrantWidth * scale) / 2 + graphConfig.quadrantsGap * scale,
+      top: 0,
+      right: 0,
+    },
+    second: {
+      left: (graphConfig.effectiveQuadrantWidth * scale) / 2 + graphConfig.quadrantsGap * scale,
+      top: 0,
+      right: 0,
+    },
+    third: { left: 0, top: 0, right: 'unset' },
+    fourth: { left: 0, top: 0, right: 'unset' },
   }
 
   svg
-    .style('left', translateLeftRightValues[order].left + 'px')
+    .style(
+      'left',
+      window.innerWidth < 1280
+        ? `calc((100% - ${graphConfig.effectiveQuadrantWidth * scale}px) / 2)`
+        : translateLeftRightValues[order].left + 'px',
+    )
     .style('top', translateLeftRightValues[order].top + 'px')
+    .style('right', translateLeftRightValues[order].right)
+
+  if (window.innerWidth < 1280) {
+    svg.style('margin', 'unset')
+  }
   svg
-    .attr('transform', 'scale(1.5)')
+    .attr('transform', `scale(${scale})`)
     .style('transform-origin', `0 0`)
     .attr('width', graphConfig.quadrantWidth)
     .attr('height', graphConfig.quadrantHeight + graphConfig.quadrantsGap)
@@ -67,7 +85,7 @@ function selectRadarQuadrant(order, startAngle, name) {
     .style('transform', null)
 
   d3.select('li.quadrant-subnav__list-item.active-item').classed('active-item', false)
-  d3.select(`li#subnav-item-${name.replaceAll('/\\s+/g', '')}`).classed('active-item', true)
+  d3.select(`li#subnav-item-${name.replaceAll(/\s+/g, '')}`).classed('active-item', true)
   d3.select('#radar').classed('mobile', true) // shows the table
   d3.select('.all-quadrants-mobile').classed('show-all-quadrants-mobile', false) // hides the quadrants
 
@@ -75,6 +93,10 @@ function selectRadarQuadrant(order, startAngle, name) {
     d3.select('.radar-legends').classed('right-view', true)
   } else {
     d3.select('.radar-legends').classed('left-view', true)
+  }
+
+  if (window.innerWidth < 1280) {
+    d3.select('#radar').style('height', null)
   }
 
   // stickQuadrantOnScroll()
@@ -92,14 +114,14 @@ function renderRadarQuadrantName(quadrant, parentGroup) {
     ctaArrowXOffset,
     ctaArrowYOffset = -12
 
-  let quadrantNamesSplit = quadrantNameToDisplay.split(/[^a-zA-Z0-9\s]/g)
+  let quadrantNamesSplit = quadrantNameToDisplay.split(/[^a-zA-Z0-9]/g)
   if (quadrantNamesSplit.length > 1) {
     quadrantNameGroup
       .append('text')
       .text(quadrantNamesSplit[0])
       .attr('font-weight', 'bold')
       .attr('text-anchor', 'end')
-      .attr('transform', 'translate(-45, -20)')
+      .attr('transform', 'translate(-48, -20)')
     quadrantNameToDisplay = quadrantNamesSplit.slice(1).join(' ')
   } else {
     quadrantNameToDisplay = quadrantNamesSplit[0]

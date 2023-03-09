@@ -15,7 +15,7 @@ const { renderQuadrantSubnav } = require('./components/quadrantSubnav')
 const { renderSearch } = require('./components/search')
 const { renderAlternativeRadars } = require('./components/alternativeRadars')
 const { renderButtons } = require('./components/buttons')
-const { renderRadarQuadrants, renderMobileView, renderRadarLegends } = require('./components/quadrants')
+const { renderRadarQuadrants, renderMobileView } = require('./components/quadrants')
 const { renderQuadrantTables } = require('./components/quadrantTables')
 
 const { constructSheetUrl } = require('../util/urlUtils')
@@ -795,7 +795,7 @@ const Radar = function (size, radar) {
     })
 
     if (featureToggles.UIRefresh2022) {
-      renderRadarLegends(radarElement)
+      // renderRadarLegends(radarElement)
     }
   }
 
