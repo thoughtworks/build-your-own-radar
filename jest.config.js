@@ -3,8 +3,16 @@ module.exports = {
   collectCoverageFrom: ['**/src/**/*.js'],
   testEnvironment: 'jsdom',
   transform: {
-    '\\.js?$': 'babel-jest',
-    '.+\\.(css|styl|less|sass|scss)$': 'jest-css-modules-transform',
+    '^.+\\.[jt]sx?$': 'babel-jest',
+    '.+\\.(css|styl|less|sass|scss)$': 'jest-css-modules-transform'
   },
   testMatch: ['**/spec/**/*-spec.js'],
-}
+  coverageThreshold: {
+    global: {
+      statements: 19.88,
+      branches: 11.5,
+      lines: 20.01,
+      functions: 22.04
+    }
+  }
+};
