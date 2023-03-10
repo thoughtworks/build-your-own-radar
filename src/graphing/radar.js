@@ -8,14 +8,19 @@ const AutoComplete = require('../util/autoComplete')
 const config = require('../config')
 const featureToggles = config().featureToggles
 const { plotRadarBlips } = require('./blips')
-const { getGraphSize } = require('./config')
+const { graphConfig, getGraphSize } = require('./config')
 
 const { renderBanner } = require('./components/banner')
 const { renderQuadrantSubnav } = require('./components/quadrantSubnav')
 const { renderSearch } = require('./components/search')
 const { renderAlternativeRadars } = require('./components/alternativeRadars')
 const { renderButtons } = require('./components/buttons')
-const { renderRadarQuadrants, renderMobileView, quadrantScrollHandler } = require('./components/quadrants')
+const {
+  renderRadarQuadrants,
+  renderMobileView,
+  quadrantScrollHandler,
+  renderRadarLegends,
+} = require('./components/quadrants')
 const { renderQuadrantTables } = require('./components/quadrantTables')
 
 const { constructSheetUrl } = require('../util/urlUtils')
@@ -534,7 +539,13 @@ const Radar = function (size, radar) {
 
     d3.selectAll('g.blip-link').attr('opacity', 1.0)
 
-    svg.style('left', 0).style('right', 0).style('top', 0).attr('transform', 'scale(1)')
+    const radarContainer = d3.select('#radar')
+    const radarWidth = graphConfig.effectiveQuadrantWidth * 2 + graphConfig.quadrantsGap
+    svg
+      .style('left', (radarContainer.node().getBoundingClientRect().width - radarWidth) / 2)
+      .style('right', 0)
+      .style('top', 0)
+      .attr('transform', 'scale(1)')
 
     d3.selectAll('.button').classed('selected', false).classed('full-view', true)
 
@@ -551,7 +562,9 @@ const Radar = function (size, radar) {
     d3.select('#radar-plot').attr('width', size).attr('height', size)
     d3.select(`svg#radar-plot`).style('padding', '0')
 
-    d3.select('.radar-legends').attr('class', 'radar-legends')
+    const radarLegendsContainer = d3.select('.radar-legends')
+    radarLegendsContainer.attr('class', 'radar-legends')
+    radarLegendsContainer.attr('style', null)
   }
 
   function searchBlip(_e, ui) {
@@ -776,6 +789,10 @@ const Radar = function (size, radar) {
       const legendHeight = 40
       radarElement.style('height', size + legendHeight + 'px')
       svg.attr('id', 'radar-plot').attr('width', size).attr('height', size)
+      svg.style(
+        'left',
+        (d3.select('#radar').node().getBoundingClientRect().width - svg.node().getBoundingClientRect().width) / 2,
+      )
     } else {
       radarElement.style('height', size + 14 + 'px')
       svg
@@ -802,7 +819,7 @@ const Radar = function (size, radar) {
     })
 
     if (featureToggles.UIRefresh2022) {
-      // renderRadarLegends(radarElement)
+      renderRadarLegends(radarElement)
     }
   }
 

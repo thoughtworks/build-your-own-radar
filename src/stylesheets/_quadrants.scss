@@ -41,6 +41,8 @@
       display: none;
       transition: none;
 
+      margin: 0;
+
       &.enable-transition {
         transition: all 1s ease;
       }
@@ -60,10 +62,12 @@
       .quadrant-group {
         pointer-events: none;
       }
+
       .quadrant-name-group {
         display: none;
       }
-      @include media-query-xxlarge {
+
+      @include media-query-xlarge {
         &.sticky {
           position: fixed;
           transition: none;
@@ -298,9 +302,14 @@
       max-height: 0;
       opacity: 0;
       transition: opacity 0.3s ease-out;
+
       &.selected {
         opacity: 1;
-        transition: opacity 1s ease 1s;
+        transition: opacity 1s ease;
+
+        @include media-query-medium {
+          transition: opacity 1s ease 1s;
+        }
       }
     }
 
@@ -354,19 +363,17 @@
 
 @if ($UIRefresh2022) {
   .radar-legends {
-    @include media-query-xlarge {
-      &.right-view {
-        top: calc(768px + 32px);
-        margin: 32px 0;
+    display: none;
+
+    @include media-query-medium {
+      &.right-view,
+      &.left-view {
         justify-content: unset;
-        left: 864px;
+        width: unset;
       }
 
-      &.left-view {
-        top: calc(768px + 32px);
-        margin: 32px 0;
-        justify-content: unset;
-        left: 224px;
+      &.sticky {
+        position: fixed;
       }
 
       display: flex;
@@ -378,7 +385,7 @@
       top: 1056px;
     }
 
-    img {
+    img:nth-child(2) {
       margin-left: 48px;
     }
   }

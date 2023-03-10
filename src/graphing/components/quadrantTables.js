@@ -1,5 +1,5 @@
 const d3 = require('d3')
-const { graphConfig } = require('../config')
+const { graphConfig, getScale } = require('../config')
 
 function renderBlipDescription(blip, ring, quadrant, tip) {
   const blipItem = d3
@@ -73,7 +73,7 @@ function renderQuadrantTables(quadrants, rings) {
 
   const quadrantTablesContainer = radarContainer.append('div').classed('quadrant-table__container', true)
   quadrants.forEach(function (quadrant) {
-    const scale = window.innerWidth < 1800 ? 1.25 : 1.5
+    const scale = getScale()
     let quadrantContainer
     if (window.innerWidth < 1280 && window.innerWidth >= 768) {
       // Additional margin for radar-legends height (42px) and it's padding

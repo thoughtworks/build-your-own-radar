@@ -1,6 +1,7 @@
 const d3 = require('d3')
+const { getElementWidth } = require('../../util/htmlUtil')
 const { toRadian } = require('../../util/mathUtils')
-const { graphConfig, getGraphSize } = require('../config')
+const { graphConfig, getGraphSize, getScaledQuadrantWidth, getScaledQuadrantHeightWithGap, getScale } = require('../config')
 
 const ANIMATION_DURATION = 1000
 
@@ -26,7 +27,7 @@ function selectRadarQuadrant(order, startAngle, name) {
 
   d3.selectAll('.blip-item-description').classed('expanded', false)
 
-  const scale = window.innerWidth < 1800 ? 1.25 : 1.5
+  const scale = getScale()
 
   const adjustX = Math.sin(toRadian(startAngle)) - Math.cos(toRadian(startAngle))
   const adjustY = Math.cos(toRadian(startAngle)) + Math.sin(toRadian(startAngle))
@@ -124,9 +125,31 @@ function selectRadarQuadrant(order, startAngle, name) {
     d3.select('#radar').style('height', null)
   }
 
-  prevLeft = d3.select('#radar-plot').style('left')
-  prevTop = d3.select('#radar-plot').style('top')
-  stickQuadrantOnScroll()
+  const radarLegendsContainer = d3.select('.radar-legends')
+  radarLegendsContainer.style('top', `${getScaledQuadrantHeightWithGap(scale)}px`)
+
+  if (window.innerWidth >= 1280) {
+    if (order === 'first' || order === 'second') {
+      radarLegendsContainer.style(
+        'left',
+        `${parentWidth -
+        getScaledQuadrantWidth(scale) +
+        (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
+        }px`,
+      )
+    } else {
+      radarLegendsContainer.style(
+        'left',
+        `${getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2}px`,
+      )
+    }
+
+    prevLeft = d3.select('#radar-plot').style('left')
+    prevTop = d3.select('#radar-plot').style('top')
+    stickQuadrantOnScroll()
+  } else {
+    radarLegendsContainer.style('left', `${window.innerWidth / 2 - getElementWidth(radarLegendsContainer) / 2}px`)
+  }
 }
 
 function renderRadarQuadrantName(quadrant, parentGroup) {
@@ -279,6 +302,7 @@ function mouseoutQuadrant(order) {
 }
 
 function quadrantScrollHandler(
+  scale,
   radarElement,
   offset,
   selectedOrder,
@@ -287,43 +311,70 @@ function quadrantScrollHandler(
   quadrantHeight,
   quadrantTableOffset,
   quadrantTableHeight,
+  radarLegendsContainer,
+  radarLegendsWidth,
 ) {
   radarElement.classed('enable-transition', false)
 
   if (window.scrollY >= offset) {
     radarElement.classed('sticky', true)
-
-    if (selectedOrder === 'first' || selectedOrder === 'second') {
-      radarElement.style('left', leftQuadrantLeftValue)
-    } else {
-      radarElement.style('left', rightQuadrantLeftValue)
-    }
+    radarLegendsContainer.classed('sticky', true)
 
     if (window.scrollY + 60 + quadrantHeight >= quadrantTableOffset) {
       radarElement.classed('sticky', false)
+      radarLegendsContainer.classed('sticky', false)
+
       radarElement.style('top', `${quadrantTableHeight - quadrantHeight - 60}px`)
       radarElement.style('left', prevLeft)
+
+      radarLegendsContainer.style(
+        'top',
+        `${quadrantTableHeight - quadrantHeight - 60 + getScaledQuadrantHeightWithGap(scale)}px`,
+      )
+      radarLegendsContainer.style(
+        'left',
+        `${parseFloat(prevLeft.slice(0, -2)) + (getScaledQuadrantWidth(scale) / 2 - radarLegendsWidth / 2)}px`,
+      )
     } else {
       if (selectedOrder === 'first' || selectedOrder === 'second') {
-        radarElement.style('left', leftQuadrantLeftValue)
+        radarElement.style('left', `${leftQuadrantLeftValue}px`)
+        radarLegendsContainer.style(
+          'left',
+          `${leftQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
+          }px`,
+        )
       } else {
-        radarElement.style('left', rightQuadrantLeftValue)
+        radarElement.style('left', `${rightQuadrantLeftValue}px`)
+        radarLegendsContainer.style(
+          'left',
+          `${rightQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
+          }px`,
+        )
       }
 
-      radarElement.style('top', prevTop)
+      radarLegendsContainer.style('top', `${getScaledQuadrantHeightWithGap(scale) + 60}px`)
     }
   } else {
+    radarElement.style('top', prevTop)
     radarElement.style('left', prevLeft)
     radarElement.classed('sticky', false)
+
+    radarLegendsContainer.style('top', `${parseFloat(prevTop.slice(0, -2)) + getScaledQuadrantHeightWithGap(scale)}px`)
+    radarLegendsContainer.style(
+      'left',
+      `${parseFloat(prevLeft.slice(0, -2)) + (getScaledQuadrantWidth(scale) / 2 - radarLegendsWidth / 2)}px`,
+    )
+    radarLegendsContainer.classed('sticky', false)
   }
 }
 
 function stickQuadrantOnScroll() {
-  const scale = window.innerWidth < 1800 ? 1.25 : 1.5
+  const scale = getScale()
 
   const radarContainer = d3.select('#radar')
   const radarElement = d3.select('#radar-plot')
   const selectedQuadrantTableHTMLElement = d3.select('.quadrant-table.selected').node()
+  const radarLegendsContainer = d3.select('.radar-legends')
 
   const radarHeight = graphConfig.effectiveQuadrantHeight * scale + graphConfig.quadrantsGap * scale
   const offset = radarContainer.node().offsetTop - 60
@@ -338,8 +389,11 @@ function stickQuadrantOnScroll() {
   const quadrantTableHeight = selectedQuadrantTableHTMLElement.getBoundingClientRect().height
   const quadrantTableOffset = offset + quadrantTableHeight
 
+  const radarLegendsWidth = getElementWidth(radarLegendsContainer)
+
   quadrantScrollHandlerReference = quadrantScrollHandler.bind(
     this,
+    scale,
     radarElement,
     offset,
     selectedOrder,
@@ -348,6 +402,8 @@ function stickQuadrantOnScroll() {
     quadrantHeight,
     quadrantTableOffset,
     quadrantTableHeight,
+    radarLegendsContainer,
+    radarLegendsWidth,
   )
 
   window.addEventListener('scroll', quadrantScrollHandlerReference)
