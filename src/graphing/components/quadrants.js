@@ -4,8 +4,21 @@ const { graphConfig, getGraphSize } = require('../config')
 
 const ANIMATION_DURATION = 1000
 
+let prevLeft, prevTop
+let quadrantScrollHandlerReference
 function selectRadarQuadrant(order, startAngle, name) {
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: 'smooth',
+  })
+
   const svg = d3.select('svg#radar-plot')
+  svg.attr('data-quadrant-selected', order)
+
+  svg.classed('sticky', false)
+  svg.classed('enable-transition', true)
+
   const size = getGraphSize()
 
   d3.selectAll('.quadrant-table').classed('selected', false)
@@ -28,25 +41,21 @@ function selectRadarQuadrant(order, startAngle, name) {
       left: parentWidth - graphConfig.effectiveQuadrantWidth * scale,
       top: 0,
       right: 'unset',
-      padding: `0 ${graphConfig.quadrantsGap / 2}px 0 0`,
     },
     second: {
       left: parentWidth - graphConfig.effectiveQuadrantWidth * scale,
       top: 0,
       right: 'unset',
-      padding: `0 ${graphConfig.quadrantsGap / 2}px 0 0`,
     },
     third: {
-      left: (-graphConfig.quadrantsGap / 2) * scale,
+      left: 0,
       top: 0,
       right: 'unset',
-      padding: window.innerWidth >= 1280 ? `0 0 0 ${graphConfig.quadrantsGap / 2}px` : '0px',
     },
     fourth: {
-      left: (-graphConfig.quadrantsGap / 2) * scale,
+      left: 0,
       top: 0,
       right: 'unset',
-      padding: window.innerWidth >= 1280 ? `0 0 0 ${graphConfig.quadrantsGap / 2}px` : '0px',
     },
   }
 
@@ -59,17 +68,17 @@ function selectRadarQuadrant(order, startAngle, name) {
     )
     .style('top', translateLeftRightValues[order].top + 'px')
     .style('right', translateLeftRightValues[order].right)
-    .style('padding', translateLeftRightValues[order].padding)
     .style('box-sizing', 'border-box')
 
   if (window.innerWidth < 1280) {
     svg.style('margin', 'unset')
   }
+
   svg
     .attr('transform', `scale(${scale})`)
     .style('transform-origin', `0 0`)
-    .attr('width', graphConfig.quadrantWidth)
-    .attr('height', graphConfig.quadrantHeight + graphConfig.quadrantsGap)
+    .attr('width', graphConfig.effectiveQuadrantWidth)
+    .attr('height', graphConfig.effectiveQuadrantHeight + graphConfig.quadrantsGap)
   svg.classed('quadrant-view', true)
 
   const quadrantGroupTranslate = {
@@ -115,7 +124,9 @@ function selectRadarQuadrant(order, startAngle, name) {
     d3.select('#radar').style('height', null)
   }
 
-  // stickQuadrantOnScroll()
+  prevLeft = d3.select('#radar-plot').style('left')
+  prevTop = d3.select('#radar-plot').style('top')
+  stickQuadrantOnScroll()
 }
 
 function renderRadarQuadrantName(quadrant, parentGroup) {
@@ -267,26 +278,84 @@ function mouseoutQuadrant(order) {
   d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')').style('opacity', 1)
 }
 
-// function stickQuadrantOnScroll (){
-//   let element,quadrantTable, offset;
-//     element = d3.select('#radar').node();
-//     quadrantTable = d3.select('.quadrant-table.selected').node();
-//     offset = element.offsetTop;
-//
-//   window.addEventListener('scroll', function() {
-//     if (window.pageYOffset >= offset) {
-//       d3.select('#radar-plot.quadrant-view').classed('sticky', true)
-//       const stopOffset = quadrantTable.offsetTop;
-//       const elementHeight = element.offsetHeight;
-//       if (window.pageYOffset + elementHeight >= stopOffset) {
-//         console.
-//         d3.select('#radar-plot.quadrant-view').classed('sticky', false)
-//       }
-//     } else {
-//       d3.select('#radar-plot.quadrant-view').classed('sticky', false)
-//     }
-//   });
-// }
+function quadrantScrollHandler(
+  radarElement,
+  offset,
+  selectedOrder,
+  leftQuadrantLeftValue,
+  rightQuadrantLeftValue,
+  quadrantHeight,
+  quadrantTableOffset,
+  quadrantTableHeight,
+) {
+  radarElement.classed('enable-transition', false)
+
+  if (window.scrollY >= offset) {
+    radarElement.classed('sticky', true)
+
+    if (selectedOrder === 'first' || selectedOrder === 'second') {
+      radarElement.style('left', leftQuadrantLeftValue)
+    } else {
+      radarElement.style('left', rightQuadrantLeftValue)
+    }
+
+    if (window.scrollY + 60 + quadrantHeight >= quadrantTableOffset) {
+      radarElement.classed('sticky', false)
+      radarElement.style('top', `${quadrantTableHeight - quadrantHeight - 60}px`)
+      radarElement.style('left', prevLeft)
+    } else {
+      if (selectedOrder === 'first' || selectedOrder === 'second') {
+        radarElement.style('left', leftQuadrantLeftValue)
+      } else {
+        radarElement.style('left', rightQuadrantLeftValue)
+      }
+
+      radarElement.style('top', prevTop)
+    }
+  } else {
+    radarElement.style('left', prevLeft)
+    radarElement.classed('sticky', false)
+  }
+}
+
+function stickQuadrantOnScroll() {
+  const scale = window.innerWidth < 1800 ? 1.25 : 1.5
+
+  const radarContainer = d3.select('#radar')
+  const radarElement = d3.select('#radar-plot')
+  const selectedQuadrantTableHTMLElement = d3.select('.quadrant-table.selected').node()
+
+  const radarHeight = graphConfig.effectiveQuadrantHeight * scale + graphConfig.quadrantsGap * scale
+  const offset = radarContainer.node().offsetTop - 60
+  const radarWidth = radarContainer.node().getBoundingClientRect().width
+  const selectedOrder = radarElement.attr('data-quadrant-selected')
+
+  const leftQuadrantLeftValue =
+    (window.innerWidth + radarWidth) / 2 - graphConfig.quadrantWidth * scale + (graphConfig.quadrantsGap / 2) * scale
+  const rightQuadrantLeftValue = (window.innerWidth - radarWidth) / 2
+
+  const quadrantHeight = radarHeight
+  const quadrantTableHeight = selectedQuadrantTableHTMLElement.getBoundingClientRect().height
+  const quadrantTableOffset = offset + quadrantTableHeight
+
+  quadrantScrollHandlerReference = quadrantScrollHandler.bind(
+    this,
+    radarElement,
+    offset,
+    selectedOrder,
+    leftQuadrantLeftValue,
+    rightQuadrantLeftValue,
+    quadrantHeight,
+    quadrantTableOffset,
+    quadrantTableHeight,
+  )
+
+  window.addEventListener('scroll', quadrantScrollHandlerReference)
+}
+
+function removeScrollListener() {
+  window.removeEventListener('scroll', quadrantScrollHandlerReference)
+}
 
 module.exports = {
   selectRadarQuadrant,
@@ -295,4 +364,5 @@ module.exports = {
   renderMobileView,
   mouseoverQuadrant,
   mouseoutQuadrant,
+  removeScrollListener,
 }

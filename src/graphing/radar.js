@@ -15,7 +15,7 @@ const { renderQuadrantSubnav } = require('./components/quadrantSubnav')
 const { renderSearch } = require('./components/search')
 const { renderAlternativeRadars } = require('./components/alternativeRadars')
 const { renderButtons } = require('./components/buttons')
-const { renderRadarQuadrants, renderMobileView } = require('./components/quadrants')
+const { renderRadarQuadrants, renderMobileView, quadrantScrollHandler } = require('./components/quadrants')
 const { renderQuadrantTables } = require('./components/quadrantTables')
 
 const { constructSheetUrl } = require('../util/urlUtils')
@@ -162,12 +162,12 @@ const Radar = function (size, radar) {
       .attr(
         'transform',
         'scale(' +
-          blip.width / 34 +
-          ') translate(' +
-          (-404 + x * (34 / blip.width) - 17) +
-          ', ' +
-          (-282 + y * (34 / blip.width) - 17) +
-          ')',
+        blip.width / 34 +
+        ') translate(' +
+        (-404 + x * (34 / blip.width) - 17) +
+        ', ' +
+        (-282 + y * (34 / blip.width) - 17) +
+        ')',
       )
       .attr('class', order)
   }
@@ -195,12 +195,12 @@ const Radar = function (size, radar) {
       .attr(
         'transform',
         'scale(' +
-          blip.width / 34 +
-          ') translate(' +
-          (-404 + x * (34 / blip.width) - 17) +
-          ', ' +
-          (-282 + y * (34 / blip.width) - 17) +
-          ')',
+        blip.width / 34 +
+        ') translate(' +
+        (-404 + x * (34 / blip.width) - 17) +
+        ', ' +
+        (-282 + y * (34 / blip.width) - 17) +
+        ')',
       )
       .attr('class', order)
   }
@@ -509,6 +509,14 @@ const Radar = function (size, radar) {
   }
 
   function renderFullRadar() {
+    window.removeEventListener('scroll', quadrantScrollHandler)
+
+    d3.select('#radar-plot').classed('sticky', false)
+    d3.select('#radar-plot').classed('quadrant-view', false)
+    d3.select('#radar-plot').classed('enable-transition', true)
+
+    d3.select('#radar-plot').attr('data-quadrant-selected', null)
+
     const size = getGraphSize()
     d3.select('.home-link').remove()
     d3.select('.legend').remove()
@@ -541,7 +549,6 @@ const Radar = function (size, radar) {
       .attr('transform', 'translate(0,0)')
 
     d3.select('#radar-plot').attr('width', size).attr('height', size)
-    d3.select(`svg#radar-plot`).attr('class', '')
     d3.select(`svg#radar-plot`).style('padding', '0')
 
     d3.select('.radar-legends').attr('class', 'radar-legends')
@@ -627,9 +634,9 @@ const Radar = function (size, radar) {
       .append('p')
       .html(
         'Powered by <a href="https://www.thoughtworks.com"> Thoughtworks</a>. ' +
-          'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
-          'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
-          'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
+        'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
+        'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
+        'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
       )
   }
 
@@ -710,7 +717,6 @@ const Radar = function (size, radar) {
   }
 
   function plotAlternativeRadars(alternatives, currentSheet) {
-    console.log('????')
     var alternativeSheetButton = alternativeDiv.append('div').classed('multiple-sheet-button-group', true)
 
     alternativeSheetButton.append('p').text('Choose a sheet to populate radar')

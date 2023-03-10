@@ -1,5 +1,5 @@
 const d3 = require('d3')
-const { selectRadarQuadrant, mouseoverQuadrant, mouseoutQuadrant } = require('./quadrants')
+const { selectRadarQuadrant, mouseoverQuadrant, mouseoutQuadrant, removeScrollListener } = require('./quadrants')
 
 function addListItem(quadrantList, name, callback, order) {
   quadrantList
@@ -10,6 +10,14 @@ function addListItem(quadrantList, name, callback, order) {
     .attr('href', 'javascript:void(0)')
     .text(name)
     .on('click', function (e) {
+      removeScrollListener()
+
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      })
+
       d3.select('span.quadrant-subnav__dropdown-selector').text(e.target.innerText)
 
       const subnavArrow = d3.select('.quadrant-subnav__dropdown-arrow')

@@ -39,6 +39,11 @@
 
     @if $UIRefresh2022 {
       display: none;
+      transition: none;
+
+      &.enable-transition {
+        transition: all 1s ease;
+      }
 
       @include media-query-medium {
         display: block;
@@ -61,6 +66,8 @@
       @include media-query-xxlarge {
         &.sticky {
           position: fixed;
+          transition: none;
+          top: 60px !important;
         }
       }
     }
