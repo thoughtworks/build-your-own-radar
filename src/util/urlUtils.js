@@ -5,7 +5,9 @@ function constructSheetUrl(sheetName) {
   const queryParams = QueryParams(window.location.search.substring(1))
   const sheetUrl =
     noParamsUrl +
-    (config().featureToggles.UIRefresh2022 ? '?documentId=' + queryParams.documentId : '?sheetId=' + queryParams.sheetId) +
+    (config().featureToggles.UIRefresh2022
+      ? '?documentId=' + queryParams.documentId
+      : '?sheetId=' + queryParams.sheetId) +
     '&sheetName=' +
     encodeURIComponent(sheetName)
   return sheetUrl
