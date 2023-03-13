@@ -1,5 +1,5 @@
 const d3 = require('d3')
-const { getElementWidth } = require('../../util/htmlUtil')
+const { getElementWidth, getElementHeight } = require('../../util/htmlUtil')
 const { toRadian } = require('../../util/mathUtils')
 const { getRingIdString } = require('../../util/util')
 const {
@@ -152,10 +152,9 @@ function selectRadarQuadrant(order, startAngle, name) {
     if (order === 'first' || order === 'second') {
       radarLegendsContainer.style(
         'left',
-        `${
-          parentWidth -
-          getScaledQuadrantWidth(scale) +
-          (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
+        `${parentWidth -
+        getScaledQuadrantWidth(scale) +
+        (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
         }px`,
       )
     } else {
@@ -330,11 +329,13 @@ function quadrantScrollHandler(
   leftQuadrantLeftValue,
   rightQuadrantLeftValue,
   quadrantHeight,
-  quadrantTableOffset,
-  quadrantTableHeight,
+  selectedQuadrantTable,
   radarLegendsContainer,
   radarLegendsWidth,
 ) {
+  const quadrantTableHeight = getElementHeight(selectedQuadrantTable)
+  const quadrantTableOffset = offset + quadrantTableHeight
+
   if (window.scrollY >= offset) {
     radarElement.classed('enable-transition', false)
     radarElement.classed('sticky', true)
@@ -360,16 +361,14 @@ function quadrantScrollHandler(
         radarElement.style('left', `${leftQuadrantLeftValue}px`)
         radarLegendsContainer.style(
           'left',
-          `${
-            leftQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
+          `${leftQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
           }px`,
         )
       } else {
         radarElement.style('left', `${rightQuadrantLeftValue}px`)
         radarLegendsContainer.style(
           'left',
-          `${
-            rightQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
+          `${rightQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
           }px`,
         )
       }
@@ -395,7 +394,7 @@ function stickQuadrantOnScroll() {
 
   const radarContainer = d3.select('#radar')
   const radarElement = d3.select('#radar-plot')
-  const selectedQuadrantTableHTMLElement = d3.select('.quadrant-table.selected').node()
+  const selectedQuadrantTable = d3.select('.quadrant-table.selected')
   const radarLegendsContainer = d3.select('.radar-legends')
 
   const radarHeight = graphConfig.effectiveQuadrantHeight * scale + graphConfig.quadrantsGap * scale
@@ -408,9 +407,6 @@ function stickQuadrantOnScroll() {
   const rightQuadrantLeftValue = (window.innerWidth - radarWidth) / 2
 
   const quadrantHeight = radarHeight
-  const quadrantTableHeight = selectedQuadrantTableHTMLElement.getBoundingClientRect().height
-  const quadrantTableOffset = offset + quadrantTableHeight
-
   const radarLegendsWidth = getElementWidth(radarLegendsContainer)
 
   quadrantScrollHandlerReference = quadrantScrollHandler.bind(
@@ -422,8 +418,7 @@ function stickQuadrantOnScroll() {
     leftQuadrantLeftValue,
     rightQuadrantLeftValue,
     quadrantHeight,
-    quadrantTableOffset,
-    quadrantTableHeight,
+    selectedQuadrantTable,
     radarLegendsContainer,
     radarLegendsWidth,
   )
