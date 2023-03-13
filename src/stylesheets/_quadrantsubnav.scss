@@ -114,9 +114,11 @@
           }
         }
 
-        a {
+        &__button {
           text-decoration: none;
           border: none;
+          font: inherit;
+          cursor: pointer;
 
           @include media-query-xlarge {
             padding: 0 40px;
@@ -146,7 +148,8 @@
             color: $flamingo-s40;
             text-decoration: underline;
             text-underline-offset: 6px;
-            & > a {
+
+            & > * {
               color: $flamingo-s40;
             }
           }

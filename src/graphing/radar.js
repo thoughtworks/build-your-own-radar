@@ -167,12 +167,12 @@ const Radar = function (size, radar) {
       .attr(
         'transform',
         'scale(' +
-        blip.width / 34 +
-        ') translate(' +
-        (-404 + x * (34 / blip.width) - 17) +
-        ', ' +
-        (-282 + y * (34 / blip.width) - 17) +
-        ')',
+          blip.width / 34 +
+          ') translate(' +
+          (-404 + x * (34 / blip.width) - 17) +
+          ', ' +
+          (-282 + y * (34 / blip.width) - 17) +
+          ')',
       )
       .attr('class', order)
   }
@@ -200,12 +200,12 @@ const Radar = function (size, radar) {
       .attr(
         'transform',
         'scale(' +
-        blip.width / 34 +
-        ') translate(' +
-        (-404 + x * (34 / blip.width) - 17) +
-        ', ' +
-        (-282 + y * (34 / blip.width) - 17) +
-        ')',
+          blip.width / 34 +
+          ') translate(' +
+          (-404 + x * (34 / blip.width) - 17) +
+          ', ' +
+          (-282 + y * (34 / blip.width) - 17) +
+          ')',
       )
       .attr('class', order)
   }
@@ -527,8 +527,11 @@ const Radar = function (size, radar) {
     d3.select('.legend').remove()
     d3.select('#radar').classed('mobile', false)
     d3.select('.all-quadrants-mobile').classed('show-all-quadrants-mobile', true)
+
     d3.select('li.quadrant-subnav__list-item.active-item').classed('active-item', false)
     d3.select('li.quadrant-subnav__list-item').classed('active-item', true)
+
+    d3.select('.quadrant-subnav__dropdown-selector').text('All quadrants')
 
     d3tip()
       .attr('class', 'd3-tip')
@@ -565,6 +568,10 @@ const Radar = function (size, radar) {
     const radarLegendsContainer = d3.select('.radar-legends')
     radarLegendsContainer.attr('class', 'radar-legends')
     radarLegendsContainer.attr('style', null)
+
+    d3.selectAll('svg#radar-plot a').attr('aria-hidden', null).attr('tabindex', null)
+    d3.selectAll('.quadrant-table button').attr('aria-hidden', 'true').attr('tabindex', -1)
+    d3.selectAll('.blip-list__item-container__name').attr('aria-expanded', 'false')
   }
 
   function searchBlip(_e, ui) {
@@ -647,9 +654,9 @@ const Radar = function (size, radar) {
       .append('p')
       .html(
         'Powered by <a href="https://www.thoughtworks.com"> Thoughtworks</a>. ' +
-        'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
-        'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
-        'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
+          'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
+          'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
+          'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
       )
   }
 

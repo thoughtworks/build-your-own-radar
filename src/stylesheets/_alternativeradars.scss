@@ -17,7 +17,7 @@
     flex-direction: column;
     align-items: center;
 
-    margin: auto;
+    margin: 32px auto 0;
 
     @include layout-margin(1, $screen-small);
     @include layout-margin(1, $screen-medium);

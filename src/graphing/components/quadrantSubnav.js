@@ -1,13 +1,15 @@
 const d3 = require('d3')
 const { selectRadarQuadrant, mouseoverQuadrant, mouseoutQuadrant, removeScrollListener } = require('./quadrants')
+const { getRingIdString } = require('../../util/util')
 
 function addListItem(quadrantList, name, callback, order) {
   quadrantList
     .append('li')
-    .attr('id', `subnav-item-${name.replaceAll(/\s+/g, '')}`)
+    .attr('id', `subnav-item-${getRingIdString(name)}`)
     .classed('quadrant-subnav__list-item', true)
-    .append('a')
-    .attr('href', 'javascript:void(0)')
+    .append('button')
+    .classed('quadrant-subnav__list-item__button', true)
+    .attr('role', 'tab')
     .text(name)
     .on('click', function (e) {
       removeScrollListener()
@@ -24,6 +26,9 @@ function addListItem(quadrantList, name, callback, order) {
       subnavArrow.classed('rotate', !d3.select('span.quadrant-subnav__dropdown-arrow').classed('rotate'))
       quadrantList.classed('show', !d3.select('ul.quadrant-subnav__list').classed('show'))
 
+      const subnavDropdown = d3.select('.quadrant-subnav__dropdown')
+      subnavDropdown.attr('aria-expanded', subnavDropdown.attr('aria-expanded') === 'false' ? 'true' : 'false')
+
       if (callback) {
         callback()
       }
@@ -33,19 +38,24 @@ function addListItem(quadrantList, name, callback, order) {
 }
 
 function renderQuadrantSubnav(radarHeader, quadrants, renderFullRadar) {
-  const subnavContainer = radarHeader.append('div').classed('quadrant-subnav', true)
+  const subnavContainer = radarHeader.append('nav').classed('quadrant-subnav', true)
 
-  const subnavDropdown = subnavContainer.append('div').classed('quadrant-subnav__dropdown', true)
+  const subnavDropdown = subnavContainer
+    .append('div')
+    .classed('quadrant-subnav__dropdown', true)
+    .attr('aria-expanded', 'false')
   subnavDropdown.append('span').classed('quadrant-subnav__dropdown-selector', true).text('All quadrants')
   const subnavArrow = subnavDropdown.append('span').classed('quadrant-subnav__dropdown-arrow', true)
 
   const quadrantList = subnavContainer.append('ul').classed('quadrant-subnav__list', true)
   addListItem(quadrantList, 'All quadrants', renderFullRadar)
-  d3.select('li.quadrant-subnav__list-item').classed('active-item', true)
+  d3.select('li.quadrant-subnav__list-item').classed('active-item', true).select('button').attr('aria-selected', 'true')
 
   subnavDropdown.on('click', function () {
     subnavArrow.classed('rotate', !d3.select('span.quadrant-subnav__dropdown-arrow').classed('rotate'))
     quadrantList.classed('show', !d3.select('ul.quadrant-subnav__list').classed('show'))
+
+    subnavDropdown.attr('aria-expanded', subnavDropdown.attr('aria-expanded') === 'false' ? 'true' : 'false')
   })
 
   quadrants.forEach(function (quadrant) {

@@ -1,7 +1,14 @@
 const d3 = require('d3')
 const { getElementWidth } = require('../../util/htmlUtil')
 const { toRadian } = require('../../util/mathUtils')
-const { graphConfig, getGraphSize, getScaledQuadrantWidth, getScaledQuadrantHeightWithGap, getScale } = require('../config')
+const { getRingIdString } = require('../../util/util')
+const {
+  graphConfig,
+  getGraphSize,
+  getScaledQuadrantWidth,
+  getScaledQuadrantHeightWithGap,
+  getScale,
+} = require('../config')
 
 const ANIMATION_DURATION = 1000
 
@@ -111,7 +118,13 @@ function selectRadarQuadrant(order, startAngle, name) {
     .style('transform', null)
 
   d3.select('li.quadrant-subnav__list-item.active-item').classed('active-item', false)
-  d3.select(`li#subnav-item-${name.replaceAll(/\s+/g, '')}`).classed('active-item', true)
+  d3.select(`li#subnav-item-${getRingIdString(name)}`).classed('active-item', true)
+
+  d3.selectAll(`li.quadrant-subnav__list-item button`).attr('aria-selected', null)
+  d3.select(`li#subnav-item-${getRingIdString(name)} button`).attr('aria-selected', true)
+
+  d3.select('.quadrant-subnav__dropdown-selector').text(name)
+
   d3.select('#radar').classed('mobile', true) // shows the table
   d3.select('.all-quadrants-mobile').classed('show-all-quadrants-mobile', false) // hides the quadrants
 
@@ -128,13 +141,21 @@ function selectRadarQuadrant(order, startAngle, name) {
   const radarLegendsContainer = d3.select('.radar-legends')
   radarLegendsContainer.style('top', `${getScaledQuadrantHeightWithGap(scale)}px`)
 
+  d3.selectAll('.quadrant-table.selected button').attr('aria-hidden', null).attr('tabindex', null)
+  d3.selectAll('.quadrant-table:not(.selected) button').attr('aria-hidden', 'true').attr('tabindex', -1)
+
+  d3.selectAll('svg#radar-plot a').attr('aria-hidden', 'true').attr('tabindex', -1)
+
+  d3.selectAll('.blip-list__item-container__name').attr('aria-expanded', 'false')
+
   if (window.innerWidth >= 1280) {
     if (order === 'first' || order === 'second') {
       radarLegendsContainer.style(
         'left',
-        `${parentWidth -
-        getScaledQuadrantWidth(scale) +
-        (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
+        `${
+          parentWidth -
+          getScaledQuadrantWidth(scale) +
+          (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
         }px`,
       )
     } else {
@@ -314,9 +335,8 @@ function quadrantScrollHandler(
   radarLegendsContainer,
   radarLegendsWidth,
 ) {
-  radarElement.classed('enable-transition', false)
-
   if (window.scrollY >= offset) {
+    radarElement.classed('enable-transition', false)
     radarElement.classed('sticky', true)
     radarLegendsContainer.classed('sticky', true)
 
@@ -340,14 +360,16 @@ function quadrantScrollHandler(
         radarElement.style('left', `${leftQuadrantLeftValue}px`)
         radarLegendsContainer.style(
           'left',
-          `${leftQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
+          `${
+            leftQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
           }px`,
         )
       } else {
         radarElement.style('left', `${rightQuadrantLeftValue}px`)
         radarLegendsContainer.style(
           'left',
-          `${rightQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
+          `${
+            rightQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
           }px`,
         )
       }

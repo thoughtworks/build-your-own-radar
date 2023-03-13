@@ -9,7 +9,7 @@ const graphConfig = {
   quadrantsGap: quadrantGap,
   minBlipWidth: 12,
   blipWidth: 22,
-  blipFontSize: '14px',
+  blipFontSize: '12px',
 }
 
 function getScale() {

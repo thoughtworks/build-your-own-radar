@@ -14,6 +14,10 @@ function renderBlipDescription(blip, ring, quadrant, tip) {
   const blipItemContainer = blipItemDiv
     .append('button')
     .classed('blip-list__item-container__name', true)
+    .attr('aria-expanded', 'false')
+    .attr('aria-controls', `blip-description-${blip.number()}`)
+    .attr('aria-hidden', 'true')
+    .attr('tabindex', -1)
     .on('click search-result-click', function (e) {
       e.stopPropagation()
 
@@ -21,6 +25,9 @@ function renderBlipDescription(blip, ring, quadrant, tip) {
 
       d3.selectAll('.blip-list__item-container.expand').classed('expand', false)
       d3.select(e.target.parentElement).classed('expand', !expandFlag)
+
+      d3.selectAll('.blip-list__item-container__name').attr('aria-expanded', 'false')
+      d3.select('.blip-list__item-container.expand .blip-list__item-container__name').attr('aria-expanded', 'true')
     })
 
   blipItemContainer
@@ -29,7 +36,11 @@ function renderBlipDescription(blip, ring, quadrant, tip) {
     .text(`${blip.number()}. ${blip.name()}`)
   blipItemContainer.append('span').classed('blip-list__item-container__name-arrow', true)
 
-  blipItemDiv.append('div').classed('blip-list__item-container__description', true).html(blip.description())
+  blipItemDiv
+    .append('div')
+    .classed('blip-list__item-container__description', true)
+    .attr('id', `blip-description-${blip.number()}`)
+    .html(blip.description())
 
   const blipGroupItem = d3.select(`g a#blip-link-${blip.number()}`)
 
@@ -56,7 +67,15 @@ function renderBlipDescription(blip, ring, quadrant, tip) {
     const blipId = d3.select(e.target.parentElement).attr('data-blip-id')
 
     d3.selectAll('.blip-list__item-container.expand').classed('expand', false)
-    d3.select(`.blip-list__item-container[data-blip-id="${blipId}"`).classed('expand', true)
+
+    const selectedBlipContainer = d3.select(`.blip-list__item-container[data-blip-id="${blipId}"`)
+    selectedBlipContainer.classed('expand', true)
+
+    setTimeout(() => {
+      selectedBlipContainer.select('button.blip-list__item-container__name').node().scrollIntoView({
+        behavior: 'smooth',
+      })
+    }, 1500)
   }
 
   blipItem.on('mouseover', mouseOver).on('mouseout', mouseOut).on('focusin', mouseOver).on('focusout', mouseOut)
