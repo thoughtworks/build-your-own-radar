@@ -8,7 +8,7 @@ class RadarPage {
     this.quadrantList = '.quadrant-subnav__list-item'
     this.quadrantDropdown = '.quadrant-subnav__dropdown'
     this.quadrantSelector = '.quadrant-subnav__dropdown-selector'
-    this.platformsSubnavItem = '.quadrant-subnav__list-item:nth-child(4)'
+    this.platformsSubnavItem = '.quadrant-subnav__list-item:nth-child(3)'
     this.searchBox = '.search-container__input'
     this.searchResultItems = '.ui-menu-item'
     this.alternateRadarsItems = '.alternative-radars__list-item'
@@ -68,7 +68,7 @@ class RadarPage {
     cy.get(this.quadrantList).should('have.length', 5)
 
     let i = 1
-    for (const quadrant of config.PUBLIC_SHEET_QUADRANT_NAMES) {
+    for (const quadrant of config.QUADRANT_NAMES) {
       cy.get(`${this.quadrantList}:nth-child(${i})`).should('have.text', quadrant)
       i++
     }
@@ -97,6 +97,20 @@ class RadarPage {
 
   clickQuadrant() {
     cy.get(this.quadrant).click()
+  }
+
+  validateQuadrantOrder() {
+    cy.get('.quadrant-group.quadrant-group-first .quadrant-name-group').should('have.text', config.QUADRANT_NAMES[1])
+    cy.get('.quadrant-group.quadrant-group-second .quadrant-name-group').should('have.text', config.QUADRANT_NAMES[2])
+    cy.get('.quadrant-group.quadrant-group-third .quadrant-name-group').should('have.text', config.QUADRANT_NAMES[3])
+    cy.get('.quadrant-group.quadrant-group-fourth .quadrant-name-group').should('have.text', config.QUADRANT_NAMES[4])
+  }
+
+  validateRingOrder() {
+    cy.get('.quadrant-group-first .line-text:nth-of-type(1)').should('have.text', 'Adopt')
+    cy.get('.quadrant-group-first .line-text:nth-of-type(2)').should('have.text', 'Trial')
+    cy.get('.quadrant-group-first .line-text:nth-of-type(3)').should('have.text', 'Assess')
+    cy.get('.quadrant-group-first .line-text:nth-of-type(4)').should('have.text', 'Hold')
   }
 }
 

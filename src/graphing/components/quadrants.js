@@ -186,14 +186,14 @@ function renderRadarQuadrantName(quadrant, parentGroup) {
     ctaArrowXOffset,
     ctaArrowYOffset = -12
 
-  let quadrantNamesSplit = quadrantNameToDisplay.split(/[^a-zA-Z0-9]/g)
+  let quadrantNamesSplit = quadrantNameToDisplay.split(' & ')
   if (quadrantNamesSplit.length > 1) {
     quadrantNameGroup
       .append('text')
-      .text(quadrantNamesSplit[0])
+      .text(quadrantNamesSplit[0] + ' & ')
       .attr('font-weight', 'bold')
       .attr('text-anchor', 'end')
-      .attr('transform', 'translate(-48, -20)')
+      .attr('transform', 'translate(4.25, -20)')
     quadrantNameToDisplay = quadrantNamesSplit.slice(1).join(' ')
   } else {
     quadrantNameToDisplay = quadrantNamesSplit[0]

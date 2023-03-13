@@ -11,12 +11,12 @@ describe('Build radar with CSV', () => {
     byorPage.clickSubmitButton()
     radarPage.clickTheBlipFromInteractiveSection()
     radarPage.clickTheBlip()
-    radarPage.validateBlipDescription('test')
+    radarPage.validateBlipDescription('description')
     if (featureToggles.UIRefresh2022) {
       cy.get('#radar-plot').should('exist')
       radarPage.validateGraphTitle('Sheet')
       radarPage.validateQuadrantNames()
-      radarPage.validateSearchResults('test', 2)
+      radarPage.validateSearchResults('description', 2)
     }
   })
 
@@ -29,7 +29,7 @@ describe('Build radar with CSV', () => {
       cy.get('#radar-plot').should('not.exist')
       radarPage.clickQuadrant()
       radarPage.clickTheBlip()
-      radarPage.validateBlipDescription('test')
+      radarPage.validateBlipDescription('description')
       radarPage.validateQuadrantSubnavClick('Platforms')
     })
   } else {
@@ -50,12 +50,12 @@ describe('Build radar with JSON', () => {
     byorPage.clickSubmitButton()
     radarPage.clickTheBlipFromInteractiveSection()
     radarPage.clickTheBlip()
-    radarPage.validateBlipDescription('test')
+    radarPage.validateBlipDescription('description')
     if (featureToggles.UIRefresh2022) {
       cy.get('#radar-plot').should('exist')
       radarPage.validateGraphTitle('Data')
       radarPage.validateQuadrantNames()
-      radarPage.validateSearchResults('test', 2)
+      radarPage.validateSearchResults('description', 2)
     }
   })
 
@@ -67,7 +67,7 @@ describe('Build radar with JSON', () => {
       byorPage.clickSubmitButton()
       radarPage.clickQuadrant()
       radarPage.clickTheBlip()
-      radarPage.validateBlipDescription('test')
+      radarPage.validateBlipDescription('description')
       radarPage.validateQuadrantSubnavClick('Platforms')
     })
   }
@@ -95,7 +95,15 @@ describe('Build radar with public Google Sheet', () => {
       byorPage.providePublicSheetUrl()
       byorPage.clickSubmitButton()
       radarPage.clickQuadrant()
-      radarPage.validateQuadrantSubnavClick('Tools')
+      radarPage.validateQuadrantSubnavClick('Platforms')
+    })
+
+    it('Validate quadrants and rings order', () => {
+      cy.visit(Cypress.env('host'))
+      byorPage.providePublicSheetUrl()
+      byorPage.clickSubmitButton()
+      radarPage.validateQuadrantOrder()
+      radarPage.validateRingOrder()
     })
   }
 })
