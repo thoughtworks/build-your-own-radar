@@ -154,10 +154,9 @@ function selectRadarQuadrant(order, startAngle, name) {
     if (order === 'first' || order === 'second') {
       radarLegendsContainer.style(
         'left',
-        `${
-          parentWidth -
-          getScaledQuadrantWidth(scale) +
-          (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
+        `${parentWidth -
+        getScaledQuadrantWidth(scale) +
+        (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
         }px`,
       )
     } else {
@@ -345,7 +344,7 @@ function quadrantScrollHandler(
   selectedOrder,
   leftQuadrantLeftValue,
   rightQuadrantLeftValue,
-  quadrantHeight,
+  radarQuadrantHeight,
   selectedQuadrantTable,
   radarLegendsContainer,
   radarLegendsWidth,
@@ -358,16 +357,16 @@ function quadrantScrollHandler(
     radarElement.classed('sticky', true)
     radarLegendsContainer.classed('sticky', true)
 
-    if (window.scrollY + uiConfig.subnavHeight + quadrantHeight >= quadrantTableOffset) {
+    if (window.scrollY + uiConfig.subnavHeight + radarQuadrantHeight >= quadrantTableOffset) {
       radarElement.classed('sticky', false)
       radarLegendsContainer.classed('sticky', false)
 
-      radarElement.style('top', `${quadrantTableHeight - quadrantHeight - uiConfig.subnavHeight}px`)
+      radarElement.style('top', `${quadrantTableHeight - radarQuadrantHeight - uiConfig.subnavHeight}px`)
       radarElement.style('left', prevLeft)
 
       radarLegendsContainer.style(
         'top',
-        `${quadrantTableHeight - quadrantHeight - uiConfig.subnavHeight + getScaledQuadrantHeightWithGap(scale)}px`,
+        `${quadrantTableHeight - radarQuadrantHeight - uiConfig.subnavHeight + getScaledQuadrantHeightWithGap(scale)}px`,
       )
       radarLegendsContainer.style(
         'left',
@@ -378,16 +377,14 @@ function quadrantScrollHandler(
         radarElement.style('left', `${leftQuadrantLeftValue}px`)
         radarLegendsContainer.style(
           'left',
-          `${
-            leftQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
+          `${leftQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
           }px`,
         )
       } else {
         radarElement.style('left', `${rightQuadrantLeftValue}px`)
         radarLegendsContainer.style(
           'left',
-          `${
-            rightQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
+          `${rightQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
           }px`,
         )
       }
@@ -425,7 +422,7 @@ function stickQuadrantOnScroll() {
     (window.innerWidth + radarWidth) / 2 - effectiveQuadrantWidth * scale + (quadrantsGap / 2) * scale
   const rightQuadrantLeftValue = (window.innerWidth - radarWidth) / 2
 
-  const quadrantHeight = radarHeight
+  const radarQuadrantHeight = radarHeight
   const radarLegendsWidth = getElementWidth(radarLegendsContainer)
 
   quadrantScrollHandlerReference = quadrantScrollHandler.bind(
@@ -436,7 +433,7 @@ function stickQuadrantOnScroll() {
     selectedOrder,
     leftQuadrantLeftValue,
     rightQuadrantLeftValue,
-    quadrantHeight,
+    radarQuadrantHeight,
     selectedQuadrantTable,
     radarLegendsContainer,
     radarLegendsWidth,
