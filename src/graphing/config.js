@@ -9,9 +9,8 @@ const graphConfig = {
   quadrantsGap: quadrantGap,
   minBlipWidth: 12,
   blipWidth: 22,
-  blipFontSize: 12,
   rings: ['Adopt', 'Trial', 'Assess', 'Hold'],
-  quadrants: ['Techniques', 'Platforms', 'Tools', 'Languages & Frameworks']
+  quadrants: ['Techniques', 'Platforms', 'Tools', 'Languages & Frameworks'],
 }
 
 const uiConfig = {

@@ -64,6 +64,11 @@ function renderBlipDescription(blip, ring, quadrant, tip) {
   }
 
   const blipClick = function (e) {
+    const isQuadrantView = d3.select('svg#radar-plot').classed('quadrant-view')
+    if (isQuadrantView) {
+      e.stopPropagation()
+    }
+
     const blipId = d3.select(e.target.parentElement).attr('data-blip-id')
 
     d3.selectAll('.blip-list__item-container.expand').classed('expand', false)
@@ -71,11 +76,14 @@ function renderBlipDescription(blip, ring, quadrant, tip) {
     const selectedBlipContainer = d3.select(`.blip-list__item-container[data-blip-id="${blipId}"`)
     selectedBlipContainer.classed('expand', true)
 
-    setTimeout(() => {
-      selectedBlipContainer.select('button.blip-list__item-container__name').node().scrollIntoView({
-        behavior: 'smooth',
-      })
-    }, 1500)
+    setTimeout(
+      () => {
+        selectedBlipContainer.select('button.blip-list__item-container__name').node().scrollIntoView({
+          behavior: 'smooth',
+        })
+      },
+      isQuadrantView ? 0 : 1500,
+    )
   }
 
   blipItem.on('mouseover', mouseOver).on('mouseout', mouseOut).on('focusin', mouseOver).on('focusout', mouseOut)

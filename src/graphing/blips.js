@@ -68,7 +68,14 @@ function avoidBoundaryCollision(x, y, adjustX, adjustY) {
 
 function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing, quadrantOrder) {
   const maxIterations = 200
-  const chance = new Chance(Math.PI * graphConfig.quadrantWidth * blip.width * graphConfig.blipFontSize)
+  const chance = new Chance(
+    Math.PI *
+      graphConfig.quadrantWidth *
+      graphConfig.quadrantHeight *
+      graphConfig.quadrantsGap *
+      graphConfig.blipWidth *
+      maxIterations,
+  )
   let coordinates = calculateRadarBlipCoordinates(minRadius, maxRadius, startAngle, quadrantOrder, chance, blip)
   let iterationCounter = 0
   let foundAPlace = false
