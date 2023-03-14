@@ -70,7 +70,7 @@
           justify-content: space-between;
           align-items: center;
           cursor: pointer;
-          scroll-margin-top: 60px;
+          scroll-margin-top: $subnavHeight;
 
           & > * {
             pointer-events: none;
@@ -95,8 +95,8 @@
             rotate: 45deg;
             border: 1px solid $flamingo;
             border-width: 0 2px 2px 0;
-            -webkit-transition: all 0.4s ease;
-            transition: all 0.4s ease;
+            -webkit-transition: all 0.2s ease;
+            transition: all 0.2s ease;
           }
         }
 

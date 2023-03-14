@@ -27,11 +27,11 @@ describe('Blips', function () {
     const minRadiusAfterThreshold = minRadius + graphConfig.blipWidth / 2
     const maxRadiusAfterThreshold = maxRadius - graphConfig.blipWidth
     const xCoordMaxValue =
-      graphConfig.quadrantWidth + maxRadiusAfterThreshold * -1 * 0.9978403633398593 + graphConfig.blipWidth
-    const yCoordMaxValue = graphConfig.quadrantHeight + maxRadiusAfterThreshold * -1 * 0.06568568557743505
-    const xCoordMinValue = graphConfig.quadrantWidth + minRadiusAfterThreshold * -1 * 0.9942914830326867
+      graphConfig.effectiveQuadrantWidth + maxRadiusAfterThreshold * -1 * 0.9978403633398593 + graphConfig.blipWidth
+    const yCoordMaxValue = graphConfig.effectiveQuadrantHeight + maxRadiusAfterThreshold * -1 * 0.06568568557743505
+    const xCoordMinValue = graphConfig.effectiveQuadrantWidth + minRadiusAfterThreshold * -1 * 0.9942914830326867
     const yCoordMinValue =
-      graphConfig.quadrantHeight + minRadiusAfterThreshold * -1 * 0.9942914830326867 - graphConfig.blipWidth
+      graphConfig.effectiveQuadrantHeight + minRadiusAfterThreshold * -1 * 0.9942914830326867 - graphConfig.blipWidth
 
     expect(chanceFloatingSpy).toHaveBeenCalledWith({
       min: minRadiusAfterThreshold,
@@ -57,23 +57,13 @@ describe('Blips', function () {
     const minRadiusAfterThreshold = minRadius + blipWidth / 2
     const maxRadiusAfterThreshold = maxRadius - blipWidth
     const xCoordMaxValue =
-      graphConfig.effectiveQuadrantWidth +
-      maxRadiusAfterThreshold * -1 * 0.0707372016677029 +
-      graphConfig.quadrantsGap +
-      10
+      graphConfig.quadrantWidth + maxRadiusAfterThreshold * -1 * 0.0707372016677029 + graphConfig.quadrantsGap + 10
     const yCoordMaxValue =
-      graphConfig.effectiveQuadrantHeight +
-      maxRadiusAfterThreshold * 0.9999 * 0.27563735581699916 +
-      graphConfig.quadrantsGap
+      graphConfig.quadrantHeight + maxRadiusAfterThreshold * 0.9999 * 0.27563735581699916 + graphConfig.quadrantsGap
     const xCoordMinValue =
-      graphConfig.effectiveQuadrantWidth +
-      minRadiusAfterThreshold * -1 * 0.9942914830326867 +
-      graphConfig.quadrantsGap +
-      10
+      graphConfig.quadrantWidth + minRadiusAfterThreshold * -1 * 0.9942914830326867 + graphConfig.quadrantsGap + 10
     const yCoordMinValue =
-      graphConfig.effectiveQuadrantHeight +
-      minRadiusAfterThreshold * 0.9999 * 0.10670657355889696 +
-      graphConfig.quadrantsGap
+      graphConfig.quadrantHeight + minRadiusAfterThreshold * 0.9999 * 0.10670657355889696 + graphConfig.quadrantsGap
 
     expect(chanceFloatingSpy).toHaveBeenCalledWith({
       min: minRadiusAfterThreshold,

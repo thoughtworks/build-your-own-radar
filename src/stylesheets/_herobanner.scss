@@ -3,7 +3,7 @@
 
 @if $UIRefresh2022 {
   .hero-banner {
-    height: 300px;
+    height: $tabletBannerHeight;
     background-color: $amethyst;
     background-image: url('/images/banner-image-mobile.jpg');
     background-size: contain;
@@ -16,7 +16,7 @@
 
     @include media-query-large {
       background-image: url('/images/banner-image-desktop.jpg');
-      height: 200px;
+      height: $bannerHeight;
       background-size: cover;
     }
 

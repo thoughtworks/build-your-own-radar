@@ -8,16 +8,17 @@ const {
   getScaledQuadrantWidth,
   getScaledQuadrantHeightWithGap,
   getScale,
+  uiConfig,
 } = require('../config')
 
 const ANIMATION_DURATION = 1000
 
+const { quadrantHeight, quadrantWidth, quadrantsGap, effectiveQuadrantWidth } = graphConfig
+
 let prevLeft, prevTop
 let quadrantScrollHandlerReference
 function selectRadarQuadrant(order, startAngle, name) {
-  window.scrollTo({
-    top: 0,
-    left: 0,
+  d3.select('.graph-header').node().scrollIntoView({
     behavior: 'smooth',
   })
 
@@ -43,15 +44,16 @@ function selectRadarQuadrant(order, startAngle, name) {
   const translateYAll = (((1 + adjustY) / 2) * size * scale) / 2
 
   const radarContainer = d3.select('#radar')
-  const parentWidth = radarContainer.node().getBoundingClientRect().width
+  const parentWidth = getElementWidth(radarContainer)
+
   const translateLeftRightValues = {
     first: {
-      left: parentWidth - graphConfig.effectiveQuadrantWidth * scale,
+      left: parentWidth - quadrantWidth * scale,
       top: 0,
       right: 'unset',
     },
     second: {
-      left: parentWidth - graphConfig.effectiveQuadrantWidth * scale,
+      left: parentWidth - quadrantWidth * scale,
       top: 0,
       right: 'unset',
     },
@@ -70,30 +72,30 @@ function selectRadarQuadrant(order, startAngle, name) {
   svg
     .style(
       'left',
-      window.innerWidth < 1280
-        ? `calc((100% - ${graphConfig.effectiveQuadrantWidth * scale}px) / 2)`
+      window.innerWidth < uiConfig.tabletViewWidth
+        ? `calc((100% - ${quadrantWidth * scale}px) / 2)`
         : translateLeftRightValues[order].left + 'px',
     )
     .style('top', translateLeftRightValues[order].top + 'px')
     .style('right', translateLeftRightValues[order].right)
     .style('box-sizing', 'border-box')
 
-  if (window.innerWidth < 1280) {
+  if (window.innerWidth < uiConfig.tabletViewWidth) {
     svg.style('margin', 'unset')
   }
 
   svg
     .attr('transform', `scale(${scale})`)
     .style('transform-origin', `0 0`)
-    .attr('width', graphConfig.effectiveQuadrantWidth)
-    .attr('height', graphConfig.effectiveQuadrantHeight + graphConfig.quadrantsGap)
+    .attr('width', quadrantWidth)
+    .attr('height', quadrantHeight + quadrantsGap)
   svg.classed('quadrant-view', true)
 
   const quadrantGroupTranslate = {
     first: { x: 0, y: 0 },
-    second: { x: 0, y: -512 },
-    third: { x: -544, y: 0 },
-    fourth: { x: -544, y: -512 },
+    second: { x: 0, y: -quadrantHeight },
+    third: { x: -(quadrantWidth + quadrantsGap), y: 0 },
+    fourth: { x: -(quadrantWidth + quadrantsGap), y: -quadrantHeight },
   }
 
   d3.select('.quadrant-group-' + order)
@@ -134,7 +136,7 @@ function selectRadarQuadrant(order, startAngle, name) {
     d3.select('.radar-legends').classed('left-view', true)
   }
 
-  if (window.innerWidth < 1280) {
+  if (window.innerWidth < uiConfig.tabletViewWidth) {
     d3.select('#radar').style('height', null)
   }
 
@@ -148,13 +150,14 @@ function selectRadarQuadrant(order, startAngle, name) {
 
   d3.selectAll('.blip-list__item-container__name').attr('aria-expanded', 'false')
 
-  if (window.innerWidth >= 1280) {
+  if (window.innerWidth >= uiConfig.tabletViewWidth) {
     if (order === 'first' || order === 'second') {
       radarLegendsContainer.style(
         'left',
-        `${parentWidth -
-        getScaledQuadrantWidth(scale) +
-        (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
+        `${
+          parentWidth -
+          getScaledQuadrantWidth(scale) +
+          (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
         }px`,
       )
     } else {
@@ -203,13 +206,13 @@ function renderRadarQuadrantName(quadrant, parentGroup) {
     ctaArrowXOffset = quadrantNameToDisplay.length * 11
   } else {
     anchor = 'end'
-    translateX = graphConfig.quadrantWidth * 2 - 50
+    translateX = effectiveQuadrantWidth * 2 - 50
     ctaArrowXOffset = 10
   }
   if (adjustY < 0) {
     translateY = 60
   } else {
-    translateY = graphConfig.quadrantWidth * 2 - 60
+    translateY = effectiveQuadrantWidth * 2 - 60
   }
 
   const quadrantName = quadrantNameGroup.append('text')
@@ -232,16 +235,28 @@ function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator) {
     .on('click', selectRadarQuadrant.bind({}, quadrant.order, quadrant.startAngle, quadrant.quadrant.name()))
 
   const rectCoordMap = {
-    first: { x: 0, y: 0, strokeDashArray: '0,512,1024,512' },
-    second: { x: 0, y: 544, strokeDashArray: '1024,1024' },
-    third: { x: 544, y: 0, strokeDashArray: '0,1024,1024' },
-    fourth: { x: 544, y: 544, strokeDashArray: '512,1024,512' },
+    first: { x: 0, y: 0, strokeDashArray: `0, ${quadrantWidth}, ${quadrantHeight + quadrantWidth}, ${quadrantHeight}` },
+    second: {
+      x: 0,
+      y: quadrantHeight + quadrantsGap,
+      strokeDashArray: `${quadrantWidth + quadrantHeight}, ${quadrantWidth + quadrantHeight}`,
+    },
+    third: {
+      x: quadrantWidth + quadrantsGap,
+      y: 0,
+      strokeDashArray: `0, ${quadrantWidth + quadrantHeight}, ${quadrantWidth + quadrantHeight}`,
+    },
+    fourth: {
+      x: quadrantWidth + quadrantsGap,
+      y: quadrantHeight + quadrantsGap,
+      strokeDashArray: `${quadrantWidth}, ${quadrantWidth + quadrantHeight}, ${quadrantHeight}`,
+    },
   }
 
   quadrantGroup
     .append('rect')
-    .attr('width', '512px')
-    .attr('height', '512px')
+    .attr('width', `${quadrantWidth}px`)
+    .attr('height', `${quadrantHeight}px`)
     .attr('fill', '#edf1f3')
     .attr('x', rectCoordMap[quadrant.order].x)
     .attr('y', rectCoordMap[quadrant.order].y)
@@ -261,10 +276,11 @@ function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator) {
       .attr('class', 'ring-arc-' + ring.order())
       .attr('transform', 'translate(' + 528 + ', ' + 528 + ')')
   })
+
   quadrantGroup
     .append('rect')
-    .attr('width', '512px')
-    .attr('height', '512px')
+    .attr('width', `${quadrantWidth}px`)
+    .attr('height', `${quadrantHeight}px`)
     .attr('fill', 'transparent')
     .attr('stroke', 'black')
     .attr('x', rectCoordMap[quadrant.order].x)
@@ -287,6 +303,7 @@ function renderRadarLegends(radarElement) {
     .attr('height', '37px')
     .attr('alt', 'new blip legend icon')
     .node().outerHTML
+
   const noChangeImage = legendsContainer
     .append('img')
     .attr('src', '/images/no-change.svg')
@@ -341,16 +358,16 @@ function quadrantScrollHandler(
     radarElement.classed('sticky', true)
     radarLegendsContainer.classed('sticky', true)
 
-    if (window.scrollY + 60 + quadrantHeight >= quadrantTableOffset) {
+    if (window.scrollY + uiConfig.subnavHeight + quadrantHeight >= quadrantTableOffset) {
       radarElement.classed('sticky', false)
       radarLegendsContainer.classed('sticky', false)
 
-      radarElement.style('top', `${quadrantTableHeight - quadrantHeight - 60}px`)
+      radarElement.style('top', `${quadrantTableHeight - quadrantHeight - uiConfig.subnavHeight}px`)
       radarElement.style('left', prevLeft)
 
       radarLegendsContainer.style(
         'top',
-        `${quadrantTableHeight - quadrantHeight - 60 + getScaledQuadrantHeightWithGap(scale)}px`,
+        `${quadrantTableHeight - quadrantHeight - uiConfig.subnavHeight + getScaledQuadrantHeightWithGap(scale)}px`,
       )
       radarLegendsContainer.style(
         'left',
@@ -361,19 +378,21 @@ function quadrantScrollHandler(
         radarElement.style('left', `${leftQuadrantLeftValue}px`)
         radarLegendsContainer.style(
           'left',
-          `${leftQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
+          `${
+            leftQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
           }px`,
         )
       } else {
         radarElement.style('left', `${rightQuadrantLeftValue}px`)
         radarLegendsContainer.style(
           'left',
-          `${rightQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
+          `${
+            rightQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
           }px`,
         )
       }
 
-      radarLegendsContainer.style('top', `${getScaledQuadrantHeightWithGap(scale) + 60}px`)
+      radarLegendsContainer.style('top', `${getScaledQuadrantHeightWithGap(scale) + uiConfig.subnavHeight}px`)
     }
   } else {
     radarElement.style('top', prevTop)
@@ -397,13 +416,13 @@ function stickQuadrantOnScroll() {
   const selectedQuadrantTable = d3.select('.quadrant-table.selected')
   const radarLegendsContainer = d3.select('.radar-legends')
 
-  const radarHeight = graphConfig.effectiveQuadrantHeight * scale + graphConfig.quadrantsGap * scale
-  const offset = radarContainer.node().offsetTop - 60
+  const radarHeight = quadrantHeight * scale + quadrantsGap * scale
+  const offset = radarContainer.node().offsetTop - uiConfig.subnavHeight
   const radarWidth = radarContainer.node().getBoundingClientRect().width
   const selectedOrder = radarElement.attr('data-quadrant-selected')
 
   const leftQuadrantLeftValue =
-    (window.innerWidth + radarWidth) / 2 - graphConfig.quadrantWidth * scale + (graphConfig.quadrantsGap / 2) * scale
+    (window.innerWidth + radarWidth) / 2 - effectiveQuadrantWidth * scale + (quadrantsGap / 2) * scale
   const rightQuadrantLeftValue = (window.innerWidth - radarWidth) / 2
 
   const quadrantHeight = radarHeight

@@ -1,6 +1,7 @@
 const d3 = require('d3')
 const { selectRadarQuadrant, mouseoverQuadrant, mouseoutQuadrant, removeScrollListener } = require('./quadrants')
 const { getRingIdString } = require('../../util/util')
+const { uiConfig } = require('../config')
 
 function addListItem(quadrantList, name, callback, order) {
   quadrantList
@@ -14,9 +15,7 @@ function addListItem(quadrantList, name, callback, order) {
     .on('click', function (e) {
       removeScrollListener()
 
-      window.scrollTo({
-        top: 0,
-        left: 0,
+      d3.select('.graph-header').node().scrollIntoView({
         behavior: 'smooth',
       })
 
@@ -67,7 +66,8 @@ function renderQuadrantSubnav(radarHeader, quadrants, renderFullRadar) {
     )
   })
 
-  const subnavOffset = window.innerWidth < 1024 ? 380 : 280
+  const subnavOffset =
+    (window.innerWidth < 1024 ? uiConfig.tabletBannerHeight : uiConfig.bannerHeight) + uiConfig.headerHeight
 
   window.addEventListener('scroll', function () {
     if (subnavOffset <= window.scrollY) {

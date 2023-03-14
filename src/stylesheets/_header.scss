@@ -208,7 +208,7 @@ header {
 
 @if $UIRefresh2022 {
   header {
-    height: 80px;
+    height: $headerHeight;
     width: 100%;
     display: flex;
     align-items: center;

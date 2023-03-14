@@ -8,7 +8,7 @@
 
     @include media-query-xlarge {
       width: 80%;
-      min-width: 1056px;
+      min-width: calc($quadrantWidth * 2 + $quadrantsGap);
     }
 
     @include layout-margin(calc(12 / 12), $screen-xlarge);
@@ -71,7 +71,7 @@
         &.sticky {
           position: fixed;
           transition: none;
-          top: 60px !important;
+          top: $subnavHeight !important;
         }
       }
     }
@@ -379,10 +379,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 32px auto;
+      margin: $quadrantsGap auto;
       width: 100%;
       position: absolute;
-      top: 1056px;
+      top: calc($quadrantWidth * 2 + $quadrantsGap);
     }
 
     img:nth-child(2) {

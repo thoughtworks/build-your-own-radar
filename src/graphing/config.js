@@ -2,14 +2,24 @@ const quadrantSize = 512
 const quadrantGap = 32
 
 const graphConfig = {
-  quadrantHeight: quadrantSize + quadrantGap / 2,
-  quadrantWidth: quadrantSize + quadrantGap / 2,
-  effectiveQuadrantHeight: quadrantSize,
-  effectiveQuadrantWidth: quadrantSize,
+  effectiveQuadrantHeight: quadrantSize + quadrantGap / 2,
+  effectiveQuadrantWidth: quadrantSize + quadrantGap / 2,
+  quadrantHeight: quadrantSize,
+  quadrantWidth: quadrantSize,
   quadrantsGap: quadrantGap,
   minBlipWidth: 12,
   blipWidth: 22,
-  blipFontSize: '12px',
+  blipFontSize: 12,
+}
+
+const uiConfig = {
+  subnavHeight: 60,
+  bannerHeight: 200,
+  tabletBannerHeight: 300,
+  headerHeight: 80,
+  legendsHeight: 42,
+  tabletViewWidth: 1280,
+  mobileViewWidth: 768,
 }
 
 function getScale() {
@@ -17,27 +27,28 @@ function getScale() {
 }
 
 function getGraphSize() {
-  return graphConfig.quadrantHeight + graphConfig.quadrantWidth
+  return graphConfig.effectiveQuadrantHeight + graphConfig.effectiveQuadrantWidth
 }
 
 function getScaledQuadrantWidth(scale) {
-  return graphConfig.effectiveQuadrantWidth * scale
+  return graphConfig.quadrantWidth * scale
 }
 
 function getScaledQuadrantWidthWithGap(scale) {
-  return (graphConfig.effectiveQuadrantWidth + graphConfig.quadrantsGap) * scale
+  return (graphConfig.quadrantWidth + graphConfig.quadrantsGap) * scale
 }
 
 function getScaledQuadrantHeight(scale) {
-  return graphConfig.effectiveQuadrantHeight * scale
+  return graphConfig.quadrantHeight * scale
 }
 
 function getScaledQuadrantHeightWithGap(scale) {
-  return (graphConfig.effectiveQuadrantHeight + graphConfig.quadrantsGap) * scale
+  return (graphConfig.quadrantHeight + graphConfig.quadrantsGap) * scale
 }
 
 module.exports = {
   graphConfig,
+  uiConfig,
   getScale,
   getGraphSize,
   getScaledQuadrantWidth,

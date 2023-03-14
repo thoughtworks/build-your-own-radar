@@ -515,6 +515,11 @@ const Radar = function (size, radar) {
 
   function renderFullRadar() {
     window.removeEventListener('scroll', quadrantScrollHandler)
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    })
 
     d3.select('#radar-plot').classed('sticky', false)
     d3.select('#radar-plot').classed('quadrant-view', false)
