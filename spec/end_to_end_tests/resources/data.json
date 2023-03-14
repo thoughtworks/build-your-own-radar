@@ -1,30 +1,58 @@
 [
   {
-    "name": "Babel",
-    "ring": "adopt",
-    "quadrant": "tools",
+    "name": "Path-to-production mapping",
+    "ring": "Adopt",
+    "quadrant": "Techniques",
     "isNew": "TRUE",
-    "description": "test"
+    "description": "<p>Although <strong>path-to-production mapping</strong> has been a near-universal practice at Thoughtworks since codifying <em><a href=\"https://www.amazon.com/Continuous-Delivery-Deployment-Automation-Addison-Wesley/dp/0321601912\">Continuous Delivery</a></em>"
   },
   {
-    "name": "Apache Kafka",
-    "ring": "trial",
-    "quadrant": "languages & frameworks",
+    "name": "Component visual regression testing",
+    "ring": "Trial",
+    "quadrant": "Techniques",
     "isNew": "FALSE",
-    "description": "test"
+    "description": "<p><a href=\"/radar/tools/visual-regression-testing-tools\">Visual regression testing</a> is a useful and powerful tool to have in your toolbox"
   },
   {
-    "name": "Android-x86",
-    "ring": "assess",
-    "quadrant": "platforms",
+    "name": "Dragonfly",
+    "ring": "Assess",
+    "quadrant": "Platforms",
     "isNew": "TRUE",
-    "description": "description"
+    "description": "<p><strong><a href=\"https://github.com/dragonflydb/dragonfly\">Dragonfly</a></strong> is a new in-memory data store with compatible <a href=\"/radar/platforms/redis\">Redis</a> and Memcached APIs. It leverages the new Linux-specific <a href=\"https://github.com/axboe/liburing\">io_uring</a> API for I/O and implements <a href=\"https://dragonflydb.io/blog/2022/06/23/cache_design/\">novel algorithms and data structures</a> on top of a multithreaded"
   },
   {
-    "name": "GrapCloud lift and shifthQL",
-    "ring": "hold",
-    "quadrant": "techniques",
+    "name": "OrioleDB",
+    "ring": "Hold",
+    "quadrant": "Platforms",
     "isNew": "FALSE",
-    "description": "description"
+    "description": "<p><strong><a href=\"https://github.com/orioledb/orioledb/\">OrioleDB</a></strong> is a new storage engine for PostgreSQL. Our teams use PostgreSQL a lot"
+  },
+  {
+    "name": "AWS Backup Vault Lock",
+    "ring": "Trial",
+    "quadrant": "Tools",
+    "isNew": "TRUE",
+    "description": "<p>When implementing robust"
+  },
+  {
+    "name": "Databricks Overwatch",
+    "ring": "Assess",
+    "quadrant": "Tools",
+    "isNew": "FALSE",
+    "description": "<p><strong><a href=\"https://databrickslabs.github.io/overwatch/\">Databricks Overwatch</a></strong> is a Databricks Labs project that enables teams to analyze various operational metrics of Databricks workloads around cost"
+  },
+  {
+    "name": "io-ts",
+    "ring": "Adopt",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "TRUE",
+    "description": "<p>Our teams developing in <a href=\"/radar/languages-and-frameworks/typescript\">TypeScript</a> are finding <strong><a href=\"https://gcanti.github.io/io-ts/\">io-ts</a></strong> invaluable"
+  },
+  {
+    "name": "Carbon",
+    "ring": "Hold",
+    "quadrant": "Languages & Frameworks",
+    "isNew": "FALSE",
+    "description": "<p>We're seeing some interest in the <strong><a href=\"https://github.com/carbon-language/carbon-lang\">Carbon</a></strong> programming language. That doesn't come as a surprise: it has Google's backing and is presented as a natural successor to C++. In our opinion C++ can't be replaced fast enough as software engineers have shown"
   }
 ]
