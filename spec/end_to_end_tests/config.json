@@ -4,5 +4,8 @@
   "PUBLIC_GOOGLE_SHEET_URL": "https://docs.google.com/spreadsheets/d/1wZVb8V53O0Lzr4iMaz4qjJZKteA1xQhJNajGq0jE9sw",
   "PUBLIC_GOOGLE_SHEET_TITLE": "BYOR Test - Public Google Sheet",
   "PUBLIC_GOOGLE_SHEET_RADAR_SHEET_NAMES": ["Build your Technology Radar", "Build your Technology Radar - Sheet 2"],
-  "QUADRANT_NAMES": ["All quadrants", "Techniques", "Platforms", "Tools", "Languages & Frameworks"]
+  "QUADRANT_NAMES": ["All quadrants", "Techniques", "Platforms", "Tools", "Languages & Frameworks"],
+  "PUBLIC_SHEET_QUADRANT_NAMES": ["All quadrants", "Techniques", "Platforms", "Tools", "Languages & Frameworks"],
+  "QUADRANT_ORDERS": ["first", "second", "third", "fourth"],
+  "QUADRANT_NAMES_LOWER": ["techniques", "platforms", "tools", "languages---frameworks"]
 }

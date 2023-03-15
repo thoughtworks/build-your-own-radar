@@ -17,6 +17,7 @@ const { quadrantHeight, quadrantWidth, quadrantsGap, effectiveQuadrantWidth } = 
 
 let prevLeft, prevTop
 let quadrantScrollHandlerReference
+let scrollFlag = false
 function selectRadarQuadrant(order, startAngle, name) {
   d3.select('.graph-header').node().scrollIntoView({
     behavior: 'smooth',
@@ -345,7 +346,7 @@ function quadrantScrollHandler(
   selectedOrder,
   leftQuadrantLeftValue,
   rightQuadrantLeftValue,
-  radarQuadrantHeight,
+  radarHeight,
   selectedQuadrantTable,
   radarLegendsContainer,
   radarLegendsWidth,
@@ -358,18 +359,16 @@ function quadrantScrollHandler(
     radarElement.classed('sticky', true)
     radarLegendsContainer.classed('sticky', true)
 
-    if (window.scrollY + uiConfig.subnavHeight + radarQuadrantHeight >= quadrantTableOffset) {
+    if (window.scrollY + uiConfig.subnavHeight + radarHeight >= quadrantTableOffset) {
       radarElement.classed('sticky', false)
       radarLegendsContainer.classed('sticky', false)
 
-      radarElement.style('top', `${quadrantTableHeight - radarQuadrantHeight - uiConfig.subnavHeight}px`)
+      radarElement.style('top', `${quadrantTableHeight - radarHeight - uiConfig.subnavHeight}px`)
       radarElement.style('left', prevLeft)
 
       radarLegendsContainer.style(
         'top',
-        `${
-          quadrantTableHeight - radarQuadrantHeight - uiConfig.subnavHeight + getScaledQuadrantHeightWithGap(scale)
-        }px`,
+        `${quadrantTableHeight - radarHeight - uiConfig.subnavHeight + getScaledQuadrantHeightWithGap(scale)}px`,
       )
       radarLegendsContainer.style(
         'left',
@@ -411,44 +410,54 @@ function quadrantScrollHandler(
 }
 
 function stickQuadrantOnScroll() {
-  const scale = getScale()
+  if (!scrollFlag) {
+    const scale = getScale()
 
-  const radarContainer = d3.select('#radar')
-  const radarElement = d3.select('#radar-plot')
-  const selectedQuadrantTable = d3.select('.quadrant-table.selected')
-  const radarLegendsContainer = d3.select('.radar-legends')
+    const radarContainer = d3.select('#radar')
+    const radarElement = d3.select('#radar-plot')
+    const selectedQuadrantTable = d3.select('.quadrant-table.selected')
+    const radarLegendsContainer = d3.select('.radar-legends')
 
-  const radarHeight = quadrantHeight * scale + quadrantsGap * scale
-  const offset = radarContainer.node().offsetTop - uiConfig.subnavHeight
-  const radarWidth = radarContainer.node().getBoundingClientRect().width
-  const selectedOrder = radarElement.attr('data-quadrant-selected')
+    const radarHeight = quadrantHeight * scale + quadrantsGap * scale
+    const offset = radarContainer.node().offsetTop - uiConfig.subnavHeight
+    const radarWidth = radarContainer.node().getBoundingClientRect().width
+    const selectedOrder = radarElement.attr('data-quadrant-selected')
 
-  const leftQuadrantLeftValue =
-    (window.innerWidth + radarWidth) / 2 - effectiveQuadrantWidth * scale + (quadrantsGap / 2) * scale
-  const rightQuadrantLeftValue = (window.innerWidth - radarWidth) / 2
+    const leftQuadrantLeftValue =
+      (window.innerWidth + radarWidth) / 2 - effectiveQuadrantWidth * scale + (quadrantsGap / 2) * scale
+    const rightQuadrantLeftValue = (window.innerWidth - radarWidth) / 2
 
-  const radarQuadrantHeight = radarHeight
-  const radarLegendsWidth = getElementWidth(radarLegendsContainer)
+    const radarLegendsWidth = getElementWidth(radarLegendsContainer)
 
-  quadrantScrollHandlerReference = quadrantScrollHandler.bind(
-    this,
-    scale,
-    radarElement,
-    offset,
-    selectedOrder,
-    leftQuadrantLeftValue,
-    rightQuadrantLeftValue,
-    radarQuadrantHeight,
-    selectedQuadrantTable,
-    radarLegendsContainer,
-    radarLegendsWidth,
-  )
+    quadrantScrollHandlerReference = quadrantScrollHandler.bind(
+      this,
+      scale,
+      radarElement,
+      offset,
+      selectedOrder,
+      leftQuadrantLeftValue,
+      rightQuadrantLeftValue,
+      radarHeight,
+      selectedQuadrantTable,
+      radarLegendsContainer,
+      radarLegendsWidth,
+    )
 
-  window.addEventListener('scroll', quadrantScrollHandlerReference)
+    if (
+      uiConfig.subnavHeight + radarHeight + quadrantsGap * 2 + uiConfig.legendsHeight <
+      getElementHeight(selectedQuadrantTable)
+    ) {
+      window.addEventListener('scroll', quadrantScrollHandlerReference)
+      scrollFlag = true
+    } else {
+      removeScrollListener()
+    }
+  }
 }
 
 function removeScrollListener() {
   window.removeEventListener('scroll', quadrantScrollHandlerReference)
+  scrollFlag = false
 }
 
 module.exports = {
@@ -458,5 +467,6 @@ module.exports = {
   renderMobileView,
   mouseoverQuadrant,
   mouseoutQuadrant,
+  stickQuadrantOnScroll,
   removeScrollListener,
 }

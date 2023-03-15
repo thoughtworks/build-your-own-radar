@@ -28,6 +28,8 @@ function addListItem(quadrantList, name, callback, order) {
       const subnavDropdown = d3.select('.quadrant-subnav__dropdown')
       subnavDropdown.attr('aria-expanded', subnavDropdown.attr('aria-expanded') === 'false' ? 'true' : 'false')
 
+      d3.selectAll('.blip-list__item-container.expand').classed('expand', false)
+
       if (callback) {
         callback()
       }

@@ -1,5 +1,6 @@
 const d3 = require('d3')
 const { graphConfig, getScale, uiConfig } = require('../config')
+const { stickQuadrantOnScroll } = require('./quadrants')
 
 function renderBlipDescription(blip, ring, quadrant, tip) {
   const blipItem = d3
@@ -28,6 +29,10 @@ function renderBlipDescription(blip, ring, quadrant, tip) {
 
       d3.selectAll('.blip-list__item-container__name').attr('aria-expanded', 'false')
       d3.select('.blip-list__item-container.expand .blip-list__item-container__name').attr('aria-expanded', 'true')
+
+      if (window.innerWidth >= uiConfig.tabletViewWidth) {
+        stickQuadrantOnScroll()
+      }
     })
 
   blipItemContainer
@@ -78,6 +83,10 @@ function renderBlipDescription(blip, ring, quadrant, tip) {
 
     setTimeout(
       () => {
+        if (window.innerWidth >= uiConfig.tabletViewWidth) {
+          stickQuadrantOnScroll()
+        }
+
         selectedBlipContainer.select('button.blip-list__item-container__name').node().scrollIntoView({
           behavior: 'smooth',
         })

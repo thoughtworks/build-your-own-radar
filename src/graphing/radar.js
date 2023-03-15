@@ -18,8 +18,8 @@ const { renderButtons } = require('./components/buttons')
 const {
   renderRadarQuadrants,
   renderMobileView,
-  quadrantScrollHandler,
   renderRadarLegends,
+  removeScrollListener,
 } = require('./components/quadrants')
 const { renderQuadrantTables } = require('./components/quadrantTables')
 
@@ -514,7 +514,8 @@ const Radar = function (size, radar) {
   }
 
   function renderFullRadar() {
-    window.removeEventListener('scroll', quadrantScrollHandler)
+    removeScrollListener()
+
     window.scrollTo({
       top: 0,
       left: 0,

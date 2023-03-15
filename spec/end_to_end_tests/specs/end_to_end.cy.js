@@ -4,41 +4,181 @@ const config = require('../../../src/config')
 const featureToggles = config()[Cypress.env('TEST_ENV') ? Cypress.env('TEST_ENV') : 'development'].featureToggles
 const testConfig = require('../config.json')
 
+function validateActiveQuadrant(quadrantName, quadrantOrder) {
+  radarPage.validateQuadrantGraphVisible(quadrantOrder)
+
+  testConfig.QUADRANT_ORDERS.filter(function (order) {
+    return order !== quadrantOrder
+  }).forEach(function (order) {
+    radarPage.validateQuadrantGraphHidden(order)
+  })
+
+  radarPage.validateActiveQuadrantInSubnav(quadrantName)
+}
+
 describe('Build radar with CSV', () => {
   it('Validate CSV file', () => {
     cy.visit(Cypress.env('host'))
+
     byorPage.provideCsvName()
     byorPage.clickSubmitButton()
-    radarPage.clickTheBlipFromInteractiveSection()
-    radarPage.clickTheBlip()
-    radarPage.validateBlipDescription('description')
     if (featureToggles.UIRefresh2022) {
-      cy.get('#radar-plot').should('exist')
       radarPage.validateGraphTitle('Sheet')
-      radarPage.validateQuadrantNames()
-      radarPage.validateSearchResults('description', 2)
+
+      radarPage.validateMobileQuadrantsHidden()
+      radarPage.validateGraphVisible()
+
+      radarPage.clickQuadrantInFullRadarView('first')
+      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateRingsInQuadrantTable(4)
+      radarPage.validateBlipsInQuadrantTable(2)
+
+      radarPage.clickBlipItemInQuadrantTable(1)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+
+      radarPage.clickBlipInRadarGraph(2)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+      radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+
+      radarPage.resetRadarView()
+
+      radarPage.clickBlipInRadarGraph(2)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+      validateActiveQuadrant('techniques', 'first')
+
+      radarPage.clickQuadrantInSubnav('tools')
+      validateActiveQuadrant('tools', 'third')
+
+      radarPage.clickQuadrantInSubnav('all-quadrants')
+      radarPage.validateMobileQuadrantsHidden()
+      radarPage.validateGraphVisible()
+
+      radarPage.resetRadarView()
+
+      radarPage.validateSearchResults('framework', 3)
+      radarPage.clickSearchResult(1)
+      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+
+      radarPage.triggerSearch('framework')
+      radarPage.clickSearchResult(2)
+      validateActiveQuadrant('languages---frameworks', 'fourth')
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
+    } else {
+      radarPage.clickTheBlipInFullRadarView()
+      radarPage.clickTheBlip()
+      radarPage.validateBlipDescriptionOld('Dragonfly')
+      radarPage.searchTheBlip()
+      radarPage.validateBlipSearch()
     }
   })
 
   if (featureToggles.UIRefresh2022) {
-    it('Validate CSV file in mobile', () => {
+    it('Validate CSV file in tablet', () => {
       cy.viewport(1024, 768)
       cy.visit(Cypress.env('host'))
+
       byorPage.provideCsvName()
       byorPage.clickSubmitButton()
-      cy.get('#radar-plot').should('not.exist')
-      radarPage.clickQuadrant()
-      radarPage.clickTheBlip()
-      radarPage.validateBlipDescription('description')
-      radarPage.validateQuadrantSubnavClick('Platforms')
+
+      radarPage.validateGraphTitle('Sheet')
+
+      radarPage.validateMobileQuadrantsVisible()
+      radarPage.validateGraphHidden()
+
+      radarPage.clickQuadrantInFullRadarViewTablet('first')
+      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateRingsInQuadrantTable(4)
+      radarPage.validateBlipsInQuadrantTable(2)
+
+      radarPage.clickBlipItemInQuadrantTable(1)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+
+      radarPage.clickBlipInRadarGraph(2)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+      radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+
+      radarPage.resetRadarView()
+
+      radarPage.validateSubnavDropdownHiddenTablet()
+      radarPage.clickSubnavDropdownTablet()
+      radarPage.validateSubnavDropdownVisibleTablet()
+      radarPage.clickQuadrantInSubnav('tools')
+      radarPage.validateSubnavDropdownHiddenTablet()
+      validateActiveQuadrant('tools', 'third')
+
+      radarPage.clickSubnavDropdownTablet()
+      radarPage.clickQuadrantInSubnav('all-quadrants')
+      radarPage.validateMobileQuadrantsVisible()
+      radarPage.validateGraphHidden()
+
+      radarPage.resetRadarView()
+
+      radarPage.validateSearchResults('framework', 3)
+      radarPage.clickSearchResult(1)
+      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+
+      radarPage.triggerSearch('framework')
+      radarPage.clickSearchResult(2)
+      validateActiveQuadrant('languages---frameworks', 'fourth')
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
     })
-  } else {
-    it('Validate search', () => {
+
+    it('Validate CSV file in mobile', () => {
+      cy.viewport(360, 480)
       cy.visit(Cypress.env('host'))
+
       byorPage.provideCsvName()
       byorPage.clickSubmitButton()
-      radarPage.searchTheBlip()
-      radarPage.validateBlipSearch()
+
+      radarPage.validateGraphTitle('Sheet')
+
+      radarPage.validateMobileQuadrantsVisible()
+      radarPage.validateGraphHidden()
+
+      radarPage.clickQuadrantInFullRadarViewTablet('first')
+      radarPage.validateActiveQuadrantInSubnav('techniques')
+      radarPage.validateGraphHidden()
+      radarPage.validateRingsInQuadrantTable(4)
+      radarPage.validateBlipsInQuadrantTable(2)
+
+      radarPage.clickBlipItemInQuadrantTable(1)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+
+      radarPage.clickBlipItemInQuadrantTable(2)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+      radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+
+      radarPage.resetRadarView()
+
+      radarPage.validateSubnavDropdownHiddenTablet()
+      radarPage.clickSubnavDropdownTablet()
+      radarPage.validateSubnavDropdownVisibleTablet()
+      radarPage.clickQuadrantInSubnav('tools')
+      radarPage.validateSubnavDropdownHiddenTablet()
+      radarPage.validateActiveQuadrantInSubnav('tools')
+      radarPage.validateGraphHidden()
+      radarPage.validateGraphHidden()
+
+      radarPage.clickSubnavDropdownTablet()
+      radarPage.clickQuadrantInSubnav('all-quadrants')
+      radarPage.validateMobileQuadrantsVisible()
+      radarPage.validateGraphHidden()
+
+      radarPage.resetRadarView()
+
+      radarPage.validateSearchResults('framework', 3)
+      radarPage.clickSearchResult(1)
+      radarPage.validateActiveQuadrantInSubnav('techniques')
+      radarPage.validateGraphHidden()
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+
+      radarPage.triggerSearch('framework')
+      radarPage.clickSearchResult(2)
+      radarPage.validateActiveQuadrantInSubnav('languages---frameworks')
+      radarPage.validateGraphHidden()
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
     })
   }
 })
@@ -46,64 +186,346 @@ describe('Build radar with CSV', () => {
 describe('Build radar with JSON', () => {
   it('Validate JSON file', () => {
     cy.visit(Cypress.env('host'))
+
     byorPage.provideJsonName()
     byorPage.clickSubmitButton()
-    radarPage.clickTheBlipFromInteractiveSection()
-    radarPage.clickTheBlip()
-    radarPage.validateBlipDescription('description')
     if (featureToggles.UIRefresh2022) {
-      cy.get('#radar-plot').should('exist')
       radarPage.validateGraphTitle('Data')
-      radarPage.validateQuadrantNames()
-      radarPage.validateSearchResults('description', 2)
+
+      radarPage.validateMobileQuadrantsHidden()
+      radarPage.validateGraphVisible()
+
+      radarPage.clickQuadrantInFullRadarView('first')
+      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateRingsInQuadrantTable(4)
+      radarPage.validateBlipsInQuadrantTable(2)
+
+      radarPage.clickBlipItemInQuadrantTable(1)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+
+      radarPage.clickBlipInRadarGraph(2)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+      radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+
+      radarPage.resetRadarView()
+
+      radarPage.clickBlipInRadarGraph(2)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+      validateActiveQuadrant('techniques', 'first')
+
+      radarPage.clickQuadrantInSubnav('tools')
+      validateActiveQuadrant('tools', 'third')
+
+      radarPage.clickQuadrantInSubnav('all-quadrants')
+      radarPage.validateMobileQuadrantsHidden()
+      radarPage.validateGraphVisible()
+
+      radarPage.resetRadarView()
+
+      radarPage.validateSearchResults('framework', 3)
+      radarPage.clickSearchResult(1)
+      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+
+      radarPage.triggerSearch('framework')
+      radarPage.clickSearchResult(2)
+      validateActiveQuadrant('languages---frameworks', 'fourth')
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
+    } else {
+      radarPage.clickTheBlipInFullRadarView()
+      radarPage.clickTheBlip()
+      radarPage.validateBlipDescriptionOld('Dragonfly')
     }
   })
 
   if (featureToggles.UIRefresh2022) {
-    it('Validate JSON file in mobile', () => {
+    it('Validate JSON file in tablet', () => {
       cy.viewport(1024, 768)
       cy.visit(Cypress.env('host'))
+
       byorPage.provideJsonName()
       byorPage.clickSubmitButton()
-      radarPage.clickQuadrant()
-      radarPage.clickTheBlip()
-      radarPage.validateBlipDescription('description')
-      radarPage.validateQuadrantSubnavClick('Platforms')
+
+      radarPage.validateGraphTitle('Data')
+
+      radarPage.validateMobileQuadrantsVisible()
+      radarPage.validateGraphHidden()
+
+      radarPage.clickQuadrantInFullRadarViewTablet('first')
+      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateRingsInQuadrantTable(4)
+      radarPage.validateBlipsInQuadrantTable(2)
+
+      radarPage.clickBlipItemInQuadrantTable(1)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+
+      radarPage.clickBlipInRadarGraph(2)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+      radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+
+      radarPage.resetRadarView()
+
+      radarPage.validateSubnavDropdownHiddenTablet()
+      radarPage.clickSubnavDropdownTablet()
+      radarPage.validateSubnavDropdownVisibleTablet()
+      radarPage.clickQuadrantInSubnav('tools')
+      radarPage.validateSubnavDropdownHiddenTablet()
+      validateActiveQuadrant('tools', 'third')
+
+      radarPage.clickSubnavDropdownTablet()
+      radarPage.clickQuadrantInSubnav('all-quadrants')
+      radarPage.validateMobileQuadrantsVisible()
+      radarPage.validateGraphHidden()
+
+      radarPage.resetRadarView()
+
+      radarPage.validateSearchResults('framework', 3)
+      radarPage.clickSearchResult(1)
+      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+
+      radarPage.triggerSearch('framework')
+      radarPage.clickSearchResult(2)
+      validateActiveQuadrant('languages---frameworks', 'fourth')
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
+    })
+
+    it('Validate JSON file in mobile', () => {
+      cy.viewport(360, 480)
+      cy.visit(Cypress.env('host'))
+
+      byorPage.provideJsonName()
+      byorPage.clickSubmitButton()
+
+      radarPage.validateGraphTitle('Data')
+
+      radarPage.validateMobileQuadrantsVisible()
+      radarPage.validateGraphHidden()
+
+      radarPage.clickQuadrantInFullRadarViewTablet('first')
+      radarPage.validateActiveQuadrantInSubnav('techniques')
+      radarPage.validateGraphHidden()
+      radarPage.validateRingsInQuadrantTable(4)
+      radarPage.validateBlipsInQuadrantTable(2)
+
+      radarPage.clickBlipItemInQuadrantTable(1)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+
+      radarPage.clickBlipItemInQuadrantTable(2)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+      radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+
+      radarPage.resetRadarView()
+
+      radarPage.validateSubnavDropdownHiddenTablet()
+      radarPage.clickSubnavDropdownTablet()
+      radarPage.validateSubnavDropdownVisibleTablet()
+      radarPage.clickQuadrantInSubnav('tools')
+      radarPage.validateSubnavDropdownHiddenTablet()
+      radarPage.validateActiveQuadrantInSubnav('tools')
+      radarPage.validateGraphHidden()
+      radarPage.validateGraphHidden()
+
+      radarPage.clickSubnavDropdownTablet()
+      radarPage.clickQuadrantInSubnav('all-quadrants')
+      radarPage.validateMobileQuadrantsVisible()
+      radarPage.validateGraphHidden()
+
+      radarPage.resetRadarView()
+
+      radarPage.validateSearchResults('framework', 3)
+      radarPage.clickSearchResult(1)
+      radarPage.validateActiveQuadrantInSubnav('techniques')
+      radarPage.validateGraphHidden()
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+
+      radarPage.triggerSearch('framework')
+      radarPage.clickSearchResult(2)
+      radarPage.validateActiveQuadrantInSubnav('languages---frameworks')
+      radarPage.validateGraphHidden()
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
     })
   }
 })
-
 describe('Build radar with public Google Sheet', () => {
   it('Validate public Google Sheet', () => {
     cy.visit(Cypress.env('host'))
+
     byorPage.providePublicSheetUrl()
     byorPage.clickSubmitButton()
-    radarPage.validateBlipCountForPublicGoogleSheet()
+
     if (featureToggles.UIRefresh2022) {
-      cy.get('#radar-plot').should('exist')
       radarPage.validateGraphTitle(testConfig.PUBLIC_GOOGLE_SHEET_TITLE)
-      radarPage.validateQuadrantNamesForPublicGoogleSheet()
-      radarPage.validateSearchResults('react', 6)
-      radarPage.validateAlternateRadarsForPublicGoogleSheet()
+
+      radarPage.validateMobileQuadrantsHidden()
+      radarPage.validateGraphVisible()
+
+      radarPage.clickQuadrantInFullRadarView('first')
+      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateRingsInQuadrantTable(4)
+      radarPage.validateBlipsInQuadrantTable(26)
+      radarPage.validateQuadrantOrder()
+      radarPage.validateRingOrder()
+
+      radarPage.clickBlipItemInQuadrantTable(1)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+
+      radarPage.clickBlipInRadarGraph(2)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+      radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+
+      radarPage.resetRadarView()
+
+      radarPage.clickBlipInRadarGraph(2)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+      validateActiveQuadrant('techniques', 'first')
+
+      radarPage.clickQuadrantInSubnav('tools')
+      validateActiveQuadrant('tools', 'third')
+
+      radarPage.clickQuadrantInSubnav('all-quadrants')
+      radarPage.validateMobileQuadrantsHidden()
+      radarPage.validateGraphVisible()
+
+      radarPage.resetRadarView()
+
+      radarPage.validateSearchResults('framework', 25)
+      radarPage.clickSearchResult(1)
+      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(5)
+
+      radarPage.triggerSearch('framework')
+      radarPage.clickSearchResult(8)
+      validateActiveQuadrant('platforms', 'second')
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(41)
+
+      radarPage.resetRadarView()
+
+      radarPage.clickAlternateRadarItem(2)
+      radarPage.validateActiveAlternateRadar(2)
+      radarPage.validateInactiveAlternateRadar(1)
+    } else {
+      radarPage.validateBlipCountForPublicGoogleSheet()
     }
   })
 
   if (featureToggles.UIRefresh2022) {
-    it('Validate public Google Sheet in mobile', () => {
+    it('Validate public Google Sheet in tablet', () => {
       cy.viewport(1024, 768)
       cy.visit(Cypress.env('host'))
+
       byorPage.providePublicSheetUrl()
       byorPage.clickSubmitButton()
-      radarPage.clickQuadrant()
-      radarPage.validateQuadrantSubnavClick('Platforms')
+
+      radarPage.validateGraphTitle(testConfig.PUBLIC_GOOGLE_SHEET_TITLE)
+
+      radarPage.validateMobileQuadrantsVisible()
+      radarPage.validateGraphHidden()
+
+      radarPage.clickQuadrantInFullRadarViewTablet('first')
+      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateRingsInQuadrantTable(4)
+      radarPage.validateBlipsInQuadrantTable(26)
+
+      radarPage.clickBlipItemInQuadrantTable(1)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+
+      radarPage.clickBlipInRadarGraph(2)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+      radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+
+      radarPage.resetRadarView()
+
+      radarPage.validateSubnavDropdownHiddenTablet()
+      radarPage.clickSubnavDropdownTablet()
+      radarPage.validateSubnavDropdownVisibleTablet()
+      radarPage.clickQuadrantInSubnav('tools')
+      radarPage.validateSubnavDropdownHiddenTablet()
+      validateActiveQuadrant('tools', 'third')
+
+      radarPage.clickSubnavDropdownTablet()
+      radarPage.clickQuadrantInSubnav('all-quadrants')
+      radarPage.validateMobileQuadrantsVisible()
+      radarPage.validateGraphHidden()
+
+      radarPage.resetRadarView()
+
+      radarPage.validateSearchResults('framework', 25)
+      radarPage.clickSearchResult(1)
+      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(5)
+
+      radarPage.triggerSearch('framework')
+      radarPage.clickSearchResult(8)
+      validateActiveQuadrant('platforms', 'second')
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(41)
+
+      radarPage.resetRadarView()
+
+      radarPage.clickAlternateRadarItem(2)
+      radarPage.validateActiveAlternateRadar(2)
+      radarPage.validateInactiveAlternateRadar(1)
     })
 
-    it('Validate quadrants and rings order', () => {
+    it('Validate public Google Sheet in mobile', () => {
+      cy.viewport(360, 480)
       cy.visit(Cypress.env('host'))
+
       byorPage.providePublicSheetUrl()
       byorPage.clickSubmitButton()
-      radarPage.validateQuadrantOrder()
-      radarPage.validateRingOrder()
+
+      radarPage.validateGraphTitle(testConfig.PUBLIC_GOOGLE_SHEET_TITLE)
+
+      radarPage.validateMobileQuadrantsVisible()
+      radarPage.validateGraphHidden()
+
+      radarPage.clickQuadrantInFullRadarViewTablet('first')
+      radarPage.validateActiveQuadrantInSubnav('techniques')
+      radarPage.validateGraphHidden()
+      radarPage.validateRingsInQuadrantTable(4)
+      radarPage.validateBlipsInQuadrantTable(26)
+
+      radarPage.clickBlipItemInQuadrantTable(1)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+
+      radarPage.clickBlipItemInQuadrantTable(2)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+      radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+
+      radarPage.resetRadarView()
+
+      radarPage.validateSubnavDropdownHiddenTablet()
+      radarPage.clickSubnavDropdownTablet()
+      radarPage.validateSubnavDropdownVisibleTablet()
+      radarPage.clickQuadrantInSubnav('tools')
+      radarPage.validateSubnavDropdownHiddenTablet()
+      radarPage.validateActiveQuadrantInSubnav('tools')
+      radarPage.validateGraphHidden()
+
+      radarPage.clickSubnavDropdownTablet()
+      radarPage.clickQuadrantInSubnav('all-quadrants')
+      radarPage.validateMobileQuadrantsVisible()
+      radarPage.validateGraphHidden()
+
+      radarPage.resetRadarView()
+
+      radarPage.validateSearchResults('framework', 25)
+      radarPage.clickSearchResult(1)
+      radarPage.validateActiveQuadrantInSubnav('techniques')
+      radarPage.validateGraphHidden()
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(5)
+
+      radarPage.triggerSearch('framework')
+      radarPage.clickSearchResult(8)
+      radarPage.validateActiveQuadrantInSubnav('platforms')
+      radarPage.validateGraphHidden()
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(41)
+
+      radarPage.resetRadarView()
+
+      radarPage.clickAlternateRadarItem(2)
+      radarPage.validateActiveAlternateRadar(2)
+      radarPage.validateInactiveAlternateRadar(1)
     })
   }
 })
