@@ -51,6 +51,14 @@ class RadarPage {
     this.alternateRadarsItemByIndex = function (index) {
       return `.alternative-radars__list-item:nth-child(${index})`
     }
+
+    this.quadrantNameGroup = function (order) {
+      return `.quadrant-group.quadrant-group-${order} .quadrant-name-group`
+    }
+
+    this.quadrantRingName = function (order, index) {
+      return `.quadrant-group-${order} .line-text:nth-of-type(${index})`
+    }
   }
 
   clickTheBlipInFullRadarView() {
@@ -226,22 +234,36 @@ class RadarPage {
     cy.get(this.radarGraphSvg).should('be.hidden')
   }
 
-  resetRadarView() {
-    cy.get(this.bannerTitle).click()
-  }
-
   validateQuadrantOrder() {
-    cy.get('.quadrant-group.quadrant-group-first .quadrant-name-group').should('have.text', config.QUADRANT_NAMES[1])
-    cy.get('.quadrant-group.quadrant-group-second .quadrant-name-group').should('have.text', config.QUADRANT_NAMES[2])
-    cy.get('.quadrant-group.quadrant-group-third .quadrant-name-group').should('have.text', config.QUADRANT_NAMES[3])
-    cy.get('.quadrant-group.quadrant-group-fourth .quadrant-name-group').should('have.text', config.QUADRANT_NAMES[4])
+    let i = 1
+    for (const order of config.QUADRANT_ORDERS) {
+      cy.get(this.quadrantNameGroup(order)).should('have.text', config.QUADRANT_NAMES[i])
+      i += 1
+    }
   }
 
   validateRingOrder() {
-    cy.get('.quadrant-group-first .line-text:nth-of-type(1)').should('have.text', 'Adopt')
-    cy.get('.quadrant-group-first .line-text:nth-of-type(2)').should('have.text', 'Trial')
-    cy.get('.quadrant-group-first .line-text:nth-of-type(3)').should('have.text', 'Assess')
-    cy.get('.quadrant-group-first .line-text:nth-of-type(4)').should('have.text', 'Hold')
+    let i = 1
+    for (const order of config.QUADRANT_ORDERS) {
+      cy.get(this.quadrantRingName(order, i)).should('have.text', config.RING_NAMES[i - 1])
+      i += 1
+    }
+  }
+
+  validateActiveQuadrant(quadrantName, quadrantOrder) {
+    this.validateQuadrantGraphVisible(quadrantOrder)
+
+    for (const order of config.QUADRANT_ORDERS.filter(function (order) {
+      return order !== quadrantOrder
+    })) {
+      this.validateQuadrantGraphHidden(order)
+    }
+
+    this.validateActiveQuadrantInSubnav(quadrantName)
+  }
+
+  resetRadarView() {
+    cy.get(this.bannerTitle).click()
   }
 }
 

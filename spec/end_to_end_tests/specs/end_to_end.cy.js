@@ -4,18 +4,6 @@ const config = require('../../../src/config')
 const featureToggles = config()[Cypress.env('TEST_ENV') ? Cypress.env('TEST_ENV') : 'development'].featureToggles
 const testConfig = require('../config.json')
 
-function validateActiveQuadrant(quadrantName, quadrantOrder) {
-  radarPage.validateQuadrantGraphVisible(quadrantOrder)
-
-  testConfig.QUADRANT_ORDERS.filter(function (order) {
-    return order !== quadrantOrder
-  }).forEach(function (order) {
-    radarPage.validateQuadrantGraphHidden(order)
-  })
-
-  radarPage.validateActiveQuadrantInSubnav(quadrantName)
-}
-
 describe('Build radar with CSV', () => {
   it('Validate CSV file', () => {
     cy.visit(Cypress.env('host'))
@@ -27,9 +15,11 @@ describe('Build radar with CSV', () => {
 
       radarPage.validateMobileQuadrantsHidden()
       radarPage.validateGraphVisible()
+      radarPage.validateQuadrantOrder()
+      radarPage.validateRingOrder()
 
       radarPage.clickQuadrantInFullRadarView('first')
-      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateActiveQuadrant('techniques', 'first')
       radarPage.validateRingsInQuadrantTable(4)
       radarPage.validateBlipsInQuadrantTable(2)
 
@@ -44,10 +34,10 @@ describe('Build radar with CSV', () => {
 
       radarPage.clickBlipInRadarGraph(2)
       radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateActiveQuadrant('techniques', 'first')
 
       radarPage.clickQuadrantInSubnav('tools')
-      validateActiveQuadrant('tools', 'third')
+      radarPage.validateActiveQuadrant('tools', 'third')
 
       radarPage.clickQuadrantInSubnav('all-quadrants')
       radarPage.validateMobileQuadrantsHidden()
@@ -57,12 +47,12 @@ describe('Build radar with CSV', () => {
 
       radarPage.validateSearchResults('framework', 3)
       radarPage.clickSearchResult(1)
-      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateActiveQuadrant('techniques', 'first')
       radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
 
       radarPage.triggerSearch('framework')
       radarPage.clickSearchResult(2)
-      validateActiveQuadrant('languages---frameworks', 'fourth')
+      radarPage.validateActiveQuadrant('languages---frameworks', 'fourth')
       radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
     } else {
       radarPage.clickTheBlipInFullRadarView()
@@ -85,9 +75,11 @@ describe('Build radar with CSV', () => {
 
       radarPage.validateMobileQuadrantsVisible()
       radarPage.validateGraphHidden()
+      radarPage.validateQuadrantOrder()
+      radarPage.validateRingOrder()
 
       radarPage.clickQuadrantInFullRadarViewTablet('first')
-      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateActiveQuadrant('techniques', 'first')
       radarPage.validateRingsInQuadrantTable(4)
       radarPage.validateBlipsInQuadrantTable(2)
 
@@ -105,7 +97,7 @@ describe('Build radar with CSV', () => {
       radarPage.validateSubnavDropdownVisibleTablet()
       radarPage.clickQuadrantInSubnav('tools')
       radarPage.validateSubnavDropdownHiddenTablet()
-      validateActiveQuadrant('tools', 'third')
+      radarPage.validateActiveQuadrant('tools', 'third')
 
       radarPage.clickSubnavDropdownTablet()
       radarPage.clickQuadrantInSubnav('all-quadrants')
@@ -116,12 +108,12 @@ describe('Build radar with CSV', () => {
 
       radarPage.validateSearchResults('framework', 3)
       radarPage.clickSearchResult(1)
-      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateActiveQuadrant('techniques', 'first')
       radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
 
       radarPage.triggerSearch('framework')
       radarPage.clickSearchResult(2)
-      validateActiveQuadrant('languages---frameworks', 'fourth')
+      radarPage.validateActiveQuadrant('languages---frameworks', 'fourth')
       radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
     })
 
@@ -136,6 +128,8 @@ describe('Build radar with CSV', () => {
 
       radarPage.validateMobileQuadrantsVisible()
       radarPage.validateGraphHidden()
+      radarPage.validateQuadrantOrder()
+      radarPage.validateRingOrder()
 
       radarPage.clickQuadrantInFullRadarViewTablet('first')
       radarPage.validateActiveQuadrantInSubnav('techniques')
@@ -194,9 +188,11 @@ describe('Build radar with JSON', () => {
 
       radarPage.validateMobileQuadrantsHidden()
       radarPage.validateGraphVisible()
+      radarPage.validateQuadrantOrder()
+      radarPage.validateRingOrder()
 
       radarPage.clickQuadrantInFullRadarView('first')
-      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateActiveQuadrant('techniques', 'first')
       radarPage.validateRingsInQuadrantTable(4)
       radarPage.validateBlipsInQuadrantTable(2)
 
@@ -211,10 +207,10 @@ describe('Build radar with JSON', () => {
 
       radarPage.clickBlipInRadarGraph(2)
       radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateActiveQuadrant('techniques', 'first')
 
       radarPage.clickQuadrantInSubnav('tools')
-      validateActiveQuadrant('tools', 'third')
+      radarPage.validateActiveQuadrant('tools', 'third')
 
       radarPage.clickQuadrantInSubnav('all-quadrants')
       radarPage.validateMobileQuadrantsHidden()
@@ -224,12 +220,12 @@ describe('Build radar with JSON', () => {
 
       radarPage.validateSearchResults('framework', 3)
       radarPage.clickSearchResult(1)
-      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateActiveQuadrant('techniques', 'first')
       radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
 
       radarPage.triggerSearch('framework')
       radarPage.clickSearchResult(2)
-      validateActiveQuadrant('languages---frameworks', 'fourth')
+      radarPage.validateActiveQuadrant('languages---frameworks', 'fourth')
       radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
     } else {
       radarPage.clickTheBlipInFullRadarView()
@@ -250,9 +246,11 @@ describe('Build radar with JSON', () => {
 
       radarPage.validateMobileQuadrantsVisible()
       radarPage.validateGraphHidden()
+      radarPage.validateQuadrantOrder()
+      radarPage.validateRingOrder()
 
       radarPage.clickQuadrantInFullRadarViewTablet('first')
-      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateActiveQuadrant('techniques', 'first')
       radarPage.validateRingsInQuadrantTable(4)
       radarPage.validateBlipsInQuadrantTable(2)
 
@@ -270,7 +268,7 @@ describe('Build radar with JSON', () => {
       radarPage.validateSubnavDropdownVisibleTablet()
       radarPage.clickQuadrantInSubnav('tools')
       radarPage.validateSubnavDropdownHiddenTablet()
-      validateActiveQuadrant('tools', 'third')
+      radarPage.validateActiveQuadrant('tools', 'third')
 
       radarPage.clickSubnavDropdownTablet()
       radarPage.clickQuadrantInSubnav('all-quadrants')
@@ -281,12 +279,12 @@ describe('Build radar with JSON', () => {
 
       radarPage.validateSearchResults('framework', 3)
       radarPage.clickSearchResult(1)
-      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateActiveQuadrant('techniques', 'first')
       radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
 
       radarPage.triggerSearch('framework')
       radarPage.clickSearchResult(2)
-      validateActiveQuadrant('languages---frameworks', 'fourth')
+      radarPage.validateActiveQuadrant('languages---frameworks', 'fourth')
       radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
     })
 
@@ -301,6 +299,8 @@ describe('Build radar with JSON', () => {
 
       radarPage.validateMobileQuadrantsVisible()
       radarPage.validateGraphHidden()
+      radarPage.validateQuadrantOrder()
+      radarPage.validateRingOrder()
 
       radarPage.clickQuadrantInFullRadarViewTablet('first')
       radarPage.validateActiveQuadrantInSubnav('techniques')
@@ -359,9 +359,11 @@ describe('Build radar with public Google Sheet', () => {
 
       radarPage.validateMobileQuadrantsHidden()
       radarPage.validateGraphVisible()
+      radarPage.validateQuadrantOrder()
+      radarPage.validateRingOrder()
 
       radarPage.clickQuadrantInFullRadarView('first')
-      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateActiveQuadrant('techniques', 'first')
       radarPage.validateRingsInQuadrantTable(4)
       radarPage.validateBlipsInQuadrantTable(26)
       radarPage.validateQuadrantOrder()
@@ -378,10 +380,10 @@ describe('Build radar with public Google Sheet', () => {
 
       radarPage.clickBlipInRadarGraph(2)
       radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateActiveQuadrant('techniques', 'first')
 
       radarPage.clickQuadrantInSubnav('tools')
-      validateActiveQuadrant('tools', 'third')
+      radarPage.validateActiveQuadrant('tools', 'third')
 
       radarPage.clickQuadrantInSubnav('all-quadrants')
       radarPage.validateMobileQuadrantsHidden()
@@ -391,12 +393,12 @@ describe('Build radar with public Google Sheet', () => {
 
       radarPage.validateSearchResults('framework', 25)
       radarPage.clickSearchResult(1)
-      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateActiveQuadrant('techniques', 'first')
       radarPage.validateBlipDescriptionVibisbleInQuadrantTable(5)
 
       radarPage.triggerSearch('framework')
       radarPage.clickSearchResult(8)
-      validateActiveQuadrant('platforms', 'second')
+      radarPage.validateActiveQuadrant('platforms', 'second')
       radarPage.validateBlipDescriptionVibisbleInQuadrantTable(41)
 
       radarPage.resetRadarView()
@@ -421,9 +423,11 @@ describe('Build radar with public Google Sheet', () => {
 
       radarPage.validateMobileQuadrantsVisible()
       radarPage.validateGraphHidden()
+      radarPage.validateQuadrantOrder()
+      radarPage.validateRingOrder()
 
       radarPage.clickQuadrantInFullRadarViewTablet('first')
-      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateActiveQuadrant('techniques', 'first')
       radarPage.validateRingsInQuadrantTable(4)
       radarPage.validateBlipsInQuadrantTable(26)
 
@@ -441,7 +445,7 @@ describe('Build radar with public Google Sheet', () => {
       radarPage.validateSubnavDropdownVisibleTablet()
       radarPage.clickQuadrantInSubnav('tools')
       radarPage.validateSubnavDropdownHiddenTablet()
-      validateActiveQuadrant('tools', 'third')
+      radarPage.validateActiveQuadrant('tools', 'third')
 
       radarPage.clickSubnavDropdownTablet()
       radarPage.clickQuadrantInSubnav('all-quadrants')
@@ -452,12 +456,12 @@ describe('Build radar with public Google Sheet', () => {
 
       radarPage.validateSearchResults('framework', 25)
       radarPage.clickSearchResult(1)
-      validateActiveQuadrant('techniques', 'first')
+      radarPage.validateActiveQuadrant('techniques', 'first')
       radarPage.validateBlipDescriptionVibisbleInQuadrantTable(5)
 
       radarPage.triggerSearch('framework')
       radarPage.clickSearchResult(8)
-      validateActiveQuadrant('platforms', 'second')
+      radarPage.validateActiveQuadrant('platforms', 'second')
       radarPage.validateBlipDescriptionVibisbleInQuadrantTable(41)
 
       radarPage.resetRadarView()
@@ -478,6 +482,8 @@ describe('Build radar with public Google Sheet', () => {
 
       radarPage.validateMobileQuadrantsVisible()
       radarPage.validateGraphHidden()
+      radarPage.validateQuadrantOrder()
+      radarPage.validateRingOrder()
 
       radarPage.clickQuadrantInFullRadarViewTablet('first')
       radarPage.validateActiveQuadrantInSubnav('techniques')
