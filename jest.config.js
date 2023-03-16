@@ -1,6 +1,7 @@
 module.exports = {
   clearMocks: true,
-  collectCoverageFrom: ['**/src/**/*.js'],
+  collectCoverageFrom: ['src/**/*.js'],
+  coveragePathIgnorePatterns: ['<rootDir>/src/graphing/components/'],
   testEnvironment: 'jsdom',
   transform: {
     '^.+\\.[jt]sx?$': 'babel-jest',

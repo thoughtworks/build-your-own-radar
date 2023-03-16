@@ -1,7 +1,5 @@
 const MalformedDataError = require('../exceptions/malformedDataError')
 const ExceptionMessages = require('../util/exceptionMessages')
-const config = require('../config')
-const featureToggles = config().featureToggles
 
 const _ = {
   map: require('lodash/map'),
@@ -10,6 +8,9 @@ const _ = {
 }
 
 const Radar = function () {
+  const config = require('../config')
+  const featureToggles = config().featureToggles
+
   let self, quadrants, blipNumber, addingQuadrant, alternatives, currentSheetName, rings
 
   blipNumber = 0
@@ -84,6 +85,7 @@ const Radar = function () {
     if (featureToggles.UIRefresh2022) {
       return rings
     }
+
     return _.sortBy(
       _.map(
         _.uniqBy(allBlips(), function (blip) {
