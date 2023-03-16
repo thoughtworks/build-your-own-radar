@@ -9,42 +9,50 @@
     display: flex;
     flex-direction: column;
     height: fit-content;
-    min-height: 60px;
+    min-height: $subnavHeight;
 
     @include media-query-xlarge {
       flex-direction: row;
       justify-content: center;
-      height: 60px;
+      height: $subnavHeight;
       font-size: 1.25rem;
+    }
+
+    &.sticky {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 999;
     }
 
     &__dropdown {
       height: fit-content;
-      min-height: 60px;
-      font-weight: 600;
+      min-height: $subnavHeight;
+      font-weight: 630;
       display: inline-flex;
       border-bottom: 1px solid $mist-s20;
       align-items: center;
       flex-direction: row;
       justify-content: center;
+      gap: 8px;
+      cursor: pointer;
 
-      &-selector {
-        display: flex;
-        gap: 8px;
+      &-arrow {
+        width: 8px;
+        height: 8px;
+        display: inline-flex;
+        rotate: 45deg;
+        border: 1px solid $flamingo;
+        border-width: 0 2px 2px 0;
+        margin-top: 0;
+        margin-bottom: 4px;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.2s ease;
 
-        &::after {
-          color: $flamingo;
-          content: url(/images/arrow-icon.svg);
-          display: inline-flex;
-          float: right;
-          -webkit-transform: rotate(90deg);
-          transform: rotate(90deg);
-          -webkit-transition: all 0.2s ease;
-          transition: all 0.2s ease;
-        }
-
-        &.rotate::after {
-          transform: rotate(-90deg);
+        &.rotate {
+          rotate: -135deg;
+          margin-bottom: 0;
+          margin-top: 4px;
         }
       }
 
@@ -67,7 +75,7 @@
 
       &-item {
         width: 100%;
-        min-height: 60px;
+        min-height: $subnavHeight;
         display: inline-flex;
         align-items: center;
         border-bottom: 1px solid $mist-s20;
@@ -78,33 +86,43 @@
 
         @include media-query-xlarge {
           &.active-item {
-            padding-top: 8px;
+            padding-top: 4px;
+            border-bottom: 4px solid transparent;
+            pointer-events: none;
+            font-weight: bold;
+            transition: font-weight 0.3s ease-in-out;
 
             &:nth-child(1) {
-              border-bottom: 8px solid $mist-s30;
+              border-color: $mist-s30;
             }
 
             &:nth-child(2) {
-              border-bottom: 8px solid $sapphire;
+              border-color: $sapphire;
             }
 
             &:nth-child(3) {
-              border-bottom: 8px solid $turmeric;
+              border-color: $turmeric;
             }
 
             &:nth-child(4) {
-              border-bottom: 8px solid $jade;
+              border-color: $jade;
             }
 
             &:nth-child(5) {
-              border-bottom: 8px solid $flamingo;
+              border-color: $flamingo;
             }
           }
         }
 
-        a {
+        &__button {
           text-decoration: none;
           border: none;
+          font: inherit;
+          cursor: pointer;
+
+          @include media-query-xlarge {
+            padding: 0 40px;
+          }
         }
       }
 
@@ -122,12 +140,19 @@
         }
 
         &-item {
-          padding: 0 40px;
-          font-weight: 600;
-
           width: unset;
           min-height: unset;
           border: none;
+
+          &:not(.active-item):hover {
+            color: $flamingo-s40;
+            text-decoration: underline;
+            text-underline-offset: 6px;
+
+            & > * {
+              color: $flamingo-s40;
+            }
+          }
         }
       }
     }

@@ -10,11 +10,22 @@
 @import 'search';
 @import 'alternativeradars';
 @import 'buttons';
+@import 'quadrants';
+@import 'quadrantTables';
 @import 'mediaqueries';
 @import 'layout';
 @import 'landingpage';
 @import 'loader';
 @import 'screen';
+
+:root {
+  font-family: 'Inter', sans-serif;
+}
+@supports (font-variation-settings: normal) {
+  :root {
+    font-family: 'Inter var', sans-serif;
+  }
+}
 
 body {
   font: 18px 'Open Sans';
@@ -43,6 +54,34 @@ body {
 
       @include media-query-xxxlarge {
         font-size: 3.5rem;
+      }
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 630;
+      font-family: 'Inter', serif;
+      text-transform: none;
+      letter-spacing: normal;
+
+      @include media-query-medium {
+        font-size: 1.25rem;
+      }
+
+      @include media-query-large {
+        font-size: 1.5rem;
+      }
+
+      @include media-query-xlarge {
+        font-size: 1.5rem;
+      }
+
+      @include media-query-xxlarge {
+        font-size: 2rem;
+      }
+
+      @include media-query-xxxlarge {
+        font-size: 2rem;
       }
     }
 
@@ -210,437 +249,5 @@ body {
 
   .error-container {
     display: none;
-  }
-}
-
-@media screen {
-  #radar {
-    width: 80%;
-    margin: 0 auto;
-    position: relative;
-    @if $UIRefresh2022 {
-      .mobile {
-        display: block;
-      }
-      &:not(.mobile) {
-        display: none;
-      }
-      @include media-query-xlarge {
-        &:not(.mobile) {
-          display: block;
-        }
-      }
-    }
-
-    svg#radar-plot {
-      margin: 0 auto;
-      transition: all 1s ease;
-      position: absolute;
-      left: 0;
-      right: 0;
-      @if $UIRefresh2022 {
-        pointer-events: none;
-        z-index: 10;
-      }
-      .legend {
-        visibility: hidden;
-        transition: visibility 1s ease 1s;
-        color: $black;
-      }
-
-      path {
-        &.ring-arc-3 {
-          stroke: none;
-          fill: $grey-light;
-        }
-
-        &.ring-arc-2 {
-          stroke: none;
-          fill: $grey;
-        }
-
-        &.ring-arc-1 {
-          stroke: none;
-          fill: $grey-dark;
-        }
-
-        &.ring-arc-0 {
-          stroke: none;
-          fill: $grey-darkest;
-        }
-      }
-
-      @if $UIRefresh2022 {
-        path {
-          &.ring-arc-3 {
-            stroke: $mist-s30;
-            fill: transparent;
-          }
-
-          &.ring-arc-2 {
-            stroke: $mist-s30;
-            fill: transparent;
-          }
-
-          &.ring-arc-1 {
-            stroke: $mist-s30;
-            fill: transparent;
-          }
-
-          &.ring-arc-0 {
-            stroke: $mist-s30;
-            fill: transparent;
-          }
-        }
-      }
-
-      .blip-link {
-        text-decoration: none;
-        cursor: pointer;
-        pointer-events: initial;
-      }
-
-      .quadrant-group {
-        cursor: pointer;
-      }
-
-      circle,
-      polygon,
-      path {
-        &.first {
-          fill: $green;
-          stroke: none;
-        }
-
-        &.second {
-          fill: $blue;
-          stroke: none;
-        }
-
-        &.third {
-          fill: $orange;
-          stroke: none;
-        }
-
-        &.fourth {
-          fill: $violet;
-          stroke: none;
-        }
-      }
-
-      line {
-        stroke: white;
-      }
-
-      text {
-        &.blip-text {
-          font-size: 9px;
-          font-style: italic;
-          fill: $white;
-        }
-
-        &.line-text {
-          font-weight: bold;
-          text-transform: uppercase;
-          fill: $black;
-          font-size: 7px;
-        }
-      }
-      @if $UIRefresh2022 {
-        circle,
-        polygon,
-        path {
-          &.first {
-            fill: $sapphire;
-            stroke: none;
-          }
-
-          &.second {
-            fill: $turmeric;
-            stroke: none;
-          }
-
-          &.third {
-            fill: $jade;
-            stroke: none;
-          }
-
-          &.fourth {
-            fill: $flamingo;
-            stroke: none;
-          }
-        }
-
-        line {
-          stroke: white;
-        }
-
-        text {
-          &.blip-text {
-            font-size: 9px;
-            font-style: italic;
-            fill: $black;
-          }
-
-          &.line-text {
-            font-weight: bold;
-            text-transform: uppercase;
-            fill: $black;
-            font-size: 14px;
-          }
-        }
-      }
-    }
-
-    .quadrants-container {
-      z-index: 1;
-      position: relative;
-      width: 1056px;
-      display: none;
-      margin: auto;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 32px;
-
-      @include media-query-xlarge {
-        display: flex;
-      }
-
-      &.quadrant-page-view {
-        display: none;
-        position: absolute;
-        width: auto;
-        left: 15%;
-        top: 100px;
-      }
-
-      #first-quadrant-bg-image {
-        transform: rotate(270deg);
-      }
-      #second-quadrant-bg-image {
-        transform: rotate(180deg);
-      }
-      #third-quadrant-bg-image {
-        transform: rotate(360deg);
-      }
-      #fourth-quadrant-bg-image {
-        transform: rotate(90deg);
-      }
-
-      .quadrant-bg-images {
-        display: block;
-        position: relative;
-
-        &.hidden {
-          display: none;
-        }
-      }
-
-      .left-quadrant,
-      .right-quadrant {
-        flex-direction: column;
-        display: flex;
-        gap: 32px;
-      }
-    }
-
-    div.quadrant-table {
-      .quadrant-table__name {
-        display: none;
-      }
-
-      max-height: 0;
-      max-width: 0;
-      position: absolute;
-      overflow: hidden;
-      z-index: 11;
-
-      transition: max-height 0.5s ease 1s;
-
-      h3 {
-        text-transform: uppercase;
-        font-size: $baseFont;
-        margin: 0;
-        font-weight: bold;
-      }
-
-      &.first {
-        &.selected {
-          float: right;
-        }
-      }
-
-      &.second {
-        &.selected {
-          float: left;
-        }
-      }
-
-      &.third {
-        &.selected {
-          float: left;
-        }
-      }
-
-      &.fourth {
-        &.selected {
-          float: right;
-        }
-      }
-
-      &.selected {
-        position: relative;
-        max-height: 10000px;
-        max-width: 40%;
-      }
-
-      @if $UIRefresh2022 {
-        display: none;
-        &.selected {
-          display: block;
-        }
-      }
-
-      ul {
-        padding: 0;
-        margin-left: 0;
-
-        li {
-          list-style-type: none;
-          padding-left: 0;
-
-          .blip-list-item {
-            padding: 2px 5px;
-            border-radius: 2px;
-            cursor: pointer;
-            font-size: $baseFont;
-            font-weight: 400;
-
-            &.highlight {
-              color: white;
-              background-color: rgba(0, 0, 0, 0.8);
-            }
-          }
-
-          .blip-item-description {
-            max-height: 0;
-            overflow: hidden;
-            width: 300px;
-
-            p {
-              margin: 0;
-              border-top: 1px solid rgb(119, 119, 119);
-              border-bottom: 1px solid rgb(119, 119, 119);
-              padding: 20px;
-              color: $grey-text;
-              font-weight: 100;
-              font-size: 14px;
-            }
-
-            transition: max-height 0.2s ease;
-
-            &.expanded {
-              transition: max-height 0.5s ease 0.2s;
-              max-height: 1000px;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  @if ($UIRefresh2022) {
-    .radar-legends {
-      display: none;
-
-      &.show {
-        @include media-query-xlarge {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin: 32px 0;
-        }
-      }
-
-      img {
-        margin-left: 48px;
-      }
-    }
-    .all-quadrants-mobile {
-      --quadrant-gap: 12px;
-      --quadrant-btn-width-mobile: 150px;
-      --quadrant-btn-height-mobile: 70px;
-      display: none;
-      flex-direction: column;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-content: space-between;
-      margin: auto;
-      margin-bottom: 42px;
-
-      &.show-all-quadrants-mobile {
-        display: flex;
-      }
-      @include media-query-medium {
-        --quadrant-btn-width-mobile: 345px;
-        --quadrant-btn-height-mobile: 160px;
-      }
-      @include media-query-xlarge {
-        display: none;
-        &.show-all-quadrants-mobile {
-          display: none;
-        }
-      }
-
-      width: calc(var(--quadrant-btn-width-mobile) * 2 + var(--quadrant-gap));
-      height: calc(var(--quadrant-btn-height-mobile) * 2 + var(--quadrant-gap));
-
-      .all-quadrants-mobile--btn {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        margin: 3px;
-        width: var(--quadrant-btn-width-mobile);
-        height: var(--quadrant-btn-height-mobile);
-        background-size: 100%;
-        background-repeat: no-repeat;
-        font-size: 16px;
-        font-weight: bold;
-        color: white;
-        border: none;
-
-        @include media-query-medium {
-          font-size: 24px;
-        }
-
-        &::after {
-          content: url('/images/arrow-white-icon.svg');
-          margin: 4px 4px 0;
-        }
-
-        .btn-text-wrapper {
-          text-align: left;
-
-          @include media-query-medium {
-            max-width: 60%;
-            max-height: 60px;
-          }
-        }
-      }
-
-      #first-quadrant-mobile {
-        background-color: $sapphire;
-      }
-      #second-quadrant-mobile {
-        background-color: $turmeric;
-      }
-      #third-quadrant-mobile {
-        background-color: $jade;
-      }
-      #fourth-quadrant-mobile {
-        background-color: $flamingo;
-      }
-    }
   }
 }

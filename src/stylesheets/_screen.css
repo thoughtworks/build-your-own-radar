@@ -2401,9 +2401,6 @@ p.image_caption {
 .featured-link {
   margin-bottom: 3em;
 }
-.hidden {
-  display: none !important;
-}
 .img-with-caption {
   line-height: 1em;
 }

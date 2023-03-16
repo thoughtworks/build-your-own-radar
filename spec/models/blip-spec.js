@@ -12,6 +12,26 @@ describe('Blip', function () {
     expect(blip.name()).toEqual('My Blip')
   })
 
+  it('has a topic', function () {
+    blip = new Blip('My Blip', new Ring('My Ring'), true, 'topic', 'description')
+
+    expect(blip.topic()).toEqual('topic')
+  })
+
+  it('has empty topic when not provided', function () {
+    expect(blip.topic()).toEqual('')
+  })
+
+  it('has a description', function () {
+    blip = new Blip('My Blip', new Ring('My Ring'), true, 'topic', 'description')
+
+    expect(blip.description()).toEqual('description')
+  })
+
+  it('has empty description when not provided', function () {
+    expect(blip.description()).toEqual('')
+  })
+
   it('has a ring', function () {
     expect(blip.ring().name()).toEqual('My Ring')
   })

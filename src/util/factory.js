@@ -22,7 +22,7 @@ const ExceptionMessages = require('./exceptionMessages')
 const GoogleAuth = require('./googleAuth')
 const config = require('../config')
 const featureToggles = config().featureToggles
-const { getGraphSize } = require('../graphing/config')
+const { getGraphSize, graphConfig } = require('../graphing/config')
 const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   if (title.endsWith('.csv')) {
     title = title.substring(0, title.length - 4)
@@ -32,9 +32,6 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   }
   document.title = title
   d3.selectAll('.loading').remove()
-  if (featureToggles.UIRefresh2022) {
-    d3.select('.radar-legends').node().classList.add('show')
-  }
 
   var rings = _.map(_.uniqBy(blips, 'ring'), 'ring')
   var ringMap = {}
@@ -58,6 +55,76 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   })
 
   var radar = new Radar()
+  _.each(quadrants, function (quadrant) {
+    radar.addQuadrant(quadrant)
+  })
+
+  if (alternativeRadars !== undefined || true) {
+    alternativeRadars.forEach(function (sheetName) {
+      radar.addAlternative(sheetName)
+    })
+  }
+
+  if (currentRadarName !== undefined || true) {
+    radar.setCurrentSheet(currentRadarName)
+  }
+
+  const size = featureToggles.UIRefresh2022
+    ? getGraphSize()
+    : window.innerHeight - 133 < 620
+    ? 620
+    : window.innerHeight - 133
+  new GraphingRadar(size, radar).init().plot()
+}
+
+function validateInputQuadrantName(allQuadrants, quadrant) {
+  let quadrantNames = Object.keys(allQuadrants)
+  let regexToFixLanguagesAndFrameworks = /(-|\s+)(and)(-|\s+)|\s*(&)\s*/g
+  let formattedInputQuadrant = quadrant.toLowerCase().replace(regexToFixLanguagesAndFrameworks, ' & ')
+  const index = quadrantNames.map((quadrant) => quadrant.toLowerCase()).indexOf(formattedInputQuadrant)
+  return quadrantNames[index]
+}
+
+const plotRadarGraph = function (title, blips, currentRadarName, alternativeRadars) {
+  if (title.endsWith('.csv')) {
+    title = title.substring(0, title.length - 4)
+  }
+  if (title.endsWith('.json')) {
+    title = title.substring(0, title.length - 5)
+  }
+  document.title = title
+  d3.selectAll('.loading').remove()
+
+  const ringsFromInput = _.map(_.uniqBy(blips, 'ring'), 'ring')
+  const ringMap = {}
+  const allRings = []
+  const maxRings = 4
+  const quadrants = {}
+
+  if (ringsFromInput.length > maxRings) {
+    throw new MalformedDataError(ExceptionMessages.TOO_MANY_RINGS)
+  }
+
+  graphConfig.rings.forEach((ring, index) => {
+    let ringObj = new Ring(ring, index)
+    ringMap[ring] = ringObj
+    allRings.push(ringObj)
+  })
+
+  graphConfig.quadrants.forEach((quadrant) => (quadrants[quadrant] = new Quadrant(quadrant)))
+
+  blips.forEach((blip) => {
+    const currentQuadrant = validateInputQuadrantName(quadrants, blip.quadrant)
+    if (quadrants[currentQuadrant]) {
+      const ring = blip.ring.charAt(0).toUpperCase() + blip.ring.slice(1)
+      quadrants[currentQuadrant].add(
+        new Blip(blip.name, ringMap[ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description),
+      )
+    }
+  })
+
+  const radar = new Radar()
+  radar.addRings(allRings)
   _.each(quadrants, function (quadrant) {
     radar.addQuadrant(quadrant)
   })
@@ -109,7 +176,9 @@ const GoogleSheet = function (sheetReference, sheetName) {
     const header = all.shift()
     var blips = _.map(all, (blip) => new InputSanitizer().sanitizeForProtectedSheet(blip, header))
     const title = featureToggles.UIRefresh2022 ? documentTitle : documentTitle + ' - ' + sheetName
-    plotRadar(title, blips, sheetName, sheetNames)
+    featureToggles.UIRefresh2022
+      ? plotRadarGraph(title, blips, sheetName, sheetNames)
+      : plotRadar(title, blips, sheetName, sheetNames)
   }
 
   self.authenticate = function (force = false, apiKeyEnabled, callback) {
@@ -163,7 +232,9 @@ const CSVDocument = function (url) {
       contentValidator.verifyContent()
       contentValidator.verifyHeaders()
       var blips = _.map(data, new InputSanitizer().sanitize)
-      plotRadar(FileName(url), blips, 'CSV File', [])
+      featureToggles.UIRefresh2022
+        ? plotRadarGraph(FileName(url), blips, 'CSV File', [])
+        : plotRadar(FileName(url), blips, 'CSV File', [])
     } catch (exception) {
       plotErrorMessage(exception, 'csv')
     }
@@ -195,7 +266,9 @@ const JSONFile = function (url) {
       contentValidator.verifyContent()
       contentValidator.verifyHeaders()
       var blips = _.map(data, new InputSanitizer().sanitize)
-      plotRadar(FileName(url), blips, 'JSON File', [])
+      featureToggles.UIRefresh2022
+        ? plotRadarGraph(FileName(url), blips, 'JSON File', [])
+        : plotRadar(FileName(url), blips, 'JSON File', [])
     } catch (exception) {
       plotErrorMessage(exception, 'json')
     }
@@ -370,7 +443,7 @@ function plotErrorMessage(exception, fileType) {
 function plotError(exception, container, fileType) {
   let file = 'Google Sheet'
   if (fileType === 'json') {
-    file = 'Json file'
+    file = 'JSON file'
   } else if (fileType === 'csv') {
     file = 'CSV file'
   }
