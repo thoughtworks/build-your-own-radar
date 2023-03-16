@@ -1,7 +1,7 @@
 const d3 = require('d3')
 
 const AutoComplete = require('../../util/autoComplete')
-const { selectRadarQuadrant } = require('../components/quadrants')
+const { selectRadarQuadrant, removeScrollListener } = require('../components/quadrants')
 
 function renderSearch(radarHeader, quadrants) {
   const searchContainer = radarHeader.append('div').classed('search-container', true)
@@ -20,6 +20,8 @@ function renderSearch(radarHeader, quadrants) {
     const blipElement = d3.select(
       `.blip-list__item-container[data-blip-id="${blipId}"] .blip-list__item-container__name`,
     )
+
+    removeScrollListener()
     blipElement.dispatch('search-result-click')
 
     setTimeout(() => {
