@@ -1,4 +1,4 @@
-const { getElementWidth, getElementHeight } = require('../../src/util/htmlUtil')
+const { getElementWidth, getElementHeight, decodeHTML } = require('../../src/util/htmlUtil')
 
 describe('HTML Utils', () => {
   let mockWidth, mockHeight, mockD3Element
@@ -27,5 +27,9 @@ describe('HTML Utils', () => {
 
   it('should return height of D3 element', () => {
     expect(getElementHeight(mockD3Element)).toEqual(mockHeight)
+  })
+
+  it('should decode encoded HTML entity', () => {
+    expect(decodeHTML('&lt;&gt;&amp;&quot;&apos;')).toEqual(`<>&"'`)
   })
 })
