@@ -9,8 +9,13 @@ const graphConfig = {
   quadrantsGap: quadrantGap,
   minBlipWidth: 12,
   blipWidth: 22,
-  rings: ['Adopt', 'Trial', 'Assess', 'Hold'],
-  quadrants: ['Techniques', 'Platforms', 'Tools', 'Languages & Frameworks'],
+  rings: JSON.parse(process.env.RINGS || null) || ['Adopt', 'Trial', 'Assess', 'Hold'],
+  quadrants: JSON.parse(process.env.QUADRANTS || null) || [
+    'Techniques',
+    'Platforms',
+    'Tools',
+    'Languages & Frameworks',
+  ],
 }
 
 const uiConfig = {
