@@ -1,4 +1,4 @@
-const { calculateRadarBlipCoordinates } = require('../../src/graphing/blips')
+const { calculateRadarBlipCoordinates, getRingRadius } = require('../../src/graphing/blips')
 const Chance = require('chance')
 const { graphConfig } = require('../../src/graphing/config')
 jest.mock('d3', () => {
@@ -75,5 +75,14 @@ describe('Blips', function () {
     expect(coordinates[1]).toBeGreaterThan(yCoordMinValue)
     expect(coordinates[0]).toBeLessThan(xCoordMaxValue)
     expect(coordinates[1]).toBeLessThan(yCoordMaxValue)
+  })
+
+  it('should return ring radius based on the ring index', function () {
+    expect(getRingRadius(0)).toBe(0)
+    expect(getRingRadius(1)).toBe(161.792)
+    expect(getRingRadius(2)).toBe(333.824)
+    expect(getRingRadius(3)).toBe(425.984)
+    expect(getRingRadius(4)).toBe(507.904)
+    expect(getRingRadius(5)).toBe(0)
   })
 })

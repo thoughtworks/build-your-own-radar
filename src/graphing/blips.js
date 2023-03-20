@@ -198,4 +198,4 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
   })
 }
 
-module.exports = { calculateRadarBlipCoordinates, plotRadarBlips }
+module.exports = { calculateRadarBlipCoordinates, plotRadarBlips, getRingRadius }
