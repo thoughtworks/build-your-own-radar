@@ -445,6 +445,12 @@
 
       .btn-text-wrapper {
         text-align: left;
+        word-break: break-word;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
 
         @include media-query-medium {
           max-width: 60%;
