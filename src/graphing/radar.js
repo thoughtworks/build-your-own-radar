@@ -817,7 +817,7 @@ const Radar = function (size, radar) {
     _.each(quadrants, function (quadrant) {
       let quadrantGroup
       if (featureToggles.UIRefresh2022) {
-        quadrantGroup = renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator)
+        quadrantGroup = renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator, tip)
         plotLines(quadrantGroup, quadrant)
         const ringTextGroup = quadrantGroup.append('g')
         plotRadarTexts(ringTextGroup, rings, quadrant)

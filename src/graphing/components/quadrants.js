@@ -176,7 +176,7 @@ function selectRadarQuadrant(order, startAngle, name) {
   }
 }
 
-function wrapQuadrantNameInMultiLine(elem, isTopQuadrants) {
+function wrapQuadrantNameInMultiLine(elem, isTopQuadrants, quadrantNameGroup, tip) {
   const maxWidth = 150
   const element = elem.node()
   const text = decodeHTML(element.innerHTML)
@@ -205,6 +205,16 @@ function wrapQuadrantNameInMultiLine(elem, isTopQuadrants) {
     return j - 1
   }
 
+  function ellipsis(lineBreakIndex, secondLine) {
+    if (lineBreakIndex >= secondLine.length) {
+      return ''
+    } else {
+      quadrantNameGroup.on('mouseover', () => tip.show(text, quadrantNameGroup.node()))
+      quadrantNameGroup.on('mouseout', () => tip.hide(text, quadrantNameGroup.node()))
+      return '...'
+    }
+  }
+
   if (testElem.getBoundingClientRect().width > maxWidth) {
     for (let i = 0; i < words.length; i++) {
       let testLine = line + words[i] + ' '
@@ -217,17 +227,25 @@ function wrapQuadrantNameInMultiLine(elem, isTopQuadrants) {
           element.innerHTML += '<tspan x="0" dy="' + dy + '">' + words[i].substring(0, lineBreakIndex) + '-</tspan>'
           const secondLine = words[i].substring(lineBreakIndex, words[i].length) + ' ' + words.slice(i + 1).join(' ')
           lineBreakIndex = maxCharactersToFit(secondLine, '...')
-          const ellipsis = lineBreakIndex >= secondLine.length ? '' : '...'
           element.innerHTML +=
-            '<tspan x="0" dy="' + 20 + '">' + secondLine.substring(0, lineBreakIndex) + ellipsis + '</tspan>'
+            '<tspan x="0" dy="' +
+            20 +
+            '">' +
+            secondLine.substring(0, lineBreakIndex) +
+            ellipsis(lineBreakIndex, secondLine) +
+            '</tspan>'
           break
         } else {
           element.innerHTML += '<tspan x="0" dy="' + dy + '">' + line + '</tspan>'
           const secondLine = words.slice(i).join(' ')
           const lineBreakIndex = maxCharactersToFit(secondLine, '...')
-          const ellipsis = lineBreakIndex >= secondLine.length ? '' : '...'
           element.innerHTML +=
-            '<tspan x="0" dy="' + 20 + '">' + secondLine.substring(0, lineBreakIndex) + ellipsis + '</tspan>'
+            '<tspan x="0" dy="' +
+            20 +
+            '">' +
+            secondLine.substring(0, lineBreakIndex) +
+            ellipsis(lineBreakIndex, secondLine) +
+            '</tspan>'
         }
         line = words[i] + ' '
       } else {
@@ -241,7 +259,7 @@ function wrapQuadrantNameInMultiLine(elem, isTopQuadrants) {
   document.getElementById('text-width-check').remove()
 }
 
-function renderRadarQuadrantName(quadrant, parentGroup) {
+function renderRadarQuadrantName(quadrant, parentGroup, tip) {
   const adjustX = Math.sin(toRadian(quadrant.startAngle)) - Math.cos(toRadian(quadrant.startAngle))
   const adjustY = -Math.cos(toRadian(quadrant.startAngle)) - Math.sin(toRadian(quadrant.startAngle))
   const quadrantNameGroup = parentGroup.append('g').classed('quadrant-name-group', true)
@@ -261,7 +279,7 @@ function renderRadarQuadrantName(quadrant, parentGroup) {
     .attr('fill', '#e16a7c')
   quadrantName.text(quadrantNameToDisplay).attr('font-weight', 'bold')
 
-  wrapQuadrantNameInMultiLine(quadrantName, adjustY < 0)
+  wrapQuadrantNameInMultiLine(quadrantName, adjustY < 0, quadrantNameGroup, tip)
   let renderedText = document
     .querySelector(`.quadrant-group-${quadrant.order} .quadrant-name-group text`)
     .getBoundingClientRect()
@@ -284,7 +302,7 @@ function renderRadarQuadrantName(quadrant, parentGroup) {
   ctaArrow.attr('transform', `translate(${ctaArrowXOffset}, ${ctaArrowYOffset})`)
 }
 
-function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator) {
+function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator, tip) {
   const quadrantGroup = svg
     .append('g')
     .attr('class', 'quadrant-group quadrant-group-' + quadrant.order)
@@ -347,7 +365,7 @@ function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator) {
     .attr('stroke-width', 2)
     .attr('stroke', '#71777d')
 
-  renderRadarQuadrantName(quadrant, quadrantGroup)
+  renderRadarQuadrantName(quadrant, quadrantGroup, tip)
   return quadrantGroup
 }
 
