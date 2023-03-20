@@ -6,7 +6,7 @@ jest.mock('d3', () => {
 })
 
 describe('Quadrants', function () {
-  let element, mockedD3Element
+  let element, mockedD3Element, quadrantGroup, tip
   beforeEach(() => {
     document.body.innerHTML = '<div id="my-elem">' + '</div>'
 
@@ -24,11 +24,13 @@ describe('Quadrants', function () {
     }
     element = document.querySelector('#my-elem')
     mockedD3Element = { node: () => element }
+    quadrantGroup = { on: jest.fn() }
+    tip = { show: jest.fn(), hide: jest.fn() }
   })
 
   it('should render the text in one line if length is not above the max length', function () {
     element.innerHTML = 'Tools'
-    wrapQuadrantNameInMultiLine(mockedD3Element, false)
+    wrapQuadrantNameInMultiLine(mockedD3Element, false, quadrantGroup, tip)
     let expectedTSpanTags = element.querySelectorAll('tspan')
     expect(expectedTSpanTags).toHaveLength(1)
     expect(expectedTSpanTags[0].textContent).toEqual('Tools')
@@ -37,7 +39,7 @@ describe('Quadrants', function () {
 
   it('should render the text in two lines if length is above the max length', function () {
     element.innerHTML = 'Languages & Frameworks'
-    wrapQuadrantNameInMultiLine(mockedD3Element, false)
+    wrapQuadrantNameInMultiLine(mockedD3Element, false, quadrantGroup, tip)
     let expectedTSpanTags = element.querySelectorAll('tspan')
     expect(expectedTSpanTags).toHaveLength(2)
     expect(expectedTSpanTags[0].textContent).toEqual('Languages & ')
@@ -48,7 +50,7 @@ describe('Quadrants', function () {
 
   it('should split the first word by hyphen and render the text in two lines if its longer than max length', function () {
     element.innerHTML = 'Pneumonoultramicroscopic'
-    wrapQuadrantNameInMultiLine(mockedD3Element, false)
+    wrapQuadrantNameInMultiLine(mockedD3Element, false, quadrantGroup, tip)
     let expectedTSpanTags = element.querySelectorAll('tspan')
     expect(expectedTSpanTags).toHaveLength(2)
     expect(expectedTSpanTags[0].textContent).toEqual('Pneumonoultram-')
@@ -59,7 +61,7 @@ describe('Quadrants', function () {
 
   it('should split the first word by hyphen and render the text in two lines with ellipsis if its longer than max length after splitting also', function () {
     element.innerHTML = 'Pneumonoultramicro scopicsilicovolcanoconiosis'
-    wrapQuadrantNameInMultiLine(mockedD3Element, false)
+    wrapQuadrantNameInMultiLine(mockedD3Element, false, quadrantGroup, tip)
     let expectedTSpanTags = element.querySelectorAll('tspan')
     expect(expectedTSpanTags).toHaveLength(2)
     expect(expectedTSpanTags[0].textContent).toEqual('Pneumonoultram-')
@@ -70,7 +72,7 @@ describe('Quadrants', function () {
 
   it('should render the text in two lines with ellipsis if its longer than max length', function () {
     element.innerHTML = 'Pneumonoultra microscopicsilicovolcanoconiosis'
-    wrapQuadrantNameInMultiLine(mockedD3Element, false)
+    wrapQuadrantNameInMultiLine(mockedD3Element, false, quadrantGroup, tip)
     let expectedTSpanTags = element.querySelectorAll('tspan')
     expect(expectedTSpanTags).toHaveLength(2)
     expect(expectedTSpanTags[0].textContent).toEqual('Pneumonoultra ')

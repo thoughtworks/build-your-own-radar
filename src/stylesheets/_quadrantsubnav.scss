@@ -63,6 +63,7 @@
 
     &__list {
       display: none;
+      width: 100%;
 
       &.show {
         display: flex;
@@ -85,6 +86,7 @@
         box-sizing: border-box;
 
         @include media-query-xlarge {
+          max-width: 20% !important;
           &.active-item {
             padding-top: 4px;
             border-bottom: 4px solid transparent;
@@ -122,6 +124,9 @@
 
           @include media-query-xlarge {
             padding: 0 40px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
         }
       }

@@ -137,6 +137,7 @@ const Radar = function (size, radar) {
 
   function plotRadarTexts(quadrantGroup, rings, quadrant) {
     rings.forEach(function (ring, i) {
+      const ringNameWithEllipsis = ring.name().length > 6 ? ring.name().slice(0, 6) + '...' : ring.name()
       if (quadrant.order === 'third' || quadrant.order === 'fourth') {
         quadrantGroup
           .append('text')
@@ -144,7 +145,7 @@ const Radar = function (size, radar) {
           .attr('y', CENTER + 5)
           .attr('x', CENTER + (ringCalculator.getRingRadius(i) + ringCalculator.getRingRadius(i + 1)) / 2)
           .attr('text-anchor', 'middle')
-          .text(ring.name())
+          .text(ringNameWithEllipsis)
       } else {
         quadrantGroup
           .append('text')
@@ -152,7 +153,7 @@ const Radar = function (size, radar) {
           .attr('y', CENTER + 5)
           .attr('x', CENTER - (ringCalculator.getRingRadius(i) + ringCalculator.getRingRadius(i + 1)) / 2)
           .attr('text-anchor', 'middle')
-          .text(ring.name())
+          .text(ringNameWithEllipsis)
       }
     })
   }
