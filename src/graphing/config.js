@@ -1,6 +1,21 @@
 const quadrantSize = 512
 const quadrantGap = 32
 
+const getQuadrants = () => {
+  return JSON.parse(process.env.QUADRANTS || null) || ['Techniques', 'Platforms', 'Tools', 'Languages & Frameworks']
+}
+
+const getRings = () => {
+  return JSON.parse(process.env.RINGS || null) || ['Adopt', 'Trial', 'Assess', 'Hold']
+}
+
+const isBetween = (number, startNumber, endNumber) => {
+  return startNumber <= number && number <= endNumber
+}
+const isValidConfig = () => {
+  return getQuadrants().length === 4 && isBetween(getRings().length, 1, 4)
+}
+
 const graphConfig = {
   effectiveQuadrantHeight: quadrantSize + quadrantGap / 2,
   effectiveQuadrantWidth: quadrantSize + quadrantGap / 2,
@@ -9,13 +24,8 @@ const graphConfig = {
   quadrantsGap: quadrantGap,
   minBlipWidth: 12,
   blipWidth: 22,
-  rings: JSON.parse(process.env.RINGS || null) || ['Adopt', 'Trial', 'Assess', 'Hold'],
-  quadrants: JSON.parse(process.env.QUADRANTS || null) || [
-    'Techniques',
-    'Platforms',
-    'Tools',
-    'Languages & Frameworks',
-  ],
+  rings: getRings(),
+  quadrants: getQuadrants(),
 }
 
 const uiConfig = {
@@ -40,14 +50,6 @@ function getScaledQuadrantWidth(scale) {
   return graphConfig.quadrantWidth * scale
 }
 
-function getScaledQuadrantWidthWithGap(scale) {
-  return (graphConfig.quadrantWidth + graphConfig.quadrantsGap) * scale
-}
-
-function getScaledQuadrantHeight(scale) {
-  return graphConfig.quadrantHeight * scale
-}
-
 function getScaledQuadrantHeightWithGap(scale) {
   return (graphConfig.quadrantHeight + graphConfig.quadrantsGap) * scale
 }
@@ -58,7 +60,6 @@ module.exports = {
   getScale,
   getGraphSize,
   getScaledQuadrantWidth,
-  getScaledQuadrantWidthWithGap,
-  getScaledQuadrantHeight,
   getScaledQuadrantHeightWithGap,
+  isValidConfig,
 }

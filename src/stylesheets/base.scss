@@ -86,15 +86,11 @@ body {
     }
 
     p {
-      font-size: 1.125rem;
+      font-size: 1rem;
       font-family: $baseFontFamily;
 
-      @include media-query-medium {
-        font-size: 1.25rem;
-      }
-
       @include media-query-xxlarge {
-        font-size: 1.5rem;
+        font-size: 1.125rem;
       }
     }
 

@@ -9,10 +9,10 @@ module.exports = {
   testMatch: ['**/spec/**/*-spec.js'],
   coverageThreshold: {
     global: {
-      statements: 22.22,
-      branches: 18.07,
-      functions: 24.63,
-      lines: 22.36,
+      statements: 23.95,
+      branches: 20.84,
+      functions: 28.98,
+      lines: 24.09,
     },
   },
 }

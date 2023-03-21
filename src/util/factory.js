@@ -22,7 +22,8 @@ const ExceptionMessages = require('./exceptionMessages')
 const GoogleAuth = require('./googleAuth')
 const config = require('../config')
 const featureToggles = config().featureToggles
-const { getGraphSize, graphConfig } = require('../graphing/config')
+const { getGraphSize, graphConfig, isValidConfig } = require('../graphing/config')
+const InvalidConfigError = require('../exceptions/invalidConfig')
 const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   if (title.endsWith('.csv')) {
     title = title.substring(0, title.length - 4)
@@ -186,7 +187,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
       self.error = false
       const sheet = new Sheet(sheetReference)
       await sheet.getSheet()
-      if (sheet.sheetResponse.status == 403 && !GoogleAuth.gsiInitiated && !force) {
+      if (sheet.sheetResponse.status === 403 && !GoogleAuth.gsiInitiated && !force) {
         // private sheet
         GoogleAuth.loadGSI()
       } else {
@@ -195,7 +196,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
             self.error = true
             plotUnauthorizedErrorMessage()
           } else {
-            plotErrorMessage(error, 'sheet')
+            plotErrorMessage(sheet.createSheetNotFoundError(), 'sheet')
           }
         })
         if (callback) {
@@ -292,8 +293,7 @@ const FileName = function (url) {
   var search = /([^\\/]+)$/
   var match = search.exec(decodeURIComponent(url.replace(/\+/g, ' ')))
   if (match != null) {
-    var str = match[1]
-    return str
+    return match[1]
   }
   return url
 }
@@ -303,6 +303,10 @@ const GoogleSheetInput = function () {
   var sheet
 
   self.build = function () {
+    if (!isValidConfig()) {
+      plotError(new InvalidConfigError(ExceptionMessages.INVALID_CONFIG))
+      return
+    }
     const domainName = DomainName(window.location.search.substring(1))
     const queryString = featureToggles.UIRefresh2022
       ? window.location.href.match(/documentId(.*)/)
@@ -373,7 +377,7 @@ function plotLogo(content) {
   content
     .append('div')
     .attr('class', 'input-sheet__logo')
-    .html('<a href="https://www.thoughtworks.com"><img src="/images/tw-logo.png" / ></a>')
+    .html('<a href="https://www.thoughtworks.com"><img src="/images/tw-logo.png" alt="logo"/ ></a>')
 }
 
 function plotFooter(content) {
@@ -434,45 +438,60 @@ function plotErrorMessage(exception, fileType) {
     plotBanner(content, bannerText)
 
     d3.selectAll('.loading').remove()
-    plotError(exception, content, fileType)
+    plotError(exception, fileType)
 
     plotFooter(content)
   }
 }
 
-function plotError(exception, container, fileType) {
-  let file = 'Google Sheet'
-  if (fileType === 'json') {
-    file = 'JSON file'
-  } else if (fileType === 'csv') {
-    file = 'CSV file'
-  }
+function plotError(exception, fileType) {
+  const fileTypes = { sheet: 'Google Sheet', json: 'JSON file', csv: 'CSV file' }
+  const file = fileTypes[fileType]
+  let faqMessage
   let message = `Oops! We can't find the ${file} you've entered`
-  let faqMessage =
-    'Please check <a href="https://www.thoughtworks.com/radar/how-to-byor">FAQs</a> for possible solutions.'
+  const uiRefresh2022 = config().featureToggles.UIRefresh2022
+  if (uiRefresh2022 && fileType === 'sheet') {
+    faqMessage =
+      'You can also check the <a href="https://www.thoughtworks.com/radar/how-to-byor">FAQs</a> for other possible solutions'
+  } else {
+    faqMessage =
+      'Please check <a href="https://www.thoughtworks.com/radar/how-to-byor">FAQs</a> for possible solutions.'
+  }
   if (exception instanceof MalformedDataError) {
     message = message.concat(exception.message)
-  } else if (exception instanceof SheetNotFoundError) {
-    message = exception.message
-  } else {
-    console.error(exception)
   }
-  container = container.append('div').attr('class', 'error-container')
+  if (exception instanceof SheetNotFoundError) {
+    message = exception.message
+  }
+
+  if (exception instanceof InvalidConfigError) {
+    message = exception.message
+    faqMessage = ''
+    d3.selectAll('.input-sheet-form form input').attr('disabled', true)
+  }
+
+  d3.selectAll('.error-container__message').remove()
+  const container = d3.select('#error-container')
+
   const errorContainer = container.append('div').attr('class', 'error-container__message')
-  errorContainer.append('div').append('p').html(message)
-  errorContainer.append('div').append('p').html(faqMessage)
+  errorContainer.append('p').html(message)
+  errorContainer.append('p').html(faqMessage)
+  d3.select('.input-sheet-form.home-page p').attr('class', 'with-error')
 
-  let homePageURL = window.location.protocol + '//' + window.location.hostname
-  homePageURL += window.location.port === '' ? '' : ':' + window.location.port
-  const homePage = '<a href=' + homePageURL + '>GO BACK</a>'
+  document.querySelector('.helper-description > p').style.display = 'block'
+  document.querySelector('.input-sheet-form').style.display = 'block'
 
-  errorContainer.append('div').append('p').html(homePage)
+  if (!uiRefresh2022) {
+    let homePageURL = window.location.protocol + '//' + window.location.hostname
+    homePageURL += window.location.port === '' ? '' : ':' + window.location.port
+    const homePage = '<a href=' + homePageURL + '>GO BACK</a>'
+    errorContainer.append('div').append('p').html(homePage)
+  }
 }
 
 function showErrorMessage(exception, fileType) {
   document.querySelector('.helper-description .loader-text').style.display = 'none'
-  const container = d3.select('main').append('div').attr('class', 'error-container')
-  plotError(exception, container, fileType)
+  plotError(exception, fileType)
 }
 
 function plotUnauthorizedErrorMessage() {
