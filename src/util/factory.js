@@ -23,7 +23,9 @@ const GoogleAuth = require('./googleAuth')
 const config = require('../config')
 const featureToggles = config().featureToggles
 const { getGraphSize, graphConfig, isValidConfig } = require('../graphing/config')
-const InvalidConfigError = require('../exceptions/invalidConfig')
+const InvalidConfigError = require('../exceptions/invalidConfigError')
+const InvalidContentError = require('../exceptions/invalidContentError')
+const FileNotFoundError = require('../exceptions/fileNotFoundError')
 const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   if (title.endsWith('.csv')) {
     title = title.substring(0, title.length - 4)
@@ -221,7 +223,8 @@ const CSVDocument = function (url) {
     d3.csv(url)
       .then(createBlips)
       .catch((exception) => {
-        plotErrorMessage(exception, 'csv')
+        const fileNotFoundError = new FileNotFoundError(`Oops! We can't find the CSV file you've entered`)
+        plotErrorMessage(featureToggles.UIRefresh2022 ? fileNotFoundError : exception, 'csv')
       })
   }
 
@@ -237,7 +240,8 @@ const CSVDocument = function (url) {
         ? plotRadarGraph(FileName(url), blips, 'CSV File', [])
         : plotRadar(FileName(url), blips, 'CSV File', [])
     } catch (exception) {
-      plotErrorMessage(exception, 'csv')
+      const invalidContentError = new InvalidContentError(ExceptionMessages.INVALID_CSV_CONTENT)
+      plotErrorMessage(featureToggles.UIRefresh2022 ? invalidContentError : exception, 'csv')
     }
   }
 
@@ -256,7 +260,8 @@ const JSONFile = function (url) {
     d3.json(url)
       .then(createBlips)
       .catch((exception) => {
-        plotErrorMessage(exception, 'json')
+        const fileNotFoundError = new FileNotFoundError(`Oops! We can't find the JSON file you've entered`)
+        plotErrorMessage(featureToggles.UIRefresh2022 ? fileNotFoundError : exception, 'json')
       })
   }
 
@@ -271,7 +276,8 @@ const JSONFile = function (url) {
         ? plotRadarGraph(FileName(url), blips, 'JSON File', [])
         : plotRadar(FileName(url), blips, 'JSON File', [])
     } catch (exception) {
-      plotErrorMessage(exception, 'json')
+      const invalidContentError = new InvalidContentError(ExceptionMessages.INVALID_JSON_CONTENT)
+      plotErrorMessage(featureToggles.UIRefresh2022 ? invalidContentError : exception, 'json')
     }
   }
 
@@ -445,29 +451,26 @@ function plotErrorMessage(exception, fileType) {
 }
 
 function plotError(exception, fileType) {
-  const fileTypes = { sheet: 'Google Sheet', json: 'JSON file', csv: 'CSV file' }
-  const file = fileTypes[fileType]
-  let faqMessage
-  let message = `Oops! We can't find the ${file} you've entered`
-  const uiRefresh2022 = config().featureToggles.UIRefresh2022
-  if (uiRefresh2022 && fileType === 'sheet') {
-    faqMessage =
-      'You can also check the <a href="https://www.thoughtworks.com/radar/how-to-byor">FAQs</a> for other possible solutions'
+  let message
+  let faqMessage =
+    'Please check <a href="https://www.thoughtworks.com/radar/how-to-byor">FAQs</a> for possible solutions.'
+  if (featureToggles.UIRefresh2022) {
+    message = exception.message
+    if (exception instanceof SheetNotFoundError) {
+      const href = 'https://www.thoughtworks.com/radar/how-to-byor'
+      faqMessage = `You can also check the <a href="${href}">FAQs</a> for other possible solutions`
+    }
+    if (exception instanceof InvalidConfigError) {
+      faqMessage = ''
+      d3.selectAll('.input-sheet-form form input').attr('disabled', true)
+    }
   } else {
-    faqMessage =
-      'Please check <a href="https://www.thoughtworks.com/radar/how-to-byor">FAQs</a> for possible solutions.'
-  }
-  if (exception instanceof MalformedDataError) {
-    message = message.concat(exception.message)
-  }
-  if (exception instanceof SheetNotFoundError) {
-    message = exception.message
-  }
-
-  if (exception instanceof InvalidConfigError) {
-    message = exception.message
-    faqMessage = ''
-    d3.selectAll('.input-sheet-form form input').attr('disabled', true)
+    const fileTypes = { sheet: 'Google Sheet', json: 'JSON file', csv: 'CSV file' }
+    const file = fileTypes[fileType]
+    message = `Oops! We can't find the ${file} you've entered`
+    if (exception instanceof MalformedDataError) {
+      message = message.concat(exception.message)
+    }
   }
 
   d3.selectAll('.error-container__message').remove()
@@ -481,7 +484,7 @@ function plotError(exception, fileType) {
   document.querySelector('.helper-description > p').style.display = 'block'
   document.querySelector('.input-sheet-form').style.display = 'block'
 
-  if (!uiRefresh2022) {
+  if (!featureToggles.UIRefresh2022) {
     let homePageURL = window.location.protocol + '//' + window.location.hostname
     homePageURL += window.location.port === '' ? '' : ':' + window.location.port
     const homePage = '<a href=' + homePageURL + '>GO BACK</a>'
