@@ -247,3 +247,43 @@ body {
     display: none;
   }
 }
+
+.d3-tip {
+  font-size: 12px;
+  display: block;
+  padding: 12px;
+  background: $wave;
+  color: $white;
+  pointer-events: none;
+  z-index: 20;
+  max-width: 170px;
+  word-wrap: break-word;
+  white-space: pre-line;
+  line-height: 2;
+  border-radius: unset;
+
+  @include media-query-medium {
+    max-width: 250px;
+  }
+}
+
+.d3-tip:after {
+  box-sizing: border-box;
+  font-size: 10px;
+  width: 100%;
+  color: $wave;
+  position: absolute;
+  pointer-events: none;
+}
+
+.d3-tip.n {
+  margin: -10px 0 0;
+}
+
+.d3-tip.n:after {
+  content: "\25BC";
+  margin: -3px 0 0;
+  top: 100%;
+  left: 0;
+  text-align: center
+}

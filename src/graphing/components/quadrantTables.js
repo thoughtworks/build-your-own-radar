@@ -2,10 +2,11 @@ const d3 = require('d3')
 const { graphConfig, getScale, uiConfig } = require('../config')
 const { stickQuadrantOnScroll } = require('./quadrants')
 
-function renderBlipDescription(blip, ring, quadrant, tip) {
+function renderBlipDescription(blip, ring, quadrant, tip, pillBlipTooltipText) {
   const blipItem = d3
     .select(`.quadrant-table.${quadrant.order} ul:nth-of-type(${ring.order() + 1})`)
-    .append('li')
+  if (!pillBlipTooltipText) {
+    blipItem.append('li')
     .classed('blip-list__item', true)
   const blipItemDiv = blipItem
     .append('div')
@@ -35,19 +36,19 @@ function renderBlipDescription(blip, ring, quadrant, tip) {
       }
     })
 
-  blipItemContainer
-    .append('span')
-    .classed('blip-list__item-container__name-value', true)
-    .text(`${blip.number()}. ${blip.name()}`)
-  blipItemContainer.append('span').classed('blip-list__item-container__name-arrow', true)
+    blipItemContainer
+      .append('span')
+      .classed('blip-list__item-container__name-value', true)
+      .text(`${blip.number()}. ${blip.name()}`)
+    blipItemContainer.append('span').classed('blip-list__item-container__name-arrow', true)
 
-  blipItemDiv
-    .append('div')
-    .classed('blip-list__item-container__description', true)
-    .attr('id', `blip-description-${blip.number()}`)
-    .html(blip.description())
-
-  const blipGroupItem = d3.select(`g a#blip-link-${blip.number()}`)
+    blipItemDiv
+      .append('div')
+      .classed('blip-list__item-container__description', true)
+      .attr('id', `blip-description-${blip.number()}`)
+      .html(blip.description())
+  }
+  const blipGroupItem = d3.select(`g a#blip-link-${blip.number().toString().replace(/\s+/g, '')}`)
 
   const mouseOver = function (e) {
     const blipId = d3.select(e.target.parentElement).attr('data-blip-id')
@@ -57,7 +58,7 @@ function renderBlipDescription(blip, ring, quadrant, tip) {
 
     blipItem.classed('highlight', true)
 
-    tip.show(blip.name(), blipGroupItem.node())
+    tip.show(pillBlipTooltipText || blip.name(), blipGroupItem.node())
   }
 
   const mouseOut = function () {
@@ -95,7 +96,11 @@ function renderBlipDescription(blip, ring, quadrant, tip) {
     )
   }
 
-  blipItem.on('mouseover', mouseOver).on('mouseout', mouseOut).on('focusin', mouseOver).on('focusout', mouseOut)
+  !pillBlipTooltipText && blipItem
+    .on('mouseover', mouseOver)
+    .on('mouseout', mouseOut)
+    .on('focusin', mouseOver)
+    .on('focusout', mouseOut)
   blipGroupItem
     .on('mouseover', mouseOver)
     .on('mouseout', mouseOut)

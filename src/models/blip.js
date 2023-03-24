@@ -1,9 +1,10 @@
 const IDEAL_BLIP_WIDTH = 22
 const Blip = function (name, ring, isNew, topic, description) {
-  var self, number
+  var self, number, isGroup
 
   self = {}
   number = -1
+  isGroup = false
 
   self.width = IDEAL_BLIP_WIDTH
 
@@ -23,6 +24,10 @@ const Blip = function (name, ring, isNew, topic, description) {
     return isNew
   }
 
+  self.isGroup = function () {
+    return isGroup
+  }
+
   self.ring = function () {
     return ring
   }
@@ -33,6 +38,10 @@ const Blip = function (name, ring, isNew, topic, description) {
 
   self.setNumber = function (newNumber) {
     number = newNumber
+  }
+
+  self.setIsGroup = function (value) {
+    isGroup = value
   }
 
   return self

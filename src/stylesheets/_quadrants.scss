@@ -177,6 +177,7 @@
     @if $UIRefresh2022 {
       circle,
       polygon,
+      rect,
       path {
         &.first {
           fill: $sapphire;
