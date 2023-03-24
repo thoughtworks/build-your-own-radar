@@ -51,7 +51,7 @@
     "sass": "^1.53.0",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
-    "webpack": "^5.70.0",
+    "webpack": "^5.76.0",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.7.4",
     "yargs": "^17.3.1"
@@ -60,8 +60,8 @@
     "chance": "^1.1.8",
     "d3": "^7.3.0",
     "d3-tip": "^0.9.1",
-    "jquery": "^3.6.0",
-    "jquery-ui": "^1.13.1",
+    "jquery": "^3.6.4",
+    "jquery-ui": "^1.13.2",
     "lodash": "^4.17.21",
     "sanitize-html": "^2.7.0"
   },

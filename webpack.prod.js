@@ -1,17 +1,28 @@
 const { merge } = require('webpack-merge')
-const common = require('./webpack.common.js')
-const path = require('path')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const postcssPresetEnv = require('postcss-preset-env')
 const cssnano = require('cssnano')
-const main = ['./src/site.js']
-const fs = require('fs')
-const config = require('./src/config')
-const featureTogglesList = Object.keys(config().production.featureToggles)
-const scssVariables = featureTogglesList.map((x) => `$${x}:${config().production.featureToggles[x]};`).join('\n')
 
-fs.writeFileSync(path.join(__dirname, './src/stylesheets/_featuretoggles.scss'), scssVariables)
+const common = require('./webpack.common.js')
+const config = require('./src/config')
+const { graphConfig, uiConfig } = require('./src/graphing/config')
+
+const featureToggles = config().production.featureToggles
+const main = ['./src/site.js']
+const scssVariables = []
+
+Object.entries(graphConfig).forEach(function ([key, value]) {
+  scssVariables.push(`$${key}: ${value}px;`)
+})
+
+Object.entries(uiConfig).forEach(function ([key, value]) {
+  scssVariables.push(`$${key}: ${value}px;`)
+})
+
+Object.entries(featureToggles).forEach(function ([key, value]) {
+  scssVariables.push(`$${key}: ${value};`)
+})
 
 module.exports = merge(common, {
   mode: 'production',
@@ -47,7 +58,7 @@ module.exports = merge(common, {
           {
             loader: 'sass-loader',
             options: {
-              additionalData: scssVariables,
+              additionalData: scssVariables.join('\n'),
             },
           },
         ],

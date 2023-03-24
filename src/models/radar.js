@@ -1,6 +1,5 @@
 const MalformedDataError = require('../exceptions/malformedDataError')
 const ExceptionMessages = require('../util/exceptionMessages')
-const config = require('../config')
 
 const _ = {
   map: require('lodash/map'),
@@ -9,7 +8,10 @@ const _ = {
 }
 
 const Radar = function () {
-  var self, quadrants, blipNumber, addingQuadrant, alternatives, currentSheetName
+  const config = require('../config')
+  const featureToggles = config().featureToggles
+
+  let self, quadrants, blipNumber, addingQuadrant, alternatives, currentSheetName, rings
 
   blipNumber = 0
   addingQuadrant = 0
@@ -29,6 +31,7 @@ const Radar = function () {
   alternatives = []
   currentSheetName = ''
   self = {}
+  rings = {}
 
   function setNumbers(blips) {
     blips.forEach(function (blip) {
@@ -60,6 +63,9 @@ const Radar = function () {
     setNumbers(quadrant.blips())
     addingQuadrant++
   }
+  self.addRings = function (allRings) {
+    rings = allRings
+  }
 
   function allQuadrants() {
     if (addingQuadrant < 4) {
@@ -76,6 +82,10 @@ const Radar = function () {
   }
 
   self.rings = function () {
+    if (featureToggles.UIRefresh2022) {
+      return rings
+    }
+
     return _.sortBy(
       _.map(
         _.uniqBy(allBlips(), function (blip) {

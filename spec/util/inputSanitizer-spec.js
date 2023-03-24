@@ -96,4 +96,17 @@ describe('Input Santizer for Protected sheet', function () {
     expect(blip.name).toEqual('Some name')
     expect(blip.ring).toEqual('Some ring name')
   })
+
+  it('should return blip with empty values if headers are empty', function () {
+    const emptyHeader = []
+    const emptyBlip = sanitizer.sanitizeForProtectedSheet(rawBlip, emptyHeader)
+
+    expect(emptyBlip).toStrictEqual({
+      name: '',
+      description: '',
+      ring: '',
+      quadrant: '',
+      isNew: '',
+    })
+  })
 })
