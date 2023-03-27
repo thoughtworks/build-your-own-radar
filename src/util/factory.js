@@ -304,7 +304,7 @@ const FileName = function (url) {
   return url
 }
 
-const GoogleSheetInput = function () {
+const Factory = function () {
   var self = {}
   var sheet
 
@@ -313,6 +313,22 @@ const GoogleSheetInput = function () {
       plotError(new InvalidConfigError(ExceptionMessages.INVALID_CONFIG))
       return
     }
+
+    window.addEventListener('keydown', function (e) {
+      if (featureToggles.UIRefresh2022 && e.key === '/') {
+        const inputElement =
+          d3.select('input.search-container__input').node() || d3.select('.input-sheet-form input').node()
+
+        if (document.activeElement !== inputElement) {
+          e.preventDefault()
+          inputElement.focus()
+          inputElement.scrollIntoView({
+            behavior: 'smooth',
+          })
+        }
+      }
+    })
+
     const domainName = DomainName(window.location.search.substring(1))
     const queryString = featureToggles.UIRefresh2022
       ? window.location.href.match(/documentId(.*)/)
@@ -561,4 +577,4 @@ function plotUnauthorizedErrorMessage() {
   })
 }
 
-module.exports = GoogleSheetInput
+module.exports = Factory

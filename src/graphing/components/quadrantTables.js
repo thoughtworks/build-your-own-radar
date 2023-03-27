@@ -3,38 +3,36 @@ const { graphConfig, getScale, uiConfig } = require('../config')
 const { stickQuadrantOnScroll } = require('./quadrants')
 
 function renderBlipDescription(blip, ring, quadrant, tip, pillBlipTooltipText) {
-  const blipItem = d3
-    .select(`.quadrant-table.${quadrant.order} ul:nth-of-type(${ring.order() + 1})`)
+  const blipItem = d3.select(`.quadrant-table.${quadrant.order} ul:nth-of-type(${ring.order() + 1})`)
   if (!pillBlipTooltipText) {
-    blipItem.append('li')
-    .classed('blip-list__item', true)
-  const blipItemDiv = blipItem
-    .append('div')
-    .classed('blip-list__item-container', true)
-    .attr('data-blip-id', blip.number())
+    blipItem.append('li').classed('blip-list__item', true)
+    const blipItemDiv = blipItem
+      .append('div')
+      .classed('blip-list__item-container', true)
+      .attr('data-blip-id', blip.number())
 
-  const blipItemContainer = blipItemDiv
-    .append('button')
-    .classed('blip-list__item-container__name', true)
-    .attr('aria-expanded', 'false')
-    .attr('aria-controls', `blip-description-${blip.number()}`)
-    .attr('aria-hidden', 'true')
-    .attr('tabindex', -1)
-    .on('click search-result-click', function (e) {
-      e.stopPropagation()
+    const blipItemContainer = blipItemDiv
+      .append('button')
+      .classed('blip-list__item-container__name', true)
+      .attr('aria-expanded', 'false')
+      .attr('aria-controls', `blip-description-${blip.number()}`)
+      .attr('aria-hidden', 'true')
+      .attr('tabindex', -1)
+      .on('click search-result-click', function (e) {
+        e.stopPropagation()
 
-      const expandFlag = d3.select(e.target.parentElement).classed('expand')
+        const expandFlag = d3.select(e.target.parentElement).classed('expand')
 
-      d3.selectAll('.blip-list__item-container.expand').classed('expand', false)
-      d3.select(e.target.parentElement).classed('expand', !expandFlag)
+        d3.selectAll('.blip-list__item-container.expand').classed('expand', false)
+        d3.select(e.target.parentElement).classed('expand', !expandFlag)
 
-      d3.selectAll('.blip-list__item-container__name').attr('aria-expanded', 'false')
-      d3.select('.blip-list__item-container.expand .blip-list__item-container__name').attr('aria-expanded', 'true')
+        d3.selectAll('.blip-list__item-container__name').attr('aria-expanded', 'false')
+        d3.select('.blip-list__item-container.expand .blip-list__item-container__name').attr('aria-expanded', 'true')
 
-      if (window.innerWidth >= uiConfig.tabletViewWidth) {
-        stickQuadrantOnScroll()
-      }
-    })
+        if (window.innerWidth >= uiConfig.tabletViewWidth) {
+          stickQuadrantOnScroll()
+        }
+      })
 
     blipItemContainer
       .append('span')
@@ -96,11 +94,8 @@ function renderBlipDescription(blip, ring, quadrant, tip, pillBlipTooltipText) {
     )
   }
 
-  !pillBlipTooltipText && blipItem
-    .on('mouseover', mouseOver)
-    .on('mouseout', mouseOut)
-    .on('focusin', mouseOver)
-    .on('focusout', mouseOut)
+  !pillBlipTooltipText &&
+    blipItem.on('mouseover', mouseOver).on('mouseout', mouseOut).on('focusin', mouseOver).on('focusout', mouseOut)
   blipGroupItem
     .on('mouseover', mouseOver)
     .on('mouseout', mouseOut)

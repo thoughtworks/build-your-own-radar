@@ -2,7 +2,7 @@ const Chance = require('chance')
 const { graphConfig } = require('./config')
 const { toRadian } = require('../util/mathUtils')
 const { renderBlipDescription } = require('./components/quadrantTables')
-const Blip = require("../models/blip");
+const Blip = require('../models/blip')
 
 const getRingRadius = function (ringIndex) {
   const ratios = [0, 0.316, 0.652, 0.832, 0.992]
@@ -138,9 +138,7 @@ function noChangeBlip(blip, xValue, yValue, order, group) {
 }
 
 function pillBlip(blip, xValue, yValue, order, group) {
-  group
-    .attr('transform', `scale(1) translate(${xValue}, ${yValue})`)
-    .attr('aria-label', blipAssistiveText(blip))
+  group.attr('transform', `scale(1) translate(${xValue}, ${yValue})`).attr('aria-label', blipAssistiveText(blip))
   group
     .append('rect')
     .attr('x', '1')
@@ -158,7 +156,7 @@ function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup) {
   let x = coordinates[0]
   let y = coordinates[1]
 
-  const number = blip.number().toString().replace(/\s+/g, '');
+  const number = blip.number().toString().replace(/\s+/g, '')
   const group = quadrantGroup
     .append('g')
     .append('a')
@@ -167,9 +165,9 @@ function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup) {
     .attr('id', 'blip-link-' + number)
     .attr('data-blip-id', number)
 
-  if (blip.isGroup()){
+  if (blip.isGroup()) {
     pillBlip(blip, x, y, order, group)
-  }else if (blip.isNew()) {
+  } else if (blip.isNew()) {
     newBlip(blip, x, y, order, group)
   } else {
     noChangeBlip(blip, x, y, order, group)
@@ -192,11 +190,11 @@ function getPillBlipTooltipText(ringBlips) {
   let tooltipText = 'Click to view all'
   if (ringBlips.length <= 15) {
     tooltipText = ringBlips.reduce((acc, itr) => {
-      acc += itr.number() + "." + itr.name() + "</br>"
+      acc += itr.number() + '.' + itr.name() + '</br>'
       return acc
-    }, "")
+    }, '')
   }
-  return tooltipText;
+  return tooltipText
 }
 
 const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip) {
@@ -205,7 +203,7 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
   quadrant = quadrantWrapper.quadrant
   startAngle = quadrantWrapper.startAngle
   order = quadrantWrapper.order
-  const maxBlipsInRings = [8,22,18,18]
+  const maxBlipsInRings = [8, 22, 18, 18]
 
   blips = quadrant.blips()
   rings.forEach(function (ring, i) {
@@ -222,15 +220,15 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
     const maxRadius = getRingRadius(i + 1) - offset
     const allBlipCoordinatesInRing = []
 
-    if(ringBlips.length > maxBlipsInRings[i]){
-      const pillBlipText = `${ringBlips.length} blips`;
-      const pillBlip = new Blip(pillBlipText, ring, false, "", "")
+    if (ringBlips.length > maxBlipsInRings[i]) {
+      const pillBlipText = `${ringBlips.length} blips`
+      const pillBlip = new Blip(pillBlipText, ring, false, '', '')
       pillBlip.setNumber(pillBlipText)
       pillBlip.setIsGroup(true)
       const pillBlipTooltipText = getPillBlipTooltipText(ringBlips)
       const coords = findBlipCoordinates(pillBlip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing, order)
       drawBlipInCoordinates(pillBlip, coords, order, parentElement)
-      renderBlipDescription(pillBlip, ring, quadrantWrapper, tooltip ,pillBlipTooltipText)
+      renderBlipDescription(pillBlip, ring, quadrantWrapper, tooltip, pillBlipTooltipText)
       ringBlips.forEach(function (blip) {
         renderBlipDescription(blip, ring, quadrantWrapper, tooltip)
       })

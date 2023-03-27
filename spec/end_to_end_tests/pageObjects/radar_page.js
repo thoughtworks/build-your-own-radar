@@ -28,10 +28,10 @@ class RadarPage {
     this.radarGraphSvg = 'svg#radar-plot'
     this.mobileQuadrants = '.all-quadrants-mobile'
     this.quadrantTableBlip = function (blipId) {
-      return `.quadrant-table.selected .blip-list__item .blip-list__item-container[data-blip-id="${blipId}"]`
+      return `.quadrant-table.selected .blip-list__item-container[data-blip-id="${blipId}"]`
     }
     this.quadrantTableBlipDescription = function (blipId) {
-      return `.quadrant-table.selected .blip-list__item .blip-list__item-container[data-blip-id="${blipId}"] #blip-description-${blipId}`
+      return `.quadrant-table.selected .blip-list__item-container[data-blip-id="${blipId}"] #blip-description-${blipId}`
     }
     this.radarGraphBlip = function (blipId) {
       return `a.blip-link[data-blip-id="${blipId}"]`
@@ -109,6 +109,15 @@ class RadarPage {
   triggerSearch(query) {
     cy.get(this.searchBox).clear()
     cy.get(this.searchBox).type(query)
+  }
+
+  typeString(string) {
+    cy.get('body').type(string)
+  }
+
+  typeStringInSearch(string) {
+    cy.get(this.searchBox).clear()
+    cy.get(this.searchBox).type(string)
   }
 
   validateBlipDescription(text) {
@@ -260,6 +269,18 @@ class RadarPage {
     }
 
     this.validateActiveQuadrantInSubnav(quadrantName)
+  }
+
+  validateSearchVisible() {
+    cy.get(this.searchBox).should('be.visible')
+  }
+
+  validateSearchFocused() {
+    cy.get(this.searchBox).should('have.focus')
+  }
+
+  validateSearchValue(value) {
+    cy.get(this.searchBox).should('have.value', value)
   }
 
   resetRadarView() {

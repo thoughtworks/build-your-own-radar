@@ -7,10 +7,29 @@ const testConfig = require('../config.json')
 if (featureToggles.UIRefresh2022) {
   describe('Build radar with CSV', () => {
     beforeEach(function () {
-      cy.visit(Cypress.env('host') + `/?documentId=${encodeURIComponent(testConfig.CSV_FILE_URL)}`)
+      if (
+        Cypress.currentTest.title !== 'verify url input and submit' &&
+        Cypress.currentTest.title !== 'verify keypress / to focus url input'
+      ) {
+        cy.visit(Cypress.env('host') + `/?documentId=${encodeURIComponent(testConfig.CSV_FILE_URL)}`)
+      } else {
+        cy.visit(Cypress.env('host'))
+      }
     })
 
     context('Desktop resolution (1440px)', () => {
+      it('verify url input and submit', () => {
+        byorPage.provideCsvName()
+        byorPage.clickSubmitButton()
+
+        radarPage.validateGraphTitle('Sheet')
+
+        radarPage.validateMobileQuadrantsHidden()
+        radarPage.validateGraphVisible()
+        radarPage.validateQuadrantOrder()
+        radarPage.validateRingOrder()
+      })
+
       it('verify initial view of Radar', () => {
         radarPage.validateGraphTitle('Sheet')
 
@@ -80,11 +99,41 @@ if (featureToggles.UIRefresh2022) {
         radarPage.validateActiveQuadrant('languages---frameworks', 'fourth')
         radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
       })
+
+      it('verify keypress / to focus url input', () => {
+        byorPage.typeString('/')
+        byorPage.validateUrlInputFocused()
+
+        byorPage.typeStringInUrlInput('abc/def 123/456')
+        byorPage.validateUrlInputValue('abc/def 123/456')
+      })
+
+      it('verify keypress / to focus search', () => {
+        radarPage.validateSearchVisible()
+
+        radarPage.typeString('/')
+        radarPage.validateSearchFocused()
+
+        radarPage.typeStringInSearch('abc/def 123/456')
+        radarPage.validateSearchValue('abc/def 123/456')
+      })
     })
 
     context('Tablet resolution (1024px)', () => {
       beforeEach(function () {
         cy.viewport(1024, 768)
+      })
+
+      it('verify url input and submit', () => {
+        byorPage.provideCsvName()
+        byorPage.clickSubmitButton()
+
+        radarPage.validateGraphTitle('Sheet')
+
+        radarPage.validateMobileQuadrantsVisible()
+        radarPage.validateGraphHidden()
+        radarPage.validateQuadrantOrder()
+        radarPage.validateRingOrder()
       })
 
       it('verify initial view of Radar', () => {
@@ -157,11 +206,41 @@ if (featureToggles.UIRefresh2022) {
         radarPage.validateActiveQuadrant('languages---frameworks', 'fourth')
         radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
       })
+
+      it('verify keypress / to focus url input', () => {
+        byorPage.typeString('/')
+        byorPage.validateUrlInputFocused()
+
+        byorPage.typeStringInUrlInput('abc/def 123/456')
+        byorPage.validateUrlInputValue('abc/def 123/456')
+      })
+
+      it('verify keypress / to focus search', () => {
+        radarPage.validateSearchVisible()
+
+        radarPage.typeString('/')
+        radarPage.validateSearchFocused()
+
+        radarPage.typeStringInSearch('abc/def 123/456')
+        radarPage.validateSearchValue('abc/def 123/456')
+      })
     })
 
     context('Mobile resolution (360px)', () => {
       beforeEach(function () {
         cy.viewport(360, 480)
+      })
+
+      it('verify url input and submit', () => {
+        byorPage.provideCsvName()
+        byorPage.clickSubmitButton()
+
+        radarPage.validateGraphTitle('Sheet')
+
+        radarPage.validateMobileQuadrantsVisible()
+        radarPage.validateGraphHidden()
+        radarPage.validateQuadrantOrder()
+        radarPage.validateRingOrder()
       })
 
       it('verify initial view of Radar', () => {
@@ -230,6 +309,24 @@ if (featureToggles.UIRefresh2022) {
         radarPage.validateActiveQuadrantInSubnav('languages---frameworks')
         radarPage.validateGraphHidden()
         radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
+      })
+
+      it('verify keypress / to focus url input', () => {
+        byorPage.typeString('/')
+        byorPage.validateUrlInputFocused()
+
+        byorPage.typeStringInUrlInput('abc/def 123/456')
+        byorPage.validateUrlInputValue('abc/def 123/456')
+      })
+
+      it('verify keypress / to focus search', () => {
+        radarPage.validateSearchVisible()
+
+        radarPage.typeString('/')
+        radarPage.validateSearchFocused()
+
+        radarPage.typeStringInSearch('abc/def 123/456')
+        radarPage.validateSearchValue('abc/def 123/456')
       })
     })
   })
@@ -255,10 +352,29 @@ if (featureToggles.UIRefresh2022) {
 if (featureToggles.UIRefresh2022) {
   describe('Build radar with JSON', () => {
     beforeEach(function () {
-      cy.visit(Cypress.env('host') + `/?documentId=${encodeURIComponent(testConfig.JSON_FILE_URL)}`)
+      if (
+        Cypress.currentTest.title !== 'verify url input and submit' &&
+        Cypress.currentTest.title !== 'verify keypress / to focus url input'
+      ) {
+        cy.visit(Cypress.env('host') + `/?documentId=${encodeURIComponent(testConfig.JSON_FILE_URL)}`)
+      } else {
+        cy.visit(Cypress.env('host'))
+      }
     })
 
     context('Desktop resolution (1440px)', () => {
+      it('verify url input and submit', () => {
+        byorPage.provideJsonName()
+        byorPage.clickSubmitButton()
+
+        radarPage.validateGraphTitle('Data')
+
+        radarPage.validateMobileQuadrantsHidden()
+        radarPage.validateGraphVisible()
+        radarPage.validateQuadrantOrder()
+        radarPage.validateRingOrder()
+      })
+
       it('verify initial view of Radar', () => {
         radarPage.validateGraphTitle('Data')
 
@@ -328,11 +444,41 @@ if (featureToggles.UIRefresh2022) {
         radarPage.validateActiveQuadrant('languages---frameworks', 'fourth')
         radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
       })
+
+      it('verify keypress / to focus url input', () => {
+        byorPage.typeString('/')
+        byorPage.validateUrlInputFocused()
+
+        byorPage.typeStringInUrlInput('abc/def 123/456')
+        byorPage.validateUrlInputValue('abc/def 123/456')
+      })
+
+      it('verify keypress / to focus search', () => {
+        radarPage.validateSearchVisible()
+
+        radarPage.typeString('/')
+        radarPage.validateSearchFocused()
+
+        radarPage.typeStringInSearch('abc/def 123/456')
+        radarPage.validateSearchValue('abc/def 123/456')
+      })
     })
 
     context('Tablet resolution (1024px)', () => {
       beforeEach(function () {
         cy.viewport(1024, 768)
+      })
+
+      it('verify url input and submit', () => {
+        byorPage.provideJsonName()
+        byorPage.clickSubmitButton()
+
+        radarPage.validateGraphTitle('Data')
+
+        radarPage.validateMobileQuadrantsVisible()
+        radarPage.validateGraphHidden()
+        radarPage.validateQuadrantOrder()
+        radarPage.validateRingOrder()
       })
 
       it('verify initial view of Radar', () => {
@@ -405,11 +551,41 @@ if (featureToggles.UIRefresh2022) {
         radarPage.validateActiveQuadrant('languages---frameworks', 'fourth')
         radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
       })
+
+      it('verify keypress / to focus url input', () => {
+        byorPage.typeString('/')
+        byorPage.validateUrlInputFocused()
+
+        byorPage.typeStringInUrlInput('abc/def 123/456')
+        byorPage.validateUrlInputValue('abc/def 123/456')
+      })
+
+      it('verify keypress / to focus search', () => {
+        radarPage.validateSearchVisible()
+
+        radarPage.typeString('/')
+        radarPage.validateSearchFocused()
+
+        radarPage.typeStringInSearch('abc/def 123/456')
+        radarPage.validateSearchValue('abc/def 123/456')
+      })
     })
 
     context('Mobile resolution (360px)', () => {
       beforeEach(function () {
         cy.viewport(360, 480)
+      })
+
+      it('verify url input and submit', () => {
+        byorPage.provideJsonName()
+        byorPage.clickSubmitButton()
+
+        radarPage.validateGraphTitle('Data')
+
+        radarPage.validateMobileQuadrantsVisible()
+        radarPage.validateGraphHidden()
+        radarPage.validateQuadrantOrder()
+        radarPage.validateRingOrder()
       })
 
       it('verify initial view of Radar', () => {
@@ -478,6 +654,24 @@ if (featureToggles.UIRefresh2022) {
         radarPage.validateActiveQuadrantInSubnav('languages---frameworks')
         radarPage.validateGraphHidden()
         radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
+      })
+
+      it('verify keypress / to focus url input', () => {
+        byorPage.typeString('/')
+        byorPage.validateUrlInputFocused()
+
+        byorPage.typeStringInUrlInput('abc/def 123/456')
+        byorPage.validateUrlInputValue('abc/def 123/456')
+      })
+
+      it('verify keypress / to focus search', () => {
+        radarPage.validateSearchVisible()
+
+        radarPage.typeString('/')
+        radarPage.validateSearchFocused()
+
+        radarPage.typeStringInSearch('abc/def 123/456')
+        radarPage.validateSearchValue('abc/def 123/456')
       })
     })
   })
@@ -504,6 +698,12 @@ if (featureToggles.UIRefresh2022) {
   describe('Build radar with public Google Sheet', () => {
     it('Validate public Google Sheet', () => {
       cy.visit(Cypress.env('host'))
+
+      byorPage.typeString('/')
+      byorPage.validateUrlInputFocused()
+
+      byorPage.typeStringInUrlInput('abc/def 123/456')
+      byorPage.validateUrlInputValue('abc/def 123/456')
 
       byorPage.providePublicSheetUrl()
       byorPage.clickSubmitButton()
@@ -556,6 +756,14 @@ if (featureToggles.UIRefresh2022) {
 
       radarPage.resetRadarView()
 
+      radarPage.validateSearchVisible()
+
+      radarPage.typeString('/')
+      radarPage.validateSearchFocused()
+
+      radarPage.typeStringInSearch('abc/def 123/456')
+      radarPage.validateSearchValue('abc/def 123/456')
+
       radarPage.clickAlternateRadarItem(2)
       radarPage.validateActiveAlternateRadar(2)
       radarPage.validateInactiveAlternateRadar(1)
@@ -564,6 +772,12 @@ if (featureToggles.UIRefresh2022) {
     it('Validate public Google Sheet in tablet', () => {
       cy.viewport(1024, 768)
       cy.visit(Cypress.env('host'))
+
+      byorPage.typeString('/')
+      byorPage.validateUrlInputFocused()
+
+      byorPage.typeStringInUrlInput('abc/def 123/456')
+      byorPage.validateUrlInputValue('abc/def 123/456')
 
       byorPage.providePublicSheetUrl()
       byorPage.clickSubmitButton()
@@ -615,6 +829,14 @@ if (featureToggles.UIRefresh2022) {
 
       radarPage.resetRadarView()
 
+      radarPage.validateSearchVisible()
+
+      radarPage.typeString('/')
+      radarPage.validateSearchFocused()
+
+      radarPage.typeStringInSearch('abc/def 123/456')
+      radarPage.validateSearchValue('abc/def 123/456')
+
       radarPage.clickAlternateRadarItem(2)
       radarPage.validateActiveAlternateRadar(2)
       radarPage.validateInactiveAlternateRadar(1)
@@ -623,6 +845,12 @@ if (featureToggles.UIRefresh2022) {
     it('Validate public Google Sheet in mobile', () => {
       cy.viewport(360, 480)
       cy.visit(Cypress.env('host'))
+
+      byorPage.typeString('/')
+      byorPage.validateUrlInputFocused()
+
+      byorPage.typeStringInUrlInput('abc/def 123/456')
+      byorPage.validateUrlInputValue('abc/def 123/456')
 
       byorPage.providePublicSheetUrl()
       byorPage.clickSubmitButton()
@@ -677,6 +905,14 @@ if (featureToggles.UIRefresh2022) {
       radarPage.validateBlipDescriptionVibisbleInQuadrantTable(41)
 
       radarPage.resetRadarView()
+
+      radarPage.validateSearchVisible()
+
+      radarPage.typeString('/')
+      radarPage.validateSearchFocused()
+
+      radarPage.typeStringInSearch('abc/def 123/456')
+      radarPage.validateSearchValue('abc/def 123/456')
 
       radarPage.clickAlternateRadarItem(2)
       radarPage.validateActiveAlternateRadar(2)
