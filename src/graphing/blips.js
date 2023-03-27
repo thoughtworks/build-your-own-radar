@@ -145,8 +145,8 @@ function pillBlip(blip, xValue, yValue, order, group) {
     .attr('y', '1')
     .attr('rx', '12')
     .attr('ry', '12')
-    .attr('width', '64')
-    .attr('height', '24')
+    .attr('width', blip.pillWidth())
+    .attr('height', graphConfig.pillBlipHeight)
     .attr('fill', 'red')
     .attr('class', order)
     .style('transform', `scale(${blip.scale || 1})`)
@@ -175,7 +175,7 @@ function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup) {
 
   group
     .append('text')
-    .attr('x', blip.isGroup() ? 32 : 18)
+    .attr('x', blip.isGroup() ? (blip.isNew() ? 42 : 62) : 18)
     .attr('y', blip.isGroup() ? 17 : 23)
     .style('font-size', '12px')
     .attr('font-style', 'normal')
@@ -195,6 +195,40 @@ function getPillBlipTooltipText(ringBlips) {
     }, '')
   }
   return tooltipText
+}
+
+function getXCoord(ringIndex, deg) {
+  return graphConfig.quadrantWidth - getRingRadius(ringIndex) * Math.sin(toRadian(deg))
+}
+
+const pillBlipsBaseCoords = {
+  0: {
+    new: [getXCoord(1, 35), 440],
+    'no change': [getXCoord(1, 55), 470],
+  },
+  1: {
+    new: [getXCoord(2, 30), 330],
+    'no change': [getXCoord(2, 45), 360],
+  },
+  2: {
+    new: [getXCoord(3, 35), 200],
+    'no change': [getXCoord(3, 47), 230],
+  },
+  3: {
+    new: [getXCoord(4, 12), 30],
+    'no change': [getXCoord(4, 20), 60],
+  },
+}
+
+const transposeQuadrantCoords = function (coords, blip) {
+  const transposeX = graphConfig.effectiveQuadrantWidth * 2 - coords[0] - blip.pillWidth()
+  const transposeY = graphConfig.effectiveQuadrantHeight * 2 - coords[1] - graphConfig.pillBlipHeight
+  return {
+    first: coords,
+    second: [coords[0], transposeY],
+    third: [transposeX, coords[1]],
+    fourth: [transposeX, transposeY],
+  }
 }
 
 const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip) {
@@ -218,26 +252,32 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
     const offset = 10
     const minRadius = getRingRadius(i) + offset
     const maxRadius = getRingRadius(i + 1) - offset
-    const allBlipCoordinatesInRing = []
+    const allBlipCoordsInRing = []
+    const newBlipsInRing = ringBlips.filter((blip) => blip.isNew())
+    const noChangeBlipsInRing = ringBlips.filter((blip) => !blip.isNew())
 
     if (ringBlips.length > maxBlipsInRings[i]) {
-      const pillBlipText = `${ringBlips.length} blips`
-      const pillBlip = new Blip(pillBlipText, ring, false, '', '')
-      pillBlip.setNumber(pillBlipText)
-      pillBlip.setIsGroup(true)
-      const pillBlipTooltipText = getPillBlipTooltipText(ringBlips)
-      const coords = findBlipCoordinates(pillBlip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing, order)
-      drawBlipInCoordinates(pillBlip, coords, order, parentElement)
-      renderBlipDescription(pillBlip, ring, quadrantWrapper, tooltip, pillBlipTooltipText)
-      ringBlips.forEach(function (blip) {
-        renderBlipDescription(blip, ring, quadrantWrapper, tooltip)
+      ;[newBlipsInRing, noChangeBlipsInRing].forEach((blipsInRing) => {
+        const blipType = blipsInRing[0].isNew() ? 'new' : 'no change'
+        const pillBlipText = `${blipsInRing.length} ${blipType} blips`
+        const pillBlip = new Blip(pillBlipText, ring, blipsInRing[0].isNew(), '', '')
+        pillBlip.setNumber(pillBlipText)
+        pillBlip.setIsGroup(true)
+        const pillBlipTooltipText = getPillBlipTooltipText(blipsInRing)
+        const baseCoords = pillBlipsBaseCoords[graphConfig.rings.indexOf(ring.name())][blipType]
+        const coords = transposeQuadrantCoords(baseCoords, pillBlip)[order]
+        drawBlipInCoordinates(pillBlip, coords, order, parentElement)
+        renderBlipDescription(pillBlip, ring, quadrantWrapper, tooltip, pillBlipTooltipText)
+        blipsInRing.forEach(function (blip) {
+          renderBlipDescription(blip, ring, quadrantWrapper, tooltip)
+        })
       })
       return
     }
 
     ringBlips.forEach(function (blip) {
-      const coordinates = findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing, order)
-      allBlipCoordinatesInRing.push({ coordinates, width: blip.width })
+      const coordinates = findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordsInRing, order)
+      allBlipCoordsInRing.push({ coordinates, width: blip.width })
       drawBlipInCoordinates(blip, coordinates, order, parentElement)
       renderBlipDescription(blip, ring, quadrantWrapper, tooltip)
     })

@@ -24,6 +24,9 @@ const graphConfig = {
   quadrantsGap: quadrantGap,
   minBlipWidth: 12,
   blipWidth: 22,
+  pillBlipHeight: 24,
+  newPillBlipWidth: 84,
+  noChangePillBlipWidth: 124,
   rings: getRings(),
   quadrants: getQuadrants(),
 }
