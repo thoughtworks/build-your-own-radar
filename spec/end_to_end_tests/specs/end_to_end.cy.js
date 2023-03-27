@@ -4,357 +4,510 @@ const config = require('../../../src/config')
 const featureToggles = config()[Cypress.env('TEST_ENV') ? Cypress.env('TEST_ENV') : 'development'].featureToggles
 const testConfig = require('../config.json')
 
-describe('Build radar with CSV', () => {
-  it('Validate CSV file', () => {
-    cy.visit(Cypress.env('host'))
+if (featureToggles.UIRefresh2022) {
+  describe('Build radar with CSV', () => {
+    beforeEach(function () {
+      cy.visit(Cypress.env('host') + `/?documentId=${encodeURIComponent(testConfig.CSV_FILE_URL)}`)
+    })
 
-    byorPage.provideCsvName()
-    byorPage.clickSubmitButton()
-    if (featureToggles.UIRefresh2022) {
-      radarPage.validateGraphTitle('Sheet')
+    context('Desktop resolution (1440px)', () => {
+      it('verify initial view of Radar', () => {
+        radarPage.validateGraphTitle('Sheet')
 
-      radarPage.validateMobileQuadrantsHidden()
-      radarPage.validateGraphVisible()
-      radarPage.validateQuadrantOrder()
-      radarPage.validateRingOrder()
+        radarPage.validateMobileQuadrantsHidden()
+        radarPage.validateGraphVisible()
+        radarPage.validateQuadrantOrder()
+        radarPage.validateRingOrder()
+      })
 
-      radarPage.clickQuadrantInFullRadarView('first')
-      radarPage.validateActiveQuadrant('techniques', 'first')
-      radarPage.validateRingsInQuadrantTable(4)
-      radarPage.validateBlipsInQuadrantTable(2)
+      it('verify click on quadrant', () => {
+        radarPage.clickQuadrantInFullRadarView('first')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.validateRingsInQuadrantTable(4)
+        radarPage.validateBlipsInQuadrantTable(2)
+      })
 
-      radarPage.clickBlipItemInQuadrantTable(1)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+      it('verify click on blip in quadrant table', () => {
+        radarPage.clickQuadrantInFullRadarView('first')
 
-      radarPage.clickBlipInRadarGraph(2)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-      radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+        radarPage.clickBlipItemInQuadrantTable(1)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+      })
 
-      radarPage.resetRadarView()
+      it('verify click on blip in Radar graph in quadrant view', () => {
+        radarPage.clickQuadrantInFullRadarView('first')
 
-      radarPage.clickBlipInRadarGraph(2)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-      radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.clickBlipItemInQuadrantTable(1)
 
-      radarPage.clickQuadrantInSubnav('tools')
-      radarPage.validateActiveQuadrant('tools', 'third')
+        radarPage.clickBlipInRadarGraph(2)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+        radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+      })
 
-      radarPage.clickQuadrantInSubnav('all-quadrants')
-      radarPage.validateMobileQuadrantsHidden()
-      radarPage.validateGraphVisible()
+      it('verify click on blip in Radar graph', () => {
+        radarPage.clickBlipInRadarGraph(2)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+        radarPage.validateActiveQuadrant('techniques', 'first')
+      })
 
-      radarPage.resetRadarView()
+      it('verify click on quadrant in subnav', () => {
+        radarPage.clickQuadrantInSubnav('tools')
+        radarPage.validateActiveQuadrant('tools', 'third')
+      })
 
-      radarPage.validateSearchResults('framework', 3)
-      radarPage.clickSearchResult(1)
-      radarPage.validateActiveQuadrant('techniques', 'first')
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+      it('verify click on All quadrants in subnav', () => {
+        radarPage.clickQuadrantInSubnav('tools')
+        radarPage.clickQuadrantInSubnav('all-quadrants')
+        radarPage.validateMobileQuadrantsHidden()
+        radarPage.validateGraphVisible()
+      })
 
-      radarPage.triggerSearch('framework')
-      radarPage.clickSearchResult(2)
-      radarPage.validateActiveQuadrant('languages---frameworks', 'fourth')
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
-    } else {
+      it('verify number of search results for query', () => {
+        radarPage.validateSearchResults('framework', 3)
+      })
+
+      it('verify click on search result in Radar view', () => {
+        radarPage.triggerSearch('framework')
+        radarPage.clickSearchResult(1)
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+      })
+
+      it('verify click on search result in quadrant view', () => {
+        radarPage.clickQuadrantInFullRadarView('first')
+        radarPage.triggerSearch('framework')
+        radarPage.clickSearchResult(2)
+        radarPage.validateActiveQuadrant('languages---frameworks', 'fourth')
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
+      })
+    })
+
+    context('Tablet resolution (1024px)', () => {
+      beforeEach(function () {
+        cy.viewport(1024, 768)
+      })
+
+      it('verify initial view of Radar', () => {
+        radarPage.validateGraphTitle('Sheet')
+
+        radarPage.validateMobileQuadrantsVisible()
+        radarPage.validateGraphHidden()
+        radarPage.validateQuadrantOrder()
+        radarPage.validateRingOrder()
+      })
+
+      it('verify click on quadrant', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.validateRingsInQuadrantTable(4)
+        radarPage.validateBlipsInQuadrantTable(2)
+      })
+
+      it('verify click on blip in quadrant table', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+
+        radarPage.clickBlipItemInQuadrantTable(1)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+      })
+
+      it('verify click on blip in Radar graph in quadrant view', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+
+        radarPage.clickBlipItemInQuadrantTable(1)
+
+        radarPage.clickBlipInRadarGraph(2)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+        radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+      })
+
+      it('verify selecting quadrant in subnav', () => {
+        radarPage.validateSubnavDropdownHiddenTablet()
+        radarPage.clickSubnavDropdownTablet()
+        radarPage.validateSubnavDropdownVisibleTablet()
+        radarPage.clickQuadrantInSubnav('tools')
+        radarPage.validateSubnavDropdownHiddenTablet()
+        radarPage.validateActiveQuadrant('tools', 'third')
+      })
+
+      it('verify click on All quadrants in subnav', () => {
+        radarPage.clickSubnavDropdownTablet()
+        radarPage.clickQuadrantInSubnav('tools')
+
+        radarPage.clickSubnavDropdownTablet()
+        radarPage.clickQuadrantInSubnav('all-quadrants')
+        radarPage.validateMobileQuadrantsVisible()
+        radarPage.validateGraphHidden()
+      })
+
+      it('verify number of search results for query', () => {
+        radarPage.validateSearchResults('framework', 3)
+      })
+
+      it('verify click on search result in Radar view', () => {
+        radarPage.triggerSearch('framework')
+        radarPage.clickSearchResult(1)
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+      })
+
+      it('verify click on search result in quadrant view', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+        radarPage.triggerSearch('framework')
+        radarPage.clickSearchResult(2)
+        radarPage.validateActiveQuadrant('languages---frameworks', 'fourth')
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
+      })
+    })
+
+    context('Mobile resolution (360px)', () => {
+      beforeEach(function () {
+        cy.viewport(360, 480)
+      })
+
+      it('verify initial view of Radar', () => {
+        radarPage.validateGraphTitle('Sheet')
+
+        radarPage.validateMobileQuadrantsVisible()
+        radarPage.validateGraphHidden()
+        radarPage.validateQuadrantOrder()
+        radarPage.validateRingOrder()
+      })
+
+      it('verify click on quadrant', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+        radarPage.validateActiveQuadrantInSubnav('techniques')
+        radarPage.validateGraphHidden()
+        radarPage.validateRingsInQuadrantTable(4)
+        radarPage.validateBlipsInQuadrantTable(2)
+      })
+
+      it('verify click on blip in quadrant table', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+
+        radarPage.clickBlipItemInQuadrantTable(1)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+        radarPage.clickBlipItemInQuadrantTable(2)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+        radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+      })
+
+      it('verify selecting quadrant in subnav', () => {
+        radarPage.validateSubnavDropdownHiddenTablet()
+        radarPage.clickSubnavDropdownTablet()
+        radarPage.validateSubnavDropdownVisibleTablet()
+        radarPage.clickQuadrantInSubnav('tools')
+        radarPage.validateSubnavDropdownHiddenTablet()
+        radarPage.validateActiveQuadrantInSubnav('tools')
+        radarPage.validateGraphHidden()
+      })
+
+      it('verify click on All quadrants in subnav', () => {
+        radarPage.clickSubnavDropdownTablet()
+        radarPage.clickQuadrantInSubnav('tools')
+
+        radarPage.clickSubnavDropdownTablet()
+        radarPage.clickQuadrantInSubnav('all-quadrants')
+        radarPage.validateMobileQuadrantsVisible()
+        radarPage.validateGraphHidden()
+      })
+
+      it('verify number of search results for query', () => {
+        radarPage.validateSearchResults('framework', 3)
+      })
+
+      it('verify click on search result in Radar view', () => {
+        radarPage.triggerSearch('framework')
+        radarPage.clickSearchResult(1)
+        radarPage.validateActiveQuadrantInSubnav('techniques')
+        radarPage.validateGraphHidden()
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+      })
+
+      it('verify click on search result in quadrant view', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+        radarPage.triggerSearch('framework')
+        radarPage.clickSearchResult(2)
+        radarPage.validateActiveQuadrantInSubnav('languages---frameworks')
+        radarPage.validateGraphHidden()
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
+      })
+    })
+  })
+} else {
+  describe('Build radar with CSV (Old UI)', () => {
+    it('Validate CSV file', () => {
+      cy.visit(Cypress.env('host'))
+
+      byorPage.provideCsvName()
+      byorPage.clickSubmitButton()
+
       radarPage.clickTheBlipInFullRadarView()
+
       radarPage.clickTheBlip()
       radarPage.validateBlipDescriptionOld('Dragonfly')
+
       radarPage.searchTheBlip()
       radarPage.validateBlipSearch()
-    }
+    })
   })
+}
 
-  if (featureToggles.UIRefresh2022) {
-    it('Validate CSV file in tablet', () => {
-      cy.viewport(1024, 768)
-      cy.visit(Cypress.env('host'))
-
-      byorPage.provideCsvName()
-      byorPage.clickSubmitButton()
-
-      radarPage.validateGraphTitle('Sheet')
-
-      radarPage.validateMobileQuadrantsVisible()
-      radarPage.validateGraphHidden()
-      radarPage.validateQuadrantOrder()
-      radarPage.validateRingOrder()
-
-      radarPage.clickQuadrantInFullRadarViewTablet('first')
-      radarPage.validateActiveQuadrant('techniques', 'first')
-      radarPage.validateRingsInQuadrantTable(4)
-      radarPage.validateBlipsInQuadrantTable(2)
-
-      radarPage.clickBlipItemInQuadrantTable(1)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
-
-      radarPage.clickBlipInRadarGraph(2)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-      radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
-
-      radarPage.resetRadarView()
-
-      radarPage.validateSubnavDropdownHiddenTablet()
-      radarPage.clickSubnavDropdownTablet()
-      radarPage.validateSubnavDropdownVisibleTablet()
-      radarPage.clickQuadrantInSubnav('tools')
-      radarPage.validateSubnavDropdownHiddenTablet()
-      radarPage.validateActiveQuadrant('tools', 'third')
-
-      radarPage.clickSubnavDropdownTablet()
-      radarPage.clickQuadrantInSubnav('all-quadrants')
-      radarPage.validateMobileQuadrantsVisible()
-      radarPage.validateGraphHidden()
-
-      radarPage.resetRadarView()
-
-      radarPage.validateSearchResults('framework', 3)
-      radarPage.clickSearchResult(1)
-      radarPage.validateActiveQuadrant('techniques', 'first')
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-
-      radarPage.triggerSearch('framework')
-      radarPage.clickSearchResult(2)
-      radarPage.validateActiveQuadrant('languages---frameworks', 'fourth')
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
+if (featureToggles.UIRefresh2022) {
+  describe('Build radar with JSON', () => {
+    beforeEach(function () {
+      cy.visit(Cypress.env('host') + `/?documentId=${encodeURIComponent(testConfig.JSON_FILE_URL)}`)
     })
 
-    it('Validate CSV file in mobile', () => {
-      cy.viewport(360, 480)
+    context('Desktop resolution (1440px)', () => {
+      it('verify initial view of Radar', () => {
+        radarPage.validateGraphTitle('Data')
+
+        radarPage.validateMobileQuadrantsHidden()
+        radarPage.validateGraphVisible()
+        radarPage.validateQuadrantOrder()
+        radarPage.validateRingOrder()
+      })
+
+      it('verify click on quadrant', () => {
+        radarPage.clickQuadrantInFullRadarView('first')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.validateRingsInQuadrantTable(4)
+        radarPage.validateBlipsInQuadrantTable(2)
+      })
+
+      it('verify click on blip in quadrant table', () => {
+        radarPage.clickQuadrantInFullRadarView('first')
+
+        radarPage.clickBlipItemInQuadrantTable(1)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+      })
+
+      it('verify click on blip in Radar graph in quadrant view', () => {
+        radarPage.clickQuadrantInFullRadarView('first')
+
+        radarPage.clickBlipItemInQuadrantTable(1)
+
+        radarPage.clickBlipInRadarGraph(2)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+        radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+      })
+
+      it('verify click on blip in Radar graph', () => {
+        radarPage.clickBlipInRadarGraph(2)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+        radarPage.validateActiveQuadrant('techniques', 'first')
+      })
+
+      it('verify click on quadrant in subnav', () => {
+        radarPage.clickQuadrantInSubnav('tools')
+        radarPage.validateActiveQuadrant('tools', 'third')
+      })
+
+      it('verify click on All quadrants in subnav', () => {
+        radarPage.clickQuadrantInSubnav('tools')
+        radarPage.clickQuadrantInSubnav('all-quadrants')
+        radarPage.validateMobileQuadrantsHidden()
+        radarPage.validateGraphVisible()
+      })
+
+      it('verify number of search results for query', () => {
+        radarPage.validateSearchResults('framework', 3)
+      })
+
+      it('verify click on search result in Radar view', () => {
+        radarPage.triggerSearch('framework')
+        radarPage.clickSearchResult(1)
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+      })
+
+      it('verify click on search result in quadrant view', () => {
+        radarPage.clickQuadrantInFullRadarView('first')
+        radarPage.triggerSearch('framework')
+        radarPage.clickSearchResult(2)
+        radarPage.validateActiveQuadrant('languages---frameworks', 'fourth')
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
+      })
+    })
+
+    context('Tablet resolution (1024px)', () => {
+      beforeEach(function () {
+        cy.viewport(1024, 768)
+      })
+
+      it('verify initial view of Radar', () => {
+        radarPage.validateGraphTitle('Data')
+
+        radarPage.validateMobileQuadrantsVisible()
+        radarPage.validateGraphHidden()
+        radarPage.validateQuadrantOrder()
+        radarPage.validateRingOrder()
+      })
+
+      it('verify click on quadrant', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.validateRingsInQuadrantTable(4)
+        radarPage.validateBlipsInQuadrantTable(2)
+      })
+
+      it('verify click on blip in quadrant table', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+
+        radarPage.clickBlipItemInQuadrantTable(1)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+      })
+
+      it('verify click on blip in Radar graph in quadrant view', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+
+        radarPage.clickBlipItemInQuadrantTable(1)
+
+        radarPage.clickBlipInRadarGraph(2)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+        radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+      })
+
+      it('verify selecting quadrant in subnav', () => {
+        radarPage.validateSubnavDropdownHiddenTablet()
+        radarPage.clickSubnavDropdownTablet()
+        radarPage.validateSubnavDropdownVisibleTablet()
+        radarPage.clickQuadrantInSubnav('tools')
+        radarPage.validateSubnavDropdownHiddenTablet()
+        radarPage.validateActiveQuadrant('tools', 'third')
+      })
+
+      it('verify click on All quadrants in subnav', () => {
+        radarPage.clickSubnavDropdownTablet()
+        radarPage.clickQuadrantInSubnav('tools')
+
+        radarPage.clickSubnavDropdownTablet()
+        radarPage.clickQuadrantInSubnav('all-quadrants')
+        radarPage.validateMobileQuadrantsVisible()
+        radarPage.validateGraphHidden()
+      })
+
+      it('verify number of search results for query', () => {
+        radarPage.validateSearchResults('framework', 3)
+      })
+
+      it('verify click on search result in Radar view', () => {
+        radarPage.triggerSearch('framework')
+        radarPage.clickSearchResult(1)
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+      })
+
+      it('verify click on search result in quadrant view', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+        radarPage.triggerSearch('framework')
+        radarPage.clickSearchResult(2)
+        radarPage.validateActiveQuadrant('languages---frameworks', 'fourth')
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
+      })
+    })
+
+    context('Mobile resolution (360px)', () => {
+      beforeEach(function () {
+        cy.viewport(360, 480)
+      })
+
+      it('verify initial view of Radar', () => {
+        radarPage.validateGraphTitle('Data')
+
+        radarPage.validateMobileQuadrantsVisible()
+        radarPage.validateGraphHidden()
+        radarPage.validateQuadrantOrder()
+        radarPage.validateRingOrder()
+      })
+
+      it('verify click on quadrant', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+        radarPage.validateActiveQuadrantInSubnav('techniques')
+        radarPage.validateGraphHidden()
+        radarPage.validateRingsInQuadrantTable(4)
+        radarPage.validateBlipsInQuadrantTable(2)
+      })
+
+      it('verify click on blip in quadrant table', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+
+        radarPage.clickBlipItemInQuadrantTable(1)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+        radarPage.clickBlipItemInQuadrantTable(2)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+        radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+      })
+
+      it('verify selecting quadrant in subnav', () => {
+        radarPage.validateSubnavDropdownHiddenTablet()
+        radarPage.clickSubnavDropdownTablet()
+        radarPage.validateSubnavDropdownVisibleTablet()
+        radarPage.clickQuadrantInSubnav('tools')
+        radarPage.validateSubnavDropdownHiddenTablet()
+        radarPage.validateActiveQuadrantInSubnav('tools')
+        radarPage.validateGraphHidden()
+      })
+
+      it('verify click on All quadrants in subnav', () => {
+        radarPage.clickSubnavDropdownTablet()
+        radarPage.clickQuadrantInSubnav('tools')
+
+        radarPage.clickSubnavDropdownTablet()
+        radarPage.clickQuadrantInSubnav('all-quadrants')
+        radarPage.validateMobileQuadrantsVisible()
+        radarPage.validateGraphHidden()
+      })
+
+      it('verify number of search results for query', () => {
+        radarPage.validateSearchResults('framework', 3)
+      })
+
+      it('verify click on search result in Radar view', () => {
+        radarPage.triggerSearch('framework')
+        radarPage.clickSearchResult(1)
+        radarPage.validateActiveQuadrantInSubnav('techniques')
+        radarPage.validateGraphHidden()
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+      })
+
+      it('verify click on search result in quadrant view', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+        radarPage.triggerSearch('framework')
+        radarPage.clickSearchResult(2)
+        radarPage.validateActiveQuadrantInSubnav('languages---frameworks')
+        radarPage.validateGraphHidden()
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
+      })
+    })
+  })
+} else {
+  describe('Build radar with JSON (Old UI)', () => {
+    it('Validate JSON file', () => {
       cy.visit(Cypress.env('host'))
 
-      byorPage.provideCsvName()
+      byorPage.provideJsonName()
       byorPage.clickSubmitButton()
 
-      radarPage.validateGraphTitle('Sheet')
-
-      radarPage.validateMobileQuadrantsVisible()
-      radarPage.validateGraphHidden()
-      radarPage.validateQuadrantOrder()
-      radarPage.validateRingOrder()
-
-      radarPage.clickQuadrantInFullRadarViewTablet('first')
-      radarPage.validateActiveQuadrantInSubnav('techniques')
-      radarPage.validateGraphHidden()
-      radarPage.validateRingsInQuadrantTable(4)
-      radarPage.validateBlipsInQuadrantTable(2)
-
-      radarPage.clickBlipItemInQuadrantTable(1)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
-
-      radarPage.clickBlipItemInQuadrantTable(2)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-      radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
-
-      radarPage.resetRadarView()
-
-      radarPage.validateSubnavDropdownHiddenTablet()
-      radarPage.clickSubnavDropdownTablet()
-      radarPage.validateSubnavDropdownVisibleTablet()
-      radarPage.clickQuadrantInSubnav('tools')
-      radarPage.validateSubnavDropdownHiddenTablet()
-      radarPage.validateActiveQuadrantInSubnav('tools')
-      radarPage.validateGraphHidden()
-      radarPage.validateGraphHidden()
-
-      radarPage.clickSubnavDropdownTablet()
-      radarPage.clickQuadrantInSubnav('all-quadrants')
-      radarPage.validateMobileQuadrantsVisible()
-      radarPage.validateGraphHidden()
-
-      radarPage.resetRadarView()
-
-      radarPage.validateSearchResults('framework', 3)
-      radarPage.clickSearchResult(1)
-      radarPage.validateActiveQuadrantInSubnav('techniques')
-      radarPage.validateGraphHidden()
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-
-      radarPage.triggerSearch('framework')
-      radarPage.clickSearchResult(2)
-      radarPage.validateActiveQuadrantInSubnav('languages---frameworks')
-      radarPage.validateGraphHidden()
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
-    })
-  }
-})
-
-describe('Build radar with JSON', () => {
-  it('Validate JSON file', () => {
-    cy.visit(Cypress.env('host'))
-
-    byorPage.provideJsonName()
-    byorPage.clickSubmitButton()
-    if (featureToggles.UIRefresh2022) {
-      radarPage.validateGraphTitle('Data')
-
-      radarPage.validateMobileQuadrantsHidden()
-      radarPage.validateGraphVisible()
-      radarPage.validateQuadrantOrder()
-      radarPage.validateRingOrder()
-
-      radarPage.clickQuadrantInFullRadarView('first')
-      radarPage.validateActiveQuadrant('techniques', 'first')
-      radarPage.validateRingsInQuadrantTable(4)
-      radarPage.validateBlipsInQuadrantTable(2)
-
-      radarPage.clickBlipItemInQuadrantTable(1)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
-
-      radarPage.clickBlipInRadarGraph(2)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-      radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
-
-      radarPage.resetRadarView()
-
-      radarPage.clickBlipInRadarGraph(2)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-      radarPage.validateActiveQuadrant('techniques', 'first')
-
-      radarPage.clickQuadrantInSubnav('tools')
-      radarPage.validateActiveQuadrant('tools', 'third')
-
-      radarPage.clickQuadrantInSubnav('all-quadrants')
-      radarPage.validateMobileQuadrantsHidden()
-      radarPage.validateGraphVisible()
-
-      radarPage.resetRadarView()
-
-      radarPage.validateSearchResults('framework', 3)
-      radarPage.clickSearchResult(1)
-      radarPage.validateActiveQuadrant('techniques', 'first')
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-
-      radarPage.triggerSearch('framework')
-      radarPage.clickSearchResult(2)
-      radarPage.validateActiveQuadrant('languages---frameworks', 'fourth')
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
-    } else {
       radarPage.clickTheBlipInFullRadarView()
+
       radarPage.clickTheBlip()
       radarPage.validateBlipDescriptionOld('Dragonfly')
-    }
+
+      radarPage.searchTheBlip()
+      radarPage.validateBlipSearch()
+    })
   })
+}
 
-  if (featureToggles.UIRefresh2022) {
-    it('Validate JSON file in tablet', () => {
-      cy.viewport(1024, 768)
+if (featureToggles.UIRefresh2022) {
+  describe('Build radar with public Google Sheet', () => {
+    it('Validate public Google Sheet', () => {
       cy.visit(Cypress.env('host'))
 
-      byorPage.provideJsonName()
+      byorPage.providePublicSheetUrl()
       byorPage.clickSubmitButton()
 
-      radarPage.validateGraphTitle('Data')
-
-      radarPage.validateMobileQuadrantsVisible()
-      radarPage.validateGraphHidden()
-      radarPage.validateQuadrantOrder()
-      radarPage.validateRingOrder()
-
-      radarPage.clickQuadrantInFullRadarViewTablet('first')
-      radarPage.validateActiveQuadrant('techniques', 'first')
-      radarPage.validateRingsInQuadrantTable(4)
-      radarPage.validateBlipsInQuadrantTable(2)
-
-      radarPage.clickBlipItemInQuadrantTable(1)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
-
-      radarPage.clickBlipInRadarGraph(2)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-      radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
-
-      radarPage.resetRadarView()
-
-      radarPage.validateSubnavDropdownHiddenTablet()
-      radarPage.clickSubnavDropdownTablet()
-      radarPage.validateSubnavDropdownVisibleTablet()
-      radarPage.clickQuadrantInSubnav('tools')
-      radarPage.validateSubnavDropdownHiddenTablet()
-      radarPage.validateActiveQuadrant('tools', 'third')
-
-      radarPage.clickSubnavDropdownTablet()
-      radarPage.clickQuadrantInSubnav('all-quadrants')
-      radarPage.validateMobileQuadrantsVisible()
-      radarPage.validateGraphHidden()
-
-      radarPage.resetRadarView()
-
-      radarPage.validateSearchResults('framework', 3)
-      radarPage.clickSearchResult(1)
-      radarPage.validateActiveQuadrant('techniques', 'first')
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-
-      radarPage.triggerSearch('framework')
-      radarPage.clickSearchResult(2)
-      radarPage.validateActiveQuadrant('languages---frameworks', 'fourth')
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
-    })
-
-    it('Validate JSON file in mobile', () => {
-      cy.viewport(360, 480)
-      cy.visit(Cypress.env('host'))
-
-      byorPage.provideJsonName()
-      byorPage.clickSubmitButton()
-
-      radarPage.validateGraphTitle('Data')
-
-      radarPage.validateMobileQuadrantsVisible()
-      radarPage.validateGraphHidden()
-      radarPage.validateQuadrantOrder()
-      radarPage.validateRingOrder()
-
-      radarPage.clickQuadrantInFullRadarViewTablet('first')
-      radarPage.validateActiveQuadrantInSubnav('techniques')
-      radarPage.validateGraphHidden()
-      radarPage.validateRingsInQuadrantTable(4)
-      radarPage.validateBlipsInQuadrantTable(2)
-
-      radarPage.clickBlipItemInQuadrantTable(1)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
-
-      radarPage.clickBlipItemInQuadrantTable(2)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-      radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
-
-      radarPage.resetRadarView()
-
-      radarPage.validateSubnavDropdownHiddenTablet()
-      radarPage.clickSubnavDropdownTablet()
-      radarPage.validateSubnavDropdownVisibleTablet()
-      radarPage.clickQuadrantInSubnav('tools')
-      radarPage.validateSubnavDropdownHiddenTablet()
-      radarPage.validateActiveQuadrantInSubnav('tools')
-      radarPage.validateGraphHidden()
-      radarPage.validateGraphHidden()
-
-      radarPage.clickSubnavDropdownTablet()
-      radarPage.clickQuadrantInSubnav('all-quadrants')
-      radarPage.validateMobileQuadrantsVisible()
-      radarPage.validateGraphHidden()
-
-      radarPage.resetRadarView()
-
-      radarPage.validateSearchResults('framework', 3)
-      radarPage.clickSearchResult(1)
-      radarPage.validateActiveQuadrantInSubnav('techniques')
-      radarPage.validateGraphHidden()
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-
-      radarPage.triggerSearch('framework')
-      radarPage.clickSearchResult(2)
-      radarPage.validateActiveQuadrantInSubnav('languages---frameworks')
-      radarPage.validateGraphHidden()
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
-    })
-  }
-})
-describe('Build radar with public Google Sheet', () => {
-  it('Validate public Google Sheet', () => {
-    cy.visit(Cypress.env('host'))
-
-    byorPage.providePublicSheetUrl()
-    byorPage.clickSubmitButton()
-
-    if (featureToggles.UIRefresh2022) {
       radarPage.validateGraphTitle(testConfig.PUBLIC_GOOGLE_SHEET_TITLE)
 
       radarPage.validateMobileQuadrantsHidden()
@@ -406,12 +559,8 @@ describe('Build radar with public Google Sheet', () => {
       radarPage.clickAlternateRadarItem(2)
       radarPage.validateActiveAlternateRadar(2)
       radarPage.validateInactiveAlternateRadar(1)
-    } else {
-      radarPage.validateBlipCountForPublicGoogleSheet()
-    }
-  })
+    })
 
-  if (featureToggles.UIRefresh2022) {
     it('Validate public Google Sheet in tablet', () => {
       cy.viewport(1024, 768)
       cy.visit(Cypress.env('host'))
@@ -533,5 +682,16 @@ describe('Build radar with public Google Sheet', () => {
       radarPage.validateActiveAlternateRadar(2)
       radarPage.validateInactiveAlternateRadar(1)
     })
-  }
-})
+  })
+} else {
+  describe('Build radar with public Google Sheet (Old UI)', () => {
+    it('Validate public Google sheet', () => {
+      cy.visit(Cypress.env('host'))
+
+      byorPage.providePublicSheetUrl()
+      byorPage.clickSubmitButton()
+
+      radarPage.validateBlipCountForPublicGoogleSheet()
+    })
+  })
+}
