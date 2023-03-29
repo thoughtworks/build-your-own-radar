@@ -8,7 +8,7 @@ const {
   getScaledQuadrantWidth,
   getScaledQuadrantHeightWithGap,
   getScale,
-  uiConfig
+  uiConfig,
 } = require('../config')
 
 const ANIMATION_DURATION = 1000
@@ -350,7 +350,10 @@ function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator, tip) {
       .append('path')
       .attr('d', arc)
       .attr('class', 'ring-arc-' + ring.order())
-      .attr('transform', 'translate(' + graphConfig.effectiveQuadrantWidth + ', ' + graphConfig.effectiveQuadrantHeight + ')')
+      .attr(
+        'transform',
+        'translate(' + graphConfig.effectiveQuadrantWidth + ', ' + graphConfig.effectiveQuadrantHeight + ')',
+      )
   })
 
   quadrantGroup
