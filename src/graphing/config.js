@@ -29,6 +29,7 @@ const graphConfig = {
   noChangePillBlipWidth: 124,
   rings: getRings(),
   quadrants: getQuadrants(),
+  pillBlipAngles: [30,35,60,80],
 }
 
 const uiConfig = {
@@ -38,7 +39,7 @@ const uiConfig = {
   headerHeight: 80,
   legendsHeight: 42,
   tabletViewWidth: 1280,
-  mobileViewWidth: 768,
+  mobileViewWidth: 768
 }
 
 function getScale() {
@@ -64,5 +65,5 @@ module.exports = {
   getGraphSize,
   getScaledQuadrantWidth,
   getScaledQuadrantHeightWithGap,
-  isValidConfig,
+  isValidConfig
 }

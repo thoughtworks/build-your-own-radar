@@ -1,7 +1,7 @@
 const { graphConfig } = require('../graphing/config')
 const IDEAL_BLIP_WIDTH = 22
 const Blip = function (name, ring, isNew, topic, description) {
-  var self, number, isGroup
+  let self, number, isGroup
 
   self = {}
   number = -1
@@ -13,9 +13,8 @@ const Blip = function (name, ring, isNew, topic, description) {
     return name
   }
 
-  self.pillWidth = function () {
-    const blipWidth = isNew ? graphConfig.newPillBlipWidth : graphConfig.noChangePillBlipWidth
-    return isGroup ? blipWidth : IDEAL_BLIP_WIDTH
+  self.groupBlipWidth = function () {
+    return isNew ? graphConfig.newPillBlipWidth : graphConfig.noChangePillBlipWidth
   }
 
   self.topic = function () {
