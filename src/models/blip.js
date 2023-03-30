@@ -17,7 +17,7 @@ const Blip = function (name, ring, isNew, topic, description) {
   }
 
   self.groupBlipWidth = function () {
-    return isNew ? graphConfig.newPillBlipWidth : graphConfig.noChangePillBlipWidth
+    return isNew ? graphConfig.newGroupBlipWidth : graphConfig.noChangeGroupBlipWidth
   }
 
   self.topic = function () {

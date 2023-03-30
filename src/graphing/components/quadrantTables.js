@@ -2,9 +2,9 @@ const d3 = require('d3')
 const { graphConfig, getScale, uiConfig } = require('../config')
 const { stickQuadrantOnScroll } = require('./quadrants')
 
-function renderBlipDescription(blip, ring, quadrant, tip, pillBlipTooltipText) {
+function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) {
   const blipItem = d3.select(`.quadrant-table.${quadrant.order} ul:nth-of-type(${ring.order() + 1})`)
-  if (!pillBlipTooltipText) {
+  if (!groupBlipTooltipText) {
     blipItem.append('li').classed('blip-list__item', true)
     const blipItemDiv = blipItem
       .append('div')
@@ -56,7 +56,7 @@ function renderBlipDescription(blip, ring, quadrant, tip, pillBlipTooltipText) {
 
     blipItem.classed('highlight', true)
 
-    tip.show(pillBlipTooltipText || blip.name(), blipGroupItem.node())
+    tip.show(groupBlipTooltipText || blip.name(), blipGroupItem.node())
   }
 
   const mouseOut = function () {
@@ -94,7 +94,7 @@ function renderBlipDescription(blip, ring, quadrant, tip, pillBlipTooltipText) {
     )
   }
 
-  !pillBlipTooltipText &&
+  !groupBlipTooltipText &&
     blipItem.on('mouseover', mouseOver).on('mouseout', mouseOut).on('focusin', mouseOver).on('focusout', mouseOut)
   blipGroupItem
     .on('mouseover', mouseOver)

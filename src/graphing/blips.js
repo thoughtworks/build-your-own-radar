@@ -137,7 +137,7 @@ function noChangeBlip(blip, xValue, yValue, order, group) {
   drawBlipCircle(group, blip, xValue, yValue, order)
 }
 
-function pillBlip(blip, xValue, yValue, order, group) {
+function groupBlip(blip, xValue, yValue, order, group) {
   group.attr('transform', `scale(1) translate(${xValue}, ${yValue})`).attr('aria-label', blipAssistiveText(blip))
   group
     .append('rect')
@@ -146,7 +146,7 @@ function pillBlip(blip, xValue, yValue, order, group) {
     .attr('rx', '12')
     .attr('ry', '12')
     .attr('width', blip.groupBlipWidth())
-    .attr('height', graphConfig.pillBlipHeight)
+    .attr('height', graphConfig.groupBlipHeight)
     .attr('class', order)
     .style('transform', `scale(${blip.scale || 1})`)
 }
@@ -165,7 +165,7 @@ function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup) {
     .attr('data-blip-id', blipId)
 
   if (blip.isGroup()) {
-    pillBlip(blip, x, y, order, group)
+    groupBlip(blip, x, y, order, group)
   } else if (blip.isNew()) {
     newBlip(blip, x, y, order, group)
   } else {
@@ -185,7 +185,7 @@ function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup) {
     .style('transform', `scale(${blip.scale || 1})`)
 }
 
-function getPillBlipTooltipText(ringBlips) {
+function getGroupBlipTooltipText(ringBlips) {
   let tooltipText = 'Click to view all'
   if (ringBlips.length <= 15) {
     tooltipText = ringBlips.reduce((toolTip, blip) => {
@@ -197,7 +197,7 @@ function getPillBlipTooltipText(ringBlips) {
 }
 
 const findNoChangeBlipCoords = function (ringIndex, deg) {
-  const blipWidth = graphConfig.noChangePillBlipWidth
+  const blipWidth = graphConfig.noChangeGroupBlipWidth
   const ringWidth = getRingRadius(ringIndex) - getRingRadius(ringIndex - 1)
   const halfRingRadius = getRingRadius(ringIndex) - ringWidth / 2
   const x = graphConfig.quadrantWidth - halfRingRadius * Math.cos(toRadian(deg)) - blipWidth / 2
@@ -206,14 +206,14 @@ const findNoChangeBlipCoords = function (ringIndex, deg) {
 }
 
 function findNewBlipCoords(noChangeCoords) {
-  const pillBlipGap = 5
-  const offsetX = graphConfig.noChangePillBlipWidth - graphConfig.newPillBlipWidth
-  const offsetY = graphConfig.pillBlipHeight + pillBlipGap
+  const groupBlipGap = 5
+  const offsetX = graphConfig.noChangeGroupBlipWidth - graphConfig.newGroupBlipWidth
+  const offsetY = graphConfig.groupBlipHeight + groupBlipGap
   return [noChangeCoords[0] + offsetX, noChangeCoords[1] - offsetY]
 }
 
-const pillBlipsBaseCoords = function (ringIndex) {
-  const noChangeCoords = findNoChangeBlipCoords(ringIndex + 1, graphConfig.pillBlipAngles[ringIndex])
+const groupBlipsBaseCoords = function (ringIndex) {
+  const noChangeCoords = findNoChangeBlipCoords(ringIndex + 1, graphConfig.groupBlipAngles[ringIndex])
 
   return {
     'no change': noChangeCoords,
@@ -223,7 +223,7 @@ const pillBlipsBaseCoords = function (ringIndex) {
 
 const transposeQuadrantCoords = function (coords, blipWidth) {
   const transposeX = graphConfig.effectiveQuadrantWidth * 2 - coords[0] - blipWidth
-  const transposeY = graphConfig.effectiveQuadrantHeight * 2 - coords[1] - graphConfig.pillBlipHeight
+  const transposeY = graphConfig.effectiveQuadrantHeight * 2 - coords[1] - graphConfig.groupBlipHeight
   return {
     first: coords,
     second: [coords[0], transposeY],
@@ -232,7 +232,17 @@ const transposeQuadrantCoords = function (coords, blipWidth) {
   }
 }
 
-function plotPillBlips(ringBlips, ring, order, parentElement, quadrantWrapper, tooltip) {
+function createGroupBlip(blipsInRing, blipType, ring) {
+  const blipText = `${blipsInRing.length} ${blipType} blips`
+  const blipId = 'groupBlip-' + blipsInRing[0].id()
+  const groupBlip = new Blip(blipText, ring, blipsInRing[0].isNew(), '', '')
+  groupBlip.setBlipText(blipText)
+  groupBlip.setId(blipId)
+  groupBlip.setIsGroup(true)
+  return groupBlip
+}
+
+function plotGroupBlips(ringBlips, ring, order, parentElement, quadrantWrapper, tooltip) {
   let newBlipsInRing = [],
     noChangeBlipsInRing = []
   ringBlips.forEach((blip) => {
@@ -242,18 +252,13 @@ function plotPillBlips(ringBlips, ring, order, parentElement, quadrantWrapper, t
   const blipGroups = [newBlipsInRing, noChangeBlipsInRing]
   blipGroups.forEach((blipsInRing) => {
     const blipType = blipsInRing[0].isNew() ? 'new' : 'no change'
-    const pillBlipText = `${blipsInRing.length} ${blipType} blips`
-    const pillBlipId = 'pill-' + blipsInRing[0].id()
-    const pillBlip = new Blip(pillBlipText, ring, blipsInRing[0].isNew(), '', '')
-    pillBlip.setBlipText(pillBlipText)
-    pillBlip.setId(pillBlipId)
-    pillBlip.setIsGroup(true)
-    const pillBlipTooltipText = getPillBlipTooltipText(blipsInRing)
+    const groupBlip = createGroupBlip(blipsInRing, blipType, ring)
+    const groupBlipTooltipText = getGroupBlipTooltipText(blipsInRing)
     const ringIndex = graphConfig.rings.indexOf(ring.name())
-    const baseCoords = pillBlipsBaseCoords(ringIndex)[blipType]
-    const blipCoordsForCurrentQuadrant = transposeQuadrantCoords(baseCoords, pillBlip.groupBlipWidth())[order]
-    drawBlipInCoordinates(pillBlip, blipCoordsForCurrentQuadrant, order, parentElement)
-    renderBlipDescription(pillBlip, ring, quadrantWrapper, tooltip, pillBlipTooltipText)
+    const baseCoords = groupBlipsBaseCoords(ringIndex)[blipType]
+    const blipCoordsForCurrentQuadrant = transposeQuadrantCoords(baseCoords, groupBlip.groupBlipWidth())[order]
+    drawBlipInCoordinates(groupBlip, blipCoordsForCurrentQuadrant, order, parentElement)
+    renderBlipDescription(groupBlip, ring, quadrantWrapper, tooltip, groupBlipTooltipText)
     blipsInRing.forEach(function (blip) {
       renderBlipDescription(blip, ring, quadrantWrapper, tooltip)
     })
@@ -284,7 +289,7 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
     const allBlipCoordsInRing = []
 
     if (ringBlips.length > maxBlipsInRings[i]) {
-      plotPillBlips(ringBlips, ring, order, parentElement, quadrantWrapper, tooltip)
+      plotGroupBlips(ringBlips, ring, order, parentElement, quadrantWrapper, tooltip)
       return
     }
 
@@ -301,7 +306,7 @@ module.exports = {
   calculateRadarBlipCoordinates,
   plotRadarBlips,
   getRingRadius,
-  pillBlipsBaseCoords,
+  groupBlipsBaseCoords,
   transposeQuadrantCoords,
-  getPillBlipTooltipText,
+  getGroupBlipTooltipText,
 }

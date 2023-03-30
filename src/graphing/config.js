@@ -24,12 +24,12 @@ const graphConfig = {
   quadrantsGap: quadrantGap,
   minBlipWidth: 12,
   blipWidth: 22,
-  pillBlipHeight: 24,
-  newPillBlipWidth: 84,
-  noChangePillBlipWidth: 124,
+  groupBlipHeight: 24,
+  newGroupBlipWidth: 84,
+  noChangeGroupBlipWidth: 124,
   rings: getRings(),
   quadrants: getQuadrants(),
-  pillBlipAngles: [30, 35, 60, 80],
+  groupBlipAngles: [30, 35, 60, 80],
 }
 
 const uiConfig = {

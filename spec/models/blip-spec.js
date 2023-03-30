@@ -80,7 +80,7 @@ describe('Blip', function () {
     const noChangeBlip = new Blip('My Blip', new Ring('My Ring'), false)
     const newBlip = new Blip('My Blip', new Ring('My Ring'), true)
 
-    expect(noChangeBlip.groupBlipWidth()).toEqual(graphConfig.noChangePillBlipWidth)
-    expect(newBlip.groupBlipWidth()).toEqual(graphConfig.newPillBlipWidth)
+    expect(noChangeBlip.groupBlipWidth()).toEqual(graphConfig.noChangeGroupBlipWidth)
+    expect(newBlip.groupBlipWidth()).toEqual(graphConfig.newGroupBlipWidth)
   })
 })
