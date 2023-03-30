@@ -35,7 +35,10 @@ const Radar = function () {
 
   function setNumbers(blips) {
     blips.forEach(function (blip) {
-      blip.setNumber(++blipNumber)
+      ++blipNumber
+      blip.setBlipText(blipNumber)
+      blip.setId(blipNumber)
+
     })
   }
 

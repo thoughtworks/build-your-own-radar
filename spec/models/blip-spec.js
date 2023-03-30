@@ -1,8 +1,9 @@
 const Blip = require('../../src/models/blip')
 const Ring = require('../../src/models/ring')
+const {graphConfig} = require("../../src/graphing/config");
 
 describe('Blip', function () {
-  var blip
+  let blip
 
   beforeEach(function () {
     blip = new Blip('My Blip', new Ring('My Ring'))
@@ -36,13 +37,22 @@ describe('Blip', function () {
     expect(blip.ring().name()).toEqual('My Ring')
   })
 
-  it('has a default number', function () {
-    expect(blip.number()).toEqual(-1)
+  it('has a default blip text', function () {
+    expect(blip.blipText()).toEqual('')
   })
 
-  it('sets the number', function () {
-    blip.setNumber(1)
-    expect(blip.number()).toEqual(1)
+  it('sets the blip text', function () {
+    blip.setBlipText('blip text1')
+    expect(blip.blipText()).toEqual('blip text1')
+  })
+
+  it('has a default blip id', function () {
+    expect(blip.id()).toEqual(-1)
+  })
+
+  it('sets the blip id', function () {
+    blip.setId(123)
+    expect(blip.id()).toEqual(123)
   })
 
   it('is new', function () {
@@ -55,5 +65,22 @@ describe('Blip', function () {
     blip = new Blip('My Blip', new Ring('My Ring'), false)
 
     expect(blip.isNew()).toBe(false)
+  })
+
+  it('has false as default value for isGroup', function () {
+    expect(blip.isGroup()).toEqual(false)
+  })
+
+  it('sets the blip group', function () {
+    blip.setIsGroup(true)
+    expect(blip.isGroup()).toEqual(true)
+  })
+
+  it('get respective group blip width', function () {
+    const noChangeBlip = new Blip('My Blip', new Ring('My Ring'), false)
+    const newBlip = new Blip('My Blip', new Ring('My Ring'), true)
+
+    expect(noChangeBlip.groupBlipWidth()).toEqual(graphConfig.noChangePillBlipWidth)
+    expect(newBlip.groupBlipWidth()).toEqual(graphConfig.newPillBlipWidth)
   })
 })

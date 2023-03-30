@@ -341,7 +341,7 @@ const Radar = function (size, radar) {
     var group = quadrantGroup
       .append('g')
       .attr('class', 'blip-link')
-      .attr('id', 'blip-link-' + blip.number())
+      .attr('id', 'blip-link-' + blip.id())
 
     if (blip.isNew()) {
       triangle(blip, x, y, order, group)
@@ -356,19 +356,19 @@ const Radar = function (size, radar) {
       // derive font-size from current blip width
       .style('font-size', (blip.width * 10) / 22 + 'px')
       .attr('text-anchor', 'middle')
-      .text(blip.number())
+      .text(blip.blipText())
 
     var blipListItem = ringList.append('li')
-    var blipText = blip.number() + '. ' + blip.name() + (blip.topic() ? '. - ' + blip.topic() : '')
+    var blipText = blip.blipText() + '. ' + blip.name() + (blip.topic() ? '. - ' + blip.topic() : '')
     blipListItem
       .append('div')
       .attr('class', 'blip-list-item')
-      .attr('id', 'blip-list-item-' + blip.number())
+      .attr('id', 'blip-list-item-' + blip.id())
       .text(blipText)
 
     var blipItemDescription = blipListItem
       .append('div')
-      .attr('id', 'blip-description-' + blip.number())
+      .attr('id', 'blip-description-' + blip.id())
       .attr('class', 'blip-item-description')
     if (blip.description()) {
       blipItemDescription.append('p').html(blip.description())
@@ -585,16 +585,16 @@ const Radar = function (size, radar) {
     const { blip, quadrant } = ui.item
     const isQuadrantSelected = d3.select('div.button.' + quadrant.order).classed('selected')
     selectQuadrant.bind({}, quadrant.order, quadrant.startAngle)()
-    const selectedDesc = d3.select('#blip-description-' + blip.number())
+    const selectedDesc = d3.select('#blip-description-' + blip.id())
     d3.select('.blip-item-description.expanded').node() !== selectedDesc.node() &&
       d3.select('.blip-item-description.expanded').classed('expanded', false)
     selectedDesc.classed('expanded', true)
 
     d3.selectAll('g.blip-link').attr('opacity', 0.3)
-    const group = d3.select('#blip-link-' + blip.number())
+    const group = d3.select('#blip-link-' + blip.id())
     group.attr('opacity', 1.0)
     d3.selectAll('.blip-list-item').classed('highlight', false)
-    d3.select('#blip-list-item-' + blip.number()).classed('highlight', true)
+    d3.select('#blip-list-item-' + blip.id()).classed('highlight', true)
     if (isQuadrantSelected) {
       tip.show(blip.name(), group.node())
     } else {

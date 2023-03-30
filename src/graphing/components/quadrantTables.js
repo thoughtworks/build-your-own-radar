@@ -9,13 +9,13 @@ function renderBlipDescription(blip, ring, quadrant, tip, pillBlipTooltipText) {
     const blipItemDiv = blipItem
       .append('div')
       .classed('blip-list__item-container', true)
-      .attr('data-blip-id', blip.number())
+      .attr('data-blip-id', blip.id())
 
     const blipItemContainer = blipItemDiv
       .append('button')
       .classed('blip-list__item-container__name', true)
       .attr('aria-expanded', 'false')
-      .attr('aria-controls', `blip-description-${blip.number()}`)
+      .attr('aria-controls', `blip-description-${blip.id()}`)
       .attr('aria-hidden', 'true')
       .attr('tabindex', -1)
       .on('click search-result-click', function (e) {
@@ -37,16 +37,16 @@ function renderBlipDescription(blip, ring, quadrant, tip, pillBlipTooltipText) {
     blipItemContainer
       .append('span')
       .classed('blip-list__item-container__name-value', true)
-      .text(`${blip.number()}. ${blip.name()}`)
+      .text(`${blip.blipText()}. ${blip.name()}`)
     blipItemContainer.append('span').classed('blip-list__item-container__name-arrow', true)
 
     blipItemDiv
       .append('div')
       .classed('blip-list__item-container__description', true)
-      .attr('id', `blip-description-${blip.number()}`)
+      .attr('id', `blip-description-${blip.id()}`)
       .html(blip.description())
   }
-  const blipGroupItem = d3.select(`g a#blip-link-${blip.number().toString().replace(/\s+/g, '')}`)
+  const blipGroupItem = d3.select(`g a#blip-link-${blip.id().toString().replace(/\s+/g, '')}`)
 
   const mouseOver = function (e) {
     const blipId = d3.select(e.target.parentElement).attr('data-blip-id')
