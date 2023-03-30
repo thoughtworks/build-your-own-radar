@@ -1,6 +1,6 @@
 const Blip = require('../../src/models/blip')
 const Ring = require('../../src/models/ring')
-const {graphConfig} = require("../../src/graphing/config");
+const { graphConfig } = require('../../src/graphing/config')
 
 describe('Blip', function () {
   let blip

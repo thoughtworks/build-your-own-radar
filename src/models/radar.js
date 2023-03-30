@@ -38,7 +38,6 @@ const Radar = function () {
       ++blipNumber
       blip.setBlipText(blipNumber)
       blip.setId(blipNumber)
-
     })
   }
 

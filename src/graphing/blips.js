@@ -243,7 +243,7 @@ function plotPillBlips(ringBlips, ring, order, parentElement, quadrantWrapper, t
   blipGroups.forEach((blipsInRing) => {
     const blipType = blipsInRing[0].isNew() ? 'new' : 'no change'
     const pillBlipText = `${blipsInRing.length} ${blipType} blips`
-    const pillBlipId = 'pill-' + blipsInRing[0].id();
+    const pillBlipId = 'pill-' + blipsInRing[0].id()
     const pillBlip = new Blip(pillBlipText, ring, blipsInRing[0].isNew(), '', '')
     pillBlip.setBlipText(pillBlipText)
     pillBlip.setId(pillBlipId)
@@ -297,4 +297,11 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
   })
 }
 
-module.exports = { calculateRadarBlipCoordinates, plotRadarBlips, getRingRadius, pillBlipsBaseCoords, transposeQuadrantCoords, getPillBlipTooltipText }
+module.exports = {
+  calculateRadarBlipCoordinates,
+  plotRadarBlips,
+  getRingRadius,
+  pillBlipsBaseCoords,
+  transposeQuadrantCoords,
+  getPillBlipTooltipText,
+}
