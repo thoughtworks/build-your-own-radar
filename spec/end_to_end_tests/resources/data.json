@@ -72,56 +72,56 @@
   {
     "name": "Backstage",
     "ring": "Adopt",
-    "quadrant": "Platforms",
+    "quadrant": "Techniques",
     "isNew": "FALSE",
     "description": "<p>In an increasingly digital world, improving developer effectiveness in large organizations is often a core concern of senior leaders. We've seen enough value with developer portals in general and <strong><a href=\"https://backstage.io/\">Backstage</a></strong> in particular that we're happy to recommend it in Adopt. Backstage is an open-source developer portal platform created by Spotify that improves discovery of software assets across the organization. It uses Markdown <a href=\"https://backstage.io/docs/features/techdocs/techdocs-overview\">TechDocs</a> that live alongside the code for each service, which nicely balances the needs of centralized discovery with the need for distributed ownership of assets. Backstage supports software templates to accelerate new development and a plugin architecture that allows for extensibility and adaptability into an organization's infrastructure ecosystem. <a href=\"https://backstage.io/docs/features/software-catalog/software-catalog-overview\">Backstage Service Catalog</a> uses YAML files to track ownership and metadata for all the software in an organization's ecosystem; it even lets you track third-party SaaS software, which usually requires tracking ownership.</p>"
   },
   {
     "name": "Delta Lake",
     "ring": "Adopt",
-    "quadrant": "Platforms",
+    "quadrant": "Techniques",
     "isNew": "FALSE",
     "description": "<p><strong><a href=\"https://delta.io/\">Delta Lake</a></strong> is an <a href=\"https://github.com/delta-io/delta\">open-source storage layer</a>, implemented by Databricks, that attempts to bring ACID transactions to big data processing. In our Databricks-enabled <a href=\"/radar/techniques/data-lake\">data lake</a> or <a href=\"/radar/techniques/data-mesh\">data mesh</a> projects, our teams prefer using Delta Lake storage over the direct use of file storage types such as <a href=\"https://aws.amazon.com/s3/\">AWS S3</a> or <a href=\"https://azure.microsoft.com/en-au/services/storage/data-lake-storage/\">ADLS</a>. Until recently, Delta Lake has been a closed proprietary product from Databricks, but it's now open source and accessible to non-Databricks platforms. However, our recommendation of Delta Lake as a default choice currently extends only to Databricks projects that use <a href=\"https://parquet.apache.org/\">Parquet</a> file formats. Delta Lake facilitates concurrent data read/write use cases where file-level transactionality is required. We find Delta Lake's seamless integration with Apache Spark <a href=\"https://docs.databricks.com/delta/delta-batch.html\">batch</a> and <a href=\"https://docs.databricks.com/delta/delta-streaming.html\">micro-batch</a> APIs very helpful, particularly features such as <a href=\"https://databricks.com/blog/2019/02/04/introducing-delta-time-travel-for-large-scale-data-lakes.html\">time travel</a> (accessing data at a particular point in time or commit reversion) as well as <a href=\"https://databricks.com/blog/2019/09/24/diving-into-delta-lake-schema-enforcement-evolution.html\">schema evolution</a> support on write.</p>"
   },
   {
     "name": "Delta Lake",
     "ring": "Adopt",
-    "quadrant": "Platforms",
+    "quadrant": "Techniques",
     "isNew": "FALSE",
     "description": "<p><strong><a href=\"https://delta.io/\">Delta Lake</a></strong> is an <a href=\"https://github.com/delta-io/delta\">open-source storage layer</a>, implemented by Databricks, that attempts to bring ACID transactions to big data processing. In our Databricks-enabled <a href=\"/radar/techniques/data-lake\">data lake</a> or <a href=\"/radar/techniques/data-mesh\">data mesh</a> projects, our teams prefer using Delta Lake storage over the direct use of file storage types such as <a href=\"https://aws.amazon.com/s3/\">AWS S3</a> or <a href=\"https://azure.microsoft.com/en-au/services/storage/data-lake-storage/\">ADLS</a>. Until recently, Delta Lake has been a closed proprietary product from Databricks, but it's now open source and accessible to non-Databricks platforms. However, our recommendation of Delta Lake as a default choice currently extends only to Databricks projects that use <a href=\"https://parquet.apache.org/\">Parquet</a> file formats. Delta Lake facilitates concurrent data read/write use cases where file-level transactionality is required. We find Delta Lake's seamless integration with Apache Spark <a href=\"https://docs.databricks.com/delta/delta-batch.html\">batch</a> and <a href=\"https://docs.databricks.com/delta/delta-streaming.html\">micro-batch</a> APIs very helpful, particularly features such as <a href=\"https://databricks.com/blog/2019/02/04/introducing-delta-time-travel-for-large-scale-data-lakes.html\">time travel</a> (accessing data at a particular point in time or commit reversion) as well as <a href=\"https://databricks.com/blog/2019/09/24/diving-into-delta-lake-schema-enforcement-evolution.html\">schema evolution</a> support on write.</p>"
   },
   {
     "name": "Great Expectations",
     "ring": "Adopt",
-    "quadrant": "Tools",
+    "quadrant": "Techniques",
     "isNew": "FALSE",
     "description": "<p><a href=\"https://docs.greatexpectations.io/en/latest/\"><strong>Great Expectations</strong></a> has become a sensible default for our teams in the data quality space, which is why we recommend adopting it — not only for the lack of better alternatives but also because our teams have reported great results in several client projects. Great Expectations is a framework that allows you to craft built-in controls that flag anomalies or quality issues in data pipelines. Just as unit tests run in a build pipeline, Great Expectations makes assertions during the execution of a data pipeline. We like its simplicity and ease of use — the rules stored in JSON can be modified by our data domain experts without necessarily needing data engineering skills.</p>"
   },
   {
     "name": "Kotest",
     "ring": "Adopt",
-    "quadrant": "languages-and-frameworks",
+    "quadrant": "Techniques",
     "isNew": "FALSE",
     "description": "<p><strong><a href=\"https://kotest.io/\">Kotest</a></strong> (previously KotlinTest) is a stand-alone testing tool for the <a href=\"/radar/languages-and-frameworks/kotlin\">Kotlin</a> ecosystem that is widely used among our teams across various Kotlin implementations — native, JVM or JavaScript. Its key advantages are that it offers a variety of testing styles in order to structure test suites and that it comes with a comprehensive set of matchers, which allow for expressive tests in an elegant internal DSL. In addition to its support for <a href=\"/radar/techniques/property-based-unit-testing\">property-based testing</a>, our teams like the solid IntelliJ plugin and the support community. Many of our developers consider it their first choice and recommend those who are still using JUnit in Kotlin consider switching over to Kotest.</p>"
   },
   {
     "name": "NestJS",
     "ring": "Adopt",
-    "quadrant": "languages-and-frameworks",
+    "quadrant": "Techniques",
     "isNew": "FALSE",
     "description": "<p>In the past, we've cautioned about <a href=\"/radar/platforms/node-overload\">Node overload</a>, and we're still cautious about the reasons to choose it. However, in scenarios where Node.js is required to build back-end applications, our teams are reporting that <strong><a href=\"https://nestjs.com/\">NestJS</a></strong> is a suitable option to enable developers to create testable, scalable, loosely coupled and easily maintainable applications in enterprises. NestJS is a <a href=\"/radar/languages-and-frameworks/typescript\">TypeScript</a>-first framework that makes the development of Node.js applications safer and less error-prone. NestJS is opinionated and comes with SOLID principles and an <a href=\"/radar/languages-and-frameworks/angular\">Angular</a>-inspired architecture out of the box.</p>"
   },
   {
     "name": "React Query",
     "ring": "Adopt",
-    "quadrant": "languages-and-frameworks",
+    "quadrant": "Techniques",
     "isNew": "FALSE",
     "description": "<p><a href=\"https://react-query-v3.tanstack.com/\"><strong>React Query</strong></a> is often described as the missing data-fetching library for <a href=\"/radar/languages-and-frameworks/react-js\">React</a>. Fetching, caching, synchronizing and updating server state is a common requirement in many React applications, and although the requirements are well understood, getting the implementation right is notoriously difficult. React Query provides a straightforward solution using hooks. It works hand-in-hand with existing async data-fetching libraries like <a href=\"/radar/tools/axios\">axios</a>, <a href=\"/radar/languages-and-frameworks/fetch\">Fetch</a> and <a href=\"/radar/languages-and-frameworks/graphql\">GraphQL</a> since they are built on promises. As an application developer, you simply pass a function that resolves your data and leave everything else to the framework. We like that it works out of the box but still offers a lot of configuration when needed. The developer tools, unfortunately not yet available for <a href=\"/radar/languages-and-frameworks/react-native\">React Native</a>, also help developers new to the framework understand how it works. For React Native, you can use a <a href=\"https://github.com/bgaleotti/react-query-native-devtools\">third-party developer tools plugin</a> utilizing <a href=\"/radar/tools/flipper\">Flipper</a>. In our experience, version 3 of React Query brought the stability needed to be used in production with our clients.</p>"
   },
   {
     "name": "Swift Package Manager",
     "ring": "Adopt",
-    "quadrant": "languages-and-frameworks",
+    "quadrant": "Techniques",
     "isNew": "FALSE",
     "description": "<p>When introduced in 2014, Swift didn't come with a package manager. Later, <strong><a href=\"https://github.com/apple/swift-package-manager\">Swift Package Manager</a></strong> was created as an official Apple open-source project, and this solution has continued to develop and mature. Our teams rely increasingly on SwiftPM because most packages can be included through it and the processes for both creators and consumers of packages have been streamlined. In the previous Radar, we recommended trialing, but we now believe it makes sense to select it as the default when starting new projects. For existing projects using tools like CocoaPods or <a href=\"/radar/tools/carthage\">Carthage</a>, it might be worth a quick experiment to gauge the level of effort to migrate and to check whether all dependencies are available.</p>"
   }
