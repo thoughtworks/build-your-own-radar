@@ -101,7 +101,9 @@ function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoor
 }
 
 function blipAssistiveText(blip) {
-  return blip.isGroup? `\`${blip.ring().name()} ring, group of ${blip.blipText()}` : `${blip.ring().name()} ring, ${blip.name()}, ${blip.isNew() ? 'New' : 'No change'} blip.`
+  return blip.isGroup
+    ? `\`${blip.ring().name()} ring, group of ${blip.blipText()}`
+    : `${blip.ring().name()} ring, ${blip.name()}, ${blip.isNew() ? 'New' : 'No change'} blip.`
 }
 function addOuterCircle(parentSvg, order, scale = 1) {
   parentSvg
