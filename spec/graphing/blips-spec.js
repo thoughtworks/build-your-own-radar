@@ -4,6 +4,7 @@ const {
   groupBlipsBaseCoords,
   transposeQuadrantCoords,
   getGroupBlipTooltipText,
+  blipAssistiveText,
 } = require('../../src/graphing/blips')
 const Chance = require('chance')
 const { graphConfig } = require('../../src/graphing/config')
@@ -171,5 +172,22 @@ describe('Blips', function () {
     expect(getRingRadius(3)).toBe(425.984)
     expect(getRingRadius(4)).toBe(507.904)
     expect(getRingRadius(5)).toBe(0)
+  })
+
+  it('should return group blip assistive text for group blip', function () {
+    const blip = {
+      isGroup: () => true,
+      ring: () => {
+        return {
+          name: () => 'ring1',
+        }
+      },
+      blipText: () => '12 new blips',
+      name: 'blip1',
+      isNew: () => true,
+    }
+
+    const actual = blipAssistiveText(blip)
+    expect(actual).toEqual('`ring1 ring, group of 12 new blips')
   })
 })

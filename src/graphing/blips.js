@@ -101,7 +101,7 @@ function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoor
 }
 
 function blipAssistiveText(blip) {
-  return blip.isGroup
+  return blip.isGroup()
     ? `\`${blip.ring().name()} ring, group of ${blip.blipText()}`
     : `${blip.ring().name()} ring, ${blip.name()}, ${blip.isNew() ? 'New' : 'No change'} blip.`
 }
@@ -236,7 +236,7 @@ const transposeQuadrantCoords = function (coords, blipWidth) {
 
 function createGroupBlip(blipsInRing, blipType, ring) {
   const blipText = `${blipsInRing.length} ${blipType} blips`
-  const blipId = 'groupBlip-' + blipsInRing[0].id()
+  const blipId = 'group-blip-' + blipsInRing[0].id()
   const groupBlip = new Blip(blipText, ring, blipsInRing[0].isNew(), '', '')
   groupBlip.setBlipText(blipText)
   groupBlip.setId(blipId)
@@ -311,4 +311,5 @@ module.exports = {
   groupBlipsBaseCoords,
   transposeQuadrantCoords,
   getGroupBlipTooltipText,
+  blipAssistiveText,
 }
