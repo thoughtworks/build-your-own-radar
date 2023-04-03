@@ -86,7 +86,7 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
           stickQuadrantOnScroll()
         }
 
-        selectedBlipContainer.select('button.blip-list__item-container__name').node().scrollIntoView({
+        selectedBlipContainer.select('button.blip-list__item-container__name').node()?.scrollIntoView({
           behavior: 'smooth',
         })
       },

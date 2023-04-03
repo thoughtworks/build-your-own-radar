@@ -27,6 +27,7 @@ class RadarPage {
     this.subnavList = '.quadrant-subnav__list'
     this.radarGraphSvg = 'svg#radar-plot'
     this.mobileQuadrants = '.all-quadrants-mobile'
+    this.tooltip = '.d3-tip'
     this.quadrantTableBlip = function (blipId) {
       return `.quadrant-table.selected .blip-list__item-container[data-blip-id="${blipId}"]`
     }
@@ -82,6 +83,7 @@ class RadarPage {
   }
 
   clickBlipInRadarGraph(blipId) {
+    console.log(this.radarGraphBlip(blipId))
     cy.get(this.radarGraphBlip(blipId)).click()
   }
 
@@ -122,6 +124,15 @@ class RadarPage {
 
   validateBlipDescription(text) {
     cy.get(this.blipDescription).contains(text)
+  }
+
+  validateBlipText(blipId, text) {
+    cy.get(`#${blipId}`).contains(text)
+  }
+
+  validateBlipToolTip(blipId, text) {
+    cy.get(`#${blipId}`).trigger('mouseover')
+    cy.get(this.tooltip).contains(text)
   }
 
   validateBlipDescriptionOld(text) {

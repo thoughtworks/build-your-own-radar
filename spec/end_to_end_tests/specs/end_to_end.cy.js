@@ -43,30 +43,53 @@ if (featureToggles.UIRefresh2022) {
         radarPage.clickQuadrantInFullRadarView('first')
         radarPage.validateActiveQuadrant('techniques', 'first')
         radarPage.validateRingsInQuadrantTable(4)
-        radarPage.validateBlipsInQuadrantTable(2)
+        radarPage.validateBlipsInQuadrantTable(32)
       })
 
       it('verify click on blip in quadrant table', () => {
         radarPage.clickQuadrantInFullRadarView('first')
 
-        radarPage.clickBlipItemInQuadrantTable(1)
-        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+        radarPage.clickBlipItemInQuadrantTable(2)
+        radarPage.validateBlipDescription('component visual regression testing')
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
       })
 
       it('verify click on blip in Radar graph in quadrant view', () => {
         radarPage.clickQuadrantInFullRadarView('first')
 
-        radarPage.clickBlipItemInQuadrantTable(1)
+        radarPage.clickBlipItemInQuadrantTable(2)
 
         radarPage.clickBlipInRadarGraph(2)
         radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-        radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+        radarPage.validateBlipDescriptionHiddenInQuadrantTable(3)
       })
 
       it('verify click on blip in Radar graph', () => {
         radarPage.clickBlipInRadarGraph(2)
         radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
         radarPage.validateActiveQuadrant('techniques', 'first')
+      })
+
+      it('verify click on group-blip in Radar graph', () => {
+        radarPage.clickBlipInRadarGraph('group-blip-1')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+      })
+
+      it('verify group-blip text in Radar graph', () => {
+        radarPage.validateBlipText('blip-link-group-blip-1', '2 new blips')
+        radarPage.validateBlipText('blip-link-group-blip-4', '9 no change blips')
+      })
+
+      it('verify group-blip tooltip text with all blip names in Radar graph', () => {
+        radarPage.validateBlipToolTip('blip-link-group-blip-1', '1.Path-to-production mapping3.Team cognitive load')
+        radarPage.validateBlipToolTip(
+          'blip-link-group-blip-4',
+          '4.Threat modeling5.Backstage6.Delta Lake7.Delta Lake8.Great Expectations9.Kotest10.NestJS11.React Query12.Swift Package Manager',
+        )
+      })
+
+      it('verify group-blip tooltip text with click-to-view-all text in Radar graph', () => {
+        radarPage.validateBlipToolTip('blip-link-group-blip-13', 'Click to view all')
       })
 
       it('verify click on quadrant in subnav', () => {
@@ -82,7 +105,7 @@ if (featureToggles.UIRefresh2022) {
       })
 
       it('verify number of search results for query', () => {
-        radarPage.validateSearchResults('framework', 3)
+        radarPage.validateSearchResults('framework', 10)
       })
 
       it('verify click on search result in Radar view', () => {
@@ -94,10 +117,10 @@ if (featureToggles.UIRefresh2022) {
 
       it('verify click on search result in quadrant view', () => {
         radarPage.clickQuadrantInFullRadarView('first')
-        radarPage.triggerSearch('framework')
-        radarPage.clickSearchResult(2)
+        radarPage.triggerSearch('carbon lang')
+        radarPage.clickSearchResult(1)
         radarPage.validateActiveQuadrant('languages---frameworks', 'fourth')
-        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(38)
       })
 
       it('verify keypress / to focus url input', () => {
@@ -149,24 +172,25 @@ if (featureToggles.UIRefresh2022) {
         radarPage.clickQuadrantInFullRadarViewTablet('first')
         radarPage.validateActiveQuadrant('techniques', 'first')
         radarPage.validateRingsInQuadrantTable(4)
-        radarPage.validateBlipsInQuadrantTable(2)
+        radarPage.validateBlipsInQuadrantTable(32)
       })
 
       it('verify click on blip in quadrant table', () => {
         radarPage.clickQuadrantInFullRadarViewTablet('first')
 
-        radarPage.clickBlipItemInQuadrantTable(1)
-        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+        radarPage.clickBlipItemInQuadrantTable(2)
+        radarPage.validateBlipDescription('component visual regression testing')
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
       })
 
       it('verify click on blip in Radar graph in quadrant view', () => {
         radarPage.clickQuadrantInFullRadarViewTablet('first')
 
-        radarPage.clickBlipItemInQuadrantTable(1)
+        radarPage.clickBlipItemInQuadrantTable(2)
 
         radarPage.clickBlipInRadarGraph(2)
         radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-        radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+        radarPage.validateBlipDescriptionHiddenInQuadrantTable(3)
       })
 
       it('verify selecting quadrant in subnav', () => {
@@ -189,7 +213,7 @@ if (featureToggles.UIRefresh2022) {
       })
 
       it('verify number of search results for query', () => {
-        radarPage.validateSearchResults('framework', 3)
+        radarPage.validateSearchResults('framework', 10)
       })
 
       it('verify click on search result in Radar view', () => {
@@ -201,10 +225,10 @@ if (featureToggles.UIRefresh2022) {
 
       it('verify click on search result in quadrant view', () => {
         radarPage.clickQuadrantInFullRadarViewTablet('first')
-        radarPage.triggerSearch('framework')
-        radarPage.clickSearchResult(2)
+        radarPage.triggerSearch('carbon lang')
+        radarPage.clickSearchResult(1)
         radarPage.validateActiveQuadrant('languages---frameworks', 'fourth')
-        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(38)
       })
 
       it('verify keypress / to focus url input', () => {
@@ -257,17 +281,16 @@ if (featureToggles.UIRefresh2022) {
         radarPage.validateActiveQuadrantInSubnav('techniques')
         radarPage.validateGraphHidden()
         radarPage.validateRingsInQuadrantTable(4)
-        radarPage.validateBlipsInQuadrantTable(2)
+        radarPage.validateBlipsInQuadrantTable(32)
       })
 
       it('verify click on blip in quadrant table', () => {
         radarPage.clickQuadrantInFullRadarViewTablet('first')
 
-        radarPage.clickBlipItemInQuadrantTable(1)
-        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
         radarPage.clickBlipItemInQuadrantTable(2)
+        radarPage.validateBlipDescription('component visual regression testing')
         radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-        radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+        radarPage.validateBlipDescriptionHiddenInQuadrantTable(3)
       })
 
       it('verify selecting quadrant in subnav', () => {
@@ -291,7 +314,7 @@ if (featureToggles.UIRefresh2022) {
       })
 
       it('verify number of search results for query', () => {
-        radarPage.validateSearchResults('framework', 3)
+        radarPage.validateSearchResults('framework', 10)
       })
 
       it('verify click on search result in Radar view', () => {
@@ -304,11 +327,11 @@ if (featureToggles.UIRefresh2022) {
 
       it('verify click on search result in quadrant view', () => {
         radarPage.clickQuadrantInFullRadarViewTablet('first')
-        radarPage.triggerSearch('framework')
-        radarPage.clickSearchResult(2)
+        radarPage.triggerSearch('carbon lang')
+        radarPage.clickSearchResult(1)
         radarPage.validateActiveQuadrantInSubnav('languages---frameworks')
         radarPage.validateGraphHidden()
-        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(38)
       })
 
       it('verify keypress / to focus url input', () => {
@@ -388,20 +411,21 @@ if (featureToggles.UIRefresh2022) {
         radarPage.clickQuadrantInFullRadarView('first')
         radarPage.validateActiveQuadrant('techniques', 'first')
         radarPage.validateRingsInQuadrantTable(4)
-        radarPage.validateBlipsInQuadrantTable(2)
+        radarPage.validateBlipsInQuadrantTable(32)
       })
 
       it('verify click on blip in quadrant table', () => {
         radarPage.clickQuadrantInFullRadarView('first')
 
-        radarPage.clickBlipItemInQuadrantTable(1)
-        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+        radarPage.clickBlipItemInQuadrantTable(2)
+        radarPage.validateBlipDescription('component visual regression testing')
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
       })
 
       it('verify click on blip in Radar graph in quadrant view', () => {
         radarPage.clickQuadrantInFullRadarView('first')
 
-        radarPage.clickBlipItemInQuadrantTable(1)
+        radarPage.clickBlipItemInQuadrantTable(2)
 
         radarPage.clickBlipInRadarGraph(2)
         radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
@@ -412,6 +436,28 @@ if (featureToggles.UIRefresh2022) {
         radarPage.clickBlipInRadarGraph(2)
         radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
         radarPage.validateActiveQuadrant('techniques', 'first')
+      })
+
+      it('verify click on group-blip in Radar graph', () => {
+        radarPage.clickBlipInRadarGraph('group-blip-1')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+      })
+
+      it('verify group-blip text in Radar graph', () => {
+        radarPage.validateBlipText('blip-link-group-blip-1', '2 new blips')
+        radarPage.validateBlipText('blip-link-group-blip-4', '9 no change blips')
+      })
+
+      it('verify group-blip tooltip text with all blip names in Radar graph', () => {
+        radarPage.validateBlipToolTip('blip-link-group-blip-1', '1.Path-to-production mapping3.Team cognitive load')
+        radarPage.validateBlipToolTip(
+          'blip-link-group-blip-4',
+          '4.Threat modeling5.Backstage6.Delta Lake7.Delta Lake8.Great Expectations9.Kotest10.NestJS11.React Query12.Swift Package Manager',
+        )
+      })
+
+      it('verify group-blip tooltip text with click-to-view-all text in Radar graph', () => {
+        radarPage.validateBlipToolTip('blip-link-group-blip-13', 'Click to view all')
       })
 
       it('verify click on quadrant in subnav', () => {
@@ -427,7 +473,7 @@ if (featureToggles.UIRefresh2022) {
       })
 
       it('verify number of search results for query', () => {
-        radarPage.validateSearchResults('framework', 3)
+        radarPage.validateSearchResults('framework', 10)
       })
 
       it('verify click on search result in Radar view', () => {
@@ -439,10 +485,10 @@ if (featureToggles.UIRefresh2022) {
 
       it('verify click on search result in quadrant view', () => {
         radarPage.clickQuadrantInFullRadarView('first')
-        radarPage.triggerSearch('framework')
-        radarPage.clickSearchResult(2)
+        radarPage.triggerSearch('carbon lang')
+        radarPage.clickSearchResult(1)
         radarPage.validateActiveQuadrant('languages---frameworks', 'fourth')
-        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(38)
       })
 
       it('verify keypress / to focus url input', () => {
@@ -494,20 +540,21 @@ if (featureToggles.UIRefresh2022) {
         radarPage.clickQuadrantInFullRadarViewTablet('first')
         radarPage.validateActiveQuadrant('techniques', 'first')
         radarPage.validateRingsInQuadrantTable(4)
-        radarPage.validateBlipsInQuadrantTable(2)
+        radarPage.validateBlipsInQuadrantTable(32)
       })
 
       it('verify click on blip in quadrant table', () => {
         radarPage.clickQuadrantInFullRadarViewTablet('first')
 
-        radarPage.clickBlipItemInQuadrantTable(1)
-        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+        radarPage.clickBlipItemInQuadrantTable(2)
+        radarPage.validateBlipDescription('component visual regression testing')
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
       })
 
       it('verify click on blip in Radar graph in quadrant view', () => {
         radarPage.clickQuadrantInFullRadarViewTablet('first')
 
-        radarPage.clickBlipItemInQuadrantTable(1)
+        radarPage.clickBlipItemInQuadrantTable(2)
 
         radarPage.clickBlipInRadarGraph(2)
         radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
@@ -534,7 +581,7 @@ if (featureToggles.UIRefresh2022) {
       })
 
       it('verify number of search results for query', () => {
-        radarPage.validateSearchResults('framework', 3)
+        radarPage.validateSearchResults('framework', 10)
       })
 
       it('verify click on search result in Radar view', () => {
@@ -546,10 +593,10 @@ if (featureToggles.UIRefresh2022) {
 
       it('verify click on search result in quadrant view', () => {
         radarPage.clickQuadrantInFullRadarViewTablet('first')
-        radarPage.triggerSearch('framework')
-        radarPage.clickSearchResult(2)
+        radarPage.triggerSearch('carbon lang')
+        radarPage.clickSearchResult(1)
         radarPage.validateActiveQuadrant('languages---frameworks', 'fourth')
-        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(38)
       })
 
       it('verify keypress / to focus url input', () => {
@@ -602,15 +649,13 @@ if (featureToggles.UIRefresh2022) {
         radarPage.validateActiveQuadrantInSubnav('techniques')
         radarPage.validateGraphHidden()
         radarPage.validateRingsInQuadrantTable(4)
-        radarPage.validateBlipsInQuadrantTable(2)
+        radarPage.validateBlipsInQuadrantTable(32)
       })
 
       it('verify click on blip in quadrant table', () => {
         radarPage.clickQuadrantInFullRadarViewTablet('first')
-
-        radarPage.clickBlipItemInQuadrantTable(1)
-        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
         radarPage.clickBlipItemInQuadrantTable(2)
+        radarPage.validateBlipDescription('component visual regression testing')
         radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
         radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
       })
@@ -636,7 +681,7 @@ if (featureToggles.UIRefresh2022) {
       })
 
       it('verify number of search results for query', () => {
-        radarPage.validateSearchResults('framework', 3)
+        radarPage.validateSearchResults('framework', 10)
       })
 
       it('verify click on search result in Radar view', () => {
@@ -649,11 +694,11 @@ if (featureToggles.UIRefresh2022) {
 
       it('verify click on search result in quadrant view', () => {
         radarPage.clickQuadrantInFullRadarViewTablet('first')
-        radarPage.triggerSearch('framework')
-        radarPage.clickSearchResult(2)
+        radarPage.triggerSearch('carbon lang')
+        radarPage.clickSearchResult(1)
         radarPage.validateActiveQuadrantInSubnav('languages---frameworks')
         radarPage.validateGraphHidden()
-        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(7)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(38)
       })
 
       it('verify keypress / to focus url input', () => {

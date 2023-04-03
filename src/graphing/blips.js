@@ -3,6 +3,7 @@ const { graphConfig } = require('./config')
 const { toRadian } = require('../util/mathUtils')
 const { renderBlipDescription } = require('./components/quadrantTables')
 const Blip = require('../models/blip')
+const isEmpty = require('lodash/isEmpty')
 
 const getRingRadius = function (ringIndex) {
   const ratios = [0, 0.316, 0.652, 0.832, 0.992]
@@ -251,7 +252,7 @@ function plotGroupBlips(ringBlips, ring, order, parentElement, quadrantWrapper, 
     blip.isNew() ? newBlipsInRing.push(blip) : noChangeBlipsInRing.push(blip)
   })
 
-  const blipGroups = [newBlipsInRing, noChangeBlipsInRing]
+  const blipGroups = [newBlipsInRing, noChangeBlipsInRing].filter((group) => !isEmpty(group))
   blipGroups.forEach((blipsInRing) => {
     const blipType = blipsInRing[0].isNew() ? 'new' : 'no change'
     const groupBlip = createGroupBlip(blipsInRing, blipType, ring)
