@@ -1,6 +1,6 @@
 const d3 = require('d3')
 const { selectRadarQuadrant, mouseoverQuadrant, mouseoutQuadrant, removeScrollListener } = require('./quadrants')
-const { getRingIdString } = require('../../util/util')
+const { getRingIdString } = require('../../util/stringUtil')
 const { uiConfig } = require('../config')
 
 function addListItem(quadrantList, name, callback, order) {

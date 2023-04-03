@@ -1,7 +1,7 @@
 const d3 = require('d3')
 const { getElementWidth, getElementHeight, decodeHTML } = require('../../util/htmlUtil')
 const { toRadian } = require('../../util/mathUtils')
-const { getRingIdString } = require('../../util/util')
+const { getRingIdString } = require('../../util/stringUtil')
 const {
   graphConfig,
   getGraphSize,

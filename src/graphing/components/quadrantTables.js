@@ -1,6 +1,7 @@
 const d3 = require('d3')
 const { graphConfig, getScale, uiConfig } = require('../config')
 const { stickQuadrantOnScroll } = require('./quadrants')
+const {removeAllSpaces} = require("../../util/stringUtil");
 
 function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) {
   const blipItem = d3.select(`.quadrant-table.${quadrant.order} ul:nth-of-type(${ring.order() + 1})`)
@@ -46,7 +47,7 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
       .attr('id', `blip-description-${blip.id()}`)
       .html(blip.description())
   }
-  const blipGroupItem = d3.select(`g a#blip-link-${blip.id().toString().replace(/\s+/g, '')}`)
+  const blipGroupItem = d3.select(`g a#blip-link-${(removeAllSpaces(blip.id()))}`)
 
   const mouseOver = function (e) {
     const blipId = d3.select(e.target.parentElement).attr('data-blip-id')

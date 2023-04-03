@@ -83,7 +83,6 @@ class RadarPage {
   }
 
   clickBlipInRadarGraph(blipId) {
-    console.log(this.radarGraphBlip(blipId))
     cy.get(this.radarGraphBlip(blipId)).click()
   }
 

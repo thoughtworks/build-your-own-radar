@@ -71,25 +71,25 @@ if (featureToggles.UIRefresh2022) {
       })
 
       it('verify click on group-blip in Radar graph', () => {
-        radarPage.clickBlipInRadarGraph('group-blip-1')
+        radarPage.clickBlipInRadarGraph('first-adopt-group-new-blips')
         radarPage.validateActiveQuadrant('techniques', 'first')
       })
 
       it('verify group-blip text in Radar graph', () => {
-        radarPage.validateBlipText('blip-link-group-blip-1', '2 new blips')
-        radarPage.validateBlipText('blip-link-group-blip-4', '9 no change blips')
+        radarPage.validateBlipText('blip-link-first-adopt-group-new-blips', '2 new blips')
+        radarPage.validateBlipText('blip-link-first-adopt-group-no-change-blips', '9 no change blips')
       })
 
       it('verify group-blip tooltip text with all blip names in Radar graph', () => {
-        radarPage.validateBlipToolTip('blip-link-group-blip-1', '1.Path-to-production mapping3.Team cognitive load')
+        radarPage.validateBlipToolTip('blip-link-first-adopt-group-new-blips', '1.Path-to-production mapping3.Team cognitive load')
         radarPage.validateBlipToolTip(
-          'blip-link-group-blip-4',
+          'blip-link-first-adopt-group-no-change-blips',
           '4.Threat modeling5.Backstage6.Delta Lake7.Delta Lake8.Great Expectations9.Kotest10.NestJS11.React Query12.Swift Package Manager',
         )
       })
 
       it('verify group-blip tooltip text with click-to-view-all text in Radar graph', () => {
-        radarPage.validateBlipToolTip('blip-link-group-blip-13', 'Click to view all')
+        radarPage.validateBlipToolTip('blip-link-first-assess-group-new-blips', 'Click to view all')
       })
 
       it('verify click on quadrant in subnav', () => {
@@ -439,25 +439,25 @@ if (featureToggles.UIRefresh2022) {
       })
 
       it('verify click on group-blip in Radar graph', () => {
-        radarPage.clickBlipInRadarGraph('group-blip-1')
+        radarPage.clickBlipInRadarGraph('first-adopt-group-new-blips')
         radarPage.validateActiveQuadrant('techniques', 'first')
       })
 
       it('verify group-blip text in Radar graph', () => {
-        radarPage.validateBlipText('blip-link-group-blip-1', '2 new blips')
-        radarPage.validateBlipText('blip-link-group-blip-4', '9 no change blips')
+        radarPage.validateBlipText('blip-link-first-adopt-group-new-blips', '2 new blips')
+        radarPage.validateBlipText('blip-link-first-adopt-group-no-change-blips', '9 no change blips')
       })
 
       it('verify group-blip tooltip text with all blip names in Radar graph', () => {
-        radarPage.validateBlipToolTip('blip-link-group-blip-1', '1.Path-to-production mapping3.Team cognitive load')
+        radarPage.validateBlipToolTip('blip-link-first-adopt-group-new-blips', '1.Path-to-production mapping3.Team cognitive load')
         radarPage.validateBlipToolTip(
-          'blip-link-group-blip-4',
+          'blip-link-first-adopt-group-no-change-blips',
           '4.Threat modeling5.Backstage6.Delta Lake7.Delta Lake8.Great Expectations9.Kotest10.NestJS11.React Query12.Swift Package Manager',
         )
       })
 
       it('verify group-blip tooltip text with click-to-view-all text in Radar graph', () => {
-        radarPage.validateBlipToolTip('blip-link-group-blip-13', 'Click to view all')
+        radarPage.validateBlipToolTip('blip-link-first-assess-group-new-blips', 'Click to view all')
       })
 
       it('verify click on quadrant in subnav', () => {
