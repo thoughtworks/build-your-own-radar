@@ -124,5 +124,117 @@
     "quadrant": "Techniques",
     "isNew": "FALSE",
     "description": "<p>When introduced in 2014, Swift didn't come with a package manager. Later, <strong><a href=\"https://github.com/apple/swift-package-manager\">Swift Package Manager</a></strong> was created as an official Apple open-source project, and this solution has continued to develop and mature. Our teams rely increasingly on SwiftPM because most packages can be included through it and the processes for both creators and consumers of packages have been streamlined. In the previous Radar, we recommended trialing, but we now believe it makes sense to select it as the default when starting new projects. For existing projects using tools like CocoaPods or <a href=\"/radar/tools/carthage\">Carthage</a>, it might be worth a quick experiment to gauge the level of effort to migrate and to check whether all dependencies are available.</p>"
+  },
+  {
+    "name": "Carbon efficiency as an architectural characteristic",
+    "ring": "Assess",
+    "quadrant": "Techniques",
+    "isNew": "TRUE",
+    "description": "<p>Sustainability is a topic that demands the attention of enterprises. In the software development space its importance has increased, and we're now seeing <a href=\"https://www.thoughtworks.com/clients/Bringing-green-cloud-optimization-to-a-green-energy-business\">different ways</a> to approach this topic. Looking at the carbon footprint of building software, for example, we recommend assessing <strong>carbon efficiency as an architectural characteristic</strong>. An architecture that takes into consideration carbon efficiency is one where design and infrastructure choices have been made in order to to minimize energy consumption and therefore carbon emissions. The measurement tooling and advice in this space is maturing, making it feasible for teams to consider carbon efficiency alongside other factors such as performance, scalability, financial cost and security. Like almost everything in software architecture, this should be considered a trade-off; our advice is to think about this as one additional characteristic in a whole set of relevant <a href=\"https://en.wikipedia.org/wiki/List_of_system_quality_attributes\">quality attributes</a> that are driven and prioritized by organizational goals and not left to a small cadre of experts to ponder in a siloed manner.</p>"
+  },
+  {
+    "name": "CUPID",
+    "ring": "Assess",
+    "quadrant": "Techniques",
+    "isNew": "FALSE",
+    "description": "<p>How do you approach writing good code? How do you judge if you've written good code? As software developers, we're always looking for catchy rules, principles and patterns that we can use to share a language and values with each other when it comes to writing simple, easy-to-change code.</p><p>Daniel Terhorst-North has recently made a new attempt at creating such a checklist for good code. He argues that instead of sticking to a set of rules like <a href=\"https://en.wikipedia.org/wiki/SOLID\">SOLID</a>, using a set of properties to aim for is more generally applicable. He came up with what he calls the <strong><a href=\"https://dannorth.net/2022/02/10/cupid-for-joyful-coding/\">CUPID</a></strong> properties to describe what we should strive for to achieve \"joyful\" code: Code should be composable, follow the Unix philosophy and be predictable, idiomatic and domain based.</p>"
+  },
+  {
+    "name": "GitHub push protection",
+    "ring": "Assess",
+    "quadrant": "Techniques",
+    "isNew": "TRUE",
+    "description": "<p>The accidental publication of secrets seems to be a perennial issue with tools such as <a href=\"/radar/tools/talisman\">Talisman</a> popping up to help with the problem. Before now, GitHub Enterprise Cloud users with an Advanced Security License could enable security scanning on their accounts, and any secrets (API keys, access tokens, credentials, etc.) that were accidentally committed and pushed would trigger an alert. <strong><a href=\"https://docs.github.com/en/enterprise-cloud@latest/code-security/secret-scanning/protecting-pushes-with-secret-scanning\">GitHub push protection</a></strong> takes this one step further, and brings it one step earlier in the development workflow, by blocking changes from being pushed at all if secrets are detected. This needs to be configured for the organization and applies, of course, only to license holders, but additional protection from publishing secrets is to be welcomed.</p>"
+  },
+  {
+    "name": "Local-first application",
+    "ring": "Assess",
+    "quadrant": "Techniques",
+    "isNew": "TRUE",
+    "description": "<p>In a centralized application, the data on the server is the single source of truth — any modification to the data must go through the server. Local data is subordinate to the server version. This seems like a natural and inevitable choice to enable collaboration among multiple users of the software. <strong>Local-first application</strong>, or <a href=\"https://www.inkandswitch.com/local-first/#towards-a-better-future\">local-first software</a>, is a set of principles that enables both collaboration and local data ownership. It prioritizes the use of local storage and local networks over servers in remote data centers or the cloud. Techniques like conflict-free replicated data types (CRDTs) and peer-to-peer (P2P) networks have the potential to be a foundational technology for realizing local-first software.</p>"
+  },
+  {
+    "name": "Metrics store",
+    "ring": "Assess",
+    "quadrant": "Techniques",
+    "isNew": "TRUE",
+    "description": "<p><strong><a href=\"https://blog.transform.co/data-talks/what-is-a-metrics-store-why-your-data-team-should-define-business-metrics-in-code/\">Metrics store</a></strong>, sometimes referred to as headless business intelligence (BI), is a layer that decouples metrics definitions from their usage in reports and visualizations. Traditionally, metrics are defined inside the context of BI tools, but this approach leads to duplication and inconsistencies as different teams use them in different contexts. By decoupling the definition in the metrics store, we get clear and consistent reuse across BI reports, visualizations and even embedded analytics. This technique is not new; for example, Airbnb introduced <a href=\"https://medium.com/airbnb-engineering/airbnb-metric-computation-with-minerva-part-2-9afe6695b486\">Minerva</a> a year ago. However, we're now seeing considerable traction in the data and analytics ecosystem with more tools supporting metrics stores out of the box.</p>"
+  },
+  {
+    "name": "Server-driven UI",
+    "ring": "Assess",
+    "quadrant": "Techniques",
+    "isNew": "FALSE",
+    "description": "<p><strong>Server-driven UI</strong> continues to be a hot topic of discussion in mobile circles because it offers the potential for developers to take advantage of faster change cycles without falling foul of an app store's policies around revalidation of the mobile app itself. Server-driven UI separates the rendering into a generic container in the mobile app while the structure and data for each view is provided by the server. This means that changes that once required a round trip to an app store can now be accomplished via simple changes to the responses the server sends. While some very large mobile app teams have had great success with this technique, it also requires a substantial investment in building and maintaining a complex proprietary framework. Such an investment requires a compelling business case. Until the case is made, it might be best to proceed with caution; indeed, we've experienced some horrendous, overly configurable messes that didn't actually deliver on the promised benefits. But with the backing of behemoths such as Airbnb and Lyft, we may very well see some useful frameworks emerge that help tame the complexity. Watch this space.</p>"
+  },
+  {
+    "name": "SLIs and SLOs as code",
+    "ring": "Assess",
+    "quadrant": "Techniques",
+    "isNew": "TRUE",
+    "description": "<p>Since Google first popularized service-level indicators (SLIs) and service-level objectives (SLOs) as part of their site reliability engineering (SRE) practice, observability tools like <a href=\"https://docs.datadoghq.com/monitors/service_level_objectives/\">Datadog</a>, <a href=\"https://www.honeycomb.io/slos\">Honeycomb</a> and <a href=\"https://www.dynatrace.com/news/blog/what-are-slos/\">Dynatrace</a> started incorporating SLO monitoring into their toolchains. <a href=\"https://github.com/OpenSLO/OpenSLO\">OpenSLO</a> is an emerging standard that allows defining <strong>SLIs and SLOs as code</strong>, using a declarative, vendor-neutral specification language based on the YAML format used by <a href=\"/radar/platforms/kubernetes\">Kubernetes</a>. While the standard is still quite new, we're seeing some encouraging momentum, as with Sumo Logic's contribution of the <a href=\"https://github.com/OpenSLO/slogen\">slogen</a> tool to generate monitoring and dashboards. We're excited by the promise of versioning SLI and SLO definitions in code and updating observability tooling as part of the CI/CD pipeline of the service being deployed.</p>"
+  },
+  {
+    "name": "Synthetic data for testing models",
+    "ring": "Assess",
+    "quadrant": "Techniques",
+    "isNew": "TRUE",
+    "description": "<p>During our discussions for this edition of the Radar, several tools and applications for synthetic data generation came up. As the tools mature, we've found that using <strong>synthetic data for testing models</strong> is a powerful and broadly useful technique. Although not intended as a substitute for real data in validating the discrimination power of machine-learning models, synthetic data can be used in a variety of situations. For example, it can be used to guard against catastrophic model failure in response to rarely occurring events or to test data pipelines without exposing personally identifiable information. Synthetic data is also useful for exploring edge cases that lack real data or for identifying model bias. Some helpful tools for generating data include <a href=\"https://github.com/joke2k/faker\">Faker</a> or <a href=\"https://www.getsynth.com/\">Synth</a>, which generate data that conforms to desired statistical properties, and tools like <a href=\"/radar/languages-and-frameworks/synthetic-data-vault\">Synthetic Data Vault</a> that can generate data that mimics the properties of an input data set.</p>"
+  },
+  {
+    "name": "TinyML",
+    "ring": "Assess",
+    "quadrant": "Techniques",
+    "isNew": "FALSE",
+    "description": "<p>We continue to be excited by the <strong><a href=\"https://towardsdatascience.com/an-introduction-to-tinyml-4617f314aa79\">TinyML</a></strong> technique and the ability to create machine learning (ML) models designed to run on low-powered and mobile devices. Until recently, executing an ML model was seen as computationally expensive and, in some cases, required special-purpose hardware. While creating the models still broadly sits within this classification, they can now be created in a way that allows them to be run on small, low-cost and low-power consumption devices. If you've been considering using ML but thought it unrealistic because of compute or network constraints, then this technique is worth assessing.</p>"
+  },
+  {
+    "name": "Verifiable credentials",
+    "ring": "Assess",
+    "quadrant": "Techniques",
+    "isNew": "FALSE",
+    "description": "<p>When we first included it in the Radar two years ago, <strong>verifiable credentials</strong> (VC) was an intriguing standard with some promising potential applications, but it wasn't widely known or understood outside the community of enthusiasts. This was particularly true when it came to the credential-granting institutions, such as state governments, who would be responsible for implementing the standards. Two years and one pandemic later, the demand for cryptographically secure, privacy-respecting and machine-verifiable electronic credentials has grown and, as a result, governments are starting to wake up to VC's potential. We're now starting to see VC crop up in our work for public-sector clients. The <a href=\"https://www.w3.org/TR/vc-data-model/\">W3C standard</a> puts credential holders at the center, which is similar to our experience when using physical credentials: users can put their verifiable credentials in their own digital wallets and show them to anyone at any time without the permission of the credentials' issuer. This decentralized approach also enables users to better manage and selectively disclose their own information which greatly improves data privacy protection. For example, powered by zero-knowledge proof technology, you can construct a verifiable credential to prove that you're an adult without revealing your birthday. It’s important to note that although many VC-based <a href=\"/radar/techniques/decentralized-identity\">decentralized identity</a> solutions rely on blockchain technology, blockchain is not a prerequisite for all VC implementations.</p>"
+  },
+  {
+    "name": "Clasp",
+    "ring": "Assess",
+    "quadrant": "Techniques",
+    "isNew": "TRUE",
+    "description": "<p>Unfortunately, a big part of the world still runs on spreadsheets and will continue to do so. They're the ultimate tool to let anyone build those small custom tools tailored to their exact needs. However, when you want to enhance them with a level of logic that requires \"real\" code, the low-code nature of spreadsheets can then become a constraint. If you're with a company that, like Thoughtworks, uses Google's G-Suite, <strong><a href=\"https://github.com/google/clasp\">Clasp</a></strong> enables you to apply at least some <a href=\"/radar/techniques/continuous-delivery-cd\">Continuous Delivery</a> practices to Apps Script code. You can write the code outside of the Apps Script project, which creates options for testing, source control and build pipelines; it even lets you use <a href=\"/radar/languages-and-frameworks/typescript\">TypeScript</a>. Clasp has been around for a while, and you shouldn’t expect a programming environment with all of the usual comforts, but it can greatly improve the experience of using Apps Script.</p>"
+  },
+  {
+    "name": "Databricks Overwatch",
+    "ring": "Assess",
+    "quadrant": "Techniques",
+    "isNew": "TRUE",
+    "description": "<p><strong><a href=\"https://databrickslabs.github.io/overwatch/\">Databricks Overwatch</a></strong> is a Databricks Labs project that enables teams to analyze various operational metrics of Databricks workloads around cost, governance and performance with support to run what-if experiments. It's essentially a set of data pipelines that populate tables in Databricks, which can then be analyzed using tools like notebooks. Overwatch is very much a power tool; however, it's still in its early stages and it may take some effort to set it up — our use of it required Databricks solution architects to help set it up and populate a price reference table for cost calculations — but we expect adoption to get easier over time. The level of analysis made possible by Overwatch is deeper than what is allowed by cloud providers' cost analysis tools. For example, we were able to analyze the cost of job failures — recognizing that failing fast saves money compared to jobs that only fail near the final step — and break down the cost by various groupings (workspace, cluster, job, notebook, team). We also appreciated the improved operational visibility, as we could easily audit access controls around cluster configurations and analyze operational metrics like finding the longest running notebook or largest read/write volume. Overwatch can analyze historical data, but its real-time mode allows for alerting which helps you to add appropriate controls to your Databricks workloads.</p>"
+  },
+  {
+    "name": "dbtvault",
+    "ring": "Assess",
+    "quadrant": "Techniques",
+    "isNew": "TRUE",
+    "description": "<p><a href=\"https://datavaultalliance.com/news/dv/understanding-data-vault-2-0/\">Data Vault 2.0</a> is a data modeling methodology and design pattern intended to improve the flexibility of data warehouses compared to other popular modeling approaches. Data Vault 2.0 can be applied to any data store such as <a href=\"https://www.snowflake.com/data-cloud-glossary/data-vault/\">Snowflake</a> or <a href=\"https://www.databricks.com/glossary/data-vault\">Databricks</a>. When implementing Data Vault warehouses, we've found the <strong><a href=\"https://www.data-vault.co.uk/dbtvault/\">dbtvault</a></strong> package for <a href=\"/radar/tools/dbt\">dbt</a> to be a helpful tool. dbtvault provides a set of <a href=\"https://jinja.palletsprojects.com/en/3.1.x/\">jinja</a> templates that generate and execute the ETL scripts necessary to populate a Data Vault warehouse. Although dbtvault has some rough edges — it lacks support for enforcing implied uniqueness or performing incremental loads — overall, it fills a niche and requires minimal configuration to get started.</p>"
+  },
+  {
+    "name": "git-together",
+    "ring": "Assess",
+    "quadrant": "Techniques",
+    "isNew": "TRUE",
+    "description": "<p>We're always looking for ways to remove small frictions from pair programming, which is why we're excited by <a href=\"https://github.com/kejadlen/git-together\"><strong>git-together</strong></a>, a tool written in Rust that simplifies git commit attribution during pairing. By aliasing <code>git-together</code> as <code>git</code>, the tool allows you to add extensions to <code>git config</code> that capture committer information, aliasing each committer by their initials. Changing pairs (or switching to soloing or mob programming) requires you to run <code>git with</code>, followed by the initials of the pair (for example: <code>git with bb cc</code>), allowing you to resume your regular git workflow afterward. Every time you commit, git-together will rotate through the pair as the official author that git stores, and it will automatically add any other authors to the bottom of the commit message. The configuration can be checked in with the repo, allowing git-together to work automatically after cloning a repo.</p>"
+  },
+  {
+    "name": "Harness Cloud Cost Management",
+    "ring": "Assess",
+    "quadrant": "Techniques",
+    "isNew": "TRUE",
+    "description": "<p><strong><a href=\"https://harness.io/products/cloud-cost\">Harness Cloud Cost Management</a></strong> is a commercial tool that works across all three of the major cloud providers and their managed <a href=\"/radar/platforms/kubernetes\">Kubernetes</a> clusters to help visualize and manage cloud costs. The product calculates a cost efficiency score by looking at idle resources as well as resources not allocated to any workload and uses historical trends to help optimize resource allocation. The dashboards highlight cost spikes and allow a user to register unexpected anomalies, which are then fed into their reinforcement learning algorithm around anomaly detection. Cloud Cost Management can recommend adjustments to limits for memory and CPU usage, with options to optimize for either cost or performance. \"Perspectives\" allows you to group costs based on organizationally defined filters (which could correspond to business units, teams or products) and automate report distribution to bring visibility into cloud spend. We believe Cloud Cost Management offers a compelling feature set to help organizations mature their FinOps practices.</p>"
+  },
+  {
+    "name": "Infracost",
+    "ring": "Assess",
+    "quadrant": "Techniques",
+    "isNew": "FALSE",
+    "description": "<p>We continue to see organizations move to the cloud without properly understanding how they will track ongoing spend. We previously blipped <a href=\"/radar/techniques/run-cost-as-architecture-fitness-function\">run cost as architecture fitness function</a>, and <a href=\"https://infracost.io/\"><strong>Infracost</strong></a> is a tool that aims to make these cloud cost trade-offs visible in Terraform pull requests. It's open-source software and available for macOS, Linux, Windows and Docker and supports pricing for AWS, GCP and Microsoft Azure out of the box. It also provides a public API that can be queried for current cost data. We remain excited by its potential, especially when it comes to gaining better cost visibility in the IDE.</p>"
   }
 ]
