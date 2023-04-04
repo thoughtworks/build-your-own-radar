@@ -3,14 +3,30 @@ const { graphConfig, getScale, uiConfig } = require('../config')
 const { stickQuadrantOnScroll } = require('./quadrants')
 const {removeAllSpaces} = require("../../util/stringUtil");
 
+function fadeOutAllBlips() {
+  d3.selectAll('g > a.blip-link').attr('opacity', 0.3)
+}
+
+function fadeInSelectedBlip(selectedBlipOnGraph) {
+  selectedBlipOnGraph.attr('opacity', 1.0)
+}
+
+function highlightBlipInTable(selectedBlip) {
+  selectedBlip.classed('highlight', true)
+}
+
 function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) {
-  const blipItem = d3.select(`.quadrant-table.${quadrant.order} ul:nth-of-type(${ring.order() + 1})`)
+  let blipItem = d3.select(`.quadrant-table.${quadrant.order} ul:nth-of-type(${ring.order() + 1})`)
   if (!groupBlipTooltipText) {
-    blipItem.append('li').classed('blip-list__item', true)
+    blipItem = blipItem.append('li').classed('blip-list__item', true)
     const blipItemDiv = blipItem
       .append('div')
       .classed('blip-list__item-container', true)
       .attr('data-blip-id', blip.id())
+
+      if(blip.groupIdInGraph()) {
+        blipItemDiv.attr('data-group-id', blip.groupIdInGraph())
+      }
 
     const blipItemContainer = blipItemDiv
       .append('button')
@@ -48,23 +64,29 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
       .html(blip.description())
   }
   const blipGroupItem = d3.select(`g a#blip-link-${(removeAllSpaces(blip.id()))}`)
-
   const mouseOver = function (e) {
-    const blipId = d3.select(e.target.parentElement).attr('data-blip-id')
+      const blipWrapper = d3.select(e.target.parentElement)
+      const blipIdToFocus = blip.groupIdInGraph() ? blipWrapper.attr('data-group-id')
+        : blipWrapper.attr('data-blip-id')
 
-    d3.selectAll('g > a.blip-link').attr('opacity', 0.3)
-    d3.select(`g > a.blip-link[data-blip-id="${blipId}"`).attr('opacity', 1.0)
+      fadeOutAllBlips();
 
-    blipItem.classed('highlight', true)
+      const selectedBlipOnGraph = d3.select(`g > a.blip-link[data-blip-id='${blipIdToFocus}'`)
+      fadeInSelectedBlip(selectedBlipOnGraph);
+      highlightBlipInTable(blipItem);
 
-    tip.show(groupBlipTooltipText || blip.name(), blipGroupItem.node())
+      const isQuadrantView = d3.select('svg#radar-plot').classed('quadrant-view')
+      const displayToolTip = blip.isGroup() ? !isQuadrantView : !blip.groupIdInGraph()
+      const toolTipText = blip.isGroup()? groupBlipTooltipText : blip.name()
+
+      if (displayToolTip) {
+        tip.show(toolTipText, selectedBlipOnGraph.node())
+      }
   }
 
   const mouseOut = function () {
     d3.selectAll('g > a.blip-link').attr('opacity', 1.0)
-
     blipItem.classed('highlight', false)
-
     tip.hide().style('left', 0).style('top', 0)
   }
 

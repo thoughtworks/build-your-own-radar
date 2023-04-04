@@ -4,11 +4,12 @@ const {
   groupBlipsBaseCoords,
   transposeQuadrantCoords,
   getGroupBlipTooltipText,
-  blipAssistiveText,
+  blipAssistiveText, createGroupBlip,
 } = require('../../src/graphing/blips')
 const Chance = require('chance')
 const { graphConfig } = require('../../src/graphing/config')
 const Blip = require('../../src/models/blip')
+const {replaceSpaceWithHyphens} = require("../../src/util/stringUtil");
 jest.mock('d3', () => {
   return {
     select: jest.fn(),
@@ -189,5 +190,14 @@ describe('Blips', function () {
 
     const actual = blipAssistiveText(blip)
     expect(actual).toEqual('`ring1 ring, group of 12 new blips')
+  })
+
+  it('should return group blip with appropriate values', function () {
+    const ringBlips = mockRingBlips(20)
+    const groupBlip = createGroupBlip(ringBlips, 'new', {name: () => 'ring1'}, 'first')
+    expect(groupBlip).toBeTruthy()
+    expect(groupBlip.blipText()).toEqual('20 new blips')
+    expect(groupBlip.id()).toEqual('first-ring1-group-new-blips')
+    expect(groupBlip.isGroup()).toEqual(true)
   })
 })

@@ -1,7 +1,7 @@
 const { graphConfig } = require('../graphing/config')
 const IDEAL_BLIP_WIDTH = 22
 const Blip = function (name, ring, isNew, topic, description) {
-  let self, blipText, isGroup, id
+  let self, blipText, isGroup, id, groupIdInGraph
 
   self = {}
   isGroup = false
@@ -36,6 +36,14 @@ const Blip = function (name, ring, isNew, topic, description) {
     return isGroup
   }
 
+  self.groupIdInGraph = function() {
+    return groupIdInGraph || '';
+  }
+
+  self.setGroupIdInGraph = function(groupId) {
+    groupIdInGraph = groupId
+  }
+
   self.ring = function () {
     return ring
   }
@@ -52,8 +60,8 @@ const Blip = function (name, ring, isNew, topic, description) {
     id = newId
   }
 
-  self.setIsGroup = function (value) {
-    isGroup = value
+  self.setIsGroup = function (isAGroupBlip) {
+    isGroup = isAGroupBlip
   }
 
   return self

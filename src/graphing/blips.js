@@ -265,6 +265,7 @@ function plotGroupBlips(ringBlips, ring, quadrantOrder, parentElement, quadrantW
     drawBlipInCoordinates(groupBlip, blipCoordsForCurrentQuadrant, quadrantOrder, parentElement)
     renderBlipDescription(groupBlip, ring, quadrantWrapper, tooltip, groupBlipTooltipText)
     blipsInRing.forEach(function (blip) {
+      blip.setGroupIdInGraph(groupBlip.id())
       renderBlipDescription(blip, ring, quadrantWrapper, tooltip)
     })
   })
@@ -315,4 +316,5 @@ module.exports = {
   transposeQuadrantCoords,
   getGroupBlipTooltipText,
   blipAssistiveText,
+  createGroupBlip,
 }

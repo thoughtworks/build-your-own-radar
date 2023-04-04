@@ -739,6 +739,8 @@ if (featureToggles.UIRefresh2022) {
   })
 }
 
+
+
 if (featureToggles.UIRefresh2022) {
   describe('Build radar with public Google Sheet', () => {
     it('Validate public Google Sheet', () => {
@@ -767,12 +769,12 @@ if (featureToggles.UIRefresh2022) {
       radarPage.validateQuadrantOrder()
       radarPage.validateRingOrder()
 
-      radarPage.clickBlipItemInQuadrantTable(1)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
-
-      radarPage.clickBlipInRadarGraph(2)
+      radarPage.clickBlipItemInQuadrantTable(2)
       radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-      radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+
+      radarPage.clickBlipInRadarGraph(1)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+      radarPage.validateBlipDescriptionHiddenInQuadrantTable(2)
 
       radarPage.resetRadarView()
 
@@ -839,12 +841,12 @@ if (featureToggles.UIRefresh2022) {
       radarPage.validateRingsInQuadrantTable(4)
       radarPage.validateBlipsInQuadrantTable(26)
 
-      radarPage.clickBlipItemInQuadrantTable(1)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
-
-      radarPage.clickBlipInRadarGraph(2)
+      radarPage.clickBlipItemInQuadrantTable(2)
       radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-      radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+
+      radarPage.clickBlipInRadarGraph(1)
+      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+      radarPage.validateBlipDescriptionHiddenInQuadrantTable(2)
 
       radarPage.resetRadarView()
 

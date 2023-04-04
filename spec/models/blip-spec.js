@@ -76,6 +76,15 @@ describe('Blip', function () {
     expect(blip.isGroup()).toEqual(true)
   })
 
+  it('has blank group id by default', function () {
+    expect(blip.groupIdInGraph()).toEqual('')
+  })
+
+  it('sets the group id as passed value', function () {
+    blip.setGroupIdInGraph('group-id-value')
+    expect(blip.groupIdInGraph()).toEqual('group-id-value')
+  })
+
   it('get respective group blip width', function () {
     const noChangeBlip = new Blip('My Blip', new Ring('My Ring'), false)
     const newBlip = new Blip('My Blip', new Ring('My Ring'), true)
