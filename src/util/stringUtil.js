@@ -3,16 +3,15 @@ function getRingIdString(ringName) {
 }
 
 function replaceSpaceWithHyphens(anyString) {
-  return anyString.trim().replace(/\s+/g, '-').toLowerCase();
+  return anyString.trim().replace(/\s+/g, '-').toLowerCase()
 }
 
 function removeAllSpaces(blipId) {
-  return blipId.toString().replace(/\s+/g, '');
+  return blipId.toString().replace(/\s+/g, '')
 }
-
 
 module.exports = {
   getRingIdString,
   replaceSpaceWithHyphens,
-  removeAllSpaces
+  removeAllSpaces,
 }

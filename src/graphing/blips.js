@@ -4,7 +4,7 @@ const { toRadian } = require('../util/mathUtils')
 const { renderBlipDescription } = require('./components/quadrantTables')
 const Blip = require('../models/blip')
 const isEmpty = require('lodash/isEmpty')
-const {replaceSpaceWithHyphens, removeAllSpaces} = require("../util/stringUtil");
+const { replaceSpaceWithHyphens, removeAllSpaces } = require('../util/stringUtil')
 
 const getRingRadius = function (ringIndex) {
   const ratios = [0, 0.316, 0.652, 0.832, 0.992]
@@ -159,7 +159,7 @@ function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup) {
   let x = coordinates[0]
   let y = coordinates[1]
 
-  const blipId = removeAllSpaces(blip.id());
+  const blipId = removeAllSpaces(blip.id())
 
   const group = quadrantGroup
     .append('g')
@@ -239,7 +239,9 @@ const transposeQuadrantCoords = function (coords, blipWidth) {
 
 function createGroupBlip(blipsInRing, blipType, ring, quadrantOrder) {
   const blipText = `${blipsInRing.length} ${blipType} blips`
-  const blipId = `${quadrantOrder}-${replaceSpaceWithHyphens(ring.name())}-group-${replaceSpaceWithHyphens(blipType)}-blips`
+  const blipId = `${quadrantOrder}-${replaceSpaceWithHyphens(ring.name())}-group-${replaceSpaceWithHyphens(
+    blipType,
+  )}-blips`
   const groupBlip = new Blip(blipText, ring, blipsInRing[0].isNew(), '', '')
   groupBlip.setBlipText(blipText)
   groupBlip.setId(blipId)
@@ -300,7 +302,14 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
     }
 
     ringBlips.forEach(function (blip) {
-      const coordinates = findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordsInRing, quadrantOrder)
+      const coordinates = findBlipCoordinates(
+        blip,
+        minRadius,
+        maxRadius,
+        startAngle,
+        allBlipCoordsInRing,
+        quadrantOrder,
+      )
       allBlipCoordsInRing.push({ coordinates, width: blip.width })
       drawBlipInCoordinates(blip, coordinates, quadrantOrder, parentElement)
       renderBlipDescription(blip, ring, quadrantWrapper, tooltip)

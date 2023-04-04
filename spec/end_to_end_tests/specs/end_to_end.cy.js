@@ -81,7 +81,10 @@ if (featureToggles.UIRefresh2022) {
       })
 
       it('verify group-blip tooltip text with all blip names in Radar graph', () => {
-        radarPage.validateBlipToolTip('blip-link-first-adopt-group-new-blips', '1.Path-to-production mapping3.Team cognitive load')
+        radarPage.validateBlipToolTip(
+          'blip-link-first-adopt-group-new-blips',
+          '1.Path-to-production mapping3.Team cognitive load',
+        )
         radarPage.validateBlipToolTip(
           'blip-link-first-adopt-group-no-change-blips',
           '4.Threat modeling5.Backstage6.Delta Lake7.Delta Lake8.Great Expectations9.Kotest10.NestJS11.React Query12.Swift Package Manager',
@@ -449,7 +452,10 @@ if (featureToggles.UIRefresh2022) {
       })
 
       it('verify group-blip tooltip text with all blip names in Radar graph', () => {
-        radarPage.validateBlipToolTip('blip-link-first-adopt-group-new-blips', '1.Path-to-production mapping3.Team cognitive load')
+        radarPage.validateBlipToolTip(
+          'blip-link-first-adopt-group-new-blips',
+          '1.Path-to-production mapping3.Team cognitive load',
+        )
         radarPage.validateBlipToolTip(
           'blip-link-first-adopt-group-no-change-blips',
           '4.Threat modeling5.Backstage6.Delta Lake7.Delta Lake8.Great Expectations9.Kotest10.NestJS11.React Query12.Swift Package Manager',
@@ -738,8 +744,6 @@ if (featureToggles.UIRefresh2022) {
     })
   })
 }
-
-
 
 if (featureToggles.UIRefresh2022) {
   describe('Build radar with public Google Sheet', () => {

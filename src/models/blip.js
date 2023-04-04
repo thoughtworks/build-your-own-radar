@@ -36,11 +36,11 @@ const Blip = function (name, ring, isNew, topic, description) {
     return isGroup
   }
 
-  self.groupIdInGraph = function() {
-    return groupIdInGraph || '';
+  self.groupIdInGraph = function () {
+    return groupIdInGraph || ''
   }
 
-  self.setGroupIdInGraph = function(groupId) {
+  self.setGroupIdInGraph = function (groupId) {
     groupIdInGraph = groupId
   }
 
