@@ -86,6 +86,10 @@ class RadarPage {
     cy.get(this.radarGraphBlip(blipId)).click()
   }
 
+  hoverBlipInRadarGraph(blipId) {
+    cy.get(this.radarGraphBlip(blipId)).trigger('mouseover')
+  }
+
   clickQuadrantInSubnav(quadrantName) {
     cy.get(this.subnavQuadrant(quadrantName)).click()
   }
@@ -127,6 +131,13 @@ class RadarPage {
 
   validateBlipText(blipId, text) {
     cy.get(`#${blipId}`).contains(text)
+  }
+
+  validateNoBlipToolTip(blipId) {
+    cy.get(`#${blipId}`).trigger('mouseout') // cleanup of previous hover
+    cy.get(`#${blipId}`).trigger('mouseover')
+    cy.get(this.tooltip).should('have.attr', 'style').and('contains', 'opacity: 0')
+    cy.get(this.tooltip).should('have.attr', 'style').and('contains', 'pointer-events: none')
   }
 
   validateBlipToolTip(blipId, text) {
@@ -202,6 +213,10 @@ class RadarPage {
   validateBlipDescriptionVibisbleInQuadrantTable(blipId) {
     cy.get(this.quadrantTableBlip(blipId)).should('have.class', 'expand')
     cy.get(this.quadrantTableBlipDescription(blipId)).should('be.visible')
+  }
+
+  validBlipHighlightedInQuadrantTable(blipId) {
+    cy.get(this.quadrantTableBlip(blipId)).parent('.blip-list__item').should('have.class', 'highlight')
   }
 
   validateBlipDescriptionHiddenInQuadrantTable(blipId) {

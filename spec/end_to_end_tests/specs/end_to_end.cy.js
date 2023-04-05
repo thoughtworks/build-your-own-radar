@@ -143,6 +143,35 @@ if (featureToggles.UIRefresh2022) {
         radarPage.typeStringInSearch('abc/def 123/456')
         radarPage.validateSearchValue('abc/def 123/456')
       })
+
+      it('verify click on group-blip in Radar graph', () => {
+        radarPage.clickBlipInRadarGraph('first-assess-group-new-blips')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+      })
+
+      it('verify group-blip text in Radar graph', () => {
+        radarPage.validateBlipText('blip-link-first-adopt-group-new-blips', '2 new blips')
+        radarPage.validateBlipText('blip-link-first-adopt-group-no-change-blips', '9 no change blips')
+      })
+
+      it('verify group-blip text does not appear in quadrant view', () => {
+        radarPage.clickBlipInRadarGraph('first-adopt-group-new-blips')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-new-blips')
+        radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-no-change-blips')
+      })
+
+      it('blip in table gets highlighted on hover on blip in graph', () => {
+        radarPage.clickBlipInRadarGraph('first-adopt-group-new-blips')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        const blipId = '2'
+        radarPage.hoverBlipInRadarGraph(blipId)
+        radarPage.validBlipHighlightedInQuadrantTable(blipId)
+      })
+
+      it('verify group-blip tooltip text with click-to-view-all text in Radar graph', () => {
+        radarPage.validateBlipToolTip('blip-link-first-assess-group-new-blips', 'Click to view all')
+      })
     })
 
     context('Tablet resolution (1024px)', () => {
@@ -250,6 +279,35 @@ if (featureToggles.UIRefresh2022) {
 
         radarPage.typeStringInSearch('abc/def 123/456')
         radarPage.validateSearchValue('abc/def 123/456')
+      })
+      it('verify click on group-blip in Radar graph', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.clickBlipInRadarGraph('first-assess-group-new-blips')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+      })
+
+      it('verify group-blip text in Radar graph', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.validateBlipText('blip-link-first-adopt-group-new-blips', '2 new blips')
+        radarPage.validateBlipText('blip-link-first-adopt-group-no-change-blips', '9 no change blips')
+      })
+
+      it('verify group-blip text does not appear in quadrant view', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-new-blips')
+        radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-no-change-blips')
+      })
+
+      it('blip in table gets highlighted on hover on blip in graph', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        const blipId = '2'
+        radarPage.hoverBlipInRadarGraph(blipId)
+        radarPage.validBlipHighlightedInQuadrantTable(blipId)
       })
     })
 
@@ -514,6 +572,35 @@ if (featureToggles.UIRefresh2022) {
         radarPage.typeStringInSearch('abc/def 123/456')
         radarPage.validateSearchValue('abc/def 123/456')
       })
+
+      it('verify click on group-blip in Radar graph', () => {
+        radarPage.clickBlipInRadarGraph('first-assess-group-new-blips')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+      })
+
+      it('verify group-blip text in Radar graph', () => {
+        radarPage.validateBlipText('blip-link-first-adopt-group-new-blips', '2 new blips')
+        radarPage.validateBlipText('blip-link-first-adopt-group-no-change-blips', '9 no change blips')
+      })
+
+      it('verify group-blip text does not appear in quadrant view', () => {
+        radarPage.clickBlipInRadarGraph('first-adopt-group-new-blips')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-new-blips')
+        radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-no-change-blips')
+      })
+
+      it('blip in table gets highlighted on hover on blip in graph', () => {
+        radarPage.clickBlipInRadarGraph('first-adopt-group-new-blips')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        const blipId = '2'
+        radarPage.hoverBlipInRadarGraph(blipId)
+        radarPage.validBlipHighlightedInQuadrantTable(blipId)
+      })
+
+      it('verify group-blip tooltip text with click-to-view-all text in Radar graph', () => {
+        radarPage.validateBlipToolTip('blip-link-first-assess-group-new-blips', 'Click to view all')
+      })
     })
 
     context('Tablet resolution (1024px)', () => {
@@ -621,6 +708,36 @@ if (featureToggles.UIRefresh2022) {
 
         radarPage.typeStringInSearch('abc/def 123/456')
         radarPage.validateSearchValue('abc/def 123/456')
+      })
+
+      it('verify click on group-blip in Radar graph', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.clickBlipInRadarGraph('first-assess-group-new-blips')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+      })
+
+      it('verify group-blip text in Radar graph', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.validateBlipText('blip-link-first-adopt-group-new-blips', '2 new blips')
+        radarPage.validateBlipText('blip-link-first-adopt-group-no-change-blips', '9 no change blips')
+      })
+
+      it('verify group-blip text does not appear in quadrant view', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-new-blips')
+        radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-no-change-blips')
+      })
+
+      it('blip in table gets highlighted on hover on blip in graph', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        const blipId = '2'
+        radarPage.hoverBlipInRadarGraph(blipId)
+        radarPage.validBlipHighlightedInQuadrantTable(blipId)
       })
     })
 
@@ -744,230 +861,303 @@ if (featureToggles.UIRefresh2022) {
     })
   })
 }
-
 if (featureToggles.UIRefresh2022) {
-  describe('Build radar with public Google Sheet', () => {
-    it('Validate public Google Sheet', () => {
-      cy.visit(Cypress.env('host'))
-
-      byorPage.typeString('/')
-      byorPage.validateUrlInputFocused()
-
-      byorPage.typeStringInUrlInput('abc/def 123/456')
-      byorPage.validateUrlInputValue('abc/def 123/456')
-
-      byorPage.providePublicSheetUrl()
-      byorPage.clickSubmitButton()
-
-      radarPage.validateGraphTitle(testConfig.PUBLIC_GOOGLE_SHEET_TITLE)
-
-      radarPage.validateMobileQuadrantsHidden()
-      radarPage.validateGraphVisible()
-      radarPage.validateQuadrantOrder()
-      radarPage.validateRingOrder()
-
-      radarPage.clickQuadrantInFullRadarView('first')
-      radarPage.validateActiveQuadrant('techniques', 'first')
-      radarPage.validateRingsInQuadrantTable(4)
-      radarPage.validateBlipsInQuadrantTable(26)
-      radarPage.validateQuadrantOrder()
-      radarPage.validateRingOrder()
-
-      radarPage.clickBlipItemInQuadrantTable(2)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-
-      radarPage.clickBlipInRadarGraph(1)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
-      radarPage.validateBlipDescriptionHiddenInQuadrantTable(2)
-
-      radarPage.resetRadarView()
-
-      radarPage.clickBlipInRadarGraph(2)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-      radarPage.validateActiveQuadrant('techniques', 'first')
-
-      radarPage.clickQuadrantInSubnav('tools')
-      radarPage.validateActiveQuadrant('tools', 'third')
-
-      radarPage.clickQuadrantInSubnav('all-quadrants')
-      radarPage.validateMobileQuadrantsHidden()
-      radarPage.validateGraphVisible()
-
-      radarPage.resetRadarView()
-
-      radarPage.validateSearchResults('framework', 25)
-      radarPage.clickSearchResult(1)
-      radarPage.validateActiveQuadrant('techniques', 'first')
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(5)
-
-      radarPage.triggerSearch('framework')
-      radarPage.clickSearchResult(8)
-      radarPage.validateActiveQuadrant('platforms', 'second')
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(41)
-
-      radarPage.resetRadarView()
-
-      radarPage.validateSearchVisible()
-
-      radarPage.typeString('/')
-      radarPage.validateSearchFocused()
-
-      radarPage.typeStringInSearch('abc/def 123/456')
-      radarPage.validateSearchValue('abc/def 123/456')
-
-      radarPage.clickAlternateRadarItem(2)
-      radarPage.validateActiveAlternateRadar(2)
-      radarPage.validateInactiveAlternateRadar(1)
+  describe('Validate public Google Sheet', () => {
+    beforeEach(function () {
+      if (Cypress.currentTest.title !== 'Validate public Google Sheet') {
+        cy.visit(Cypress.env('host') + `/?documentId=${encodeURIComponent(testConfig.PUBLIC_GOOGLE_SHEET_URL)}`)
+      }
     })
 
-    it('Validate public Google Sheet in tablet', () => {
-      cy.viewport(1024, 768)
-      cy.visit(Cypress.env('host'))
+    context('Desktop resolution (1440px)', () => {
+      it('Validate public Google Sheet in desktop', () => {
+        cy.visit(Cypress.env('host'))
 
-      byorPage.typeString('/')
-      byorPage.validateUrlInputFocused()
+        byorPage.typeString('/')
+        byorPage.validateUrlInputFocused()
 
-      byorPage.typeStringInUrlInput('abc/def 123/456')
-      byorPage.validateUrlInputValue('abc/def 123/456')
+        byorPage.typeStringInUrlInput('abc/def 123/456')
+        byorPage.validateUrlInputValue('abc/def 123/456')
 
-      byorPage.providePublicSheetUrl()
-      byorPage.clickSubmitButton()
+        byorPage.providePublicSheetUrl()
+        byorPage.clickSubmitButton()
 
-      radarPage.validateGraphTitle(testConfig.PUBLIC_GOOGLE_SHEET_TITLE)
+        radarPage.validateGraphTitle(testConfig.PUBLIC_GOOGLE_SHEET_TITLE)
 
-      radarPage.validateMobileQuadrantsVisible()
-      radarPage.validateGraphHidden()
-      radarPage.validateQuadrantOrder()
-      radarPage.validateRingOrder()
+        radarPage.validateMobileQuadrantsHidden()
+        radarPage.validateGraphVisible()
+        radarPage.validateQuadrantOrder()
+        radarPage.validateRingOrder()
 
-      radarPage.clickQuadrantInFullRadarViewTablet('first')
-      radarPage.validateActiveQuadrant('techniques', 'first')
-      radarPage.validateRingsInQuadrantTable(4)
-      radarPage.validateBlipsInQuadrantTable(26)
+        radarPage.clickQuadrantInFullRadarView('first')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.validateRingsInQuadrantTable(4)
+        radarPage.validateBlipsInQuadrantTable(26)
+        radarPage.validateQuadrantOrder()
+        radarPage.validateRingOrder()
 
-      radarPage.clickBlipItemInQuadrantTable(2)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+        radarPage.clickBlipItemInQuadrantTable(2)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
 
-      radarPage.clickBlipInRadarGraph(1)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
-      radarPage.validateBlipDescriptionHiddenInQuadrantTable(2)
+        radarPage.clickBlipInRadarGraph(1)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+        radarPage.validateBlipDescriptionHiddenInQuadrantTable(2)
 
-      radarPage.resetRadarView()
+        radarPage.resetRadarView()
 
-      radarPage.validateSubnavDropdownHiddenTablet()
-      radarPage.clickSubnavDropdownTablet()
-      radarPage.validateSubnavDropdownVisibleTablet()
-      radarPage.clickQuadrantInSubnav('tools')
-      radarPage.validateSubnavDropdownHiddenTablet()
-      radarPage.validateActiveQuadrant('tools', 'third')
+        radarPage.clickBlipInRadarGraph(2)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+        radarPage.validateActiveQuadrant('techniques', 'first')
 
-      radarPage.clickSubnavDropdownTablet()
-      radarPage.clickQuadrantInSubnav('all-quadrants')
-      radarPage.validateMobileQuadrantsVisible()
-      radarPage.validateGraphHidden()
+        radarPage.clickQuadrantInSubnav('tools')
+        radarPage.validateActiveQuadrant('tools', 'third')
 
-      radarPage.resetRadarView()
+        radarPage.clickQuadrantInSubnav('all-quadrants')
+        radarPage.validateMobileQuadrantsHidden()
+        radarPage.validateGraphVisible()
 
-      radarPage.validateSearchResults('framework', 25)
-      radarPage.clickSearchResult(1)
-      radarPage.validateActiveQuadrant('techniques', 'first')
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(5)
+        radarPage.resetRadarView()
 
-      radarPage.triggerSearch('framework')
-      radarPage.clickSearchResult(8)
-      radarPage.validateActiveQuadrant('platforms', 'second')
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(41)
+        radarPage.validateSearchResults('framework', 25)
+        radarPage.clickSearchResult(1)
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(5)
 
-      radarPage.resetRadarView()
+        radarPage.triggerSearch('framework')
+        radarPage.clickSearchResult(8)
+        radarPage.validateActiveQuadrant('platforms', 'second')
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(41)
 
-      radarPage.validateSearchVisible()
+        radarPage.resetRadarView()
 
-      radarPage.typeString('/')
-      radarPage.validateSearchFocused()
+        radarPage.validateSearchVisible()
 
-      radarPage.typeStringInSearch('abc/def 123/456')
-      radarPage.validateSearchValue('abc/def 123/456')
+        radarPage.typeString('/')
+        radarPage.validateSearchFocused()
 
-      radarPage.clickAlternateRadarItem(2)
-      radarPage.validateActiveAlternateRadar(2)
-      radarPage.validateInactiveAlternateRadar(1)
+        radarPage.typeStringInSearch('abc/def 123/456')
+        radarPage.validateSearchValue('abc/def 123/456')
+
+        radarPage.clickAlternateRadarItem(2)
+        radarPage.validateActiveAlternateRadar(2)
+        radarPage.validateInactiveAlternateRadar(1)
+      })
+
+      it('verify click on group-blip in Radar graph', () => {
+        radarPage.clickBlipInRadarGraph('second-trial-group-new-blips')
+        radarPage.validateActiveQuadrant('platforms', 'second')
+      })
+
+      it('verify group-blip text in Radar graph', () => {
+        radarPage.validateBlipText('blip-link-second-trial-group-new-blips', '17 new blips')
+        radarPage.validateBlipText('blip-link-second-trial-group-no-change-blips', '7 no change blips')
+      })
+
+      it('verify group-blip text does not appear in quadrant view', () => {
+        radarPage.clickBlipInRadarGraph('second-trial-group-new-blips')
+        radarPage.validateActiveQuadrant('platforms', 'second')
+        radarPage.validateNoBlipToolTip('blip-link-second-trial-group-new-blips')
+        radarPage.validateNoBlipToolTip('blip-link-second-trial-group-no-change-blips')
+      })
+
+      it('blip in table gets highlighted on hover on blip in graph', () => {
+        radarPage.clickBlipInRadarGraph('second-trial-group-new-blips')
+        radarPage.validateActiveQuadrant('platforms', 'second')
+        const blipId = '41'
+        radarPage.hoverBlipInRadarGraph(blipId)
+        radarPage.validBlipHighlightedInQuadrantTable(blipId)
+      })
+
+      it('verify group-blip tooltip text with click-to-view-all text in Radar graph', () => {
+        radarPage.validateBlipToolTip('blip-link-second-trial-group-new-blips', 'Click to view all')
+      })
     })
 
-    it('Validate public Google Sheet in mobile', () => {
-      cy.viewport(360, 480)
-      cy.visit(Cypress.env('host'))
+    context('Tablet resolution (1024px)', () => {
+      beforeEach(function () {
+        cy.viewport(1024, 768)
+      })
+      it('Validate public Google Sheet', () => {
+        cy.visit(Cypress.env('host'))
 
-      byorPage.typeString('/')
-      byorPage.validateUrlInputFocused()
+        byorPage.typeString('/')
+        byorPage.validateUrlInputFocused()
 
-      byorPage.typeStringInUrlInput('abc/def 123/456')
-      byorPage.validateUrlInputValue('abc/def 123/456')
+        byorPage.typeStringInUrlInput('abc/def 123/456')
+        byorPage.validateUrlInputValue('abc/def 123/456')
 
-      byorPage.providePublicSheetUrl()
-      byorPage.clickSubmitButton()
+        byorPage.providePublicSheetUrl()
+        byorPage.clickSubmitButton()
 
-      radarPage.validateGraphTitle(testConfig.PUBLIC_GOOGLE_SHEET_TITLE)
+        radarPage.validateGraphTitle(testConfig.PUBLIC_GOOGLE_SHEET_TITLE)
 
-      radarPage.validateMobileQuadrantsVisible()
-      radarPage.validateGraphHidden()
-      radarPage.validateQuadrantOrder()
-      radarPage.validateRingOrder()
+        radarPage.validateMobileQuadrantsVisible()
+        radarPage.validateGraphHidden()
+        radarPage.validateQuadrantOrder()
+        radarPage.validateRingOrder()
 
-      radarPage.clickQuadrantInFullRadarViewTablet('first')
-      radarPage.validateActiveQuadrantInSubnav('techniques')
-      radarPage.validateGraphHidden()
-      radarPage.validateRingsInQuadrantTable(4)
-      radarPage.validateBlipsInQuadrantTable(26)
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.validateRingsInQuadrantTable(4)
+        radarPage.validateBlipsInQuadrantTable(26)
 
-      radarPage.clickBlipItemInQuadrantTable(1)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+        radarPage.clickBlipItemInQuadrantTable(2)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
 
-      radarPage.clickBlipItemInQuadrantTable(2)
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
-      radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+        radarPage.clickBlipInRadarGraph(1)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+        radarPage.validateBlipDescriptionHiddenInQuadrantTable(2)
 
-      radarPage.resetRadarView()
+        radarPage.resetRadarView()
 
-      radarPage.validateSubnavDropdownHiddenTablet()
-      radarPage.clickSubnavDropdownTablet()
-      radarPage.validateSubnavDropdownVisibleTablet()
-      radarPage.clickQuadrantInSubnav('tools')
-      radarPage.validateSubnavDropdownHiddenTablet()
-      radarPage.validateActiveQuadrantInSubnav('tools')
-      radarPage.validateGraphHidden()
+        radarPage.validateSubnavDropdownHiddenTablet()
+        radarPage.clickSubnavDropdownTablet()
+        radarPage.validateSubnavDropdownVisibleTablet()
+        radarPage.clickQuadrantInSubnav('tools')
+        radarPage.validateSubnavDropdownHiddenTablet()
+        radarPage.validateActiveQuadrant('tools', 'third')
 
-      radarPage.clickSubnavDropdownTablet()
-      radarPage.clickQuadrantInSubnav('all-quadrants')
-      radarPage.validateMobileQuadrantsVisible()
-      radarPage.validateGraphHidden()
+        radarPage.clickSubnavDropdownTablet()
+        radarPage.clickQuadrantInSubnav('all-quadrants')
+        radarPage.validateMobileQuadrantsVisible()
+        radarPage.validateGraphHidden()
 
-      radarPage.resetRadarView()
+        radarPage.resetRadarView()
 
-      radarPage.validateSearchResults('framework', 25)
-      radarPage.clickSearchResult(1)
-      radarPage.validateActiveQuadrantInSubnav('techniques')
-      radarPage.validateGraphHidden()
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(5)
+        radarPage.validateSearchResults('framework', 25)
+        radarPage.clickSearchResult(1)
+        radarPage.validateActiveQuadrant('techniques', 'first')
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(5)
 
-      radarPage.triggerSearch('framework')
-      radarPage.clickSearchResult(8)
-      radarPage.validateActiveQuadrantInSubnav('platforms')
-      radarPage.validateGraphHidden()
-      radarPage.validateBlipDescriptionVibisbleInQuadrantTable(41)
+        radarPage.triggerSearch('framework')
+        radarPage.clickSearchResult(8)
+        radarPage.validateActiveQuadrant('platforms', 'second')
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(41)
 
-      radarPage.resetRadarView()
+        radarPage.resetRadarView()
 
-      radarPage.validateSearchVisible()
+        radarPage.validateSearchVisible()
 
-      radarPage.typeString('/')
-      radarPage.validateSearchFocused()
+        radarPage.typeString('/')
+        radarPage.validateSearchFocused()
 
-      radarPage.typeStringInSearch('abc/def 123/456')
-      radarPage.validateSearchValue('abc/def 123/456')
+        radarPage.typeStringInSearch('abc/def 123/456')
+        radarPage.validateSearchValue('abc/def 123/456')
 
-      radarPage.clickAlternateRadarItem(2)
-      radarPage.validateActiveAlternateRadar(2)
-      radarPage.validateInactiveAlternateRadar(1)
+        radarPage.clickAlternateRadarItem(2)
+        radarPage.validateActiveAlternateRadar(2)
+        radarPage.validateInactiveAlternateRadar(1)
+      })
+      it('verify click on group-blip in quadrant view', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('second')
+        radarPage.validateActiveQuadrant('platforms', 'second')
+        radarPage.clickBlipInRadarGraph('second-trial-group-new-blips')
+        radarPage.validateActiveQuadrant('platforms', 'second')
+      })
+
+      it('verify group-blip text in quadrant view', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('second')
+        radarPage.validateActiveQuadrant('platforms', 'second')
+        radarPage.validateBlipText('blip-link-second-trial-group-new-blips', '17 new blips')
+        radarPage.validateBlipText('blip-link-second-trial-group-no-change-blips', '7 no change blips')
+      })
+
+      it('verify group-blip text does not appear in quadrant view', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('second')
+        radarPage.validateActiveQuadrant('platforms', 'second')
+        radarPage.validateNoBlipToolTip('blip-link-second-trial-group-new-blips')
+        radarPage.validateNoBlipToolTip('blip-link-second-trial-group-no-change-blips')
+      })
+
+      it('blip in table gets highlighted on hover on blip in graph', () => {
+        radarPage.clickQuadrantInFullRadarViewTablet('second')
+        radarPage.validateActiveQuadrant('platforms', 'second')
+        const blipId = '41'
+        radarPage.hoverBlipInRadarGraph(blipId)
+        radarPage.validBlipHighlightedInQuadrantTable(blipId)
+      })
+    })
+
+    context('Mobile resolution (360px)', () => {
+      beforeEach(function () {
+        cy.viewport(360, 480)
+      })
+      it('Validate public Google Sheet', () => {
+        cy.viewport(360, 480)
+        cy.visit(Cypress.env('host'))
+
+        byorPage.typeString('/')
+        byorPage.validateUrlInputFocused()
+
+        byorPage.typeStringInUrlInput('abc/def 123/456')
+        byorPage.validateUrlInputValue('abc/def 123/456')
+
+        byorPage.providePublicSheetUrl()
+        byorPage.clickSubmitButton()
+
+        radarPage.validateGraphTitle(testConfig.PUBLIC_GOOGLE_SHEET_TITLE)
+
+        radarPage.validateMobileQuadrantsVisible()
+        radarPage.validateGraphHidden()
+        radarPage.validateQuadrantOrder()
+        radarPage.validateRingOrder()
+
+        radarPage.clickQuadrantInFullRadarViewTablet('first')
+        radarPage.validateActiveQuadrantInSubnav('techniques')
+        radarPage.validateGraphHidden()
+        radarPage.validateRingsInQuadrantTable(4)
+        radarPage.validateBlipsInQuadrantTable(26)
+
+        radarPage.clickBlipItemInQuadrantTable(1)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(1)
+
+        radarPage.clickBlipItemInQuadrantTable(2)
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(2)
+        radarPage.validateBlipDescriptionHiddenInQuadrantTable(1)
+
+        radarPage.resetRadarView()
+
+        radarPage.validateSubnavDropdownHiddenTablet()
+        radarPage.clickSubnavDropdownTablet()
+        radarPage.validateSubnavDropdownVisibleTablet()
+        radarPage.clickQuadrantInSubnav('tools')
+        radarPage.validateSubnavDropdownHiddenTablet()
+        radarPage.validateActiveQuadrantInSubnav('tools')
+        radarPage.validateGraphHidden()
+
+        radarPage.clickSubnavDropdownTablet()
+        radarPage.clickQuadrantInSubnav('all-quadrants')
+        radarPage.validateMobileQuadrantsVisible()
+        radarPage.validateGraphHidden()
+
+        radarPage.resetRadarView()
+
+        radarPage.validateSearchResults('framework', 25)
+        radarPage.clickSearchResult(1)
+        radarPage.validateActiveQuadrantInSubnav('techniques')
+        radarPage.validateGraphHidden()
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(5)
+
+        radarPage.triggerSearch('framework')
+        radarPage.clickSearchResult(8)
+        radarPage.validateActiveQuadrantInSubnav('platforms')
+        radarPage.validateGraphHidden()
+        radarPage.validateBlipDescriptionVibisbleInQuadrantTable(41)
+
+        radarPage.resetRadarView()
+
+        radarPage.validateSearchVisible()
+
+        radarPage.typeString('/')
+        radarPage.validateSearchFocused()
+
+        radarPage.typeStringInSearch('abc/def 123/456')
+        radarPage.validateSearchValue('abc/def 123/456')
+
+        radarPage.clickAlternateRadarItem(2)
+        radarPage.validateActiveAlternateRadar(2)
+        radarPage.validateInactiveAlternateRadar(1)
+      })
     })
   })
 } else {
