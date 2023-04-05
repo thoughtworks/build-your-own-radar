@@ -243,6 +243,7 @@
     }
 
     @if $UIRefresh2022 {
+      overflow: clip;
       &.first {
         float: left;
       }
