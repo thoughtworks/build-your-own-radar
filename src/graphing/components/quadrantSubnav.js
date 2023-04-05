@@ -1,6 +1,6 @@
 const d3 = require('d3')
 const { selectRadarQuadrant, mouseoverQuadrant, mouseoutQuadrant, removeScrollListener } = require('./quadrants')
-const { getRingIdString } = require('../../util/util')
+const { getRingIdString } = require('../../util/stringUtil')
 const { uiConfig } = require('../config')
 
 function addListItem(quadrantList, name, callback, order) {
@@ -8,6 +8,7 @@ function addListItem(quadrantList, name, callback, order) {
     .append('li')
     .attr('id', `subnav-item-${getRingIdString(name)}`)
     .classed('quadrant-subnav__list-item', true)
+    .attr('title', name)
     .append('button')
     .classed('quadrant-subnav__list-item__button', true)
     .attr('role', 'tab')

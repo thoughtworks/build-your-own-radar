@@ -1,7 +1,6 @@
 module.exports = {
   clearMocks: true,
   collectCoverageFrom: ['src/**/*.js'],
-  coveragePathIgnorePatterns: ['<rootDir>/src/graphing/components/'],
   testEnvironment: 'jsdom',
   transform: {
     '^.+\\.[jt]sx?$': 'babel-jest',
@@ -10,10 +9,10 @@ module.exports = {
   testMatch: ['**/spec/**/*-spec.js'],
   coverageThreshold: {
     global: {
-      statements: 19.88,
-      branches: 11.5,
-      lines: 20.01,
-      functions: 22.04,
+      statements: 23.95,
+      branches: 20.55,
+      functions: 28.98,
+      lines: 24.09,
     },
   },
 }

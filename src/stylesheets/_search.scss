@@ -68,6 +68,7 @@
       margin-bottom: 30px;
       background: #ebebeb url(images/search-active-wave.svg) no-repeat 98% center;
       font-family: $baseFontFamily;
+      scroll-margin-top: $subnavHeight;
 
       @include media-query-medium {
         height: 100%;

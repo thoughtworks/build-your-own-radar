@@ -34,6 +34,10 @@
     text-align: center;
   }
 
+  p.with-error {
+    margin-top: 48px;
+  }
+
   form {
     display: flex;
     flex-direction: column;
@@ -71,6 +75,10 @@
       &:focus {
         outline: auto;
       }
+    }
+    input:disabled {
+      cursor: not-allowed;
+      opacity: 0.9;
     }
   }
 }

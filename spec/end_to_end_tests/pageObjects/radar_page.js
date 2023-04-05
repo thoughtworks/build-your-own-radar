@@ -27,11 +27,12 @@ class RadarPage {
     this.subnavList = '.quadrant-subnav__list'
     this.radarGraphSvg = 'svg#radar-plot'
     this.mobileQuadrants = '.all-quadrants-mobile'
+    this.tooltip = '.d3-tip'
     this.quadrantTableBlip = function (blipId) {
-      return `.quadrant-table.selected .blip-list__item .blip-list__item-container[data-blip-id="${blipId}"]`
+      return `.quadrant-table.selected .blip-list__item-container[data-blip-id="${blipId}"]`
     }
     this.quadrantTableBlipDescription = function (blipId) {
-      return `.quadrant-table.selected .blip-list__item .blip-list__item-container[data-blip-id="${blipId}"] #blip-description-${blipId}`
+      return `.quadrant-table.selected .blip-list__item-container[data-blip-id="${blipId}"] #blip-description-${blipId}`
     }
     this.radarGraphBlip = function (blipId) {
       return `a.blip-link[data-blip-id="${blipId}"]`
@@ -85,6 +86,10 @@ class RadarPage {
     cy.get(this.radarGraphBlip(blipId)).click()
   }
 
+  hoverBlipInRadarGraph(blipId) {
+    cy.get(this.radarGraphBlip(blipId)).trigger('mouseover')
+  }
+
   clickQuadrantInSubnav(quadrantName) {
     cy.get(this.subnavQuadrant(quadrantName)).click()
   }
@@ -111,8 +116,33 @@ class RadarPage {
     cy.get(this.searchBox).type(query)
   }
 
+  typeString(string) {
+    cy.get('body').type(string)
+  }
+
+  typeStringInSearch(string) {
+    cy.get(this.searchBox).clear()
+    cy.get(this.searchBox).type(string)
+  }
+
   validateBlipDescription(text) {
     cy.get(this.blipDescription).contains(text)
+  }
+
+  validateBlipText(blipId, text) {
+    cy.get(`#${blipId}`).contains(text)
+  }
+
+  validateNoBlipToolTip(blipId) {
+    cy.get(`#${blipId}`).trigger('mouseout') // cleanup of previous hover
+    cy.get(`#${blipId}`).trigger('mouseover')
+    cy.get(this.tooltip).should('have.attr', 'style').and('contains', 'opacity: 0')
+    cy.get(this.tooltip).should('have.attr', 'style').and('contains', 'pointer-events: none')
+  }
+
+  validateBlipToolTip(blipId, text) {
+    cy.get(`#${blipId}`).trigger('mouseover')
+    cy.get(this.tooltip).contains(text)
   }
 
   validateBlipDescriptionOld(text) {
@@ -183,6 +213,10 @@ class RadarPage {
   validateBlipDescriptionVibisbleInQuadrantTable(blipId) {
     cy.get(this.quadrantTableBlip(blipId)).should('have.class', 'expand')
     cy.get(this.quadrantTableBlipDescription(blipId)).should('be.visible')
+  }
+
+  validBlipHighlightedInQuadrantTable(blipId) {
+    cy.get(this.quadrantTableBlip(blipId)).parent('.blip-list__item').should('have.class', 'highlight')
   }
 
   validateBlipDescriptionHiddenInQuadrantTable(blipId) {
@@ -260,6 +294,18 @@ class RadarPage {
     }
 
     this.validateActiveQuadrantInSubnav(quadrantName)
+  }
+
+  validateSearchVisible() {
+    cy.get(this.searchBox).should('be.visible')
+  }
+
+  validateSearchFocused() {
+    cy.get(this.searchBox).should('have.focus')
+  }
+
+  validateSearchValue(value) {
+    cy.get(this.searchBox).should('have.value', value)
   }
 
   resetRadarView() {

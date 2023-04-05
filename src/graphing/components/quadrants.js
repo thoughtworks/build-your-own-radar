@@ -1,7 +1,7 @@
 const d3 = require('d3')
-const { getElementWidth, getElementHeight } = require('../../util/htmlUtil')
+const { getElementWidth, getElementHeight, decodeHTML } = require('../../util/htmlUtil')
 const { toRadian } = require('../../util/mathUtils')
-const { getRingIdString } = require('../../util/util')
+const { getRingIdString } = require('../../util/stringUtil')
 const {
   graphConfig,
   getGraphSize,
@@ -176,7 +176,90 @@ function selectRadarQuadrant(order, startAngle, name) {
   }
 }
 
-function renderRadarQuadrantName(quadrant, parentGroup) {
+function wrapQuadrantNameInMultiLine(elem, isTopQuadrants, quadrantNameGroup, tip) {
+  const maxWidth = 150
+  const element = elem.node()
+  const text = decodeHTML(element.innerHTML)
+  const dy = isTopQuadrants ? 0 : -20
+
+  const words = text.split(' ')
+  let line = ''
+
+  element.innerHTML = `<tspan id="text-width-check">${text}</tspan >`
+  const testElem = document.getElementById('text-width-check')
+
+  function maxCharactersToFit(testLine, suffix) {
+    let j = 1
+    let firstLineWidth = 0
+    const testElem1 = document.getElementById('text-width-check')
+    testElem1.innerHTML = testLine
+    if (testElem1.getBoundingClientRect().width < maxWidth) {
+      return testLine.length
+    }
+    while (firstLineWidth < maxWidth && testLine.length > j) {
+      testElem1.innerHTML = testLine.substring(0, j) + suffix
+      firstLineWidth = testElem1.getBoundingClientRect().width
+
+      j++
+    }
+    return j - 1
+  }
+
+  function ellipsis(lineBreakIndex, secondLine) {
+    if (lineBreakIndex >= secondLine.length) {
+      return ''
+    } else {
+      quadrantNameGroup.on('mouseover', () => tip.show(text, quadrantNameGroup.node()))
+      quadrantNameGroup.on('mouseout', () => tip.hide(text, quadrantNameGroup.node()))
+      return '...'
+    }
+  }
+
+  if (testElem.getBoundingClientRect().width > maxWidth) {
+    for (let i = 0; i < words.length; i++) {
+      let testLine = line + words[i] + ' '
+      testElem.innerHTML = testLine
+      const textWidth = testElem.getBoundingClientRect().width
+
+      if (textWidth > maxWidth) {
+        if (i === 0) {
+          let lineBreakIndex = maxCharactersToFit(testLine, '-')
+          element.innerHTML += '<tspan x="0" dy="' + dy + '">' + words[i].substring(0, lineBreakIndex) + '-</tspan>'
+          const secondLine = words[i].substring(lineBreakIndex, words[i].length) + ' ' + words.slice(i + 1).join(' ')
+          lineBreakIndex = maxCharactersToFit(secondLine, '...')
+          element.innerHTML +=
+            '<tspan x="0" dy="' +
+            20 +
+            '">' +
+            secondLine.substring(0, lineBreakIndex) +
+            ellipsis(lineBreakIndex, secondLine) +
+            '</tspan>'
+          break
+        } else {
+          element.innerHTML += '<tspan x="0" dy="' + dy + '">' + line + '</tspan>'
+          const secondLine = words.slice(i).join(' ')
+          const lineBreakIndex = maxCharactersToFit(secondLine, '...')
+          element.innerHTML +=
+            '<tspan x="0" dy="' +
+            20 +
+            '">' +
+            secondLine.substring(0, lineBreakIndex) +
+            ellipsis(lineBreakIndex, secondLine) +
+            '</tspan>'
+        }
+        line = words[i] + ' '
+      } else {
+        line = testLine
+      }
+    }
+  } else {
+    element.innerHTML += '<tspan x="0">' + text + '</tspan>'
+  }
+
+  document.getElementById('text-width-check').remove()
+}
+
+function renderRadarQuadrantName(quadrant, parentGroup, tip) {
   const adjustX = Math.sin(toRadian(quadrant.startAngle)) - Math.cos(toRadian(quadrant.startAngle))
   const adjustY = -Math.cos(toRadian(quadrant.startAngle)) - Math.sin(toRadian(quadrant.startAngle))
   const quadrantNameGroup = parentGroup.append('g').classed('quadrant-name-group', true)
@@ -188,46 +271,38 @@ function renderRadarQuadrantName(quadrant, parentGroup) {
     ctaArrowXOffset,
     ctaArrowYOffset = -12
 
-  let quadrantNamesSplit = quadrantNameToDisplay.split(' & ')
-  if (quadrantNamesSplit.length > 1) {
-    quadrantNameGroup
-      .append('text')
-      .text(quadrantNamesSplit[0] + ' & ')
-      .attr('font-weight', 'bold')
-      .attr('text-anchor', 'end')
-      .attr('transform', 'translate(4.25, -20)')
-    quadrantNameToDisplay = quadrantNamesSplit.slice(1).join(' ')
-  } else {
-    quadrantNameToDisplay = quadrantNamesSplit[0]
-  }
-
-  if (adjustX < 0) {
-    anchor = 'start'
-    translateX = 60
-    ctaArrowXOffset = quadrantNameToDisplay.length * 11
-  } else {
-    anchor = 'end'
-    translateX = effectiveQuadrantWidth * 2 - 50
-    ctaArrowXOffset = 10
-  }
-  if (adjustY < 0) {
-    translateY = 60
-  } else {
-    translateY = effectiveQuadrantWidth * 2 - 60
-  }
-
   const quadrantName = quadrantNameGroup.append('text')
   const ctaArrow = quadrantNameGroup
     .append('polygon')
     .attr('class', 'quadrant-name-cta')
     .attr('points', '5.2105e-4 11.753 1.2874 13 8 6.505 1.2879 0 0 1.2461 5.4253 6.504')
     .attr('fill', '#e16a7c')
+  quadrantName.text(quadrantNameToDisplay).attr('font-weight', 'bold')
+
+  wrapQuadrantNameInMultiLine(quadrantName, adjustY < 0, quadrantNameGroup, tip)
+  let renderedText = document
+    .querySelector(`.quadrant-group-${quadrant.order} .quadrant-name-group text`)
+    .getBoundingClientRect()
+  ctaArrowXOffset = renderedText.width + 10
+  anchor = 'start'
+
+  if (adjustX < 0) {
+    translateX = 60
+  } else {
+    translateX = quadrantWidth * 2 - quadrantsGap - renderedText.width
+  }
+  if (adjustY < 0) {
+    ctaArrowYOffset = renderedText.height > 22 ? 8 : ctaArrowYOffset
+    translateY = 60
+  } else {
+    translateY = effectiveQuadrantWidth * 2 - 60
+  }
+  quadrantName.attr('text-anchor', anchor)
   quadrantNameGroup.attr('transform', 'translate(' + translateX + ', ' + translateY + ')')
-  quadrantName.text(quadrantNameToDisplay).attr('font-weight', 'bold').attr('text-anchor', anchor)
   ctaArrow.attr('transform', `translate(${ctaArrowXOffset}, ${ctaArrowYOffset})`)
 }
 
-function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator) {
+function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator, tip) {
   const quadrantGroup = svg
     .append('g')
     .attr('class', 'quadrant-group quadrant-group-' + quadrant.order)
@@ -275,7 +350,10 @@ function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator) {
       .append('path')
       .attr('d', arc)
       .attr('class', 'ring-arc-' + ring.order())
-      .attr('transform', 'translate(' + 528 + ', ' + 528 + ')')
+      .attr(
+        'transform',
+        'translate(' + graphConfig.effectiveQuadrantWidth + ', ' + graphConfig.effectiveQuadrantHeight + ')',
+      )
   })
 
   quadrantGroup
@@ -290,7 +368,7 @@ function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator) {
     .attr('stroke-width', 2)
     .attr('stroke', '#71777d')
 
-  renderRadarQuadrantName(quadrant, quadrantGroup)
+  renderRadarQuadrantName(quadrant, quadrantGroup, tip)
   return quadrantGroup
 }
 
@@ -469,4 +547,5 @@ module.exports = {
   mouseoutQuadrant,
   stickQuadrantOnScroll,
   removeScrollListener,
+  wrapQuadrantNameInMultiLine,
 }

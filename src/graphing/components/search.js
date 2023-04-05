@@ -13,7 +13,7 @@ function renderSearch(radarHeader, quadrants) {
     .attr('id', 'auto-complete')
 
   AutoComplete('#auto-complete', quadrants, function (e, ui) {
-    const blipId = ui.item.blip.number()
+    const blipId = ui.item.blip.id()
     const quadrant = ui.item.quadrant
 
     selectRadarQuadrant(quadrant.order, quadrant.startAngle, quadrant.quadrant.name())
