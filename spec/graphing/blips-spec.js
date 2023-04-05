@@ -6,6 +6,7 @@ const {
   getGroupBlipTooltipText,
   blipAssistiveText,
   createGroupBlip,
+  thereIsCollision,
 } = require('../../src/graphing/blips')
 const Chance = require('chance')
 const { graphConfig } = require('../../src/graphing/config')
@@ -119,12 +120,12 @@ describe('Blips', function () {
   it('should return first quadrant group blip coordinates for ring1', function () {
     const baseCoords = groupBlipsBaseCoords(0)
 
-    expect(baseCoords.new).toEqual([419.94200893545406, 442.552])
-    expect(baseCoords['no change']).toEqual([379.94200893545406, 471.552])
+    expect(baseCoords.New).toEqual([419.94200893545406, 442.552])
+    expect(baseCoords['No change']).toEqual([379.94200893545406, 471.552])
   })
 
   it('should transpose base coords for a new blip in ring1 to other three quadrants', function () {
-    const newBlipBaseCoords = groupBlipsBaseCoords(0).new
+    const newBlipBaseCoords = groupBlipsBaseCoords(0).New
 
     const coordsMap = transposeQuadrantCoords(newBlipBaseCoords, graphConfig.newGroupBlipWidth)
     expect(coordsMap.first).toEqual(newBlipBaseCoords)
@@ -135,20 +136,20 @@ describe('Blips', function () {
 
   it('should return first quadrant group blip coordinates for ring2 with index 1', function () {
     const baseCoords = groupBlipsBaseCoords(1)
-    expect(baseCoords.new).toEqual([287.0075702088335, 340.86317046071997])
-    expect(baseCoords['no change']).toEqual([247.0075702088335, 369.86317046071997])
+    expect(baseCoords.New).toEqual([287.0075702088335, 340.86317046071997])
+    expect(baseCoords['No change']).toEqual([247.0075702088335, 369.86317046071997])
   })
 
   it('should return first quadrant group blip coordinates for ring3 with index 2', function () {
     const baseCoords = groupBlipsBaseCoords(2)
-    expect(baseCoords.new).toEqual([300.048, 153.99348500067663])
-    expect(baseCoords['no change']).toEqual([260.048, 182.99348500067663])
+    expect(baseCoords.New).toEqual([300.048, 153.99348500067663])
+    expect(baseCoords['No change']).toEqual([260.048, 182.99348500067663])
   })
 
   it('should return first quadrant group blip coordinates for ring4 with index 3', function () {
     const baseCoords = groupBlipsBaseCoords(3)
-    expect(baseCoords.new).toEqual([408.91602532749283, 23.149928577467563])
-    expect(baseCoords['no change']).toEqual([368.91602532749283, 52.14992857746756])
+    expect(baseCoords.New).toEqual([408.91602532749283, 23.149928577467563])
+    expect(baseCoords['No change']).toEqual([368.91602532749283, 52.14992857746756])
   })
 
   it('should return group blip tool tip text as "Click to view all" count is more than 15', function () {
@@ -183,21 +184,29 @@ describe('Blips', function () {
           name: () => 'ring1',
         }
       },
-      blipText: () => '12 new blips',
+      blipText: () => '12 New Blips',
       name: 'blip1',
       isNew: () => true,
     }
 
     const actual = blipAssistiveText(blip)
-    expect(actual).toEqual('`ring1 ring, group of 12 new blips')
+    expect(actual).toEqual('`ring1 ring, group of 12 New Blips')
   })
 
   it('should return group blip with appropriate values', function () {
     const ringBlips = mockRingBlips(20)
-    const groupBlip = createGroupBlip(ringBlips, 'new', { name: () => 'ring1' }, 'first')
+    const groupBlip = createGroupBlip(ringBlips, 'New', { name: () => 'ring1' }, 'first')
     expect(groupBlip).toBeTruthy()
-    expect(groupBlip.blipText()).toEqual('20 new blips')
+    expect(groupBlip.blipText()).toEqual('20 New Blips')
     expect(groupBlip.id()).toEqual('first-ring1-group-new-blips')
     expect(groupBlip.isGroup()).toEqual(true)
+  })
+
+  it('should return true when the given coords are colliding with existing coords', function () {
+    const existingCoords = [{ coordinates: [10, 10], width: 22 }]
+
+    expect(thereIsCollision([10, 10], existingCoords, 22)).toBe(true)
+    expect(thereIsCollision([41, 41], existingCoords, 22)).toBe(true)
+    expect(thereIsCollision([42, 42], existingCoords, 22)).toBe(false)
   })
 })

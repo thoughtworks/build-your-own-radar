@@ -676,6 +676,12 @@ const Radar = function (size, radar) {
     d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')').style('opacity', 1)
   }
 
+  function hideTooltipOnScroll(tip) {
+    window.addEventListener('scroll', () => {
+      tip.hide().style('left', 0).style('top', 0)
+    })
+  }
+
   function selectQuadrant(order, startAngle) {
     d3.selectAll('.home-link').classed('selected', false)
     createHomeLink(d3.select('header'))
@@ -834,6 +840,7 @@ const Radar = function (size, radar) {
 
     if (featureToggles.UIRefresh2022) {
       renderRadarLegends(radarElement)
+      hideTooltipOnScroll(tip)
     }
   }
 

@@ -15,6 +15,12 @@ function highlightBlipInTable(selectedBlip) {
   selectedBlip.classed('highlight', true)
 }
 
+function highlightBlipInGraph(blipIdToFocus) {
+  fadeOutAllBlips()
+  const selectedBlipOnGraph = d3.select(`g > a.blip-link[data-blip-id='${blipIdToFocus}'`)
+  fadeInSelectedBlip(selectedBlipOnGraph)
+}
+
 function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) {
   let blipTableItem = d3.select(`.quadrant-table.${quadrant.order} ul:nth-of-type(${ring.order() + 1})`)
   if (!groupBlipTooltipText) {
@@ -65,13 +71,11 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
   }
   const blipGraphItem = d3.select(`g a#blip-link-${removeAllSpaces(blip.id())}`)
   const mouseOver = function (e) {
-    const blipWrapper = d3.select(e.target.parentElement)
+    const targetElement = e.target.classList.contains('blip-link') ? e.target : e.target.parentElement
+    const blipWrapper = d3.select(targetElement)
     const blipIdToFocus = blip.groupIdInGraph() ? blipWrapper.attr('data-group-id') : blipWrapper.attr('data-blip-id')
-
-    fadeOutAllBlips()
-
     const selectedBlipOnGraph = d3.select(`g > a.blip-link[data-blip-id='${blipIdToFocus}'`)
-    fadeInSelectedBlip(selectedBlipOnGraph)
+    highlightBlipInGraph(blipIdToFocus)
     highlightBlipInTable(blipTableItem)
 
     const isQuadrantView = d3.select('svg#radar-plot').classed('quadrant-view')
@@ -91,11 +95,14 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
 
   const blipClick = function (e) {
     const isQuadrantView = d3.select('svg#radar-plot').classed('quadrant-view')
+    const targetElement = e.target.classList.contains('blip-link') ? e.target : e.target.parentElement
     if (isQuadrantView) {
       e.stopPropagation()
     }
 
-    const blipId = d3.select(e.target.parentElement).attr('data-blip-id')
+    const blipId = d3.select(targetElement).attr('data-blip-id')
+    const ringName = d3.select(targetElement).attr('data-ring-name')
+    highlightBlipInGraph(blipId)
 
     d3.selectAll('.blip-list__item-container.expand').classed('expand', false)
 
@@ -108,7 +115,7 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
           stickQuadrantOnScroll()
         }
 
-        const isGroupBlip = isNaN(parseInt(blipId));
+        const isGroupBlip = isNaN(parseInt(blipId))
         const elementToFocus = isGroupBlip
           ? d3.select(`.quadrant-table.selected h2.quadrant-table__ring-name[data-ring-name="${ringName}"]`)
           : selectedBlipContainer.select('button.blip-list__item-container__name')
@@ -161,7 +168,8 @@ function renderQuadrantTables(quadrants, rings) {
     }
 
     rings.forEach(function (ring) {
-      quadrantContainer.append('h2')
+      quadrantContainer
+        .append('h2')
         .classed('quadrant-table__ring-name', true)
         .attr('data-ring-name', ring.name())
         .text(ring.name())

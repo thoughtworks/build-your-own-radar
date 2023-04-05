@@ -326,4 +326,5 @@ module.exports = {
   getGroupBlipTooltipText,
   blipAssistiveText,
   createGroupBlip,
+  thereIsCollision,
 }
