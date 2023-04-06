@@ -5,6 +5,8 @@ const { renderBlipDescription } = require('./components/quadrantTables')
 const Blip = require('../models/blip')
 const isEmpty = require('lodash/isEmpty')
 const { replaceSpaceWithHyphens, removeAllSpaces } = require('../util/stringUtil')
+const config = require('../config')
+const featureToggles = config().featureToggles
 
 const getRingRadius = function (ringIndex) {
   const ratios = [0, 0.316, 0.652, 0.832, 0.992]
@@ -92,8 +94,7 @@ function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoor
     }
     iterationCounter++
   }
-
-  if (!foundAPlace && blip.width > graphConfig.minBlipWidth) {
+  if (!featureToggles.UIRefresh2022 && !foundAPlace && blip.width > graphConfig.minBlipWidth) {
     blip.width = blip.width - 1
     blip.scale = Math.max((blip.scale || 1) - 0.1, 0.7)
     return findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing, quadrantOrder)
