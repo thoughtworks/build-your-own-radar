@@ -549,13 +549,7 @@ const Radar = function (size, radar) {
 
     d3.selectAll('g.blip-link').attr('opacity', 1.0)
 
-    const radarContainer = d3.select('#radar')
-    const radarWidth = graphConfig.effectiveQuadrantWidth * 2 + graphConfig.quadrantsGap
-    svg
-      .style('left', (radarContainer.node().getBoundingClientRect().width - radarWidth) / 2)
-      .style('right', 0)
-      .style('top', 0)
-      .attr('transform', 'scale(1)')
+    svg.style('left', 0).style('right', 0).style('top', 0).attr('transform', 'scale(1)')
 
     d3.selectAll('.button').classed('selected', false).classed('full-view', true)
 
@@ -809,10 +803,6 @@ const Radar = function (size, radar) {
       const legendHeight = 40
       radarElement.style('height', size + legendHeight + 'px')
       svg.attr('id', 'radar-plot').attr('width', size).attr('height', size)
-      svg.style(
-        'left',
-        (d3.select('#radar').node().getBoundingClientRect().width - svg.node().getBoundingClientRect().width) / 2,
-      )
     } else {
       radarElement.style('height', size + 14 + 'px')
       svg
