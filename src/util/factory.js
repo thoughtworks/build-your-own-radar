@@ -425,7 +425,7 @@ function plotForm(content) {
 
   form.append('button').attr('type', 'submit').append('a').attr('class', 'button').text('Build my radar')
 
-  form.append('p').html("<a href='https://www.thoughtworks.com/radar/byor'>Need help?</a>")
+  form.append('p').html("<a href='https://www.thoughtworks.com/radar/byor#guide'>Need help?</a>")
 }
 
 function plotErrorMessage(exception, fileType) {

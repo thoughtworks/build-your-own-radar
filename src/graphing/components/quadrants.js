@@ -18,6 +18,7 @@ const { quadrantHeight, quadrantWidth, quadrantsGap, effectiveQuadrantWidth } = 
 let prevLeft, prevTop
 let quadrantScrollHandlerReference
 let scrollFlag = false
+
 function selectRadarQuadrant(order, startAngle, name) {
   d3.select('.graph-header').node().scrollIntoView({
     behavior: 'smooth',
