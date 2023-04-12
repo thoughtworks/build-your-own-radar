@@ -391,13 +391,13 @@ function renderRadarLegends(radarElement) {
 
   const noChangeImage = legendsContainer
     .append('img')
-    .attr('src', '/images/no-change.svg')
+    .attr('src', '/images/existing.svg')
     .attr('width', '37px')
     .attr('height', '37px')
-    .attr('alt', 'no change blip legend icon')
+    .attr('alt', 'existing blip legend icon')
     .node().outerHTML
 
-  legendsContainer.html(`${newImage} New ${noChangeImage} No change`)
+  legendsContainer.html(`${newImage} New ${noChangeImage} Existing`)
 }
 
 function renderMobileView(quadrant) {
