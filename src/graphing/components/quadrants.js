@@ -20,7 +20,7 @@ let quadrantScrollHandlerReference
 let scrollFlag = false
 
 function selectRadarQuadrant(order, startAngle, name) {
-  const noOfBlips = d3.selectAll('.quadrant-group-' + order + ' .blip-link').size();
+  const noOfBlips = d3.selectAll('.quadrant-group-' + order + ' .blip-link').size()
   d3.select('#radar').classed('no-blips', noOfBlips === 0)
 
   d3.select('.graph-header').node().scrollIntoView({
@@ -309,7 +309,6 @@ function renderRadarQuadrantName(quadrant, parentGroup, tip) {
 }
 
 function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator, tip) {
-
   const quadrantGroup = svg
     .append('g')
     .attr('class', 'quadrant-group quadrant-group-' + quadrant.order)
