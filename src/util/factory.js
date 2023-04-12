@@ -80,73 +80,58 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   new GraphingRadar(size, radar).init().plot()
 }
 
-function validateInputQuadrantName(allQuadrants, quadrant) {
-  let quadrantNames = Object.keys(allQuadrants)
-  let regexToFixLanguagesAndFrameworks = /(-|\s+)(and)(-|\s+)|\s*(&)\s*/g
-  let formattedInputQuadrant = quadrant.toLowerCase().replace(regexToFixLanguagesAndFrameworks, ' & ')
-  const index = quadrantNames.map((quadrant) => quadrant.toLowerCase()).indexOf(formattedInputQuadrant)
-  return quadrantNames[index]
+function validateInputQuadrantOrRingName(allQuadrantsOrRings, quadrantOrRing) {
+  const quadrantOrRingNames = Object.keys(allQuadrantsOrRings)
+  const regexToFixLanguagesAndFrameworks = /(-|\s+)(and)(-|\s+)|\s*(&)\s*/g
+  const formattedInputQuadrant = quadrantOrRing.toLowerCase().replace(regexToFixLanguagesAndFrameworks, ' & ')
+  return quadrantOrRingNames.find((quadrantOrRing) => quadrantOrRing.toLowerCase() === formattedInputQuadrant)
 }
 
 const plotRadarGraph = function (title, blips, currentRadarName, alternativeRadars) {
-  if (title.endsWith('.csv')) {
-    title = title.substring(0, title.length - 4)
-  }
-  if (title.endsWith('.json')) {
-    title = title.substring(0, title.length - 5)
-  }
-  document.title = title
+  document.title = title.replace(/.(csv|json)$/, '')
+
   d3.selectAll('.loading').remove()
 
-  const ringsFromInput = _.map(_.uniqBy(blips, 'ring'), 'ring')
-  const ringMap = {}
-  const allRings = []
-  const maxRings = 4
-  const quadrants = {}
+  const ringMap = graphConfig.rings.reduce((allRings, ring, index) => {
+    allRings[ring] = new Ring(ring, index)
+    return allRings
+  }, {})
 
-  if (ringsFromInput.length > maxRings) {
-    throw new MalformedDataError(ExceptionMessages.TOO_MANY_RINGS)
-  }
-
-  graphConfig.rings.forEach((ring, index) => {
-    let ringObj = new Ring(ring, index)
-    ringMap[ring] = ringObj
-    allRings.push(ringObj)
-  })
-
-  graphConfig.quadrants.forEach((quadrant) => (quadrants[quadrant] = new Quadrant(quadrant)))
+  const quadrants = graphConfig.quadrants.reduce((allQuadrants, quadrant) => {
+    allQuadrants[quadrant] = new Quadrant(quadrant)
+    return allQuadrants
+  }, {})
 
   blips.forEach((blip) => {
-    const currentQuadrant = validateInputQuadrantName(quadrants, blip.quadrant)
-    if (quadrants[currentQuadrant]) {
-      const ring = blip.ring.charAt(0).toUpperCase() + blip.ring.slice(1)
-      quadrants[currentQuadrant].add(
-        new Blip(blip.name, ringMap[ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description),
+    const currentQuadrant = validateInputQuadrantOrRingName(quadrants, blip.quadrant)
+    const ring = validateInputQuadrantOrRingName(ringMap, blip.ring)
+    if (currentQuadrant && ring) {
+      const blipObj = new Blip(
+        blip.name,
+        ringMap[ring],
+        blip.isNew.toLowerCase() === 'true',
+        blip.topic,
+        blip.description,
       )
+      quadrants[currentQuadrant].add(blipObj)
     }
   })
 
   const radar = new Radar()
-  radar.addRings(allRings)
+  radar.addRings(Object.values(ringMap))
+
   _.each(quadrants, function (quadrant) {
     radar.addQuadrant(quadrant)
   })
 
-  if (alternativeRadars !== undefined || true) {
-    alternativeRadars.forEach(function (sheetName) {
-      radar.addAlternative(sheetName)
-    })
-  }
+  alternativeRadars.forEach(function (sheetName) {
+    radar.addAlternative(sheetName)
+  })
 
-  if (currentRadarName !== undefined || true) {
-    radar.setCurrentSheet(currentRadarName)
-  }
+  radar.setCurrentSheet(currentRadarName)
 
-  const size = featureToggles.UIRefresh2022
-    ? getGraphSize()
-    : window.innerHeight - 133 < 620
-    ? 620
-    : window.innerHeight - 133
+  const graphSize = window.innerHeight - 133 < 620 ? 620 : window.innerHeight - 133
+  const size = featureToggles.UIRefresh2022 ? getGraphSize() : graphSize
   new GraphingRadar(size, radar).init().plot()
 }
 
@@ -344,7 +329,6 @@ const Factory = function () {
       sheet.init().build()
     } else if (domainName && domainName.endsWith('google.com') && paramId) {
       sheet = GoogleSheet(paramId, queryParams.sheetName)
-
       sheet.init().build()
     } else {
       if (!featureToggles.UIRefresh2022) {
@@ -441,7 +425,7 @@ function plotForm(content) {
 
   form.append('button').attr('type', 'submit').append('a').attr('class', 'button').text('Build my radar')
 
-  form.append('p').html("<a href='https://www.thoughtworks.com/radar/how-to-byor'>Need help?</a>")
+  form.append('p').html("<a href='https://www.thoughtworks.com/radar/byor#guide'>Need help?</a>")
 }
 
 function plotErrorMessage(exception, fileType) {

@@ -14,6 +14,8 @@ function addListItem(quadrantList, name, callback, order) {
     .attr('role', 'tab')
     .text(name)
     .on('click', function (e) {
+      d3.select('#radar').classed('no-blips', false)
+
       removeScrollListener()
 
       d3.select('.graph-header').node().scrollIntoView({

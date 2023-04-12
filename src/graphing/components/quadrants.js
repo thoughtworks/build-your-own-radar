@@ -18,7 +18,11 @@ const { quadrantHeight, quadrantWidth, quadrantsGap, effectiveQuadrantWidth } = 
 let prevLeft, prevTop
 let quadrantScrollHandlerReference
 let scrollFlag = false
+
 function selectRadarQuadrant(order, startAngle, name) {
+  const noOfBlips = d3.selectAll('.quadrant-group-' + order + ' .blip-link').size()
+  d3.select('#radar').classed('no-blips', noOfBlips === 0)
+
   d3.select('.graph-header').node().scrollIntoView({
     behavior: 'smooth',
   })
@@ -391,13 +395,13 @@ function renderRadarLegends(radarElement) {
 
   const noChangeImage = legendsContainer
     .append('img')
-    .attr('src', '/images/no-change.svg')
+    .attr('src', '/images/existing.svg')
     .attr('width', '37px')
     .attr('height', '37px')
-    .attr('alt', 'no change blip legend icon')
+    .attr('alt', 'existing blip legend icon')
     .node().outerHTML
 
-  legendsContainer.html(`${newImage} New ${noChangeImage} No change`)
+  legendsContainer.html(`${newImage} New ${noChangeImage} Existing`)
 }
 
 function renderMobileView(quadrant) {

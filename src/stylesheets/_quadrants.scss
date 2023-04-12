@@ -15,6 +15,26 @@
     @include layout-margin(calc(12 / 12), $screen-xxlarge);
     @include layout-margin(calc(12 / 12), $screen-xxxlarge);
 
+    .no-blip-text {
+      display: none;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    &.no-blips {
+      height: auto !important;
+      .no-blip-text {
+        display: block;
+      }
+
+      .quadrant-group,
+      .quadrant-table,
+      .radar-legends {
+        display: none;
+      }
+    }
+
     .mobile {
       display: block;
     }
