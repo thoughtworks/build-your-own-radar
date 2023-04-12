@@ -1,0 +1,187 @@
+@import 'colors';
+
+@media print {
+  body {
+    margin: 0;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  @page :first {
+    margin: 0;
+  }
+  @page {
+    margin: 4rem 5rem 5.5rem;
+  }
+
+  #pdf-cover-page {
+    .pdf-banner-image {
+      width: 100%;
+      height: 50%;
+    }
+
+    .pdf-title {
+      font-family: 'Bitter', serif;
+      font-size: 4rem;
+      margin: 6rem;
+      font-weight: bold;
+    }
+  }
+  .pdf-powered-by-text {
+    float: right;
+    margin-right: 6rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    .pdf-tw-logo {
+      height: 28px;
+    }
+  }
+
+  footer.home-page {
+    a {
+      color: black;
+    }
+    p {
+      margin: 0;
+    }
+  }
+
+  .pdf-footer {
+    page-break-before: always;
+
+    .pdf-powered-by-text {
+      flex-direction: column;
+      align-items: flex-start;
+      float: left;
+      width: 100%;
+      margin-bottom: 1.5rem;
+      gap: 0;
+
+      .pdf-tw-logo {
+        margin: 2rem 0;
+      }
+
+      .pdf-footer-title {
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
+      a {
+        color: black;
+        font-size: 1.25rem;
+        margin-top: 0.5rem;
+      }
+    }
+  }
+
+  #radar {
+    display: block !important;
+    height: max-content !important;
+    a {
+      color: black;
+    }
+    a:after {
+      content: ' <' attr(href) '> ';
+      font-weight: normal;
+      color: black;
+    }
+  }
+
+  .quadrant-table__container {
+    flex-direction: column;
+
+    .quadrant-table {
+      page-break-before: always;
+      max-height: initial !important;
+      opacity: 1 !important;
+      position: static !important;
+      margin-bottom: 20px;
+
+      &__name {
+        font-size: 2rem;
+        font-weight: bold;
+        font-family: 'Bitter', serif;
+        margin-bottom: 2.5rem;
+      }
+      &__ring-name {
+        margin-bottom: 2rem;
+      }
+
+      &.first .quadrant-table__name {
+        display: block !important;
+        color: $sapphire;
+      }
+
+      &.second .quadrant-table__name {
+        display: block !important;
+        color: $turmeric;
+      }
+
+      &.third .quadrant-table__name {
+        display: block !important;
+        color: $jade;
+      }
+
+      &.fourth .quadrant-table__name {
+        display: block !important;
+        color: $flamingo;
+      }
+
+      .blip-list__item-container {
+        &__name {
+          border-bottom: none;
+          page-break-inside: auto;
+          padding: 0 !important;
+
+          &-value {
+            font-weight: bold;
+            font-size: 1.25rem;
+          }
+
+          &-arrow {
+            display: none;
+          }
+        }
+
+        &__description {
+          display: block;
+          page-break-inside: avoid;
+        }
+      }
+      ul.blip-list {
+        list-style: none;
+        margin: 0 0 3rem;
+        padding: 0;
+
+        .blip-list__item-container__description {
+          padding-left: 0;
+          line-height: 1.5 !important;
+        }
+      }
+    }
+  }
+
+  .pdf-page-footer {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    color: $mist-s30;
+    justify-content: space-between;
+    width: 98%;
+  }
+
+  .input-sheet__logo,
+  .hero-banner,
+  main > *:not(#pdf-cover-page, #radar),
+  #radar > #radar-plot,
+  .radar-legends {
+    display: none !important;
+  }
+}
+
+@media screen {
+  .pdf-footer,
+  .pdf-page-footer,
+  #pdf-cover-page {
+    display: none !important;
+  }
+}

@@ -22,6 +22,7 @@ const {
   removeScrollListener,
 } = require('./components/quadrants')
 const { renderQuadrantTables } = require('./components/quadrantTables')
+const { addQuadrantNameInPdfView } = require('./pdfPage')
 
 const { constructSheetUrl } = require('../util/urlUtils')
 const { toRadian } = require('../util/mathUtils')
@@ -820,6 +821,7 @@ const Radar = function (size, radar) {
         plotRingNames(ringTextGroup, rings, quadrant)
         plotRadarBlips(quadrantGroup, rings, quadrant, tip)
         renderMobileView(quadrant)
+        addQuadrantNameInPdfView(quadrant.order, quadrant.quadrant.name())
       } else {
         quadrantGroup = plotQuadrant(rings, quadrant)
         plotLines(quadrantGroup, quadrant)

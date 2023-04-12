@@ -1,4 +1,6 @@
 @charset "UTF-8";
+
+@media screen {
 .tooltipster-default .tooltipster-content {
   font-family: Arial, sans-serif;
   font-size: 14px;
@@ -37554,4 +37556,5 @@ html:lang(cn) .all_topics_modal h2.h1--small {
     max-width: 1624px;
     padding: 0;
   }
+}
 }
