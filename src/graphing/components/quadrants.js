@@ -23,6 +23,8 @@ function selectRadarQuadrant(order, startAngle, name) {
     behavior: 'smooth',
   })
 
+  d3.selectAll(`.quadrant-group rect`).attr('tabindex', undefined)
+
   const svg = d3.select('svg#radar-plot')
   svg.attr('data-quadrant-selected', order)
 
@@ -309,6 +311,9 @@ function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator, tip) {
     .on('mouseover', mouseoverQuadrant.bind({}, quadrant.order))
     .on('mouseout', mouseoutQuadrant.bind({}, quadrant.order))
     .on('click', selectRadarQuadrant.bind({}, quadrant.order, quadrant.startAngle, quadrant.quadrant.name()))
+    .on('keydown', function (e) {
+      if (e.key === 'Enter') selectRadarQuadrant(quadrant.order, quadrant.startAngle, quadrant.quadrant.name())
+    })
 
   const rectCoordMap = {
     first: { x: 0, y: 0, strokeDashArray: `0, ${quadrantWidth}, ${quadrantHeight + quadrantWidth}, ${quadrantHeight}` },
@@ -367,6 +372,7 @@ function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator, tip) {
     .attr('stroke-dasharray', rectCoordMap[quadrant.order].strokeDashArray)
     .attr('stroke-width', 2)
     .attr('stroke', '#71777d')
+    .attr('tabindex', 0)
 
   renderRadarQuadrantName(quadrant, quadrantGroup, tip)
   return quadrantGroup

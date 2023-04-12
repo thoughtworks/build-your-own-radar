@@ -49,9 +49,20 @@
 
     &__flamingo-btn {
       background-color: $flamingo-s40;
+      color: $white;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 220px;
+      height: 48px;
+
+      border: none;
+      font-size: 20px;
 
       &:hover {
-        background-color: $link-hover;
+        color: $white;
       }
     }
   }
