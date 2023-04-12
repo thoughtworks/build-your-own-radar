@@ -22,7 +22,7 @@ const ExceptionMessages = require('./exceptionMessages')
 const GoogleAuth = require('./googleAuth')
 const config = require('../config')
 const featureToggles = config().featureToggles
-const {getGraphSize, graphConfig, isValidConfig} = require('../graphing/config')
+const { getGraphSize, graphConfig, isValidConfig } = require('../graphing/config')
 const InvalidConfigError = require('../exceptions/invalidConfigError')
 const InvalidContentError = require('../exceptions/invalidContentError')
 const FileNotFoundError = require('../exceptions/fileNotFoundError')
@@ -75,8 +75,8 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   const size = featureToggles.UIRefresh2022
     ? getGraphSize()
     : window.innerHeight - 133 < 620
-      ? 620
-      : window.innerHeight - 133
+    ? 620
+    : window.innerHeight - 133
   new GraphingRadar(size, radar).init().plot()
 }
 
@@ -88,7 +88,7 @@ function validateInputQuadrantOrRingName(allQuadrantsOrRings, quadrantOrRing) {
 }
 
 const plotRadarGraph = function (title, blips, currentRadarName, alternativeRadars) {
-  document.title = title.replace(/.(csv|json)$/, "")
+  document.title = title.replace(/.(csv|json)$/, '')
 
   d3.selectAll('.loading').remove()
 
@@ -106,8 +106,14 @@ const plotRadarGraph = function (title, blips, currentRadarName, alternativeRada
     const currentQuadrant = validateInputQuadrantOrRingName(quadrants, blip.quadrant)
     const ring = validateInputQuadrantOrRingName(ringMap, blip.ring)
     if (currentQuadrant && ring) {
-      const blipObj = new Blip(blip.name, ringMap[ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description);
-      quadrants[currentQuadrant].add(blipObj,)
+      const blipObj = new Blip(
+        blip.name,
+        ringMap[ring],
+        blip.isNew.toLowerCase() === 'true',
+        blip.topic,
+        blip.description,
+      )
+      quadrants[currentQuadrant].add(blipObj)
     }
   })
 
@@ -124,7 +130,7 @@ const plotRadarGraph = function (title, blips, currentRadarName, alternativeRada
 
   radar.setCurrentSheet(currentRadarName)
 
-  const graphSize = window.innerHeight - 133 < 620 ? 620 : window.innerHeight - 133;
+  const graphSize = window.innerHeight - 133 < 620 ? 620 : window.innerHeight - 133
   const size = featureToggles.UIRefresh2022 ? getGraphSize() : graphSize
   new GraphingRadar(size, radar).init().plot()
 }
@@ -389,9 +395,9 @@ function plotFooter(content) {
     .append('p')
     .html(
       'Powered by <a href="https://www.thoughtworks.com"> Thoughtworks</a>. ' +
-      'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
-      'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
-      'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
+        'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
+        'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
+        'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
     )
 }
 
@@ -459,7 +465,7 @@ function plotError(exception, fileType) {
       d3.selectAll('.input-sheet-form form input').attr('disabled', true)
     }
   } else {
-    const fileTypes = {sheet: 'Google Sheet', json: 'JSON file', csv: 'CSV file'}
+    const fileTypes = { sheet: 'Google Sheet', json: 'JSON file', csv: 'CSV file' }
     const file = fileTypes[fileType]
     message = `Oops! We can't find the ${file} you've entered`
     if (exception instanceof MalformedDataError) {
