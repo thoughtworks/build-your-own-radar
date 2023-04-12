@@ -84,6 +84,7 @@
         padding: 0;
         height: 100%;
         box-sizing: border-box;
+        font-size: 16px;
 
         @include media-query-xlarge {
           max-width: 20% !important;
@@ -121,6 +122,7 @@
           border: none;
           font: inherit;
           cursor: pointer;
+          background-color: $mist;
 
           @include media-query-xlarge {
             padding: 0 40px;
