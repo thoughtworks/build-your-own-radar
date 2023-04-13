@@ -67,7 +67,7 @@ commands:
     steps:
       - run:
           name: Build code
-          command: API_KEY=<< parameters.api_key >> CLIENT_ID=<< parameters.client_id >> GTM_ID=<< parameters.gtm_id >> npm run build:<< parameters.mode >>
+          command: API_KEY=<< parameters.api_key >> CLIENT_ID=<< parameters.client_id >> GTM_ID=<< parameters.gtm_id >> ADOBE_LAUNCH_SCRIPT_URL=<< parameters.adobe_launch_script_url >> npm run build:<< parameters.mode >>
       - aws-cli/setup
       - run:
           name: Sync build artifacts to S3
