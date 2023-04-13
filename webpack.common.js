@@ -38,6 +38,7 @@ const plugins = [
     'process.env.GTM_ID': JSON.stringify(process.env.GTM_ID),
     'process.env.RINGS': JSON.stringify(process.env.RINGS),
     'process.env.QUADRANTS': JSON.stringify(process.env.QUADRANTS),
+    'process.env.ADOBE_LAUNCH_SCRIPT_URL': JSON.stringify(process.env.ADOBE_LAUNCH_SCRIPT_URL),
   }),
 ]
 

@@ -52,6 +52,9 @@ commands:
       gtm_id:
         type: string
         default: ''
+      adobe_launch_script_url:
+        type: string
+        default: ''
       bucket_name:
         type: string
         default: ''
@@ -94,6 +97,7 @@ jobs:
           api_key: $QA_API_KEY
           client_id: $QA_CLIENT_ID
           gtm_id: $QA_GTM_ID
+          adobe_launch_script_url: $QA_ADOBE_LAUNCH_SCRIPT_URL
           bucket_name: $QA_BUCKET_NAME
           distribution_id: $QA_DISTRIBUTION_ID
           mode: dev
@@ -106,6 +110,7 @@ jobs:
           api_key: $STAGE_API_KEY
           client_id: $STAGE_CLIENT_ID
           gtm_id: $QA_GTM_ID
+          adobe_launch_script_url: $STAGE_ADOBE_LAUNCH_SCRIPT_URL
           bucket_name: $STAGE_BUCKET_NAME
           distribution_id: $STAGE_DISTRIBUTION_ID
           mode: prod
@@ -121,6 +126,7 @@ jobs:
           api_key: $PROD_API_KEY
           client_id: $PROD_CLIENT_ID
           gtm_id: $PROD_GTM_ID
+          adobe_launch_script_url: $PROD_ADOBE_LAUNCH_SCRIPT_URL
           bucket_name: $PROD_BUCKET_NAME
           distribution_id: $PROD_DISTRIBUTION_ID
           mode: prod
