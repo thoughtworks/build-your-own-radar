@@ -24,6 +24,13 @@
       font-size: 4rem;
       margin: 6rem;
       font-weight: bold;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      line-height: 4.25rem;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      min-height: 250px;
     }
   }
   .pdf-powered-by-text {
