@@ -1,9 +1,9 @@
 const d3 = require('d3')
-const { selectRadarQuadrant, mouseoverQuadrant, mouseoutQuadrant, removeScrollListener } = require('./quadrants')
+const { selectRadarQuadrant, removeScrollListener } = require('./quadrants')
 const { getRingIdString } = require('../../util/stringUtil')
 const { uiConfig } = require('../config')
 
-function addListItem(quadrantList, name, callback, order) {
+function addListItem(quadrantList, name, callback) {
   quadrantList
     .append('li')
     .attr('id', `subnav-item-${getRingIdString(name)}`)
@@ -37,8 +37,6 @@ function addListItem(quadrantList, name, callback, order) {
         callback()
       }
     })
-    .on('mouseover', () => mouseoverQuadrant(order))
-    .on('mouseout', () => mouseoutQuadrant(order))
 }
 
 function renderQuadrantSubnav(radarHeader, quadrants, renderFullRadar) {
@@ -63,11 +61,8 @@ function renderQuadrantSubnav(radarHeader, quadrants, renderFullRadar) {
   })
 
   quadrants.forEach(function (quadrant) {
-    addListItem(
-      quadrantList,
-      quadrant.quadrant.name(),
-      () => selectRadarQuadrant(quadrant.order, quadrant.startAngle, quadrant.quadrant.name()),
-      quadrant.order,
+    addListItem(quadrantList, quadrant.quadrant.name(), () =>
+      selectRadarQuadrant(quadrant.order, quadrant.startAngle, quadrant.quadrant.name()),
     )
   })
 

@@ -550,7 +550,7 @@ const Radar = function (size, radar) {
 
     d3.selectAll('g.blip-link').attr('opacity', 1.0)
 
-    svg.style('left', 0).style('right', 0).style('top', 0).attr('transform', 'scale(1)')
+    svg.style('left', 0).style('right', 0).style('top', 0).attr('transform', 'scale(1)').style('transform', 'scale(1)')
 
     d3.selectAll('.button').classed('selected', false).classed('full-view', true)
 
@@ -558,6 +558,7 @@ const Radar = function (size, radar) {
     d3.selectAll('.home-link').classed('selected', false)
 
     d3.selectAll('.quadrant-group')
+      .style('display', 'block')
       .transition()
       .duration(ANIMATION_DURATION)
       .style('transform', 'scale(1)')

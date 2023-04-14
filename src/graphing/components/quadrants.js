@@ -93,6 +93,7 @@ function selectRadarQuadrant(order, startAngle, name) {
 
   svg
     .attr('transform', `scale(${scale})`)
+    .style('transform', `scale(${scale})`)
     .style('transform-origin', `0 0`)
     .attr('width', quadrantWidth)
     .attr('height', quadrantHeight + quadrantsGap)
@@ -117,15 +118,21 @@ function selectRadarQuadrant(order, startAngle, name) {
     d3.select(this.parentNode).transition().duration(ANIMATION_DURATION)
   })
 
-  d3.selectAll('.quadrant-group').style('opacity', 1)
-
-  d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')')
+  const otherQuadrants = d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')')
+  otherQuadrants
     .transition()
     .duration(ANIMATION_DURATION)
-    .style('opacity', '0')
     .style('pointer-events', 'none')
     .attr('transform', 'translate(' + translateXAll + ',' + translateYAll + ')scale(0)')
     .style('transform', null)
+    .on('end', function () {
+      otherQuadrants.style('display', 'none')
+    })
+
+  d3.selectAll('.quadrant-group').style('opacity', 0)
+  d3.selectAll('.quadrant-group-' + order)
+    .style('display', 'block')
+    .style('opacity', '1')
 
   d3.select('li.quadrant-subnav__list-item.active-item').classed('active-item', false)
   d3.select(`li#subnav-item-${getRingIdString(name)}`).classed('active-item', true)
