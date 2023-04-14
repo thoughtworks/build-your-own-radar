@@ -6,11 +6,9 @@
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
-  @page :first {
-    margin: 0;
-  }
+
   @page {
-    margin: 4rem 5rem 5.5rem;
+    margin: 20mm;
   }
 
   #pdf-cover-page {
@@ -22,23 +20,24 @@
     .pdf-title {
       font-family: 'Bitter', serif;
       font-size: 4rem;
-      margin: 6rem;
+      margin: 24mm 12mm;
       font-weight: bold;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
       line-height: 4.25rem;
-      -webkit-line-clamp: 4;
+      -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
-      min-height: 250px;
+      min-height: 200px;
     }
   }
   .pdf-powered-by-text {
     float: right;
-    margin-right: 6rem;
+    margin-right: 12mm;
     display: flex;
     align-items: center;
     gap: 1.5rem;
+
     .pdf-tw-logo {
       height: 28px;
     }
@@ -48,8 +47,10 @@
     a {
       color: black;
     }
+
     p {
       margin: 0;
+      font-style: italic;
     }
   }
 
@@ -72,10 +73,15 @@
         font-weight: bold;
         font-size: 1.5rem;
       }
+
       a {
         color: black;
         font-size: 1.25rem;
-        margin-top: 0.5rem;
+
+        &.radar-link {
+          font-style: italic;
+          margin-top: 0.5rem;
+        }
       }
     }
   }
@@ -83,9 +89,19 @@
   #radar {
     display: block !important;
     height: max-content !important;
+
+    &.no-blips .quadrant-table {
+      display: block !important;
+    }
+
+    .no-blip-text {
+      display: none !important;
+    }
+
     a {
       color: black;
     }
+
     a:after {
       content: ' <' attr(href) '> ';
       font-weight: normal;
@@ -94,9 +110,11 @@
   }
 
   .quadrant-table__container {
-    flex-direction: column;
+    width: 100%;
+    display: block;
 
     .quadrant-table {
+      float: none !important;
       page-break-before: always;
       max-height: initial !important;
       opacity: 1 !important;
@@ -108,32 +126,36 @@
         font-weight: bold;
         font-family: 'Bitter', serif;
         margin-bottom: 2.5rem;
+        display: block !important;
       }
+
       &__ring-name {
         margin-bottom: 2rem;
       }
 
       &.first .quadrant-table__name {
-        display: block !important;
         color: $sapphire;
       }
 
       &.second .quadrant-table__name {
-        display: block !important;
         color: $turmeric;
       }
 
       &.third .quadrant-table__name {
-        display: block !important;
         color: $jade;
       }
 
       &.fourth .quadrant-table__name {
-        display: block !important;
         color: $flamingo;
       }
 
+      .blip-list__item {
+        pointer-events: none;
+      }
+
       .blip-list__item-container {
+        background-color: white !important;
+
         &__name {
           border-bottom: none;
           page-break-inside: auto;
@@ -154,6 +176,7 @@
           page-break-inside: avoid;
         }
       }
+
       ul.blip-list {
         list-style: none;
         margin: 0 0 3rem;
