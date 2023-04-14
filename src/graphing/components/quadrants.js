@@ -277,7 +277,7 @@ function renderRadarQuadrantName(quadrant, parentGroup, tip) {
     ctaArrowXOffset,
     ctaArrowYOffset = -12
 
-  const quadrantName = quadrantNameGroup.append('text')
+  const quadrantName = quadrantNameGroup.append('text').attr('data-quadrant-name', quadrantNameToDisplay)
   const ctaArrow = quadrantNameGroup
     .append('polygon')
     .attr('class', 'quadrant-name-cta')
@@ -367,6 +367,7 @@ function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator, tip) {
 
   quadrantGroup
     .append('rect')
+    .classed('quadrant-rect', true)
     .attr('width', `${quadrantWidth}px`)
     .attr('height', `${quadrantHeight}px`)
     .attr('fill', 'transparent')
