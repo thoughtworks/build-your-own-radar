@@ -125,7 +125,8 @@
           background-color: $mist;
 
           @include media-query-xlarge {
-            padding: 0 40px;
+            padding: 15px 40px;
+            margin: 0 1px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
