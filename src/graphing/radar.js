@@ -22,6 +22,7 @@ const {
   removeScrollListener,
 } = require('./components/quadrants')
 const { renderQuadrantTables } = require('./components/quadrantTables')
+const { addQuadrantNameInPdfView } = require('./pdfPage')
 
 const { constructSheetUrl } = require('../util/urlUtils')
 const { toRadian } = require('../util/mathUtils')
@@ -68,7 +69,7 @@ const Radar = function (size, radar) {
       endY = startY
       startY = aux
     }
-    const strokeWidth = featureToggles.UIRefresh2022 ? 32 : 10
+    const strokeWidth = featureToggles.UIRefresh2022 ? graphConfig.quadrantsGap : 10
 
     quadrantGroup
       .append('line')
@@ -135,8 +136,9 @@ const Radar = function (size, radar) {
     })
   }
 
-  function plotRadarTexts(quadrantGroup, rings, quadrant) {
+  function plotRingNames(quadrantGroup, rings, quadrant) {
     rings.forEach(function (ring, i) {
+      const ringNameWithEllipsis = ring.name().length > 6 ? ring.name().slice(0, 6) + '...' : ring.name()
       if (quadrant.order === 'third' || quadrant.order === 'fourth') {
         quadrantGroup
           .append('text')
@@ -144,7 +146,7 @@ const Radar = function (size, radar) {
           .attr('y', CENTER + 5)
           .attr('x', CENTER + (ringCalculator.getRingRadius(i) + ringCalculator.getRingRadius(i + 1)) / 2)
           .attr('text-anchor', 'middle')
-          .text(ring.name())
+          .text(ringNameWithEllipsis)
       } else {
         quadrantGroup
           .append('text')
@@ -152,7 +154,7 @@ const Radar = function (size, radar) {
           .attr('y', CENTER + 5)
           .attr('x', CENTER - (ringCalculator.getRingRadius(i) + ringCalculator.getRingRadius(i + 1)) / 2)
           .attr('text-anchor', 'middle')
-          .text(ring.name())
+          .text(ringNameWithEllipsis)
       }
     })
   }
@@ -340,7 +342,7 @@ const Radar = function (size, radar) {
     var group = quadrantGroup
       .append('g')
       .attr('class', 'blip-link')
-      .attr('id', 'blip-link-' + blip.number())
+      .attr('id', 'blip-link-' + blip.id())
 
     if (blip.isNew()) {
       triangle(blip, x, y, order, group)
@@ -355,19 +357,19 @@ const Radar = function (size, radar) {
       // derive font-size from current blip width
       .style('font-size', (blip.width * 10) / 22 + 'px')
       .attr('text-anchor', 'middle')
-      .text(blip.number())
+      .text(blip.blipText())
 
     var blipListItem = ringList.append('li')
-    var blipText = blip.number() + '. ' + blip.name() + (blip.topic() ? '. - ' + blip.topic() : '')
+    var blipText = blip.blipText() + '. ' + blip.name() + (blip.topic() ? '. - ' + blip.topic() : '')
     blipListItem
       .append('div')
       .attr('class', 'blip-list-item')
-      .attr('id', 'blip-list-item-' + blip.number())
+      .attr('id', 'blip-list-item-' + blip.id())
       .text(blipText)
 
     var blipItemDescription = blipListItem
       .append('div')
-      .attr('id', 'blip-description-' + blip.number())
+      .attr('id', 'blip-description-' + blip.id())
       .attr('class', 'blip-item-description')
     if (blip.description()) {
       blipItemDescription.append('p').html(blip.description())
@@ -548,13 +550,7 @@ const Radar = function (size, radar) {
 
     d3.selectAll('g.blip-link').attr('opacity', 1.0)
 
-    const radarContainer = d3.select('#radar')
-    const radarWidth = graphConfig.effectiveQuadrantWidth * 2 + graphConfig.quadrantsGap
-    svg
-      .style('left', (radarContainer.node().getBoundingClientRect().width - radarWidth) / 2)
-      .style('right', 0)
-      .style('top', 0)
-      .attr('transform', 'scale(1)')
+    svg.style('left', 0).style('right', 0).style('top', 0).attr('transform', 'scale(1)').style('transform', 'scale(1)')
 
     d3.selectAll('.button').classed('selected', false).classed('full-view', true)
 
@@ -562,6 +558,7 @@ const Radar = function (size, radar) {
     d3.selectAll('.home-link').classed('selected', false)
 
     d3.selectAll('.quadrant-group')
+      .style('display', 'block')
       .transition()
       .duration(ANIMATION_DURATION)
       .style('transform', 'scale(1)')
@@ -578,22 +575,24 @@ const Radar = function (size, radar) {
     d3.selectAll('svg#radar-plot a').attr('aria-hidden', null).attr('tabindex', null)
     d3.selectAll('.quadrant-table button').attr('aria-hidden', 'true').attr('tabindex', -1)
     d3.selectAll('.blip-list__item-container__name').attr('aria-expanded', 'false')
+
+    d3.selectAll(`.quadrant-group rect:nth-child(2n)`).attr('tabindex', 0)
   }
 
   function searchBlip(_e, ui) {
     const { blip, quadrant } = ui.item
     const isQuadrantSelected = d3.select('div.button.' + quadrant.order).classed('selected')
     selectQuadrant.bind({}, quadrant.order, quadrant.startAngle)()
-    const selectedDesc = d3.select('#blip-description-' + blip.number())
+    const selectedDesc = d3.select('#blip-description-' + blip.id())
     d3.select('.blip-item-description.expanded').node() !== selectedDesc.node() &&
       d3.select('.blip-item-description.expanded').classed('expanded', false)
     selectedDesc.classed('expanded', true)
 
     d3.selectAll('g.blip-link').attr('opacity', 0.3)
-    const group = d3.select('#blip-link-' + blip.number())
+    const group = d3.select('#blip-link-' + blip.id())
     group.attr('opacity', 1.0)
     d3.selectAll('.blip-list-item').classed('highlight', false)
-    d3.select('#blip-list-item-' + blip.number()).classed('highlight', true)
+    d3.select('#blip-list-item-' + blip.id()).classed('highlight', true)
     if (isQuadrantSelected) {
       tip.show(blip.name(), group.node())
     } else {
@@ -673,6 +672,12 @@ const Radar = function (size, radar) {
 
   function mouseoutQuadrant(order) {
     d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')').style('opacity', 1)
+  }
+
+  function hideTooltipOnScroll(tip) {
+    window.addEventListener('scroll', () => {
+      tip.hide().style('left', 0).style('top', 0)
+    })
   }
 
   function selectQuadrant(order, startAngle) {
@@ -802,10 +807,6 @@ const Radar = function (size, radar) {
       const legendHeight = 40
       radarElement.style('height', size + legendHeight + 'px')
       svg.attr('id', 'radar-plot').attr('width', size).attr('height', size)
-      svg.style(
-        'left',
-        (d3.select('#radar').node().getBoundingClientRect().width - svg.node().getBoundingClientRect().width) / 2,
-      )
     } else {
       radarElement.style('height', size + 14 + 'px')
       svg
@@ -817,12 +818,13 @@ const Radar = function (size, radar) {
     _.each(quadrants, function (quadrant) {
       let quadrantGroup
       if (featureToggles.UIRefresh2022) {
-        quadrantGroup = renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator)
+        quadrantGroup = renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator, tip)
         plotLines(quadrantGroup, quadrant)
         const ringTextGroup = quadrantGroup.append('g')
-        plotRadarTexts(ringTextGroup, rings, quadrant)
+        plotRingNames(ringTextGroup, rings, quadrant)
         plotRadarBlips(quadrantGroup, rings, quadrant, tip)
         renderMobileView(quadrant)
+        addQuadrantNameInPdfView(quadrant.order, quadrant.quadrant.name())
       } else {
         quadrantGroup = plotQuadrant(rings, quadrant)
         plotLines(quadrantGroup, quadrant)
@@ -833,6 +835,7 @@ const Radar = function (size, radar) {
 
     if (featureToggles.UIRefresh2022) {
       renderRadarLegends(radarElement)
+      hideTooltipOnScroll(tip)
     }
   }
 

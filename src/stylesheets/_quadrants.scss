@@ -15,6 +15,26 @@
     @include layout-margin(calc(12 / 12), $screen-xxlarge);
     @include layout-margin(calc(12 / 12), $screen-xxxlarge);
 
+    .no-blip-text {
+      display: none;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    &.no-blips {
+      height: auto !important;
+      .no-blip-text {
+        display: block;
+      }
+
+      .quadrant-group,
+      .quadrant-table,
+      .radar-legends {
+        display: none;
+      }
+    }
+
     .mobile {
       display: block;
     }
@@ -41,7 +61,7 @@
       display: none;
       transition: none;
 
-      margin: 0;
+      margin: 0 auto;
 
       &.enable-transition {
         transition: all 1s ease;
@@ -49,12 +69,6 @@
 
       @include media-query-medium {
         display: block;
-      }
-    }
-
-    .quadrant-name-group {
-      text {
-        pointer-events: none;
       }
     }
 
@@ -183,6 +197,7 @@
     @if $UIRefresh2022 {
       circle,
       polygon,
+      rect,
       path {
         &.first {
           fill: $sapphire;
@@ -248,6 +263,7 @@
     }
 
     @if $UIRefresh2022 {
+      overflow: clip;
       &.first {
         float: left;
       }
@@ -445,6 +461,12 @@
 
       .btn-text-wrapper {
         text-align: left;
+        word-break: break-word;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
 
         @include media-query-medium {
           max-width: 60%;

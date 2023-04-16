@@ -13,6 +13,7 @@
     &__ring-name {
       text-transform: none;
       margin: 0;
+      scroll-margin-top: $subnavHeight;
     }
 
     @include media-query-xlarge {

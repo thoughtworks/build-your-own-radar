@@ -17,237 +17,140 @@
 @import 'landingpage';
 @import 'loader';
 @import 'screen';
+@import 'pdfPage';
 
 :root {
   font-family: 'Inter', sans-serif;
 }
+
 @supports (font-variation-settings: normal) {
   :root {
     font-family: 'Inter var', sans-serif;
   }
 }
 
-body {
-  font: 18px 'Open Sans';
-  opacity: 0;
-  @if $UIRefresh2022 {
-    font-family: $baseFontFamily;
-    opacity: 1;
-
-    h1 {
-      font-size: 1.5rem;
-      font-family: 'Bitter', serif;
-      text-transform: none;
-      letter-spacing: normal;
-
-      @include media-query-medium {
-        font-size: 2rem;
-      }
-
-      @include media-query-large {
-        font-size: 2.5rem;
-      }
-
-      @include media-query-xxlarge {
-        font-size: 3rem;
-      }
-
-      @include media-query-xxxlarge {
-        font-size: 3.5rem;
-      }
-    }
-
-    h2 {
-      font-size: 1.25rem;
-      font-weight: 630;
-      font-family: 'Inter', serif;
-      text-transform: none;
-      letter-spacing: normal;
-
-      @include media-query-medium {
-        font-size: 1.25rem;
-      }
-
-      @include media-query-large {
-        font-size: 1.5rem;
-      }
-
-      @include media-query-xlarge {
-        font-size: 1.5rem;
-      }
-
-      @include media-query-xxlarge {
-        font-size: 2rem;
-      }
-
-      @include media-query-xxxlarge {
-        font-size: 2rem;
-      }
-    }
-
-    p {
-      font-size: 1.125rem;
+@media screen {
+  body {
+    font: 18px 'Open Sans';
+    opacity: 0;
+    @if $UIRefresh2022 {
       font-family: $baseFontFamily;
+      opacity: 1;
 
-      @include media-query-medium {
-        font-size: 1.25rem;
-      }
-
-      @include media-query-xxlarge {
+      h1 {
         font-size: 1.5rem;
-      }
-    }
+        font-family: 'Bitter', serif;
+        text-transform: none;
+        letter-spacing: normal;
 
-    a {
-      color: $link-normal;
-      border-color: $link-normal;
+        @include media-query-medium {
+          font-size: 2rem;
+        }
 
-      &:hover {
-        color: $link-hover;
-        border-color: $link-hover;
-      }
-    }
-  }
+        @include media-query-large {
+          font-size: 2.5rem;
+        }
 
-  -webkit-font-smoothing: antialiased;
-  margin: 0;
-}
+        @include media-query-xxlarge {
+          font-size: 3rem;
+        }
 
-@media print {
-  body,
-  article {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-  @page {
-    margin: 2cm;
-  }
-
-  a:after {
-    content: ' <' attr(href) '> ';
-    font-size: 0.8em;
-    font-weight: normal;
-  }
-
-  #radar-plot {
-    display: none;
-  }
-
-  .quadrant-table {
-    .quadrant-table__name {
-      display: block;
-      font-size: 36pt;
-      padding: 0 10px;
-      margin-bottom: 20px;
-    }
-
-    &.first .quadrant-table__name {
-      color: $green;
-    }
-
-    &.second .quadrant-table__name {
-      color: $blue;
-    }
-
-    &.third .quadrant-table__name {
-      color: $orange;
-    }
-
-    &.fourth .quadrant-table__name {
-      color: $violet;
-    }
-  }
-
-  .quadrant-table {
-    page-break-after: always;
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    li {
-      page-break-inside: avoid;
-    }
-
-    h3 {
-      page-break-before: always;
-      padding: 0 10px;
-      text-transform: uppercase;
-      font-size: 18pt;
-      font-weight: bold;
-    }
-
-    h2 + h3 {
-      page-break-before: avoid;
-    }
-  }
-
-  .blip-list-item {
-    font-weight: bold;
-  }
-
-  .blip-item-description {
-    padding: 0 15px;
-  }
-
-  header {
-    text-align: left;
-
-    .radar-title .radar-title__text {
-      font-size: 40px;
-      width: 100%;
-      padding: 10px;
-      display: block;
-    }
-
-    .radar-title .radar-title__logo {
-      display: block;
-      width: auto;
-
-      a {
-        padding: 40px 10px 0;
-        display: block;
-
-        &::after {
-          display: none;
+        @include media-query-xxxlarge {
+          font-size: 3.5rem;
         }
       }
 
-      img {
-        max-width: 150px;
+      h2 {
+        font-size: 1.25rem;
+        font-weight: 630;
+        font-family: 'Inter', serif;
+        text-transform: none;
+        letter-spacing: normal;
+
+        @include media-query-medium {
+          font-size: 1.25rem;
+        }
+
+        @include media-query-large {
+          font-size: 1.5rem;
+        }
+
+        @include media-query-xlarge {
+          font-size: 1.5rem;
+        }
+
+        @include media-query-xxlarge {
+          font-size: 2rem;
+        }
+
+        @include media-query-xxxlarge {
+          font-size: 2rem;
+        }
+      }
+
+      p {
+        font-size: 1rem;
+        font-family: $baseFontFamily;
+
+        @include media-query-xxlarge {
+          font-size: 1.125rem;
+        }
+      }
+
+      a {
+        color: $link-normal;
+        border-color: $link-normal;
+
+        &:hover {
+          color: $link-hover;
+          border-color: $link-hover;
+        }
       }
     }
 
-    .buttons-group {
-      display: none;
-    }
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+  }
 
-    .home-link {
-      display: none;
+  @if $UIRefresh2022 {
+    .d3-tip {
+      font-size: 12px;
+      display: block;
+      padding: 12px;
+      background: $wave;
+      color: $white;
+      pointer-events: none;
+      z-index: 20;
+      max-width: 170px;
+      word-wrap: break-word;
+      white-space: pre-line;
+      line-height: 2;
+      border-radius: unset;
 
-      &.selected {
-        display: none;
+      @include media-query-medium {
+        max-width: 250px;
       }
     }
 
-    #alternative-buttons {
-      display: none;
+    .d3-tip:after {
+      box-sizing: border-box;
+      font-size: 10px;
+      width: 100%;
+      color: $wave;
+      position: absolute;
+      pointer-events: none;
     }
 
-    .print-radar {
-      display: none;
+    .d3-tip.n {
+      margin: -10px 0 0;
     }
-  }
 
-  #footer {
-    display: none;
-  }
-
-  .error-container {
-    display: none;
+    .d3-tip.n:after {
+      content: '\25BC';
+      margin: -3px 0 0;
+      top: 100%;
+      left: 0;
+      text-align: center;
+    }
   }
 }

@@ -1,4 +1,4 @@
-const { getRingIdString } = require('../../src/util/util')
+const { getRingIdString } = require('../../src/util/stringUtil')
 
 describe('Utils', () => {
   it('should return id string for ring name', () => {

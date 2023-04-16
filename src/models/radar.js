@@ -15,7 +15,7 @@ const Radar = function () {
 
   blipNumber = 0
   addingQuadrant = 0
-  quadrants = config().featureToggles.UIRefresh2022
+  quadrants = featureToggles.UIRefresh2022
     ? [
         { order: 'first', startAngle: 0 },
         { order: 'second', startAngle: -90 },
@@ -35,7 +35,9 @@ const Radar = function () {
 
   function setNumbers(blips) {
     blips.forEach(function (blip) {
-      blip.setNumber(++blipNumber)
+      ++blipNumber
+      blip.setBlipText(blipNumber)
+      blip.setId(blipNumber)
     })
   }
 

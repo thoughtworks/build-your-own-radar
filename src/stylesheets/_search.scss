@@ -47,18 +47,18 @@
     }
 
     @include media-query-xlarge {
-      margin: 64px auto 48px;
+      margin: 32px auto;
 
       &.sticky-offset {
-        margin-top: 124px;
+        margin-top: 92px;
       }
     }
 
     @include media-query-xxlarge {
-      margin: 80px auto 64px;
+      margin: 40px auto;
 
       &.sticky-offset {
-        margin-top: 140px;
+        margin-top: 100px;
       }
     }
 
@@ -66,8 +66,9 @@
       color: $wave;
       height: 48px;
       margin-bottom: 30px;
-      background: #ebebeb url(images/search-active-wave.svg) no-repeat 98% center;
+      background: #edf1f3 url(images/search-active-wave.svg) no-repeat 98% center;
       font-family: $baseFontFamily;
+      scroll-margin-top: $subnavHeight;
 
       @include media-query-medium {
         height: 100%;

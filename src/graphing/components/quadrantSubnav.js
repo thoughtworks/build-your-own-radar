@@ -1,18 +1,21 @@
 const d3 = require('d3')
-const { selectRadarQuadrant, mouseoverQuadrant, mouseoutQuadrant, removeScrollListener } = require('./quadrants')
-const { getRingIdString } = require('../../util/util')
+const { selectRadarQuadrant, removeScrollListener } = require('./quadrants')
+const { getRingIdString } = require('../../util/stringUtil')
 const { uiConfig } = require('../config')
 
-function addListItem(quadrantList, name, callback, order) {
+function addListItem(quadrantList, name, callback) {
   quadrantList
     .append('li')
     .attr('id', `subnav-item-${getRingIdString(name)}`)
     .classed('quadrant-subnav__list-item', true)
+    .attr('title', name)
     .append('button')
     .classed('quadrant-subnav__list-item__button', true)
     .attr('role', 'tab')
     .text(name)
     .on('click', function (e) {
+      d3.select('#radar').classed('no-blips', false)
+
       removeScrollListener()
 
       d3.select('.graph-header').node().scrollIntoView({
@@ -34,8 +37,6 @@ function addListItem(quadrantList, name, callback, order) {
         callback()
       }
     })
-    .on('mouseover', () => mouseoverQuadrant(order))
-    .on('mouseout', () => mouseoutQuadrant(order))
 }
 
 function renderQuadrantSubnav(radarHeader, quadrants, renderFullRadar) {
@@ -60,11 +61,8 @@ function renderQuadrantSubnav(radarHeader, quadrants, renderFullRadar) {
   })
 
   quadrants.forEach(function (quadrant) {
-    addListItem(
-      quadrantList,
-      quadrant.quadrant.name(),
-      () => selectRadarQuadrant(quadrant.order, quadrant.startAngle, quadrant.quadrant.name()),
-      quadrant.order,
+    addListItem(quadrantList, quadrant.quadrant.name(), () =>
+      selectRadarQuadrant(quadrant.order, quadrant.startAngle, quadrant.quadrant.name()),
     )
   })
 

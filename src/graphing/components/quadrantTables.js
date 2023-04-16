@@ -1,80 +1,108 @@
 const d3 = require('d3')
 const { graphConfig, getScale, uiConfig } = require('../config')
 const { stickQuadrantOnScroll } = require('./quadrants')
+const { removeAllSpaces } = require('../../util/stringUtil')
 
-function renderBlipDescription(blip, ring, quadrant, tip) {
-  const blipItem = d3
-    .select(`.quadrant-table.${quadrant.order} ul:nth-of-type(${ring.order() + 1})`)
-    .append('li')
-    .classed('blip-list__item', true)
-  const blipItemDiv = blipItem
-    .append('div')
-    .classed('blip-list__item-container', true)
-    .attr('data-blip-id', blip.number())
+function fadeOutAllBlips() {
+  d3.selectAll('g > a.blip-link').attr('opacity', 0.3)
+}
 
-  const blipItemContainer = blipItemDiv
-    .append('button')
-    .classed('blip-list__item-container__name', true)
-    .attr('aria-expanded', 'false')
-    .attr('aria-controls', `blip-description-${blip.number()}`)
-    .attr('aria-hidden', 'true')
-    .attr('tabindex', -1)
-    .on('click search-result-click', function (e) {
-      e.stopPropagation()
+function fadeInSelectedBlip(selectedBlipOnGraph) {
+  selectedBlipOnGraph.attr('opacity', 1.0)
+}
 
-      const expandFlag = d3.select(e.target.parentElement).classed('expand')
+function highlightBlipInTable(selectedBlip) {
+  selectedBlip.classed('highlight', true)
+}
 
-      d3.selectAll('.blip-list__item-container.expand').classed('expand', false)
-      d3.select(e.target.parentElement).classed('expand', !expandFlag)
+function highlightBlipInGraph(blipIdToFocus) {
+  fadeOutAllBlips()
+  const selectedBlipOnGraph = d3.select(`g > a.blip-link[data-blip-id='${blipIdToFocus}'`)
+  fadeInSelectedBlip(selectedBlipOnGraph)
+}
 
-      d3.selectAll('.blip-list__item-container__name').attr('aria-expanded', 'false')
-      d3.select('.blip-list__item-container.expand .blip-list__item-container__name').attr('aria-expanded', 'true')
+function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) {
+  let blipTableItem = d3.select(`.quadrant-table.${quadrant.order} ul:nth-of-type(${ring.order() + 1})`)
+  if (!groupBlipTooltipText) {
+    blipTableItem = blipTableItem.append('li').classed('blip-list__item', true)
+    const blipItemDiv = blipTableItem
+      .append('div')
+      .classed('blip-list__item-container', true)
+      .attr('data-blip-id', blip.id())
 
-      if (window.innerWidth >= uiConfig.tabletViewWidth) {
-        stickQuadrantOnScroll()
-      }
-    })
+    if (blip.groupIdInGraph()) {
+      blipItemDiv.attr('data-group-id', blip.groupIdInGraph())
+    }
 
-  blipItemContainer
-    .append('span')
-    .classed('blip-list__item-container__name-value', true)
-    .text(`${blip.number()}. ${blip.name()}`)
-  blipItemContainer.append('span').classed('blip-list__item-container__name-arrow', true)
+    const blipItemContainer = blipItemDiv
+      .append('button')
+      .classed('blip-list__item-container__name', true)
+      .attr('aria-expanded', 'false')
+      .attr('aria-controls', `blip-description-${blip.id()}`)
+      .attr('aria-hidden', 'true')
+      .attr('tabindex', -1)
+      .on('click search-result-click', function (e) {
+        e.stopPropagation()
 
-  blipItemDiv
-    .append('div')
-    .classed('blip-list__item-container__description', true)
-    .attr('id', `blip-description-${blip.number()}`)
-    .html(blip.description())
+        const expandFlag = d3.select(e.target.parentElement).classed('expand')
 
-  const blipGroupItem = d3.select(`g a#blip-link-${blip.number()}`)
+        d3.selectAll('.blip-list__item-container.expand').classed('expand', false)
+        d3.select(e.target.parentElement).classed('expand', !expandFlag)
 
+        d3.selectAll('.blip-list__item-container__name').attr('aria-expanded', 'false')
+        d3.select('.blip-list__item-container.expand .blip-list__item-container__name').attr('aria-expanded', 'true')
+
+        if (window.innerWidth >= uiConfig.tabletViewWidth) {
+          stickQuadrantOnScroll()
+        }
+      })
+
+    blipItemContainer
+      .append('span')
+      .classed('blip-list__item-container__name-value', true)
+      .text(`${blip.blipText()}. ${blip.name()}`)
+    blipItemContainer.append('span').classed('blip-list__item-container__name-arrow', true)
+
+    blipItemDiv
+      .append('div')
+      .classed('blip-list__item-container__description', true)
+      .attr('id', `blip-description-${blip.id()}`)
+      .html(blip.description())
+  }
+  const blipGraphItem = d3.select(`g a#blip-link-${removeAllSpaces(blip.id())}`)
   const mouseOver = function (e) {
-    const blipId = d3.select(e.target.parentElement).attr('data-blip-id')
+    const targetElement = e.target.classList.contains('blip-link') ? e.target : e.target.parentElement
+    const blipWrapper = d3.select(targetElement)
+    const blipIdToFocus = blip.groupIdInGraph() ? blipWrapper.attr('data-group-id') : blipWrapper.attr('data-blip-id')
+    const selectedBlipOnGraph = d3.select(`g > a.blip-link[data-blip-id='${blipIdToFocus}'`)
+    highlightBlipInGraph(blipIdToFocus)
+    highlightBlipInTable(blipTableItem)
 
-    d3.selectAll('g > a.blip-link').attr('opacity', 0.3)
-    d3.select(`g > a.blip-link[data-blip-id="${blipId}"`).attr('opacity', 1.0)
+    const isQuadrantView = d3.select('svg#radar-plot').classed('quadrant-view')
+    const displayToolTip = blip.isGroup() ? !isQuadrantView : !blip.groupIdInGraph()
+    const toolTipText = blip.isGroup() ? groupBlipTooltipText : blip.name()
 
-    blipItem.classed('highlight', true)
-
-    tip.show(blip.name(), blipGroupItem.node())
+    if (displayToolTip) {
+      tip.show(toolTipText, selectedBlipOnGraph.node())
+    }
   }
 
   const mouseOut = function () {
     d3.selectAll('g > a.blip-link').attr('opacity', 1.0)
-
-    blipItem.classed('highlight', false)
-
+    blipTableItem.classed('highlight', false)
     tip.hide().style('left', 0).style('top', 0)
   }
 
   const blipClick = function (e) {
     const isQuadrantView = d3.select('svg#radar-plot').classed('quadrant-view')
+    const targetElement = e.target.classList.contains('blip-link') ? e.target : e.target.parentElement
     if (isQuadrantView) {
       e.stopPropagation()
     }
 
-    const blipId = d3.select(e.target.parentElement).attr('data-blip-id')
+    const blipId = d3.select(targetElement).attr('data-blip-id')
+    const ringName = d3.select(targetElement).attr('data-ring-name')
+    highlightBlipInGraph(blipId)
 
     d3.selectAll('.blip-list__item-container.expand').classed('expand', false)
 
@@ -87,7 +115,11 @@ function renderBlipDescription(blip, ring, quadrant, tip) {
           stickQuadrantOnScroll()
         }
 
-        selectedBlipContainer.select('button.blip-list__item-container__name').node().scrollIntoView({
+        const isGroupBlip = isNaN(parseInt(blipId))
+        const elementToFocus = isGroupBlip
+          ? d3.select(`.quadrant-table.selected h2.quadrant-table__ring-name[data-ring-name="${ringName}"]`)
+          : selectedBlipContainer.select('button.blip-list__item-container__name')
+        elementToFocus.node()?.scrollIntoView({
           behavior: 'smooth',
         })
       },
@@ -95,8 +127,9 @@ function renderBlipDescription(blip, ring, quadrant, tip) {
     )
   }
 
-  blipItem.on('mouseover', mouseOver).on('mouseout', mouseOut).on('focusin', mouseOver).on('focusout', mouseOut)
-  blipGroupItem
+  !groupBlipTooltipText &&
+    blipTableItem.on('mouseover', mouseOver).on('mouseout', mouseOut).on('focusin', mouseOver).on('focusout', mouseOut)
+  blipGraphItem
     .on('mouseover', mouseOver)
     .on('mouseout', mouseOut)
     .on('focusin', mouseOver)
@@ -135,7 +168,11 @@ function renderQuadrantTables(quadrants, rings) {
     }
 
     rings.forEach(function (ring) {
-      quadrantContainer.append('h2').classed('quadrant-table__ring-name', true).text(ring.name())
+      quadrantContainer
+        .append('h2')
+        .classed('quadrant-table__ring-name', true)
+        .attr('data-ring-name', ring.name())
+        .text(ring.name())
       quadrantContainer.append('ul').classed('blip-list', true)
     })
   })

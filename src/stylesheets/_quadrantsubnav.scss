@@ -63,6 +63,7 @@
 
     &__list {
       display: none;
+      width: 100%;
 
       &.show {
         display: flex;
@@ -83,8 +84,10 @@
         padding: 0;
         height: 100%;
         box-sizing: border-box;
+        font-size: 16px;
 
         @include media-query-xlarge {
+          max-width: 20% !important;
           &.active-item {
             padding-top: 4px;
             border-bottom: 4px solid transparent;
@@ -119,9 +122,14 @@
           border: none;
           font: inherit;
           cursor: pointer;
+          background-color: $mist;
 
           @include media-query-xlarge {
-            padding: 0 40px;
+            padding: 15px 40px;
+            margin: 0 1px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
         }
       }
