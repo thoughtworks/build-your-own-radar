@@ -41,14 +41,6 @@ const Radar = function (size, radar) {
     })
 
   tip.direction(function () {
-    if (d3.select('.quadrant-table.selected').node()) {
-      var selectedQuadrant = d3.select('.quadrant-table.selected')
-      if (selectedQuadrant.classed('first') || selectedQuadrant.classed('fourth')) {
-        return 'ne'
-      } else {
-        return 'nw'
-      }
-    }
     return 'n'
   })
 

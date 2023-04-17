@@ -84,6 +84,20 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
 
     if (displayToolTip) {
       tip.show(toolTipText, selectedBlipOnGraph.node())
+
+      const selectedBlipCoords = selectedBlipOnGraph.node().getBoundingClientRect()
+
+      const tipElement = d3.select('div.d3-tip')
+      const tipElementCoords = tipElement.node().getBoundingClientRect()
+
+      tipElement
+        .style(
+          'left',
+          `${parseInt(
+            selectedBlipCoords.left + window.scrollX - tipElementCoords.width / 2 + selectedBlipCoords.width / 2,
+          )}px`,
+        )
+        .style('top', `${parseInt(selectedBlipCoords.top + window.scrollY - tipElementCoords.height)}px`)
     }
   }
 
