@@ -51,6 +51,14 @@
     p {
       margin: 0;
       font-style: italic;
+      max-width: none;
+      &.agree-terms {
+        a:after {
+          content: ' <' attr(href) '> ';
+          font-weight: normal;
+          color: black;
+        }
+      }
     }
   }
 
@@ -158,7 +166,6 @@
 
         &__name {
           border-bottom: none;
-          page-break-inside: auto;
           padding: 0 !important;
 
           &-value {
@@ -173,7 +180,6 @@
 
         &__description {
           display: block;
-          page-break-inside: avoid;
         }
       }
 
@@ -203,7 +209,8 @@
   .hero-banner,
   main > *:not(#pdf-cover-page, #radar),
   #radar > #radar-plot,
-  .radar-legends {
+  .radar-legends,
+  .ui-helper-hidden-accessible {
     display: none !important;
   }
 }
