@@ -22,7 +22,7 @@ const {
   removeScrollListener,
 } = require('./components/quadrants')
 const { renderQuadrantTables } = require('./components/quadrantTables')
-const { addQuadrantNameInPdfView, addRadarLinkInPdfView} = require('./pdfPage')
+const { addQuadrantNameInPdfView, addRadarLinkInPdfView } = require('./pdfPage')
 
 const { constructSheetUrl } = require('../util/urlUtils')
 const { toRadian } = require('../util/mathUtils')
