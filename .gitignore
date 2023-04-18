@@ -5,7 +5,7 @@ dist
 *.swp
 *.swo
 
-coverage
+coverage/
 
 .idea/
 .DS_Store
