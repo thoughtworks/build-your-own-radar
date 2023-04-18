@@ -223,7 +223,7 @@ const groupBlipsBaseCoords = function (ringIndex) {
   const noChangeCoords = findNoChangeBlipCoords(ringIndex + 1, graphConfig.groupBlipAngles[ringIndex])
 
   return {
-    'existing': noChangeCoords,
+    existing: noChangeCoords,
     new: findNewBlipCoords(noChangeCoords),
   }
 }

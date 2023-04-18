@@ -72,7 +72,7 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
   const blipGraphItem = d3.select(`g a#blip-link-${removeAllSpaces(blip.id())}`)
   const mouseOver = function (e) {
     const targetElement = e.target.classList.contains('blip-link') ? e.target : e.target.parentElement
-    const isGroupIdInGraph =  !targetElement.classList.contains("blip-link") ? true : false;
+    const isGroupIdInGraph = !targetElement.classList.contains('blip-link') ? true : false
     const blipWrapper = d3.select(targetElement)
     const blipIdToFocus = blip.groupIdInGraph() ? blipWrapper.attr('data-group-id') : blipWrapper.attr('data-blip-id')
     const selectedBlipOnGraph = d3.select(`g > a.blip-link[data-blip-id='${blipIdToFocus}'`)

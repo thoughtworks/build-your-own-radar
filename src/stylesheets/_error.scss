@@ -34,19 +34,19 @@
 
   .switch-account-button-newui {
     background-color: $button-normal;
-      color: $white;
-      font-size: 20px;
-      font-family: $baseFontFamily;
-      line-height: 24px;
-      font-weight: bold;
-      padding-left: 30px;
-      padding-right: 30px;
-      margin-bottom: 18px;
-      border: none;
-      cursor: pointer;
-      &:focus {
-        outline: auto;
-      }
+    color: $white;
+    font-size: 20px;
+    font-family: $baseFontFamily;
+    line-height: 24px;
+    font-weight: bold;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-bottom: 18px;
+    border: none;
+    cursor: pointer;
+    &:focus {
+      outline: auto;
+    }
   }
 }
 
