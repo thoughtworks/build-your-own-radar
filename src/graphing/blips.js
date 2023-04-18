@@ -106,7 +106,7 @@ function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoor
 function blipAssistiveText(blip) {
   return blip.isGroup()
     ? `\`${blip.ring().name()} ring, group of ${blip.blipText()}`
-    : `${blip.ring().name()} ring, ${blip.name()}, ${blip.isNew() ? 'New' : 'No change'} Blips.`
+    : `${blip.ring().name()} ring, ${blip.name()}, ${blip.isNew() ? 'new' : 'existing'} blip.`
 }
 function addOuterCircle(parentSvg, order, scale = 1) {
   parentSvg
@@ -223,8 +223,8 @@ const groupBlipsBaseCoords = function (ringIndex) {
   const noChangeCoords = findNoChangeBlipCoords(ringIndex + 1, graphConfig.groupBlipAngles[ringIndex])
 
   return {
-    'No change': noChangeCoords,
-    New: findNewBlipCoords(noChangeCoords),
+    'existing': noChangeCoords,
+    new: findNewBlipCoords(noChangeCoords),
   }
 }
 
@@ -240,7 +240,7 @@ const transposeQuadrantCoords = function (coords, blipWidth) {
 }
 
 function createGroupBlip(blipsInRing, blipType, ring, quadrantOrder) {
-  const blipText = `${blipsInRing.length} ${blipType} Blips`
+  const blipText = `${blipsInRing.length} ${blipType} blips`
   const blipId = `${quadrantOrder}-${replaceSpaceWithHyphens(ring.name())}-group-${replaceSpaceWithHyphens(
     blipType,
   )}-blips`
@@ -260,7 +260,7 @@ function plotGroupBlips(ringBlips, ring, quadrantOrder, parentElement, quadrantW
 
   const blipGroups = [newBlipsInRing, noChangeBlipsInRing].filter((group) => !isEmpty(group))
   blipGroups.forEach((blipsInRing) => {
-    const blipType = blipsInRing[0].isNew() ? 'New' : 'No change'
+    const blipType = blipsInRing[0].isNew() ? 'new' : 'existing'
     const groupBlip = createGroupBlip(blipsInRing, blipType, ring, quadrantOrder)
     const groupBlipTooltipText = getGroupBlipTooltipText(blipsInRing)
     const ringIndex = graphConfig.rings.indexOf(ring.name())

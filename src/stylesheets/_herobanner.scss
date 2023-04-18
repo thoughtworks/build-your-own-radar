@@ -15,6 +15,10 @@
     margin: 0 !important;
 
     @include media-query-large {
+      background-image: url('/images/banner-image-mobile.jpg');
+    }
+
+    @include media-query-xlarge {
       background-image: url('/images/banner-image-desktop.jpg');
       height: $bannerHeight;
       background-size: cover;

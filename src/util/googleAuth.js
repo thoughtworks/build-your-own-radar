@@ -92,11 +92,33 @@ const GoogleAuth = function () {
       cancel_on_tap_outside: false,
     })
     if (!self.forceLogin) {
-      window.google.accounts.id.prompt()
+      window.google.accounts.id.prompt((notification) => {
+        if (notification.isSkippedMoment()) {
+          plotAuthenticationErrorMessage();
+        }
+
+      })
     } else {
       await self.gsiCallback()
     }
   }
+  function plotAuthenticationErrorMessage() {
+    let homePageURL = window.location.protocol + '//' + window.location.hostname
+     homePageURL += window.location.port === '' ? '' : ':' + window.location.port
+    const message = `<strong>Oops!</strong> Authentication incomplete. Please try again.`
+    const goBack = '<a href=' + homePageURL + '>Go back</a>'
+    document.cookie = 'g_state=; path=/; max-age=0'
+    d3.selectAll('.loader-text').remove()
+    let content = d3.select('body').select('.error-container').append('div').attr('class', 'input-sheet')
+    const errorContainer = content.append('div').attr('class', 'error-container__message');
+    errorContainer.append('div').append('p').attr('class', 'error-title').html(message)
+     errorContainer
+       .append('div')
+       .append('p')
+       .attr('class', 'error-subtitle')
+       .html(` ${goBack} and please login.`)
+
+}
 
   self.handleClientLoad = function () {
     gapi.load('client', self.initClient)

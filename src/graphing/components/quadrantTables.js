@@ -72,6 +72,7 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
   const blipGraphItem = d3.select(`g a#blip-link-${removeAllSpaces(blip.id())}`)
   const mouseOver = function (e) {
     const targetElement = e.target.classList.contains('blip-link') ? e.target : e.target.parentElement
+    const isGroupIdInGraph =  !targetElement.classList.contains("blip-link") ? true : false;
     const blipWrapper = d3.select(targetElement)
     const blipIdToFocus = blip.groupIdInGraph() ? blipWrapper.attr('data-group-id') : blipWrapper.attr('data-blip-id')
     const selectedBlipOnGraph = d3.select(`g > a.blip-link[data-blip-id='${blipIdToFocus}'`)
@@ -82,7 +83,7 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
     const displayToolTip = blip.isGroup() ? !isQuadrantView : !blip.groupIdInGraph()
     const toolTipText = blip.isGroup() ? groupBlipTooltipText : blip.name()
 
-    if (displayToolTip) {
+    if (displayToolTip && !isGroupIdInGraph) {
       tip.show(toolTipText, selectedBlipOnGraph.node())
 
       const selectedBlipCoords = selectedBlipOnGraph.node().getBoundingClientRect()
@@ -115,12 +116,11 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
     }
 
     const blipId = d3.select(targetElement).attr('data-blip-id')
-    const ringName = d3.select(targetElement).attr('data-ring-name')
     highlightBlipInGraph(blipId)
 
     d3.selectAll('.blip-list__item-container.expand').classed('expand', false)
 
-    const selectedBlipContainer = d3.select(`.blip-list__item-container[data-blip-id="${blipId}"`)
+    let selectedBlipContainer = d3.select(`.blip-list__item-container[data-blip-id="${blipId}"`)
     selectedBlipContainer.classed('expand', true)
 
     setTimeout(
@@ -130,9 +130,10 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
         }
 
         const isGroupBlip = isNaN(parseInt(blipId))
-        const elementToFocus = isGroupBlip
-          ? d3.select(`.quadrant-table.selected h2.quadrant-table__ring-name[data-ring-name="${ringName}"]`)
-          : selectedBlipContainer.select('button.blip-list__item-container__name')
+        if (isGroupBlip) {
+          selectedBlipContainer = d3.select(`.blip-list__item-container[data-group-id="${blipId}"`)
+        }
+        const elementToFocus = selectedBlipContainer.select('button.blip-list__item-container__name')
         elementToFocus.node()?.scrollIntoView({
           behavior: 'smooth',
         })

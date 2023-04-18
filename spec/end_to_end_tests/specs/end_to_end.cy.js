@@ -76,8 +76,8 @@ if (featureToggles.UIRefresh2022) {
       })
 
       it('verify group-blip text in Radar graph', () => {
-        radarPage.validateBlipText('blip-link-first-adopt-group-new-blips', '2 New Blips')
-        radarPage.validateBlipText('blip-link-first-adopt-group-no-change-blips', '9 No change Blips')
+        radarPage.validateBlipText('blip-link-first-adopt-group-new-blips', '2 new blips')
+        radarPage.validateBlipText('blip-link-first-adopt-group-existing-blips', '9 existing blips')
       })
 
       it('verify group-blip tooltip text with all blip names in Radar graph', () => {
@@ -86,7 +86,7 @@ if (featureToggles.UIRefresh2022) {
           '1.Path-to-production mapping3.Team cognitive load',
         )
         radarPage.validateBlipToolTip(
-          'blip-link-first-adopt-group-no-change-blips',
+          'blip-link-first-adopt-group-existing-blips',
           '4.Threat modeling5.Backstage6.Delta Lake7.Delta Lake8.Great Expectations9.Kotest10.NestJS11.React Query12.Swift Package Manager',
         )
       })
@@ -150,15 +150,15 @@ if (featureToggles.UIRefresh2022) {
       })
 
       it('verify group-blip text in Radar graph', () => {
-        radarPage.validateBlipText('blip-link-first-adopt-group-new-blips', '2 New Blips')
-        radarPage.validateBlipText('blip-link-first-adopt-group-no-change-blips', '9 No change Blips')
+        radarPage.validateBlipText('blip-link-first-adopt-group-new-blips', '2 new blips')
+        radarPage.validateBlipText('blip-link-first-adopt-group-existing-blips', '9 existing blips')
       })
 
       it('verify group-blip text does not appear in quadrant view', () => {
         radarPage.clickBlipInRadarGraph('first-adopt-group-new-blips')
         radarPage.validateActiveQuadrant('techniques', 'first')
         radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-new-blips')
-        radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-no-change-blips')
+        radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-existing-blips')
       })
 
       it('blip in table gets highlighted on hover on blip in graph', () => {
@@ -290,8 +290,8 @@ if (featureToggles.UIRefresh2022) {
       it('verify group-blip text in Radar graph', () => {
         radarPage.clickQuadrantInFullRadarViewTablet('first')
         radarPage.validateActiveQuadrant('techniques', 'first')
-        radarPage.validateBlipText('blip-link-first-adopt-group-new-blips', '2 New Blips')
-        radarPage.validateBlipText('blip-link-first-adopt-group-no-change-blips', '9 No change Blips')
+        radarPage.validateBlipText('blip-link-first-adopt-group-new-blips', '2 new blips')
+        radarPage.validateBlipText('blip-link-first-adopt-group-existing-blips', '9 existing blips')
       })
 
       it('verify group-blip text does not appear in quadrant view', () => {
@@ -299,7 +299,7 @@ if (featureToggles.UIRefresh2022) {
         radarPage.validateActiveQuadrant('techniques', 'first')
         radarPage.validateActiveQuadrant('techniques', 'first')
         radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-new-blips')
-        radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-no-change-blips')
+        radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-existing-blips')
       })
 
       it('blip in table gets highlighted on hover on blip in graph', () => {
@@ -505,8 +505,8 @@ if (featureToggles.UIRefresh2022) {
       })
 
       it('verify group-blip text in Radar graph', () => {
-        radarPage.validateBlipText('blip-link-first-adopt-group-new-blips', '2 New Blips')
-        radarPage.validateBlipText('blip-link-first-adopt-group-no-change-blips', '9 No change Blips')
+        radarPage.validateBlipText('blip-link-first-adopt-group-new-blips', '2 new blips')
+        radarPage.validateBlipText('blip-link-first-adopt-group-existing-blips', '9 existing blips')
       })
 
       it('verify group-blip tooltip text with all blip names in Radar graph', () => {
@@ -515,7 +515,7 @@ if (featureToggles.UIRefresh2022) {
           '1.Path-to-production mapping3.Team cognitive load',
         )
         radarPage.validateBlipToolTip(
-          'blip-link-first-adopt-group-no-change-blips',
+          'blip-link-first-adopt-group-existing-blips',
           '4.Threat modeling5.Backstage6.Delta Lake7.Delta Lake8.Great Expectations9.Kotest10.NestJS11.React Query12.Swift Package Manager',
         )
       })
@@ -579,15 +579,15 @@ if (featureToggles.UIRefresh2022) {
       })
 
       it('verify group-blip text in Radar graph', () => {
-        radarPage.validateBlipText('blip-link-first-adopt-group-new-blips', '2 New Blips')
-        radarPage.validateBlipText('blip-link-first-adopt-group-no-change-blips', '9 No change Blips')
+        radarPage.validateBlipText('blip-link-first-adopt-group-new-blips', '2 new blips')
+        radarPage.validateBlipText('blip-link-first-adopt-group-existing-blips', '9 existing blips')
       })
 
       it('verify group-blip text does not appear in quadrant view', () => {
         radarPage.clickBlipInRadarGraph('first-adopt-group-new-blips')
         radarPage.validateActiveQuadrant('techniques', 'first')
         radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-new-blips')
-        radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-no-change-blips')
+        radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-existing-blips')
       })
 
       it('blip in table gets highlighted on hover on blip in graph', () => {
@@ -720,8 +720,8 @@ if (featureToggles.UIRefresh2022) {
       it('verify group-blip text in Radar graph', () => {
         radarPage.clickQuadrantInFullRadarViewTablet('first')
         radarPage.validateActiveQuadrant('techniques', 'first')
-        radarPage.validateBlipText('blip-link-first-adopt-group-new-blips', '2 New Blips')
-        radarPage.validateBlipText('blip-link-first-adopt-group-no-change-blips', '9 No change Blips')
+        radarPage.validateBlipText('blip-link-first-adopt-group-new-blips', '2 new blips')
+        radarPage.validateBlipText('blip-link-first-adopt-group-existing-blips', '9 existing blips')
       })
 
       it('verify group-blip text does not appear in quadrant view', () => {
@@ -729,7 +729,7 @@ if (featureToggles.UIRefresh2022) {
         radarPage.validateActiveQuadrant('techniques', 'first')
         radarPage.validateActiveQuadrant('techniques', 'first')
         radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-new-blips')
-        radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-no-change-blips')
+        radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-existing-blips')
       })
 
       it('blip in table gets highlighted on hover on blip in graph', () => {
@@ -949,15 +949,15 @@ if (featureToggles.UIRefresh2022) {
       })
 
       it('verify group-blip text in Radar graph', () => {
-        radarPage.validateBlipText('blip-link-second-trial-group-new-blips', '17 New Blips')
-        radarPage.validateBlipText('blip-link-second-trial-group-no-change-blips', '7 No change Blips')
+        radarPage.validateBlipText('blip-link-second-trial-group-new-blips', '17 new blips')
+        radarPage.validateBlipText('blip-link-second-trial-group-existing-blips', '7 existing blips')
       })
 
       it('verify group-blip text does not appear in quadrant view', () => {
         radarPage.clickBlipInRadarGraph('second-trial-group-new-blips')
         radarPage.validateActiveQuadrant('platforms', 'second')
         radarPage.validateNoBlipToolTip('blip-link-second-trial-group-new-blips')
-        radarPage.validateNoBlipToolTip('blip-link-second-trial-group-no-change-blips')
+        radarPage.validateNoBlipToolTip('blip-link-second-trial-group-existing-blips')
       })
 
       it('blip in table gets highlighted on hover on blip in graph', () => {
@@ -1058,15 +1058,15 @@ if (featureToggles.UIRefresh2022) {
       it('verify group-blip text in quadrant view', () => {
         radarPage.clickQuadrantInFullRadarViewTablet('second')
         radarPage.validateActiveQuadrant('platforms', 'second')
-        radarPage.validateBlipText('blip-link-second-trial-group-new-blips', '17 New Blips')
-        radarPage.validateBlipText('blip-link-second-trial-group-no-change-blips', '7 No change Blips')
+        radarPage.validateBlipText('blip-link-second-trial-group-new-blips', '17 new blips')
+        radarPage.validateBlipText('blip-link-second-trial-group-existing-blips', '7 existing blips')
       })
 
       it('verify group-blip text does not appear in quadrant view', () => {
         radarPage.clickQuadrantInFullRadarViewTablet('second')
         radarPage.validateActiveQuadrant('platforms', 'second')
         radarPage.validateNoBlipToolTip('blip-link-second-trial-group-new-blips')
-        radarPage.validateNoBlipToolTip('blip-link-second-trial-group-no-change-blips')
+        radarPage.validateNoBlipToolTip('blip-link-second-trial-group-existing-blips')
       })
 
       it('blip in table gets highlighted on hover on blip in graph', () => {

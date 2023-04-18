@@ -15,7 +15,7 @@ function addListItem(quadrantList, name, callback) {
     .text(name)
     .on('click', function (e) {
       d3.select('#radar').classed('no-blips', false)
-
+      d3.select('#auto-complete').property("value" , "");
       removeScrollListener()
 
       d3.select('.graph-header').node().scrollIntoView({
