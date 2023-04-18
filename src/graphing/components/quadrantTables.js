@@ -22,7 +22,7 @@ function highlightBlipInGraph(blipIdToFocus) {
 }
 
 function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) {
-  let blipTableItem = d3.select(`.quadrant-table.${quadrant.order} ul:nth-of-type(${ring.order() + 1})`)
+  let blipTableItem = d3.select(`.quadrant-table.${quadrant.order} ul[data-ring-order='${ring.order()}']`)
   if (!groupBlipTooltipText) {
     blipTableItem = blipTableItem.append('li').classed('blip-list__item', true)
     const blipItemDiv = blipTableItem
@@ -182,13 +182,24 @@ function renderQuadrantTables(quadrants, rings) {
         .classed(quadrant.order, true)
     }
 
-    rings.forEach(function (ring) {
+    const ringNames = Array.from(
+      new Set(
+        quadrant.quadrant
+          .blips()
+          .map((blip) => blip.ring())
+          .map((ring) => ring.name()),
+      ),
+    )
+    ringNames.forEach(function (ringName) {
       quadrantContainer
         .append('h2')
         .classed('quadrant-table__ring-name', true)
-        .attr('data-ring-name', ring.name())
-        .text(ring.name())
-      quadrantContainer.append('ul').classed('blip-list', true)
+        .attr('data-ring-name', ringName)
+        .text(ringName)
+      quadrantContainer
+        .append('ul')
+        .classed('blip-list', true)
+        .attr('data-ring-order', rings.filter((ring) => ring.name() === ringName)[0].order())
     })
   })
 }

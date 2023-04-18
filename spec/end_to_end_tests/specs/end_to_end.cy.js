@@ -42,7 +42,7 @@ if (featureToggles.UIRefresh2022) {
       it('verify click on quadrant', () => {
         radarPage.clickQuadrantInFullRadarView('first')
         radarPage.validateActiveQuadrant('techniques', 'first')
-        radarPage.validateRingsInQuadrantTable(4)
+        radarPage.validateRingsInQuadrantTable(3)
         radarPage.validateBlipsInQuadrantTable(32)
       })
 
@@ -203,7 +203,7 @@ if (featureToggles.UIRefresh2022) {
       it('verify click on quadrant', () => {
         radarPage.clickQuadrantInFullRadarViewTablet('first')
         radarPage.validateActiveQuadrant('techniques', 'first')
-        radarPage.validateRingsInQuadrantTable(4)
+        radarPage.validateRingsInQuadrantTable(3)
         radarPage.validateBlipsInQuadrantTable(32)
       })
 
@@ -341,7 +341,7 @@ if (featureToggles.UIRefresh2022) {
         radarPage.clickQuadrantInFullRadarViewTablet('first')
         radarPage.validateActiveQuadrantInSubnav('techniques')
         radarPage.validateGraphHidden()
-        radarPage.validateRingsInQuadrantTable(4)
+        radarPage.validateRingsInQuadrantTable(3)
         radarPage.validateBlipsInQuadrantTable(32)
       })
 
@@ -471,7 +471,7 @@ if (featureToggles.UIRefresh2022) {
       it('verify click on quadrant', () => {
         radarPage.clickQuadrantInFullRadarView('first')
         radarPage.validateActiveQuadrant('techniques', 'first')
-        radarPage.validateRingsInQuadrantTable(4)
+        radarPage.validateRingsInQuadrantTable(3)
         radarPage.validateBlipsInQuadrantTable(32)
       })
 
@@ -632,7 +632,7 @@ if (featureToggles.UIRefresh2022) {
       it('verify click on quadrant', () => {
         radarPage.clickQuadrantInFullRadarViewTablet('first')
         radarPage.validateActiveQuadrant('techniques', 'first')
-        radarPage.validateRingsInQuadrantTable(4)
+        radarPage.validateRingsInQuadrantTable(3)
         radarPage.validateBlipsInQuadrantTable(32)
       })
 
@@ -771,7 +771,7 @@ if (featureToggles.UIRefresh2022) {
         radarPage.clickQuadrantInFullRadarViewTablet('first')
         radarPage.validateActiveQuadrantInSubnav('techniques')
         radarPage.validateGraphHidden()
-        radarPage.validateRingsInQuadrantTable(4)
+        radarPage.validateRingsInQuadrantTable(3)
         radarPage.validateBlipsInQuadrantTable(32)
       })
 
