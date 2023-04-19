@@ -26,7 +26,7 @@ const graphConfig = {
   blipWidth: 22,
   groupBlipHeight: 24,
   newGroupBlipWidth: 88,
-  noChangeGroupBlipWidth: 126,
+  existingGroupBlipWidth: 124,
   rings: getRings(),
   quadrants: getQuadrants(),
   groupBlipAngles: [30, 35, 60, 80],

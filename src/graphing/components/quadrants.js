@@ -401,7 +401,7 @@ function renderRadarLegends(radarElement) {
     .attr('alt', 'new blip legend icon')
     .node().outerHTML
 
-  const noChangeImage = legendsContainer
+  const existingImage = legendsContainer
     .append('img')
     .attr('src', '/images/existing.svg')
     .attr('width', '37px')
@@ -409,7 +409,7 @@ function renderRadarLegends(radarElement) {
     .attr('alt', 'existing blip legend icon')
     .node().outerHTML
 
-  legendsContainer.html(`${newImage} New ${noChangeImage} Existing`)
+  legendsContainer.html(`${newImage} New ${existingImage} Existing`)
 }
 
 function renderMobileView(quadrant) {

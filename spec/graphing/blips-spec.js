@@ -29,7 +29,7 @@ jest.mock('../../src/graphing/config', () => {
       blipWidth: 22,
       groupBlipHeight: 24,
       newGroupBlipWidth: 84,
-      noChangeGroupBlipWidth: 124,
+      existingGroupBlipWidth: 124,
       groupBlipAngles: [30, 35, 60, 80],
     },
   }

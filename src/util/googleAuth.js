@@ -111,7 +111,7 @@ const GoogleAuth = function () {
     let content = d3.select('body').select('.error-container').append('div').attr('class', 'input-sheet')
     const errorContainer = content.append('div').attr('class', 'error-container__message')
     errorContainer.append('div').append('p').attr('class', 'error-title').html(message)
-    errorContainer.append('div').append('p').attr('class', 'error-subtitle').html(` ${goBack} and please login.`)
+    errorContainer.append('div').append('p').attr('class', 'error-subtitle').html(`<strong> ${goBack} and please login.</strong>`)
   }
 
   self.handleClientLoad = function () {

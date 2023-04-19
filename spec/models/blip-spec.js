@@ -86,10 +86,10 @@ describe('Blip', function () {
   })
 
   it('get respective group blip width', function () {
-    const noChangeBlip = new Blip('My Blip', new Ring('My Ring'), false)
+    const existingBlip = new Blip('My Blip', new Ring('My Ring'), false)
     const newBlip = new Blip('My Blip', new Ring('My Ring'), true)
 
-    expect(noChangeBlip.groupBlipWidth()).toEqual(graphConfig.noChangeGroupBlipWidth)
+    expect(existingBlip.groupBlipWidth()).toEqual(graphConfig.existingGroupBlipWidth)
     expect(newBlip.groupBlipWidth()).toEqual(graphConfig.newGroupBlipWidth)
   })
 })
