@@ -528,8 +528,8 @@ function plotUnauthorizedErrorMessage() {
   const errorContainer = container.append('div').attr('class', 'error-container__message')
 
   errorContainer.append('div').append('p').attr('class', 'error-title').html(message)
-
-  const button = errorContainer.append('button').attr('class', 'button switch-account-button').text('SWITCH ACCOUNT')
+  const newUi = featureToggles.UIRefresh2022 ? 'switch-account-button-newui' : 'switch-account-button'
+  const button = errorContainer.append('button').attr('class', `button ${newUi}`).text('SWITCH ACCOUNT')
 
   errorContainer
     .append('div')
