@@ -4,7 +4,7 @@ describe('Config Test', () => {
   it('should return all env when no env defined', () => {
     const actual = config()
     expect(actual).toStrictEqual({
-      production: { featureToggles: { UIRefresh2022: false } },
+      production: { featureToggles: { UIRefresh2022: true } },
       development: { featureToggles: { UIRefresh2022: true } },
     })
   })
