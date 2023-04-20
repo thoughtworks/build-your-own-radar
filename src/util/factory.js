@@ -338,7 +338,7 @@ const Factory = function () {
         plotLogo(content)
         const bannerText =
           '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://www.thoughtworks.com/radar/byor">created your Radar</a>, you can use this service' +
-          ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a></p></div>'
+          ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/byor">Read this first.</a></p></div>'
 
         plotBanner(content, bannerText)
 
@@ -411,7 +411,7 @@ function plotForm(content) {
     .attr('class', 'input-sheet__form')
     .append('p')
     .html(
-      '<strong>Enter the URL of your <a href="https://www.thoughtworks.com/radar/how-to-byor" target="_blank">Google Sheet, CSV or JSON</a> file below…</strong>',
+      '<strong>Enter the URL of your <a href="https://www.thoughtworks.com/radar/byor" target="_blank">Google Sheet, CSV or JSON</a> file below…</strong>',
     )
 
   var form = content.select('.input-sheet__form').append('form').attr('method', 'get')
@@ -439,7 +439,7 @@ function plotErrorMessage(exception, fileType) {
 
     const bannerText =
       '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://www.thoughtworks.com/radar/byor">created your Radar</a>, you can use this service' +
-      ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/how-to-byor">Read this first.</a></p></div>'
+      ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/byor">Read this first.</a></p></div>'
 
     plotBanner(content, bannerText)
 
@@ -452,12 +452,11 @@ function plotErrorMessage(exception, fileType) {
 
 function plotError(exception, fileType) {
   let message
-  let faqMessage =
-    'Please check <a href="https://www.thoughtworks.com/radar/how-to-byor">FAQs</a> for possible solutions.'
+  let faqMessage = 'Please check <a href="https://www.thoughtworks.com/radar/byor">FAQs</a> for possible solutions.'
   if (featureToggles.UIRefresh2022) {
     message = exception.message
     if (exception instanceof SheetNotFoundError) {
-      const href = 'https://www.thoughtworks.com/radar/how-to-byor'
+      const href = 'https://www.thoughtworks.com/radar/byor'
       faqMessage = `You can also check the <a href="${href}">FAQs</a> for other possible solutions`
     }
     if (exception instanceof InvalidConfigError) {

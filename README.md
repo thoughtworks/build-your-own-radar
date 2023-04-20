@@ -13,7 +13,7 @@ You can see this in action at https://radar.thoughtworks.com. If you plug in [th
 
 ## How To Use
 
-The easiest way to use the app out of the box is to provide a _public_ Google Sheet ID from which all the data will be fetched. You can enter that ID into the input field, sign in to Google using the prompt and your radar will be generated. The data must conform to the format below for the radar to be generated correctly.
+The easiest way to use the app out of the box is to provide a _public_ Google Sheet ID from which all the data will be fetched. You can enter that ID into the input field and your radar will be generated once you click the submit button. The data must conform to the format below for the radar to be generated correctly.
 
 ### Setting up your data
 
@@ -30,11 +30,17 @@ Create a Google Sheet. Give it at least the below column headers, and put in the
 
 ### Sharing the sheet
 
-- In Google sheets, go to 'File', choose 'Publish to the web...' and then click 'Publish'.
-- Close the 'Publish to the web' dialog.
-- Copy the URL of your editable sheet from the browser (Don't worry, this does not share the editable version).
+- In Google Sheets, click on "Share".
+- On the pop-up that appears, set the General Access as "Anyone with the link" and add "Viewer" permission.
+- Use the URL link of the sheet.
 
 The URL will be similar to [https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/edit](https://docs.google.com/spreadsheets/d/1waDG0_W3-yNiAaUfxcZhTKvl7AUCgXwQw8mdPjCz86U/edit). In theory we are only interested in the part between '/d/' and '/edit' but you can use the whole URL if you want.
+
+### Using private Google Sheet
+
+When using a private Google Sheet as your input, you will be prompted with a Google One Tap Login popup. Once you have logged in with the appropriate Google Account and authorized our app to access the sheet, the Radar will be generated.
+
+The input data format for the private sheet is the same as a public Google Sheet.
 
 ### Using CSV data
 
@@ -107,19 +113,20 @@ Paste the URL in the input field on the home page.
 
 That's it!
 
-**_Note:_** The quadrants of the radar, and the order of the rings inside the radar will be drawn in the order they appear in your data.
+**Note**: When using the BYOR app on [radar.thoughtworks.com](https://radar.thoughtworks.com), the ring and quadrant names should be among the values mentioned in the [example above](#setting-up-your-data). This holds good for Google Sheet, CSV or JSON inputs.
+For a self hosted BYOR app, there is no such condition on the names. Instructions to specify custom names are in the [next section](#more-complex-usage).
 
-Check [this page](https://www.thoughtworks.com/radar/how-to-byor) for step by step guidance.
+Check [this page](https://www.thoughtworks.com/radar/byor) for step by step guidance.
 
 ### More complex usage
 
-To create the data representation, you can use the Google Sheet [factory](/src/util/factory.js) or CSV, or you can also insert all your data straight into the code.
+To create the data representation, you can use the Google Sheet [factory](/src/util/factory.js) methods or CSV/JSON, or you can also insert all your data straight into the code.
 
-The app uses [Google Sheets APIs](https://developers.google.com/sheets/api/reference/rest) to fetch the data from a Google Sheet or [D3.js](https://d3js.org/) if supplied as CSV, so refer to their documentation for more advanced interaction. The input data is sanitized by whitelisting HTML tags with [sanitize-html](https://github.com/punkave/sanitize-html).
+The app uses [Google Sheets APIs](https://developers.google.com/sheets/api/reference/rest) to fetch the data from a Google Sheet or [D3.js](https://d3js.org/) if supplied as CSV/JSON, so refer to their documentation for more advanced interaction. The input data is sanitized by whitelisting HTML tags with [sanitize-html](https://github.com/punkave/sanitize-html).
 
 The application uses [webpack](https://webpack.github.io/) to package dependencies and minify all .js and .scss files.
 
-OAuth Client ID and API Key can be obtained from your Google Developer Console. OAuth Client ID is mandatory for private Google Sheets, as it is needed for Google Authentication.
+Google OAuth Client ID and API Key can be obtained from your Google Developer Console. OAuth Client ID is mandatory for private Google Sheets, as it is needed for Google Authentication and Authorization of our app.
 
 ```
 export CLIENT_ID=[Google Client ID]
@@ -137,6 +144,19 @@ To enable Google Tag Manager, add the following environment variable.
 export GTM_ID=[GTM ID]
 ```
 
+To enable Adobe Launch, add the following environment variable.
+
+```
+export ADOBE_LAUNCH_SCRIPT_URL=[Adobe Launch URL]
+```
+
+To specify custom ring and/or quadrant names, add the following environment variables with the desired values.
+
+```
+export RINGS=['Adopt', 'Trial', 'Assess', 'Hold']
+export QUADRANTS=['Techniques', 'Platforms', 'Tools', 'Languages & Frameworks']
+```
+
 ## Docker Image
 
 We have released BYOR as a docker image for our users. The image is available in our [DockerHub Repo](https://hub.docker.com/r/wwwthoughtworks/build-your-own-radar/). To pull and run the image, run the following commands.
@@ -146,6 +166,8 @@ $ docker pull wwwthoughtworks/build-your-own-radar
 $ docker run --rm -p 8080:80 -e CLIENT_ID="[Google Client ID]" wwwthoughtworks/build-your-own-radar
 $ open http://localhost:8080
 ```
+
+Note: The other environment variables mentioned in the previous section can be used with `docker run` as well.
 
 ### Advanced option - Docker image with a CSV/JSON file from the host machine
 
