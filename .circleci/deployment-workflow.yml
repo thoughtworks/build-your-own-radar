@@ -85,9 +85,6 @@ jobs:
       - run:
           name: Run e2e test cases for new UI
           command: API_KEY=$LOCAL_API_KEY ./run_e2e_tests.sh $LOCAL_TEST_URL "development"
-      - run:
-          name: Run e2e test cases for old UI
-          command: API_KEY=$LOCAL_API_KEY ./run_e2e_tests.sh $LOCAL_TEST_URL "production"
   qa-deployment:
     executor: base
     steps:
