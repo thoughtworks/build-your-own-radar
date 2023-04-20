@@ -25,12 +25,6 @@ const plugins = [
     chunks: ['main'],
     inject: 'body',
   }),
-  new HtmlWebpackPlugin({
-    template: './src/error.html',
-    chunks: ['common'],
-    inject: 'body',
-    filename: 'error.html',
-  }),
   new webpack.DefinePlugin({
     'process.env.CLIENT_ID': JSON.stringify(process.env.CLIENT_ID),
     'process.env.API_KEY': JSON.stringify(process.env.API_KEY),

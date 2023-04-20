@@ -45,7 +45,7 @@
     flex-wrap: nowrap;
     align-items: center;
 
-    input[type='text'] {
+    input#document-input {
       font-family: $baseFontFamily;
       background-color: $mist;
       border: 1px solid #d5d9db;
