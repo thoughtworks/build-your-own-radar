@@ -169,9 +169,10 @@ function selectRadarQuadrant(order, startAngle, name) {
     if (order === 'first' || order === 'second') {
       radarLegendsContainer.style(
         'left',
-        `${parentWidth -
-        getScaledQuadrantWidth(scale) +
-        (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
+        `${
+          parentWidth -
+          getScaledQuadrantWidth(scale) +
+          (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
         }px`,
       )
     } else {
@@ -482,14 +483,16 @@ function quadrantScrollHandler(
         radarElement.style('left', `${leftQuadrantLeftValue}px`)
         radarLegendsContainer.style(
           'left',
-          `${leftQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
+          `${
+            leftQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
           }px`,
         )
       } else {
         radarElement.style('left', `${rightQuadrantLeftValue}px`)
         radarLegendsContainer.style(
           'left',
-          `${rightQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
+          `${
+            rightQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
           }px`,
         )
       }
