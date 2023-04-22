@@ -33,11 +33,11 @@ const Blip = function (name, ring, isNew, hasMovedIn, hasMovedOut, topic, descri
   }
 
   self.hasMovedIn = function () {
-    return hasMovedIn || false
+    return hasMovedIn
   }
 
   self.hasMovedOut = function () {
-    return hasMovedOut || false
+    return hasMovedOut
   }
 
   self.isGroup = function () {
