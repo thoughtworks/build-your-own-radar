@@ -190,7 +190,7 @@ describe('Blips', function () {
     }
 
     const actual = blipAssistiveText(blip)
-    expect(actual).toEqual('ring1 ring, group of 12 New Blips')
+    expect(actual).toEqual('`ring1 ring, group of 12 New Blips')
   })
 
   it('should return moved in assistive text for moved in blip', function () {
