@@ -28,6 +28,10 @@ Create a Google Sheet. Give it at least the below column headers, and put in the
 | Apache Kylin  | assess | platforms              | TRUE  | Apache Kylin is an open source analytics solution ...   |
 | JSF           | hold   | languages & frameworks | FALSE | We continue to see teams run into trouble using JSF ... |
 
+### Moved In / Out
+
+If you want to show movement of blips, add the optional columns `hasMovedIn` and `hasMovedOut` to your dataset
+
 ### Sharing the sheet
 
 - In Google Sheets, click on "Share".

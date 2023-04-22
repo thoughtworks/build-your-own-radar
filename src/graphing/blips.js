@@ -48,7 +48,7 @@ function thereIsCollision(coordinates, allCoordinates, blipWidth) {
   return allCoordinates.some(function (currentCoordinates) {
     return (
       Math.abs(currentCoordinates.coordinates[0] - coordinates[0]) <
-        currentCoordinates.width / 2 + blipWidth / 2 + 10 &&
+      currentCoordinates.width / 2 + blipWidth / 2 + 10 &&
       Math.abs(currentCoordinates.coordinates[1] - coordinates[1]) < currentCoordinates.width / 2 + blipWidth / 2 + 10
     )
   })
@@ -75,11 +75,11 @@ function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoor
   const maxIterations = 200
   const chance = new Chance(
     Math.PI *
-      graphConfig.quadrantWidth *
-      graphConfig.quadrantHeight *
-      graphConfig.quadrantsGap *
-      graphConfig.blipWidth *
-      maxIterations,
+    graphConfig.quadrantWidth *
+    graphConfig.quadrantHeight *
+    graphConfig.quadrantsGap *
+    graphConfig.blipWidth *
+    maxIterations,
   )
   let coordinates = calculateRadarBlipCoordinates(minRadius, maxRadius, startAngle, quadrantOrder, chance, blip)
   let iterationCounter = 0
@@ -104,9 +104,20 @@ function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoor
 }
 
 function blipAssistiveText(blip) {
+  let blipType;
+  if (blip.isNew()) {
+    blipType = 'new'
+  } else if (blip.hasMovedIn()) {
+    blipType = 'moved in'
+  } else if (blip.hasMovedOut()) {
+    blipType = 'moved out'
+  } else {
+    blipType = 'existing'
+  }
+
   return blip.isGroup()
     ? `\`${blip.ring().name()} ring, group of ${blip.blipText()}`
-    : `${blip.ring().name()} ring, ${blip.name()}, ${blip.isNew() ? 'new' : 'existing'} blip.`
+    : `${blip.ring().name()} ring, ${blip.name()}, ${blipType} blip.`
 }
 function addOuterCircle(parentSvg, order, scale = 1) {
   parentSvg
@@ -117,6 +128,60 @@ function addOuterCircle(parentSvg, order, scale = 1) {
       'd',
       'M18 36C8.07 36 0 27.93 0 18S8.07 0 18 0c9.92 0 18 8.07 18 18S27.93 36 18 36zM18 3.14C9.81 3.14 3.14 9.81 3.14 18S9.81 32.86 18 32.86S32.86 26.19 32.86 18S26.19 3.14 18 3.14z',
     )
+    .style('transform', `scale(${scale})`)
+}
+
+function addMovedInLine(parentSvg, order, scale = 1) {
+  let path;
+
+  switch (order) {
+    case 'first':
+      path = 'M16.5 34.44c0-.86.7-1.56 1.56-1.56c8.16 0 14.8-6.64 14.8-14.8c0-.86.7-1.56 1.56-1.56c.86 0 1.56.7 1.56 1.56C36 27.96 27.96 36 18.07 36C17.2 36 16.5 35.3 16.5 34.44z';
+      break;
+    case 'second':
+      path = 'M16.5 1.56c0 .86.7 1.56 1.56 1.56c8.16 0 14.8 6.64 14.8 14.8c0 .86.7 1.56 1.56 1.56c.86 0 1.56-.7 1.56-1.56C36 8.04 27.96 0 18.07 0C17.2 0 16.5.7 16.5 1.56z';
+      break;
+    case 'third':
+      path = 'M19.5 34.44c0-.86-.7-1.56-1.56-1.56c-8.16 0-14.8-6.64-14.8-14.8c0-.86-.7-1.56-1.56-1.56S0 17.2 0 18.07C0 27.96 8.04 36 17.93 36C18.8 36 19.5 35.3 19.5 34.44z'
+      break;
+    case 'fourth':
+      path = 'M19.5 1.56c0 0.86-0.7 1.56-1.56 1.56c-8.16 0-14.8 6.64-14.8 14.8c0 0.86-0.7 1.56-1.56 1.56S0 18.8 0 17.93C0 8.04 8.04 0 17.93 0C18.8 0 19.5 0.7 19.5 1.56z';
+      break;
+
+  }
+
+  parentSvg
+    .append('path')
+    .attr('opacity', '1')
+    .attr('class', order)
+    .attr('d', path)
+    .style('transform', `scale(${scale})`)
+}
+
+
+function addMovedOutLine(parentSvg, order, scale = 1) {
+  let path;
+
+  switch (order) {
+    case 'first':
+      path = 'M19.5 1.56c0 0.86-0.7 1.56-1.56 1.56c-8.16 0-14.8 6.64-14.8 14.8c0 0.86-0.7 1.56-1.56 1.56S0 18.8 0 17.93C0 8.04 8.04 0 17.93 0C18.8 0 19.5 0.7 19.5 1.56z';
+      break;
+    case 'second':
+      path = 'M19.5 34.44c0-.86-.7-1.56-1.56-1.56c-8.16 0-14.8-6.64-14.8-14.8c0-.86-.7-1.56-1.56-1.56S0 17.2 0 18.07C0 27.96 8.04 36 17.93 36C18.8 36 19.5 35.3 19.5 34.44z'
+      break;
+    case 'third':
+      path = 'M16.5 1.56c0 .86.7 1.56 1.56 1.56c8.16 0 14.8 6.64 14.8 14.8c0 .86.7 1.56 1.56 1.56c.86 0 1.56-.7 1.56-1.56C36 8.04 27.96 0 18.07 0C17.2 0 16.5.7 16.5 1.56z';
+      break;
+    case 'fourth':
+      path = 'M16.5 34.44c0-.86.7-1.56 1.56-1.56c8.16 0 14.8-6.64 14.8-14.8c0-.86.7-1.56 1.56-1.56c.86 0 1.56.7 1.56 1.56C36 27.96 27.96 36 18.07 36C17.2 36 16.5 35.3 16.5 34.44z';
+      break;
+  }
+
+  parentSvg
+    .append('path')
+    .attr('opacity', '1')
+    .attr('class', order)
+    .attr('d', path)
     .style('transform', `scale(${scale})`)
 }
 
@@ -136,6 +201,16 @@ function drawBlipCircle(group, blip, xValue, yValue, order) {
 function newBlip(blip, xValue, yValue, order, group) {
   drawBlipCircle(group, blip, xValue, yValue, order)
   addOuterCircle(group, order, blip.scale)
+}
+
+function movedInBlip(blip, xValue, yValue, order, group) {
+  drawBlipCircle(group, blip, xValue, yValue, order)
+  addMovedInLine(group, order, blip.scale)
+}
+
+function movedOutBlip(blip, xValue, yValue, order, group) {
+  drawBlipCircle(group, blip, xValue, yValue, order)
+  addMovedOutLine(group, order, blip.scale)
 }
 
 function existingBlip(blip, xValue, yValue, order, group) {
@@ -171,13 +246,25 @@ function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup) {
     .attr('data-blip-id', blipId)
     .attr('data-ring-name', blip.ring().name())
 
+  console.log(blip.name() + ' ' + blip.isNew() + ' ' + blip.hasMovedIn() + ' ' + blip.hasMovedOut() + ' ' + blip.isGroup())
+
   if (blip.isGroup()) {
+    console.log('group blip')
     groupBlip(blip, x, y, order, group)
   } else if (blip.isNew()) {
+    console.log('is new blip')
     newBlip(blip, x, y, order, group)
+  } else if (blip.hasMovedIn()) {
+    console.log('moved in');
+    movedInBlip(blip, x, y, order, group)
+  } else if (blip.hasMovedOut()) {
+    console.log('moved out');
+    movedOutBlip(blip, x, y, order, group)
   } else {
     existingBlip(blip, x, y, order, group)
   }
+
+  console.log('end')
 
   group
     .append('text')
@@ -283,6 +370,8 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
   quadrantOrder = quadrantWrapper.order
 
   blips = quadrant.blips()
+  console.log(blips)
+
   rings.forEach(function (ring, i) {
     const ringBlips = blips.filter(function (blip) {
       return blip.ring() === ring
@@ -303,6 +392,7 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
     }
 
     ringBlips.forEach(function (blip) {
+      console.log('here')
       const coordinates = findBlipCoordinates(
         blip,
         minRadius,

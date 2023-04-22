@@ -169,10 +169,9 @@ function selectRadarQuadrant(order, startAngle, name) {
     if (order === 'first' || order === 'second') {
       radarLegendsContainer.style(
         'left',
-        `${
-          parentWidth -
-          getScaledQuadrantWidth(scale) +
-          (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
+        `${parentWidth -
+        getScaledQuadrantWidth(scale) +
+        (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
         }px`,
       )
     } else {
@@ -401,15 +400,23 @@ function renderRadarLegends(radarElement) {
     .attr('alt', 'new blip legend icon')
     .node().outerHTML
 
-  const existingImage = legendsContainer
+  const movedImage = legendsContainer
     .append('img')
-    .attr('src', '/images/existing.svg')
+    .attr('src', '/images/moved.svg')
     .attr('width', '37px')
     .attr('height', '37px')
-    .attr('alt', 'existing blip legend icon')
+    .attr('alt', 'moved in or out blip legend icon')
     .node().outerHTML
 
-  legendsContainer.html(`${newImage} New ${existingImage} Existing`)
+  const noChangeImage = legendsContainer
+    .append('img')
+    .attr('src', '/images/no-change.svg')
+    .attr('width', '37px')
+    .attr('height', '37px')
+    .attr('alt', 'no change blip legend icon')
+    .node().outerHTML
+
+  legendsContainer.html(`${newImage} New ${movedImage} Moved in/out ${noChangeImage} No change`)
 }
 
 function renderMobileView(quadrant) {
@@ -475,16 +482,14 @@ function quadrantScrollHandler(
         radarElement.style('left', `${leftQuadrantLeftValue}px`)
         radarLegendsContainer.style(
           'left',
-          `${
-            leftQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
+          `${leftQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
           }px`,
         )
       } else {
         radarElement.style('left', `${rightQuadrantLeftValue}px`)
         radarLegendsContainer.style(
           'left',
-          `${
-            rightQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
+          `${rightQuadrantLeftValue + (getScaledQuadrantWidth(scale) / 2 - getElementWidth(radarLegendsContainer) / 2)
           }px`,
         )
       }

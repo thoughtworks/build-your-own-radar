@@ -33,6 +33,8 @@ const InputSanitizer = function () {
     blip.description = sanitizeHtml(blip.description, relaxedOptions)
     blip.name = sanitizeHtml(blip.name, restrictedOptions)
     blip.isNew = sanitizeHtml(blip.isNew, restrictedOptions)
+    blip.hasMovedIn = sanitizeHtml(blip.hasMovedIn, restrictedOptions)
+    blip.hasMovedOut = sanitizeHtml(blip.hasMovedOut, restrictedOptions)
     blip.ring = sanitizeHtml(blip.ring, restrictedOptions)
     blip.quadrant = sanitizeHtml(blip.quadrant, restrictedOptions)
 
@@ -45,18 +47,24 @@ const InputSanitizer = function () {
     const descriptionIndex = header.indexOf('description')
     const nameIndex = header.indexOf('name')
     const isNewIndex = header.indexOf('isNew')
+    const hasMovedInIndex = header.indexOf('hasMovedIn')
+    const hasMovedOutIndex = header.indexOf('hasMovedOut')
     const quadrantIndex = header.indexOf('quadrant')
     const ringIndex = header.indexOf('ring')
 
     const description = descriptionIndex === -1 ? '' : blip[descriptionIndex]
     const name = nameIndex === -1 ? '' : blip[nameIndex]
     const isNew = isNewIndex === -1 ? '' : blip[isNewIndex]
+    const hasMovedIn = hasMovedInIndex === -1 ? '' : blip[hasMovedInIndex]
+    const hasMovedOut = hasMovedOutIndex === -1 ? '' : blip[hasMovedOutIndex]
     const ring = ringIndex === -1 ? '' : blip[ringIndex]
     const quadrant = quadrantIndex === -1 ? '' : blip[quadrantIndex]
 
     blip.description = sanitizeHtml(description, relaxedOptions)
     blip.name = sanitizeHtml(name, restrictedOptions)
     blip.isNew = sanitizeHtml(isNew, restrictedOptions)
+    blip.hasMovedIn = sanitizeHtml(hasMovedIn, restrictedOptions)
+    blip.hasMovedOut = sanitizeHtml(hasMovedOut, restrictedOptions)
     blip.ring = sanitizeHtml(ring, restrictedOptions)
     blip.quadrant = sanitizeHtml(quadrant, restrictedOptions)
 
