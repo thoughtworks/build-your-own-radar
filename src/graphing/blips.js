@@ -48,7 +48,7 @@ function thereIsCollision(coordinates, allCoordinates, blipWidth) {
   return allCoordinates.some(function (currentCoordinates) {
     return (
       Math.abs(currentCoordinates.coordinates[0] - coordinates[0]) <
-        currentCoordinates.width / 2 + blipWidth / 2 + 10 &&
+      currentCoordinates.width / 2 + blipWidth / 2 + 10 &&
       Math.abs(currentCoordinates.coordinates[1] - coordinates[1]) < currentCoordinates.width / 2 + blipWidth / 2 + 10
     )
   })
@@ -75,11 +75,11 @@ function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoor
   const maxIterations = 200
   const chance = new Chance(
     Math.PI *
-      graphConfig.quadrantWidth *
-      graphConfig.quadrantHeight *
-      graphConfig.quadrantsGap *
-      graphConfig.blipWidth *
-      maxIterations,
+    graphConfig.quadrantWidth *
+    graphConfig.quadrantHeight *
+    graphConfig.quadrantsGap *
+    graphConfig.blipWidth *
+    maxIterations,
   )
   let coordinates = calculateRadarBlipCoordinates(minRadius, maxRadius, startAngle, quadrantOrder, chance, blip)
   let iterationCounter = 0
@@ -252,27 +252,17 @@ function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup) {
     .attr('data-blip-id', blipId)
     .attr('data-ring-name', blip.ring().name())
 
-  console.log(
-    blip.name() + ' ' + blip.isNew() + ' ' + blip.hasMovedIn() + ' ' + blip.hasMovedOut() + ' ' + blip.isGroup(),
-  )
-
   if (blip.isGroup()) {
-    console.log('group blip')
     groupBlip(blip, x, y, order, group)
   } else if (blip.isNew()) {
-    console.log('is new blip')
     newBlip(blip, x, y, order, group)
   } else if (blip.hasMovedIn()) {
-    console.log('moved in')
     movedInBlip(blip, x, y, order, group)
   } else if (blip.hasMovedOut()) {
-    console.log('moved out')
     movedOutBlip(blip, x, y, order, group)
   } else {
     existingBlip(blip, x, y, order, group)
   }
-
-  console.log('end')
 
   group
     .append('text')
@@ -378,8 +368,6 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
   quadrantOrder = quadrantWrapper.order
 
   blips = quadrant.blips()
-  console.log(blips)
-
   rings.forEach(function (ring, i) {
     const ringBlips = blips.filter(function (blip) {
       return blip.ring() === ring
@@ -400,7 +388,6 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
     }
 
     ringBlips.forEach(function (blip) {
-      console.log('here')
       const coordinates = findBlipCoordinates(
         blip,
         minRadius,
