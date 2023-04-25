@@ -65,6 +65,7 @@ const Radar = function () {
     setNumbers(quadrant.blips())
     addingQuadrant++
   }
+
   self.addRings = function (allRings) {
     rings = allRings
   }
