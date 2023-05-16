@@ -14,5 +14,18 @@ mkdir -p files
 cp /src/build-your-own-radar/spec/end_to_end_tests/resources/localfiles/* ./files/
 cp /src/build-your-own-radar/default.template /etc/nginx/conf.d/default.conf
 
+
+CONTENT=""
+for filename in ./files/*; do
+    filename=$(basename "$filename")
+    if [ "$filename" = "radar.json" ] || [ "$filename" = "radar.csv" ]; then
+        continue
+    fi
+
+    CONTENT="$CONTENT<a href=\"/?documentId=files%2F$filename\">$filename</a><br/>"
+done
+
+sed -i "s|<span>INJECT</span>|$CONTENT|g" index.html
+
 echo "Starting nginx server..."
 exec nginx -g 'daemon off;'
