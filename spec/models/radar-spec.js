@@ -101,24 +101,6 @@ describe('Radar', function () {
     }).toThrow(new MalformedDataError(ExceptionMessages.TOO_MANY_QUADRANTS))
   })
 
-  // it('old ui throws an error if less than 4 quadrants are added', function () {
-  //   process.env.ENVIRONMENT = 'production'
-  //   var quadrant, radar, blip
-
-  //   blip = new Blip('A', new Ring('First'))
-  //   quadrant = new Quadrant('First')
-  //   quadrant.add([blip])
-  //   radar = new Radar()
-
-  //   radar.addQuadrant(quadrant)
-  //   radar.addQuadrant(new Quadrant('Second'))
-  //   radar.addQuadrant(new Quadrant('Third'))
-
-  //   expect(function () {
-  //     radar.rings()
-  //   }).toThrow(new MalformedDataError(ExceptionMessages.LESS_THAN_FOUR_QUADRANTS))
-  // })
-
   describe('blip numbers', function () {
     var firstQuadrant, secondQuadrant, radar, firstRing
 
@@ -160,52 +142,6 @@ describe('Radar', function () {
       expect(radar.getAlternatives()).toEqual([alternative1, alternative2])
     })
   })
-
-  // describe('rings : old UI', function () {
-  //   var quadrant, radar, firstRing, secondRing, otherQuadrant
-
-  //   beforeEach(function () {
-  //     process.env.ENVIRONMENT = 'production'
-  //     firstRing = new Ring('Adopt', 0)
-  //     secondRing = new Ring('Hold', 1)
-  //     quadrant = new Quadrant('Fourth')
-  //     otherQuadrant = new Quadrant('Other')
-  //     radar = new Radar()
-  //   })
-
-  //   it('returns an array for a given set of blips', function () {
-  //     quadrant.add([new Blip('A', firstRing), new Blip('B', secondRing)])
-
-  //     radar.addQuadrant(quadrant)
-  //     radar.addQuadrant(otherQuadrant)
-  //     radar.addQuadrant(otherQuadrant)
-  //     radar.addQuadrant(otherQuadrant)
-
-  //     expect(radar.rings()).toEqual([firstRing, secondRing])
-  //   })
-
-  //   it('has unique rings', function () {
-  //     quadrant.add([new Blip('A', firstRing), new Blip('B', firstRing), new Blip('C', secondRing)])
-
-  //     radar.addQuadrant(quadrant)
-  //     radar.addQuadrant(otherQuadrant)
-  //     radar.addQuadrant(otherQuadrant)
-  //     radar.addQuadrant(otherQuadrant)
-
-  //     expect(radar.rings()).toEqual([firstRing, secondRing])
-  //   })
-
-  //   it('has sorts by the ring order', function () {
-  //     quadrant.add([new Blip('C', secondRing), new Blip('A', firstRing), new Blip('B', firstRing)])
-
-  //     radar.addQuadrant(quadrant)
-  //     radar.addQuadrant(otherQuadrant)
-  //     radar.addQuadrant(otherQuadrant)
-  //     radar.addQuadrant(otherQuadrant)
-
-  //     expect(radar.rings()).toEqual([firstRing, secondRing])
-  //   })
-  // })
 
   describe('rings : new UI', function () {
     let quadrant,

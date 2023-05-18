@@ -7,14 +7,13 @@
     "build:dev": "webpack --mode development --config webpack.dev.js",
     "build:prod": "webpack --mode production --config webpack.prod.js",
     "dev": "webpack-dev-server --mode development --config webpack.dev.js",
-    "dev:old-ui": "webpack-dev-server --mode development --config webpack.dev-old-ui.js",
     "test": "jest",
-    "test:e2e": "cypress run --record false --env host=$TEST_URL,TEST_ENV=$TEST_ENV",
+    "test:coverage": "jest --coverage",
+    "test:e2e": "cypress open --env host=$TEST_URL,TEST_ENV=$TEST_ENV",
+    "test:e2e-headless": "cypress run --record false --env host=$TEST_URL,TEST_ENV=$TEST_ENV",
     "lint-prettier:check": "eslint . && prettier --check .",
     "lint-prettier:fix": "eslint . --fix && prettier --write .",
-    "start": "cypress open --env host=$TEST_URL,TEST_ENV=$TEST_ENV",
-    "coverage": "jest --coverage",
-    "quality": "npm run lint-prettier:check && npm run coverage"
+    "quality": "npm run lint-prettier:check && npm run test:coverage"
   },
   "author": "Thoughtworks",
   "repository": {

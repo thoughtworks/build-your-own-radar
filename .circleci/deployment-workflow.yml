@@ -83,8 +83,8 @@ jobs:
       - checkout
       - install-node-and-cypress-packages
       - run:
-          name: Run e2e test cases for new UI
-          command: API_KEY=$LOCAL_API_KEY ./run_e2e_tests.sh $LOCAL_TEST_URL "development"
+          name: Run e2e test cases
+          command: API_KEY=$LOCAL_API_KEY ./run_e2e_tests.sh $LOCAL_TEST_URL
   qa-deployment:
     executor: base
     steps:
@@ -98,19 +98,6 @@ jobs:
           bucket_name: $QA_BUCKET_NAME
           distribution_id: $QA_DISTRIBUTION_ID
           mode: dev
-  stage-deployment:
-    executor: base
-    steps:
-      - checkout
-      - install-node-packages
-      - build-and-push:
-          api_key: $STAGE_API_KEY
-          client_id: $STAGE_CLIENT_ID
-          gtm_id: $QA_GTM_ID
-          adobe_launch_script_url: $STAGE_ADOBE_LAUNCH_SCRIPT_URL
-          bucket_name: $STAGE_BUCKET_NAME
-          distribution_id: $STAGE_DISTRIBUTION_ID
-          mode: prod
   prod-deployment:
     executor: base
     steps:
@@ -138,24 +125,13 @@ workflows:
           filters:
             branches:
               only: master
-      - approve-qa-deployment:
-          type: approval
-          requires:
-            - e2e-tests
       - qa-deployment:
           requires:
-            - approve-qa-deployment
-      - approve-stage-deployment:
-          type: approval
-          requires:
-            - qa-deployment
-      - stage-deployment:
-          requires:
-            - approve-stage-deployment
+            - e2e-tests
       - approve-prod-deployment:
           type: approval
           requires:
-            - stage-deployment
+            - qa-deployment
       - prod-deployment:
           requires:
             - approve-prod-deployment
