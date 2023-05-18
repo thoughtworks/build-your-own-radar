@@ -510,6 +510,8 @@ const Radar = function (size, radar) {
   function renderFullRadar() {
     removeScrollListener()
 
+    d3.select('#auto-complete').property('value', '')
+
     window.scrollTo({
       top: 0,
       left: 0,

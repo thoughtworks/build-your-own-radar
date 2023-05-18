@@ -80,11 +80,11 @@ describe('Build radar with CSV', () => {
     it('verify group-blip tooltip text with all blip names in Radar graph', () => {
       radarPage.validateBlipToolTip(
         'blip-link-first-adopt-group-new-blips',
-          '1.Path-to-production mapping3.Team cognitive load',
+        '1. Path-to-production mapping3. Team cognitive load',
       )
       radarPage.validateBlipToolTip(
         'blip-link-first-adopt-group-existing-blips',
-          '4.Threat modeling5.Backstage6.Delta Lake7.Delta Lake8.Great Expectations9.Kotest10.NestJS11.React Query12.Swift Package Manager',
+        '4. Threat modeling5. Backstage6. Delta Lake7. Delta Lake8. Great Expectations9. Kotest10. NestJS11. React Query12. Swift Package Manager',
       )
     })
 
@@ -490,11 +490,11 @@ describe('Build radar with JSON', () => {
     it('verify group-blip tooltip text with all blip names in Radar graph', () => {
       radarPage.validateBlipToolTip(
         'blip-link-first-adopt-group-new-blips',
-          '1.Path-to-production mapping3.Team cognitive load',
+        '1. Path-to-production mapping3. Team cognitive load',
       )
       radarPage.validateBlipToolTip(
         'blip-link-first-adopt-group-existing-blips',
-          '4.Threat modeling5.Backstage6.Delta Lake7.Delta Lake8.Great Expectations9.Kotest10.NestJS11.React Query12.Swift Package Manager',
+        '4. Threat modeling5. Backstage6. Delta Lake7. Delta Lake8. Great Expectations9. Kotest10. NestJS11. React Query12. Swift Package Manager',
       )
     })
 
@@ -878,6 +878,26 @@ describe('Validate public Google Sheet', () => {
 
       radarPage.resetRadarView()
 
+      radarPage.validateBlipToolTip('blip-link-second-trial-group-new-blips', 'Click to view all')
+      radarPage.validateBlipToolTip(
+        'blip-link-second-trial-group-existing-blips',
+        '30. Colima32. DataHub34. eBPF39. Teleport51. Apache Superset56. Excalidraw60. Spectral',
+      )
+
+      radarPage.clickBlipInRadarGraph('second-trial-group-new-blips')
+      radarPage.validateActiveQuadrant('platforms', 'second')
+
+      radarPage.validateBlipText('blip-link-second-trial-group-new-blips', '17 new blips')
+      radarPage.validateBlipText('blip-link-second-trial-group-existing-blips', '7 existing blips')
+
+      radarPage.validateNoBlipToolTip('blip-link-second-trial-group-new-blips')
+      radarPage.validateNoBlipToolTip('blip-link-second-trial-group-existing-blips')
+
+      radarPage.hoverBlipInRadarGraph(41)
+      radarPage.validBlipHighlightedInQuadrantTable(41)
+
+      radarPage.resetRadarView()
+
       radarPage.validateSearchResults('framework', 25)
       radarPage.clickSearchResult(1)
       radarPage.validateActiveQuadrant('techniques', 'first')
@@ -902,36 +922,7 @@ describe('Validate public Google Sheet', () => {
       radarPage.validateActiveAlternateRadar(2)
       radarPage.validateInactiveAlternateRadar(1)
     })
-
-      it('verify click on group-blip in Radar graph', () => {
-        radarPage.clickBlipInRadarGraph('second-trial-group-new-blips')
-        radarPage.validateActiveQuadrant('platforms', 'second')
   })
-
-      it('verify group-blip text in Radar graph', () => {
-        radarPage.validateBlipText('blip-link-second-trial-group-new-blips', '17 new blips')
-        radarPage.validateBlipText('blip-link-second-trial-group-existing-blips', '7 existing blips')
-      })
-
-      it('verify group-blip text does not appear in quadrant view', () => {
-        radarPage.clickBlipInRadarGraph('second-trial-group-new-blips')
-        radarPage.validateActiveQuadrant('platforms', 'second')
-        radarPage.validateNoBlipToolTip('blip-link-second-trial-group-new-blips')
-        radarPage.validateNoBlipToolTip('blip-link-second-trial-group-existing-blips')
-      })
-
-      it('blip in table gets highlighted on hover on blip in graph', () => {
-        radarPage.clickBlipInRadarGraph('second-trial-group-new-blips')
-        radarPage.validateActiveQuadrant('platforms', 'second')
-        const blipId = '41'
-        radarPage.hoverBlipInRadarGraph(blipId)
-        radarPage.validBlipHighlightedInQuadrantTable(blipId)
-      })
-
-      it('verify group-blip tooltip text with click-to-view-all text in Radar graph', () => {
-        radarPage.validateBlipToolTip('blip-link-second-trial-group-new-blips', 'Click to view all')
-      })
-    })
 
   context('Tablet resolution (1024px)', () => {
     beforeEach(function () {
@@ -984,6 +975,19 @@ describe('Validate public Google Sheet', () => {
 
       radarPage.resetRadarView()
 
+      radarPage.clickQuadrantInFullRadarViewTablet('second')
+      radarPage.validateActiveQuadrant('platforms', 'second')
+      radarPage.validateBlipText('blip-link-second-trial-group-new-blips', '17 new blips')
+      radarPage.validateBlipText('blip-link-second-trial-group-existing-blips', '7 existing blips')
+
+      radarPage.validateNoBlipToolTip('blip-link-second-trial-group-new-blips')
+      radarPage.validateNoBlipToolTip('blip-link-second-trial-group-existing-blips')
+
+      radarPage.hoverBlipInRadarGraph(41)
+      radarPage.validBlipHighlightedInQuadrantTable(41)
+
+      radarPage.resetRadarView()
+
       radarPage.validateSearchResults('framework', 25)
       radarPage.clickSearchResult(1)
       radarPage.validateActiveQuadrant('techniques', 'first')
@@ -1008,35 +1012,7 @@ describe('Validate public Google Sheet', () => {
       radarPage.validateActiveAlternateRadar(2)
       radarPage.validateInactiveAlternateRadar(1)
     })
-      it('verify click on group-blip in quadrant view', () => {
-        radarPage.clickQuadrantInFullRadarViewTablet('second')
-        radarPage.validateActiveQuadrant('platforms', 'second')
-        radarPage.clickBlipInRadarGraph('second-trial-group-new-blips')
-        radarPage.validateActiveQuadrant('platforms', 'second')
   })
-
-      it('verify group-blip text in quadrant view', () => {
-        radarPage.clickQuadrantInFullRadarViewTablet('second')
-        radarPage.validateActiveQuadrant('platforms', 'second')
-        radarPage.validateBlipText('blip-link-second-trial-group-new-blips', '17 new blips')
-        radarPage.validateBlipText('blip-link-second-trial-group-existing-blips', '7 existing blips')
-      })
-
-      it('verify group-blip text does not appear in quadrant view', () => {
-        radarPage.clickQuadrantInFullRadarViewTablet('second')
-        radarPage.validateActiveQuadrant('platforms', 'second')
-        radarPage.validateNoBlipToolTip('blip-link-second-trial-group-new-blips')
-        radarPage.validateNoBlipToolTip('blip-link-second-trial-group-existing-blips')
-      })
-
-      it('blip in table gets highlighted on hover on blip in graph', () => {
-        radarPage.clickQuadrantInFullRadarViewTablet('second')
-        radarPage.validateActiveQuadrant('platforms', 'second')
-        const blipId = '41'
-        radarPage.hoverBlipInRadarGraph(blipId)
-        radarPage.validBlipHighlightedInQuadrantTable(blipId)
-      })
-    })
 
   context('Mobile resolution (360px)', () => {
     beforeEach(function () {

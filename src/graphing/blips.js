@@ -196,7 +196,7 @@ function getGroupBlipTooltipText(ringBlips) {
   let tooltipText = 'Click to view all'
   if (ringBlips.length <= 15) {
     tooltipText = ringBlips.reduce((toolTip, blip) => {
-      toolTip += blip.id() + '.' + blip.name() + '</br>'
+      toolTip += blip.id() + '. ' + blip.name() + '</br>'
       return toolTip
     }, '')
   }
