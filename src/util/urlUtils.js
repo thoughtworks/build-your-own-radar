@@ -13,6 +13,14 @@ function constructSheetUrl(sheetName) {
   return sheetUrl
 }
 
+function getDocumentOrSheetId() {
+  const queryString = window.location.href.match(/documentId(.*)/) ?? window.location.href.match(/sheetId(.*)/)
+  const queryParams = queryString ? QueryParams(queryString[0]) : {}
+
+  return queryParams.documentId ?? queryParams.sheetId
+}
+
 module.exports = {
   constructSheetUrl,
+  getDocumentOrSheetId,
 }

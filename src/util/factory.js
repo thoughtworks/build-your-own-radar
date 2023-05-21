@@ -22,6 +22,7 @@ const ExceptionMessages = require('./exceptionMessages')
 const GoogleAuth = require('./googleAuth')
 const config = require('../config')
 const featureToggles = config().featureToggles
+const { getDocumentOrSheetId } = require('./urlUtils')
 const { getGraphSize, graphConfig, isValidConfig } = require('../graphing/config')
 const InvalidConfigError = require('../exceptions/invalidConfigError')
 const InvalidContentError = require('../exceptions/invalidContentError')
@@ -320,7 +321,7 @@ const Factory = function () {
       : window.location.href.match(/sheetId(.*)/)
     const queryParams = queryString ? QueryParams(queryString[0]) : {}
 
-    const paramId = featureToggles.UIRefresh2022 ? queryParams.documentId : queryParams.sheetId
+    const paramId = getDocumentOrSheetId()
     if (paramId && paramId.endsWith('.csv')) {
       sheet = CSVDocument(paramId)
       sheet.init().build()
@@ -538,15 +539,10 @@ function plotUnauthorizedErrorMessage() {
 
   button.on('click', () => {
     let sheet
-    if (featureToggles.UIRefresh2022) {
-      const queryString = window.location.href.match(/documentId(.*)/)
-      const queryParams = queryString ? QueryParams(queryString[0]) : {}
-      sheet = GoogleSheet(queryParams.documentId, queryParams.sheetName)
-    } else {
-      const queryString = window.location.href.match(/sheetId(.*)/)
-      const queryParams = queryString ? QueryParams(queryString[0]) : {}
-      sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
-    }
+    const queryString = window.location.href.match(/sheetId(.*)/)
+    const queryParams = queryString ? QueryParams(queryString[0]) : {}
+    sheet = GoogleSheet(getDocumentOrSheetId(), queryParams.sheetName)
+
     sheet.authenticate(true, false, () => {
       if (featureToggles.UIRefresh2022 && !sheet.error) {
         helperDescription.style('display', 'block')
