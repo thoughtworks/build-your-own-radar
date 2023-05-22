@@ -9,8 +9,8 @@
     "dev": "webpack-dev-server --mode development --config webpack.dev.js",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "test:e2e": "cypress open --env host=$TEST_URL,TEST_ENV=$TEST_ENV",
-    "test:e2e-headless": "cypress run --record false --env host=$TEST_URL,TEST_ENV=$TEST_ENV",
+    "test:e2e": "cypress open --env host=$TEST_URL",
+    "test:e2e-headless": "cypress run --record false --env host=$TEST_URL",
     "lint-prettier:check": "eslint . && prettier --check .",
     "lint-prettier:fix": "eslint . --fix && prettier --write .",
     "quality": "npm run lint-prettier:check && npm run test:coverage"
