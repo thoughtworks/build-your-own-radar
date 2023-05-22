@@ -12,7 +12,8 @@ RUN                                                                       \
 
 WORKDIR /src/build-your-own-radar
 COPY package.json ./
-RUN npm install
+COPY package-lock.json ./
+RUN npm ci
 
 COPY . ./
 

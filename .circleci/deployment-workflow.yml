@@ -102,9 +102,6 @@ jobs:
     executor: base
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 20.10.12
-          docker_layer_caching: true
       - install-node-packages
       - build-and-push:
           api_key: $PROD_API_KEY
@@ -114,9 +111,6 @@ jobs:
           bucket_name: $PROD_BUCKET_NAME
           distribution_id: $PROD_DISTRIBUTION_ID
           mode: prod
-      - run:
-          name: Build and push Docker image to DockerHub
-          command: ./docker_push.sh
 
 workflows:
   build-and-deploy:
