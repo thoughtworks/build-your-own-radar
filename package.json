@@ -1,6 +1,6 @@
 {
   "name": "build-your-own-radar",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -79,8 +79,8 @@
     ]
   },
   "engines": {
-    "node": ">=14",
-    "npm": "8"
+    "node": ">=18",
+    "npm": ">=9"
   },
   "private": true
 }

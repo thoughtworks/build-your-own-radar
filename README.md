@@ -113,7 +113,7 @@ Paste the URL in the input field on the home page.
 
 That's it!
 
-**Note**: When using the BYOR app on [radar.thoughtworks.com](https://radar.thoughtworks.com), the ring and quadrant names should be among the values mentioned in the [example above](#setting-up-your-data). This holds good for Google Sheet, CSV or JSON inputs.
+**_Note:_** When using the BYOR app on [radar.thoughtworks.com](https://radar.thoughtworks.com), the ring and quadrant names should be among the values mentioned in the [example above](#setting-up-your-data). This holds good for Google Sheet, CSV or JSON inputs.
 For a self hosted BYOR app, there is no such condition on the names. Instructions to specify custom names are in the [next section](#more-complex-usage).
 
 Check [this page](https://www.thoughtworks.com/radar/byor) for step by step guidance.
@@ -153,8 +153,8 @@ export ADOBE_LAUNCH_SCRIPT_URL=[Adobe Launch URL]
 To specify custom ring and/or quadrant names, add the following environment variables with the desired values.
 
 ```
-export RINGS=['Adopt', 'Trial', 'Assess', 'Hold']
-export QUADRANTS=['Techniques', 'Platforms', 'Tools', 'Languages & Frameworks']
+export RINGS='["Adopt", "Trial", "Assess", "Hold"]'
+export QUADRANTS='["Techniques", "Platforms", "Tools", "Languages & Frameworks"]'
 ```
 
 ## Docker Image
@@ -163,11 +163,14 @@ We have released BYOR as a docker image for our users. The image is available in
 
 ```
 $ docker pull wwwthoughtworks/build-your-own-radar
-$ docker run --rm -p 8080:80 -e CLIENT_ID="[Google Client ID]" wwwthoughtworks/build-your-own-radar
+$ docker run --rm -p 8080:80 -e CLIENT_ID="[Google Client ID]" wwwthoughtworks/build-your-own-radar:latest
 $ open http://localhost:8080
 ```
 
-Note: The other environment variables mentioned in the previous section can be used with `docker run` as well.
+**_Notes:_**
+
+- The other environment variables mentioned in the previous section can be used with `docker run` as well.
+- Docker images for all the [releases](https://github.com/thoughtworks/build-your-own-radar/releases) are available with their respective tags (eg: `wwwthoughtworks/build-your-own-radar:v1.0.0`).
 
 ### Advanced option - Docker image with a CSV/JSON file from the host machine
 
@@ -178,7 +181,7 @@ You can check your setup by clicking on "Build my radar" and by loading the `csv
 
 ```
 $ docker pull wwwthoughtworks/build-your-own-radar
-$ docker run --rm -p 8080:80 -e SERVER_NAMES="localhost 127.0.0.1" -v /mnt/radar/files/:/opt/build-your-own-radar/files wwwthoughtworks/build-your-own-radar
+$ docker run --rm -p 8080:80 -e SERVER_NAMES="localhost 127.0.0.1" -v /mnt/radar/files/:/opt/build-your-own-radar/files wwwthoughtworks/build-your-own-radar:latest
 $ open http://localhost:8080
 ```
 
@@ -186,12 +189,12 @@ This will:
 
 - Spawn a server that will listen locally on port 8080.
 - Mount the host volume on `/mnt/radar/files/` into the container on `/opt/build-your-own-radar/files/`.
-- Open http://localhost:8080 and for the URL enter: http://localhost:8080/files/${NAME_OF_YOUR_FILE}.${EXTENSION_OF_YOUR_FILE[csv/json]}. It needs to be a csv/json file.
+- Open http://localhost:8080 and for the URL enter: `http://localhost:8080/files/<NAME_OF_YOUR_FILE>.<EXTENSION_OF_YOUR_FILE[csv/json]>`. It needs to be a csv/json file.
 
 You can now work locally on your machine, updating the csv/json file and render the result back on your browser.
 There is a sample csv and json file placed in `spec/end_to_end_tests/resources/localfiles/` for reference.
 
-**_Note:_**
+**_Notes:_**
 
 - If API Key is also available, same can be provided to the `docker run` command as `-e API_KEY=[Google API Key]`.
 - For setting the `publicPath` in the webpack config while using this image, the path can be passed as an environment variable called `ASSET_PATH`.
@@ -201,38 +204,32 @@ There is a sample csv and json file placed in `spec/end_to_end_tests/resources/l
 All tasks are defined in `package.json`.
 
 Pull requests are welcome; please write tests whenever possible.
-Make sure you have nodejs installed.
+Make sure you have nodejs installed. You can run `nvm use` to use the version used by this repo.
 
 - `git clone git@github.com:thoughtworks/build-your-own-radar.git`
 - `npm install`
-- `npm run quality` - to run your tests
+- `npm run quality` - to run the linter and the unit tests
 - `npm run dev` - to run application in localhost:8080. This will watch the .js and .css files and rebuild on file changes
 
 ## End to End Tests
 
-To run End to End tests in headless mode
+To run End to End tests, start the dev server and follow the required steps below:
 
-- add a new environment variable 'TEST_URL' and set it to 'http://localhost:8080/'
-- add a new environment variable 'TEST_ENV' and set it to 'development' or 'production'
-- `npm run test:e2e`
+- To run in headless mode:
 
-To run End to End tests in debug mode
+  - add a new environment variable `TEST_URL` and set it to 'http://localhost:8080/'
+  - `npm run test:e2e-headless`
 
-- add a new environment variable 'TEST_URL' and set it to 'http://localhost:8080/'
-- add a new environment variable 'TEST_ENV' and set it to 'development' or 'production'
-- `npm run start`
-- Click on 'Run all specs' in cypress window
+- To run in debug mode:
+  - add a new environment variable `TEST_URL` and set it to 'http://localhost:8080/'
+  - `npm run e2e`
+  - Select 'E2E Testing' and choose the browser
+  - Click on the spec to run it's tests
 
-**_Note:_** Currently, end to end tests are not working, as the flow requires Google login via prompt, which Cypress does not support. We are working to find some alternative solution for this.
+**_Note:_** Currently, end to end tests are not supported for private Google Sheets, as it requires interacting with the Google One Tap popup.
 
 ### Don't want to install node? Run with one line docker
 
-     $ docker run -p 8080:8080 -v $PWD:/app -w /app -it node:10.15.3 /bin/sh -c 'npm install && npm run dev'
+     $ docker run -p 8080:8080 -v $PWD:/app -w /app -it node:18 /bin/sh -c 'npm install && npm run dev'
 
-**_Note:_** If you are facing Node-sass compile error while running, please prefix the command `npm rebuild node-sass` before `npm run dev`. like this
-
-```
-npm install && npm rebuild node-sass && npm run dev
-```
-
-After building it will start on `localhost:8080`
+After building it will start on `localhost:8080`.
