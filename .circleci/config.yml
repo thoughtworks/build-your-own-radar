@@ -63,6 +63,7 @@ workflows:
           requires:
             - tests
       - approve-docker-push:
+          type: approval
           filters:
             tags:
               only: /^v.*/
