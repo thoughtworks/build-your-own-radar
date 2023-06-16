@@ -182,6 +182,8 @@ const GoogleSheet = function (sheetReference, sheetName) {
           if (error.status === 403) {
             self.error = true
             plotUnauthorizedErrorMessage()
+          } else if (error instanceof MalformedDataError) {
+            plotErrorMessage(error, 'sheet')
           } else {
             plotErrorMessage(sheet.createSheetNotFoundError(), 'sheet')
           }
