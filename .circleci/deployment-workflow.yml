@@ -63,11 +63,21 @@ commands:
         default: ''
       mode:
         type: string
-        default: ''
+        default: dev
     steps:
       - run:
           name: Build code
           command: API_KEY=<< parameters.api_key >> CLIENT_ID=<< parameters.client_id >> GTM_ID=<< parameters.gtm_id >> ADOBE_LAUNCH_SCRIPT_URL=<< parameters.adobe_launch_script_url >> npm run build:<< parameters.mode >>
+      - when:
+          condition:
+            and:
+              - equal: [<< parameters.mode >>, 'prod']
+          steps:
+            - run:
+                name: Set PROD specific env variables
+                command: |
+                  echo 'export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID_PROD' >> $BASH_ENV
+                  echo 'export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY_PROD' >> $BASH_ENV
       - aws-cli/setup
       - run:
           name: Sync build artifacts to S3
@@ -83,8 +93,8 @@ jobs:
       - checkout
       - install-node-and-cypress-packages
       - run:
-          name: Run e2e test cases for new UI
-          command: API_KEY=$LOCAL_API_KEY ./run_e2e_tests.sh $LOCAL_TEST_URL "development"
+          name: Run e2e test cases
+          command: API_KEY=$LOCAL_API_KEY ./run_e2e_tests.sh $LOCAL_TEST_URL
   qa-deployment:
     executor: base
     steps:
@@ -98,26 +108,10 @@ jobs:
           bucket_name: $QA_BUCKET_NAME
           distribution_id: $QA_DISTRIBUTION_ID
           mode: dev
-  stage-deployment:
-    executor: base
-    steps:
-      - checkout
-      - install-node-packages
-      - build-and-push:
-          api_key: $STAGE_API_KEY
-          client_id: $STAGE_CLIENT_ID
-          gtm_id: $QA_GTM_ID
-          adobe_launch_script_url: $STAGE_ADOBE_LAUNCH_SCRIPT_URL
-          bucket_name: $STAGE_BUCKET_NAME
-          distribution_id: $STAGE_DISTRIBUTION_ID
-          mode: prod
   prod-deployment:
     executor: base
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 20.10.12
-          docker_layer_caching: true
       - install-node-packages
       - build-and-push:
           api_key: $PROD_API_KEY
@@ -127,9 +121,6 @@ jobs:
           bucket_name: $PROD_BUCKET_NAME
           distribution_id: $PROD_DISTRIBUTION_ID
           mode: prod
-      - run:
-          name: Build and push Docker image to DockerHub
-          command: ./docker_push.sh
 
 workflows:
   build-and-deploy:
@@ -138,24 +129,13 @@ workflows:
           filters:
             branches:
               only: master
-      - approve-qa-deployment:
-          type: approval
-          requires:
-            - e2e-tests
       - qa-deployment:
           requires:
-            - approve-qa-deployment
-      - approve-stage-deployment:
-          type: approval
-          requires:
-            - qa-deployment
-      - stage-deployment:
-          requires:
-            - approve-stage-deployment
+            - e2e-tests
       - approve-prod-deployment:
           type: approval
           requires:
-            - stage-deployment
+            - qa-deployment
       - prod-deployment:
           requires:
             - approve-prod-deployment

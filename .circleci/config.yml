@@ -44,6 +44,16 @@ jobs:
           fi
       - continuation/continue:
           configuration_path: .circleci/deployment-workflow.yml
+  docker-push:
+    executor: base
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.12
+          docker_layer_caching: true
+      - run:
+          name: Build and push Docker image to DockerHub
+          command: ./docker_push.sh
 
 workflows:
   main:
@@ -52,3 +62,18 @@ workflows:
       - check-for-pr:
           requires:
             - tests
+      - approve-docker-push:
+          type: approval
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - docker-push:
+          requires:
+            - approve-docker-push
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/

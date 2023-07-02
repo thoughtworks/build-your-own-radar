@@ -163,7 +163,7 @@ describe('Blips', function () {
     let ringBlips = mockRingBlips(15)
     const actualToolTip = getGroupBlipTooltipText(ringBlips)
     const expectedToolTip =
-      '1.blip1</br>2.blip2</br>3.blip3</br>4.blip4</br>5.blip5</br>6.blip6</br>7.blip7</br>8.blip8</br>9.blip9</br>10.blip10</br>11.blip11</br>12.blip12</br>13.blip13</br>14.blip14</br>15.blip15</br>'
+      '1. blip1</br>2. blip2</br>3. blip3</br>4. blip4</br>5. blip5</br>6. blip6</br>7. blip7</br>8. blip8</br>9. blip9</br>10. blip10</br>11. blip11</br>12. blip12</br>13. blip13</br>14. blip14</br>15. blip15</br>'
     expect(actualToolTip).toEqual(expectedToolTip)
   })
 

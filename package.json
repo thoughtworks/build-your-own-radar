@@ -1,20 +1,19 @@
 {
   "name": "build-your-own-radar",
-  "version": "1.0.0",
+  "version": "1.1.2",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build:dev": "webpack --mode development --config webpack.dev.js",
     "build:prod": "webpack --mode production --config webpack.prod.js",
     "dev": "webpack-dev-server --mode development --config webpack.dev.js",
-    "dev:old-ui": "webpack-dev-server --mode development --config webpack.dev-old-ui.js",
     "test": "jest",
-    "test:e2e": "cypress run --record false --env host=$TEST_URL,TEST_ENV=$TEST_ENV",
+    "test:coverage": "jest --coverage",
+    "test:e2e": "cypress open --env host=$TEST_URL",
+    "test:e2e-headless": "cypress run --record false --env host=$TEST_URL",
     "lint-prettier:check": "eslint . && prettier --check .",
     "lint-prettier:fix": "eslint . --fix && prettier --write .",
-    "start": "cypress open --env host=$TEST_URL,TEST_ENV=$TEST_ENV",
-    "coverage": "jest --coverage",
-    "quality": "npm run lint-prettier:check && npm run coverage"
+    "quality": "npm run lint-prettier:check && npm run test:coverage"
   },
   "author": "Thoughtworks",
   "repository": {
@@ -30,7 +29,7 @@
     "@babel/preset-env": "^7.16.11",
     "babel-loader": "^8.2.3",
     "css-loader": "^6.7.1",
-    "cssnano": "^5.1.1",
+    "cssnano": "^6.0.0",
     "cypress": "^12.6.0",
     "dotenv": "^16.0.0",
     "eslint": "^8.10.0",
@@ -45,7 +44,7 @@
     "jsdom": "^19.0.0",
     "mini-css-extract-plugin": "^2.6.0",
     "mochawesome": "^7.1.2",
-    "postcss-loader": "^6.2.1",
+    "postcss-loader": "^7.2.4",
     "postcss-preset-env": "^7.4.2",
     "prettier": "^2.5.1",
     "sass": "^1.53.0",
@@ -80,8 +79,8 @@
     ]
   },
   "engines": {
-    "node": ">=14",
-    "npm": "8"
+    "node": ">=18",
+    "npm": ">=9"
   },
   "private": true
 }
