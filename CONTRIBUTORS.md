@@ -1,31 +1,33 @@
 ## BYOR Contributors
 
-In no particular order:
+In alphabetic order:
+
+- [@andyw8](https://github.com/andyw8)
+
+- [@aschonfeld](https://github.com/aschonfeld)
+
+- [@br00k](https://github.com/br00k)
+
+- [@BRUNNEL6](https://github.com/BRUNNEL6)
+
+- [@camiloribeiro](https://github.com/camiloribeiro)
+
+- [@filipesabella](https://github.com/filipesabella)
+
+- [@hkurosawa](https://github.com/hkurosawa)
+
+- [@jaiganeshg](https://github.com/jaiganeshg)
+
+- [@kylec32](https://github.com/kylec32)
+
+- [@lauraionescu](https://github.com/lauraionescu)
 
 - [@setchy](https://github.com/setchy)
 
-- [BRUNNEL6](https://github.com/BRUNNEL6)
+- [@shahadarsh](https://github.com/shahadarsh)
 
-- [lauraionescu](https://github.com/lauraionescu)
+- [@thenano](https://github.com/thenano)
 
-- [thenano](https://github.com/thenano)
+- [@trecenti](https://github.com/trecenti)
 
-- [trecenti](https://github.com/trecenti)
 
-- [hkurosawa](https://github.com/hkurosawa)
-
-- [kylec32](https://github.com/kylec32)
-
-- [aschonfeld](https://github.com/aschonfeld)
-
-- [andyw8](https://github.com/andyw8)
-
-- [br00k](https://github.com/br00k)
-
-- [camiloribeiro](https://github.com/camiloribeiro)
-
-- [shahadarsh](https://github.com/shahadarsh)
-
-- [filipesabella](https://github.com/filipesabella)
-
-- [jaiganeshg](https://github.com/jaiganeshg)
