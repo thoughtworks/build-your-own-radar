@@ -29,5 +29,3 @@ In alphabetic order:
 - [@thenano](https://github.com/thenano)
 
 - [@trecenti](https://github.com/trecenti)
-
-
