@@ -34,7 +34,7 @@ function calculateRadarBlipCoordinates(minRadius, maxRadius, startAngle, quadran
   const { borderWidthYOffset, borderWidthXOffset } = getBorderWidthOffset(quadrantOrder, adjustY, adjustX)
   const radius = chance.floating({
     min: minRadius + blip.width / 2,
-    max: maxRadius - blip.width / 1.2,
+    max: maxRadius - blip.width,
   })
 
   let angleDelta = (Math.asin(blip.width / 2 / radius) * 180) / (Math.PI - 1.25)
@@ -257,7 +257,6 @@ function createGroupBlip(blipsInRing, blipType, ring, quadrantOrder) {
 function plotGroupBlips(ringBlips, ring, quadrantOrder, parentElement, quadrantWrapper, tooltip) {
   let newBlipsInRing = [],
     existingBlipsInRing = []
-
   ringBlips.forEach((blip) => {
     blip.isNew() ? newBlipsInRing.push(blip) : existingBlipsInRing.push(blip)
   })
@@ -287,7 +286,6 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
   quadrantOrder = quadrantWrapper.order
 
   blips = quadrant.blips()
-
   rings.forEach(function (ring, i) {
     const ringBlips = blips.filter(function (blip) {
       return blip.ring() === ring
