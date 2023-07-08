@@ -14,7 +14,7 @@ describe('Blip', function () {
   })
 
   it('has a topic', function () {
-    blip = new Blip('My Blip', new Ring('My Ring'), true, false, false, 'topic', 'description')
+    blip = new Blip('My Blip', new Ring('My Ring'), true, null, 'topic', 'description')
 
     expect(blip.topic()).toEqual('topic')
   })
@@ -24,7 +24,7 @@ describe('Blip', function () {
   })
 
   it('has a description', function () {
-    blip = new Blip('My Blip', new Ring('My Ring'), true, false, false, 'topic', 'description')
+    blip = new Blip('My Blip', new Ring('My Ring'), true, null, 'topic', 'description')
 
     expect(blip.description()).toEqual('description')
   })
@@ -67,29 +67,30 @@ describe('Blip', function () {
     expect(blip.isNew()).toBe(false)
   })
 
-  it('has moved in', function () {
-    blip = new Blip('My Blip', new Ring('My Ring'), false, true)
+  it('status is new', function () {
+    blip = new Blip('My Blip', new Ring('My Ring'), null, 'new')
+
+    expect(blip.isNew()).toBe(true)
+  })
+
+  it('status has moved in', function () {
+    blip = new Blip('My Blip', new Ring('My Ring'), null, 'Moved In')
 
     expect(blip.hasMovedIn()).toBe(true)
   })
 
-  it('has not moved in', function () {
-    blip = new Blip('My Blip', new Ring('My Ring'), false, false)
-
-    expect(blip.hasMovedIn()).toBe(false)
-  })
-
-  it('has moved out', function () {
-    blip = new Blip('My Blip', new Ring('My Ring'), false, false, true)
+  it('status has moved out', function () {
+    blip = new Blip('My Blip', new Ring('My Ring'), null, 'Moved Out')
 
     expect(blip.hasMovedOut()).toBe(true)
   })
 
-  it('has not moved out', function () {
-    blip = new Blip('My Blip', new Ring('My Ring'), false, false, false)
+  it('status has no change', function () {
+    blip = new Blip('My Blip', new Ring('My Ring'), null, 'No Change')
 
-    expect(blip.hasMovedOut()).toBe(false)
+    expect(blip.hasNoChange()).toBe(true)
   })
+
 
   it('has false as default value for isGroup', function () {
     expect(blip.isGroup()).toEqual(false)
