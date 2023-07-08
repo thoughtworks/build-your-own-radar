@@ -29,9 +29,16 @@ Create a Google Sheet. Give it at least the below column headers, and put in the
 | Apache Kylin  | assess | platforms              | TRUE  | Apache Kylin is an open source analytics solution ...   |
 | JSF           | hold   | languages & frameworks | FALSE | We continue to see teams run into trouble using JSF ... |
 
-### Moved In / Out
+### Want to show blip movement information?
 
-If you want to show movement of blips, add the optional columns `hasMovedIn` and `hasMovedOut` to your dataset
+If you want to show movement of blips, add the optional column `status` to your dataset.
+
+This column accepts the following case-insensitive values :
+
+- `New` - appearing on the radar for the first time
+- `Moved In` - moving towards the center of the radar
+- `Moved Out` - moving towards the edge of the radar
+- `No Change` - no change in position
 
 ### Sharing the sheet
 
