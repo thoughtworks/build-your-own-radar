@@ -215,12 +215,28 @@ describe('Blips', function () {
     const existingCoords = [
       { coordinates: [500, 400], width: 22 },
       { coordinates: [200, 200], width: 22 },
-      { coordinates: [40, 40], width: 22 }
+      { coordinates: [40, 40], width: 22 },
     ]
 
-    expect(sortBlipCoordinates(existingCoords, 'first')).toEqual([{ "coordinates": [200, 200], "width": 22 }, { "coordinates": [40, 40], "width": 22 }, { "coordinates": [500, 400], "width": 22 }])
-    expect(sortBlipCoordinates(existingCoords, 'third')).toEqual([{ "coordinates": [200, 200], "width": 22 }, { "coordinates": [40, 40], "width": 22 }, { "coordinates": [500, 400], "width": 22 }])
-    expect(sortBlipCoordinates(existingCoords, 'second')).toEqual([{ "coordinates": [500, 400], "width": 22 }, { "coordinates": [200, 200], "width": 22 }, { "coordinates": [40, 40], "width": 22 })
-    expect(sortBlipCoordinates(existingCoords, 'fourth')).toEqual([{ "coordinates": [500, 400], "width": 22 }, { "coordinates": [200, 200], "width": 22 }, { "coordinates": [40, 40], "width": 22 })
+    expect(sortBlipCoordinates(existingCoords, 'first')).toEqual([
+      { coordinates: [200, 200], width: 22 },
+      { coordinates: [40, 40], width: 22 },
+      { coordinates: [500, 400], width: 22 },
+    ])
+    expect(sortBlipCoordinates(existingCoords, 'third')).toEqual([
+      { coordinates: [200, 200], width: 22 },
+      { coordinates: [40, 40], width: 22 },
+      { coordinates: [500, 400], width: 22 },
+    ])
+    expect(sortBlipCoordinates(existingCoords, 'second')).toEqual([
+      { coordinates: [500, 400], width: 22 },
+      { coordinates: [200, 200], width: 22 },
+      { coordinates: [40, 40], width: 22 },
+    ])
+    expect(sortBlipCoordinates(existingCoords, 'fourth')).toEqual([
+      { coordinates: [500, 400], width: 22 },
+      { coordinates: [200, 200], width: 22 },
+      { coordinates: [40, 40], width: 22 },
+    ])
   })
 })
