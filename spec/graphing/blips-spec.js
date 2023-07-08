@@ -187,7 +187,7 @@ describe('Blips', function () {
       blipText: () => '12 New Blips',
       name: 'blip1',
       isNew: () => true,
-      status: () => null
+      status: () => null,
     }
 
     const actual = blipAssistiveText(blip)

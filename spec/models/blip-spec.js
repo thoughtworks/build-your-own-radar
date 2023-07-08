@@ -91,7 +91,6 @@ describe('Blip', function () {
     expect(blip.hasNoChange()).toBe(true)
   })
 
-
   it('has false as default value for isGroup', function () {
     expect(blip.isGroup()).toEqual(false)
   })
