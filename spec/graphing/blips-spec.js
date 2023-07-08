@@ -212,9 +212,7 @@ describe('Blips', function () {
   })
 
   it('should calculate coordinate angle from x-axis', function () {
-    const existingCoords = [
-      { coordinates: [500, 400], width: 22 },
-    ]
+    const existingCoords = [{ coordinates: [500, 400], width: 22 }]
 
     expect(calculateAngleFromAxis(existingCoords[0], 'first')).toBe(-1.7861540264926348)
     expect(calculateAngleFromAxis(existingCoords[0], 'third')).toBe(-1.7861540264926348)
