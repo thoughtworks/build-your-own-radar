@@ -1,8 +1,6 @@
-# BYOR Contributors
+#BYOR Contributors
 
 In no particular order
-
-- [@setchy](https://github.com/setchy)
 
 - [BRUNNEL6](https://github.com/BRUNNEL6)
 
