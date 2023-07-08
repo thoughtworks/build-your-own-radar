@@ -51,7 +51,7 @@ function thereIsCollision(coordinates, allCoordinates, blipWidth) {
   return allCoordinates.some(function (currentCoordinates) {
     return (
       Math.abs(currentCoordinates.coordinates[0] - coordinates[0]) <
-        currentCoordinates.width / 2 + blipWidth / 2 + 10 &&
+      currentCoordinates.width / 2 + blipWidth / 2 + 10 &&
       Math.abs(currentCoordinates.coordinates[1] - coordinates[1]) < currentCoordinates.width / 2 + blipWidth / 2 + 10
     )
   })
@@ -78,11 +78,11 @@ function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoor
   const maxIterations = 200
   const chance = new Chance(
     Math.PI *
-      graphConfig.quadrantWidth *
-      graphConfig.quadrantHeight *
-      graphConfig.quadrantsGap *
-      graphConfig.blipWidth *
-      maxIterations,
+    graphConfig.quadrantWidth *
+    graphConfig.quadrantHeight *
+    graphConfig.quadrantsGap *
+    graphConfig.blipWidth *
+    maxIterations,
   )
   let coordinates = calculateRadarBlipCoordinates(minRadius, maxRadius, startAngle, quadrantOrder, chance, blip)
   let iterationCounter = 0
@@ -319,10 +319,8 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
     })
 
     // Sort the coordinates
-    allBlipCoordsInRing = _.sortBy(allBlipCoordsInRing, calculateAngle)
-    if (quadrantOrder === 'second' || quadrantOrder === 'fourth') {
-      allBlipCoordsInRing = allBlipCoordsInRing.reverse()
-    }
+    allBlipCoordsInRing = _.sortBy(allBlipCoordsInRing, (coord) => calculateAngleFromAxis(coord, quadrantOrder))
+
 
     // Draw blips using sorted coordinates
     allBlipCoordsInRing.forEach(function (blipCoords, i) {
@@ -332,14 +330,17 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
   })
 }
 
-const calculateAngle = function (position) {
+const calculateAngleFromAxis = function (position, quadrantOrder) {
   const [x, y] = position.coordinates
 
   const transposedX = x - graphConfig.effectiveQuadrantWidth
   const transposedY = y - graphConfig.effectiveQuadrantHeight
 
-  const angleRadians = Math.atan2(transposedY, transposedX)
-  return angleRadians
+  if (quadrantOrder === 'first' || quadrantOrder === 'third') {
+    return Math.atan2(transposedY, transposedX)
+
+  }
+  return Math.atan2(transposedX, transposedY)
 }
 
 module.exports = {
@@ -352,4 +353,5 @@ module.exports = {
   blipAssistiveText,
   createGroupBlip,
   thereIsCollision,
+  calculateAngleFromAxis
 }

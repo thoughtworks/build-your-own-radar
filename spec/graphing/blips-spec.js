@@ -7,6 +7,7 @@ const {
   blipAssistiveText,
   createGroupBlip,
   thereIsCollision,
+  calculateAngleFromAxis,
 } = require('../../src/graphing/blips')
 const Chance = require('chance')
 const { graphConfig } = require('../../src/graphing/config')
@@ -208,5 +209,16 @@ describe('Blips', function () {
     expect(thereIsCollision([10, 10], existingCoords, 22)).toBe(true)
     expect(thereIsCollision([41, 41], existingCoords, 22)).toBe(true)
     expect(thereIsCollision([42, 42], existingCoords, 22)).toBe(false)
+  })
+
+  it('should calculate coordinate angle from x-axis', function () {
+    const existingCoords = [
+      { coordinates: [500, 400], width: 22 },
+    ]
+
+    expect(calculateAngleFromAxis(existingCoords[0], 'first')).toBe(-1.7861540264926348)
+    expect(calculateAngleFromAxis(existingCoords[0], 'third')).toBe(-1.7861540264926348)
+    expect(calculateAngleFromAxis(existingCoords[0], 'second')).toBe(-2.926234953892055)
+    expect(calculateAngleFromAxis(existingCoords[0], 'fourth')).toBe(-2.926234953892055)
   })
 })
