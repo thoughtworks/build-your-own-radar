@@ -288,18 +288,11 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
 
   blips = quadrant.blips()
 
-  blips = _.sortBy(blips, (blip) => blip.name())
-
-
   rings.forEach(function (ring, i) {
     const ringBlips = blips.filter(function (blip) {
       return blip.ring() === ring
     })
 
-    console.log("Ring blips")
-    for (let i = 0; i < ringBlips.length; i++) {
-      console.log(ringBlips[i].name())
-    }
     if (ringBlips.length === 0) {
       return
     }
@@ -307,13 +300,14 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
     const offset = 10
     const minRadius = getRingRadius(i) + offset
     const maxRadius = getRingRadius(i + 1) - offset
-    const allBlipCoordsInRing = []
+    let allBlipCoordsInRing = []
 
     if (ringBlips.length > graphConfig.maxBlipsInRings[i]) {
       plotGroupBlips(ringBlips, ring, quadrantOrder, parentElement, quadrantWrapper, tooltip)
       return
     }
 
+    // Calculate coordinates for blips
     ringBlips.forEach(function (blip) {
       const coordinates = findBlipCoordinates(
         blip,
@@ -324,10 +318,30 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
         quadrantOrder,
       )
       allBlipCoordsInRing.push({ coordinates, width: blip.width })
-      drawBlipInCoordinates(blip, coordinates, quadrantOrder, parentElement)
-      renderBlipDescription(blip, ring, quadrantWrapper, tooltip)
+    })
+
+    // Sort the coordinates
+    allBlipCoordsInRing = _.sortBy(allBlipCoordsInRing, calculateAngle)
+    if (quadrantOrder === 'second' || quadrantOrder === 'fourth') {
+      allBlipCoordsInRing = allBlipCoordsInRing.reverse()
+    }
+
+    // Draw blips using sorted coordinates
+    allBlipCoordsInRing.forEach(function (blipCoords, i) {
+      drawBlipInCoordinates(ringBlips[i], blipCoords.coordinates, quadrantOrder, parentElement)
+      renderBlipDescription(ringBlips[i], ring, quadrantWrapper, tooltip)
     })
   })
+}
+
+const calculateAngle = function (position) {
+  const [x, y] = position.coordinates;
+
+  const transposedX = x - graphConfig.effectiveQuadrantWidth
+  const transposedY = y - graphConfig.effectiveQuadrantHeight
+
+  const angleRadians = Math.atan2(transposedY, transposedX);
+  return angleRadians
 }
 
 module.exports = {
