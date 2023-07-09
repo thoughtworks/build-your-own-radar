@@ -112,6 +112,17 @@ If you do not want to host the JSON file publicly, you can follow [these steps](
 
 **_Note:_** The JSON file parsing is using D3 library, so consult the [D3 documentation](https://github.com/d3/d3-request/blob/master/README.md#json) for the data format details.
 
+### Deep linking to a particular quadrant
+
+You can use the optional query string parameter `quadrant` to specify the quadrant to view.
+
+Supported values are:
+
+- `first`
+- `second`
+- `third`
+- `fourth`
+
 ### Building the radar
 
 Paste the URL in the input field on the home page.
