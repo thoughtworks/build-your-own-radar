@@ -15,8 +15,13 @@ function constructSheetUrl(sheetName) {
 
 function getQuadrantFromURL() {
   const queryParams = QueryParams(window.location.search.substring(1))
-  const quadrantQueryString = queryParams.quadrant.toLowerCase()
-  return quadrantQueryString ?? 'all'
+  const quadrantQueryString = queryParams.quadrant
+
+  if (quadrantQueryString) {
+    return quadrantQueryString.toLowerCase()
+  }
+
+  return 'all'
 }
 
 module.exports = {
