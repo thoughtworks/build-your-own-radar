@@ -48,7 +48,7 @@ function thereIsCollision(coordinates, allCoordinates, blipWidth) {
   return allCoordinates.some(function (currentCoordinates) {
     return (
       Math.abs(currentCoordinates.coordinates[0] - coordinates[0]) <
-        currentCoordinates.width / 2 + blipWidth / 2 + 10 &&
+      currentCoordinates.width / 2 + blipWidth / 2 + 10 &&
       Math.abs(currentCoordinates.coordinates[1] - coordinates[1]) < currentCoordinates.width / 2 + blipWidth / 2 + 10
     )
   })
@@ -75,11 +75,11 @@ function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoor
   const maxIterations = 200
   const chance = new Chance(
     Math.PI *
-      graphConfig.quadrantWidth *
-      graphConfig.quadrantHeight *
-      graphConfig.quadrantsGap *
-      graphConfig.blipWidth *
-      maxIterations,
+    graphConfig.quadrantWidth *
+    graphConfig.quadrantHeight *
+    graphConfig.quadrantsGap *
+    graphConfig.blipWidth *
+    maxIterations,
   )
   let coordinates = calculateRadarBlipCoordinates(minRadius, maxRadius, startAngle, quadrantOrder, chance, blip)
   let iterationCounter = 0
@@ -193,7 +193,6 @@ function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup) {
 }
 
 function getGroupBlipTooltipText(ringBlips) {
-  /** @type number */
   let tooltipText = 'Click to view all'
   if (ringBlips.length <= 15) {
     tooltipText = ringBlips.reduce((toolTip, blip) => {
