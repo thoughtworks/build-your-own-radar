@@ -1,4 +1,4 @@
-const { constructSheetUrl, getDocumentOrSheetId } = require('../../src/util/urlUtils')
+const { constructSheetUrl, getDocumentOrSheetId, getSheetName } = require('../../src/util/urlUtils')
 const config = require('../../src/config')
 const queryParams = require('../../src/util/queryParamProcessor')
 
@@ -67,5 +67,17 @@ describe('Url Utils', () => {
     const id = getDocumentOrSheetId()
 
     expect(id).toEqual('sheetId')
+  })
+
+  it('supports sheetName', () => {
+    queryParams.mockReturnValue({ sheetName: 'sheetName' })
+    delete window.location
+    window.location = Object.create(window)
+    window.location.href = 'https://thoughtworks.com/radar?sheetName=sheetName'
+    window.location.search = '?'
+
+    const sheetName = getSheetName()
+
+    expect(sheetName).toEqual('sheetName')
   })
 })

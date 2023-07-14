@@ -20,7 +20,15 @@ function getDocumentOrSheetId() {
   return queryParams.documentId ?? queryParams.sheetId
 }
 
+function getSheetName() {
+  const queryString = window.location.href.match(/sheetName(.*)/)
+  const queryParams = queryString ? QueryParams(queryString[0]) : {}
+
+  return queryParams.sheetName
+}
+
 module.exports = {
   constructSheetUrl,
   getDocumentOrSheetId,
+  getSheetName
 }

@@ -22,7 +22,7 @@ const ExceptionMessages = require('./exceptionMessages')
 const GoogleAuth = require('./googleAuth')
 const config = require('../config')
 const featureToggles = config().featureToggles
-const { getDocumentOrSheetId } = require('./urlUtils')
+const { getDocumentOrSheetId, getSheetName } = require('./urlUtils')
 const { getGraphSize, graphConfig, isValidConfig } = require('../graphing/config')
 const InvalidConfigError = require('../exceptions/invalidConfigError')
 const InvalidContentError = require('../exceptions/invalidContentError')
@@ -76,8 +76,8 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   const size = featureToggles.UIRefresh2022
     ? getGraphSize()
     : window.innerHeight - 133 < 620
-    ? 620
-    : window.innerHeight - 133
+      ? 620
+      : window.innerHeight - 133
   new GraphingRadar(size, radar).init().plot()
 }
 
@@ -316,10 +316,6 @@ const Factory = function () {
     })
 
     const domainName = DomainName(window.location.search.substring(1))
-    const queryString = featureToggles.UIRefresh2022
-      ? window.location.href.match(/documentId(.*)/)
-      : window.location.href.match(/sheetId(.*)/)
-    const queryParams = queryString ? QueryParams(queryString[0]) : {}
 
     const paramId = getDocumentOrSheetId()
     if (paramId && paramId.endsWith('.csv')) {
@@ -329,7 +325,8 @@ const Factory = function () {
       sheet = JSONFile(paramId)
       sheet.init().build()
     } else if (domainName && domainName.endsWith('google.com') && paramId) {
-      sheet = GoogleSheet(paramId, queryParams.sheetName)
+      const sheetName = getSheetName()
+      sheet = GoogleSheet(paramId, sheetName)
       sheet.init().build()
     } else {
       if (!featureToggles.UIRefresh2022) {
@@ -396,9 +393,9 @@ function plotFooter(content) {
     .append('p')
     .html(
       'Powered by <a href="https://www.thoughtworks.com"> Thoughtworks</a>. ' +
-        'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
-        'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
-        'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
+      'By using this service you agree to <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks\' terms of use</a>. ' +
+      'You also agree to our <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather, use and protect any personal data contained in your public Google Sheet. ' +
+      'This software is <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and self-hosting.',
     )
 }
 
