@@ -30,5 +30,5 @@ function getSheetName() {
 module.exports = {
   constructSheetUrl,
   getDocumentOrSheetId,
-  getSheetName
+  getSheetName,
 }
