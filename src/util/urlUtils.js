@@ -13,6 +13,14 @@ function constructSheetUrl(sheetName) {
   return sheetUrl
 }
 
+function getBlipIdFromUrl() {
+  const queryParams = QueryParams(window.location.search.substring(1))
+  const blipQueryString = queryParams.blipId
+
+  return blipQueryString ?? 'all'
+}
+
 module.exports = {
   constructSheetUrl,
+  getBlipIdFromUrl
 }
