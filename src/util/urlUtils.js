@@ -17,11 +17,7 @@ function getQuadrantFromURL() {
   const queryParams = QueryParams(window.location.search.substring(1))
   const quadrantQueryString = queryParams.quadrant
 
-  if (quadrantQueryString) {
-    return quadrantQueryString.toLowerCase()
-  }
-
-  return 'all'
+  return quadrantQueryString?.toLowerCase() ?? 'all'
 }
 
 module.exports = {
