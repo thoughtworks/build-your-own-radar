@@ -14,15 +14,13 @@ function constructSheetUrl(sheetName) {
 }
 
 function getDocumentOrSheetId() {
-  const queryString = window.location.href.match(/documentId(.*)/) ?? window.location.href.match(/sheetId(.*)/)
-  const queryParams = queryString ? QueryParams(queryString[0]) : {}
+  const queryParams = QueryParams(window.location.search.substring(1))
 
   return queryParams.documentId ?? queryParams.sheetId
 }
 
 function getSheetName() {
-  const queryString = window.location.href.match(/sheetName(.*)/)
-  const queryParams = queryString ? QueryParams(queryString[0]) : {}
+  const queryParams = QueryParams(window.location.search.substring(1))
 
   return queryParams.sheetName
 }
