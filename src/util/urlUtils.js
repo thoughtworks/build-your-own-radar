@@ -22,5 +22,5 @@ function getBlipIdFromUrl() {
 
 module.exports = {
   constructSheetUrl,
-  getBlipIdFromUrl
+  getBlipIdFromUrl,
 }
