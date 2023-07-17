@@ -13,7 +13,6 @@ const Quadrant = require('../models/quadrant')
 const Ring = require('../models/ring')
 const Blip = require('../models/blip')
 const GraphingRadar = require('../graphing/radar')
-const QueryParams = require('./queryParamProcessor')
 const MalformedDataError = require('../exceptions/malformedDataError')
 const SheetNotFoundError = require('../exceptions/sheetNotFoundError')
 const ContentValidator = require('./contentValidator')
@@ -536,9 +535,7 @@ function plotUnauthorizedErrorMessage() {
 
   button.on('click', () => {
     let sheet
-    const queryString = window.location.href.match(/sheetId(.*)/)
-    const queryParams = queryString ? QueryParams(queryString[0]) : {}
-    sheet = GoogleSheet(getDocumentOrSheetId(), queryParams.sheetName)
+    sheet = GoogleSheet(getDocumentOrSheetId(), getSheetName())
 
     sheet.authenticate(true, false, () => {
       if (featureToggles.UIRefresh2022 && !sheet.error) {

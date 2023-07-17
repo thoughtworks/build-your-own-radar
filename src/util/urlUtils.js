@@ -15,13 +15,11 @@ function constructSheetUrl(sheetName) {
 
 function getDocumentOrSheetId() {
   const queryParams = QueryParams(window.location.search.substring(1))
-
   return queryParams.documentId ?? queryParams.sheetId
 }
 
 function getSheetName() {
   const queryParams = QueryParams(window.location.search.substring(1))
-
   return queryParams.sheetName
 }
 
