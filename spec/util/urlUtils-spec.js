@@ -1,4 +1,4 @@
-const { constructSheetUrl } = require('../../src/util/urlUtils')
+const { constructSheetUrl, getDocumentOrSheetId, getSheetName, getQuadrantFromURL } = require('../../src/util/urlUtils')
 const config = require('../../src/config')
 const queryParams = require('../../src/util/queryParamProcessor')
 
@@ -101,4 +101,5 @@ describe('Url Utils', () => {
     const quadrant = getQuadrantFromURL()
 
     expect(quadrant).toBe('first')
+  })
 })
