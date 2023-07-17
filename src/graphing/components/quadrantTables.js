@@ -16,7 +16,6 @@ function highlightBlipInTable(selectedBlip) {
 }
 
 function highlightBlipInGraph(blipIdToFocus) {
-  console.log('blipIdToFocus: ', blipIdToFocus)
   fadeOutAllBlips()
   const selectedBlipOnGraph = d3.select(`g > a.blip-link[data-blip-id='${blipIdToFocus}'`)
   fadeInSelectedBlip(selectedBlipOnGraph)
@@ -110,8 +109,6 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
   }
 
   const blipClick = function (e) {
-    console.log('here')
-    console.log('e: ', e)
     const isQuadrantView = d3.select('svg#radar-plot').classed('quadrant-view')
     const targetElement = e.target.classList.contains('blip-link') ? e.target : e.target.parentElement
     if (isQuadrantView) {
@@ -119,7 +116,30 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
     }
 
     const blipId = d3.select(targetElement).attr('data-blip-id')
-    scrollToBlip(blipId)
+    highlightBlipInGraph(blipId)
+
+    d3.selectAll('.blip-list__item-container.expand').classed('expand', false)
+
+    let selectedBlipContainer = d3.select(`.blip-list__item-container[data-blip-id="${blipId}"`)
+    selectedBlipContainer.classed('expand', true)
+
+    setTimeout(
+      () => {
+        if (window.innerWidth >= uiConfig.tabletViewWidth) {
+          stickQuadrantOnScroll()
+        }
+
+        const isGroupBlip = isNaN(parseInt(blipId))
+        if (isGroupBlip) {
+          selectedBlipContainer = d3.select(`.blip-list__item-container[data-group-id="${blipId}"`)
+        }
+        const elementToFocus = selectedBlipContainer.select('button.blip-list__item-container__name')
+        elementToFocus.node()?.scrollIntoView({
+          behavior: 'smooth',
+        })
+      },
+      isQuadrantView ? 0 : 1500,
+    )
   }
 
   !groupBlipTooltipText &&
@@ -184,36 +204,8 @@ function renderQuadrantTables(quadrants, rings) {
   })
 }
 
-function scrollToBlip(blipId) {
-  highlightBlipInGraph(blipId)
-
-  d3.selectAll('.blip-list__item-container.expand').classed('expand', false)
-
-  let selectedBlipContainer = d3.select(`.blip-list__item-container[data-blip-id="${blipId}"`)
-  selectedBlipContainer.classed('expand', true)
-
-  setTimeout(
-    () => {
-      if (window.innerWidth >= uiConfig.tabletViewWidth) {
-        stickQuadrantOnScroll()
-      }
-
-      const isGroupBlip = isNaN(parseInt(blipId))
-      if (isGroupBlip) {
-        selectedBlipContainer = d3.select(`.blip-list__item-container[data-group-id="${blipId}"`)
-      }
-      const elementToFocus = selectedBlipContainer.select('button.blip-list__item-container__name')
-      elementToFocus.node()?.scrollIntoView({
-        behavior: 'smooth',
-      })
-    },
-    // isQuadrantView ? 0 : 1500,
-  )
-}
-
 module.exports = {
   renderQuadrantTables,
   renderBlipDescription,
   highlightBlipInGraph,
-  scrollToBlip,
 }

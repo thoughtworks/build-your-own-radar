@@ -21,10 +21,10 @@ const {
   renderRadarLegends,
   removeScrollListener,
 } = require('./components/quadrants')
-const { renderQuadrantTables, scrollToBlip } = require('./components/quadrantTables')
+const { renderQuadrantTables } = require('./components/quadrantTables')
 const { addQuadrantNameInPdfView, addRadarLinkInPdfView } = require('./pdfPage')
 
-const { constructSheetUrl, getBlipIdFromUrl } = require('../util/urlUtils')
+const { constructSheetUrl } = require('../util/urlUtils')
 const { toRadian } = require('../util/mathUtils')
 
 const MIN_BLIP_WIDTH = 12
@@ -832,17 +832,9 @@ const Radar = function (size, radar) {
       hideTooltipOnScroll(tip)
       addRadarLinkInPdfView()
     }
-
-    selectBlipDescriptionToShow()
   }
 
   return self
-}
-
-function selectBlipDescriptionToShow() {
-  console.log('here')
-  const blipId = getBlipIdFromUrl()
-  scrollToBlip(blipId)
 }
 
 module.exports = Radar
