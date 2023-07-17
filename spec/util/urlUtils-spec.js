@@ -1,4 +1,4 @@
-const { constructSheetUrl, getQuadrantFromURL } = require('../../src/util/urlUtils')
+const { constructSheetUrl } = require('../../src/util/urlUtils')
 const config = require('../../src/config')
 const queryParams = require('../../src/util/queryParamProcessor')
 
@@ -33,6 +33,54 @@ describe('Url Utils', () => {
     expect(queryParams).toHaveBeenCalledTimes(1)
   })
 
+  it('should prioritize documentId before legacy sheetId', () => {
+    queryParams.mockReturnValue({ documentId: 'documentId', sheetId: 'sheetId' })
+    delete window.location
+    window.location = Object.create(window)
+    window.location.href = 'https://thoughtworks.com/radar?documentId=documentId&sheetId=sheetId'
+    window.location.search = '?'
+
+    const id = getDocumentOrSheetId()
+
+    expect(id).toEqual('documentId')
+  })
+
+  it('supports documentId', () => {
+    queryParams.mockReturnValue({ documentId: 'documentId' })
+    delete window.location
+    window.location = Object.create(window)
+    window.location.href = 'https://thoughtworks.com/radar?documentId=documentId'
+    window.location.search = '?'
+
+    const id = getDocumentOrSheetId()
+
+    expect(id).toEqual('documentId')
+  })
+
+  it('supports sheetId', () => {
+    queryParams.mockReturnValue({ sheetId: 'sheetId' })
+    delete window.location
+    window.location = Object.create(window)
+    window.location.href = 'https://thoughtworks.com/radar?sheetId=sheetId'
+    window.location.search = '?'
+
+    const id = getDocumentOrSheetId()
+
+    expect(id).toEqual('sheetId')
+  })
+
+  it('supports sheetName', () => {
+    queryParams.mockReturnValue({ sheetName: 'sheetName' })
+    delete window.location
+    window.location = Object.create(window)
+    window.location.href = 'https://thoughtworks.com/radar?sheetName=sheetName'
+    window.location.search = '?'
+
+    const sheetName = getSheetName()
+
+    expect(sheetName).toEqual('sheetName')
+  })
+
   it('should return all if no quadrant found in url', () => {
     queryParams.mockReturnValue({ some: 'param' })
     delete window.location
@@ -53,5 +101,4 @@ describe('Url Utils', () => {
     const quadrant = getQuadrantFromURL()
 
     expect(quadrant).toBe('first')
-  })
 })

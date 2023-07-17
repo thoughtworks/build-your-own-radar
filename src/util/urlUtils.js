@@ -13,6 +13,16 @@ function constructSheetUrl(sheetName) {
   return sheetUrl
 }
 
+function getDocumentOrSheetId() {
+  const queryParams = QueryParams(window.location.search.substring(1))
+  return queryParams.documentId ?? queryParams.sheetId
+}
+
+function getSheetName() {
+  const queryParams = QueryParams(window.location.search.substring(1))
+  return queryParams.sheetName
+}
+
 function getQuadrantFromURL() {
   const queryParams = QueryParams(window.location.search.substring(1))
   const quadrantQueryString = queryParams.quadrant
@@ -22,5 +32,7 @@ function getQuadrantFromURL() {
 
 module.exports = {
   constructSheetUrl,
+  getDocumentOrSheetId,
+  getSheetName,
   getQuadrantFromURL,
 }
