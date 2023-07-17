@@ -207,5 +207,4 @@ function renderQuadrantTables(quadrants, rings) {
 module.exports = {
   renderQuadrantTables,
   renderBlipDescription,
-  highlightBlipInGraph,
 }
