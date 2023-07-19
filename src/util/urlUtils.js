@@ -23,8 +23,18 @@ function getSheetName() {
   return queryParams.sheetName
 }
 
+function getBlipIdFromUrl() {
+  const queryParams = QueryParams(window.location.search.substring(1))
+  const blipQueryString = queryParams.blipId
+
+  const blipId = parseInt(blipQueryString)
+
+  return isNaN(blipId) ? null : blipId
+}
+
 module.exports = {
   constructSheetUrl,
   getDocumentOrSheetId,
   getSheetName,
+  getBlipIdFromUrl,
 }

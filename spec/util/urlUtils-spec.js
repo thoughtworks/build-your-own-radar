@@ -1,4 +1,4 @@
-const { constructSheetUrl, getDocumentOrSheetId, getSheetName } = require('../../src/util/urlUtils')
+const { constructSheetUrl, getDocumentOrSheetId, getSheetName, getBlipIdFromUrl } = require('../../src/util/urlUtils')
 const config = require('../../src/config')
 const queryParams = require('../../src/util/queryParamProcessor')
 
@@ -79,5 +79,27 @@ describe('Url Utils', () => {
     const sheetName = getSheetName()
 
     expect(sheetName).toEqual('sheetName')
+  })
+
+  it('should return all if no blip id found in url', () => {
+    queryParams.mockReturnValue({ some: 'param' })
+    delete window.location
+    window.location = Object.create(window)
+    window.location.href = 'https://thoughtworks.com/radar?sheet=radar'
+    window.location.search = '?'
+    const quadrant = getBlipIdFromUrl()
+
+    expect(quadrant).toBeNull()
+  })
+
+  it('should return blip id if found in url', () => {
+    queryParams.mockReturnValue({ blipId: '50' })
+    delete window.location
+    window.location = Object.create(window)
+    window.location.href = 'https://thoughtworks.com/radar?sheet=radar'
+    window.location.search = '?'
+    const quadrant = getBlipIdFromUrl()
+
+    expect(quadrant).toBe(50)
   })
 })
