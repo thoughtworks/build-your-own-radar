@@ -843,6 +843,7 @@ const Radar = function (size, radar) {
 function renderDeepLinkViewIfPresent(quadrants) {
   let quadrant
 
+  // Deep link by blip id
   const blipIdToShow = getBlipIdFromUrl()
   if (blipIdToShow) {
     for (const q of quadrants) {
@@ -854,6 +855,7 @@ function renderDeepLinkViewIfPresent(quadrants) {
     }
   }
 
+  // Deep link by quadrant order
   const quadrantToShow = getQuadrantFromURL()
   if (quadrantToShow && !blipIdToShow) {
     for (const q of quadrants) {
@@ -865,11 +867,11 @@ function renderDeepLinkViewIfPresent(quadrants) {
 
   if (quadrant) {
     selectRadarQuadrant(quadrant.order, quadrant.startAngle, quadrant.quadrant.name())
-  }
 
-  if (blipIdToShow) {
-    const blipLink = document.getElementById(`blip-link-${blipIdToShow}`)
-    performBlipClick(blipLink)
+    if (blipIdToShow) {
+      const blipLink = document.getElementById(`blip-link-${blipIdToShow}`)
+      performBlipClick(blipLink)
+    }
   }
 }
 
