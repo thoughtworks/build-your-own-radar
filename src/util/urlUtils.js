@@ -13,6 +13,16 @@ function constructSheetUrl(sheetName) {
   return sheetUrl
 }
 
+function getDocumentOrSheetId() {
+  const queryParams = QueryParams(window.location.search.substring(1))
+  return queryParams.documentId ?? queryParams.sheetId
+}
+
+function getSheetName() {
+  const queryParams = QueryParams(window.location.search.substring(1))
+  return queryParams.sheetName
+}
+
 function getBlipIdFromUrl() {
   const queryParams = QueryParams(window.location.search.substring(1))
   const blipQueryString = queryParams.blipId
@@ -24,5 +34,7 @@ function getBlipIdFromUrl() {
 
 module.exports = {
   constructSheetUrl,
+  getDocumentOrSheetId,
+  getSheetName,
   getBlipIdFromUrl,
 }
