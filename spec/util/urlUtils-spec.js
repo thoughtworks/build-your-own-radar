@@ -41,7 +41,7 @@ describe('Url Utils', () => {
     window.location.search = '?'
     const quadrant = getBlipIdFromUrl()
 
-    expect(quadrant).toBe('all')
+    expect(quadrant).toBeNull()
   })
 
   it('should return blip id if found in url', () => {
@@ -52,6 +52,6 @@ describe('Url Utils', () => {
     window.location.search = '?'
     const quadrant = getBlipIdFromUrl()
 
-    expect(quadrant).toBe('50')
+    expect(quadrant).toBe(50)
   })
 })
