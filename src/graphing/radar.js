@@ -834,13 +834,13 @@ const Radar = function (size, radar) {
       addRadarLinkInPdfView()
     }
 
-    checkIfDeepLinksPresent(quadrants)
+    renderDeepLinkViewIfPresent(quadrants)
   }
 
   return self
 }
 
-function checkIfDeepLinksPresent(quadrants) {
+function renderDeepLinkViewIfPresent(quadrants) {
   let quadrant
 
   const blipIdToShow = getBlipIdFromUrl()
