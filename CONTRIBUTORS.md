@@ -1,29 +1,31 @@
-#BYOR Contributors
+## BYOR Contributors
 
-In no particular order
+In alphabetic order:
 
-- [BRUNNEL6](https://github.com/BRUNNEL6)
+- [@andyw8](https://github.com/andyw8)
 
-- [lauraionescu](https://github.com/lauraionescu)
+- [@aschonfeld](https://github.com/aschonfeld)
 
-- [thenano](https://github.com/thenano)
+- [@br00k](https://github.com/br00k)
 
-- [trecenti](https://github.com/trecenti)
+- [@BRUNNEL6](https://github.com/BRUNNEL6)
 
-- [hkurosawa](https://github.com/hkurosawa)
+- [@camiloribeiro](https://github.com/camiloribeiro)
 
-- [kylec32](https://github.com/kylec32)
+- [@filipesabella](https://github.com/filipesabella)
 
-- [aschonfeld](https://github.com/aschonfeld)
+- [@hkurosawa](https://github.com/hkurosawa)
 
-- [andyw8](https://github.com/andyw8)
+- [@jaiganeshg](https://github.com/jaiganeshg)
 
-- [br00k](https://github.com/br00k)
+- [@kylec32](https://github.com/kylec32)
 
-- [camiloribeiro](https://github.com/camiloribeiro)
+- [@lauraionescu](https://github.com/lauraionescu)
 
-- [shahadarsh](https://github.com/shahadarsh)
+- [@setchy](https://github.com/setchy)
 
-- [filipesabella](https://github.com/filipesabella)
+- [@shahadarsh](https://github.com/shahadarsh)
 
-- [jaiganeshg](https://github.com/jaiganeshg)
+- [@thenano](https://github.com/thenano)
+
+- [@trecenti](https://github.com/trecenti)
