@@ -112,7 +112,7 @@ Amazon SNS topics,Plattform,BRUK,FALSE,"SNS er Amazon sin serverless tjeneste fo
 - Billig
 - Tilbyr FIFO-topics",- Kapasitetsbegrensning for FIFO?,"Dataplattform, Proaktive meldinger"
 AWS EKS Kubernetes,Plattform,VURDER,FALSE,AWS sin managed tjeneste for Kubernetes (k8s) clustere. Basis for kjørmiljø satt opp med okctl.,,,"Veiviser, skjema, kjøremiljø, Minside, Barnehagepris"
-AWS ECS Fargate,Plattform,BRUK,FALSE,"Tjeneste for ""serverless"" kjøring av Docker-containere. Tilsvarende AWS Lambda for kjøring av containere istedenfor enkeltfunksjoner.",- 100% managed plattform,- Kan fås ut av boksen vha okctl (bakom Kubernetes),"Dataplattform, Skjema, Dataspeilet"
+AWS ECS Fargate,Plattform,BRUK,FALSE,"Tjeneste for ""serverless"" kjøring av Docker-containere. Tilsvarende AWS Lambda for kjøring av containere istedenfor enkeltfunksjoner.",- 100% managed plattform,"Dataplattform, Skjema, Dataspeilet"
 Amazon API Gateway,Plattform,BRUK,FALSE,"API Gateway er en tjeneste for å eksponere forskjellige AWS-tjenester som APIer, f.eks. lage et REST API mot en Lambda-funksjon.",- Skalerbart,,"Dataplattform, Proaktive meldinger"
 AWS Lambda,Plattform,BRUK,FALSE,"Lambda er en plattform for å kjøre funksjoner, eller Function-as-a-Service (FaaS). Lambda er serverless og skalerer tjenestene etter behov. Ved å pakke f.eks. et REST API som en funksjon så kan man deploye den som én Lambda (se FastAPI). Man betaler per kall på funksjonene og CPU-tid og minne brukt.","- Skalerbart
 - Billig
@@ -121,7 +121,7 @@ AWS Lambda,Plattform,BRUK,FALSE,"Lambda er en plattform for å kjøre funksjoner
 - Begrenset størrelse på Lambda pakker (250MB)","Dataplattform, Dataspeilet, Skjema, Barnehagepris, Proaktive meldinger"
 Terraform,Plattform,BRUK,FALSE,"Konfigurasjonsspråk og -verktøy for å beskrive og provisjonere infrastruktur og tjenester i forskjellige skyløsninger (Infrastructure as Code), inkludert AWS. Konfigurasjonen skrives i HCL.","- Lett å lære
 - Oversiktlig
-- Mer uttrykkskraft i HCL enn i CloudFormation (YAML/JSON)",- okctl bør være foretrukket som standard for teamene,"Dataplattform, veiviser, Proaktive meldinger, Kjøremiljø, Skjema studio"
+- Mer uttrykkskraft i HCL enn i CloudFormation (YAML/JSON)",- enkelte operasjoner er mer komplisert å utføre enn ved bruk av f.eks click-ops ,"Dataplattform, veiviser, Proaktive meldinger, Kjøremiljø, Skjema studio"
 CloudFormation,Plattform,VURDER,FALSE,AWS sitt konfigurasjonsspråk og -verktøy for å beskrive og provisjonere infrastruktur og tjenester i AWS (Infrastructure as Code). Konfigurasjonen kan skrives i JSON eller YAML.,"- Kjøres med AWS CLI
 - Templates for å gi tilgang mellom kontoer
 - Tjenester som oppretter infrastruktur med f.eks. boto",- JSON eller YAML ;-),"Barnehagepris, Dataplattform, Skjema, Kjøremiljø"
@@ -149,20 +149,17 @@ Make,DevOps,BRUK,FALSE,Byggeverktøy for å kjøre forskjellige jobber i forskje
 Shell-scripting,DevOps,BRUK,FALSE,Shell-scripting med Bash (eller zsh eller lignende) er et nyttig verktøy for å skape lim i forskjeller deler av livssyklusen til applikasjonen.,,,"Dataplattform, Skjema"
 Rollbar,DevOps,VURDER,FALSE,"Rollbar er et verktøy som tracker feil i front-end (og back-end) applikasjoner og rapporterer disse til en skyløsning for analyse, varsling og oppfølging. Mulighet for å sette opp varsler f.eks til Slack. ","- Enkelt å ta i bruk
 - Mange integrasjoner","- Data sendes til skyløsning, så medfører ekstra ansvar rundt håndtering av persondata ",Veiviser
-Grafana,DevOps,BRUK,FALSE,"Grafana er et web-basert verktøy for analyse og interaktiv visualisering av metrikker, traces og logger. Støtter en rekke datakilder, og har et levende økosystem for deling av dashboards. Er sammen med Loki og Tempo en del av grunnoppsettet i OKCTL.","- Ut av boksen med okctl
-- God integrasjon med Prometheus og Loki
+Grafana,DevOps,BRUK,FALSE,"Grafana er et web-basert verktøy for analyse og interaktiv visualisering av metrikker, traces og logger. Støtter en rekke datakilder, og har et levende økosystem for deling av dashboards. Er sammen med Loki og Tempo en del av grunnoppsettet i OKCTL.","- God integrasjon med Prometheus og Loki
 - Levende økosystem for deling av dashboards
 - God støtte for integrasjoner",,"Dataplattform, Veiviser, Booking, Min side"
-Loki,DevOps,BRUK,FALSE,"Loki er et logg-aggregeringssystem inspirert av Prometheus. Loki indekserer ikke innholdet i loggene, men instedet et predefinert sett med labels for hver loggstrøm. Utvikles under Grafana-paraplyen og passer godt med Grafana. Er satt opp i OKCTL med innsending av loggstrømmer fra poddene gjennom Promtail. ","- Ut av boksen med okctl.
-- Smidig indeksering av loggestrømmen.
+Loki,DevOps,BRUK,FALSE,"Loki er et logg-aggregeringssystem inspirert av Prometheus. Loki indekserer ikke innholdet i loggene, men instedet et predefinert sett med labels for hver loggstrøm. Utvikles under Grafana-paraplyen og passer godt med Grafana. Kan settes opp med innsending av loggstrømmer fra poddene gjennom Promtail. ","- Smidig indeksering av loggestrømmen.
 - Fin og enkel loggehåndtering
 ","- Må definere labels (indekser) på forhånd for effektivt søk.
 ","Booking, Barnehagepris, Veiviser, Kjøremiljø"
 Kibana (ELK),DevOps,VURDER,FALSE,"Kan vises eksternt med f.eks. en dashboard-bruker, i motsetning til CloudWatch dashboards (krever innlogget AWS-bruker).","- Effektivt og kraftig søk i logger.
 - Dashboards for visualisering av data og metrikker hentet ut fra logger (lett å sette opp).
 - Kan indeksere strukturerte logger (JSON).
-- AWS tilbyr managed løsning.","- Ikke en del av okctl
-- Elastic og AWS er ""uvenner""","Dataplattform, Min side, Dataspeilet, Skjema"
+- AWS tilbyr managed løsning.","- Elastic og AWS er ""uvenner""","Dataplattform, Min side, Dataspeilet, Skjema"
 Strukturerte logger,DevOps,VURDER,FALSE,"Logg ett strukturert (JSON) event per tjenestekall med all informasjon om kallet og behandlingen av det (input parametere, domene-id'er, metrikker for kall på baksystemer, osv.). Se https://charity.wtf/2019/02/05/logs-vs-structured-events/","- Samler all informasjon om et tjenestekall i ett event.
 - Trenger ikke å sammenstille separate logglinjer for å gjenskape hva som har skjedd.
 - Lar deg gjøre rike spørringer på hvordan systemet oppfører seg.
