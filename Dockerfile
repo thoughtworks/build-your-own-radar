@@ -17,18 +17,16 @@ RUN npm ci
 
 COPY . ./
 
-RUN cd /src/build-your-own-radar \
-  echo "Starting webpack build..." \
-  npm run build:prod \
-  echo "Copying built files to nginx directories..." \
-  mkdir -p /opt/build-your-own-radar \
-  cd /opt/build-your-own-radar \
-  cp -r /src/build-your-own-radar/dist/* ./ \
-  mkdir -p files \
-  cp /src/build-your-own-radar/spec/end_to_end_tests/resources/localfiles/* ./files/ \
-  cp /src/build-your-own-radar/default.template /etc/nginx/conf.d/default.conf
+WORKDIR /src/build-your-own-radar
+#  echo "Starting webpack build..."
+RUN npm run build:prod
+#  echo "Copying built files to nginx directories..."
+RUN  mkdir -p /opt/build-your-own-radar
+WORKDIR /opt/build-your-own-radar
+RUN cp -r /src/build-your-own-radar/dist/* ./
+RUN  mkdir -p files
+COPY ./spec/end_to_end_tests/resources/localfiles/* ./files/
+COPY ./default.template /etc/nginx/conf.d/default.conf
 
-# Override parent node image's entrypoint script (/usr/local/bin/docker-entrypoint.sh),
-# which tries to run CMD as a node command
 USER 1000
 CMD ["nginx", "-g", "daemon off;"]
