@@ -163,7 +163,7 @@ jobs:
         if: (inputs.source_image == '')
         run: |
           set -eo pipefail
-          wizcli iac scan --path ${{ inputs.dockerfile }} -p "${{ inputs.scan_policy_dockerfile }}" |& tee $RUNNER_TEMP/dockerfile-scan
+          ./wizcli iac scan --path ${{ inputs.dockerfile }} -p "${{ inputs.scan_policy_dockerfile }}" |& tee $RUNNER_TEMP/dockerfile-scan
       - name: Dockerfile Scan Summary
         if: always() && (inputs.source_image == '')
         run: |
@@ -224,7 +224,7 @@ jobs:
         id: scan_container
         run: |
           set -eo pipefail
-          wizcli docker scan --image "${{ steps.prep.outputs.tagged_image }}" -p "${{ inputs.scan_policy_container }}" --policy-hits-only |& tee $RUNNER_TEMP/container-scan
+          ./wizcli docker scan --image "${{ steps.prep.outputs.tagged_image }}" -p "${{ inputs.scan_policy_container }}" --policy-hits-only |& tee $RUNNER_TEMP/container-scan
 
       # Summarize container scan results
       - name: Dockerfile Scan Summary
