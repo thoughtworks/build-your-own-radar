@@ -149,15 +149,14 @@ jobs:
         if: (inputs.source_image != '')
         run: |
           docker tag ${{ inputs.source_image }} ${{ steps.prep.outputs.tagged_image }}
-            # Download Wiz CLI For Scanning
+      # Download Wiz CLI For Scanning
       - name: Download wizcli
         run: |
           curl -o wizcli https://wizcli.app.wiz.io/wizcli
           chmod a+x ./wizcli
       # Scan container image with wiz
-      - name: Scan the image
+      - name: auth wiz
         run: |
-          docker images ${{ steps.prep.outputs.tagged_image }}
           ./wizcli auth --id  ${{ secrets.WIZ_CLIENT_ID }} --secret ${{ secrets.WIZ_CLIENT_SECRET }}
       - name: Scan Dockerfile
         id: scan_dockerfile
