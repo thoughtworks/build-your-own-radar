@@ -1,0 +1,292 @@
+name: build-container-image
+
+on:
+  workflow_call:
+    inputs:
+      source_image:
+        required: false
+        type: string
+        description: "Used to download a remote image, scan it, and upload it to the selected private registry. DO NOT SET FOR NORMAL BUILDS!"
+        default: ''
+      dockerfile:
+        required: false
+        type: string
+        description: "This is the relative path of your dockerfile, defaults to ./Dockerfile"
+        default: ./Dockerfile
+      dockerfile_context:
+        required: false
+        type: string
+        description: "This is the relative path of where your dockerfile commands are run durring docker build. Change this if your dockerfile is not at the root. defaults to `./`"
+        default: ./
+      container_name:
+        required: true
+        type: string
+        description: "Name of the container you are building and pushing."
+      container_registry:
+        required: false
+        type: string
+        description: "Registry for image, defaults to docker.generalmills.com"
+        default: docker.generalmills.com
+      container_registry_path:
+        required: false
+        type: string
+        description: "Registry image path, defaults to docker-snapshot-local."
+        default: docker-snapshot-local
+      container_tag:
+        required: false
+        type: string
+        description: "Override the image tag, Not recommended! defaults to `<shortsha>-<github_runid>`"
+        default: ""
+      docker_platform:
+        required: false
+        type: string
+        description: "This comma seperated list sets the docker platform for multi platform builds, defaults=linux/amd64. exmple linux/amd64,linux/arm64"
+        default: linux/amd64
+      docker_build_args:
+        required: false
+        type: string
+        description: "List of build-time variables, see https://docs.docker.com/engine/reference/commandline/build/#build-arg"
+        default: ''
+      docker_build_contexts:
+        required: false
+        type: string
+        description: "List of build-contexts, see https://docs.docker.com/engine/reference/commandline/buildx_build/#build-context"
+      artifactory_promotion:
+        required: false
+        type: boolean
+        description: "This is a boolean that enables or disables promotion to docker-local. Failure to prmote images will result in deletion after 30 days. default true."
+        default: true
+      artifactory_promotion_branch:
+        required: false
+        type: string
+        description: "This is the branch that promotes the container image to the production image registry path. Normally docker-local in artifactory. Defaults to main."
+        default: refs/heads/main
+      jfrog_promotion_repo:
+        required: false
+        type: string
+        description: "This is the name of the production registry path. This will almost always be docker-local at GMI"
+        default: docker-local
+      scan_policy_dockerfile:
+        required: false
+        type: string
+        description: "Allows overriding of the dockerfile scan policy with a different policy. Alternate policy names are obtained by filing a security exception request. default: 'GMI Dockerfile Scan Policy'"
+      scan_policy_container:
+        required: false
+        type: string
+        description: "Allows overriding of the Container scan policy with a different policy. Alternate policy names are obtained by filing a security exception request."
+        default: "GMI Container Scan Policy"
+
+    outputs:
+      container_registry:
+        description: "Specified Container Registry image was pushed to."
+        value: ${{ jobs.BuildImage.outputs.container_registry }}
+      container_name:
+        description: "Container name from input"
+        value: ${{ jobs.BuildImage.outputs.container_name }}
+      container_tag:
+        description: "Tag of the container example: a12455-43, defaults are <hash>-<run numbmer>"
+        value: ${{ jobs.BuildImage.outputs.container_tag }}
+      container_name_tag:
+        description: "Container name and tag in the format of <container_name>:<tag>"
+        value: ${{ jobs.BuildImage.outputs.container_name_tag}}
+      container_imageid:
+        description: "Image ID"
+        value: ${{ jobs.BuildImage.outputs.container_imageid }}
+      container_digest:
+        description: "Image digest"
+        value: ${{ jobs.BuildImage.outputs.container_digest }}
+      container_metadata:
+        description: "JSON Build result metadata"
+        value: ${{ jobs.BuildImage.outputs.container_metadata }}
+      container_artifact_location:
+        description: "DO NOT USE FOR DEPLOYMENT! Full container name including registry and path, example: docker.generalmills.com/docker-snapshot-local/myimage:a12455-43"
+        value: ${{ jobs.BuildImage.outputs.container_artifact_location }}
+      container_pull_path:
+        description: "Full path image would be pulled from. Due to the use of virtual artifact repositories the pull location is different than the artifact location"
+        value: ${{ jobs.BuildImage.outputs.container_pull_path }}
+
+jobs:
+  BuildImage:
+    name: build-image
+    runs-on: gcp
+    outputs:
+      container_registry: ${{ inputs.container_registry }}
+      container_name: ${{ inputs.container_name }}
+      container_tag: ${{ steps.prep.outputs.tag }}
+      container_name_tag:  ${{ steps.prep.outputs.container_name_tag }}
+      container_imageid: ${{ steps.dockerbuild.outputs.imageid }}
+      container_digest: ${{ steps.dockerbuild.outputs.digest }}
+      container_metadata: ${{ steps.dockerbuild.outputs.metadata }}
+      container_artifact_location: ${{ steps.prep.outputs.tagged_image }}
+      container_pull_path: "${{ steps.prep.outputs.container_pull_path }}"
+    steps:
+      - uses: actions/checkout@v3
+      # Setup Job variables
+      - name: Prepare
+        id: prep
+        run: |
+          if [ '${{inputs.container_tag}}' = '' ]
+          then
+            TAG=${{ github.run_number }}-$(echo $GITHUB_SHA | head -c7)
+          else
+            TAG="${{ inputs.container_tag }}"
+          fi
+          IMAGE="${{ inputs.container_registry }}/${{ inputs.container_registry_path }}/${{ inputs.container_name }}"
+          IMAGE_TAG="${{ inputs.container_name }}:${TAG}"
+          echo "container_name=${{ inputs.container_name }}" >> "$GITHUB_OUTPUT"
+          echo "container_name_tag=$IMAGE_TAG" >> "$GITHUB_OUTPUT"
+          echo "tagged_image=${IMAGE}:${TAG}" >> "$GITHUB_OUTPUT"
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+          echo "container_pull_path=${{ inputs.container_registry }}/$IMAGE_TAG" >> "$GITHUB_OUTPUT"
+      # Handle if source is set
+      - name: Download Source
+        id: download_source
+        if: (inputs.source_image != '')
+        run: |
+          docker pull ${{ inputs.source_image }}
+      - name: Retag Source
+        id: retag_source
+        if: (inputs.source_image != '')
+        run: |
+          docker tag ${{ inputs.source_image }} ${{ steps.prep.outputs.tagged_image }}
+      # Download Wiz CLI For Scanning
+      - name: Download wizcli
+        run: |
+          curl -o wizcli https://wizcli.app.wiz.io/wizcli
+          chmod a+x ./wizcli
+      # Scan container image with wiz
+      - name: auth wiz
+        run: |
+          ./wizcli auth --id  ${{ secrets.WIZ_CLIENT_ID }} --secret ${{ secrets.WIZ_CLIENT_SECRET }}
+      - name: Scan Dockerfile
+        id: scan_dockerfile
+        if: (inputs.source_image == '')
+        run: |
+          set -eo pipefail
+          ./wizcli iac scan --path ${{ inputs.dockerfile }} -p "${{ inputs.scan_policy_dockerfile }}" |& tee $RUNNER_TEMP/dockerfile-scan
+      - name: Dockerfile Scan Summary
+        if: always() && (inputs.source_image == '')
+        run: |
+          echo "# Dockerfile Scan Summary" >> $GITHUB_STEP_SUMMARY
+          if test -f "$RUNNER_TEMP/dockerfile-scan"
+          then
+            if [ ${{steps.scan_dockerfile.outcome}} != 'success' ]
+            then
+              echo ':boom::fire: Scan Failed :fire::boom:' >> $GITHUB_STEP_SUMMARY
+              echo '<details open>' >> $GITHUB_STEP_SUMMARY
+            else
+              echo '<details>' >> $GITHUB_STEP_SUMMARY
+            fi
+            echo '<summary>Expand Results</summary>' >> $GITHUB_STEP_SUMMARY
+            echo '' >> $GITHUB_STEP_SUMMARY
+            echo '```terminal' >> $GITHUB_STEP_SUMMARY
+            cat $RUNNER_TEMP/dockerfile-scan >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            echo '' >> $GITHUB_STEP_SUMMARY
+            echo '</details>' >> $GITHUB_STEP_SUMMARY
+          else
+            echo ":fire: failed to obtain Dockerfile Scan most likely due to an error in the pipeline :fire:" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      # Setup and Build images
+      - name: Set up Docker Buildx
+        id: buildx
+        if: (inputs.source_image == '')
+        uses: docker/setup-buildx-action@v2
+
+      # Rootless docker may not support QEMU See https://github.com/docker/setup-qemu-action/issues/67 and https://github.com/tonistiigi/binfmt/issues/76
+      #- name: Set up QEMU
+      #  uses: docker/setup-qemu-action@v2
+
+      - name: Build Docker Image
+        if: (inputs.source_image == '')
+        uses: docker/build-push-action@v4
+        id: dockerbuild
+        with:
+          context: ${{ inputs.dockerfile_context }}
+          builder: ${{ steps.buildx.outputs.name }}
+          file: ${{ inputs.dockerfile }}
+          build-args: ${{ inputs.docker_build_args }}
+          build-contexts: ${{ inputs.docker_build_contexts }}
+          # Do not push as this is not compatible with jfrog currently and we need to scan the image
+          push: false
+          # Sets Platform of image
+          platforms: ${{ inputs.docker_platform }}
+          # Loads docker image to docker images so it can be scanned
+          load: true
+          tags: ${{ steps.prep.outputs.tagged_image }}
+          # See https://github.com/moby/buildkit/tree/master#github-actions-cache-experimental for details
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # Scan container image with wiz
+      - name: Scan Container
+        id: scan_container
+        run: |
+          set -eo pipefail
+          ./wizcli docker scan --image "${{ steps.prep.outputs.tagged_image }}" -p "${{ inputs.scan_policy_container }}" --policy-hits-only |& tee $RUNNER_TEMP/container-scan
+
+      # Summarize container scan results
+      - name: Dockerfile Scan Summary
+        if: always()
+        run: |
+          echo "# Container Scan Summary" >> $GITHUB_STEP_SUMMARY
+          if test -f "$RUNNER_TEMP/container-scan"
+          then
+            if [ ${{steps.scan_container.outcome}} != 'success' ]
+            then
+              echo ':boom::fire: Scan Failed :fire::boom:' >> $GITHUB_STEP_SUMMARY
+              echo '<details open>' >> $GITHUB_STEP_SUMMARY
+            else
+              echo '<details>' >> $GITHUB_STEP_SUMMARY
+            fi
+            echo '<summary>Expand Results</summary>' >> $GITHUB_STEP_SUMMARY
+            echo '' >> $GITHUB_STEP_SUMMARY
+            echo '```terminal' >> $GITHUB_STEP_SUMMARY
+            cat $RUNNER_TEMP/container-scan >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            echo '' >> $GITHUB_STEP_SUMMARY
+            echo '</details>' >> $GITHUB_STEP_SUMMARY
+          else
+            echo ":fire: failed to obtain Dockerfile Scan most likely due to an error in the pipeline :fire:" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      # Setup Artifactory CLI
+      - uses: jfrog/setup-jfrog-cli@v3
+        env:
+          JF_ENV_SERVER: ${{ secrets.ARTIFACTORY_PROD }}
+
+      # Creates Artifactory Build for pushed image
+      - name: Create Artifactory Build
+        run: |
+          # Push Image
+          jfrog rt dp ${{ steps.prep.outputs.tagged_image }} ${{ inputs.container_registry_path }} --build-name=${{ steps.prep.outputs.container_name }} --build-number=${{ github.run_number }}
+          # Publish Build
+          jfrog rt bp ${{ steps.prep.outputs.container_name }} ${{ github.run_number }}
+
+      # Promote Image when it is pushed to main
+      # See https://www.jfrog.com/confluence/display/CLI/CLI+for+JFrog+Artifactory#CLIforJFrogArtifactory-ManagingDockerImages for options
+      - name: Promote
+        if: (github.ref == inputs.artifactory_promotion_branch) && inputs.artifactory_promotion
+        run: |
+          jfrog rt docker-promote ${{ steps.prep.outputs.container_name }} ${{ inputs.container_registry_path }} ${{ inputs.jfrog_promotion_repo }} --source-tag ${{ steps.prep.outputs.tag }}
+
+      # Output built image and tag info to summary
+      - name: Summarize build
+        id: summarize_build
+        run: |
+          # Summarize the build
+          echo '# Image Build Info' >> $GITHUB_STEP_SUMMARY
+          echo '' >> $GITHUB_STEP_SUMMARY
+          echo '| Outputs                     | Value                                          |' >> $GITHUB_STEP_SUMMARY
+          echo '| --------------------------- | ---------------------------------------------- |' >> $GITHUB_STEP_SUMMARY
+          echo '| container_registry          | `${{ inputs.container_registry }}`             |' >> $GITHUB_STEP_SUMMARY
+          echo '| container_name              | `${{ inputs.container_name }}`                 |' >> $GITHUB_STEP_SUMMARY
+          echo '| container_tag               | `${{ steps.prep.outputs.tag }}`                |' >> $GITHUB_STEP_SUMMARY
+          echo '| container_name_tag          | `${{ steps.prep.outputs.container_name_tag }}` |' >> $GITHUB_STEP_SUMMARY
+          echo '| container_imageid           | `${{ steps.dockerbuild.outputs.imageid }}`     |' >> $GITHUB_STEP_SUMMARY
+          echo '| container_digest            | `${{ steps.dockerbuild.outputs.digest }} `     |' >> $GITHUB_STEP_SUMMARY
+          echo '| container_artifact_location | `${{ steps.prep.outputs.tagged_image }}`       |' >> $GITHUB_STEP_SUMMARY
+          echo '| container_pull_path         | `${{ steps.prep.outputs.container_pull_path }}`|' >> $GITHUB_STEP_SUMMARY
+          echo '| container_metadata          | `JSON Build Result metadata`                   |' >> $GITHUB_STEP_SUMMARY
+          echo '' >> $GITHUB_STEP_SUMMARY

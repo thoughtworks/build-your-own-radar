@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-container:
-    uses: gmi-actions/build-container/.github/workflows/build-container.yml@v1
+    uses: ./.github/workflows/build-container-image.yml
     with:
       container_name: build-your-own-radar
     secrets: inherit
