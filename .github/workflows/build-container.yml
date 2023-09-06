@@ -8,7 +8,19 @@ on:
 
 jobs:
   build-container:
+<<<<<<< HEAD
     uses: ./.github/workflows/build-container-image.yml
     with:
       container_name: build-your-own-radar
     secrets: inherit
+=======
+    runs-on: gcp
+    steps:
+      - uses: actions/checkout@v3
+      - uses: gmi-actions/build-container@v1
+        with:
+          container_name: build-your-own-radar
+          wiz_client_id: ${{secrets.WIZ_CLIENT_ID}}
+          wiz_client_secret: ${{secrets.WIZ_CLIENT_SECRET}}
+          artifactory_secret: ${{ secrets.ARTIFACTORY_PROD }}
+>>>>>>> 0eb63a60f250f9817ab0e40da4a88db7b262974b
