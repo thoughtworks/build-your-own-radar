@@ -1,0 +1,15 @@
+name: 'build-container'
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - 'releases/*'
+
+jobs:
+  build-container:
+    uses: gmi-actions/build-container/.github/workflows/build-container.yml@v1
+    runs-on: gcp
+    with:
+      container_name: build-your-own-radar
+    secrets: inherit
