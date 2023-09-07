@@ -18,4 +18,10 @@ server {
     default_type text/plain;
     add_header 'Access-Control-Allow-Origin' '*';
   }
+
+  location = /healthz {
+    access_log off;
+    add_header 'Content-Type' 'application/json';
+    return 200 '{"status":"UP"}';
+  }
 }
