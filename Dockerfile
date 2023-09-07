@@ -28,5 +28,6 @@ RUN  mkdir -p files
 COPY ./spec/end_to_end_tests/resources/localfiles/* ./files/
 COPY ./default.template /etc/nginx/conf.d/default.conf
 
+EXPOSE 8080
 USER 1000
 CMD ["nginx", "-g", "daemon off;"]
