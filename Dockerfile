@@ -1,9 +1,6 @@
 FROM nginxinc/nginx-unprivileged:1.25.2
 USER 0
-RUN apt-get update && apt-get upgrade -y
-
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-RUN apt-get install -y nodejs
+RUN apt-get update && apt-get upgrade -y && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && apt-get install -y nodejs
 
 RUN                                                                       \
   apt-get install -y                                                      \
