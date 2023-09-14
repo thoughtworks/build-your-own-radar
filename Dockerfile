@@ -8,7 +8,7 @@ RUN                                                                       \
   libxss1 libasound2 libxtst6 xauth xvfb g++ make
 
 #Security fixes
-RUN apt-get upgrade -y libwebp-dev=1.2.4-0.2+deb12u1
+RUN apt-get update && apt-get upgrade -y libwebp-dev=1.2.4-0.2+deb12u1
 
 WORKDIR /src/build-your-own-radar
 COPY package.json ./
