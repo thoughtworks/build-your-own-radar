@@ -7,6 +7,9 @@ RUN                                                                       \
   libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3    \
   libxss1 libasound2 libxtst6 xauth xvfb g++ make
 
+#Security fixes
+RUN apt-get install -y libwebp-dev=1.2.4-0.2+deb12u1
+
 WORKDIR /src/build-your-own-radar
 COPY package.json ./
 COPY package-lock.json ./
