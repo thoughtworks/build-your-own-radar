@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  aws-cli: circleci/aws-cli@2.0.6
+  aws-cli: circleci/aws-cli@3.1.5
 
 executors:
   base:
@@ -68,17 +68,9 @@ commands:
       - run:
           name: Build code
           command: API_KEY=<< parameters.api_key >> CLIENT_ID=<< parameters.client_id >> GTM_ID=<< parameters.gtm_id >> ADOBE_LAUNCH_SCRIPT_URL=<< parameters.adobe_launch_script_url >> npm run build:<< parameters.mode >>
-      - when:
-          condition:
-            and:
-              - equal: [<< parameters.mode >>, 'prod']
-          steps:
-            - run:
-                name: Set PROD specific env variables
-                command: |
-                  echo 'export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID_PROD' >> $BASH_ENV
-                  echo 'export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY_PROD' >> $BASH_ENV
-      - aws-cli/setup
+      - aws-cli/setup:
+          role-arn: $AWS_BYOR_OIDC_ROLE
+          session-duration: '900'
       - run:
           name: Sync build artifacts to S3
           command: aws s3 cp --recursive dist "s3://<< parameters.bucket_name >>/"
