@@ -1,110 +1,137 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="/images/favicon.ico" rel="icon" />
-    <link rel="preconnect" href="https://rsms.me/" />
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@700&display=swap" rel="stylesheet" />
-  </head>
 
-  <body>
-    <header class="input-sheet__logo">
-      <div>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="/images/favicon.ico" rel="icon" />
+  <link rel="preconnect" href="https://rsms.me/" />
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@700&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <header class="input-sheet__logo">
+    <div>
+      <span>Powered by</span>
+      <a href="/"><img src="/images/tw-logo.png" alt="CGI logo" /></a>
+    </div>
+  </header>
+  <div class="hero-banner">
+    <div class="hero-banner__wrapper">
+      <h1 class="hero-banner__title-text">Cloud and Global Infrastructure</h1>
+    </div>
+  </div>
+  <main>
+    <div id="pdf-cover-page">
+      <img class="pdf-banner-image" src="/images/pdf_banner.png" alt="Pdf cover image" width="100%" height="300px" />
+      <h1 class="pdf-title"></h1>
+      <div class="pdf-powered-by-text">
         <span>Powered by</span>
-        <a href="https://www.thoughtworks.com"><img src="/images/tw-logo.png" alt="Thoughtworks logo" /></a>
-      </div>
-    </header>
-    <div class="hero-banner">
-      <div class="hero-banner__wrapper">
-        <h1 class="hero-banner__title-text">Build your own Radar</h1>
+        <a href="/">
+          <img class="pdf-tw-logo" src="/images/tw-logo.png" alt="logo" />
+        </a>
       </div>
     </div>
-    <main>
-      <div id="pdf-cover-page">
-        <img class="pdf-banner-image" src="/images/pdf_banner.png" alt="Pdf cover image" width="100%" height="300px" />
-        <h1 class="pdf-title"></h1>
-        <div class="pdf-powered-by-text">
-          <span>Powered by</span>
-          <a href="https://www.thoughtworks.com">
-            <img class="pdf-tw-logo" src="/images/tw-logo.png" alt="logo" />
-          </a>
+    <div class="helper-description home-page">
+      <p>CGI Op Model was motivated by rapid evolution in the technology landscape and ushered by the broader digital
+        transformation to address the following changes:</p>
+      <ul>
+        <li>
+          <p>Global Infrastructure must be <strong>consistently </strong>built to maximize <strong>effectiveness,
+              efficiency</strong> and <strong>speed </strong>across people, process and technology</p>
+        </li>
+        <li>
+          <p>What got us here is <strong>not enough </strong>for us to be competitive in the new <strong>digital
+            </strong>environment</p>
+        </li>
+      </ul>
+      <p>How can this be achieved?</p>
+      <ul>
+        <li>
+          <p><strong>Global </strong>teams engaged, fully capable and available 24x7</p>
+        </li>
+        <li>
+          <p>Hardware-based solutions &gt;&gt; <strong>Software/Cloud-based solutions </strong>(<em>Cloud is now our
+              foundation</em>)</p>
+        </li>
+        <li>
+          <p>Security risk mitigation &gt;&gt; <strong>Secure by design</strong></p>
+        </li>
+        <li>
+          <p>Centralized operations &gt;&gt; <strong>Distributed operations </strong>and<strong>
+              accountabilities</strong></p>
+        </li>
+        <li>
+          <p>Centralized operations &gt;&gt; Infrastructure <strong>platforms</strong> exposed as a Service</p>
+        </li>
+        <li>
+          <p>Centralized operations &gt;&gt; <strong>Granular, application-based SLAs</strong></p>
+        </li>
+        <li>
+          <p>Complex, manual change management &gt;&gt; <strong>DevOps &ndash; CI/CD&nbsp; </strong><em>(Automate
+              everything, elevate Infra Engineering talent)</em></p>
+        </li>
+      </ul>
+
+      <span class="loader-text">
+        <span class="loader-text__title">Building your radar...</span>
+        <p>Your Technology Radar will be available in just a few seconds</p>
+        <div class="loader-wrapper">
+          <div style="animation-delay: 0s"></div>
+          <div style="animation-delay: 0.25s"></div>
+          <div style="animation-delay: 0.75s"></div>
+          <div style="animation-delay: 0.5s"></div>
         </div>
-      </div>
-      <div class="helper-description home-page">
-        <p>
-          Once you've <a href="https://www.thoughtworks.com/radar/byor">created your Radar</a> you can use this service
-          to generate an interactive version of your Technology Radar. Not sure how?
-          <a href="https://www.thoughtworks.com/radar/byor">Read this first.</a>
-        </p>
-        <span class="loader-text">
-          <span class="loader-text__title">Building your radar...</span>
-          <p>Your Technology Radar will be available in just a few seconds</p>
-          <div class="loader-wrapper">
-            <div style="animation-delay: 0s"></div>
-            <div style="animation-delay: 0.25s"></div>
-            <div style="animation-delay: 0.75s"></div>
-            <div style="animation-delay: 0.5s"></div>
-          </div>
-        </span>
-      </div>
-      <div id="error-container" class="error-container home-page"></div>
-      <div class="input-sheet-form home-page">
-        <p>
-          Enter the URL of your
-          <a href="https://www.thoughtworks.com/radar/byor" target="_blank">Google Sheet, CSV or JSON</a> file below…
-        </p>
-        <form id="byor-form-submit" method="get">
-          <input
-            type="text"
-            name="documentId"
-            id="document-input"
-            placeholder="e.g. https://docs.google.com/spreadsheets/d/<sheetid> or hosted CSV/JSON file"
-            required=""
-          />
-          <input type="submit" value="Build my radar" />
-          <a href="https://www.thoughtworks.com/radar/byor#guide">Need help?</a>
-        </form>
-      </div>
-      <div class="graph-header"></div>
-      <div id="radar">
-        <p class="no-blip-text">
-          There are no blips on this quadrant, please check your Google sheet/CSV/JSON file once.
-        </p>
-      </div>
-      <div class="all-quadrants-mobile show-all-quadrants-mobile"></div>
-      <div class="graph-footer"></div>
-    </main>
-    <footer class="home-page">
-      <div class="pdf-footer">
-        <div class="pdf-powered-by-text">
-          <span>Powered by</span>
-          <a href="https://www.thoughtworks.com">
-            <img class="pdf-tw-logo" src="/images/tw-logo.png" alt="logo" />
-          </a>
-          <div class="pdf-footer-title">Build your own Radar</div>
-          <a class="radar-link" id="generated-radar-link" href="https://radar.thoughtworks.com">
-            radar.thoughtworks.com
-          </a>
-        </div>
-      </div>
-      <p class="agree-terms">
-        Powered by <a href="https://www.thoughtworks.com"> Thoughtworks</a>. By using this service you agree to
-        <a href="https://www.thoughtworks.com/radar/tos">Thoughtworks' terms of use</a>. You also agree to our
-        <a href="https://www.thoughtworks.com/privacy-policy">privacy policy</a>, which describes how we will gather,
-        use and protect any personal data contained in your public Google Sheet. This software is
-        <a href="https://github.com/thoughtworks/build-your-own-radar">open source</a> and available for download and
-        self-hosting.
+      </span>
+    </div>
+    <div id="error-container" class="error-container home-page"></div>
+    <div class="input-sheet-form home-page">
+      <p><u>CGI Radar Slices:</u></p>
+
+      <ul>
+        <li><a href="/?documentId=files%2FF23_integration.csv">API and Integrations</a></li>
+        <li><a href="/?documentId=files%2FF23_cloud_engineering.csv">Cloud Engineering</a></li>
+         <li><a href="/?documentId=files%2FF23_database_platforms.csv">Database Platforms</a></li>
+        <li><a href="/?documentId=files%2FF23_devops.csv">DevOps</a></li>
+        <li><a href="/?documentId=files%2FF23_hybrid_compute.csv">Hybrid Compute</a></li>
+        <li><a href="/?documentId=files%2FF23_IaaS.csv">IaaS</a></li>
+        <li><a href="/?documentId=files%2FF23_edge.csv">Global Infrastructure - Edge Locations</a></li>
+        <li><a href="/?documentId=files%2FF23_networking.csv">Networking</a></li>
+        <li><a href="/?documentId=files%2FF23_storage.csv">Storage</a></li>
+        <li><a href="/?documentId=files%2FF23_automation.csv">Platform Automation</a></li>
+        <li><a href="/?documentId=files%2FF23_governance_slice.csv">Platform Governance</a></li>
+        <li><a href="/?documentId=files%2FF23_voice.csv">Voice</a></li>
+
+      </ul>
+
+    </div>
+    <div class="graph-header"></div>
+    <div id="radar">
+      <p class="no-blip-text">
+        Nothing here. Yet.
       </p>
-    </footer>
-    <div class="pdf-page-footer">
-      <div class="footer-left">radar.thoughtworks.com</div>
-      <div class="footer-right">
-        Build your own radar, <span class="footer-date">dd/mm/yyyy</span> | <span class="footer-page-number">00</span>
+    </div>
+    <div class="all-quadrants-mobile show-all-quadrants-mobile"></div>
+    <div class="graph-footer"></div>
+  </main>
+  <footer class="home-page">
+    <div class="pdf-footer">
+      <div class="pdf-powered-by-text">
+        <span>Powered by</span>
+        <a href="/">
+          <img class="pdf-tw-logo" src="/images/tw-logo.png" alt="logo" />
+        </a>
+        <div class="pdf-footer-title">Tech Radar</div>
       </div>
     </div>
-  </body>
+  </footer>
+  <div class="pdf-page-footer">
+    <div class="footer-right">
+    </div>
+  </div>
+</body>
+
 </html>
