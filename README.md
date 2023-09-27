@@ -132,6 +132,7 @@ Google OAuth Client ID and API Key can be obtained from your Google Developer Co
 ```
 export CLIENT_ID=[Google Client ID]
 ```
+
 **_Note:_** Make sure to set the "Authorized JavaScript origins" field for the Client ID to the right origin domain, with port, where the app is hosted. Examples: `http://localhost:8080` or `https://radar.thoughtworks.com`.
 
 Optionally, API Key can be set to bypass Google Authentication for public sheets.
@@ -218,6 +219,7 @@ Make sure you have nodejs installed. You can run `nvm use` to use the version us
 To run End to End tests, start the dev server and follow the required steps below:
 
 - To run in headless mode:
+
   - add a new environment variable `TEST_URL` and set it to 'http://localhost:8080'
   - `npm run test:e2e-headless`
 
@@ -228,6 +230,7 @@ To run End to End tests, start the dev server and follow the required steps belo
   - Click on the spec to run it's tests
 
 **_Notes:_**
+
 - Currently, end to end tests are not supported for private Google Sheets, as it requires interacting with the Google One Tap popup.
 - To run end to end tests for public Google Sheets, the `CLIENT_ID` and `API_KEY` environment variables need to set as well (steps details [here](#more-complex-usage)), to provide Cypress with an authenticated session (without having to interact with Google's auth popups).
 
