@@ -62,13 +62,22 @@ commands:
       distribution_id:
         type: string
         default: ''
-      mode:
+      env:
         type: string
         default: dev
     steps:
       - run:
           name: Build code
-          command: API_KEY=<< parameters.api_key >> CLIENT_ID=<< parameters.client_id >> GTM_ID=<< parameters.gtm_id >> ADOBE_LAUNCH_SCRIPT_URL=<< parameters.adobe_launch_script_url >> npm run build:<< parameters.mode >>
+          command: API_KEY=<< parameters.api_key >> CLIENT_ID=<< parameters.client_id >> GTM_ID=<< parameters.gtm_id >> ADOBE_LAUNCH_SCRIPT_URL=<< parameters.adobe_launch_script_url >> npm run build:<< parameters.env >>
+      - when:
+          condition:
+            and:
+              - equal: [<< parameters.env >>, 'prod']
+          steps:
+            - run:
+                name: Set PROD specific env variables
+                command: |
+                  echo 'export AWS_BYOR_OIDC_ROLE=$AWS_BYOR_OIDC_ROLE_PROD' >> $BASH_ENV
       - aws-cli/setup:
           role_arn: $AWS_BYOR_OIDC_ROLE
           session_duration: '900'
@@ -101,7 +110,7 @@ jobs:
           adobe_launch_script_url: $QA_ADOBE_LAUNCH_SCRIPT_URL
           bucket_name: $QA_BUCKET_NAME
           distribution_id: $QA_DISTRIBUTION_ID
-          mode: dev
+          env: dev
   prod-deployment:
     executor: base
     steps:
@@ -114,7 +123,7 @@ jobs:
           adobe_launch_script_url: $PROD_ADOBE_LAUNCH_SCRIPT_URL
           bucket_name: $PROD_BUCKET_NAME
           distribution_id: $PROD_DISTRIBUTION_ID
-          mode: prod
+          env: prod
 
 workflows:
   build-and-deploy:
