@@ -10,7 +10,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:e2e": "cypress open --env host=$TEST_URL",
-    "test:e2e-headless": "cypress run --record false --env host=$TEST_URL",
+    "test:e2e-headless": "cypress run --browser chrome --record false --env host=$TEST_URL",
     "lint-prettier:check": "eslint . && prettier --check .",
     "lint-prettier:fix": "eslint . --fix && prettier --write .",
     "quality": "npm run lint-prettier:check && npm run test:coverage"

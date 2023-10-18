@@ -1,12 +1,13 @@
 version: 2.1
 
 orbs:
-  aws-cli: circleci/aws-cli@3.1.5
+  aws-cli: circleci/aws-cli@4.1.1
+  browser-tools: circleci/browser-tools@1.4.6
 
 executors:
   base:
     docker:
-      - image: cimg/node:18.12.1
+      - image: cimg/node:18.18.2-browsers
         user: root
 
 commands:
@@ -69,8 +70,8 @@ commands:
           name: Build code
           command: API_KEY=<< parameters.api_key >> CLIENT_ID=<< parameters.client_id >> GTM_ID=<< parameters.gtm_id >> ADOBE_LAUNCH_SCRIPT_URL=<< parameters.adobe_launch_script_url >> npm run build:<< parameters.mode >>
       - aws-cli/setup:
-          role-arn: $AWS_BYOR_OIDC_ROLE
-          session-duration: '900'
+          role_arn: $AWS_BYOR_OIDC_ROLE
+          session_duration: '900'
       - run:
           name: Sync build artifacts to S3
           command: aws s3 cp --recursive dist "s3://<< parameters.bucket_name >>/"
@@ -84,6 +85,7 @@ jobs:
     steps:
       - checkout
       - install-node-and-cypress-packages
+      - browser-tools/install-chrome
       - run:
           name: Run e2e test cases
           command: API_KEY=$LOCAL_API_KEY ./run_e2e_tests.sh $LOCAL_TEST_URL
