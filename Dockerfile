@@ -20,6 +20,6 @@ RUN npm ci
 COPY . ./
 
 # Override parent node image's entrypoint script (/usr/local/bin/docker-entrypoint.sh),
-# which tries to run CMD as a node command
+# which tries to run CMD as a node command.
 ENTRYPOINT []
 CMD ["./build_and_start_nginx.sh"]
