@@ -36,8 +36,8 @@ const AutoComplete = (el, quadrants, cb) => {
       appendTo: '.search-container',
       source: (request, response) => {
         const matches = blips.filter(({ blip }) => {
-          const searchable = `${blip.name()} ${blip.description()}`.toLowerCase()
-          return request.term.split(' ').every((term) => searchable.includes(term.toLowerCase()))
+          const searchable = `${blip.name().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')} ${blip.description()}`.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+          return request.term.split(' ').every((term) => searchable.includes(term.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')))
         })
         response(matches.map((item) => ({ ...item, value: item.blip.name() })))
       },
@@ -47,8 +47,8 @@ const AutoComplete = (el, quadrants, cb) => {
     $(el).radarcomplete({
       source: (request, response) => {
         const matches = blips.filter(({ blip }) => {
-          const searchable = `${blip.name()} ${blip.description()}`.toLowerCase()
-          return request.term.split(' ').every((term) => searchable.includes(term.toLowerCase()))
+          const searchable = `${blip.name().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')} ${blip.description()}`.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+          return request.term.split(' ').every((term) => searchable.includes(term.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')))
         })
         response(matches.map((item) => ({ ...item, value: item.blip.name() })))
       },
