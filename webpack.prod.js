@@ -25,6 +25,9 @@ Object.entries(featureToggles).forEach(function ([key, value]) {
 })
 
 module.exports = merge(common, {
+  output: {
+    publicPath: '',
+  },
   mode: 'production',
   entry: { main },
   performance: {
