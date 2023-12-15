@@ -1,6 +1,6 @@
 /* eslint no-constant-condition: "off" */
 
-const RADAR_PATH = '/radar.json'
+const RADAR_PATH = 'radar.json'
 
 const d3 = require('d3')
 const _ = {
