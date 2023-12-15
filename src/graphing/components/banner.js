@@ -32,7 +32,7 @@ function renderBanner(renderFullRadar) {
       .select('.radar-title')
       .append('div')
       .attr('class', 'radar-title__logo')
-      .html('<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /> </a>')
+      .html('<a href="https://www.thoughtworks.com"> <img src="images/logo.png" /> </a>')
   }
 }
 

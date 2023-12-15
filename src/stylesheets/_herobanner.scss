@@ -5,7 +5,7 @@
   .hero-banner {
     height: $tabletBannerHeight;
     background-color: $amethyst;
-    background-image: url('/images/banner-image-mobile.jpg');
+    background-image: url('images/banner-image-mobile.jpg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: right;
@@ -15,11 +15,11 @@
     margin: 0 !important;
 
     @include media-query-large {
-      background-image: url('/images/banner-image-mobile.jpg');
+      background-image: url('images/banner-image-mobile.jpg');
     }
 
     @include media-query-xlarge {
-      background-image: url('/images/banner-image-desktop.jpg');
+      background-image: url('images/banner-image-desktop.jpg');
       height: $bannerHeight;
       background-size: cover;
     }
