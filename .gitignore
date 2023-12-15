@@ -20,4 +20,8 @@ cypress/
 
 .talismanrc
 
-.vscode/
+.vscode
+
+.env
+
+docker-compose.yml

@@ -8,7 +8,7 @@ const args = require('yargs').argv
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-const env = args.envFile
+const env = args.env
 if (env) {
   // Load env file
   require('dotenv').config({ path: env })
@@ -32,6 +32,7 @@ const plugins = [
     'process.env.GTM_ID': JSON.stringify(process.env.GTM_ID),
     'process.env.RINGS': JSON.stringify(process.env.RINGS),
     'process.env.QUADRANTS': JSON.stringify(process.env.QUADRANTS),
+    'process.env.TITLE': JSON.stringify(process.env.TITLE),
     'process.env.ADOBE_LAUNCH_SCRIPT_URL': JSON.stringify(process.env.ADOBE_LAUNCH_SCRIPT_URL),
   }),
 ]

@@ -1,5 +1,7 @@
 /* eslint no-constant-condition: "off" */
 
+const RADAR_PATH = '/radar.json'
+
 const d3 = require('d3')
 const _ = {
   map: require('lodash/map'),
@@ -318,7 +320,7 @@ const Factory = function () {
 
     const domainName = DomainName(window.location.search.substring(1))
 
-    const paramId = getDocumentOrSheetId()
+    const paramId = RADAR_PATH
     if (paramId && paramId.endsWith('.csv')) {
       sheet = CSVDocument(paramId)
       sheet.init().build()

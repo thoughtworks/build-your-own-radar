@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const postcssPresetEnv = require('postcss-preset-env')
 const cssnano = require('cssnano')
+const path = require('path')
 
 const common = require('./webpack.common.js')
 const config = require('./src/config')
@@ -25,6 +26,14 @@ Object.entries(featureToggles).forEach(function ([key, value]) {
 })
 
 module.exports = merge(common, {
+  devServer: {
+    static: {
+      directory: path.join(__dirname, './content'),
+    },
+  },
+  output: {
+    publicPath: '/',
+  },
   mode: 'development',
   entry: { main: main },
   performance: {

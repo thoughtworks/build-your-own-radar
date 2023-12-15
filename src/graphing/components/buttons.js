@@ -9,7 +9,7 @@ function renderButtons(radarFooter) {
 
   buttonsRow
     .append('a')
-    .classed('buttons__flamingo-btn', true)
+    .classed('hide buttons__flamingo-btn', true)
     .attr('href', window.location.href.substring(0, window.location.href.indexOf(window.location.search)))
     .text('Generate new Radar')
 }
