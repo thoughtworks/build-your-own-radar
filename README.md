@@ -2,9 +2,9 @@
 
 Tech Radar is a fork of Thoughtworks Tech Radar to be able to build and host your own version of your organization's tech radar.
 
-## Run using Docker
+## Build & run using Docker
 
-Using Docker Compose, you can have this example `docker-compose.yml` config:
+Using Docker Compose, you can build and run the app using this example `docker-compose.yml` config:
 
 ```yaml
 version: "3.8"
@@ -17,7 +17,7 @@ services:
       - ./radar.json:/opt/build-your-own-radar/data/radar.json
 ```
 
-Given this configuration, running `docker-compose up` will build and run the production version of the app available at <http://localhost:8080>. It will be served by the included Nginx and is ready to be deployed to production.
+Running `docker-compose up` will make the app available at <http://localhost:8080>. It will be served by the included Nginx and is ready to be deployed to production.
 
 ## I don't need Nginx, I need static files
 
@@ -60,7 +60,7 @@ pages:
 
 ## Local development
 
-Assuming Node is available locally:
+Assuming Node.js is available locally:
 
 - `npm install`
 - `npm run dev`
