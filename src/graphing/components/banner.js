@@ -2,6 +2,8 @@ const d3 = require('d3')
 
 const config = require('../../config')
 const { addPdfCoverTitle } = require('../pdfPage')
+const radar = require('../../../content/radar.json')
+
 const featureToggles = config().featureToggles
 
 function renderBanner(renderFullRadar) {
@@ -12,7 +14,7 @@ function renderBanner(renderFullRadar) {
     d3.select('.hero-banner__wrapper')
       .append('p')
       .classed('hero-banner__subtitle-text', true)
-      .text(process.env.TITLE ?? "Company name's stack")
+      .text(radar.title ?? "Company name's stack")
     d3.select('.hero-banner__title-text').on('click', renderFullRadar)
 
     addPdfCoverTitle(documentTitle)

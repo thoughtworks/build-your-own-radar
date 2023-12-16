@@ -1,17 +1,24 @@
+const radar = require('../../content/radar.json')
+
 const quadrantSize = 512
 const quadrantGap = 32
 
 const getQuadrants = () => {
-  return JSON.parse(process.env.QUADRANTS || null) || ['Techniques', 'Platforms', 'Tools', 'Languages & Frameworks']
+  const { quadrants } = radar
+
+  return quadrants
 }
 
 const getRings = () => {
-  return JSON.parse(process.env.RINGS || null) || ['Adopt', 'Trial', 'Assess', 'Hold']
+  const { rings } = radar
+
+  return rings || ['Adopt', 'Trial', 'Assess', 'Hold']
 }
 
 const isBetween = (number, startNumber, endNumber) => {
   return startNumber <= number && number <= endNumber
 }
+
 const isValidConfig = () => {
   return getQuadrants().length === 4 && isBetween(getRings().length, 1, 4)
 }

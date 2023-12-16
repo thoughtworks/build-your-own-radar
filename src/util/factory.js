@@ -20,10 +20,9 @@ const SheetNotFoundError = require('../exceptions/sheetNotFoundError')
 const ContentValidator = require('./contentValidator')
 const Sheet = require('./sheet')
 const ExceptionMessages = require('./exceptionMessages')
-const GoogleAuth = require('./googleAuth')
 const config = require('../config')
 const featureToggles = config().featureToggles
-const { getDocumentOrSheetId, getSheetName } = require('./urlUtils')
+const { getSheetName } = require('./urlUtils')
 const { getGraphSize, graphConfig, isValidConfig } = require('../graphing/config')
 const InvalidConfigError = require('../exceptions/invalidConfigError')
 const InvalidContentError = require('../exceptions/invalidContentError')
@@ -77,8 +76,8 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   const size = featureToggles.UIRefresh2022
     ? getGraphSize()
     : window.innerHeight - 133 < 620
-    ? 620
-    : window.innerHeight - 133
+      ? 620
+      : window.innerHeight - 133
   new GraphingRadar(size, radar).init().plot()
 }
 
@@ -137,7 +136,7 @@ const plotRadarGraph = function (title, blips, currentRadarName, alternativeRada
   new GraphingRadar(size, radar).init().plot()
 }
 
-const GoogleSheet = function (sheetReference, sheetName) {
+const GoogleSheet = function (sheetReference) {
   var self = {}
 
   self.build = function () {
@@ -152,50 +151,7 @@ const GoogleSheet = function (sheetReference, sheetName) {
     })
   }
 
-  function createBlipsForProtectedSheet(documentTitle, values, sheetNames) {
-    if (!sheetName) {
-      sheetName = sheetNames[0]
-    }
-    values.forEach(function () {
-      var contentValidator = new ContentValidator(values[0])
-      contentValidator.verifyContent()
-      contentValidator.verifyHeaders()
-    })
-
-    const all = values
-    const header = all.shift()
-    var blips = _.map(all, (blip) => new InputSanitizer().sanitizeForProtectedSheet(blip, header))
-    const title = featureToggles.UIRefresh2022 ? documentTitle : documentTitle + ' - ' + sheetName
-    featureToggles.UIRefresh2022
-      ? plotRadarGraph(title, blips, sheetName, sheetNames)
-      : plotRadar(title, blips, sheetName, sheetNames)
-  }
-
-  self.authenticate = function (force = false, apiKeyEnabled, callback) {
-    GoogleAuth.loadGoogle(force, async function () {
-      self.error = false
-      const sheet = new Sheet(sheetReference)
-      await sheet.getSheet()
-      if (sheet.sheetResponse.status === 403 && !GoogleAuth.gsiInitiated && !force) {
-        // private sheet
-        GoogleAuth.loadGSI()
-      } else {
-        await sheet.processSheetResponse(sheetName, createBlipsForProtectedSheet, (error) => {
-          if (error.status === 403) {
-            self.error = true
-            plotUnauthorizedErrorMessage()
-          } else if (error instanceof MalformedDataError) {
-            plotErrorMessage(error, 'sheet')
-          } else {
-            plotErrorMessage(sheet.createSheetNotFoundError(), 'sheet')
-          }
-        })
-        if (callback) {
-          callback()
-        }
-      }
-    })
-  }
+  self.authenticate = function () {}
 
   self.init = function () {
     plotLoading()
@@ -256,11 +212,13 @@ const JSONFile = function (url) {
 
   var createBlips = function (data) {
     try {
-      var columnNames = Object.keys(data[0])
+      const { blips: blipsData } = data
+
+      var columnNames = Object.keys(blipsData[0])
       var contentValidator = new ContentValidator(columnNames)
       contentValidator.verifyContent()
       contentValidator.verifyHeaders()
-      var blips = _.map(data, new InputSanitizer().sanitize)
+      var blips = _.map(blipsData, new InputSanitizer().sanitize)
       featureToggles.UIRefresh2022
         ? plotRadarGraph(FileName(url), blips, 'JSON File', [])
         : plotRadar(FileName(url), blips, 'JSON File', [])
@@ -495,63 +453,6 @@ function plotError(exception, fileType) {
 function showErrorMessage(exception, fileType) {
   document.querySelector('.helper-description .loader-text').style.display = 'none'
   plotError(exception, fileType)
-}
-
-function plotUnauthorizedErrorMessage() {
-  let content
-  const helperDescription = d3.select('.helper-description')
-  if (!featureToggles.UIRefresh2022) {
-    content = d3.select('body').append('div').attr('class', 'input-sheet')
-    setDocumentTitle()
-
-    plotLogo(content)
-
-    const bannerText = '<div><h1>Build your own radar</h1></div>'
-
-    plotBanner(content, bannerText)
-
-    d3.selectAll('.loading').remove()
-  } else {
-    content = d3.select('main')
-    helperDescription.style('display', 'none')
-    d3.selectAll('.loader-text').remove()
-    d3.selectAll('.error-container').remove()
-  }
-  const currentUser = GoogleAuth.getEmail()
-  let homePageURL = window.location.protocol + '//' + window.location.hostname
-  homePageURL += window.location.port === '' ? '' : ':' + window.location.port
-  const goBack = '<a href=' + homePageURL + '>GO BACK</a>'
-  const message = `<strong>Oops!</strong> Looks like you are accessing this sheet using <b>${currentUser}</b>, which does not have permission.Try switching to another account.`
-
-  const container = content.append('div').attr('class', 'error-container')
-
-  const errorContainer = container.append('div').attr('class', 'error-container__message')
-
-  errorContainer.append('div').append('p').attr('class', 'error-title').html(message)
-  const newUi = featureToggles.UIRefresh2022 ? 'switch-account-button-newui' : 'switch-account-button'
-  const button = errorContainer.append('button').attr('class', `button ${newUi}`).text('Switch account')
-
-  errorContainer
-    .append('div')
-    .append('p')
-    .attr('class', 'error-subtitle')
-    .html(`or ${goBack} to try a different sheet.`)
-
-  button.on('click', () => {
-    let sheet
-    sheet = GoogleSheet(getDocumentOrSheetId(), getSheetName())
-
-    sheet.authenticate(true, false, () => {
-      if (featureToggles.UIRefresh2022 && !sheet.error) {
-        helperDescription.style('display', 'block')
-        errorContainer.remove()
-      } else if (featureToggles.UIRefresh2022 && sheet.error) {
-        helperDescription.style('display', 'none')
-      } else {
-        content.remove()
-      }
-    })
-  })
 }
 
 module.exports = Factory
