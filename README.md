@@ -1,6 +1,8 @@
 # Tech Radar
 
-Tech Radar is a fork of Thoughtworks Tech Radar to be able to build and host your own version of your organization's tech radar.
+This project is a fork of [Thoughtworks Tech Radar](https://github.com/thoughtworks/build-your-own-radar), which is used to visualize your organization's technological stack.
+
+This fork significantly simplifies the original project's layout and only uses the JSON configuration.
 
 ## Build & run using Docker
 
