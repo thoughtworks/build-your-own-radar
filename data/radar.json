@@ -1,0 +1,68 @@
+{
+  "title": "Company Name's Tech Radar",
+  "quadrants": [
+    "Languages & Frameworks",
+    "Tools",
+    "Platforms",
+    "Techniques"
+  ],
+  "rings": ["Adopt", "Trial", "Assess", "Hold"],
+  "blips": [
+    {
+      "name": "React",
+      "quadrant": "Languages & Frameworks",
+      "ring": "adopt",
+      "isNew": "FALSE",
+      "description": "React is used for building UI components."
+    },
+    {
+      "name": "Rust",
+      "quadrant": "Languages & Frameworks",
+      "ring": "adopt",
+      "isNew": "FALSE",
+      "description": "Rust is used for building CLI tools, system apps and backend services."
+    },
+    {
+      "name": "VS Code",
+      "quadrant": "Tools",
+      "ring": "adopt",
+      "isNew": "TRUE",
+      "description": "VS Code is used as an integrated development environment."
+    },
+    {
+      "name": "Snowflake",
+      "quadrant": "Tools",
+      "ring": "adopt",
+      "isNew": "FALSE",
+      "description": "Snowflake is as a data warehouse."
+    },
+    {
+      "name": "AWS",
+      "quadrant": "Platforms",
+      "ring": "adopt",
+      "isNew": "FALSE",
+      "description": "A public cloud platform."
+    },
+    {
+      "name": "GitHub",
+      "quadrant": "Platforms",
+      "ring": "adopt",
+      "isNew": "FALSE",
+      "description": "A Git repository hosting service and a social network for developers."
+    },
+    {
+      "name": "BDD",
+      "quadrant": "Techniques",
+      "ring": "adopt",
+      "isNew": "FALSE",
+      "description": "Behaviod-Driven Design"
+    },
+    {
+      "name": "TBD",
+      "quadrant": "Techniques",
+      "ring": "adopt",
+      "isNew": "FALSE",
+      "description": "Trunk-Based Development"
+    }
+  ]
+}

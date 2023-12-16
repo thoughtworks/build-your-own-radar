@@ -1,16 +1,16 @@
-const radar = require('../../content/radar.json')
+const RADAR_JSON = require('../../data/radar.json')
 
 const quadrantSize = 512
 const quadrantGap = 32
 
 const getQuadrants = () => {
-  const { quadrants } = radar
+  const { quadrants } = RADAR_JSON
 
   return quadrants
 }
 
 const getRings = () => {
-  const { rings } = radar
+  const { rings } = RADAR_JSON
 
   return rings || ['Adopt', 'Trial', 'Assess', 'Hold']
 }

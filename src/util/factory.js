@@ -1,7 +1,5 @@
 /* eslint no-constant-condition: "off" */
 
-const RADAR_PATH = 'radar.json'
-
 const d3 = require('d3')
 const _ = {
   map: require('lodash/map'),
@@ -9,6 +7,7 @@ const _ = {
   each: require('lodash/each'),
 }
 
+const RADAR_JSON = require('../../data/radar.json')
 const InputSanitizer = require('./inputSanitizer')
 const Radar = require('../models/radar')
 const Quadrant = require('../models/quadrant')
@@ -18,15 +17,12 @@ const GraphingRadar = require('../graphing/radar')
 const MalformedDataError = require('../exceptions/malformedDataError')
 const SheetNotFoundError = require('../exceptions/sheetNotFoundError')
 const ContentValidator = require('./contentValidator')
-const Sheet = require('./sheet')
 const ExceptionMessages = require('./exceptionMessages')
 const config = require('../config')
 const featureToggles = config().featureToggles
-const { getSheetName } = require('./urlUtils')
 const { getGraphSize, graphConfig, isValidConfig } = require('../graphing/config')
 const InvalidConfigError = require('../exceptions/invalidConfigError')
 const InvalidContentError = require('../exceptions/invalidContentError')
-const FileNotFoundError = require('../exceptions/fileNotFoundError')
 const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   if (title.endsWith('.csv')) {
     title = title.substring(0, title.length - 4)
@@ -136,78 +132,12 @@ const plotRadarGraph = function (title, blips, currentRadarName, alternativeRada
   new GraphingRadar(size, radar).init().plot()
 }
 
-const GoogleSheet = function (sheetReference) {
+const JSONFile = function () {
   var self = {}
 
   self.build = function () {
-    var sheet = new Sheet(sheetReference)
-    sheet.validate(function (error, apiKeyEnabled) {
-      if (error instanceof SheetNotFoundError) {
-        plotErrorMessage(error, 'sheet')
-        return
-      }
-
-      self.authenticate(false, apiKeyEnabled)
-    })
-  }
-
-  self.authenticate = function () {}
-
-  self.init = function () {
-    plotLoading()
-    return self
-  }
-
-  return self
-}
-
-const CSVDocument = function (url) {
-  var self = {}
-
-  self.build = function () {
-    d3.csv(url)
-      .then(createBlips)
-      .catch((exception) => {
-        const fileNotFoundError = new FileNotFoundError(`Oops! We can't find the CSV file you've entered`)
-        plotErrorMessage(featureToggles.UIRefresh2022 ? fileNotFoundError : exception, 'csv')
-      })
-  }
-
-  var createBlips = function (data) {
-    try {
-      var columnNames = data.columns
-      delete data.columns
-      var contentValidator = new ContentValidator(columnNames)
-      contentValidator.verifyContent()
-      contentValidator.verifyHeaders()
-      var blips = _.map(data, new InputSanitizer().sanitize)
-      featureToggles.UIRefresh2022
-        ? plotRadarGraph(FileName(url), blips, 'CSV File', [])
-        : plotRadar(FileName(url), blips, 'CSV File', [])
-    } catch (exception) {
-      const invalidContentError = new InvalidContentError(ExceptionMessages.INVALID_CSV_CONTENT)
-      plotErrorMessage(featureToggles.UIRefresh2022 ? invalidContentError : exception, 'csv')
-    }
-  }
-
-  self.init = function () {
-    plotLoading()
-    return self
-  }
-
-  return self
-}
-
-const JSONFile = function (url) {
-  var self = {}
-
-  self.build = function () {
-    d3.json(url)
-      .then(createBlips)
-      .catch((exception) => {
-        const fileNotFoundError = new FileNotFoundError(`Oops! We can't find the JSON file you've entered`)
-        plotErrorMessage(featureToggles.UIRefresh2022 ? fileNotFoundError : exception, 'json')
-      })
+    const data = RADAR_JSON
+    createBlips(data)
   }
 
   var createBlips = function (data) {
@@ -220,8 +150,8 @@ const JSONFile = function (url) {
       contentValidator.verifyHeaders()
       var blips = _.map(blipsData, new InputSanitizer().sanitize)
       featureToggles.UIRefresh2022
-        ? plotRadarGraph(FileName(url), blips, 'JSON File', [])
-        : plotRadar(FileName(url), blips, 'JSON File', [])
+        ? plotRadarGraph('plotRadarGraph', blips, 'JSON File', [])
+        : plotRadar('plotRadar', blips, 'JSON File', [])
     } catch (exception) {
       const invalidContentError = new InvalidContentError(ExceptionMessages.INVALID_JSON_CONTENT)
       plotErrorMessage(featureToggles.UIRefresh2022 ? invalidContentError : exception, 'json')
@@ -234,21 +164,6 @@ const JSONFile = function (url) {
   }
 
   return self
-}
-
-const DomainName = function (url) {
-  var search = /.+:\/\/([^\\/]+)/
-  var match = search.exec(decodeURIComponent(url.replace(/\+/g, ' ')))
-  return match == null ? null : match[1]
-}
-
-const FileName = function (url) {
-  var search = /([^\\/]+)$/
-  var match = search.exec(decodeURIComponent(url.replace(/\+/g, ' ')))
-  if (match != null) {
-    return match[1]
-  }
-  return url
 }
 
 const Factory = function () {
@@ -276,38 +191,8 @@ const Factory = function () {
       }
     })
 
-    const domainName = DomainName(window.location.search.substring(1))
-
-    const paramId = RADAR_PATH
-    if (paramId && paramId.endsWith('.csv')) {
-      sheet = CSVDocument(paramId)
-      sheet.init().build()
-    } else if (paramId && paramId.endsWith('.json')) {
-      sheet = JSONFile(paramId)
-      sheet.init().build()
-    } else if (domainName && domainName.endsWith('google.com') && paramId) {
-      const sheetName = getSheetName()
-      sheet = GoogleSheet(paramId, sheetName)
-      sheet.init().build()
-    } else {
-      if (!featureToggles.UIRefresh2022) {
-        document.body.style.opacity = '1'
-        document.body.innerHTML = ''
-        const content = d3.select('body').append('div').attr('class', 'input-sheet')
-        plotLogo(content)
-        const bannerText =
-          '<div><h1>Build your own radar</h1><p>Once you\'ve <a href ="https://www.thoughtworks.com/radar/byor">created your Radar</a>, you can use this service' +
-          ' to generate an <br />interactive version of your Technology Radar. Not sure how? <a href ="https://www.thoughtworks.com/radar/byor">Read this first.</a></p></div>'
-
-        plotBanner(content, bannerText)
-
-        plotForm(content)
-
-        plotFooter(content)
-      }
-
-      setDocumentTitle()
-    }
+    sheet = JSONFile()
+    sheet.init().build()
   }
 
   return self
@@ -362,29 +247,6 @@ function plotFooter(content) {
 
 function plotBanner(content, text) {
   content.append('div').attr('class', 'input-sheet__banner').html(text)
-}
-
-function plotForm(content) {
-  content
-    .append('div')
-    .attr('class', 'input-sheet__form')
-    .append('p')
-    .html(
-      '<strong>Enter the URL of your <a href="https://www.thoughtworks.com/radar/byor" target="_blank">Google Sheet, CSV or JSON</a> file below…</strong>',
-    )
-
-  var form = content.select('.input-sheet__form').append('form').attr('method', 'get')
-
-  form
-    .append('input')
-    .attr('type', 'text')
-    .attr('name', 'sheetId')
-    .attr('placeholder', 'e.g. https://docs.google.com/spreadsheets/d/<sheetid> or hosted CSV/JSON file')
-    .attr('required', '')
-
-  form.append('button').attr('type', 'submit').append('a').attr('class', 'button').text('Build my radar')
-
-  form.append('p').html("<a href='https://www.thoughtworks.com/radar/byor#guide'>Need help?</a>")
 }
 
 function plotErrorMessage(exception, fileType) {
