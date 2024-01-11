@@ -1,7 +1,7 @@
 const d3 = require('d3')
-const {getElementWidth, getElementHeight, decodeHTML} = require('../../util/htmlUtil')
-const {toRadian} = require('../../util/mathUtils')
-const {getRingIdString} = require('../../util/stringUtil')
+const { getElementWidth, getElementHeight, decodeHTML } = require('../../util/htmlUtil')
+const { toRadian } = require('../../util/mathUtils')
+const { getRingIdString } = require('../../util/stringUtil')
 const {
   graphConfig,
   getGraphSize,
@@ -13,12 +13,11 @@ const {
 
 const ANIMATION_DURATION = 1000
 
-const {quadrantHeight, quadrantWidth, quadrantsGap, effectiveQuadrantWidth} = graphConfig
+const { quadrantHeight, quadrantWidth, quadrantsGap, effectiveQuadrantWidth } = graphConfig
 
 let prevLeft, prevTop
 let quadrantScrollHandlerReference
 let scrollFlag = false
-
 
 const createElement = (tagName, text, attributes) => {
   const tag = document.createElement(tagName)
@@ -30,14 +29,9 @@ const createElement = (tagName, text, attributes) => {
 }
 
 const replaceChild = (element, child) => {
-  let elementChild = element.lastElementChild;
-  while (elementChild) {
-    element.removeChild(elementChild);
-    elementChild = e.lastElementChild;
-  }
+  element.textContent = ''
   element.appendChild(child)
 }
-
 
 function selectRadarQuadrant(order, startAngle, name) {
   const noOfBlips = d3.selectAll('.quadrant-group-' + order + ' .blip-link').size()
@@ -120,10 +114,10 @@ function selectRadarQuadrant(order, startAngle, name) {
   svg.classed('quadrant-view', true)
 
   const quadrantGroupTranslate = {
-    first: {x: 0, y: 0},
-    second: {x: 0, y: -quadrantHeight},
-    third: {x: -(quadrantWidth + quadrantsGap), y: 0},
-    fourth: {x: -(quadrantWidth + quadrantsGap), y: -quadrantHeight},
+    first: { x: 0, y: 0 },
+    second: { x: 0, y: -quadrantHeight },
+    third: { x: -(quadrantWidth + quadrantsGap), y: 0 },
+    fourth: { x: -(quadrantWidth + quadrantsGap), y: -quadrantHeight },
   }
 
   d3.select('.quadrant-group-' + order)
@@ -219,19 +213,19 @@ function wrapQuadrantNameInMultiLine(elem, isTopQuadrants, quadrantNameGroup, ti
   const words = text.split(' ')
   let line = ''
 
-  replaceChild(element, createElement('tspan', text, {id: 'text-width-check'}))
+  replaceChild(element, createElement('tspan', text, { id: 'text-width-check' }))
   const testElem = document.getElementById('text-width-check')
 
   function maxCharactersToFit(testLine, suffix) {
     let j = 1
     let firstLineWidth = 0
     const testElem1 = document.getElementById('text-width-check')
-    testElem1.innerHTML = testLine
+    testElem1.textContent = testLine
     if (testElem1.getBoundingClientRect().width < maxWidth) {
       return testLine.length
     }
     while (firstLineWidth < maxWidth && testLine.length > j) {
-      testElem1.innerHTML = testLine.substring(0, j) + suffix
+      testElem1.textContent = testLine.substring(0, j) + suffix
       firstLineWidth = testElem1.getBoundingClientRect().width
 
       j++
@@ -252,25 +246,25 @@ function wrapQuadrantNameInMultiLine(elem, isTopQuadrants, quadrantNameGroup, ti
   if (testElem.getBoundingClientRect().width > maxWidth) {
     for (let i = 0; i < words.length; i++) {
       let testLine = line + words[i] + ' '
-      testElem.innerHTML = testLine
+      testElem.textContent = testLine
       const textWidth = testElem.getBoundingClientRect().width
 
       if (textWidth > maxWidth) {
         if (i === 0) {
           let lineBreakIndex = maxCharactersToFit(testLine, '-')
           const elementText = `${words[i].substring(0, lineBreakIndex)}-`
-          element.appendChild(createElement('tspan', elementText, {x: '0', dy}))
+          element.appendChild(createElement('tspan', elementText, { x: '0', dy }))
           const secondLine = words[i].substring(lineBreakIndex, words[i].length) + ' ' + words.slice(i + 1).join(' ')
           lineBreakIndex = maxCharactersToFit(secondLine, '...')
           const text = `${secondLine.substring(0, lineBreakIndex)}${ellipsis(lineBreakIndex, secondLine)}`
-          element.appendChild(createElement('tspan', text, {x: '0', dy: '20'}))
+          element.appendChild(createElement('tspan', text, { x: '0', dy: '20' }))
           break
         } else {
-          element.appendChild(createElement('tspan', line, {x: '0', dy}))
+          element.appendChild(createElement('tspan', line, { x: '0', dy }))
           const secondLine = words.slice(i).join(' ')
           const lineBreakIndex = maxCharactersToFit(secondLine, '...')
           const text = `${secondLine.substring(0, lineBreakIndex)}${ellipsis(lineBreakIndex, secondLine)}`
-          element.appendChild(createElement('tspan', text, {x: '0', dy: '20'}))
+          element.appendChild(createElement('tspan', text, { x: '0', dy: '20' }))
         }
         line = words[i] + ' '
       } else {
@@ -278,7 +272,7 @@ function wrapQuadrantNameInMultiLine(elem, isTopQuadrants, quadrantNameGroup, ti
       }
     }
   } else {
-    element.appendChild(createElement('tspan', text, {x: '0'}))
+    element.appendChild(createElement('tspan', text, { x: '0' }))
   }
 
   document.getElementById('text-width-check').remove()
@@ -338,7 +332,7 @@ function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator, tip) {
     })
 
   const rectCoordMap = {
-    first: {x: 0, y: 0, strokeDashArray: `0, ${quadrantWidth}, ${quadrantHeight + quadrantWidth}, ${quadrantHeight}`},
+    first: { x: 0, y: 0, strokeDashArray: `0, ${quadrantWidth}, ${quadrantHeight + quadrantWidth}, ${quadrantHeight}` },
     second: {
       x: 0,
       y: quadrantHeight + quadrantsGap,
