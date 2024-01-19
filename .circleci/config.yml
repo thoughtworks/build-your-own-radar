@@ -8,7 +8,7 @@ orbs:
 executors:
   base:
     docker:
-      - image: cimg/node:16.15.0
+      - image: cimg/node:18.12.1
         user: root
 
 commands:
@@ -19,9 +19,7 @@ commands:
           key: node-cache-v2-{{ checksum "package-lock.json" }}
       - run:
           name: Install node packages
-          command: |
-            npm install --save-dev --unsafe-perm node-sass
-            npm install
+          command: npm install
       - save_cache:
           paths:
             - ./node_modules
@@ -46,6 +44,16 @@ jobs:
           fi
       - continuation/continue:
           configuration_path: .circleci/deployment-workflow.yml
+  docker-push:
+    executor: base
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.12
+          docker_layer_caching: true
+      - run:
+          name: Build and push Docker image to DockerHub
+          command: ./docker_push.sh
 
 workflows:
   main:
@@ -54,3 +62,18 @@ workflows:
       - check-for-pr:
           requires:
             - tests
+      - approve-docker-push:
+          type: approval
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - docker-push:
+          requires:
+            - approve-docker-push
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/

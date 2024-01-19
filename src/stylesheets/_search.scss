@@ -1,0 +1,109 @@
+@import 'colors';
+@import 'layout';
+
+@if $UIRefresh2022 {
+  .graph-header {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+
+    @include media-query-large {
+      align-items: center;
+    }
+  }
+
+  .search-container {
+    height: auto;
+    margin: 48px auto 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.sticky-offset {
+      margin-top: 108px;
+    }
+
+    @include layout-margin(1, $screen-small);
+    @include layout-margin(calc(10 / 12), $screen-large);
+    @include layout-margin(calc(10 / 12), $screen-xlarge);
+    @include layout-margin(calc(10 / 12), $screen-xxlarge);
+    @include layout-margin(calc(8 / 12), $screen-xxxlarge);
+
+    @include media-query-medium {
+      height: 48px;
+      margin: 64px auto 48px;
+
+      &.sticky-offset {
+        margin-top: 124px;
+      }
+    }
+
+    @include media-query-large {
+      margin: 72px auto 48px;
+
+      &.sticky-offset {
+        margin-top: 132px;
+      }
+    }
+
+    @include media-query-xlarge {
+      margin: 32px auto;
+
+      &.sticky-offset {
+        margin-top: 92px;
+      }
+    }
+
+    @include media-query-xxlarge {
+      margin: 40px auto;
+
+      &.sticky-offset {
+        margin-top: 100px;
+      }
+    }
+
+    &__input {
+      color: $wave;
+      height: 48px;
+      margin-bottom: 30px;
+      background: #edf1f3 url(images/search-active-wave.svg) no-repeat 98% center;
+      font-family: $baseFontFamily;
+      scroll-margin-top: $subnavHeight;
+
+      @include media-query-medium {
+        height: 100%;
+        margin-bottom: 0;
+        flex-grow: 1;
+      }
+    }
+  }
+
+  ul.ui-autocomplete {
+    max-height: 196px !important;
+    z-index: 999;
+
+    li div {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      padding-left: 16px;
+      border-bottom: 1px solid #edf1f3;
+      font-family: $baseFontFamily;
+      font-size: 16px;
+      color: $black;
+
+      &.ui-state-active {
+        background-color: $mist !important;
+        color: $black !important;
+
+        &:active {
+          background-color: $mist-light !important;
+        }
+      }
+    }
+  }
+}
+
+.ui-autocomplete {
+  z-index: 30 !important;
+}

@@ -1,0 +1,107 @@
+@import 'colors';
+@import 'layout';
+
+@if $UIRefresh2022 {
+  .graph-footer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    @include media-query-medium {
+      align-items: center;
+    }
+  }
+
+  .alternative-radars {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 32px auto 0;
+
+    @include layout-margin(1, $screen-small);
+    @include layout-margin(1, $screen-medium);
+    @include layout-margin(1, $screen-large);
+    @include layout-margin(1, $screen-xlarge);
+    @include layout-margin(1, $screen-xxlarge);
+    @include layout-margin(calc(10 / 12), $screen-xxxlarge);
+
+    &__list {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      list-style: none;
+      padding: 0;
+      justify-content: center;
+      font-size: 1.125rem;
+      font-family: $baseFontFamily;
+      font-weight: 630;
+      margin-block: 0;
+      margin-bottom: 16px;
+      margin-left: 0;
+
+      @include media-query-medium {
+        font-size: 1.25rem;
+        flex-direction: row;
+      }
+
+      @include media-query-xxlarge {
+        font-size: 1.5rem;
+      }
+
+      &__row-0 {
+        @include media-query-medium {
+          margin-top: 48px;
+        }
+      }
+
+      &-item {
+        flex-grow: 1;
+        flex-basis: 0;
+        text-align: center;
+        padding: 0 4px;
+        border-bottom: 1px solid $mist;
+
+        &.active {
+          border-bottom: 3px solid $flamingo-s40;
+          color: $flamingo-s40;
+
+          &:hover {
+            color: $link-hover;
+          }
+        }
+
+        &:only-child {
+          flex-basis: unset;
+          flex-grow: unset;
+          padding: 0 32px 4px;
+        }
+
+        &-link {
+          display: inline-block;
+          width: 100%;
+          margin-top: 32px;
+          padding: 0 8px 4px;
+          box-sizing: border-box;
+          border: 1px solid transparent;
+          border-width: 0px 1px;
+
+          display: -webkit-box;
+          line-height: 1.75rem;
+          -webkit-box-orient: vertical;
+
+          @include media-query-medium {
+            -webkit-line-clamp: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 0;
+          }
+
+          &:hover {
+            border-color: transparent !important;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,17 +1,37 @@
 const d3 = require('d3')
-const d3tip = require('d3-tip')
+const { default: d3tip } = require('d3-tip')
 const Chance = require('chance')
 const _ = require('lodash/core')
 
 const RingCalculator = require('../util/ringCalculator')
-const QueryParams = require('../util/queryParamProcessor')
 const AutoComplete = require('../util/autoComplete')
 const config = require('../config')
+const featureToggles = config().featureToggles
+const { plotRadarBlips } = require('./blips')
+const { graphConfig, getGraphSize } = require('./config')
+
+const { renderBanner } = require('./components/banner')
+const { renderQuadrantSubnav } = require('./components/quadrantSubnav')
+const { renderSearch } = require('./components/search')
+const { renderAlternativeRadars } = require('./components/alternativeRadars')
+const { renderButtons } = require('./components/buttons')
+const {
+  renderRadarQuadrants,
+  renderMobileView,
+  renderRadarLegends,
+  removeScrollListener,
+} = require('./components/quadrants')
+const { renderQuadrantTables } = require('./components/quadrantTables')
+const { addQuadrantNameInPdfView, addRadarLinkInPdfView } = require('./pdfPage')
+
+const { constructSheetUrl } = require('../util/urlUtils')
+const { toRadian } = require('../util/mathUtils')
 
 const MIN_BLIP_WIDTH = 12
 const ANIMATION_DURATION = 1000
 
 const Radar = function (size, radar) {
+  const CENTER = size / 2
   var svg, radarElement, quadrantButtons, buttonsGroup, header, alternativeDiv
 
   var tip = d3tip()
@@ -21,58 +41,43 @@ const Radar = function (size, radar) {
     })
 
   tip.direction(function () {
-    if (d3.select('.quadrant-table.selected').node()) {
-      var selectedQuadrant = d3.select('.quadrant-table.selected')
-      if (selectedQuadrant.classed('first') || selectedQuadrant.classed('fourth')) {
-        return 'ne'
-      } else {
-        return 'nw'
-      }
-    }
     return 'n'
   })
 
-  var ringCalculator = new RingCalculator(radar.rings().length, center())
+  var ringCalculator = new RingCalculator(radar.rings().length, CENTER)
 
   var self = {}
   var chance
 
-  function center() {
-    return Math.round(size / 2)
-  }
-
-  function toRadian(angleInDegrees) {
-    return (Math.PI * angleInDegrees) / 180
-  }
-
   function plotLines(quadrantGroup, quadrant) {
-    var startX = size * (1 - (-Math.sin(toRadian(quadrant.startAngle)) + 1) / 2)
-    var endX = size * (1 - (-Math.sin(toRadian(quadrant.startAngle - 90)) + 1) / 2)
+    const startX = size * (1 - (-Math.sin(toRadian(quadrant.startAngle)) + 1) / 2)
+    const endX = size * (1 - (-Math.sin(toRadian(quadrant.startAngle - 90)) + 1) / 2)
 
-    var startY = size * (1 - (Math.cos(toRadian(quadrant.startAngle)) + 1) / 2)
-    var endY = size * (1 - (Math.cos(toRadian(quadrant.startAngle - 90)) + 1) / 2)
+    let startY = size * (1 - (Math.cos(toRadian(quadrant.startAngle)) + 1) / 2)
+    let endY = size * (1 - (Math.cos(toRadian(quadrant.startAngle - 90)) + 1) / 2)
 
     if (startY > endY) {
-      var aux = endY
+      const aux = endY
       endY = startY
       startY = aux
     }
+    const strokeWidth = featureToggles.UIRefresh2022 ? graphConfig.quadrantsGap : 10
 
     quadrantGroup
       .append('line')
-      .attr('x1', center())
-      .attr('x2', center())
-      .attr('y1', startY - 2)
-      .attr('y2', endY + 2)
-      .attr('stroke-width', 10)
+      .attr('x1', CENTER)
+      .attr('y1', startY)
+      .attr('x2', CENTER)
+      .attr('y2', endY)
+      .attr('stroke-width', strokeWidth)
 
     quadrantGroup
       .append('line')
       .attr('x1', endX)
-      .attr('y1', center())
+      .attr('y1', CENTER)
       .attr('x2', startX)
-      .attr('y2', center())
-      .attr('stroke-width', 10)
+      .attr('y2', CENTER)
+      .attr('stroke-width', strokeWidth)
   }
 
   function plotQuadrant(rings, quadrant) {
@@ -95,7 +100,7 @@ const Radar = function (size, radar) {
         .append('path')
         .attr('d', arc)
         .attr('class', 'ring-arc-' + ring.order())
-        .attr('transform', 'translate(' + center() + ', ' + center() + ')')
+        .attr('transform', 'translate(' + CENTER + ', ' + CENTER + ')')
     })
 
     return quadrantGroup
@@ -107,18 +112,41 @@ const Radar = function (size, radar) {
         quadrantGroup
           .append('text')
           .attr('class', 'line-text')
-          .attr('y', center() + 4)
-          .attr('x', center() + (ringCalculator.getRadius(i) + ringCalculator.getRadius(i + 1)) / 2)
+          .attr('y', CENTER + 4)
+          .attr('x', CENTER + (ringCalculator.getRadius(i) + ringCalculator.getRadius(i + 1)) / 2)
           .attr('text-anchor', 'middle')
           .text(ring.name())
       } else {
         quadrantGroup
           .append('text')
           .attr('class', 'line-text')
-          .attr('y', center() + 4)
-          .attr('x', center() - (ringCalculator.getRadius(i) + ringCalculator.getRadius(i + 1)) / 2)
+          .attr('y', CENTER + 4)
+          .attr('x', CENTER - (ringCalculator.getRadius(i) + ringCalculator.getRadius(i + 1)) / 2)
           .attr('text-anchor', 'middle')
           .text(ring.name())
+      }
+    })
+  }
+
+  function plotRingNames(quadrantGroup, rings, quadrant) {
+    rings.forEach(function (ring, i) {
+      const ringNameWithEllipsis = ring.name().length > 6 ? ring.name().slice(0, 6) + '...' : ring.name()
+      if (quadrant.order === 'third' || quadrant.order === 'fourth') {
+        quadrantGroup
+          .append('text')
+          .attr('class', 'line-text')
+          .attr('y', CENTER + 5)
+          .attr('x', CENTER + (ringCalculator.getRingRadius(i) + ringCalculator.getRingRadius(i + 1)) / 2)
+          .attr('text-anchor', 'middle')
+          .text(ringNameWithEllipsis)
+      } else {
+        quadrantGroup
+          .append('text')
+          .attr('class', 'line-text')
+          .attr('y', CENTER + 5)
+          .attr('x', CENTER - (ringCalculator.getRingRadius(i) + ringCalculator.getRingRadius(i + 1)) / 2)
+          .attr('text-anchor', 'middle')
+          .text(ringNameWithEllipsis)
       }
     })
   }
@@ -207,8 +235,8 @@ const Radar = function (size, radar) {
     angleDelta = angleDelta > 45 ? 45 : angleDelta
     var angle = toRadian(chance.integer({ min: angleDelta, max: 90 - angleDelta }))
 
-    var x = center() + radius * Math.cos(angle) * adjustX
-    var y = center() + radius * Math.sin(angle) * adjustY
+    var x = CENTER + radius * Math.cos(angle) * adjustX
+    var y = CENTER + radius * Math.sin(angle) * adjustY
 
     return [x, y]
   }
@@ -216,8 +244,8 @@ const Radar = function (size, radar) {
   function thereIsCollision(blip, coordinates, allCoordinates) {
     return allCoordinates.some(function (currentCoordinates) {
       return (
-        Math.abs(currentCoordinates[0] - coordinates[0]) < blip.width &&
-        Math.abs(currentCoordinates[1] - coordinates[1]) < blip.width
+        Math.abs(currentCoordinates[0] - coordinates[0]) < blip.width + 10 &&
+        Math.abs(currentCoordinates[1] - coordinates[1]) < blip.width + 10
       )
     })
   }
@@ -267,7 +295,7 @@ const Radar = function (size, radar) {
       var allBlipCoordinatesInRing = []
 
       ringBlips.forEach(function (blip) {
-        const coordinates = findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing)
+        const coordinates = findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing, order)
 
         allBlipCoordinatesInRing.push(coordinates)
         drawBlipInCoordinates(blip, coordinates, order, quadrantGroup, ringList)
@@ -275,15 +303,15 @@ const Radar = function (size, radar) {
     })
   }
 
-  function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing) {
+  function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing, quadrantOrder) {
     const maxIterations = 200
-    var coordinates = calculateBlipCoordinates(blip, chance, minRadius, maxRadius, startAngle)
+    var coordinates = calculateBlipCoordinates(blip, chance, minRadius, maxRadius, startAngle, quadrantOrder)
     var iterationCounter = 0
     var foundAPlace = false
 
     while (iterationCounter < maxIterations) {
       if (thereIsCollision(blip, coordinates, allBlipCoordinatesInRing)) {
-        coordinates = calculateBlipCoordinates(blip, chance, minRadius, maxRadius, startAngle)
+        coordinates = calculateBlipCoordinates(blip, chance, minRadius, maxRadius, startAngle, quadrantOrder)
       } else {
         foundAPlace = true
         break
@@ -293,7 +321,7 @@ const Radar = function (size, radar) {
 
     if (!foundAPlace && blip.width > MIN_BLIP_WIDTH) {
       blip.width = blip.width - 1
-      return findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing)
+      return findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoordinatesInRing, quadrantOrder)
     } else {
       return coordinates
     }
@@ -306,14 +334,13 @@ const Radar = function (size, radar) {
     var group = quadrantGroup
       .append('g')
       .attr('class', 'blip-link')
-      .attr('id', 'blip-link-' + blip.number())
+      .attr('id', 'blip-link-' + blip.id())
 
     if (blip.isNew()) {
       triangle(blip, x, y, order, group)
     } else {
       circle(blip, x, y, order, group)
     }
-
     group
       .append('text')
       .attr('x', x)
@@ -322,19 +349,19 @@ const Radar = function (size, radar) {
       // derive font-size from current blip width
       .style('font-size', (blip.width * 10) / 22 + 'px')
       .attr('text-anchor', 'middle')
-      .text(blip.number())
+      .text(blip.blipText())
 
     var blipListItem = ringList.append('li')
-    var blipText = blip.number() + '. ' + blip.name() + (blip.topic() ? '. - ' + blip.topic() : '')
+    var blipText = blip.blipText() + '. ' + blip.name() + (blip.topic() ? '. - ' + blip.topic() : '')
     blipListItem
       .append('div')
       .attr('class', 'blip-list-item')
-      .attr('id', 'blip-list-item-' + blip.number())
+      .attr('id', 'blip-list-item-' + blip.id())
       .text(blipText)
 
     var blipItemDescription = blipListItem
       .append('div')
-      .attr('id', 'blip-description-' + blip.number())
+      .attr('id', 'blip-description-' + blip.id())
       .attr('class', 'blip-item-description')
     if (blip.description()) {
       blipItemDescription.append('p').html(blip.description())
@@ -468,25 +495,98 @@ const Radar = function (size, radar) {
 
     d3.selectAll('.quadrant-group').transition().duration(ANIMATION_DURATION).attr('transform', 'scale(1)')
 
-    d3.selectAll('.quadrant-group .blip-link').transition().duration(ANIMATION_DURATION).attr('transform', 'scale(1)')
-
+    if (featureToggles.UIRefresh2022) {
+      d3.select('#radar-plot').attr('width', size).attr('height', size)
+      d3.selectAll(`.quadrant-bg-images`).each(function () {
+        this.classList.remove('hidden')
+      })
+      d3.selectAll('.quadrant-group').style('display', 'block')
+    } else {
+      d3.selectAll('.quadrant-group .blip-link').transition().duration(ANIMATION_DURATION).attr('transform', 'scale(1)')
+    }
     d3.selectAll('.quadrant-group').style('pointer-events', 'auto')
+  }
+
+  function renderFullRadar() {
+    removeScrollListener()
+
+    d3.select('#auto-complete').property('value', '')
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    })
+
+    d3.select('#radar-plot').classed('sticky', false)
+    d3.select('#radar-plot').classed('quadrant-view', false)
+    d3.select('#radar-plot').classed('enable-transition', true)
+
+    d3.select('#radar-plot').attr('data-quadrant-selected', null)
+
+    const size = getGraphSize()
+    d3.select('.home-link').remove()
+    d3.select('.legend').remove()
+    d3.select('#radar').classed('mobile', false)
+    d3.select('.all-quadrants-mobile').classed('show-all-quadrants-mobile', true)
+
+    d3.select('li.quadrant-subnav__list-item.active-item').classed('active-item', false)
+    d3.select('li.quadrant-subnav__list-item').classed('active-item', true)
+
+    d3.select('.quadrant-subnav__dropdown-selector').text('All quadrants')
+
+    d3tip()
+      .attr('class', 'd3-tip')
+      .html(function (text) {
+        return text
+      })
+      .hide()
+
+    d3.selectAll('g.blip-link').attr('opacity', 1.0)
+
+    svg.style('left', 0).style('right', 0).style('top', 0).attr('transform', 'scale(1)').style('transform', 'scale(1)')
+
+    d3.selectAll('.button').classed('selected', false).classed('full-view', true)
+
+    d3.selectAll('.quadrant-table').classed('selected', false)
+    d3.selectAll('.home-link').classed('selected', false)
+
+    d3.selectAll('.quadrant-group')
+      .style('display', 'block')
+      .transition()
+      .duration(ANIMATION_DURATION)
+      .style('transform', 'scale(1)')
+      .style('opacity', '1')
+      .attr('transform', 'translate(0,0)')
+
+    d3.select('#radar-plot').attr('width', size).attr('height', size)
+    d3.select(`svg#radar-plot`).style('padding', '0')
+
+    const radarLegendsContainer = d3.select('.radar-legends')
+    radarLegendsContainer.attr('class', 'radar-legends')
+    radarLegendsContainer.attr('style', null)
+
+    d3.selectAll('svg#radar-plot a').attr('aria-hidden', null).attr('tabindex', null)
+    d3.selectAll('.quadrant-table button').attr('aria-hidden', 'true').attr('tabindex', -1)
+    d3.selectAll('.blip-list__item-container__name').attr('aria-expanded', 'false')
+
+    d3.selectAll(`.quadrant-group rect:nth-child(2n)`).attr('tabindex', 0)
   }
 
   function searchBlip(_e, ui) {
     const { blip, quadrant } = ui.item
     const isQuadrantSelected = d3.select('div.button.' + quadrant.order).classed('selected')
     selectQuadrant.bind({}, quadrant.order, quadrant.startAngle)()
-    const selectedDesc = d3.select('#blip-description-' + blip.number())
+    const selectedDesc = d3.select('#blip-description-' + blip.id())
     d3.select('.blip-item-description.expanded').node() !== selectedDesc.node() &&
       d3.select('.blip-item-description.expanded').classed('expanded', false)
     selectedDesc.classed('expanded', true)
 
     d3.selectAll('g.blip-link').attr('opacity', 0.3)
-    const group = d3.select('#blip-link-' + blip.number())
+    const group = d3.select('#blip-link-' + blip.id())
     group.attr('opacity', 1.0)
     d3.selectAll('.blip-list-item').classed('highlight', false)
-    d3.select('#blip-list-item-' + blip.number()).classed('highlight', true)
+    d3.select('#blip-list-item-' + blip.id()).classed('highlight', true)
     if (isQuadrantSelected) {
       tip.show(blip.name(), group.node())
     } else {
@@ -500,44 +600,12 @@ const Radar = function (size, radar) {
   }
 
   function plotRadarHeader() {
-    header = d3.select('body').insert('header', '#radar')
-    header
-      .append('div')
-      .attr('class', 'radar-title')
-      .append('div')
-      .attr('class', 'radar-title__text')
-      .append('h1')
-      .text(document.title)
-      .style('cursor', 'pointer')
-      .on('click', redrawFullRadar)
-
-    header
-      .select('.radar-title')
-      .append('div')
-      .attr('class', 'radar-title__logo')
-      .html('<a href="https://www.thoughtworks.com"> <img src="/images/logo.png" /> </a>')
+    header = d3.select('header')
 
     buttonsGroup = header.append('div').classed('buttons-group', true)
-
-    quadrantButtons = buttonsGroup.append('div').classed('quadrant-btn--group', true)
-
     alternativeDiv = header.append('div').attr('id', 'alternative-buttons')
 
-    return header
-  }
-
-  function plotHeader() {
-    document.querySelector('.hero-banner__title-text').innerHTML = document.title
-    const radarWrapper = d3.select('main .graph-placeholder')
-    document.querySelector('.hero-banner__title-text').addEventListener('click', redrawFullRadar)
-
-    buttonsGroup = radarWrapper.append('div').classed('buttons-group', true)
-
     quadrantButtons = buttonsGroup.append('div').classed('quadrant-btn--group', true)
-
-    alternativeDiv = radarWrapper.append('div').attr('id', 'alternative-buttons')
-
-    return radarWrapper
   }
 
   function plotQuadrantButtons(quadrants) {
@@ -600,6 +668,12 @@ const Radar = function (size, radar) {
     d3.selectAll('.quadrant-group:not(.quadrant-group-' + order + ')').style('opacity', 1)
   }
 
+  function hideTooltipOnScroll(tip) {
+    window.addEventListener('scroll', () => {
+      tip.hide().style('left', 0).style('top', 0)
+    })
+  }
+
   function selectQuadrant(order, startAngle) {
     d3.selectAll('.home-link').classed('selected', false)
     createHomeLink(d3.select('header'))
@@ -617,6 +691,9 @@ const Radar = function (size, radar) {
 
     var translateX = ((-1 * (1 + adjustX) * size) / 2) * (scale - 1) + -adjustX * (1 - scale / 2) * size
     var translateY = -1 * (1 - adjustY) * (size / 2 - 7) * (scale - 1) - ((1 - adjustY) / 2) * (1 - scale / 2) * size
+    if (featureToggles.UIRefresh2022) {
+      translateY = 0
+    }
 
     var translateXAll = (((1 - adjustX) / 2) * size * scale) / 2 + ((1 - adjustX) / 2) * (1 - scale / 2) * size
     var translateYAll = (((1 + adjustY) / 2) * size * scale) / 2
@@ -628,6 +705,7 @@ const Radar = function (size, radar) {
     var blipTranslate = (1 - blipScale) / blipScale
 
     svg.style('left', moveLeft + 'px').style('right', moveRight + 'px')
+
     d3.select('.quadrant-group-' + order)
       .transition()
       .duration(ANIMATION_DURATION)
@@ -655,16 +733,12 @@ const Radar = function (size, radar) {
   }
 
   self.init = function () {
-    const selector = config.featureToggles.UIRefresh2022 ? 'main' : 'body'
-    radarElement = d3.select(selector).append('div').attr('id', 'radar')
+    radarElement = d3.select('#radar')
+    if (!featureToggles.UIRefresh2022) {
+      const selector = 'body'
+      radarElement = d3.select(selector).append('div').attr('id', 'radar')
+    }
     return self
-  }
-
-  function constructSheetUrl(sheetName) {
-    var noParamUrl = window.location.href.substring(0, window.location.href.indexOf(window.location.search))
-    var queryParams = QueryParams(window.location.search.substring(1))
-    var sheetUrl = noParamUrl + '?sheetId=' + queryParams.sheetId + '&sheetName=' + encodeURIComponent(sheetName)
-    return sheetUrl
   }
 
   function plotAlternativeRadars(alternatives, currentSheet) {
@@ -696,36 +770,68 @@ const Radar = function (size, radar) {
     alternatives = radar.getAlternatives()
     currentSheet = radar.getCurrentSheet()
 
-    if (config.featureToggles.UIRefresh2022) {
+    const radarHeader = d3.select('main .graph-header')
+    const radarFooter = d3.select('main .graph-footer')
+
+    renderBanner(renderFullRadar)
+
+    if (featureToggles.UIRefresh2022) {
+      renderQuadrantSubnav(radarHeader, quadrants, renderFullRadar)
+      renderSearch(radarHeader, quadrants)
+      renderAlternativeRadars(radarFooter, alternatives, currentSheet)
+      renderQuadrantTables(quadrants, rings)
+      renderButtons(radarFooter)
+
       const landingPageElements = document.querySelectorAll('main .home-page')
       landingPageElements.forEach((elem) => {
         elem.style.display = 'none'
       })
-      plotHeader()
     } else {
       plotRadarHeader()
       plotRadarFooter()
+      if (alternatives.length) {
+        plotAlternativeRadars(alternatives, currentSheet)
+      }
+      plotQuadrantButtons(quadrants)
     }
 
-    if (alternatives.length) {
-      plotAlternativeRadars(alternatives, currentSheet)
-    }
-
-    plotQuadrantButtons(quadrants)
-
-    radarElement.style('height', size + 14 + 'px')
     svg = radarElement.append('svg').call(tip)
-    svg
-      .attr('id', 'radar-plot')
-      .attr('width', size)
-      .attr('height', size + 14)
+
+    if (featureToggles.UIRefresh2022) {
+      const legendHeight = 40
+      radarElement.style('height', size + legendHeight + 'px')
+      svg.attr('id', 'radar-plot').attr('width', size).attr('height', size)
+    } else {
+      radarElement.style('height', size + 14 + 'px')
+      svg
+        .attr('id', 'radar-plot')
+        .attr('width', size)
+        .attr('height', size + 14)
+    }
 
     _.each(quadrants, function (quadrant) {
-      var quadrantGroup = plotQuadrant(rings, quadrant)
-      plotLines(quadrantGroup, quadrant)
-      plotTexts(quadrantGroup, rings, quadrant)
-      plotBlips(quadrantGroup, rings, quadrant)
+      let quadrantGroup
+      if (featureToggles.UIRefresh2022) {
+        quadrantGroup = renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator, tip)
+        plotLines(quadrantGroup, quadrant)
+        const ringTextGroup = quadrantGroup.append('g')
+        plotRingNames(ringTextGroup, rings, quadrant)
+        plotRadarBlips(quadrantGroup, rings, quadrant, tip)
+        renderMobileView(quadrant)
+        addQuadrantNameInPdfView(quadrant.order, quadrant.quadrant.name())
+      } else {
+        quadrantGroup = plotQuadrant(rings, quadrant)
+        plotLines(quadrantGroup, quadrant)
+        plotTexts(quadrantGroup, rings, quadrant)
+        plotBlips(quadrantGroup, rings, quadrant)
+      }
     })
+
+    if (featureToggles.UIRefresh2022) {
+      renderRadarLegends(radarElement)
+      hideTooltipOnScroll(tip)
+      addRadarLinkInPdfView()
+    }
   }
 
   return self

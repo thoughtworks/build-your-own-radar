@@ -5,381 +5,152 @@
 @import 'error';
 @import 'header';
 @import 'footer';
-@import 'featuretoggles';
 @import 'herobanner';
+@import 'quadrantsubnav';
+@import 'search';
+@import 'alternativeradars';
+@import 'buttons';
+@import 'quadrants';
+@import 'quadrantTables';
 @import 'mediaqueries';
 @import 'layout';
 @import 'landingpage';
 @import 'loader';
-@import url(https://www.thoughtworks.com/css/k8s_production/screen.css);
+@import 'screen';
+@import 'pdfPage';
 
-body {
-  font: 18px 'Open Sans';
-  opacity: 0;
-  @if $UIRefresh2022 {
-    font-family: $baseFontFamily;
-    opacity: 1;
-
-    h1 {
-      font-size: 2rem;
-      font-family: 'Bitter', serif;
-      text-transform: none;
-      letter-spacing: normal;
-
-      @include media-query-large {
-        font-size: 3.5rem;
-      }
-    }
-
-    p {
-      font-size: 18px;
-      font-family: $baseFontFamily;
-      line-height: 27px;
-      font-weight: 360;
-    }
-
-    a {
-      color: $link-normal;
-      border-color: $link-normal;
-
-      &:hover {
-        color: $link-hover;
-        border-color: $link-hover;
-      }
-    }
-  }
-
-  -webkit-font-smoothing: antialiased;
-  margin: 0;
+:root {
+  font-family: 'Inter', sans-serif;
 }
 
-@media print {
-  body,
-  article {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-  @page {
-    margin: 2cm;
-  }
-
-  a:after {
-    content: ' <' attr(href) '> ';
-    font-size: 0.8em;
-    font-weight: normal;
-  }
-
-  #radar-plot {
-    display: none;
-  }
-
-  .quadrant-table {
-    .quadrant-table__name {
-      display: block;
-      font-size: 36pt;
-      padding: 0 10px;
-      margin-bottom: 20px;
-    }
-
-    &.first .quadrant-table__name {
-      color: $green;
-    }
-
-    &.second .quadrant-table__name {
-      color: $blue;
-    }
-
-    &.third .quadrant-table__name {
-      color: $orange;
-    }
-
-    &.fourth .quadrant-table__name {
-      color: $violet;
-    }
-  }
-
-  .quadrant-table {
-    page-break-after: always;
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    li {
-      page-break-inside: avoid;
-    }
-
-    h3 {
-      page-break-before: always;
-      padding: 0 10px;
-      text-transform: uppercase;
-      font-size: 18pt;
-      font-weight: bold;
-    }
-
-    h2 + h3 {
-      page-break-before: avoid;
-    }
-  }
-
-  .blip-list-item {
-    font-weight: bold;
-  }
-
-  .blip-item-description {
-    padding: 0 15px;
-  }
-
-  header {
-    text-align: left;
-
-    .radar-title .radar-title__text {
-      font-size: 40px;
-      width: 100%;
-      padding: 10px;
-      display: block;
-    }
-
-    .radar-title .radar-title__logo {
-      display: block;
-      width: auto;
-
-      a {
-        padding: 40px 10px 0;
-        display: block;
-
-        &::after {
-          display: none;
-        }
-      }
-
-      img {
-        max-width: 150px;
-      }
-    }
-
-    .buttons-group {
-      display: none;
-    }
-
-    .home-link {
-      display: none;
-
-      &.selected {
-        display: none;
-      }
-    }
-
-    #alternative-buttons {
-      display: none;
-    }
-
-    .print-radar {
-      display: none;
-    }
-  }
-
-  #footer {
-    display: none;
-  }
-
-  .error-container {
-    display: none;
+@supports (font-variation-settings: normal) {
+  :root {
+    font-family: 'Inter var', sans-serif;
   }
 }
 
 @media screen {
-  #radar {
-    width: 80%;
-    margin: 0 auto;
-    position: relative;
+  body {
+    font: 18px 'Open Sans';
+    opacity: 0;
+    @if $UIRefresh2022 {
+      font-family: $baseFontFamily;
+      opacity: 1;
 
-    svg#radar-plot {
-      margin: 0 auto;
-      transition: all 1s ease;
-      position: absolute;
-      left: 0;
-      right: 0;
+      h1 {
+        font-size: 1.5rem;
+        font-family: 'Bitter', serif;
+        text-transform: none;
+        letter-spacing: normal;
 
-      .legend {
-        visibility: hidden;
-        transition: visibility 1s ease 1s;
-        color: $black;
-      }
-
-      path {
-        &.ring-arc-3 {
-          stroke: none;
-          fill: $grey-light;
+        @include media-query-medium {
+          font-size: 2rem;
         }
 
-        &.ring-arc-2 {
-          stroke: none;
-          fill: $grey;
+        @include media-query-large {
+          font-size: 2.5rem;
         }
 
-        &.ring-arc-1 {
-          stroke: none;
-          fill: $grey-dark;
+        @include media-query-xxlarge {
+          font-size: 3rem;
         }
 
-        &.ring-arc-0 {
-          stroke: none;
-          fill: $grey-darkest;
+        @include media-query-xxxlarge {
+          font-size: 3.5rem;
         }
       }
 
-      .blip-link {
-        text-decoration: none;
-        cursor: pointer;
-      }
+      h2 {
+        font-size: 1.25rem;
+        font-weight: 630;
+        font-family: 'Inter', serif;
+        text-transform: none;
+        letter-spacing: normal;
 
-      .quadrant-group {
-        cursor: pointer;
-      }
-
-      circle,
-      polygon,
-      path {
-        &.first {
-          fill: $green;
-          stroke: none;
+        @include media-query-medium {
+          font-size: 1.25rem;
         }
 
-        &.second {
-          fill: $blue;
-          stroke: none;
+        @include media-query-large {
+          font-size: 1.5rem;
         }
 
-        &.third {
-          fill: $orange;
-          stroke: none;
+        @include media-query-xlarge {
+          font-size: 1.5rem;
         }
 
-        &.fourth {
-          fill: $violet;
-          stroke: none;
+        @include media-query-xxlarge {
+          font-size: 2rem;
+        }
+
+        @include media-query-xxxlarge {
+          font-size: 2rem;
         }
       }
 
-      line {
-        stroke: white;
+      p {
+        font-size: 1rem;
+        font-family: $baseFontFamily;
+
+        @include media-query-xxlarge {
+          font-size: 1.125rem;
+        }
       }
 
-      text {
-        &.blip-text {
-          font-size: 9px;
-          font-style: italic;
-          fill: $white;
-        }
+      a {
+        color: $link-normal;
+        border-color: $link-normal;
 
-        &.line-text {
-          font-weight: bold;
-          text-transform: uppercase;
-          fill: $black;
-          font-size: 7px;
+        &:hover {
+          color: $link-hover;
+          border-color: $link-hover;
         }
       }
     }
 
-    div.quadrant-table {
-      .quadrant-table__name {
-        display: none;
-      }
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+  }
 
-      max-height: 0;
-      max-width: 0;
+  @if $UIRefresh2022 {
+    .d3-tip {
+      font-size: 12px;
+      display: block;
+      padding: 12px;
+      background: $wave;
+      color: $white;
+      pointer-events: none;
+      z-index: 20;
+      max-width: 170px;
+      word-wrap: break-word;
+      white-space: pre-line;
+      line-height: 2;
+      border-radius: unset;
+
+      @include media-query-medium {
+        max-width: 250px;
+      }
+    }
+
+    .d3-tip:after {
+      box-sizing: border-box;
+      font-size: 10px;
+      width: 100%;
+      color: $wave;
       position: absolute;
-      overflow: hidden;
+      pointer-events: none;
+    }
 
-      transition: max-height 0.5s ease 1s;
+    .d3-tip.n {
+      margin: -10px 0 0;
+    }
 
-      h3 {
-        text-transform: uppercase;
-        font-size: $baseFont;
-        margin: 0;
-        font-weight: bold;
-      }
-
-      &.first {
-        &.selected {
-          float: right;
-        }
-      }
-
-      &.second {
-        &.selected {
-          float: left;
-        }
-      }
-
-      &.third {
-        &.selected {
-          float: left;
-        }
-      }
-
-      &.fourth {
-        &.selected {
-          float: right;
-        }
-      }
-
-      &.selected {
-        position: relative;
-        max-height: 10000px;
-        max-width: 40%;
-      }
-
-      ul {
-        padding: 0;
-        margin-left: 0;
-
-        li {
-          list-style-type: none;
-          padding-left: 0;
-
-          .blip-list-item {
-            padding: 2px 5px;
-            border-radius: 2px;
-            cursor: pointer;
-            font-size: $baseFont;
-            font-weight: 400;
-
-            &.highlight {
-              color: white;
-              background-color: rgba(0, 0, 0, 0.8);
-            }
-          }
-
-          .blip-item-description {
-            max-height: 0;
-            overflow: hidden;
-            width: 300px;
-
-            p {
-              margin: 0;
-              border-top: 1px solid rgb(119, 119, 119);
-              border-bottom: 1px solid rgb(119, 119, 119);
-              padding: 20px;
-              color: $grey-text;
-              font-weight: 100;
-              font-size: 14px;
-            }
-
-            transition: max-height 0.2s ease;
-
-            &.expanded {
-              transition: max-height 0.5s ease 0.2s;
-              max-height: 1000px;
-            }
-          }
-        }
-      }
+    .d3-tip.n:after {
+      content: '\25BC';
+      margin: -3px 0 0;
+      top: 100%;
+      left: 0;
+      text-align: center;
     }
   }
 }

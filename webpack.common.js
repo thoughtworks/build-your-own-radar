@@ -7,8 +7,6 @@ const args = require('yargs').argv
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const postcssPresetEnv = require('postcss-preset-env')
-const cssnano = require('cssnano')
 
 const env = args.envFile
 if (env) {
@@ -27,17 +25,14 @@ const plugins = [
     chunks: ['main'],
     inject: 'body',
   }),
-  new HtmlWebpackPlugin({
-    template: './src/error.html',
-    chunks: ['common'],
-    inject: 'body',
-    filename: 'error.html',
-  }),
   new webpack.DefinePlugin({
     'process.env.CLIENT_ID': JSON.stringify(process.env.CLIENT_ID),
     'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
     'process.env.ENABLE_GOOGLE_AUTH': JSON.stringify(process.env.ENABLE_GOOGLE_AUTH),
     'process.env.GTM_ID': JSON.stringify(process.env.GTM_ID),
+    'process.env.RINGS': JSON.stringify(process.env.RINGS),
+    'process.env.QUADRANTS': JSON.stringify(process.env.QUADRANTS),
+    'process.env.ADOBE_LAUNCH_SCRIPT_URL': JSON.stringify(process.env.ADOBE_LAUNCH_SCRIPT_URL),
   }),
 ]
 
@@ -46,7 +41,6 @@ module.exports = {
   entry: {
     common: common,
   },
-
   output: {
     path: buildPath,
     publicPath: ASSET_PATH,
@@ -72,32 +66,6 @@ module.exports = {
               presets: ['@babel/preset-env'],
             },
           },
-        ],
-      },
-      {
-        test: /\.scss$/,
-        exclude: /node_modules/,
-        use: [
-          'style-loader',
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: { importLoaders: 1, modules: 'global', url: false },
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins: [
-                  postcssPresetEnv({ browsers: 'last 2 versions' }),
-                  cssnano({
-                    preset: ['default', { discardComments: { removeAll: true } }],
-                  }),
-                ],
-              },
-            },
-          },
-          'sass-loader',
         ],
       },
       {

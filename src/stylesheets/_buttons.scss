@@ -1,0 +1,69 @@
+@import 'colors';
+@import 'layout';
+
+@if $UIRefresh2022 {
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 64px auto 56px;
+
+    @include layout-margin(calc(3 / 4), $screen-small);
+    @include layout-margin(calc(6 / 8), $screen-medium);
+    @include layout-margin(calc(8 / 12), $screen-large);
+    @include layout-margin(calc(6 / 12), $screen-xlarge);
+    @include layout-margin(calc(6 / 12), $screen-xxlarge);
+    @include layout-margin(calc(4 / 12), $screen-xxxlarge);
+
+    @include media-query-medium {
+      flex-direction: row;
+    }
+
+    button {
+      border: none;
+      font-size: 20px;
+      color: $white;
+      width: 220px;
+      height: 48px;
+      margin: 0 15px 32px;
+      cursor: pointer;
+
+      @include media-query-medium {
+        margin: 0 15px;
+      }
+
+      a {
+        border: none;
+        color: $white;
+
+        &:hover {
+          color: $white;
+        }
+      }
+    }
+
+    &__wave-btn {
+      background-color: $wave;
+    }
+
+    &__flamingo-btn {
+      background-color: $flamingo-s40;
+      color: $white;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 220px;
+      height: 48px;
+
+      border: none;
+      font-size: 20px;
+
+      &:hover {
+        color: $white;
+      }
+    }
+  }
+}

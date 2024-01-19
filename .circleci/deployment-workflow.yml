@@ -1,12 +1,13 @@
 version: 2.1
 
 orbs:
-  aws-cli: circleci/aws-cli@2.0.6
+  aws-cli: circleci/aws-cli@4.1.1
+  browser-tools: circleci/browser-tools@1.4.6
 
 executors:
   base:
     docker:
-      - image: cimg/node:16.15.0
+      - image: cimg/node:18.18.2-browsers
         user: root
 
 commands:
@@ -17,9 +18,7 @@ commands:
           key: node-cache-v2-{{ checksum "package-lock.json" }}
       - run:
           name: Install node packages
-          command: |
-            npm install --save-dev --unsafe-perm node-sass
-            npm install
+          command: npm install
       - save_cache:
           paths:
             - ./node_modules
@@ -36,9 +35,7 @@ commands:
             apt-get install -y libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
       - run:
           name: Install node packages
-          command: |
-            npm install --save-dev --unsafe-perm node-sass
-            npm install
+          command: npm install
       - save_cache:
           paths:
             - ./node_modules
@@ -47,10 +44,16 @@ commands:
   build-and-push:
     description: Build and push code to S3 bucket
     parameters:
+      api_key:
+        type: string
+        default: ''
       client_id:
         type: string
         default: ''
       gtm_id:
+        type: string
+        default: ''
+      adobe_launch_script_url:
         type: string
         default: ''
       bucket_name:
@@ -59,14 +62,25 @@ commands:
       distribution_id:
         type: string
         default: ''
-      mode:
+      env:
         type: string
-        default: ''
+        default: dev
     steps:
       - run:
           name: Build code
-          command: API_KEY="" CLIENT_ID=<< parameters.client_id >> GTM_ID=<< parameters.gtm_id >> npm run build:<<parameters.mode>>
-      - aws-cli/setup
+          command: API_KEY=<< parameters.api_key >> CLIENT_ID=<< parameters.client_id >> GTM_ID=<< parameters.gtm_id >> ADOBE_LAUNCH_SCRIPT_URL=<< parameters.adobe_launch_script_url >> npm run build:<< parameters.env >>
+      - when:
+          condition:
+            and:
+              - equal: [<< parameters.env >>, 'prod']
+          steps:
+            - run:
+                name: Set PROD specific env variables
+                command: |
+                  echo 'export AWS_BYOR_OIDC_ROLE=$AWS_BYOR_OIDC_ROLE_PROD' >> $BASH_ENV
+      - aws-cli/setup:
+          role_arn: $AWS_BYOR_OIDC_ROLE
+          session_duration: '900'
       - run:
           name: Sync build artifacts to S3
           command: aws s3 cp --recursive dist "s3://<< parameters.bucket_name >>/"
@@ -80,37 +94,36 @@ jobs:
     steps:
       - checkout
       - install-node-and-cypress-packages
+      - browser-tools/install-chrome
       - run:
           name: Run e2e test cases
-          command: ./run_e2e_tests.sh $DEV_API_KEY $TESTING_CLIENT_ID $DEV_TEST_URL
-  dev-deployment:
+          command: API_KEY=$LOCAL_API_KEY ./run_e2e_tests.sh $LOCAL_TEST_URL
+  qa-deployment:
     executor: base
     steps:
       - checkout
       - install-node-packages
       - build-and-push:
-          client_id: $DEV_CLIENT_ID
-          gtm_id: $DEV_GTM_ID
-          bucket_name: $DEV_BUCKET_NAME
-          distribution_id: $DEV_DISTRIBUTION_ID
-          mode: dev
+          api_key: $QA_API_KEY
+          client_id: $QA_CLIENT_ID
+          gtm_id: $QA_GTM_ID
+          adobe_launch_script_url: $QA_ADOBE_LAUNCH_SCRIPT_URL
+          bucket_name: $QA_BUCKET_NAME
+          distribution_id: $QA_DISTRIBUTION_ID
+          env: dev
   prod-deployment:
     executor: base
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 20.10.12
-          docker_layer_caching: true
       - install-node-packages
       - build-and-push:
+          api_key: $PROD_API_KEY
           client_id: $PROD_CLIENT_ID
           gtm_id: $PROD_GTM_ID
+          adobe_launch_script_url: $PROD_ADOBE_LAUNCH_SCRIPT_URL
           bucket_name: $PROD_BUCKET_NAME
           distribution_id: $PROD_DISTRIBUTION_ID
-          mode: prod
-      - run:
-          name: Build and push Docker image to DockerHub
-          command: ./docker_push.sh
+          env: prod
 
 workflows:
   build-and-deploy:
@@ -119,17 +132,13 @@ workflows:
           filters:
             branches:
               only: master
-      - approve-dev-deployment:
-          type: approval
+      - qa-deployment:
           requires:
             - e2e-tests
-      - dev-deployment:
-          requires:
-            - approve-dev-deployment
       - approve-prod-deployment:
           type: approval
           requires:
-            - dev-deployment
+            - qa-deployment
       - prod-deployment:
           requires:
             - approve-prod-deployment

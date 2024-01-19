@@ -1,0 +1,492 @@
+#radar {
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
+
+  @if $UIRefresh2022 {
+    width: 100%;
+
+    @include media-query-xlarge {
+      width: 80%;
+      min-width: calc($quadrantWidth * 2 + $quadrantsGap);
+    }
+
+    @include layout-margin(calc(12 / 12), $screen-xlarge);
+    @include layout-margin(calc(12 / 12), $screen-xxlarge);
+    @include layout-margin(calc(12 / 12), $screen-xxxlarge);
+
+    .no-blip-text {
+      display: none;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    &.no-blips {
+      height: auto !important;
+      .no-blip-text {
+        display: block;
+      }
+
+      .quadrant-group,
+      .quadrant-table,
+      .radar-legends {
+        display: none !important;
+      }
+    }
+
+    .mobile {
+      display: block;
+    }
+
+    &:not(.mobile) {
+      display: none;
+    }
+
+    @include media-query-xlarge {
+      &:not(.mobile) {
+        display: block;
+      }
+    }
+  }
+
+  svg#radar-plot {
+    margin: 0 auto;
+    transition: all 1s ease;
+    position: absolute;
+    left: 0;
+    right: 0;
+
+    @if $UIRefresh2022 {
+      display: none;
+      transition: none;
+
+      margin: 0 auto;
+
+      &.enable-transition {
+        transition: all 1s ease;
+      }
+
+      @include media-query-medium {
+        display: block;
+      }
+    }
+
+    &.quadrant-view {
+      .quadrant-group {
+        pointer-events: none;
+      }
+
+      .quadrant-name-group {
+        display: none;
+      }
+
+      @include media-query-xlarge {
+        &.sticky {
+          position: fixed;
+          transition: none;
+          top: $subnavHeight !important;
+        }
+      }
+    }
+
+    @if $UIRefresh2022 {
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .legend {
+      visibility: hidden;
+      transition: visibility 1s ease 1s;
+      color: $black;
+    }
+
+    path {
+      &.ring-arc-3 {
+        stroke: none;
+        fill: $grey-light;
+      }
+
+      &.ring-arc-2 {
+        stroke: none;
+        fill: $grey;
+      }
+
+      &.ring-arc-1 {
+        stroke: none;
+        fill: $grey-dark;
+      }
+
+      &.ring-arc-0 {
+        stroke: none;
+        fill: $grey-darkest;
+      }
+    }
+
+    @if $UIRefresh2022 {
+      path {
+        &.ring-arc-3,
+        &.ring-arc-2,
+        &.ring-arc-1,
+        &.ring-arc-0 {
+          stroke: $mist-s30;
+          stroke-width: 1;
+          fill: white;
+        }
+      }
+
+      .quadrant-group {
+        transition: opacity 0.5s ease-out;
+        pointer-events: all;
+      }
+    }
+
+    .blip-link {
+      text-decoration: none;
+      cursor: pointer;
+      pointer-events: initial;
+      outline: none;
+    }
+
+    .quadrant-group {
+      cursor: pointer;
+    }
+
+    circle,
+    polygon,
+    path {
+      &.first {
+        fill: $green;
+        stroke: none;
+      }
+
+      &.second {
+        fill: $blue;
+        stroke: none;
+      }
+
+      &.third {
+        fill: $orange;
+        stroke: none;
+      }
+
+      &.fourth {
+        fill: $violet;
+        stroke: none;
+      }
+    }
+
+    line {
+      stroke: white;
+    }
+
+    text {
+      &.blip-text {
+        font-size: 9px;
+        font-style: italic;
+        fill: $white;
+      }
+
+      &.line-text {
+        font-weight: bold;
+        text-transform: uppercase;
+        fill: $black;
+        font-size: 7px;
+      }
+    }
+
+    @if $UIRefresh2022 {
+      circle,
+      polygon,
+      rect,
+      path {
+        &.first {
+          fill: $sapphire;
+          stroke: none;
+        }
+
+        &.second {
+          fill: $turmeric;
+          stroke: none;
+        }
+
+        &.third {
+          fill: $jade;
+          stroke: none;
+        }
+
+        &.fourth {
+          fill: $flamingo;
+          stroke: none;
+        }
+      }
+
+      line {
+        stroke: white;
+      }
+
+      text {
+        &.blip-text {
+          font-size: 9px;
+          font-style: italic;
+          fill: $black;
+        }
+
+        &.line-text {
+          font-weight: bold;
+          text-transform: none;
+          fill: $black;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  div.quadrant-table {
+    .quadrant-table__name {
+      display: none;
+    }
+
+    max-height: 0;
+    @if not $UIRefresh2022 {
+      max-width: 0;
+    }
+    position: absolute;
+    overflow: hidden;
+    z-index: 11;
+    transition: max-height 0.5s ease 1s;
+
+    h3 {
+      text-transform: uppercase;
+      font-size: $baseFont;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    @if $UIRefresh2022 {
+      overflow: clip;
+      &.first {
+        float: left;
+      }
+
+      &.second {
+        float: left;
+      }
+
+      &.third {
+        float: right;
+      }
+
+      &.fourth {
+        float: right;
+      }
+    } @else {
+      &.first {
+        &.selected {
+          float: right;
+        }
+      }
+
+      &.second {
+        &.selected {
+          float: left;
+        }
+      }
+
+      &.third {
+        &.selected {
+          float: left;
+        }
+      }
+
+      &.fourth {
+        &.selected {
+          float: right;
+        }
+      }
+    }
+
+    &.selected {
+      position: relative;
+      max-height: 10000px;
+
+      @if not $UIRefresh2022 {
+        max-width: 40%;
+      }
+    }
+
+    @if $UIRefresh2022 {
+      max-height: 0;
+      opacity: 0;
+      transition: opacity 0.3s ease-out;
+
+      &.selected {
+        opacity: 1;
+        transition: opacity 1s ease;
+
+        @include media-query-medium {
+          transition: opacity 1s ease 1s;
+        }
+      }
+    }
+
+    ul {
+      padding: 0;
+      margin-left: 0;
+
+      li {
+        list-style-type: none;
+        padding-left: 0;
+
+        .blip-list-item {
+          padding: 2px 5px;
+          border-radius: 2px;
+          cursor: pointer;
+          font-size: $baseFont;
+          font-weight: 400;
+
+          &.highlight {
+            color: white;
+            background-color: rgba(0, 0, 0, 0.8);
+          }
+        }
+
+        .blip-item-description {
+          max-height: 0;
+          overflow: hidden;
+          width: 300px;
+
+          p {
+            margin: 0;
+            border-top: 1px solid rgb(119, 119, 119);
+            border-bottom: 1px solid rgb(119, 119, 119);
+            padding: 20px;
+            color: $grey-text;
+            font-weight: 100;
+            font-size: 14px;
+          }
+
+          transition: max-height 0.2s ease;
+
+          &.expanded {
+            transition: max-height 0.5s ease 0.2s;
+            max-height: 1000px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@if ($UIRefresh2022) {
+  .radar-legends {
+    display: none;
+
+    @include media-query-medium {
+      &.right-view,
+      &.left-view {
+        justify-content: unset;
+        width: unset;
+      }
+
+      &.sticky {
+        position: fixed;
+      }
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: $quadrantsGap auto;
+      width: 100%;
+      position: absolute;
+      top: calc($quadrantWidth * 2 + $quadrantsGap);
+    }
+
+    img:nth-child(2) {
+      margin-left: 48px;
+    }
+  }
+
+  .all-quadrants-mobile {
+    --quadrant-gap: 12px;
+    --quadrant-btn-width-mobile: 150px;
+    --quadrant-btn-height-mobile: 70px;
+    display: none;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: space-between;
+    margin: auto;
+    margin-bottom: 42px;
+
+    &.show-all-quadrants-mobile {
+      display: flex;
+    }
+    @include media-query-medium {
+      --quadrant-btn-width-mobile: 345px;
+      --quadrant-btn-height-mobile: 160px;
+    }
+    @include media-query-xlarge {
+      display: none;
+      &.show-all-quadrants-mobile {
+        display: none;
+      }
+    }
+
+    width: calc(var(--quadrant-btn-width-mobile) * 2 + var(--quadrant-gap));
+    height: calc(var(--quadrant-btn-height-mobile) * 2 + var(--quadrant-gap));
+
+    .all-quadrants-mobile--btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      margin: 3px;
+      width: var(--quadrant-btn-width-mobile);
+      height: var(--quadrant-btn-height-mobile);
+      background-size: 100%;
+      background-repeat: no-repeat;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      border: none;
+
+      @include media-query-medium {
+        font-size: 24px;
+      }
+
+      &::after {
+        content: url('/images/arrow-white-icon.svg');
+        margin: 4px 4px 0;
+      }
+
+      .btn-text-wrapper {
+        text-align: left;
+        word-break: break-word;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+
+        @include media-query-medium {
+          max-width: 60%;
+          max-height: 60px;
+        }
+      }
+    }
+
+    #first-quadrant-mobile {
+      background-color: $sapphire;
+    }
+    #second-quadrant-mobile {
+      background-color: $turmeric;
+    }
+    #third-quadrant-mobile {
+      background-color: $jade;
+    }
+    #fourth-quadrant-mobile {
+      background-color: $flamingo;
+    }
+  }
+}

@@ -15,4 +15,12 @@ describe('ringCalculator', function () {
   it('calculates the correct radius', function () {
     expect(ringCalculator.getRadius(ringLength)).toEqual(radarSize)
   })
+
+  it('calculates the ring radius', function () {
+    expect(ringCalculator.getRingRadius(1)).toEqual(158)
+  })
+
+  it('calculates the ring radius for invalid ring as 0', function () {
+    expect(ringCalculator.getRingRadius(10)).toEqual(0)
+  })
 })

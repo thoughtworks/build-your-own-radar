@@ -1,70 +1,139 @@
 const Sheet = require('../../src/util/sheet')
+const config = require('../../src/config')
 
+jest.mock('../../src/config')
 describe('sheet', function () {
-  var sheet
-  var caller = { callback: function () {} }
+  const oldEnv = process.env
+  beforeEach(() => {
+    config.mockReturnValue({ featureToggles: { UIRefresh2022: true } })
+    process.env.API_KEY = 'API_KEY'
+  })
 
-  beforeAll(function () {
-    spyOn(caller, 'callback')
+  afterEach(() => {
+    jest.clearAllMocks()
+    process.env = oldEnv
   })
 
   it('knows to find the sheet id from published URL', function () {
-    sheet = new Sheet(
-      'https://docs.google.com/spreadsheets/' + 'd/1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI/pubhtml',
-    )
+    const sheet = new Sheet('https://docs.google.com/spreadsheets/d/sheetId/pubhtml')
 
-    expect(sheet.id).toEqual('1YXkrgV7Y6zShiPeyw4Y5_19QOfu5I6CyH5sGnbkEyiI')
+    expect(sheet.id).toEqual('sheetId')
   })
 
   it('knows to find the sheet id from publicly shared URL having query params', function () {
-    sheet = new Sheet(
-      'https://docs.google.com/spreadsheets/' + 'd/1wLRmV2tVlS5PqjKFyiTA0HuoH8vp_h_DOmjciZAEG0U?abc=xyz',
-    )
+    const sheet = new Sheet('https://docs.google.com/spreadsheets/d/sheetId?abc=xyz')
 
-    expect(sheet.id).toEqual('1wLRmV2tVlS5PqjKFyiTA0HuoH8vp_h_DOmjciZAEG0U')
+    expect(sheet.id).toEqual('sheetId')
   })
 
   it('knows to find the sheet id from publicly shared URL having extra path and query params', function () {
-    sheet = new Sheet(
-      'https://docs.google.com/spreadsheets/' + 'd/1wLRmV2tVlS5PqjKFyiTA0HuoH8vp_h_DOmjciZAEG0U/edit?usp=sharing',
-    )
+    const sheet = new Sheet('https://docs.google.com/spreadsheets/d/sheetId/edit?usp=sharing')
 
-    expect(sheet.id).toEqual('1wLRmV2tVlS5PqjKFyiTA0HuoH8vp_h_DOmjciZAEG0U')
+    expect(sheet.id).toEqual('sheetId')
   })
 
   it('knows to find the sheet id from publicly shared URL having no extra path or query params', function () {
-    sheet = new Sheet('https://docs.google.com/spreadsheets/' + 'd/1wLRmV2tVlS5PqjKFyiTA0HuoH8vp_h_DOmjciZAEG0U')
+    const sheet = new Sheet('https://docs.google.com/spreadsheets/d/sheetId')
 
-    expect(sheet.id).toEqual('1wLRmV2tVlS5PqjKFyiTA0HuoH8vp_h_DOmjciZAEG0U')
+    expect(sheet.id).toEqual('sheetId')
   })
 
   it('knows to find the sheet id from publicly shared URL with trailing slash', function () {
-    sheet = new Sheet('https://docs.google.com/spreadsheets/' + 'd/1wLRmV2tVlS5PqjKFyiTA0HuoH8vp_h_DOmjciZAEG0U/')
+    const sheet = new Sheet('https://docs.google.com/spreadsheets/d/sheetId/')
 
-    expect(sheet.id).toEqual('1wLRmV2tVlS5PqjKFyiTA0HuoH8vp_h_DOmjciZAEG0U')
+    expect(sheet.id).toEqual('sheetId')
   })
 
   it('can identify a plain sheet ID', function () {
-    sheet = new Sheet('1wLRmV2tVlS5PqjKFyiTA0HuoH8vp_h_DOmjciZAEG0U')
+    const sheet = new Sheet('sheetId')
 
-    expect(sheet.id).toEqual('1wLRmV2tVlS5PqjKFyiTA0HuoH8vp_h_DOmjciZAEG0U')
+    expect(sheet.id).toEqual('sheetId')
   })
 
-  xit('calls back with nothing if the sheet exists', function () {
-    pending('need to be fix: XMLHttpRequest is not defined')
+  it('calls back with nothing if the sheet exists', () => {
+    const mockCallback = jest.fn()
+    const xhrMock = { open: jest.fn(), send: jest.fn(), readyState: 4, status: 200, response: 'response' }
+    jest.spyOn(window, 'XMLHttpRequest').mockImplementation(() => xhrMock)
 
-    sheet = new Sheet('http://example.com/a/b/c/d/?x=y')
-    sheet.exists(caller.callback)
+    const sheet = new Sheet('http://example.com/a/b/c/d/?x=y')
+    sheet.validate(mockCallback)
+    xhrMock.onreadystatechange(new Event(''))
 
-    expect(caller.callback).toHaveBeenCalledWith(undefined)
+    expect(xhrMock.open).toHaveBeenCalledTimes(1)
+    expect(xhrMock.open).toHaveBeenCalledWith(
+      'GET',
+      'https://docs.google.com/spreadsheets/d/http://example.com/a/b/c/d/?x=y',
+      true,
+    )
+    expect(xhrMock.send).toHaveBeenCalledTimes(1)
+    expect(xhrMock.send).toHaveBeenCalledWith(null)
+    expect(mockCallback).toHaveBeenCalledTimes(1)
+    expect(mockCallback).toHaveBeenCalledWith(null, 'API_KEY')
   })
 
-  xit('calls back with error if sheet the sheet does not exist', function () {
-    pending('need to be fix: XMLHttpRequest is not defined')
+  it('calls back with error if sheet does not exist', function () {
+    const mockCallback = jest.fn()
+    const xhrMock = { open: jest.fn(), send: jest.fn(), readyState: 4, status: 401, response: 'response' }
+    jest.spyOn(window, 'XMLHttpRequest').mockImplementation(() => xhrMock)
 
-    sheet = new Sheet('http://example.com/a/b/c/d/?x=y')
-    sheet.exists(caller.callback)
+    const sheet = new Sheet('http://example.com/a/b/c/d/?x=y')
+    sheet.validate(mockCallback)
+    xhrMock.onreadystatechange(new Event(''))
 
-    expect(caller.callback).toHaveBeenCalledWith('Some error')
+    expect(xhrMock.open).toHaveBeenCalledTimes(1)
+    expect(xhrMock.open).toHaveBeenCalledWith(
+      'GET',
+      'https://docs.google.com/spreadsheets/d/http://example.com/a/b/c/d/?x=y',
+      true,
+    )
+    expect(xhrMock.send).toHaveBeenCalledTimes(1)
+    expect(xhrMock.send).toHaveBeenCalledWith(null)
+    expect(mockCallback).toHaveBeenCalledTimes(1)
+    expect(mockCallback).toHaveBeenCalledWith({ message: 'UNAUTHORIZED' }, 'API_KEY')
+  })
+
+  it('should give the sheet not found error with new message', () => {
+    const errorMessage = 'Oops! We can’t find the Google Sheet you’ve entered, please check the URL of your sheet.'
+    const mockCallback = jest.fn()
+    const xhrMock = { open: jest.fn(), send: jest.fn(), readyState: 4, status: 404, response: 'response' }
+    jest.spyOn(window, 'XMLHttpRequest').mockImplementation(() => xhrMock)
+
+    const sheet = new Sheet('http://example.com/a/b/c/d/?x=y')
+    sheet.validate(mockCallback)
+    xhrMock.onreadystatechange(new Event(''))
+
+    expect(xhrMock.open).toHaveBeenCalledTimes(1)
+    expect(xhrMock.open).toHaveBeenCalledWith(
+      'GET',
+      'https://docs.google.com/spreadsheets/d/http://example.com/a/b/c/d/?x=y',
+      true,
+    )
+    expect(xhrMock.send).toHaveBeenCalledTimes(1)
+    expect(xhrMock.send).toHaveBeenCalledWith(null)
+    expect(mockCallback).toHaveBeenCalledTimes(1)
+    expect(mockCallback).toHaveBeenCalledWith({ message: errorMessage }, 'API_KEY')
+  })
+
+  it('should give the sheet not found error with old message', () => {
+    const errorMessage = 'Oops! We can’t find the Google Sheet you’ve entered. Can you check the URL?'
+    const mockCallback = jest.fn()
+    const xhrMock = { open: jest.fn(), send: jest.fn(), readyState: 4, status: 404, response: 'response' }
+    jest.spyOn(window, 'XMLHttpRequest').mockImplementation(() => xhrMock)
+    config.mockReturnValue({ featureToggles: { UIRefresh2022: false } })
+
+    const sheet = new Sheet('http://example.com/a/b/c/d/?x=y')
+    sheet.validate(mockCallback)
+    xhrMock.onreadystatechange(new Event(''))
+
+    expect(xhrMock.open).toHaveBeenCalledTimes(1)
+    expect(xhrMock.open).toHaveBeenCalledWith(
+      'GET',
+      'https://docs.google.com/spreadsheets/d/http://example.com/a/b/c/d/?x=y',
+      true,
+    )
+    expect(xhrMock.send).toHaveBeenCalledTimes(1)
+    expect(xhrMock.send).toHaveBeenCalledWith(null)
+    expect(mockCallback).toHaveBeenCalledTimes(1)
+    expect(mockCallback).toHaveBeenCalledWith({ message: errorMessage }, 'API_KEY')
   })
 })

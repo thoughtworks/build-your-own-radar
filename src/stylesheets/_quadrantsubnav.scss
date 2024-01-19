@@ -1,0 +1,168 @@
+@import 'colors';
+@import 'layout';
+
+@if $UIRefresh2022 {
+  .quadrant-subnav {
+    font-size: 1.125rem;
+    width: 100%;
+    background-color: $mist;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    min-height: $subnavHeight;
+
+    @include media-query-xlarge {
+      flex-direction: row;
+      justify-content: center;
+      height: $subnavHeight;
+      font-size: 1.25rem;
+    }
+
+    &.sticky {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 999;
+    }
+
+    &__dropdown {
+      height: fit-content;
+      min-height: $subnavHeight;
+      font-weight: 630;
+      display: inline-flex;
+      border-bottom: 1px solid $mist-s20;
+      align-items: center;
+      flex-direction: row;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+
+      &-arrow {
+        width: 8px;
+        height: 8px;
+        display: inline-flex;
+        rotate: 45deg;
+        border: 1px solid $flamingo;
+        border-width: 0 2px 2px 0;
+        margin-top: 0;
+        margin-bottom: 4px;
+        -webkit-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+
+        &.rotate {
+          rotate: -135deg;
+          margin-bottom: 0;
+          margin-top: 4px;
+        }
+      }
+
+      @include media-query-xlarge {
+        display: none;
+      }
+    }
+
+    &__list {
+      display: none;
+      width: 100%;
+
+      &.show {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      &-item {
+        width: 100%;
+        min-height: $subnavHeight;
+        display: inline-flex;
+        align-items: center;
+        border-bottom: 1px solid $mist-s20;
+        justify-content: center;
+        padding: 0;
+        height: 100%;
+        box-sizing: border-box;
+        font-size: 16px;
+
+        @include media-query-xlarge {
+          max-width: 20% !important;
+          &.active-item {
+            padding-top: 4px;
+            border-bottom: 4px solid transparent;
+            pointer-events: none;
+            font-weight: bold;
+            transition: font-weight 0.3s ease-in-out;
+
+            &:nth-child(1) {
+              border-color: $mist-s30;
+            }
+
+            &:nth-child(2) {
+              border-color: $sapphire;
+            }
+
+            &:nth-child(3) {
+              border-color: $turmeric;
+            }
+
+            &:nth-child(4) {
+              border-color: $jade;
+            }
+
+            &:nth-child(5) {
+              border-color: $flamingo;
+            }
+          }
+        }
+
+        &__button {
+          text-decoration: none;
+          border: none;
+          font: inherit;
+          cursor: pointer;
+          background-color: $mist;
+
+          @include media-query-xlarge {
+            padding: 15px 40px;
+            margin: 0 1px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+
+      @include media-query-xlarge {
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+
+        &.show {
+          flex-direction: row;
+        }
+
+        &-item {
+          width: unset;
+          min-height: unset;
+          border: none;
+
+          &:not(.active-item):hover {
+            color: $flamingo-s40;
+            text-decoration: underline;
+            text-underline-offset: 6px;
+
+            & > * {
+              color: $flamingo-s40;
+            }
+          }
+        }
+      }
+    }
+  }
+}

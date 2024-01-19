@@ -6,12 +6,6 @@ server {
     index index.html;
   }
 
-  # custom error page for 404 errors
-  error_page 404 /error.html;
-  location = /error.html {
-    root /opt/build-your-own-radar;
-  }
-
   # nginx default error page for 50x errors
   error_page 500 502 503 504 /50x.html;
   location = /50x.html {

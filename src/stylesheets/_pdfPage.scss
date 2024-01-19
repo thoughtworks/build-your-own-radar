@@ -1,0 +1,254 @@
+@import 'colors';
+
+@media print {
+  body {
+    margin: 0;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  @page {
+    margin: 20mm;
+  }
+
+  #pdf-cover-page {
+    .pdf-banner-image {
+      width: 100%;
+      height: 50%;
+    }
+
+    .pdf-title {
+      font-family: 'Bitter', serif;
+      font-size: 4rem;
+      margin: 24mm 12mm;
+      font-weight: bold;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      display: -webkit-inline-box;
+      line-height: 4.25rem;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      min-height: 200px;
+      width: calc(100% - 24mm);
+    }
+  }
+  .pdf-powered-by-text {
+    float: right;
+    margin-right: 12mm;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    .pdf-tw-logo {
+      height: 28px;
+    }
+  }
+
+  footer.home-page {
+    a {
+      color: black;
+    }
+
+    p {
+      margin: 0;
+      font-style: italic;
+      max-width: none;
+
+      &.agree-terms {
+        a:after {
+          content: ' <' attr(href) '> ';
+          font-weight: normal;
+          color: black;
+        }
+      }
+    }
+  }
+
+  .pdf-footer {
+    page-break-before: always;
+
+    .pdf-powered-by-text {
+      flex-direction: column;
+      align-items: flex-start;
+      float: left;
+      width: 100%;
+      margin-bottom: 1.5rem;
+      gap: 0;
+
+      .pdf-tw-logo {
+        margin: 2rem 0;
+      }
+
+      .pdf-footer-title {
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
+
+      a {
+        color: black;
+        font-size: 1.25rem;
+
+        &.radar-link {
+          font-style: italic;
+          margin-top: 0.5rem;
+        }
+      }
+    }
+  }
+
+  #radar {
+    display: block !important;
+    height: max-content !important;
+
+    &.no-blips .quadrant-table {
+      display: block !important;
+    }
+
+    .no-blip-text {
+      display: none !important;
+    }
+
+    a {
+      color: black;
+    }
+
+    a:after {
+      content: ' <' attr(href) '> ';
+      font-weight: normal;
+      color: black;
+    }
+  }
+
+  .quadrant-table__container {
+    width: 100%;
+    display: block;
+
+    .quadrant-table {
+      float: none !important;
+      page-break-before: always;
+      max-height: initial !important;
+      opacity: 1 !important;
+      position: static !important;
+      margin-bottom: 20px;
+
+      &__name {
+        font-size: 2rem;
+        font-weight: bold;
+        font-family: 'Bitter', serif;
+        margin-bottom: 2.5rem;
+        display: block !important;
+      }
+
+      &__ring-name {
+        margin-bottom: 2rem;
+      }
+
+      &.first .quadrant-table__name {
+        color: $sapphire;
+      }
+
+      &.second .quadrant-table__name {
+        color: $turmeric;
+      }
+
+      &.third .quadrant-table__name {
+        color: $jade;
+      }
+
+      &.fourth .quadrant-table__name {
+        color: $flamingo;
+      }
+
+      .blip-list__item {
+        pointer-events: none;
+      }
+
+      .blip-list__item-container {
+        background-color: white !important;
+
+        &__name {
+          border-bottom: none;
+          padding: 0 !important;
+
+          &-value {
+            font-weight: bold;
+            font-size: 1.25rem;
+          }
+
+          &-arrow {
+            display: none;
+          }
+        }
+
+        &__description {
+          display: block;
+        }
+      }
+
+      ul.blip-list {
+        list-style: none;
+        margin: 0 0 3rem;
+        padding: 0;
+
+        .blip-list__item-container__description {
+          padding-left: 0;
+          line-height: 1.5 !important;
+        }
+      }
+
+      & > ul.blip-list:last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+  }
+
+  .pdf-page-footer {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    color: $mist-s30;
+    justify-content: space-between;
+    width: 98%;
+  }
+
+  .input-sheet__logo,
+  .hero-banner,
+  main > *:not(#pdf-cover-page, #radar),
+  #radar > #radar-plot,
+  .radar-legends,
+  .ui-helper-hidden-accessible,
+  #onetrust-consent-sdk {
+    display: none !important;
+  }
+}
+
+@media print and (orientation: landscape) {
+  #pdf-cover-page {
+    .pdf-banner-image {
+      height: 310px;
+      object-fit: cover;
+    }
+
+    .pdf-title {
+      margin: 12mm 24mm 10mm;
+      width: calc(100% - 48mm);
+    }
+  }
+}
+
+@media print and (orientation: portrait) {
+  #pdf-cover-page {
+    .pdf-banner-image {
+      height: 50%;
+    }
+  }
+}
+
+@media screen {
+  .pdf-footer,
+  .pdf-page-footer,
+  #pdf-cover-page {
+    display: none !important;
+  }
+}
