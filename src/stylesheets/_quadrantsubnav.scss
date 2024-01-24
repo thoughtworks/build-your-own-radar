@@ -156,12 +156,12 @@
           border: none;
 
           &:not(.active-item):hover {
-            color: $flamingo-s40;
+            color: $white;
             text-decoration: underline;
             text-underline-offset: 6px;
 
             & > * {
-              color: $flamingo-s40;
+              color: $white;
             }
           }
         }

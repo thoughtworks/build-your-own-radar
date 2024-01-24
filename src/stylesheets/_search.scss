@@ -69,6 +69,7 @@
       background: #edf1f3 url(images/search-active-wave.svg) no-repeat 98% center;
       font-family: $baseFontFamily;
       scroll-margin-top: $subnavHeight;
+      border-radius: 10px;
 
       @include media-query-medium {
         height: 100%;
