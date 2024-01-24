@@ -14,7 +14,7 @@ describe('Blip', function () {
   })
 
   it('has a topic', function () {
-    blip = new Blip('My Blip', new Ring('My Ring'), true, 'topic', 'description')
+    blip = new Blip('My Blip', new Ring('My Ring'), true, null, 'topic', 'description')
 
     expect(blip.topic()).toEqual('topic')
   })
@@ -24,7 +24,7 @@ describe('Blip', function () {
   })
 
   it('has a description', function () {
-    blip = new Blip('My Blip', new Ring('My Ring'), true, 'topic', 'description')
+    blip = new Blip('My Blip', new Ring('My Ring'), true, null, 'topic', 'description')
 
     expect(blip.description()).toEqual('description')
   })
@@ -65,6 +65,30 @@ describe('Blip', function () {
     blip = new Blip('My Blip', new Ring('My Ring'), false)
 
     expect(blip.isNew()).toBe(false)
+  })
+
+  it('status is new', function () {
+    blip = new Blip('My Blip', new Ring('My Ring'), null, 'new')
+
+    expect(blip.isNew()).toBe(true)
+  })
+
+  it('status has moved in', function () {
+    blip = new Blip('My Blip', new Ring('My Ring'), null, 'Moved In')
+
+    expect(blip.hasMovedIn()).toBe(true)
+  })
+
+  it('status has moved out', function () {
+    blip = new Blip('My Blip', new Ring('My Ring'), null, 'Moved Out')
+
+    expect(blip.hasMovedOut()).toBe(true)
+  })
+
+  it('status has no change', function () {
+    blip = new Blip('My Blip', new Ring('My Ring'), null, 'No Change')
+
+    expect(blip.hasNoChange()).toBe(true)
   })
 
   it('has false as default value for isGroup', function () {
