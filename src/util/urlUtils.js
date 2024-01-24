@@ -24,8 +24,26 @@ function getSheetName() {
   return queryParams.sheetName
 }
 
+function getBlipIdFromUrl() {
+  const queryParams = QueryParams(window.location.search.substring(1))
+  const blipQueryString = queryParams.blipId
+
+  const blipId = parseInt(blipQueryString)
+
+  return isNaN(blipId) ? null : blipId
+}
+
+function getQuadrantFromURL() {
+  const queryParams = QueryParams(window.location.search.substring(1))
+  const quadrantQueryString = queryParams.quadrant
+
+  return quadrantQueryString?.toLowerCase() ?? 'all'
+}
+
 module.exports = {
   constructSheetUrl,
   getDocumentOrSheetId,
   getSheetName,
+  getBlipIdFromUrl,
+  getQuadrantFromURL,
 }
