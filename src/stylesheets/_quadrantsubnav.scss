@@ -3,9 +3,10 @@
 
 @if $UIRefresh2022 {
   .quadrant-subnav {
+    color: white;
     font-size: 1.125rem;
     width: 100%;
-    background-color: $mist;
+    background-color: $subcolour-3;
     display: flex;
     flex-direction: column;
     height: fit-content;
@@ -42,7 +43,7 @@
         height: 8px;
         display: inline-flex;
         rotate: 45deg;
-        border: 1px solid $flamingo;
+        border: 1px solid $highlight-1;
         border-width: 0 2px 2px 0;
         margin-top: 0;
         margin-bottom: 4px;
@@ -118,11 +119,12 @@
         }
 
         &__button {
+          color: white;
           text-decoration: none;
           border: none;
           font: inherit;
           cursor: pointer;
-          background-color: $mist;
+          background-color: $subcolour-3;
 
           @include media-query-xlarge {
             padding: 15px 40px;
@@ -135,6 +137,7 @@
       }
 
       @include media-query-xlarge {
+        
         height: 100%;
         display: flex;
         flex-direction: row;

@@ -369,7 +369,7 @@ const Factory = function () {
 }
 
 function setDocumentTitle() {
-  document.title = 'Build your own Radar'
+  document.title = 'Hippo Capability Radar'
 }
 
 function plotLoading(content) {

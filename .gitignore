@@ -21,3 +21,5 @@ cypress/
 .talismanrc
 
 .vscode/
+
+.env
