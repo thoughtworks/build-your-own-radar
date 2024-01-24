@@ -12,6 +12,8 @@ const env = args.envFile
 if (env) {
   // Load env file
   require('dotenv').config({ path: env })
+} else {
+  require('dotenv').config()
 }
 
 const common = ['./src/common.js']
