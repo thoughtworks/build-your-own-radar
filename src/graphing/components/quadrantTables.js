@@ -115,31 +115,7 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
       e.stopPropagation()
     }
 
-    const blipId = d3.select(targetElement).attr('data-blip-id')
-    highlightBlipInGraph(blipId)
-
-    d3.selectAll('.blip-list__item-container.expand').classed('expand', false)
-
-    let selectedBlipContainer = d3.select(`.blip-list__item-container[data-blip-id="${blipId}"`)
-    selectedBlipContainer.classed('expand', true)
-
-    setTimeout(
-      () => {
-        if (window.innerWidth >= uiConfig.tabletViewWidth) {
-          stickQuadrantOnScroll()
-        }
-
-        const isGroupBlip = isNaN(parseInt(blipId))
-        if (isGroupBlip) {
-          selectedBlipContainer = d3.select(`.blip-list__item-container[data-group-id="${blipId}"`)
-        }
-        const elementToFocus = selectedBlipContainer.select('button.blip-list__item-container__name')
-        elementToFocus.node()?.scrollIntoView({
-          behavior: 'smooth',
-        })
-      },
-      isQuadrantView ? 0 : 1500,
-    )
+    return performBlipClick(targetElement)
   }
 
   !groupBlipTooltipText &&
@@ -204,7 +180,38 @@ function renderQuadrantTables(quadrants, rings) {
   })
 }
 
+function performBlipClick(targetElement) {
+  const isQuadrantView = d3.select('svg#radar-plot').classed('quadrant-view')
+
+  const blipId = d3.select(targetElement).attr('data-blip-id')
+  highlightBlipInGraph(blipId)
+
+  d3.selectAll('.blip-list__item-container.expand').classed('expand', false)
+
+  let selectedBlipContainer = d3.select(`.blip-list__item-container[data-blip-id="${blipId}"`)
+  selectedBlipContainer.classed('expand', true)
+
+  setTimeout(
+    () => {
+      if (window.innerWidth >= uiConfig.tabletViewWidth) {
+        stickQuadrantOnScroll()
+      }
+
+      const isGroupBlip = isNaN(parseInt(blipId))
+      if (isGroupBlip) {
+        selectedBlipContainer = d3.select(`.blip-list__item-container[data-group-id="${blipId}"`)
+      }
+      const elementToFocus = selectedBlipContainer.select('button.blip-list__item-container__name')
+      elementToFocus.node()?.scrollIntoView({
+        behavior: 'smooth',
+      })
+    },
+    isQuadrantView ? 0 : 1500,
+  )
+}
+
 module.exports = {
   renderQuadrantTables,
   renderBlipDescription,
+  performBlipClick,
 }

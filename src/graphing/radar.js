@@ -20,11 +20,12 @@ const {
   renderMobileView,
   renderRadarLegends,
   removeScrollListener,
+  selectRadarQuadrant,
 } = require('./components/quadrants')
-const { renderQuadrantTables } = require('./components/quadrantTables')
+const { renderQuadrantTables, performBlipClick } = require('./components/quadrantTables')
 const { addQuadrantNameInPdfView, addRadarLinkInPdfView } = require('./pdfPage')
 
-const { constructSheetUrl } = require('../util/urlUtils')
+const { constructSheetUrl, getBlipIdFromUrl, getQuadrantFromURL } = require('../util/urlUtils')
 const { toRadian } = require('../util/mathUtils')
 
 const MIN_BLIP_WIDTH = 12
@@ -832,9 +833,46 @@ const Radar = function (size, radar) {
       hideTooltipOnScroll(tip)
       addRadarLinkInPdfView()
     }
+
+    renderDeepLinkViewIfPresent(quadrants)
   }
 
   return self
+}
+
+function renderDeepLinkViewIfPresent(quadrants) {
+  let quadrant
+
+  // Deep link by blip id
+  const blipIdToShow = getBlipIdFromUrl()
+  if (blipIdToShow) {
+    for (const q of quadrants) {
+      for (const b of q.quadrant.blips()) {
+        if (b.id() === blipIdToShow) {
+          quadrant = q
+        }
+      }
+    }
+  }
+
+  // Deep link by quadrant order
+  const quadrantToShow = getQuadrantFromURL()
+  if (quadrantToShow && !blipIdToShow) {
+    for (const q of quadrants) {
+      if (q.order === quadrantToShow) {
+        quadrant = q
+      }
+    }
+  }
+
+  if (quadrant) {
+    selectRadarQuadrant(quadrant.order, quadrant.startAngle, quadrant.quadrant.name())
+
+    if (blipIdToShow) {
+      const blipLink = document.getElementById(`blip-link-${blipIdToShow}`)
+      performBlipClick(blipLink)
+    }
+  }
 }
 
 module.exports = Radar
