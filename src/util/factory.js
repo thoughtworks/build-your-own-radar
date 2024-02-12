@@ -53,7 +53,14 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
       quadrants[blip.quadrant] = new Quadrant(blip.quadrant[0].toUpperCase() + blip.quadrant.slice(1))
     }
     quadrants[blip.quadrant].add(
-      new Blip(blip.name, ringMap[blip.ring], blip.isNew.toLowerCase() === 'true', blip.topic, blip.description),
+      new Blip(
+        blip.name,
+        ringMap[blip.ring],
+        blip.isNew.toLowerCase() === 'true',
+        blip.status,
+        blip.topic,
+        blip.description,
+      ),
     )
   })
 
@@ -110,6 +117,7 @@ const plotRadarGraph = function (title, blips, currentRadarName, alternativeRada
         blip.name,
         ringMap[ring],
         blip.isNew.toLowerCase() === 'true',
+        blip.status,
         blip.topic,
         blip.description,
       )

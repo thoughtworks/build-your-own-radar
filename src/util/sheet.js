@@ -66,7 +66,7 @@ const Sheet = function (sheetReference) {
     const sheetNames = self.sheetResponse.result.sheets.map((s) => s.properties.title)
     sheetName = !sheetName ? sheetNames[0] : sheetName
     self
-      .getData(sheetName + '!A1:E')
+      .getData(sheetName + '!A1:F')
       .then((r) => createBlips(self.sheetResponse.result.properties.title, r.result.values, sheetNames))
       .catch(handleError)
   }

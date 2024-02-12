@@ -187,10 +187,87 @@ describe('Blips', function () {
       blipText: () => '12 New Blips',
       name: 'blip1',
       isNew: () => true,
+      status: () => null,
     }
 
     const actual = blipAssistiveText(blip)
     expect(actual).toEqual('`ring1 ring, group of 12 New Blips')
+  })
+
+  it('should return correct assistive text for new blip', function () {
+    const blip = {
+      isGroup: () => false,
+      ring: () => {
+        return {
+          name: () => 'ring1',
+        }
+      },
+      blipText: () => '12 New Blips',
+      name: () => 'blip1',
+      isNew: () => true,
+      hasMovedIn: () => false,
+      hasMovedOut: () => false,
+    }
+
+    const actual = blipAssistiveText(blip)
+    expect(actual).toEqual('ring1 ring, blip1, new blip.')
+  })
+
+  it('should return correct assistive text for existing blip', function () {
+    const blip = {
+      isGroup: () => false,
+      ring: () => {
+        return {
+          name: () => 'ring1',
+        }
+      },
+      blipText: () => '12 New Blips',
+      name: () => 'blip1',
+      isNew: () => false,
+      hasMovedIn: () => false,
+      hasMovedOut: () => false,
+    }
+
+    const actual = blipAssistiveText(blip)
+    expect(actual).toEqual('ring1 ring, blip1, existing blip.')
+  })
+
+  it('should return correct assistive text for moved in blip', function () {
+    const blip = {
+      isGroup: () => false,
+      ring: () => {
+        return {
+          name: () => 'ring1',
+        }
+      },
+      blipText: () => '12 New Blips',
+      name: () => 'blip1',
+      isNew: () => false,
+      hasMovedIn: () => true,
+      hasMovedOut: () => false,
+    }
+
+    const actual = blipAssistiveText(blip)
+    expect(actual).toEqual('ring1 ring, blip1, moved in blip.')
+  })
+
+  it('should return correct assistive text for moved out blip', function () {
+    const blip = {
+      isGroup: () => false,
+      ring: () => {
+        return {
+          name: () => 'ring1',
+        }
+      },
+      blipText: () => '12 New Blips',
+      name: () => 'blip1',
+      isNew: () => false,
+      hasMovedIn: () => false,
+      hasMovedOut: () => true,
+    }
+
+    const actual = blipAssistiveText(blip)
+    expect(actual).toEqual('ring1 ring, blip1, moved out blip.')
   })
 
   it('should return group blip with appropriate values', function () {
