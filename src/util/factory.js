@@ -84,7 +84,10 @@ function validateInputQuadrantOrRingName(allQuadrantsOrRings, quadrantOrRing) {
   const quadrantOrRingNames = Object.keys(allQuadrantsOrRings)
   const regexToFixLanguagesAndFrameworks = /(-|\s+)(and)(-|\s+)|\s*(&)\s*/g
   const formattedInputQuadrant = quadrantOrRing.toLowerCase().replace(regexToFixLanguagesAndFrameworks, ' & ')
-  return quadrantOrRingNames.find((quadrantOrRing) => quadrantOrRing.toLowerCase() === formattedInputQuadrant)
+  return quadrantOrRingNames.find(
+    (quadrantOrRing) =>
+      quadrantOrRing.toLowerCase().replace(regexToFixLanguagesAndFrameworks, ' & ') === formattedInputQuadrant,
+  )
 }
 
 const plotRadarGraph = function (title, blips, currentRadarName, alternativeRadars) {
