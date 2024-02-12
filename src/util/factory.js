@@ -5,6 +5,7 @@ const _ = {
   map: require('lodash/map'),
   uniqBy: require('lodash/uniqBy'),
   each: require('lodash/each'),
+  orderBy: require('lodash/orderBy'),
 }
 
 const InputSanitizer = require('./inputSanitizer')
@@ -101,6 +102,9 @@ const plotRadarGraph = function (title, blips, currentRadarName, alternativeRada
     allQuadrants[quadrant] = new Quadrant(quadrant)
     return allQuadrants
   }, {})
+
+  // Sort blips by quadrant, ring, and name
+  blips = sortBlipsAlphabetically(blips)
 
   blips.forEach((blip) => {
     const currentQuadrant = validateInputQuadrantOrRingName(quadrants, blip.quadrant)
@@ -550,6 +554,10 @@ function plotUnauthorizedErrorMessage() {
       }
     })
   })
+}
+
+function sortBlipsAlphabetically(blips) {
+  return _.orderBy(blips, [(blip) => blip.quadrant, (blip) => blip.ring, (blip) => blip.name.toLowerCase()])
 }
 
 module.exports = Factory
