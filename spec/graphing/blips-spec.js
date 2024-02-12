@@ -7,6 +7,7 @@ const {
   blipAssistiveText,
   createGroupBlip,
   thereIsCollision,
+  sortBlipCoordinates,
 } = require('../../src/graphing/blips')
 const Chance = require('chance')
 const { graphConfig } = require('../../src/graphing/config')
@@ -208,5 +209,34 @@ describe('Blips', function () {
     expect(thereIsCollision([10, 10], existingCoords, 22)).toBe(true)
     expect(thereIsCollision([41, 41], existingCoords, 22)).toBe(true)
     expect(thereIsCollision([42, 42], existingCoords, 22)).toBe(false)
+  })
+
+  it('should sort blips coordinates', function () {
+    const existingCoords = [
+      { coordinates: [500, 400], width: 22 },
+      { coordinates: [200, 200], width: 22 },
+      { coordinates: [40, 40], width: 22 },
+    ]
+
+    expect(sortBlipCoordinates(existingCoords, 'first')).toEqual([
+      { coordinates: [200, 200], width: 22 },
+      { coordinates: [40, 40], width: 22 },
+      { coordinates: [500, 400], width: 22 },
+    ])
+    expect(sortBlipCoordinates(existingCoords, 'third')).toEqual([
+      { coordinates: [200, 200], width: 22 },
+      { coordinates: [40, 40], width: 22 },
+      { coordinates: [500, 400], width: 22 },
+    ])
+    expect(sortBlipCoordinates(existingCoords, 'second')).toEqual([
+      { coordinates: [500, 400], width: 22 },
+      { coordinates: [200, 200], width: 22 },
+      { coordinates: [40, 40], width: 22 },
+    ])
+    expect(sortBlipCoordinates(existingCoords, 'fourth')).toEqual([
+      { coordinates: [500, 400], width: 22 },
+      { coordinates: [200, 200], width: 22 },
+      { coordinates: [40, 40], width: 22 },
+    ])
   })
 })

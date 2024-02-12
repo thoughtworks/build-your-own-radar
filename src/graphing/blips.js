@@ -7,6 +7,9 @@ const isEmpty = require('lodash/isEmpty')
 const { replaceSpaceWithHyphens, removeAllSpaces } = require('../util/stringUtil')
 const config = require('../config')
 const featureToggles = config().featureToggles
+const _ = {
+  sortBy: require('lodash/sortBy'),
+}
 
 const getRingRadius = function (ringIndex) {
   const ratios = [0, 0.316, 0.652, 0.832, 0.992]
@@ -295,13 +298,14 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
     const offset = 10
     const minRadius = getRingRadius(i) + offset
     const maxRadius = getRingRadius(i + 1) - offset
-    const allBlipCoordsInRing = []
+    let allBlipCoordsInRing = []
 
     if (ringBlips.length > graphConfig.maxBlipsInRings[i]) {
       plotGroupBlips(ringBlips, ring, quadrantOrder, parentElement, quadrantWrapper, tooltip)
       return
     }
 
+    // Calculate coordinates for blips
     ringBlips.forEach(function (blip) {
       const coordinates = findBlipCoordinates(
         blip,
@@ -312,10 +316,33 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
         quadrantOrder,
       )
       allBlipCoordsInRing.push({ coordinates, width: blip.width })
-      drawBlipInCoordinates(blip, coordinates, quadrantOrder, parentElement)
-      renderBlipDescription(blip, ring, quadrantWrapper, tooltip)
+    })
+
+    // Sort the coordinates
+    allBlipCoordsInRing = sortBlipCoordinates(allBlipCoordsInRing, quadrantOrder)
+
+    // Draw blips using sorted coordinates
+    allBlipCoordsInRing.forEach(function (blipCoords, i) {
+      drawBlipInCoordinates(ringBlips[i], blipCoords.coordinates, quadrantOrder, parentElement)
+      renderBlipDescription(ringBlips[i], ring, quadrantWrapper, tooltip)
     })
   })
+}
+
+const sortBlipCoordinates = function (blipCoordinates, quadrantOrder) {
+  return _.sortBy(blipCoordinates, (coord) => calculateAngleFromAxis(coord, quadrantOrder))
+}
+
+const calculateAngleFromAxis = function (position, quadrantOrder) {
+  const [x, y] = position.coordinates
+
+  const transposedX = x - graphConfig.effectiveQuadrantWidth
+  const transposedY = y - graphConfig.effectiveQuadrantHeight
+
+  if (quadrantOrder === 'first' || quadrantOrder === 'third') {
+    return Math.atan2(transposedY, transposedX)
+  }
+  return Math.atan2(transposedX, transposedY)
 }
 
 module.exports = {
@@ -328,4 +355,5 @@ module.exports = {
   blipAssistiveText,
   createGroupBlip,
   thereIsCollision,
+  sortBlipCoordinates,
 }
