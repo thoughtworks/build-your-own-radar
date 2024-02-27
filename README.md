@@ -108,6 +108,52 @@ If you do not want to host the JSON file publicly, you can follow [these steps](
 
 **_Note:_** The JSON file parsing is using D3 library, so consult the [D3 documentation](https://github.com/d3/d3-request/blob/master/README.md#json) for the data format details.
 
+#### Multiple alternative radars in JSON
+
+Just like with Google Spreadsheets, you can provide multiple alternative radars in the same JSON file by returning an object instead of an array.
+The keys of the object will be the names of the alternative radars, and show up as buttons at the bottom of the radar, allowing the user to choose which radar to view:
+
+![Alternative Radar buttons shown on the radar](assets/alternative_radars-min.png)
+
+The above example of a JSON structure, split into two different radars would look like this:
+
+```json
+{
+  "First": [
+    {
+      "name": "Composer",
+      "ring": "adopt",
+      "quadrant": "tools",
+      "isNew": "TRUE",
+      "description": "Although the idea of dependency..."
+    },
+    {
+      "name": "Canary builds",
+      "ring": "trial",
+      "quadrant": "techniques",
+      "isNew": "FALSE",
+      "description": "Many projects have external code..."
+    }
+  ],
+  "Second": [
+    {
+      "name": "Apache Kylin",
+      "ring": "assess",
+      "quadrant": "platforms",
+      "isNew": "TRUE",
+      "description": "Apache Kylin is an open source..."
+    },
+    {
+      "name": "JSF",
+      "ring": "hold",
+      "quadrant": "languages & frameworks",
+      "isNew": "FALSE",
+      "description": "We continue to see teams run..."
+    }
+  ]
+}
+```
+
 ### Building the radar
 
 Paste the URL in the input field on the home page.
