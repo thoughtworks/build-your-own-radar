@@ -16,6 +16,11 @@ class ByorPage {
     cy.get(this.textBox).type(config.JSON_FILE_URL)
   }
 
+  provideMultiJsonName() {
+    cy.get(this.textBox).clear()
+    cy.get(this.textBox).type(config.JSON_MULTI_RADAR_FILE_URL)
+  }
+
   providePublicSheetUrl() {
     cy.get(this.textBox).clear()
     cy.get(this.textBox).type(config.PUBLIC_GOOGLE_SHEET_URL)
