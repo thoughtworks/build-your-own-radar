@@ -62,7 +62,7 @@
     "jquery": "^3.7.1",
     "jquery-ui": "^1.13.2",
     "lodash": "^4.17.21",
-    "sanitize-html": "^2.11.0"
+    "sanitize-html": "^2.12.1"
   },
   "standard": {
     "globals": [
