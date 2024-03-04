@@ -240,7 +240,7 @@ const CSVDocument = function (url) {
   return self
 }
 
-const JSONFile = function (url) {
+const JSONFile = function (url, radarName) {
   var self = {}
 
   self.build = function () {
@@ -252,16 +252,41 @@ const JSONFile = function (url) {
       })
   }
 
+  var sheetName = radarName
   var createBlips = function (data) {
+    var radarName = sheetName
     try {
-      var columnNames = Object.keys(data[0])
+      var source
+      var alternativeRadars = []
+
+      // If the JSON is an object, but not an array it might contain
+      // multiple sheets of arrays, so we treat it as such
+      if (typeof data === 'object' && !Array.isArray(data)) {
+        alternativeRadars = Object.keys(data)
+
+        if (!radarName || radarName == 'JSON File') {
+          radarName = alternativeRadars[0]
+        }
+
+        source = data[radarName]
+      } else {
+        source = data
+      }
+
+      var columnNames = Object.keys(source[0])
       var contentValidator = new ContentValidator(columnNames)
       contentValidator.verifyContent()
       contentValidator.verifyHeaders()
-      var blips = _.map(data, new InputSanitizer().sanitize)
+      var blips = _.map(source, new InputSanitizer().sanitize)
+
+      var title = FileName(url)
+      if (radarName) {
+        title = title.substring(0, title.length - 5) + ' - ' + radarName
+      }
+
       featureToggles.UIRefresh2022
-        ? plotRadarGraph(FileName(url), blips, 'JSON File', [])
-        : plotRadar(FileName(url), blips, 'JSON File', [])
+        ? plotRadarGraph(title, blips, radarName, alternativeRadars)
+        : plotRadar(title, blips, radarName, alternativeRadars)
     } catch (exception) {
       const invalidContentError = new InvalidContentError(ExceptionMessages.INVALID_JSON_CONTENT)
       plotErrorMessage(featureToggles.UIRefresh2022 ? invalidContentError : exception, 'json')
@@ -319,14 +344,14 @@ const Factory = function () {
     const domainName = DomainName(window.location.search.substring(1))
 
     const paramId = getDocumentOrSheetId()
+    const sheetName = getSheetName()
     if (paramId && paramId.endsWith('.csv')) {
       sheet = CSVDocument(paramId)
       sheet.init().build()
     } else if (paramId && paramId.endsWith('.json')) {
-      sheet = JSONFile(paramId)
+      sheet = JSONFile(paramId, sheetName)
       sheet.init().build()
     } else if (domainName && domainName.endsWith('google.com') && paramId) {
-      const sheetName = getSheetName()
       sheet = GoogleSheet(paramId, sheetName)
       sheet.init().build()
     } else {
