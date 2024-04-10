@@ -56,37 +56,37 @@ describe('Blip', function () {
   })
 
   it('is new', function () {
-    blip = new Blip('My Blip', new Ring('My Ring'), true)
+    blip = new Blip('My Blip', new Ring('My Ring'), true, null, 'My Topic', 'My Description')
 
     expect(blip.isNew()).toBe(true)
   })
 
   it('is not new', function () {
-    blip = new Blip('My Blip', new Ring('My Ring'), false)
+    blip = new Blip('My Blip', new Ring('My Ring'), false, null, 'My Topic', 'My Description')
 
     expect(blip.isNew()).toBe(false)
   })
 
   it('status is new', function () {
-    blip = new Blip('My Blip', new Ring('My Ring'), null, 'new')
+    blip = new Blip('My Blip', new Ring('My Ring'), null, 'new', 'My Topic', 'My Description')
 
     expect(blip.isNew()).toBe(true)
   })
 
   it('status has moved in', function () {
-    blip = new Blip('My Blip', new Ring('My Ring'), null, 'Moved In')
+    blip = new Blip('My Blip', new Ring('My Ring'), null, 'Moved In', 'My Topic', 'My Description')
 
     expect(blip.hasMovedIn()).toBe(true)
   })
 
   it('status has moved out', function () {
-    blip = new Blip('My Blip', new Ring('My Ring'), null, 'Moved Out')
+    blip = new Blip('My Blip', new Ring('My Ring'), null, 'Moved Out', 'My Topic', 'My Description')
 
     expect(blip.hasMovedOut()).toBe(true)
   })
 
   it('status has no change', function () {
-    blip = new Blip('My Blip', new Ring('My Ring'), null, 'No Change')
+    blip = new Blip('My Blip', new Ring('My Ring'), null, 'No Change', 'My Topic', 'My Description')
 
     expect(blip.hasNoChange()).toBe(true)
   })
