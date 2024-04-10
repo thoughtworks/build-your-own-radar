@@ -49,7 +49,7 @@ const Blip = function (name, ring, isNew, status, topic, description) {
   }
 
   self.status = function () {
-    return status.toLowerCase() || ''
+    return status.toLowerCase() || 'New'
   }
 
   self.isGroup = function () {
