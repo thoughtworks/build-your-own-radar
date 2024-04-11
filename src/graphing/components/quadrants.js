@@ -19,6 +19,20 @@ let prevLeft, prevTop
 let quadrantScrollHandlerReference
 let scrollFlag = false
 
+const createElement = (tagName, text, attributes) => {
+  const tag = document.createElement(tagName)
+  Object.keys(attributes).forEach((keyName) => {
+    tag.setAttribute(keyName, attributes[keyName])
+  })
+  tag.appendChild(document.createTextNode(text))
+  return tag
+}
+
+const replaceChild = (element, child) => {
+  element.textContent = ''
+  element.appendChild(child)
+}
+
 function selectRadarQuadrant(order, startAngle, name) {
   const noOfBlips = d3.selectAll('.quadrant-group-' + order + ' .blip-link').size()
   d3.select('#radar').classed('no-blips', noOfBlips === 0)
@@ -199,19 +213,19 @@ function wrapQuadrantNameInMultiLine(elem, isTopQuadrants, quadrantNameGroup, ti
   const words = text.split(' ')
   let line = ''
 
-  element.innerHTML = `<tspan id="text-width-check">${text}</tspan >`
+  replaceChild(element, createElement('tspan', text, { id: 'text-width-check' }))
   const testElem = document.getElementById('text-width-check')
 
   function maxCharactersToFit(testLine, suffix) {
     let j = 1
     let firstLineWidth = 0
     const testElem1 = document.getElementById('text-width-check')
-    testElem1.innerHTML = testLine
+    testElem1.textContent = testLine
     if (testElem1.getBoundingClientRect().width < maxWidth) {
       return testLine.length
     }
     while (firstLineWidth < maxWidth && testLine.length > j) {
-      testElem1.innerHTML = testLine.substring(0, j) + suffix
+      testElem1.textContent = testLine.substring(0, j) + suffix
       firstLineWidth = testElem1.getBoundingClientRect().width
 
       j++
@@ -232,34 +246,25 @@ function wrapQuadrantNameInMultiLine(elem, isTopQuadrants, quadrantNameGroup, ti
   if (testElem.getBoundingClientRect().width > maxWidth) {
     for (let i = 0; i < words.length; i++) {
       let testLine = line + words[i] + ' '
-      testElem.innerHTML = testLine
+      testElem.textContent = testLine
       const textWidth = testElem.getBoundingClientRect().width
 
       if (textWidth > maxWidth) {
         if (i === 0) {
           let lineBreakIndex = maxCharactersToFit(testLine, '-')
-          element.innerHTML += '<tspan x="0" dy="' + dy + '">' + words[i].substring(0, lineBreakIndex) + '-</tspan>'
+          const elementText = `${words[i].substring(0, lineBreakIndex)}-`
+          element.appendChild(createElement('tspan', elementText, { x: '0', dy }))
           const secondLine = words[i].substring(lineBreakIndex, words[i].length) + ' ' + words.slice(i + 1).join(' ')
           lineBreakIndex = maxCharactersToFit(secondLine, '...')
-          element.innerHTML +=
-            '<tspan x="0" dy="' +
-            20 +
-            '">' +
-            secondLine.substring(0, lineBreakIndex) +
-            ellipsis(lineBreakIndex, secondLine) +
-            '</tspan>'
+          const text = `${secondLine.substring(0, lineBreakIndex)}${ellipsis(lineBreakIndex, secondLine)}`
+          element.appendChild(createElement('tspan', text, { x: '0', dy: '20' }))
           break
         } else {
-          element.innerHTML += '<tspan x="0" dy="' + dy + '">' + line + '</tspan>'
+          element.appendChild(createElement('tspan', line, { x: '0', dy }))
           const secondLine = words.slice(i).join(' ')
           const lineBreakIndex = maxCharactersToFit(secondLine, '...')
-          element.innerHTML +=
-            '<tspan x="0" dy="' +
-            20 +
-            '">' +
-            secondLine.substring(0, lineBreakIndex) +
-            ellipsis(lineBreakIndex, secondLine) +
-            '</tspan>'
+          const text = `${secondLine.substring(0, lineBreakIndex)}${ellipsis(lineBreakIndex, secondLine)}`
+          element.appendChild(createElement('tspan', text, { x: '0', dy: '20' }))
         }
         line = words[i] + ' '
       } else {
@@ -267,7 +272,7 @@ function wrapQuadrantNameInMultiLine(elem, isTopQuadrants, quadrantNameGroup, ti
       }
     }
   } else {
-    element.innerHTML += '<tspan x="0">' + text + '</tspan>'
+    element.appendChild(createElement('tspan', text, { x: '0' }))
   }
 
   document.getElementById('text-width-check').remove()

@@ -8,10 +8,6 @@
 
 A library that generates an interactive radar, inspired by [thoughtworks.com/radar](http://thoughtworks.com/radar).
 
-## Technology Radar Survey
-
-Take our short survey to help make the Technology Radar even better: https://www.thoughtworks.com/radar/survey.
-
 ## Demo
 
 You can see this in action at https://radar.thoughtworks.com. If you plug in [this data](https://docs.google.com/spreadsheets/d/1GBX3-jzlGkiKpYHF9RvVtu6GxSrco5OYTBv9YsOTXVg/edit#gid=0) you'll see [this visualization](https://radar.thoughtworks.com/?sheetId=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1GBX3-jzlGkiKpYHF9RvVtu6GxSrco5OYTBv9YsOTXVg%2Fedit%23gid%3D0).
@@ -137,6 +133,8 @@ Google OAuth Client ID and API Key can be obtained from your Google Developer Co
 export CLIENT_ID=[Google Client ID]
 ```
 
+**_Note:_** Make sure to set the "Authorized JavaScript origins" field for the Client ID to the right origin domain, with port, where the app is hosted. Examples: `http://localhost:8080` or `https://radar.thoughtworks.com`.
+
 Optionally, API Key can be set to bypass Google Authentication for public sheets.
 
 ```
@@ -222,16 +220,19 @@ To run End to End tests, start the dev server and follow the required steps belo
 
 - To run in headless mode:
 
-  - add a new environment variable `TEST_URL` and set it to 'http://localhost:8080/'
+  - add a new environment variable `TEST_URL` and set it to 'http://localhost:8080'
   - `npm run test:e2e-headless`
 
 - To run in debug mode:
-  - add a new environment variable `TEST_URL` and set it to 'http://localhost:8080/'
+  - add a new environment variable `TEST_URL` and set it to 'http://localhost:8080'
   - `npm run e2e`
   - Select 'E2E Testing' and choose the browser
   - Click on the spec to run it's tests
 
-**_Note:_** Currently, end to end tests are not supported for private Google Sheets, as it requires interacting with the Google One Tap popup.
+**_Notes:_**
+
+- Currently, end to end tests are not supported for private Google Sheets, as it requires interacting with the Google One Tap popup.
+- To run end to end tests for public Google Sheets, the `CLIENT_ID` and `API_KEY` environment variables need to set as well (steps details [here](#more-complex-usage)), to provide Cypress with an authenticated session (without having to interact with Google's auth popups).
 
 ### Don't want to install node? Run with one line docker
 

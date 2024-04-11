@@ -14,7 +14,6 @@ const Quadrant = require('../models/quadrant')
 const Ring = require('../models/ring')
 const Blip = require('../models/blip')
 const GraphingRadar = require('../graphing/radar')
-const QueryParams = require('./queryParamProcessor')
 const MalformedDataError = require('../exceptions/malformedDataError')
 const SheetNotFoundError = require('../exceptions/sheetNotFoundError')
 const ContentValidator = require('./contentValidator')
@@ -23,6 +22,7 @@ const ExceptionMessages = require('./exceptionMessages')
 const GoogleAuth = require('./googleAuth')
 const config = require('../config')
 const featureToggles = config().featureToggles
+const { getDocumentOrSheetId, getSheetName } = require('./urlUtils')
 const { getGraphSize, graphConfig, isValidConfig } = require('../graphing/config')
 const InvalidConfigError = require('../exceptions/invalidConfigError')
 const InvalidContentError = require('../exceptions/invalidContentError')
@@ -321,12 +321,8 @@ const Factory = function () {
     })
 
     const domainName = DomainName(window.location.search.substring(1))
-    const queryString = featureToggles.UIRefresh2022
-      ? window.location.href.match(/documentId(.*)/)
-      : window.location.href.match(/sheetId(.*)/)
-    const queryParams = queryString ? QueryParams(queryString[0]) : {}
 
-    const paramId = featureToggles.UIRefresh2022 ? queryParams.documentId : queryParams.sheetId
+    const paramId = getDocumentOrSheetId()
     if (paramId && paramId.endsWith('.csv')) {
       sheet = CSVDocument(paramId)
       sheet.init().build()
@@ -334,7 +330,8 @@ const Factory = function () {
       sheet = JSONFile(paramId)
       sheet.init().build()
     } else if (domainName && domainName.endsWith('google.com') && paramId) {
-      sheet = GoogleSheet(paramId, queryParams.sheetName)
+      const sheetName = getSheetName()
+      sheet = GoogleSheet(paramId, sheetName)
       sheet.init().build()
     } else {
       if (!featureToggles.UIRefresh2022) {
@@ -544,15 +541,8 @@ function plotUnauthorizedErrorMessage() {
 
   button.on('click', () => {
     let sheet
-    if (featureToggles.UIRefresh2022) {
-      const queryString = window.location.href.match(/documentId(.*)/)
-      const queryParams = queryString ? QueryParams(queryString[0]) : {}
-      sheet = GoogleSheet(queryParams.documentId, queryParams.sheetName)
-    } else {
-      const queryString = window.location.href.match(/sheetId(.*)/)
-      const queryParams = queryString ? QueryParams(queryString[0]) : {}
-      sheet = GoogleSheet(queryParams.sheetId, queryParams.sheetName)
-    }
+    sheet = GoogleSheet(getDocumentOrSheetId(), getSheetName())
+
     sheet.authenticate(true, false, () => {
       if (featureToggles.UIRefresh2022 && !sheet.error) {
         helperDescription.style('display', 'block')
