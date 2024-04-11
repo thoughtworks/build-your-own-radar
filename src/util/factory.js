@@ -75,8 +75,8 @@ const plotRadar = function (title, blips, currentRadarName, alternativeRadars) {
   const size = featureToggles.UIRefresh2022
     ? getGraphSize()
     : window.innerHeight - 133 < 620
-    ? 620
-    : window.innerHeight - 133
+      ? 620
+      : window.innerHeight - 133
   new GraphingRadar(size, radar).init().plot()
 }
 
