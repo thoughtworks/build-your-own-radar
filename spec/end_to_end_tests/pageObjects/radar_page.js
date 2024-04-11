@@ -309,6 +309,7 @@ class RadarPage {
   }
 
   resetRadarView() {
+    cy.scrollTo('top')
     cy.get(this.bannerTitle).click()
   }
 }
