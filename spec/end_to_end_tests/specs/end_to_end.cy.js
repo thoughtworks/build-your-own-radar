@@ -158,7 +158,7 @@ describe('Build radar with CSV', () => {
       radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-existing-blips')
     })
 
-    it('blip in table gets highlighted on hover on blip in graph', () => {
+    it('verify blip in table gets highlighted on hover on blip in graph', () => {
       radarPage.clickBlipInRadarGraph('first-adopt-group-new-blips')
       radarPage.validateActiveQuadrant('techniques', 'first')
       const blipId = '2'
@@ -299,7 +299,7 @@ describe('Build radar with CSV', () => {
       radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-existing-blips')
     })
 
-    it('blip in table gets highlighted on hover on blip in graph', () => {
+    it('verify blip in table gets highlighted on hover on blip in graph', () => {
       radarPage.clickQuadrantInFullRadarViewTablet('first')
       radarPage.validateActiveQuadrant('techniques', 'first')
       const blipId = '2'
@@ -568,7 +568,7 @@ describe('Build radar with JSON', () => {
       radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-existing-blips')
     })
 
-    it('blip in table gets highlighted on hover on blip in graph', () => {
+    it('verify blip in table gets highlighted on hover on blip in graph', () => {
       radarPage.clickBlipInRadarGraph('first-adopt-group-new-blips')
       radarPage.validateActiveQuadrant('techniques', 'first')
       const blipId = '2'
@@ -710,7 +710,7 @@ describe('Build radar with JSON', () => {
       radarPage.validateNoBlipToolTip('blip-link-first-adopt-group-existing-blips')
     })
 
-    it('blip in table gets highlighted on hover on blip in graph', () => {
+    it('verify blip in table gets highlighted on hover on blip in graph', () => {
       radarPage.clickQuadrantInFullRadarViewTablet('first')
       radarPage.validateActiveQuadrant('techniques', 'first')
       const blipId = '2'

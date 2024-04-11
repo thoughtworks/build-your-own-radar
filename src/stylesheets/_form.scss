@@ -71,7 +71,9 @@
     font-size: 18px;
     margin-bottom: 30px;
     padding: 10px;
-    transition: box-shadow 0.3s, border 0.3s;
+    transition:
+      box-shadow 0.3s,
+      border 0.3s;
 
     &:focus,
     &.focus {
