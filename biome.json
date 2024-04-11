@@ -6,7 +6,35 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "complexity": {
+        "noForEach": "warn",
+        "noUselessConstructor": "warn",
+        "useLiteralKeys": "warn",
+        "useOptionalChain": "warn"
+      },
+      "correctness": {
+        "noInnerDeclarations": "warn"
+      },
+      "performance": {
+        "noAccumulatingSpread": "warn",
+        "noDelete": "warn"
+      },
+      "style": {
+        "noParameterAssign": "warn",
+        "noUselessElse": "warn",
+        "noUnusedTemplateLiteral": "warn",
+        "noVar": "warn",
+        "useConst": "warn",
+        "useDefaultParameterLast": "warn",
+        "useNodejsImportProtocol": "warn",
+        "useSingleVarDeclarator": "warn",
+        "useTemplate": "warn"
+      },
+      "suspicious": {
+        "noAssignInExpressions": "warn",
+        "noGlobalIsNan": "warn"
+      }
     }
   },
   "vcs": {
@@ -26,7 +54,7 @@
   },
   "json": {
     "parser": {
-      "allowComments": false
+      "allowComments": true
     }
   }
 }
