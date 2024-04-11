@@ -1,17 +1,15 @@
-const QueryParams = function (queryString) {
-  var decode = function (s) {
-    return decodeURIComponent(s.replace(/\+/g, ' '))
-  }
+const QueryParams = (queryString) => {
+  var decode = (s) => decodeURIComponent(s.replace(/\+/g, ' '));
 
-  var search = /([^&=]+)=?([^&]*)/g
+  var search = /([^&=]+)=?([^&]*)/g;
 
-  var queryParams = {}
-  var match
+  var queryParams = {};
+  var match;
   while ((match = search.exec(queryString))) {
-    queryParams[decode(match[1])] = decode(match[2])
+    queryParams[decode(match[1])] = decode(match[2]);
   }
 
-  return queryParams
-}
+  return queryParams;
+};
 
-module.exports = QueryParams
+module.exports = QueryParams;
