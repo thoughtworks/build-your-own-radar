@@ -7,7 +7,6 @@
     "enabled": true,
     "rules": {
       "recommended": true
-      }
     }
   },
   "vcs": {
@@ -22,7 +21,8 @@
   },
   "javascript": {
     "formatter": {
-      "quoteStyle": "single",    }
+      "quoteStyle": "single"
+    }
   },
   "json": {
     "parser": {
