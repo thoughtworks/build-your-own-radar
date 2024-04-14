@@ -10,6 +10,7 @@
       "complexity": {
         "noForEach": "warn",
         "noUselessConstructor": "warn",
+        "useArrowFunction": "warn",
         "useLiteralKeys": "warn",
         "useOptionalChain": "warn"
       },
@@ -33,7 +34,8 @@
       },
       "suspicious": {
         "noAssignInExpressions": "warn",
-        "noGlobalIsNan": "warn"
+        "noGlobalIsNan": "warn",
+        "noRedundantUseStrict": "warn"
       }
     }
   },
