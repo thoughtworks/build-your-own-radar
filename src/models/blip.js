@@ -1,70 +1,52 @@
-const { graphConfig } = require('../graphing/config')
-const IDEAL_BLIP_WIDTH = 22
+const { graphConfig } = require('../graphing/config');
+const IDEAL_BLIP_WIDTH = 22;
+// biome-ignore lint/complexity/useArrowFunction: applying fix breaks the code
 const Blip = function (name, ring, isNew, topic, description) {
-  let self, blipText, isGroup, id, groupIdInGraph
+  let self, blipText, isGroup, id, groupIdInGraph;
 
-  self = {}
-  isGroup = false
+  self = {};
+  isGroup = false;
 
-  self.width = IDEAL_BLIP_WIDTH
+  self.width = IDEAL_BLIP_WIDTH;
 
-  self.name = function () {
-    return name
-  }
+  self.name = () => name;
 
-  self.id = function () {
-    return id || -1
-  }
+  self.id = () => id || -1;
 
-  self.groupBlipWidth = function () {
-    return isNew ? graphConfig.newGroupBlipWidth : graphConfig.existingGroupBlipWidth
-  }
+  self.groupBlipWidth = () =>
+    isNew ? graphConfig.newGroupBlipWidth : graphConfig.existingGroupBlipWidth;
 
-  self.topic = function () {
-    return topic || ''
-  }
+  self.topic = () => topic || '';
 
-  self.description = function () {
-    return description || ''
-  }
+  self.description = () => description || '';
 
-  self.isNew = function () {
-    return isNew
-  }
+  self.isNew = () => isNew;
 
-  self.isGroup = function () {
-    return isGroup
-  }
+  self.isGroup = () => isGroup;
 
-  self.groupIdInGraph = function () {
-    return groupIdInGraph || ''
-  }
+  self.groupIdInGraph = () => groupIdInGraph || '';
 
-  self.setGroupIdInGraph = function (groupId) {
-    groupIdInGraph = groupId
-  }
+  self.setGroupIdInGraph = (groupId) => {
+    groupIdInGraph = groupId;
+  };
 
-  self.ring = function () {
-    return ring
-  }
+  self.ring = () => ring;
 
-  self.blipText = function () {
-    return blipText || ''
-  }
+  self.blipText = () => blipText || '';
 
-  self.setBlipText = function (newBlipText) {
-    blipText = newBlipText
-  }
+  self.setBlipText = (newBlipText) => {
+    blipText = newBlipText;
+  };
 
-  self.setId = function (newId) {
-    id = newId
-  }
+  self.setId = (newId) => {
+    id = newId;
+  };
 
-  self.setIsGroup = function (isAGroupBlip) {
-    isGroup = isAGroupBlip
-  }
+  self.setIsGroup = (isAGroupBlip) => {
+    isGroup = isAGroupBlip;
+  };
 
-  return self
-}
+  return self;
+};
 
-module.exports = Blip
+module.exports = Blip;

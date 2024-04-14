@@ -10,7 +10,7 @@ const config = () => {
         UIRefresh2022: true,
       },
     },
-  }
-  return process.env.ENVIRONMENT ? env[process.env.ENVIRONMENT] : env
-}
-module.exports = config
+  };
+  return process.env.ENVIRONMENT ? env[process.env.ENVIRONMENT] : env;
+};
+module.exports = config;

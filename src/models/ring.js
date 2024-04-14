@@ -1,15 +1,12 @@
+// biome-ignore lint/complexity/useArrowFunction: applying fix breaks the code
 const Ring = function (name, order) {
-  var self = {}
+  var self = {};
 
-  self.name = function () {
-    return name
-  }
+  self.name = () => name;
 
-  self.order = function () {
-    return order
-  }
+  self.order = () => order;
 
-  return self
-}
+  return self;
+};
 
-module.exports = Ring
+module.exports = Ring;

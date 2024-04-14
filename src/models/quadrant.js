@@ -1,26 +1,23 @@
+// biome-ignore lint/complexity/useArrowFunction: applying fix breaks the code
 const Quadrant = function (name) {
-  var self, blips
+  let self, blips;
 
-  self = {}
-  blips = []
+  self = {};
+  blips = [];
 
-  self.name = function () {
-    return name
-  }
+  self.name = () => name;
 
-  self.add = function (newBlips) {
+  self.add = (newBlips) => {
     if (Array.isArray(newBlips)) {
-      blips = blips.concat(newBlips)
+      blips = blips.concat(newBlips);
     } else {
-      blips.push(newBlips)
+      blips.push(newBlips);
     }
-  }
+  };
 
-  self.blips = function () {
-    return blips.slice(0)
-  }
+  self.blips = () => blips.slice(0);
 
-  return self
-}
+  return self;
+};
 
-module.exports = Quadrant
+module.exports = Quadrant;
