@@ -4,4 +4,4 @@ class BasePage {
   constructor() {}
 }
 
-module.exports = new BasePage();
+module.exports = new BasePage()

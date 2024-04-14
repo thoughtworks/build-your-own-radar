@@ -20,7 +20,9 @@
     "type": "git",
     "url": "https://github.com/thoughtworks/build-your-own-radar"
   },
-  "keywords": ["tech-radar"],
+  "keywords": [
+    "tech-radar"
+  ],
   "license": "AGPL-3.0",
   "devDependencies": {
     "@babel/core": "^7.23.2",
@@ -59,9 +61,18 @@
     "sanitize-html": "^2.11.0"
   },
   "standard": {
-    "globals": ["Cypress", "cy", "XMLHttpRequest"],
-    "env": ["jest"],
-    "ignore": ["radar-spec.js", "ref-table-spec.js"]
+    "globals": [
+      "Cypress",
+      "cy",
+      "XMLHttpRequest"
+    ],
+    "env": [
+      "jest"
+    ],
+    "ignore": [
+      "radar-spec.js",
+      "ref-table-spec.js"
+    ]
   },
   "engines": {
     "node": ">=18",

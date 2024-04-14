@@ -1,8 +1,8 @@
 class InvalidConfigError extends Error {
   constructor(message) {
-    super(message);
-    this.message = message;
+    super(message)
+    this.message = message
   }
 }
 
-module.exports = InvalidConfigError;
+module.exports = InvalidConfigError

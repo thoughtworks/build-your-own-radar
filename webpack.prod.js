@@ -1,28 +1,28 @@
-const { merge } = require('webpack-merge');
-const webpack = require('webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const postcssPresetEnv = require('postcss-preset-env');
-const cssnano = require('cssnano');
+const { merge } = require('webpack-merge')
+const webpack = require('webpack')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const postcssPresetEnv = require('postcss-preset-env')
+const cssnano = require('cssnano')
 
-const common = require('./webpack.common.js');
-const config = require('./src/config');
-const { graphConfig, uiConfig } = require('./src/graphing/config');
+const common = require('./webpack.common.js')
+const config = require('./src/config')
+const { graphConfig, uiConfig } = require('./src/graphing/config')
 
-const featureToggles = config().production.featureToggles;
-const main = ['./src/site.js'];
-const scssVariables = [];
+const featureToggles = config().production.featureToggles
+const main = ['./src/site.js']
+const scssVariables = []
 
-Object.entries(graphConfig).forEach(([key, value]) => {
-  scssVariables.push(`$${key}: ${value}px;`);
-});
+Object.entries(graphConfig).forEach(function ([key, value]) {
+  scssVariables.push(`$${key}: ${value}px;`)
+})
 
-Object.entries(uiConfig).forEach(([key, value]) => {
-  scssVariables.push(`$${key}: ${value}px;`);
-});
+Object.entries(uiConfig).forEach(function ([key, value]) {
+  scssVariables.push(`$${key}: ${value}px;`)
+})
 
-Object.entries(featureToggles).forEach(([key, value]) => {
-  scssVariables.push(`$${key}: ${value};`);
-});
+Object.entries(featureToggles).forEach(function ([key, value]) {
+  scssVariables.push(`$${key}: ${value};`)
+})
 
 module.exports = merge(common, {
   mode: 'production',
@@ -49,10 +49,7 @@ module.exports = merge(common, {
                 plugins: [
                   postcssPresetEnv({ browsers: 'last 2 versions' }),
                   cssnano({
-                    preset: [
-                      'default',
-                      { discardComments: { removeAll: true } },
-                    ],
+                    preset: ['default', { discardComments: { removeAll: true } }],
                   }),
                 ],
               },
@@ -74,4 +71,4 @@ module.exports = merge(common, {
       'process.env.ENVIRONMENT': JSON.stringify('production'),
     }),
   ],
-});
+})

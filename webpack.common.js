@@ -1,20 +1,22 @@
-const webpack = require('webpack');
-const path = require('path');
-const buildPath = path.resolve(__dirname, 'dist');
-const args = require('yargs').argv;
+'use strict'
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack')
+const path = require('path')
+const buildPath = path.resolve(__dirname, 'dist')
+const args = require('yargs').argv
 
-const env = args.envFile;
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
+const env = args.envFile
 if (env) {
   // Load env file
-  require('dotenv').config({ path: env });
+  require('dotenv').config({ path: env })
 }
 
-const common = ['./src/common.js'];
+const common = ['./src/common.js']
 
-const ASSET_PATH = process.env.ASSET_PATH || '/';
+const ASSET_PATH = process.env.ASSET_PATH || '/'
 
 const plugins = [
   new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
@@ -26,17 +28,13 @@ const plugins = [
   new webpack.DefinePlugin({
     'process.env.CLIENT_ID': JSON.stringify(process.env.CLIENT_ID),
     'process.env.API_KEY': JSON.stringify(process.env.API_KEY),
-    'process.env.ENABLE_GOOGLE_AUTH': JSON.stringify(
-      process.env.ENABLE_GOOGLE_AUTH,
-    ),
+    'process.env.ENABLE_GOOGLE_AUTH': JSON.stringify(process.env.ENABLE_GOOGLE_AUTH),
     'process.env.GTM_ID': JSON.stringify(process.env.GTM_ID),
     'process.env.RINGS': JSON.stringify(process.env.RINGS),
     'process.env.QUADRANTS': JSON.stringify(process.env.QUADRANTS),
-    'process.env.ADOBE_LAUNCH_SCRIPT_URL': JSON.stringify(
-      process.env.ADOBE_LAUNCH_SCRIPT_URL,
-    ),
+    'process.env.ADOBE_LAUNCH_SCRIPT_URL': JSON.stringify(process.env.ADOBE_LAUNCH_SCRIPT_URL),
   }),
-];
+]
 
 module.exports = {
   context: __dirname,
@@ -88,4 +86,4 @@ module.exports = {
   },
 
   plugins: plugins,
-};
+}

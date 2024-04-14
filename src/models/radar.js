@@ -1,26 +1,20 @@
-const MalformedDataError = require('../exceptions/malformedDataError');
-const ExceptionMessages = require('../util/exceptionMessages');
+const MalformedDataError = require('../exceptions/malformedDataError')
+const ExceptionMessages = require('../util/exceptionMessages')
 
 const _ = {
   map: require('lodash/map'),
   uniqBy: require('lodash/uniqBy'),
   sortBy: require('lodash/sortBy'),
-};
+}
 
-const Radar = () => {
-  const config = require('../config');
-  const featureToggles = config().featureToggles;
+const Radar = function () {
+  const config = require('../config')
+  const featureToggles = config().featureToggles
 
-  let self,
-    quadrants,
-    blipNumber,
-    addingQuadrant,
-    alternatives,
-    currentSheetName,
-    rings;
+  let self, quadrants, blipNumber, addingQuadrant, alternatives, currentSheetName, rings
 
-  blipNumber = 0;
-  addingQuadrant = 0;
+  blipNumber = 0
+  addingQuadrant = 0
   quadrants = featureToggles.UIRefresh2022
     ? [
         { order: 'first', startAngle: 0 },
@@ -33,76 +27,87 @@ const Radar = () => {
         { order: 'second', startAngle: 0 },
         { order: 'third', startAngle: -90 },
         { order: 'fourth', startAngle: -180 },
-      ];
-  alternatives = [];
-  currentSheetName = '';
-  self = {};
-  rings = {};
+      ]
+  alternatives = []
+  currentSheetName = ''
+  self = {}
+  rings = {}
 
   function setNumbers(blips) {
-    blips.forEach((blip) => {
-      ++blipNumber;
-      blip.setBlipText(blipNumber);
-      blip.setId(blipNumber);
-    });
+    blips.forEach(function (blip) {
+      ++blipNumber
+      blip.setBlipText(blipNumber)
+      blip.setId(blipNumber)
+    })
   }
 
-  self.addAlternative = (sheetName) => {
-    alternatives.push(sheetName);
-  };
+  self.addAlternative = function (sheetName) {
+    alternatives.push(sheetName)
+  }
 
-  self.getAlternatives = () => alternatives;
+  self.getAlternatives = function () {
+    return alternatives
+  }
 
-  self.setCurrentSheet = (sheetName) => {
-    currentSheetName = sheetName;
-  };
+  self.setCurrentSheet = function (sheetName) {
+    currentSheetName = sheetName
+  }
 
-  self.getCurrentSheet = () => currentSheetName;
+  self.getCurrentSheet = function () {
+    return currentSheetName
+  }
 
-  self.addQuadrant = (quadrant) => {
+  self.addQuadrant = function (quadrant) {
     if (addingQuadrant >= 4) {
-      throw new MalformedDataError(ExceptionMessages.TOO_MANY_QUADRANTS);
+      throw new MalformedDataError(ExceptionMessages.TOO_MANY_QUADRANTS)
     }
-    quadrants[addingQuadrant].quadrant = quadrant;
-    setNumbers(quadrant.blips());
-    addingQuadrant++;
-  };
-  self.addRings = (allRings) => {
-    rings = allRings;
-  };
+    quadrants[addingQuadrant].quadrant = quadrant
+    setNumbers(quadrant.blips())
+    addingQuadrant++
+  }
+  self.addRings = function (allRings) {
+    rings = allRings
+  }
 
   function allQuadrants() {
     if (addingQuadrant < 4) {
-      throw new MalformedDataError(ExceptionMessages.LESS_THAN_FOUR_QUADRANTS);
+      throw new MalformedDataError(ExceptionMessages.LESS_THAN_FOUR_QUADRANTS)
     }
 
-    return _.map(quadrants, 'quadrant');
+    return _.map(quadrants, 'quadrant')
   }
 
   function allBlips() {
-    return allQuadrants().reduce(
-      (blips, quadrant) => blips.concat(quadrant.blips()),
-      [],
-    );
+    return allQuadrants().reduce(function (blips, quadrant) {
+      return blips.concat(quadrant.blips())
+    }, [])
   }
 
-  self.rings = () => {
+  self.rings = function () {
     if (featureToggles.UIRefresh2022) {
-      return rings;
+      return rings
     }
 
     return _.sortBy(
       _.map(
-        _.uniqBy(allBlips(), (blip) => blip.ring().name()),
-        (blip) => blip.ring(),
+        _.uniqBy(allBlips(), function (blip) {
+          return blip.ring().name()
+        }),
+        function (blip) {
+          return blip.ring()
+        },
       ),
-      (ring) => ring.order(),
-    );
-  };
+      function (ring) {
+        return ring.order()
+      },
+    )
+  }
 
-  self.quadrants = () => quadrants;
+  self.quadrants = function () {
+    return quadrants
+  }
 
-  return self;
-};
+  return self
+}
 
-module.exports = Radar;
+module.exports = Radar

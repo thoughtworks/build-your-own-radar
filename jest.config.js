@@ -15,4 +15,4 @@ module.exports = {
       lines: 24.09,
     },
   },
-};
+}

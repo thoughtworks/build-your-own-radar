@@ -1,22 +1,26 @@
-const Quadrant = (name) => {
-  var self, blips;
+const Quadrant = function (name) {
+  var self, blips
 
-  self = {};
-  blips = [];
+  self = {}
+  blips = []
 
-  self.name = () => name;
+  self.name = function () {
+    return name
+  }
 
-  self.add = (newBlips) => {
+  self.add = function (newBlips) {
     if (Array.isArray(newBlips)) {
-      blips = blips.concat(newBlips);
+      blips = blips.concat(newBlips)
     } else {
-      blips.push(newBlips);
+      blips.push(newBlips)
     }
-  };
+  }
 
-  self.blips = () => blips.slice(0);
+  self.blips = function () {
+    return blips.slice(0)
+  }
 
-  return self;
-};
+  return self
+}
 
-module.exports = Quadrant;
+module.exports = Quadrant
