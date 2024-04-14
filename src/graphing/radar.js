@@ -312,9 +312,9 @@ const Radar = (size, radar) => {
     d3.select('.quadrant-table.' + order)
       .append('h2')
       .attr('class', 'quadrant-table__name')
-      .text(quadrant.name());
+      .text(quadrant.name);
 
-    blips = quadrant.blips();
+    blips = quadrant.blips;
     rings.forEach((ring, i) => {
       var ringBlips = blips.filter((blip) => blip.ring() === ring);
 
@@ -340,7 +340,7 @@ const Radar = (size, radar) => {
           sumRing *
           ring.name().length *
           sumQuadrant *
-          quadrant.name().length,
+          quadrant.name.length,
       );
 
       var ringList = addRing(ring.name(), order);
@@ -755,7 +755,7 @@ const Radar = (size, radar) => {
       quadrantButtons
         .append('div')
         .attr('class', 'button ' + quadrant.order + ' full-view')
-        .text(quadrant.quadrant.name())
+        .text(quadrant.quadrant.name)
         .on('mouseover', mouseoverQuadrant.bind({}, quadrant.order))
         .on('mouseout', mouseoutQuadrant.bind({}, quadrant.order))
         .on(
@@ -1003,7 +1003,7 @@ const Radar = (size, radar) => {
         plotRingNames(ringTextGroup, rings, quadrant);
         plotRadarBlips(quadrantGroup, rings, quadrant, tip);
         renderMobileView(quadrant);
-        addQuadrantNameInPdfView(quadrant.order, quadrant.quadrant.name());
+        addQuadrantNameInPdfView(quadrant.order, quadrant.quadrant.name);
       } else {
         quadrantGroup = plotQuadrant(rings, quadrant);
         plotLines(quadrantGroup, quadrant);

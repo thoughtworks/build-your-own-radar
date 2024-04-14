@@ -65,7 +65,7 @@ const Radar = function () {
       throw new MalformedDataError(ExceptionMessages.TOO_MANY_QUADRANTS);
     }
     quadrants[addingQuadrant].quadrant = quadrant;
-    setNumbers(quadrant.blips());
+    setNumbers(quadrant.blips);
     addingQuadrant++;
   };
   self.addRings = (allRings) => {
@@ -82,7 +82,7 @@ const Radar = function () {
 
   function allBlips() {
     return allQuadrants().reduce(
-      (blips, quadrant) => blips.concat(quadrant.blips()),
+      (blips, quadrant) => blips.concat(quadrant.blips),
       [],
     );
   }

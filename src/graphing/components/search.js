@@ -24,7 +24,7 @@ function renderSearch(radarHeader, quadrants) {
     selectRadarQuadrant(
       quadrant.order,
       quadrant.startAngle,
-      quadrant.quadrant.name(),
+      quadrant.quadrant.name,
     );
     const blipElement = d3.select(
       `.blip-list__item-container[data-blip-id="${blipId}"] .blip-list__item-container__name`,

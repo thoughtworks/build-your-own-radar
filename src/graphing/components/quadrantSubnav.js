@@ -96,11 +96,11 @@ function renderQuadrantSubnav(radarHeader, quadrants, renderFullRadar) {
   });
 
   quadrants.forEach((quadrant) => {
-    addListItem(quadrantList, quadrant.quadrant.name(), () =>
+    addListItem(quadrantList, quadrant.quadrant.name, () =>
       selectRadarQuadrant(
         quadrant.order,
         quadrant.startAngle,
-        quadrant.quadrant.name(),
+        quadrant.quadrant.name,
       ),
     );
   });

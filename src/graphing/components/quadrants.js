@@ -374,7 +374,7 @@ function renderRadarQuadrantName(quadrant, parentGroup, tip) {
     .append('g')
     .classed('quadrant-name-group', true);
 
-  const quadrantNameToDisplay = quadrant.quadrant.name();
+  const quadrantNameToDisplay = quadrant.quadrant.name;
   let translateX,
     translateY,
     anchor,
@@ -442,7 +442,7 @@ function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator, tip) {
         {},
         quadrant.order,
         quadrant.startAngle,
-        quadrant.quadrant.name(),
+        quadrant.quadrant.name,
       ),
     )
     .on('keydown', (e) => {
@@ -450,7 +450,7 @@ function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator, tip) {
         selectRadarQuadrant(
           quadrant.order,
           quadrant.startAngle,
-          quadrant.quadrant.name(),
+          quadrant.quadrant.name,
         );
     });
 
@@ -569,12 +569,12 @@ function renderMobileView(quadrant) {
     .attr('id', quadrant.order + '-quadrant-mobile')
     .append('div')
     .attr('class', 'btn-text-wrapper')
-    .text(quadrant.quadrant.name().replace(/[^a-zA-Z0-9\s!&]/g, ' '));
+    .text(quadrant.quadrant.name.replace(/[^a-zA-Z0-9\s!&]/g, ' '));
   quadrantBtn.node().onclick = () => {
     selectRadarQuadrant(
       quadrant.order,
       quadrant.startAngle,
-      quadrant.quadrant.name(),
+      quadrant.quadrant.name,
     );
   };
 }

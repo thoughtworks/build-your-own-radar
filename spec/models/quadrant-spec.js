@@ -5,13 +5,13 @@ describe('Quadrant', () => {
   it('has a name', () => {
     var quadrant = new Quadrant('My Quadrant');
 
-    expect(quadrant.name()).toEqual('My Quadrant');
+    expect(quadrant.name).toEqual('My Quadrant');
   });
 
   it('has no blips by default', () => {
     var quadrant = new Quadrant('My Quadrant');
 
-    expect(quadrant.blips()).toEqual([]);
+    expect(quadrant.blips).toEqual([]);
   });
 
   it('can add a single blip', () => {
@@ -19,7 +19,7 @@ describe('Quadrant', () => {
 
     quadrant.add(new Blip());
 
-    expect(quadrant.blips()).toHaveLength(1);
+    expect(quadrant.blips).toHaveLength(1);
   });
 
   it('can add multiple blips', () => {
@@ -27,6 +27,6 @@ describe('Quadrant', () => {
 
     quadrant.add([new Blip(), new Blip()]);
 
-    expect(quadrant.blips()).toHaveLength(2);
+    expect(quadrant.blips).toHaveLength(2);
   });
 });

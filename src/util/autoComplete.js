@@ -13,7 +13,7 @@ $.widget('custom.radarcomplete', $.ui.autocomplete, {
     let currentQuadrant = '';
 
     items.forEach((item) => {
-      const quadrantName = item.quadrant.quadrant.name();
+      const quadrantName = item.quadrant.quadrant.name;
       if (quadrantName !== currentQuadrant) {
         ul.append(`<li class='ui-autocomplete-quadrant'>${quadrantName}</li>`);
         currentQuadrant = quadrantName;
@@ -30,7 +30,7 @@ const AutoComplete = (el, quadrants, cb) => {
   const blips = quadrants.reduce((acc, quadrant) => {
     return [
       ...acc,
-      ...quadrant.quadrant.blips().map((blip) => ({ blip, quadrant })),
+      ...quadrant.quadrant.blips.map((blip) => ({ blip, quadrant })),
     ];
   }, []);
 

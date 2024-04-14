@@ -387,7 +387,7 @@ const plotRadarBlips = (parentElement, rings, quadrantWrapper, tooltip) => {
   startAngle = quadrantWrapper.startAngle;
   quadrantOrder = quadrantWrapper.order;
 
-  blips = quadrant.blips();
+  blips = quadrant.blips;
   rings.forEach((ring, i) => {
     const ringBlips = blips.filter((blip) => blip.ring() === ring);
 
