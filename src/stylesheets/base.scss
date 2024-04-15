@@ -33,78 +33,76 @@
   body {
     font: 18px 'Open Sans';
     opacity: 0;
-    @if $UIRefresh2022 {
-      font-family: $baseFontFamily;
-      opacity: 1;
+    font-family: $baseFontFamily;
+    opacity: 1;
 
-      h1 {
-        font-size: 1.5rem;
-        font-family: 'Bitter', serif;
-        text-transform: none;
-        letter-spacing: normal;
+    h1 {
+      font-size: 1.5rem;
+      font-family: 'Bitter', serif;
+      text-transform: none;
+      letter-spacing: normal;
 
-        @include media-query-medium {
-          font-size: 2rem;
-        }
-
-        @include media-query-large {
-          font-size: 2.5rem;
-        }
-
-        @include media-query-xxlarge {
-          font-size: 3rem;
-        }
-
-        @include media-query-xxxlarge {
-          font-size: 3.5rem;
-        }
+      @include media-query-medium {
+        font-size: 2rem;
       }
 
-      h2 {
+      @include media-query-large {
+        font-size: 2.5rem;
+      }
+
+      @include media-query-xxlarge {
+        font-size: 3rem;
+      }
+
+      @include media-query-xxxlarge {
+        font-size: 3.5rem;
+      }
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 630;
+      font-family: 'Inter', serif;
+      text-transform: none;
+      letter-spacing: normal;
+
+      @include media-query-medium {
         font-size: 1.25rem;
-        font-weight: 630;
-        font-family: 'Inter', serif;
-        text-transform: none;
-        letter-spacing: normal;
-
-        @include media-query-medium {
-          font-size: 1.25rem;
-        }
-
-        @include media-query-large {
-          font-size: 1.5rem;
-        }
-
-        @include media-query-xlarge {
-          font-size: 1.5rem;
-        }
-
-        @include media-query-xxlarge {
-          font-size: 2rem;
-        }
-
-        @include media-query-xxxlarge {
-          font-size: 2rem;
-        }
       }
 
-      p {
-        font-size: 1rem;
-        font-family: $baseFontFamily;
-
-        @include media-query-xxlarge {
-          font-size: 1.125rem;
-        }
+      @include media-query-large {
+        font-size: 1.5rem;
       }
 
-      a {
-        color: $link-normal;
-        border-color: $link-normal;
+      @include media-query-xlarge {
+        font-size: 1.5rem;
+      }
 
-        &:hover {
-          color: $link-hover;
-          border-color: $link-hover;
-        }
+      @include media-query-xxlarge {
+        font-size: 2rem;
+      }
+
+      @include media-query-xxxlarge {
+        font-size: 2rem;
+      }
+    }
+
+    p {
+      font-size: 1rem;
+      font-family: $baseFontFamily;
+
+      @include media-query-xxlarge {
+        font-size: 1.125rem;
+      }
+    }
+
+    a {
+      color: $link-normal;
+      border-color: $link-normal;
+
+      &:hover {
+        color: $link-hover;
+        border-color: $link-hover;
       }
     }
 
@@ -112,45 +110,43 @@
     margin: 0;
   }
 
-  @if $UIRefresh2022 {
-    .d3-tip {
-      font-size: 12px;
-      display: block;
-      padding: 12px;
-      background: $wave;
-      color: $white;
-      pointer-events: none;
-      z-index: 20;
-      max-width: 170px;
-      word-wrap: break-word;
-      white-space: pre-line;
-      line-height: 2;
-      border-radius: unset;
+  .d3-tip {
+    font-size: 12px;
+    display: block;
+    padding: 12px;
+    background: $wave;
+    color: $white;
+    pointer-events: none;
+    z-index: 20;
+    max-width: 170px;
+    word-wrap: break-word;
+    white-space: pre-line;
+    line-height: 2;
+    border-radius: unset;
 
-      @include media-query-medium {
-        max-width: 250px;
-      }
+    @include media-query-medium {
+      max-width: 250px;
     }
+  }
 
-    .d3-tip:after {
-      box-sizing: border-box;
-      font-size: 10px;
-      width: 100%;
-      color: $wave;
-      position: absolute;
-      pointer-events: none;
-    }
+  .d3-tip:after {
+    box-sizing: border-box;
+    font-size: 10px;
+    width: 100%;
+    color: $wave;
+    position: absolute;
+    pointer-events: none;
+  }
 
-    .d3-tip.n {
-      margin: -10px 0 0;
-    }
+  .d3-tip.n {
+    margin: -10px 0 0;
+  }
 
-    .d3-tip.n:after {
-      content: '\25BC';
-      margin: -3px 0 0;
-      top: 100%;
-      left: 0;
-      text-align: center;
-    }
+  .d3-tip.n:after {
+    content: '\25BC';
+    margin: -3px 0 0;
+    top: 100%;
+    left: 0;
+    text-align: center;
   }
 }

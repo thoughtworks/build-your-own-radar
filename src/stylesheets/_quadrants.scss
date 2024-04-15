@@ -3,50 +3,48 @@
   margin: 0 auto;
   position: relative;
 
-  @if $UIRefresh2022 {
-    width: 100%;
+  width: 100%;
 
-    @include media-query-xlarge {
-      width: 80%;
-      min-width: calc($quadrantWidth * 2 + $quadrantsGap);
-    }
+  @include media-query-xlarge {
+    width: 80%;
+    min-width: calc($quadrantWidth * 2 + $quadrantsGap);
+  }
 
-    @include layout-margin(calc(12 / 12), $screen-xlarge);
-    @include layout-margin(calc(12 / 12), $screen-xxlarge);
-    @include layout-margin(calc(12 / 12), $screen-xxxlarge);
+  @include layout-margin(calc(12 / 12), $screen-xlarge);
+  @include layout-margin(calc(12 / 12), $screen-xxlarge);
+  @include layout-margin(calc(12 / 12), $screen-xxxlarge);
 
+  .no-blip-text {
+    display: none;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  &.no-blips {
+    height: auto !important;
     .no-blip-text {
-      display: none;
-      text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    &.no-blips {
-      height: auto !important;
-      .no-blip-text {
-        display: block;
-      }
-
-      .quadrant-group,
-      .quadrant-table,
-      .radar-legends {
-        display: none !important;
-      }
-    }
-
-    .mobile {
       display: block;
     }
 
-    &:not(.mobile) {
-      display: none;
+    .quadrant-group,
+    .quadrant-table,
+    .radar-legends {
+      display: none !important;
     }
+  }
 
-    @include media-query-xlarge {
-      &:not(.mobile) {
-        display: block;
-      }
+  .mobile {
+    display: block;
+  }
+
+  &:not(.mobile) {
+    display: none;
+  }
+
+  @include media-query-xlarge {
+    &:not(.mobile) {
+      display: block;
     }
   }
 
@@ -56,20 +54,17 @@
     position: absolute;
     left: 0;
     right: 0;
+    display: none;
+    transition: none;
 
-    @if $UIRefresh2022 {
-      display: none;
-      transition: none;
+    margin: 0 auto;
 
-      margin: 0 auto;
+    &.enable-transition {
+      transition: all 1s ease;
+    }
 
-      &.enable-transition {
-        transition: all 1s ease;
-      }
-
-      @include media-query-medium {
-        display: block;
-      }
+    @include media-query-medium {
+      display: block;
     }
 
     &.quadrant-view {
@@ -90,10 +85,8 @@
       }
     }
 
-    @if $UIRefresh2022 {
-      pointer-events: none;
-      z-index: 10;
-    }
+    pointer-events: none;
+    z-index: 10;
 
     .legend {
       visibility: hidden;
@@ -123,22 +116,20 @@
       }
     }
 
-    @if $UIRefresh2022 {
-      path {
-        &.ring-arc-3,
-        &.ring-arc-2,
-        &.ring-arc-1,
-        &.ring-arc-0 {
-          stroke: $mist-s30;
-          stroke-width: 1;
-          fill: white;
-        }
+    path {
+      &.ring-arc-3,
+      &.ring-arc-2,
+      &.ring-arc-1,
+      &.ring-arc-0 {
+        stroke: $mist-s30;
+        stroke-width: 1;
+        fill: white;
       }
+    }
 
-      .quadrant-group {
-        transition: opacity 0.5s ease-out;
-        pointer-events: all;
-      }
+    .quadrant-group {
+      transition: opacity 0.5s ease-out;
+      pointer-events: all;
     }
 
     .blip-link {
@@ -195,49 +186,47 @@
       }
     }
 
-    @if $UIRefresh2022 {
-      circle,
-      polygon,
-      rect,
-      path {
-        &.first {
-          fill: $sapphire;
-          stroke: none;
-        }
-
-        &.second {
-          fill: $turmeric;
-          stroke: none;
-        }
-
-        &.third {
-          fill: $jade;
-          stroke: none;
-        }
-
-        &.fourth {
-          fill: $flamingo;
-          stroke: none;
-        }
+    circle,
+    polygon,
+    rect,
+    path {
+      &.first {
+        fill: $sapphire;
+        stroke: none;
       }
 
-      line {
-        stroke: white;
+      &.second {
+        fill: $turmeric;
+        stroke: none;
       }
 
-      text {
-        &.blip-text {
-          font-size: 9px;
-          font-style: italic;
-          fill: $black;
-        }
+      &.third {
+        fill: $jade;
+        stroke: none;
+      }
 
-        &.line-text {
-          font-weight: bold;
-          text-transform: none;
-          fill: $black;
-          font-size: 16px;
-        }
+      &.fourth {
+        fill: $flamingo;
+        stroke: none;
+      }
+    }
+
+    line {
+      stroke: white;
+    }
+
+    text {
+      &.blip-text {
+        font-size: 9px;
+        font-style: italic;
+        fill: $black;
+      }
+
+      &.line-text {
+        font-weight: bold;
+        text-transform: none;
+        fill: $black;
+        font-size: 16px;
       }
     }
   }
@@ -248,9 +237,6 @@
     }
 
     max-height: 0;
-    @if not $UIRefresh2022 {
-      max-width: 0;
-    }
     position: absolute;
     overflow: hidden;
     z-index: 11;
@@ -263,70 +249,38 @@
       font-weight: bold;
     }
 
-    @if $UIRefresh2022 {
-      overflow: clip;
-      &.first {
-        float: left;
-      }
+    overflow: clip;
+    &.first {
+      float: left;
+    }
 
-      &.second {
-        float: left;
-      }
+    &.second {
+      float: left;
+    }
 
-      &.third {
-        float: right;
-      }
+    &.third {
+      float: right;
+    }
 
-      &.fourth {
-        float: right;
-      }
-    } @else {
-      &.first {
-        &.selected {
-          float: right;
-        }
-      }
-
-      &.second {
-        &.selected {
-          float: left;
-        }
-      }
-
-      &.third {
-        &.selected {
-          float: left;
-        }
-      }
-
-      &.fourth {
-        &.selected {
-          float: right;
-        }
-      }
+    &.fourth {
+      float: right;
     }
 
     &.selected {
       position: relative;
       max-height: 10000px;
-
-      @if not $UIRefresh2022 {
-        max-width: 40%;
-      }
     }
 
-    @if $UIRefresh2022 {
-      max-height: 0;
-      opacity: 0;
-      transition: opacity 0.3s ease-out;
+    max-height: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
 
-      &.selected {
-        opacity: 1;
-        transition: opacity 1s ease;
+    &.selected {
+      opacity: 1;
+      transition: opacity 1s ease;
 
-        @include media-query-medium {
-          transition: opacity 1s ease 1s;
-        }
+      @include media-query-medium {
+        transition: opacity 1s ease 1s;
       }
     }
 
@@ -378,115 +332,113 @@
   }
 }
 
-@if ($UIRefresh2022) {
-  .radar-legends {
-    display: none;
+.radar-legends {
+  display: none;
 
-    @include media-query-medium {
-      &.right-view,
-      &.left-view {
-        justify-content: unset;
-        width: unset;
-      }
-
-      &.sticky {
-        position: fixed;
-      }
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: $quadrantsGap auto;
-      width: 100%;
-      position: absolute;
-      top: calc($quadrantWidth * 2 + $quadrantsGap);
+  @include media-query-medium {
+    &.right-view,
+    &.left-view {
+      justify-content: unset;
+      width: unset;
     }
 
-    img:nth-child(2) {
-      margin-left: 48px;
+    &.sticky {
+      position: fixed;
+    }
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: $quadrantsGap auto;
+    width: 100%;
+    position: absolute;
+    top: calc($quadrantWidth * 2 + $quadrantsGap);
+  }
+
+  img:nth-child(2) {
+    margin-left: 48px;
+  }
+}
+
+.all-quadrants-mobile {
+  --quadrant-gap: 12px;
+  --quadrant-btn-width-mobile: 150px;
+  --quadrant-btn-height-mobile: 70px;
+  display: none;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+  margin: auto;
+  margin-bottom: 42px;
+
+  &.show-all-quadrants-mobile {
+    display: flex;
+  }
+  @include media-query-medium {
+    --quadrant-btn-width-mobile: 345px;
+    --quadrant-btn-height-mobile: 160px;
+  }
+  @include media-query-xlarge {
+    display: none;
+    &.show-all-quadrants-mobile {
+      display: none;
     }
   }
 
-  .all-quadrants-mobile {
-    --quadrant-gap: 12px;
-    --quadrant-btn-width-mobile: 150px;
-    --quadrant-btn-height-mobile: 70px;
-    display: none;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-content: space-between;
-    margin: auto;
-    margin-bottom: 42px;
+  width: calc(var(--quadrant-btn-width-mobile) * 2 + var(--quadrant-gap));
+  height: calc(var(--quadrant-btn-height-mobile) * 2 + var(--quadrant-gap));
 
-    &.show-all-quadrants-mobile {
-      display: flex;
-    }
+  .all-quadrants-mobile--btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 3px;
+    width: var(--quadrant-btn-width-mobile);
+    height: var(--quadrant-btn-height-mobile);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    border: none;
+
     @include media-query-medium {
-      --quadrant-btn-width-mobile: 345px;
-      --quadrant-btn-height-mobile: 160px;
-    }
-    @include media-query-xlarge {
-      display: none;
-      &.show-all-quadrants-mobile {
-        display: none;
-      }
+      font-size: 24px;
     }
 
-    width: calc(var(--quadrant-btn-width-mobile) * 2 + var(--quadrant-gap));
-    height: calc(var(--quadrant-btn-height-mobile) * 2 + var(--quadrant-gap));
+    &::after {
+      content: url('/images/arrow-white-icon.svg');
+      margin: 4px 4px 0;
+    }
 
-    .all-quadrants-mobile--btn {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      margin: 3px;
-      width: var(--quadrant-btn-width-mobile);
-      height: var(--quadrant-btn-height-mobile);
-      background-size: 100%;
-      background-repeat: no-repeat;
-      font-size: 16px;
-      font-weight: bold;
-      color: white;
-      border: none;
+    .btn-text-wrapper {
+      text-align: left;
+      word-break: break-word;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
 
       @include media-query-medium {
-        font-size: 24px;
-      }
-
-      &::after {
-        content: url('/images/arrow-white-icon.svg');
-        margin: 4px 4px 0;
-      }
-
-      .btn-text-wrapper {
-        text-align: left;
-        word-break: break-word;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-
-        @include media-query-medium {
-          max-width: 60%;
-          max-height: 60px;
-        }
+        max-width: 60%;
+        max-height: 60px;
       }
     }
+  }
 
-    #first-quadrant-mobile {
-      background-color: $sapphire;
-    }
-    #second-quadrant-mobile {
-      background-color: $turmeric;
-    }
-    #third-quadrant-mobile {
-      background-color: $jade;
-    }
-    #fourth-quadrant-mobile {
-      background-color: $flamingo;
-    }
+  #first-quadrant-mobile {
+    background-color: $sapphire;
+  }
+  #second-quadrant-mobile {
+    background-color: $turmeric;
+  }
+  #third-quadrant-mobile {
+    background-color: $jade;
+  }
+  #fourth-quadrant-mobile {
+    background-color: $flamingo;
   }
 }

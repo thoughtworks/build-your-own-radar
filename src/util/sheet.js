@@ -2,11 +2,9 @@
 const SheetNotFoundError = require('../../src/exceptions/sheetNotFoundError')
 const UnauthorizedError = require('../../src/exceptions/unauthorizedError')
 const ExceptionMessages = require('./exceptionMessages')
-const config = require('../config')
 
 const Sheet = function (sheetReference) {
   var self = {}
-  const featureToggles = config().featureToggles
 
   ;(function () {
     var matches = sheetReference.match('https:\\/\\/docs.google.com\\/spreadsheets\\/d\\/(.*?)($|\\/$|\\/.*|\\?.*)')
@@ -35,9 +33,7 @@ const Sheet = function (sheetReference) {
   }
 
   self.createSheetNotFoundError = function () {
-    const exceptionMessage = featureToggles.UIRefresh2022
-      ? ExceptionMessages.SHEET_NOT_FOUND_NEW
-      : ExceptionMessages.SHEET_NOT_FOUND
+    const exceptionMessage = ExceptionMessages.SHEET_NOT_FOUND
     return new SheetNotFoundError(exceptionMessage)
   }
 

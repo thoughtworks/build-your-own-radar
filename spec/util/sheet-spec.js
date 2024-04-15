@@ -1,11 +1,8 @@
 const Sheet = require('../../src/util/sheet')
-const config = require('../../src/config')
 
-jest.mock('../../src/config')
 describe('sheet', function () {
   const oldEnv = process.env
   beforeEach(() => {
-    config.mockReturnValue({ featureToggles: { UIRefresh2022: true } })
     process.env.API_KEY = 'API_KEY'
   })
 
@@ -97,29 +94,6 @@ describe('sheet', function () {
     const mockCallback = jest.fn()
     const xhrMock = { open: jest.fn(), send: jest.fn(), readyState: 4, status: 404, response: 'response' }
     jest.spyOn(window, 'XMLHttpRequest').mockImplementation(() => xhrMock)
-
-    const sheet = new Sheet('http://example.com/a/b/c/d/?x=y')
-    sheet.validate(mockCallback)
-    xhrMock.onreadystatechange(new Event(''))
-
-    expect(xhrMock.open).toHaveBeenCalledTimes(1)
-    expect(xhrMock.open).toHaveBeenCalledWith(
-      'GET',
-      'https://docs.google.com/spreadsheets/d/http://example.com/a/b/c/d/?x=y',
-      true,
-    )
-    expect(xhrMock.send).toHaveBeenCalledTimes(1)
-    expect(xhrMock.send).toHaveBeenCalledWith(null)
-    expect(mockCallback).toHaveBeenCalledTimes(1)
-    expect(mockCallback).toHaveBeenCalledWith({ message: errorMessage }, 'API_KEY')
-  })
-
-  it('should give the sheet not found error with old message', () => {
-    const errorMessage = 'Oops! We can’t find the Google Sheet you’ve entered. Can you check the URL?'
-    const mockCallback = jest.fn()
-    const xhrMock = { open: jest.fn(), send: jest.fn(), readyState: 4, status: 404, response: 'response' }
-    jest.spyOn(window, 'XMLHttpRequest').mockImplementation(() => xhrMock)
-    config.mockReturnValue({ featureToggles: { UIRefresh2022: false } })
 
     const sheet = new Sheet('http://example.com/a/b/c/d/?x=y')
     sheet.validate(mockCallback)
