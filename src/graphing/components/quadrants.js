@@ -29,7 +29,11 @@ const createElement = (tagName, text, attributes) => {
 }
 
 const replaceChild = (element, child) => {
-  element.textContent = ''
+  let elementChild = element.lastElementChild
+  while (elementChild) {
+    element.removeChild(elementChild)
+    elementChild = element.lastElementChild
+  }
   element.appendChild(child)
 }
 
