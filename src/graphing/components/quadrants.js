@@ -390,7 +390,7 @@ function renderRadarQuadrants(size, svg, quadrant, rings, ringCalculator, tip) {
   return quadrantGroup
 }
 
-function renderRadarLegends(radarElement) {
+function renderRadarLegends(radarElement, hasMovements) {
   const legendsContainer = radarElement.append('div').classed('radar-legends', true)
 
   const newImage = legendsContainer
@@ -401,6 +401,14 @@ function renderRadarLegends(radarElement) {
     .attr('alt', 'new blip legend icon')
     .node().outerHTML
 
+  const movedImage = legendsContainer
+    .append('img')
+    .attr('src', '/images/moved.svg')
+    .attr('width', '37px')
+    .attr('height', '37px')
+    .attr('alt', `moved in or out blip legend icon`)
+    .node().outerHTML
+
   const existingImage = legendsContainer
     .append('img')
     .attr('src', '/images/existing.svg')
@@ -409,7 +417,19 @@ function renderRadarLegends(radarElement) {
     .attr('alt', 'existing blip legend icon')
     .node().outerHTML
 
-  legendsContainer.html(`${newImage} New ${existingImage} Existing`)
+  const noChangeImage = legendsContainer
+    .append('img')
+    .attr('src', '/images/no-change.svg')
+    .attr('width', '37px')
+    .attr('height', '37px')
+    .attr('alt', 'no change blip legend icon')
+    .node().outerHTML
+
+  if (hasMovements) {
+    legendsContainer.html(`${newImage} New ${movedImage} Moved in/out ${noChangeImage} No change`)
+  } else {
+    legendsContainer.html(`${newImage} New ${existingImage} Existing`)
+  }
 }
 
 function renderMobileView(quadrant) {

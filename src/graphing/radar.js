@@ -828,10 +828,24 @@ const Radar = function (size, radar) {
     })
 
     if (featureToggles.UIRefresh2022) {
-      renderRadarLegends(radarElement)
+      renderRadarLegends(radarElement, hasMovementData(quadrants))
       hideTooltipOnScroll(tip)
       addRadarLinkInPdfView()
     }
+  }
+
+  function hasMovementData(quadrants) {
+    for (var quadrantWrapper of quadrants) {
+      let quadrant = quadrantWrapper.quadrant
+
+      for (var blip of quadrant.blips()) {
+        if (blip.status() !== '') {
+          return true
+        }
+      }
+    }
+
+    return false
   }
 
   return self

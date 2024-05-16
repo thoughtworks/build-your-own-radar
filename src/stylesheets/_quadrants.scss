@@ -402,8 +402,8 @@
       top: calc($quadrantWidth * 2 + $quadrantsGap);
     }
 
-    img:nth-child(2) {
-      margin-left: 48px;
+    img:nth-child(n + 2) {
+      margin-left: 24px;
     }
   }
 

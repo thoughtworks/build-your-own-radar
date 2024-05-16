@@ -187,10 +187,75 @@ describe('Blips', function () {
       blipText: () => '12 New Blips',
       name: 'blip1',
       isNew: () => true,
+      status: () => null,
     }
 
     const actual = blipAssistiveText(blip)
     expect(actual).toEqual('`ring1 ring, group of 12 New Blips')
+  })
+
+  it('should return correct assistive text for new blip', function () {
+    const blip = {
+      isGroup: () => false,
+      ring: () => {
+        return {
+          name: () => 'Trial',
+        }
+      },
+      name: () => 'Some cool tech',
+      status: () => 'New',
+    }
+
+    const actual = blipAssistiveText(blip)
+    expect(actual).toEqual('Trial ring, Some cool tech, New.')
+  })
+
+  it('should return correct assistive text for existing blip', function () {
+    const blip = {
+      isGroup: () => false,
+      ring: () => {
+        return {
+          name: () => 'Trial',
+        }
+      },
+      name: () => 'Some cool tech',
+      status: () => 'No change',
+    }
+
+    const actual = blipAssistiveText(blip)
+    expect(actual).toEqual('Trial ring, Some cool tech, No change.')
+  })
+
+  it('should return correct assistive text for moved in blip', function () {
+    const blip = {
+      isGroup: () => false,
+      ring: () => {
+        return {
+          name: () => 'Trial',
+        }
+      },
+      name: () => 'Some cool tech',
+      status: () => 'Moved in',
+    }
+
+    const actual = blipAssistiveText(blip)
+    expect(actual).toEqual('Trial ring, Some cool tech, Moved in.')
+  })
+
+  it('should return correct assistive text for moved out blip', function () {
+    const blip = {
+      isGroup: () => false,
+      ring: () => {
+        return {
+          name: () => 'Trial',
+        }
+      },
+      name: () => 'Some cool tech',
+      status: () => 'Moved out',
+    }
+
+    const actual = blipAssistiveText(blip)
+    expect(actual).toEqual('Trial ring, Some cool tech, Moved out.')
   })
 
   it('should return group blip with appropriate values', function () {
