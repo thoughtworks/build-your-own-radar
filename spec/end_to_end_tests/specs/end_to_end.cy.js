@@ -412,6 +412,71 @@ describe('Build radar with CSV', () => {
   })
 })
 
+describe('Support multiple radars in one JSON', () => {
+  beforeEach(function () {
+    if (Cypress.currentTest.title == 'verify initial view of Radar') {
+      cy.visit(Cypress.env('host') + `/?documentId=${encodeURIComponent(testConfig.JSON_MULTI_RADAR_FILE_URL)}`)
+    } else if (
+      Cypress.currentTest.title !== 'verify url input and submit' &&
+      Cypress.currentTest.title !== 'verify keypress / to focus url input'
+    ) {
+      cy.visit(
+        Cypress.env('host') +
+          `/?documentId=${encodeURIComponent(testConfig.JSON_MULTI_RADAR_FILE_URL)}&sheetName=Second`,
+      )
+    } else {
+      cy.visit(Cypress.env('host'))
+    }
+  })
+
+  context('No chosen radar', () => {
+    it('verify url input and submit', () => {
+      byorPage.provideMultiJsonName()
+      byorPage.clickSubmitButton()
+
+      radarPage.validateGraphTitle('Multi_data - First')
+
+      radarPage.validateMobileQuadrantsHidden()
+      radarPage.validateGraphVisible()
+      radarPage.validateQuadrantOrder()
+      radarPage.validateRingOrder()
+
+      radarPage.validateActiveAlternateRadar(1)
+      radarPage.validateInactiveAlternateRadar(2)
+      radarPage.clickAlternateRadarItem(2)
+      radarPage.validateActiveAlternateRadar(2)
+      radarPage.validateInactiveAlternateRadar(1)
+      radarPage.validateGraphTitle('Multi_data - Second')
+    })
+
+    it('verify initial view of Radar', () => {
+      radarPage.validateGraphTitle('Multi_data - First')
+
+      radarPage.validateMobileQuadrantsHidden()
+      radarPage.validateGraphVisible()
+      radarPage.validateQuadrantOrder()
+      radarPage.validateRingOrder()
+
+      radarPage.validateActiveAlternateRadar(1)
+      radarPage.validateInactiveAlternateRadar(2)
+    })
+  })
+
+  context('Second chosen radar', () => {
+    it('verify initial view of Radar when alternative is chosen', () => {
+      radarPage.validateGraphTitle('Multi_data - Second')
+
+      radarPage.validateMobileQuadrantsHidden()
+      radarPage.validateGraphVisible()
+      radarPage.validateQuadrantOrder()
+      radarPage.validateRingOrder()
+
+      radarPage.validateActiveAlternateRadar(2)
+      radarPage.validateInactiveAlternateRadar(1)
+    })
+  })
+})
+
 describe('Build radar with JSON', () => {
   beforeEach(function () {
     if (
