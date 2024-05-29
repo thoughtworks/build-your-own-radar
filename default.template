@@ -6,6 +6,11 @@ server {
     index index.html;
   }
 
+  location = /index.html {
+    root /opt/build-your-own-radar;
+    rewrite ^/index.html$ /index.html?documentId=%2Ffiles%2Fradar.csv break;
+  }
+
   # nginx default error page for 50x errors
   error_page 500 502 503 504 /50x.html;
   location = /50x.html {
