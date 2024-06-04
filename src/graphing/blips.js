@@ -88,6 +88,9 @@ function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoor
   while (iterationCounter < maxIterations) {
     if (thereIsCollision(coordinates, allBlipCoordinatesInRing, blip.width)) {
       coordinates = calculateRadarBlipCoordinates(minRadius, maxRadius, startAngle, quadrantOrder, chance, blip)
+    } else {
+      // found a valid coordinate
+      break
     }
     iterationCounter++
   }
