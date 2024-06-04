@@ -7,6 +7,7 @@ const {
   blipAssistiveText,
   createGroupBlip,
   thereIsCollision,
+  sortBlipCoordinates,
 } = require('../../src/graphing/blips')
 const Chance = require('chance')
 const { graphConfig } = require('../../src/graphing/config')
@@ -187,10 +188,75 @@ describe('Blips', function () {
       blipText: () => '12 New Blips',
       name: 'blip1',
       isNew: () => true,
+      status: () => null,
     }
 
     const actual = blipAssistiveText(blip)
     expect(actual).toEqual('`ring1 ring, group of 12 New Blips')
+  })
+
+  it('should return correct assistive text for new blip', function () {
+    const blip = {
+      isGroup: () => false,
+      ring: () => {
+        return {
+          name: () => 'Trial',
+        }
+      },
+      name: () => 'Some cool tech',
+      status: () => 'New',
+    }
+
+    const actual = blipAssistiveText(blip)
+    expect(actual).toEqual('Trial ring, Some cool tech, New.')
+  })
+
+  it('should return correct assistive text for existing blip', function () {
+    const blip = {
+      isGroup: () => false,
+      ring: () => {
+        return {
+          name: () => 'Trial',
+        }
+      },
+      name: () => 'Some cool tech',
+      status: () => 'No change',
+    }
+
+    const actual = blipAssistiveText(blip)
+    expect(actual).toEqual('Trial ring, Some cool tech, No change.')
+  })
+
+  it('should return correct assistive text for moved in blip', function () {
+    const blip = {
+      isGroup: () => false,
+      ring: () => {
+        return {
+          name: () => 'Trial',
+        }
+      },
+      name: () => 'Some cool tech',
+      status: () => 'Moved in',
+    }
+
+    const actual = blipAssistiveText(blip)
+    expect(actual).toEqual('Trial ring, Some cool tech, Moved in.')
+  })
+
+  it('should return correct assistive text for moved out blip', function () {
+    const blip = {
+      isGroup: () => false,
+      ring: () => {
+        return {
+          name: () => 'Trial',
+        }
+      },
+      name: () => 'Some cool tech',
+      status: () => 'Moved out',
+    }
+
+    const actual = blipAssistiveText(blip)
+    expect(actual).toEqual('Trial ring, Some cool tech, Moved out.')
   })
 
   it('should return group blip with appropriate values', function () {
@@ -208,5 +274,34 @@ describe('Blips', function () {
     expect(thereIsCollision([10, 10], existingCoords, 22)).toBe(true)
     expect(thereIsCollision([41, 41], existingCoords, 22)).toBe(true)
     expect(thereIsCollision([42, 42], existingCoords, 22)).toBe(false)
+  })
+
+  it('should sort blips coordinates', function () {
+    const existingCoords = [
+      { coordinates: [500, 400], width: 22 },
+      { coordinates: [200, 200], width: 22 },
+      { coordinates: [40, 40], width: 22 },
+    ]
+
+    expect(sortBlipCoordinates(existingCoords, 'first')).toEqual([
+      { coordinates: [200, 200], width: 22 },
+      { coordinates: [40, 40], width: 22 },
+      { coordinates: [500, 400], width: 22 },
+    ])
+    expect(sortBlipCoordinates(existingCoords, 'third')).toEqual([
+      { coordinates: [200, 200], width: 22 },
+      { coordinates: [40, 40], width: 22 },
+      { coordinates: [500, 400], width: 22 },
+    ])
+    expect(sortBlipCoordinates(existingCoords, 'second')).toEqual([
+      { coordinates: [500, 400], width: 22 },
+      { coordinates: [200, 200], width: 22 },
+      { coordinates: [40, 40], width: 22 },
+    ])
+    expect(sortBlipCoordinates(existingCoords, 'fourth')).toEqual([
+      { coordinates: [500, 400], width: 22 },
+      { coordinates: [200, 200], width: 22 },
+      { coordinates: [40, 40], width: 22 },
+    ])
   })
 })

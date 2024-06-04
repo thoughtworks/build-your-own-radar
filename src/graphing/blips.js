@@ -5,6 +5,9 @@ const { renderBlipDescription } = require('./components/quadrantTables')
 const Blip = require('../models/blip')
 const isEmpty = require('lodash/isEmpty')
 const { replaceSpaceWithHyphens, removeAllSpaces } = require('../util/stringUtil')
+const _ = {
+  sortBy: require('lodash/sortBy'),
+}
 
 const getRingRadius = function (ringIndex) {
   const ratios = [0, 0.316, 0.652, 0.832, 0.992]
@@ -95,7 +98,7 @@ function findBlipCoordinates(blip, minRadius, maxRadius, startAngle, allBlipCoor
 function blipAssistiveText(blip) {
   return blip.isGroup()
     ? `\`${blip.ring().name()} ring, group of ${blip.blipText()}`
-    : `${blip.ring().name()} ring, ${blip.name()}, ${blip.isNew() ? 'new' : 'existing'} blip.`
+    : `${blip.ring().name()} ring, ${blip.name()}, ${blip.status()}.`
 }
 function addOuterCircle(parentSvg, order, scale = 1) {
   parentSvg
@@ -106,6 +109,66 @@ function addOuterCircle(parentSvg, order, scale = 1) {
       'd',
       'M18 36C8.07 36 0 27.93 0 18S8.07 0 18 0c9.92 0 18 8.07 18 18S27.93 36 18 36zM18 3.14C9.81 3.14 3.14 9.81 3.14 18S9.81 32.86 18 32.86S32.86 26.19 32.86 18S26.19 3.14 18 3.14z',
     )
+    .style('transform', `scale(${scale})`)
+}
+
+function addMovedInLine(parentSvg, order, scale = 1) {
+  let path
+
+  switch (order) {
+    case 'first':
+      path =
+        'M16.5 34.44c0-.86.7-1.56 1.56-1.56c8.16 0 14.8-6.64 14.8-14.8c0-.86.7-1.56 1.56-1.56c.86 0 1.56.7 1.56 1.56C36 27.96 27.96 36 18.07 36C17.2 36 16.5 35.3 16.5 34.44z'
+      break
+    case 'second':
+      path =
+        'M16.5 1.56c0 .86.7 1.56 1.56 1.56c8.16 0 14.8 6.64 14.8 14.8c0 .86.7 1.56 1.56 1.56c.86 0 1.56-.7 1.56-1.56C36 8.04 27.96 0 18.07 0C17.2 0 16.5.7 16.5 1.56z'
+      break
+    case 'third':
+      path =
+        'M19.5 34.44c0-.86-.7-1.56-1.56-1.56c-8.16 0-14.8-6.64-14.8-14.8c0-.86-.7-1.56-1.56-1.56S0 17.2 0 18.07C0 27.96 8.04 36 17.93 36C18.8 36 19.5 35.3 19.5 34.44z'
+      break
+    case 'fourth':
+      path =
+        'M19.5 1.56c0 0.86-0.7 1.56-1.56 1.56c-8.16 0-14.8 6.64-14.8 14.8c0 0.86-0.7 1.56-1.56 1.56S0 18.8 0 17.93C0 8.04 8.04 0 17.93 0C18.8 0 19.5 0.7 19.5 1.56z'
+      break
+  }
+
+  parentSvg
+    .append('path')
+    .attr('opacity', '1')
+    .attr('class', order)
+    .attr('d', path)
+    .style('transform', `scale(${scale})`)
+}
+
+function addMovedOutLine(parentSvg, order, scale = 1) {
+  let path
+
+  switch (order) {
+    case 'first':
+      path =
+        'M19.5 1.56c0 0.86-0.7 1.56-1.56 1.56c-8.16 0-14.8 6.64-14.8 14.8c0 0.86-0.7 1.56-1.56 1.56S0 18.8 0 17.93C0 8.04 8.04 0 17.93 0C18.8 0 19.5 0.7 19.5 1.56z'
+      break
+    case 'second':
+      path =
+        'M19.5 34.44c0-.86-.7-1.56-1.56-1.56c-8.16 0-14.8-6.64-14.8-14.8c0-.86-.7-1.56-1.56-1.56S0 17.2 0 18.07C0 27.96 8.04 36 17.93 36C18.8 36 19.5 35.3 19.5 34.44z'
+      break
+    case 'third':
+      path =
+        'M16.5 1.56c0 .86.7 1.56 1.56 1.56c8.16 0 14.8 6.64 14.8 14.8c0 .86.7 1.56 1.56 1.56c.86 0 1.56-.7 1.56-1.56C36 8.04 27.96 0 18.07 0C17.2 0 16.5.7 16.5 1.56z'
+      break
+    case 'fourth':
+      path =
+        'M16.5 34.44c0-.86.7-1.56 1.56-1.56c8.16 0 14.8-6.64 14.8-14.8c0-.86.7-1.56 1.56-1.56c.86 0 1.56.7 1.56 1.56C36 27.96 27.96 36 18.07 36C17.2 36 16.5 35.3 16.5 34.44z'
+      break
+  }
+
+  parentSvg
+    .append('path')
+    .attr('opacity', '1')
+    .attr('class', order)
+    .attr('d', path)
     .style('transform', `scale(${scale})`)
 }
 
@@ -125,6 +188,16 @@ function drawBlipCircle(group, blip, xValue, yValue, order) {
 function newBlip(blip, xValue, yValue, order, group) {
   drawBlipCircle(group, blip, xValue, yValue, order)
   addOuterCircle(group, order, blip.scale)
+}
+
+function movedInBlip(blip, xValue, yValue, order, group) {
+  drawBlipCircle(group, blip, xValue, yValue, order)
+  addMovedInLine(group, order, blip.scale)
+}
+
+function movedOutBlip(blip, xValue, yValue, order, group) {
+  drawBlipCircle(group, blip, xValue, yValue, order)
+  addMovedOutLine(group, order, blip.scale)
 }
 
 function existingBlip(blip, xValue, yValue, order, group) {
@@ -164,6 +237,10 @@ function drawBlipInCoordinates(blip, coordinates, order, quadrantGroup) {
     groupBlip(blip, x, y, order, group)
   } else if (blip.isNew()) {
     newBlip(blip, x, y, order, group)
+  } else if (blip.hasMovedIn()) {
+    movedInBlip(blip, x, y, order, group)
+  } else if (blip.hasMovedOut()) {
+    movedOutBlip(blip, x, y, order, group)
   } else {
     existingBlip(blip, x, y, order, group)
   }
@@ -284,13 +361,14 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
     const offset = 10
     const minRadius = getRingRadius(i) + offset
     const maxRadius = getRingRadius(i + 1) - offset
-    const allBlipCoordsInRing = []
+    let allBlipCoordsInRing = []
 
     if (ringBlips.length > graphConfig.maxBlipsInRings[i]) {
       plotGroupBlips(ringBlips, ring, quadrantOrder, parentElement, quadrantWrapper, tooltip)
       return
     }
 
+    // Calculate coordinates for blips
     ringBlips.forEach(function (blip) {
       const coordinates = findBlipCoordinates(
         blip,
@@ -301,10 +379,33 @@ const plotRadarBlips = function (parentElement, rings, quadrantWrapper, tooltip)
         quadrantOrder,
       )
       allBlipCoordsInRing.push({ coordinates, width: blip.width })
-      drawBlipInCoordinates(blip, coordinates, quadrantOrder, parentElement)
-      renderBlipDescription(blip, ring, quadrantWrapper, tooltip)
+    })
+
+    // Sort the coordinates
+    allBlipCoordsInRing = sortBlipCoordinates(allBlipCoordsInRing, quadrantOrder)
+
+    // Draw blips using sorted coordinates
+    allBlipCoordsInRing.forEach(function (blipCoords, i) {
+      drawBlipInCoordinates(ringBlips[i], blipCoords.coordinates, quadrantOrder, parentElement)
+      renderBlipDescription(ringBlips[i], ring, quadrantWrapper, tooltip)
     })
   })
+}
+
+const sortBlipCoordinates = function (blipCoordinates, quadrantOrder) {
+  return _.sortBy(blipCoordinates, (coord) => calculateAngleFromAxis(coord, quadrantOrder))
+}
+
+const calculateAngleFromAxis = function (position, quadrantOrder) {
+  const [x, y] = position.coordinates
+
+  const transposedX = x - graphConfig.effectiveQuadrantWidth
+  const transposedY = y - graphConfig.effectiveQuadrantHeight
+
+  if (quadrantOrder === 'first' || quadrantOrder === 'third') {
+    return Math.atan2(transposedY, transposedX)
+  }
+  return Math.atan2(transposedX, transposedY)
 }
 
 module.exports = {
@@ -317,4 +418,5 @@ module.exports = {
   blipAssistiveText,
   createGroupBlip,
   thereIsCollision,
+  sortBlipCoordinates,
 }

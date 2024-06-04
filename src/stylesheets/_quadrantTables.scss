@@ -9,11 +9,12 @@
   @include layout-margin(calc(5 / 12), $screen-xxlarge);
   @include layout-margin(calc(5 / 12), $screen-xxxlarge);
 
-  &__ring-name {
-    text-transform: none;
-    margin: 0;
-    scroll-margin-top: $subnavHeight;
-  }
+    &__ring-name {
+      text-transform: none;
+      margin: 0;
+      scroll-margin-top: $subnavHeight;
+      font-family: $baseFontFamily;
+    }
 
   @include media-query-xlarge {
     max-width: 40%;

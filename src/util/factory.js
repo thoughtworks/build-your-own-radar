@@ -55,6 +55,7 @@ const plotRadarGraph = function (title, blips, currentRadarName, alternativeRada
         blip.name,
         ringMap[ring],
         blip.isNew.toLowerCase() === 'true',
+        blip.status,
         blip.topic,
         blip.description,
       )
