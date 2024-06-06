@@ -20,7 +20,7 @@ docker run -it -p 8080:80 --mount type=bind,source=$(pwd)/radars/,target=/opt/bu
 
 ### Access
 
-To access the locally-running radar, visit [this link](http://localhost:8080/?documentId=http%3A%2F%2Flocalhost%3A8080%2Ffiles%2Ffetch_radar.json).
+To access the locally-running radar, visit [this link](http://localhost:8080/?documentId=http%3A%2F%2Flocalhost%3A8080%2Ffiles%2Fdevops_present_fetch_radar.json).  Additionally, you can see the accessible radars at [this location](http://localhost:8080/files/).
 
 ## Adding a Radar
 
