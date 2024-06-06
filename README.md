@@ -1,6 +1,6 @@
 # build-your-own-radar
 
-This project is forked from the upstream Thoughtworks project and constitutes Fetch's own Tech Radar.
+This project is forked from the [upstream Thoughtworks project](https://github.com/thoughtworks/build-your-own-radar) and constitutes Fetch's own Tech Radar.
 
 ## Running Locally
 
