@@ -567,7 +567,7 @@
         "description": ""
     },
     {
-        "name": "Local Functional Testing Before Deployment",
+        "name": "Local Functional Integration Testing Before Deployment",
         "ring": "adopt",
         "quadrant": "Techniques",
         "isNew": "FALSE",
