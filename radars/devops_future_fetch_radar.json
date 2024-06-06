@@ -1,7 +1,7 @@
 [
     {
         "name": "Java",
-        "ring": "adopt",
+        "ring": "hold",
         "quadrant": "Languages & Frameworks",
         "isNew": "FALSE",
         "description": ""
@@ -50,7 +50,7 @@
     },
     {
         "name": "Rust",
-        "ring": "assess",
+        "ring": "hold",
         "quadrant": "Languages & Frameworks",
         "isNew": "FALSE",
         "description": ""
@@ -71,14 +71,14 @@
     },
     {
         "name": "Spring Framework",
-        "ring": "adopt",
+        "ring": "hold",
         "quadrant": "Languages & Frameworks",
         "isNew": "FALSE",
         "description": ""
     },
     {
         "name": "Micronaut",
-        "ring": "assess",
+        "ring": "hold",
         "quadrant": "Languages & Frameworks",
         "isNew": "FALSE",
         "description": ""
@@ -106,7 +106,7 @@
     },
     {
         "name": "runner",
-        "ring": "trial",
+        "ring": "adopt",
         "quadrant": "Languages & Frameworks",
         "isNew": "FALSE",
         "description": ""
@@ -141,7 +141,7 @@
     },
     {
         "name": "AWS Elastic Container Service (ECS)",
-        "ring": "adopt",
+        "ring": "hold",
         "quadrant": "Platforms",
         "isNew": "FALSE",
         "description": ""
@@ -169,14 +169,14 @@
     },
     {
         "name": "AWS Sagemaker",
-        "ring": "adopt",
+        "ring": "hold",
         "quadrant": "Platforms",
         "isNew": "FALSE",
         "description": ""
     },
     {
         "name": "Self-Hosted ML Models",
-        "ring": "assess",
+        "ring": "adopt",
         "quadrant": "Platforms",
         "isNew": "FALSE",
         "description": ""
@@ -246,7 +246,7 @@
     },
     {
         "name": "Bitbucket",
-        "ring": "adopt",
+        "ring": "hold",
         "quadrant": "Tools",
         "isNew": "FALSE",
         "description": ""
@@ -294,55 +294,6 @@
         "description": ""
     },
     {
-        "name": "homebrew",
-        "ring": "adopt",
-        "quadrant": "Tools",
-        "isNew": "FALSE",
-        "description": ""
-    },
-    {
-        "name": "Windows Subsystem for Linux (WSL)",
-        "ring": "adopt",
-        "quadrant": "Tools",
-        "isNew": "FALSE",
-        "description": ""
-    },
-    {
-        "name": "Goland",
-        "ring": "adopt",
-        "quadrant": "Tools",
-        "isNew": "FALSE",
-        "description": ""
-    },
-    {
-        "name": "IntelliJ",
-        "ring": "adopt",
-        "quadrant": "Tools",
-        "isNew": "FALSE",
-        "description": ""
-    },
-    {
-        "name": "XCode",
-        "ring": "adopt",
-        "quadrant": "Tools",
-        "isNew": "FALSE",
-        "description": ""
-    },
-    {
-        "name": "VS Code",
-        "ring": "adopt",
-        "quadrant": "Tools",
-        "isNew": "FALSE",
-        "description": ""
-    },
-    {
-        "name": "vim/nvim",
-        "ring": "adopt",
-        "quadrant": "Tools",
-        "isNew": "FALSE",
-        "description": ""
-    },
-    {
         "name": "Flagr",
         "ring": "hold",
         "quadrant": "Tools",
@@ -365,14 +316,14 @@
     },
     {
         "name": "AWS API Gateway",
-        "ring": "adopt",
+        "ring": "assess",
         "quadrant": "Tools",
         "isNew": "FALSE",
         "description": ""
     },
     {
         "name": "Krakend",
-        "ring": "adopt",
+        "ring": "assess",
         "quadrant": "Tools",
         "isNew": "FALSE",
         "description": ""
@@ -435,7 +386,7 @@
     },
     {
         "name": "Snowflake",
-        "ring": "adopt",
+        "ring": "assess",
         "quadrant": "Tools",
         "isNew": "FALSE",
         "description": ""
@@ -497,6 +448,20 @@
         "description": ""
     },
     {
+        "name": "Jaeger",
+        "ring": "hold",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Grafana Tempo",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
         "name": "Locust.io",
         "ring": "adopt",
         "quadrant": "Tools",
@@ -539,6 +504,20 @@
         "description": ""
     },
     {
+        "name": "Sourcegraph",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AI Assistants",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
         "name": "Fetch Real-Time (FRT)",
         "ring": "adopt",
         "quadrant": "Tools",
@@ -547,7 +526,7 @@
     },
     {
         "name": "Quasar",
-        "ring": "adopt",
+        "ring": "assess",
         "quadrant": "Tools",
         "isNew": "FALSE",
         "description": ""
@@ -659,14 +638,14 @@
     },
     {
         "name": "Data & Service Contracts",
-        "ring": "trial",
+        "ring": "adopt",
         "quadrant": "Techniques",
         "isNew": "FALSE",
         "description": ""
     },
     {
         "name": "Load Test for Scalability",
-        "ring": "trial",
+        "ring": "adopt",
         "quadrant": "Techniques",
         "isNew": "FALSE",
         "description": ""
@@ -679,8 +658,22 @@
         "description": ""
     },
     {
-        "name": "Forking Open-Source Libraries ",
+        "name": "Forking Open-Source Libraries",
         "ring": "hold",
+        "quadrant": "Techniques",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Pipeline Authentication With OIDC",
+        "ring": "adopt",
+        "quadrant": "Techniques",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS Access via Single Sign-On",
+        "ring": "adopt",
         "quadrant": "Techniques",
         "isNew": "FALSE",
         "description": ""

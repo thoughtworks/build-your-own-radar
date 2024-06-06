@@ -1,0 +1,681 @@
+[
+    {
+        "name": "Java",
+        "ring": "adopt",
+        "quadrant": "Languages & Frameworks",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Kotlin",
+        "ring": "adopt",
+        "quadrant": "Languages & Frameworks",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Swift",
+        "ring": "adopt",
+        "quadrant": "Languages & Frameworks",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Objective-C",
+        "ring": "hold",
+        "quadrant": "Languages & Frameworks",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Golang",
+        "ring": "adopt",
+        "quadrant": "Languages & Frameworks",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Javascript",
+        "ring": "hold",
+        "quadrant": "Languages & Frameworks",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "NodeJS",
+        "ring": "adopt",
+        "quadrant": "Languages & Frameworks",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Rust",
+        "ring": "assess",
+        "quadrant": "Languages & Frameworks",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Typescript",
+        "ring": "adopt",
+        "quadrant": "Languages & Frameworks",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Python",
+        "ring": "adopt",
+        "quadrant": "Languages & Frameworks",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Spring Framework",
+        "ring": "adopt",
+        "quadrant": "Languages & Frameworks",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Micronaut",
+        "ring": "assess",
+        "quadrant": "Languages & Frameworks",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "bubbletea",
+        "ring": "adopt",
+        "quadrant": "Languages & Frameworks",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Plotly Dash",
+        "ring": "adopt",
+        "quadrant": "Languages & Frameworks",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "straw",
+        "ring": "adopt",
+        "quadrant": "Languages & Frameworks",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "runner",
+        "ring": "trial",
+        "quadrant": "Languages & Frameworks",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS Elastic Beanstalk (EB)",
+        "ring": "hold",
+        "quadrant": "Platforms",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS Simple Storage Service (S3)",
+        "ring": "adopt",
+        "quadrant": "Platforms",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Cloudfront",
+        "ring": "adopt",
+        "quadrant": "Platforms",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS Elastic Compute Cloud (EC2)",
+        "ring": "adopt",
+        "quadrant": "Platforms",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS Elastic Container Service (ECS)",
+        "ring": "adopt",
+        "quadrant": "Platforms",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS Elastic Kubernetes Service (EKS)",
+        "ring": "adopt",
+        "quadrant": "Platforms",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS Lambda",
+        "ring": "adopt",
+        "quadrant": "Platforms",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS Batch",
+        "ring": "adopt",
+        "quadrant": "Platforms",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS Sagemaker",
+        "ring": "adopt",
+        "quadrant": "Platforms",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Self-Hosted ML Models",
+        "ring": "assess",
+        "quadrant": "Platforms",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS Eventbridge",
+        "ring": "adopt",
+        "quadrant": "Platforms",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS Managed Service for Kafka (MSK)",
+        "ring": "adopt",
+        "quadrant": "Platforms",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS Kinesis",
+        "ring": "hold",
+        "quadrant": "Platforms",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Self-Hosted Apache Airflow",
+        "ring": "adopt",
+        "quadrant": "Platforms",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Self-Hosted Apache Flink",
+        "ring": "adopt",
+        "quadrant": "Platforms",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS Managed Workflows for Apache Airflow (MWAA)",
+        "ring": "assess",
+        "quadrant": "Platforms",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS Managed Service for Apache Flink (MSAF)",
+        "ring": "assess",
+        "quadrant": "Platforms",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "FSD",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "F-Zero",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Bitbucket",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Github",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Docker",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Okta",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Bitrise",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Argo",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "mise en place",
+        "ring": "trial",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Flagr",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Feature Flipper",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS Secrets Manager",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS API Gateway",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Krakend",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS Aurora",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS DynamoDB",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS DocumentDB",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS Elasticache",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS ElasticSearch",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS Relational Data Service (RDS)",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS Neptune",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Pinot",
+        "ring": "trial",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Snowflake",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS Athena",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Iceberg",
+        "ring": "assess",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "InfluxDB",
+        "ring": "trial",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Mongo Atlas",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Self-Hosted MongoDB",
+        "ring": "hold",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Grafana",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "HostedGraphite",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Prometheus",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Jaeger",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Grafana Tempo",
+        "ring": "trial",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Locust.io",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "JFrog Artifactory",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "hostbootstrap",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "cloud-deploy",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "service-deploy",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Snyk",
+        "ring": "trial",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Sourcegraph",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AI Assistants",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Fetch Real-Time (FRT)",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Quasar",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "ansible",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "terraform",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Helm",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "deployer",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Web Taproom",
+        "ring": "adopt",
+        "quadrant": "Tools",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Local Functional Testing Before Deployment",
+        "ring": "trial",
+        "quadrant": "Techniques",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Application OTEL Intstrumentation",
+        "ring": "adopt",
+        "quadrant": "Techniques",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Blue/Green Deployments",
+        "ring": "adopt",
+        "quadrant": "Techniques",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Shadow Pipelines",
+        "ring": "adopt",
+        "quadrant": "Techniques",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Custom Metric Scaling",
+        "ring": "adopt",
+        "quadrant": "Techniques",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Resource-Based Scaling",
+        "ring": "adopt",
+        "quadrant": "Techniques",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "GitOps",
+        "ring": "adopt",
+        "quadrant": "Techniques",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Large Monorepos",
+        "ring": "adopt",
+        "quadrant": "Techniques",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Container-Native Platforms & Deployments",
+        "ring": "adopt",
+        "quadrant": "Techniques",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Omnibus Kafka Topics",
+        "ring": "adopt",
+        "quadrant": "Techniques",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Data & Service Contracts",
+        "ring": "trial",
+        "quadrant": "Techniques",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Load Test for Scalability",
+        "ring": "trial",
+        "quadrant": "Techniques",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Load Test for Capacity",
+        "ring": "trial",
+        "quadrant": "Techniques",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Forking Open-Source Libraries",
+        "ring": "trial",
+        "quadrant": "Techniques",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "Pipeline Authentication With OIDC",
+        "ring": "adopt",
+        "quadrant": "Techniques",
+        "isNew": "FALSE",
+        "description": ""
+    },
+    {
+        "name": "AWS Access via Single Sign-On",
+        "ring": "adopt",
+        "quadrant": "Techniques",
+        "isNew": "FALSE",
+        "description": ""
+    }
+]
