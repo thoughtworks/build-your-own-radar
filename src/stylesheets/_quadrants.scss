@@ -355,10 +355,10 @@
     top: calc($quadrantWidth * 2 + $quadrantsGap);
   }
 
-    img:nth-child(n + 2) {
-      margin-left: 24px;
-    }
+  img:nth-child(n + 2) {
+    margin-left: 24px;
   }
+}
 
 .all-quadrants-mobile {
   --quadrant-gap: 12px;
