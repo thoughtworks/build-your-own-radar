@@ -1,0 +1,25 @@
+name: On main
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: write  # This is required for actions/checkout
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+jobs:
+  increment-version:
+    name: Increment release version tag
+    uses: fetch-rewards/common-workflows/.github/workflows/increment-semantic-version.yml@main
+    with:
+      version-type: patch
+  deploy-prod:
+    name: Deploy prod env
+    needs: [increment-version]
+    uses: fetch-rewards/build-your-own-radar/.github/workflows/deploy_to_env.yml@main
+    with:
+      env: prod
+      account: prod-services
+      region: us-east-1
+      version: ${{ needs.increment-version.outputs.new-tag }}

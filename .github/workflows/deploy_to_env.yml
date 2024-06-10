@@ -1,0 +1,78 @@
+name: Deploy to env
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment to deploy to
+        type: environment
+        required: true
+      version:
+        description: Version to upload and deploy
+        type: string
+  workflow_call:
+    inputs:
+      env:
+        description: Environment to deploy to
+        type: string
+        required: true
+      region:
+        description: region to deploy to
+        type: string
+        required: true
+      account:
+        description: account to deploy to
+        type: string
+        required: true
+      version:
+        description: Version to upload and deploy
+        type: string
+        required: true
+env:
+  VERSION: ${{inputs.version || github.sha}}
+  env: ${{ vars.ENV || inputs.env }}
+  region: ${{ vars.REGION || inputs.region }}
+  account: ${{ vars.ACCOUNT || inputs.account }}
+jobs:
+  set-vars:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: print env vars
+        id: export-env-vars
+        run: |
+          echo "$account"
+          echo "$region"
+          echo "$env"
+
+          echo "region=$region" >> "$GITHUB_OUTPUT"
+          echo "account=$account" >> "$GITHUB_OUTPUT"
+          echo "env=$env" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+    outputs:
+      region: ${{ steps.export-env-vars.outputs.region }}
+      account: ${{ steps.export-env-vars.outputs.account }}
+      env: ${{ steps.export-env-vars.outputs.env }}
+      version: ${{ steps.export-env-vars.outputs.version }}
+  upload:
+    needs: set-vars
+    name: Build and push image
+    uses: fetch-rewards/common-workflows/.github/workflows/publish-ecr.yml@main
+    with:
+      service-name: ${{ vars.SERVICE_NAME }}
+      version-tag: ${{ needs.set-vars.outputs.version }}
+  fsd-diff:
+    needs: [upload, set-vars]
+    name: Diff to ${{ inputs.environment }}
+    uses: fetch-rewards/common-workflows/.github/workflows/run-fsd.yml@main
+    with:
+      cmd_args: service eks diff --env ${{ needs.set-vars.outputs.env }} --region ${{ needs.set-vars.outputs.region }} --account ${{ needs.set-vars.outputs.account }} --version ${{ needs.set-vars.outputs.version }} --skip-ephemeris ${{ vars.SERVICE_NAME }}.yml
+  fsd-deploy:
+    needs: [upload, set-vars, fsd-diff]
+    name: Deploy to ${{ inputs.environment }}
+    uses: fetch-rewards/common-workflows/.github/workflows/run-fsd.yml@main
+    with:
+      cmd_args: service eks deploy --env ${{ needs.set-vars.outputs.env }} --region ${{ needs.set-vars.outputs.region }} --account ${{ needs.set-vars.outputs.account }} --version ${{ needs.set-vars.outputs.version }} --skip-ephemeris --source-legacy ${{ vars.SERVICE_NAME }}.yml

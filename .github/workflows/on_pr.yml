@@ -1,0 +1,28 @@
+name: On pr
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: write  # This is required for actions/checkout
+  actions: write
+  discussions: write
+  pull-requests: write
+  packages: write
+
+on:
+  pull_request:
+    types: [opened, reopened, edited]
+jobs:
+  fsd-diff:
+    name: Fsd diff
+    uses: fetch-rewards/common-workflows/.github/workflows/fsd-diff.yml@main
+    with:
+      config: ${{ vars.SERVICE_NAME }}.yml
+      region: us-east-1
+      env: dev
+  deploy-prod:
+    name: Deploy stage env
+    needs: [fsd-diff]
+    uses: fetch-rewards/build-your-own-radar/.github/workflows/deploy_to_env.yml@main
+    with:
+      env: stage
+      account: stage-services
+      region: us-east-1
