@@ -326,7 +326,7 @@ const Factory = function () {
 
     const domainName = DomainName(window.location.search.substring(1))
 
-    const paramId = getDocumentOrSheetId()
+    const paramId = (process.env.DEFAULT_FILE_URL) ? process.env.DEFAULT_FILE_URL : getDocumentOrSheetId()
     if (paramId && paramId.endsWith('.csv')) {
       sheet = CSVDocument(paramId)
       sheet.init().build()

@@ -171,6 +171,12 @@ export RINGS='["Adopt", "Trial", "Assess", "Hold"]'
 export QUADRANTS='["Techniques", "Platforms", "Tools", "Languages & Frameworks"]'
 ```
 
+To launch the Build-radar with default input URL for csv/json file, add the the following environment variable.
+
+```
+export DEFAULT_FILE_URL="http://localhost:8080/files/default.csv"
+```
+
 ## Docker Image
 
 We have released BYOR as a docker image for our users. The image is available in our [DockerHub Repo](https://hub.docker.com/r/wwwthoughtworks/build-your-own-radar/). To pull and run the image, run the following commands.
@@ -196,6 +202,10 @@ You can check your setup by clicking on "Build my radar" and by loading the `csv
 ```
 $ docker pull wwwthoughtworks/build-your-own-radar
 $ docker run --rm -p 8080:80 -e SERVER_NAMES="localhost 127.0.0.1" -v /mnt/radar/files/:/opt/build-your-own-radar/files wwwthoughtworks/build-your-own-radar:latest
+$ #
+$ # Also, you can load an exisitng csv/json file and launch the radar view directly
+$ #
+$ docker run --rm -p 8080:80 -e SERVER_NAMES="localhost 127.0.0.1" -v /mnt/radar/files/:/opt/build-your-own-radar/files --env DEFAULT_FILE_URL="http://localhost:8080/files/some_default.csv" wwwthoughtworks/build-your-own-radar:latest
 $ open http://localhost:8080
 ```
 
@@ -204,6 +214,7 @@ This will:
 - Spawn a server that will listen locally on port 8080.
 - Mount the host volume on `/mnt/radar/files/` into the container on `/opt/build-your-own-radar/files/`.
 - Open http://localhost:8080 and for the URL enter: `http://localhost:8080/files/<NAME_OF_YOUR_FILE>.<EXTENSION_OF_YOUR_FILE[csv/json]>`. It needs to be a csv/json file.
+- If `DEFAULT_FILE_URL` is provided, the file is auto-loaded and endpoint would show radar view. 
 
 You can now work locally on your machine, updating the csv/json file and render the result back on your browser.
 There is a sample csv and json file placed in `spec/end_to_end_tests/resources/localfiles/` for reference.
@@ -250,3 +261,4 @@ To run End to End tests, start the dev server and follow the required steps belo
      $ docker run -p 8080:8080 -v $PWD:/app -w /app -it node:18 /bin/sh -c 'npm install && npm run dev'
 
 After building it will start on `localhost:8080`.
+
