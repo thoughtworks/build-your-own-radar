@@ -1,23 +1,17 @@
-node_modules
-bower_components
-dist
-*.swa
-*.swp
-*.swo
+# Build directory
+dist/
 
+# Dependency directories
+node_modules/
+
+# Test coverage reports
 coverage/
-
-.idea/
-.DS_Store
-
-spec/end_to_end_tests/reports/
-src/stylesheets/_featuretoggles.scss
 cypress/
+spec/end_to_end_tests/reports/
 
-.nyc_output
-
-.private.notes
-
-.talismanrc
-
+# IDE Configurations
+.idea/
 .vscode/
+
+# Mac Files
+.DS_Store
