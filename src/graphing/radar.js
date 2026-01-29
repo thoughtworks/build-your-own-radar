@@ -9,6 +9,7 @@ const config = require('../config')
 const featureToggles = config().featureToggles
 const { plotRadarBlips } = require('./blips')
 const { graphConfig, getGraphSize } = require('./config')
+const { convertRelativeUrlsToAbsolute } = require('../util/urlUtils')
 
 const { renderBanner } = require('./components/banner')
 const { renderQuadrantSubnav } = require('./components/quadrantSubnav')
@@ -364,7 +365,7 @@ const Radar = function (size, radar) {
       .attr('id', 'blip-description-' + blip.id())
       .attr('class', 'blip-item-description')
     if (blip.description()) {
-      blipItemDescription.append('p').html(blip.description())
+      blipItemDescription.append('p').html(convertRelativeUrlsToAbsolute(blip.description()))
     }
 
     var mouseOver = function () {

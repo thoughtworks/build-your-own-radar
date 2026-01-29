@@ -2,6 +2,7 @@ const d3 = require('d3')
 const { graphConfig, getScale, uiConfig } = require('../config')
 const { stickQuadrantOnScroll } = require('./quadrants')
 const { removeAllSpaces } = require('../../util/stringUtil')
+const { convertRelativeUrlsToAbsolute } = require('../../util/urlUtils')
 
 function fadeOutAllBlips() {
   d3.selectAll('g > a.blip-link').attr('opacity', 0.3)
@@ -67,7 +68,7 @@ function renderBlipDescription(blip, ring, quadrant, tip, groupBlipTooltipText) 
       .append('div')
       .classed('blip-list__item-container__description', true)
       .attr('id', `blip-description-${blip.id()}`)
-      .html(blip.description())
+      .html(convertRelativeUrlsToAbsolute(blip.description()))
   }
   const blipGraphItem = d3.select(`g a#blip-link-${removeAllSpaces(blip.id())}`)
   const mouseOver = function (e) {
