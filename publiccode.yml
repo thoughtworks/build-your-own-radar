@@ -1,0 +1,52 @@
+publiccodeYmlVersion: "0.5.0"
+
+name: DON Tech Radar
+
+url: https://github.com/developer-overheid-nl/don-tech-radar
+
+softwareType: standalone/web
+
+platforms:
+  - web
+
+categories:
+  - it-development
+
+developmentStatus: stable
+
+intendedAudience:
+  countries:
+    - NL
+
+description:
+  nl:
+    shortDescription: >-
+      Interactieve technologieradar voor developer.overheid.nl
+      op basis van de Build Your Own Radar-library.
+
+    longDescription: |
+      DON Tech Radar is een interactieve technologieradar voor
+      developer.overheid.nl, gebouwd op de open source
+      Build Your Own Radar-library van Thoughtworks. De radar
+      visualiseert technologieën, tools, technieken en
+      platformen in vier kwadranten en vier ringen (Adopt,
+      Trial, Assess, Hold). De inhoud wordt beheerd via een
+      JSON-bestand in de content-map en is beschikbaar als
+      webapplicatie via een Docker-container of
+      webpack-ontwikkelserver.
+
+legal:
+  license: AGPL-3.0
+  mainCopyrightOwner: Geonovum
+
+maintenance:
+  type: internal
+  contacts:
+    - name: developer.overheid.nl
+      affiliation: Geonovum
+      email: developer.overheid@geonovum.nl
+
+localisation:
+  localisationReady: false
+  availableLanguages:
+    - nl
