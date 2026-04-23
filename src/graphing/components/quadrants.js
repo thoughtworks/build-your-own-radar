@@ -87,10 +87,6 @@ function selectRadarQuadrant(order, startAngle, name) {
     .style('right', translateLeftRightValues[order].right)
     .style('box-sizing', 'border-box')
 
-  if (window.innerWidth < uiConfig.tabletViewWidth) {
-    svg.style('margin', 'unset')
-  }
-
   svg
     .attr('transform', `scale(${scale})`)
     .style('transform', `scale(${scale})`)
