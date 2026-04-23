@@ -10,6 +10,9 @@ module.exports = {
     '^.+\\.[jt]sx?$': 'babel-jest',
     '.+\\.(css|styl|less|sass|scss)$': 'jest-css-modules-transform',
   },
+  moduleNameMapper: {
+    '\\.(svg|png|jpg|jpeg|gif|ico)$': '<rootDir>/__mocks__/fileMock.js',
+  },
   testMatch: ['**/spec/**/*-spec.js'],
   coverageThreshold: {
     global: {

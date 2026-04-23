@@ -11,6 +11,16 @@ const {
   uiConfig,
 } = require('../config')
 
+// Import images so webpack can process their paths correctly
+const newIcon = require('../../images/new.svg')
+const movedIcon = require('../../images/moved.svg')
+const existingIcon = require('../../images/existing.svg')
+const noChangeIcon = require('../../images/no-change.svg')
+const firstQuadrantBg = require('../../images/first-quadrant-btn-bg.svg')
+const secondQuadrantBg = require('../../images/second-quadrant-btn-bg.svg')
+const thirdQuadrantBg = require('../../images/third-quadrant-btn-bg.svg')
+const fourthQuadrantBg = require('../../images/fourth-quadrant-btn-bg.svg')
+
 const ANIMATION_DURATION = 1000
 
 const { quadrantHeight, quadrantWidth, quadrantsGap, effectiveQuadrantWidth } = graphConfig
@@ -395,7 +405,7 @@ function renderRadarLegends(radarElement, hasMovements) {
 
   const newImage = legendsContainer
     .append('img')
-    .attr('src', '/images/new.svg')
+    .attr('src', newIcon)
     .attr('width', '37px')
     .attr('height', '37px')
     .attr('alt', 'new blip legend icon')
@@ -403,7 +413,7 @@ function renderRadarLegends(radarElement, hasMovements) {
 
   const movedImage = legendsContainer
     .append('img')
-    .attr('src', '/images/moved.svg')
+    .attr('src', movedIcon)
     .attr('width', '37px')
     .attr('height', '37px')
     .attr('alt', `moved in or out blip legend icon`)
@@ -411,7 +421,7 @@ function renderRadarLegends(radarElement, hasMovements) {
 
   const existingImage = legendsContainer
     .append('img')
-    .attr('src', '/images/existing.svg')
+    .attr('src', existingIcon)
     .attr('width', '37px')
     .attr('height', '37px')
     .attr('alt', 'existing blip legend icon')
@@ -419,7 +429,7 @@ function renderRadarLegends(radarElement, hasMovements) {
 
   const noChangeImage = legendsContainer
     .append('img')
-    .attr('src', '/images/no-change.svg')
+    .attr('src', noChangeIcon)
     .attr('width', '37px')
     .attr('height', '37px')
     .attr('alt', 'no change blip legend icon')
@@ -434,9 +444,15 @@ function renderRadarLegends(radarElement, hasMovements) {
 
 function renderMobileView(quadrant) {
   const quadrantBtn = d3.select('.all-quadrants-mobile').append('button')
+  const quadrantBgImages = {
+    first: firstQuadrantBg,
+    second: secondQuadrantBg,
+    third: thirdQuadrantBg,
+    fourth: fourthQuadrantBg,
+  }
   quadrantBtn
     .attr('class', 'all-quadrants-mobile--btn')
-    .style('background-image', `url('/images/${quadrant.order}-quadrant-btn-bg.svg')`)
+    .style('background-image', `url('${quadrantBgImages[quadrant.order]}')`)
     .attr('id', quadrant.order + '-quadrant-mobile')
     .append('div')
     .attr('class', 'btn-text-wrapper')
