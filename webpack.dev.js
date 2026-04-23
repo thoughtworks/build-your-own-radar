@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const postcssPresetEnv = require('postcss-preset-env')
 const cssnano = require('cssnano')
+const path = require('path')
 
 const common = require('./webpack.common.js')
 const config = require('./src/config')
@@ -27,6 +28,12 @@ Object.entries(featureToggles).forEach(function ([key, value]) {
 module.exports = merge(common, {
   mode: 'development',
   entry: { main: main },
+  devServer: {
+    static: {
+      directory: path.resolve(__dirname, './spec/end_to_end_tests/resources'),
+      publicPath: '/e2e_resources',
+    },
+  },
   performance: {
     hints: false,
   },
