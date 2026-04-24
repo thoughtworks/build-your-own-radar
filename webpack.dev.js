@@ -25,6 +25,11 @@ Object.entries(featureToggles).forEach(function ([key, value]) {
 })
 
 module.exports = merge(common, {
+  devServer: {
+    headers: {
+      'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
+    },
+  },
   mode: 'development',
   entry: { main: main },
   performance: {
@@ -72,3 +77,4 @@ module.exports = merge(common, {
   ],
   devtool: 'source-map',
 })
+
