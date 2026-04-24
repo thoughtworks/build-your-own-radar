@@ -2,6 +2,7 @@ const $ = require('jquery')
 require('jquery-ui/ui/widgets/autocomplete')
 
 const config = require('../config')
+const { normalizeText } = require('./textNormalizer')
 const featureToggles = config().featureToggles
 
 $.widget('custom.radarcomplete', $.ui.autocomplete, {
@@ -36,8 +37,8 @@ const AutoComplete = (el, quadrants, cb) => {
       appendTo: '.search-container',
       source: (request, response) => {
         const matches = blips.filter(({ blip }) => {
-          const searchable = `${blip.name()} ${blip.description()}`.toLowerCase()
-          return request.term.split(' ').every((term) => searchable.includes(term.toLowerCase()))
+          const searchable = normalizeText(`${blip.name()} ${blip.description()}`)
+          return request.term.split(' ').every((term) => searchable.includes(normalizeText(term)))
         })
         response(matches.map((item) => ({ ...item, value: item.blip.name() })))
       },
@@ -47,8 +48,8 @@ const AutoComplete = (el, quadrants, cb) => {
     $(el).radarcomplete({
       source: (request, response) => {
         const matches = blips.filter(({ blip }) => {
-          const searchable = `${blip.name()} ${blip.description()}`.toLowerCase()
-          return request.term.split(' ').every((term) => searchable.includes(term.toLowerCase()))
+          const searchable = normalizeText(`${blip.name()} ${blip.description()}`)
+          return request.term.split(' ').every((term) => searchable.includes(normalizeText(term)))
         })
         response(matches.map((item) => ({ ...item, value: item.blip.name() })))
       },
