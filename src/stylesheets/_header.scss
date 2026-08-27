@@ -184,64 +184,40 @@ header {
   }
 }
 
-@if not $UIRefresh2022 {
-  .ui-autocomplete {
-    width: 275px !important;
+header {
+  height: $headerHeight;
+  width: 100%;
+  display: flex;
+  align-items: center;
 
-    .ui-autocomplete-quadrant {
-      font-size: 14px;
-      font-weight: 600;
-      padding: 5px;
-    }
-
-    .ui-menu-item {
-      white-space: normal;
-      font-size: 14px;
-      font-weight: 400;
-
-      .ui-menu-item-wrapper {
-        padding: 0 10px;
-      }
-    }
-  }
-}
-
-@if $UIRefresh2022 {
-  header {
-    height: $headerHeight;
-    width: 100%;
+  div {
     display: flex;
-    align-items: center;
+    flex-direction: row;
 
-    div {
-      display: flex;
-      flex-direction: row;
+    margin: auto;
+    width: 90%;
 
-      margin: auto;
-      width: 90%;
+    @include layout-margin(1, $screen-small);
+    @include layout-margin(1, $screen-medium);
+    @include layout-margin(1, $screen-large);
+    @include layout-margin(1, $screen-xlarge);
+    @include layout-margin(1, $screen-xxlarge);
+    @include layout-margin(1, $screen-xxxlarge);
 
-      @include layout-margin(1, $screen-small);
-      @include layout-margin(1, $screen-medium);
-      @include layout-margin(1, $screen-large);
-      @include layout-margin(1, $screen-xlarge);
-      @include layout-margin(1, $screen-xxlarge);
-      @include layout-margin(1, $screen-xxxlarge);
+    span {
+      margin-right: 5px;
+      font-family: $baseFontFamily;
+      font-weight: 630;
+    }
 
-      span {
-        margin-right: 5px;
-        font-family: $baseFontFamily;
-        font-weight: 630;
-      }
+    a {
+      display: block;
+      border-bottom: none;
 
-      a {
-        display: block;
-        border-bottom: none;
-
-        img {
-          height: 20px;
-          width: auto;
-          margin-top: 1.5px;
-        }
+      img {
+        height: 20px;
+        width: auto;
+        margin-top: 1.5px;
       }
     }
   }

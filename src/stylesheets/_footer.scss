@@ -18,21 +18,19 @@
   }
 }
 
-@if $UIRefresh2022 {
-  footer {
-    margin-bottom: 40px;
+footer {
+  margin-bottom: 40px;
 
-    p {
-      @include eight-column-layout-margin;
-      font-family: $baseFontFamily;
-      font-weight: normal;
-      margin-top: 30px;
-      font-size: 16px !important;
+  p {
+    @include eight-column-layout-margin;
+    font-family: $baseFontFamily;
+    font-weight: normal;
+    margin-top: 30px;
+    font-size: 16px !important;
 
-      @include media-query-large {
-        font-size: 18px !important;
-        text-align: center;
-      }
+    @include media-query-large {
+      font-size: 18px !important;
+      text-align: center;
     }
   }
 }

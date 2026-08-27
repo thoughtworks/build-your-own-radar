@@ -6,17 +6,11 @@
   padding-top: 48px;
 
   .error-container__message {
-    @if not $UIRefresh2022 {
-      width: 60%;
-      display: inline-block;
+    p:first-child {
+      color: $error-text;
     }
-    @if $UIRefresh2022 {
-      p:first-child {
-        color: $error-text;
-      }
-      p {
-        margin: 0;
-      }
+    p {
+      margin: 0;
     }
   }
 
@@ -29,10 +23,6 @@
   }
 
   .switch-account-button {
-    margin: 0 0 35px 0;
-  }
-
-  .switch-account-button-newui {
     background-color: $button-normal;
     color: $white;
     font-size: 20px;

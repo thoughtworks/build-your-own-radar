@@ -1,74 +1,72 @@
 @import 'colors';
 @import 'layout';
 
-@if $UIRefresh2022 {
-  .hero-banner {
-    height: $tabletBannerHeight;
-    background-color: $amethyst;
+.hero-banner {
+  height: $tabletBannerHeight;
+  background-color: $amethyst;
+  background-image: url('/images/banner-image-mobile.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+  color: $white;
+  display: flex;
+  align-items: center;
+  margin: 0 !important;
+
+  @include media-query-large {
     background-image: url('/images/banner-image-mobile.jpg');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: right;
-    color: $white;
-    display: flex;
-    align-items: center;
-    margin: 0 !important;
+  }
+
+  @include media-query-xlarge {
+    background-image: url('/images/banner-image-desktop.jpg');
+    height: $bannerHeight;
+    background-size: cover;
+  }
+
+  &__wrapper {
+    margin: auto;
+    width: 90%;
+
+    @include layout-margin(1, $screen-small);
+    @include layout-margin(1, $screen-medium);
+    @include layout-margin(1, $screen-large);
+    @include layout-margin(1, $screen-xlarge);
+    @include layout-margin(1, $screen-xxlarge);
+    @include layout-margin(1, $screen-xxxlarge);
+  }
+
+  &__title-text {
+    width: fit-content;
+    text-align: left;
+    text-transform: none;
+    letter-spacing: 0;
+    cursor: pointer;
+  }
+
+  &__subtitle-text {
+    font-weight: 630;
+    width: 50%;
+    text-align: left;
+    text-transform: none;
+    letter-spacing: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-height: 1.75rem;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+
+    @include media-query-medium {
+      width: 37.5%;
+      -webkit-line-clamp: 2;
+    }
 
     @include media-query-large {
-      background-image: url('/images/banner-image-mobile.jpg');
+      width: 25%;
     }
 
     @include media-query-xlarge {
-      background-image: url('/images/banner-image-desktop.jpg');
-      height: $bannerHeight;
-      background-size: cover;
-    }
-
-    &__wrapper {
-      margin: auto;
-      width: 90%;
-
-      @include layout-margin(1, $screen-small);
-      @include layout-margin(1, $screen-medium);
-      @include layout-margin(1, $screen-large);
-      @include layout-margin(1, $screen-xlarge);
-      @include layout-margin(1, $screen-xxlarge);
-      @include layout-margin(1, $screen-xxxlarge);
-    }
-
-    &__title-text {
-      width: fit-content;
-      text-align: left;
-      text-transform: none;
-      letter-spacing: 0;
-      cursor: pointer;
-    }
-
-    &__subtitle-text {
-      font-weight: 630;
-      width: 50%;
-      text-align: left;
-      text-transform: none;
-      letter-spacing: 0;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      line-height: 1.75rem;
-      -webkit-line-clamp: 4;
-      -webkit-box-orient: vertical;
-
-      @include media-query-medium {
-        width: 37.5%;
-        -webkit-line-clamp: 2;
-      }
-
-      @include media-query-large {
-        width: 25%;
-      }
-
-      @include media-query-xlarge {
-        width: 33%;
-      }
+      width: 33%;
     }
   }
 }

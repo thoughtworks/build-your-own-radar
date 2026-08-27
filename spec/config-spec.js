@@ -4,8 +4,8 @@ describe('Config Test', () => {
   it('should return all env when no env defined', () => {
     const actual = config()
     expect(actual).toStrictEqual({
-      production: { featureToggles: { UIRefresh2022: true, normalizeRingNameHoldToCaution: true } },
-      development: { featureToggles: { UIRefresh2022: true, normalizeRingNameHoldToCaution: true } },
+      production: { featureToggles: { normalizeRingNameHoldToCaution: true } },
+      development: { featureToggles: { normalizeRingNameHoldToCaution: true } },
     })
   })
 
@@ -14,7 +14,7 @@ describe('Config Test', () => {
     process.env.ENVIRONMENT = 'development'
     const actual = config()
     expect(actual).toStrictEqual({
-      featureToggles: { UIRefresh2022: true, normalizeRingNameHoldToCaution: true },
+      featureToggles: { normalizeRingNameHoldToCaution: true },
     })
 
     process.env = oldEnv

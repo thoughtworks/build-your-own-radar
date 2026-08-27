@@ -1,6 +1,4 @@
-jest.mock('../../src/config', () =>
-  jest.fn(() => ({ featureToggles: { UIRefresh2022: true, normalizeRingNameHoldToCaution: true } })),
-)
+jest.mock('../../src/config', () => jest.fn(() => ({ featureToggles: { normalizeRingNameHoldToCaution: true } })))
 
 const Radar = require('../../src/models/radar')
 const Quadrant = require('../../src/models/quadrant')

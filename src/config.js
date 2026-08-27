@@ -2,13 +2,11 @@ const config = () => {
   const env = {
     production: {
       featureToggles: {
-        UIRefresh2022: true,
         normalizeRingNameHoldToCaution: true,
       },
     },
     development: {
       featureToggles: {
-        UIRefresh2022: true,
         normalizeRingNameHoldToCaution: true,
       },
     },

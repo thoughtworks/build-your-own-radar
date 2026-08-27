@@ -1,38 +1,22 @@
 @import 'colors';
 @import 'layout';
 
-@if $UIRefresh2022 {
-  p.landing-disclaimer-text {
-    padding-top: 24px;
-    font-weight: normal;
-  }
-
-  .disclaimer-text {
-    margin: auto;
-    width: 90%;
-    margin-top: 20px;
-
-    @include layout-margin(1, $screen-small);
-    @include layout-margin(1, $screen-medium);
-    @include layout-margin(1, $screen-large);
-    @include layout-margin(1, $screen-xlarge);
-    @include layout-margin(1, $screen-xxlarge);
-    @include layout-margin(1, $screen-xxxlarge);
-  }
+p.landing-disclaimer-text {
+  padding-top: 24px;
+  font-weight: normal;
 }
 
-@if not $UIRefresh2022 {
-  p.landing-disclaimer-text {
-    width: 50%;
-    display: block;
-    margin: 0 auto;
-    margin-top: 20px;
-  }
+.disclaimer-text {
+  margin: auto;
+  width: 90%;
+  margin-top: 20px;
 
-  .disclaimer-text {
-    text-align: left;
-    margin-left: 10%;
-  }
+  @include layout-margin(1, $screen-small);
+  @include layout-margin(1, $screen-medium);
+  @include layout-margin(1, $screen-large);
+  @include layout-margin(1, $screen-xlarge);
+  @include layout-margin(1, $screen-xxlarge);
+  @include layout-margin(1, $screen-xxxlarge);
 }
 
 @if not $normalizeRingNameHoldToCaution {
