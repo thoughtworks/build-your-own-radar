@@ -10,6 +10,10 @@ module.exports = {
     '^.+\\.[jt]sx?$': 'babel-jest',
     '.+\\.(css|styl|less|sass|scss)$': 'jest-css-modules-transform',
   },
+  // sanitize-html's htmlparser2 dependency chain ships ESM-only, so it needs babel transpilation too.
+  transformIgnorePatterns: [
+    '/node_modules/(?!.*(?:dom-serializer|domelementtype|domhandler|domutils|entities|htmlparser2)/)',
+  ],
   testMatch: ['**/spec/**/*-spec.js'],
   coverageThreshold: {
     global: {

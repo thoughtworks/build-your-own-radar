@@ -40,7 +40,7 @@ module.exports = merge(common, {
           MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
-            options: { importLoaders: 1, modules: 'global', url: false },
+            options: { importLoaders: 1, modules: 'global', url: false, esModule: false },
           },
           {
             loader: 'postcss-loader',

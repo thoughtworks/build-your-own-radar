@@ -7,7 +7,7 @@ orbs:
 executors:
   base:
     docker:
-      - image: cimg/node:24.14.1-browsers
+      - image: cimg/node:24.20.0-browsers
         user: root
 
 commands:
