@@ -49,7 +49,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker:
-          version: default
+          version: docker27
           docker_layer_caching: true
       - run:
           name: Build and push Docker image to DockerHub
