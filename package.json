@@ -40,7 +40,7 @@
     "html-webpack-plugin": "^5.5.3",
     "jest": "^29.7.0",
     "jest-css-modules-transform": "^4.4.2",
-    "jest-environment-jsdom": "^30.3.0",
+    "jest-environment-jsdom": "^29.7.0",
     "jsdom": "^29.0.2",
     "mini-css-extract-plugin": "^2.7.6",
     "mochawesome": "^7.1.3",
