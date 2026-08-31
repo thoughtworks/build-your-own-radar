@@ -1,7 +1,7 @@
 if (process.env.GTM_ID) {
   ;(function (w, d, s, l, i) {
     w[l] = w[l] || []
-    w[l].push({ 'gtm.start': new Date().getTime(), event: 'analytics.js' })
+    w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' })
     var f = d.getElementsByTagName(s)[0]
     var j = d.createElement(s)
     var dl = l !== 'dataLayer' ? '&l=' + l : ''
@@ -10,6 +10,22 @@ if (process.env.GTM_ID) {
     f.parentNode.insertBefore(j, f)
   })(window, document, 'script', 'dataLayer', process.env.GTM_ID)
 }
+
+if (process.env.GOOGLE_TAG_ID) {
+  ;(function (w, d, s, l, i) {
+    w[l] = w[l] || []
+    w.gtag = function () { w[l].push(arguments) }
+    w.gtag('js', new Date())
+    w.gtag('config', i)
+
+    var f = d.getElementsByTagName(s)[0]
+    var j = d.createElement(s)
+    j.async = true
+    j.src = 'https://www.googletagmanager.com/gtag/js?id=' + i
+    f.parentNode.insertBefore(j, f)
+  })(window, document, 'script', 'dataLayer', process.env.GOOGLE_TAG_ID)
+}
+
 if (process.env.ADOBE_LAUNCH_SCRIPT_URL) {
   ;(function (w, d, s, i) {
     const l = d.createElement(s)

@@ -156,10 +156,16 @@ Optionally, API Key can be set to bypass Google Authentication for public sheets
 export API_KEY=[Google API Key]
 ```
 
-To enable Google Tag Manager, add the following environment variable.
+To enable Google Tag Manager (GTM), add the following environment variable.
 
 ```
 export GTM_ID=[GTM ID]
+```
+
+To enable Google Analytics (GTAG), add the following environment variable.
+
+```
+export GOOGLE_TAG_ID=[GOOGLE_TAG_ID]
 ```
 
 To enable Adobe Launch, add the following environment variable.
